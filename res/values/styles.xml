@@ -143,6 +143,14 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
+    <item type="style" name="APKTOOL_DUMMY_001e">false</item>
+    <item type="style" name="APKTOOL_DUMMY_001f">false</item>
+    <item type="style" name="APKTOOL_DUMMY_0020">false</item>
+    <item type="style" name="APKTOOL_DUMMY_0021">false</item>
+    <item type="style" name="APKTOOL_DUMMY_0022">false</item>
+    <item type="style" name="APKTOOL_DUMMY_0023">false</item>
+    <item type="style" name="APKTOOL_DUMMY_0024">false</item>
+    <item type="style" name="APKTOOL_DUMMY_0025">false</item>
     <style name="Animation_MiniAppsEditPanel">
         <item name="android:windowEnterAnimation">@anim/mini_apps_edit_panel_show_anim</item>
         <item name="android:windowExitAnimation">@anim/mini_apps_edit_panel_hide_anim</item>
@@ -160,12 +168,8 @@
     <style name="TextAppearance_PreviewLabel">
         <item name="android:textSize">16.0dip</item>
     </style>
-    <item type="style" name="APKTOOL_DUMMY_001e">false</item>
-    <item type="style" name="APKTOOL_DUMMY_001f">false</item>
-    <item type="style" name="APKTOOL_DUMMY_0020">false</item>
-    <item type="style" name="APKTOOL_DUMMY_0021">false</item>
-    <item type="style" name="APKTOOL_DUMMY_0022">false</item>
-    <item type="style" name="APKTOOL_DUMMY_0023">false</item>
-    <item type="style" name="APKTOOL_DUMMY_0024">false</item>
-    <item type="style" name="APKTOOL_DUMMY_0025">false</item>
+    <style name="TextAppearance.StatusBar.Signal" parent="@*android:style/TextAppearance.StatusBar.Icon">
+        <item name="android:textSize">12.0dip</item>
+        <item name="android:textStyle">normal</item>
+    </style>
 </resources>

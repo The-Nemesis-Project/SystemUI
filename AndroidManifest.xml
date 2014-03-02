@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest android:versionCode="18" android:versionName="4.3-N900TUVUBMI7" package="com.android.systemui" coreApp="true"
+<manifest android:sharedUserId="android.uid.system" android:process="system" android:versionCode="18" android:versionName="4.3-N900TUVUBMI7" package="com.android.systemui" coreApp="true"
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:androidprv="http://schemas.android.com/apk/prv/res/android">
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
@@ -51,6 +51,8 @@
     <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
     <uses-permission android:name="android.permission.READ_DREAM_STATE" />
     <uses-permission android:name="android.permission.WRITE_DREAM_STATE" />
+    <uses-permission android:name="com.samsung.tmowfc.wfcprovider.permission.READ_WFCPROVIDER" />
+    <uses-permission android:name="com.samsung.tmowfc.wfcprovider.permission.WRITE_REGISTER" />
     <uses-permission android:name="android.permission.WRITE_SYNC_SETTINGS" />
     <uses-permission android:name="android.permission.READ_SYNC_SETTINGS" />
     <uses-permission android:name="com.samsung.clipboardsaveservice.CLIPBOARDSAVESERVICE_PERMISSION" />
@@ -124,5 +126,6 @@
         <uses-library android:name="touchwiz" />
         <meta-data android:name="android.nfc.disable_beam_default" android:value="true" />
         <uses-library android:name="com.sec.android.app.minimode" android:required="false" />
+        <uses-library android:name="TmoWfcUtils" android:required="false" />
     </application>
 </manifest>

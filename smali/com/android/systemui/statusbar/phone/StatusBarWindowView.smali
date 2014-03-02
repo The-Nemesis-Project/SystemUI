@@ -785,3 +785,60 @@
         :pswitch_1
     .end packed-switch
 .end method
+
+.method public setExpandValues(Z)V
+    .locals 3
+    .parameter "useStockTopMargin"
+
+    .prologue
+    .line 181
+    if-nez p1, :cond_0
+
+    const/4 v0, 0x0
+
+    goto :goto_0
+
+    :cond_0
+    invoke-virtual {p0}, Lcom/android/systemui/statusbar/phone/StatusBarWindowView;->getContext()Landroid/content/Context;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Landroid/content/Context;->getResources()Landroid/content/res/Resources;
+
+    move-result-object v0
+
+    const v1, 0x7f0e0044
+
+    invoke-virtual {v0, v1}, Landroid/content/res/Resources;->getDimension(I)F
+
+    move-result v0
+
+    float-to-int v0, v0
+
+    invoke-virtual {p0}, Lcom/android/systemui/statusbar/phone/StatusBarWindowView;->getContext()Landroid/content/Context;
+
+    move-result-object v1
+
+    invoke-virtual {v1}, Landroid/content/Context;->getResources()Landroid/content/res/Resources;
+
+    move-result-object v1
+
+    const v2, 0x7f0e004c
+
+    invoke-virtual {v1, v2}, Landroid/content/res/Resources;->getDimension(I)F
+
+    move-result v1
+
+    const/high16 v2, 0x4000
+
+    mul-float/2addr v1, v2
+
+    float-to-int v1, v1
+
+    add-int/2addr v0, v1
+
+    :goto_0
+    iput v0, p0, Lcom/android/systemui/statusbar/phone/StatusBarWindowView;->mQuickSettingPanelHeight:I
+
+    return-void
+.end method

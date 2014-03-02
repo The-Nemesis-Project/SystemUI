@@ -698,9 +698,66 @@
 
     .prologue
     .line 360
+    iget-boolean v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/WiFiHotspotQuickSettingButton;->mState:Z
+
+    if-eq v0, p1, :cond_0
+
+    .line 361
+    const/4 v0, 0x3
+
+    invoke-virtual {p0, v0}, Lcom/android/systemui/statusbar/policy/quicksetting/WiFiHotspotQuickSettingButton;->setActivateStatus(I)V
+
+    .line 362
+    if-eqz p1, :cond_3
+
+    const/4 v0, 0x1
+
+    :goto_0
+    invoke-direct {p0, v0}, Lcom/android/systemui/statusbar/policy/quicksetting/WiFiHotspotQuickSettingButton;->setMode(I)V
+
+    sget-boolean v0, Lcom/android/systemui/statusbar/Feature;->mSetDefaultSSID:Z
+
+    if-eqz v0, :cond_0
+
+    .line 363
+    iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->mContext:Landroid/content/Context;
+
+    const-string v1, "wifi"
+
+    invoke-virtual {v0, v1}, Landroid/content/Context;->getSystemService(Ljava/lang/String;)Ljava/lang/Object;
+
+    move-result-object v2
+
+    check-cast v2, Landroid/net/wifi/WifiManager;
+
+    .line 3631
+    .local v2, mWifiManager:Landroid/net/wifi/WifiManager;
+    invoke-virtual {v2}, Landroid/net/wifi/WifiManager;->getWifiApConfiguration()Landroid/net/wifi/WifiConfiguration;
+
+    move-result-object v0
+
+    .line 3632
+    .local v0, mWifiConfig:Landroid/net/wifi/WifiConfiguration;
+    if-eqz v0, :cond_0
+
+    iget-object v1, v0, Landroid/net/wifi/WifiConfiguration;->SSID:Ljava/lang/String;
+
+    const-string v3, ""
+
+    invoke-virtual {v1, v3}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+
+    move-result v1
+
+    if-eqz v1, :cond_0
+
+    .line 3633
+    invoke-virtual {p0, v2, v0}, Lcom/android/systemui/statusbar/policy/quicksetting/WiFiHotspotQuickSettingButton;->generateDefaultSSID(Landroid/net/wifi/WifiManager;Landroid/net/wifi/WifiConfiguration;)V
+
+    goto :goto_1
+
     iget-object v2, p0, Lcom/android/systemui/statusbar/policy/quicksetting/WiFiHotspotQuickSettingButton;->mAlertDialog:Landroid/app/AlertDialog;
 
-    if-eqz v2, :cond_0
+    if-eqz v2, :cond_1
 
     iget-object v2, p0, Lcom/android/systemui/statusbar/policy/quicksetting/WiFiHotspotQuickSettingButton;->mAlertDialog:Landroid/app/AlertDialog;
 
@@ -708,14 +765,15 @@
 
     move-result v2
 
-    if-eqz v2, :cond_0
+    if-eqz v2, :cond_1
 
     .line 413
-    :goto_0
+    :cond_0
+    :goto_1
     return-void
 
     .line 364
-    :cond_0
+    :cond_1
     move v0, p1
 
     .line 365
@@ -797,13 +855,13 @@
 
     .line 407
     .local v1, kgm:Landroid/app/KeyguardManager;
-    if-eqz v1, :cond_1
+    if-eqz v1, :cond_2
 
     invoke-virtual {v1}, Landroid/app/KeyguardManager;->isKeyguardLocked()Z
 
     move-result v2
 
-    if-eqz v2, :cond_1
+    if-eqz v2, :cond_2
 
     .line 408
     iget-object v2, p0, Lcom/android/systemui/statusbar/policy/quicksetting/WiFiHotspotQuickSettingButton;->mAlertDialog:Landroid/app/AlertDialog;
@@ -817,15 +875,15 @@
     invoke-virtual {v2, v3}, Landroid/view/Window;->setType(I)V
 
     .line 412
-    :goto_1
+    :goto_2
     iget-object v2, p0, Lcom/android/systemui/statusbar/policy/quicksetting/WiFiHotspotQuickSettingButton;->mAlertDialog:Landroid/app/AlertDialog;
 
     invoke-virtual {v2}, Landroid/app/AlertDialog;->show()V
 
-    goto :goto_0
+    goto :goto_1
 
     .line 410
-    :cond_1
+    :cond_2
     iget-object v2, p0, Lcom/android/systemui/statusbar/policy/quicksetting/WiFiHotspotQuickSettingButton;->mAlertDialog:Landroid/app/AlertDialog;
 
     invoke-virtual {v2}, Landroid/app/AlertDialog;->getWindow()Landroid/view/Window;
@@ -836,7 +894,12 @@
 
     invoke-virtual {v2, v3}, Landroid/view/Window;->setType(I)V
 
-    goto :goto_1
+    goto :goto_2
+
+    :cond_3
+    const/4 v0, 0x0
+
+    goto/16 :goto_0
 .end method
 
 .method private updateTetherState([Ljava/lang/Object;[Ljava/lang/Object;[Ljava/lang/Object;)V

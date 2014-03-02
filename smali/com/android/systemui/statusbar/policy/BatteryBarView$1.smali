@@ -1,0 +1,203 @@
+.class Lcom/android/systemui/statusbar/policy/BatteryBarView$1;
+.super Landroid/content/BroadcastReceiver;
+.source "BatteryBarView.java"
+
+
+# annotations
+.annotation system Ldalvik/annotation/EnclosingClass;
+    value = Lcom/android/systemui/statusbar/policy/BatteryBarView;
+.end annotation
+
+.annotation system Ldalvik/annotation/InnerClass;
+    accessFlags = 0x0
+    name = null
+.end annotation
+
+
+# instance fields
+.field final synthetic this$0:Lcom/android/systemui/statusbar/policy/BatteryBarView;
+
+
+# direct methods
+.method constructor <init>(Lcom/android/systemui/statusbar/policy/BatteryBarView;)V
+    .locals 0
+    .parameter
+
+    .prologue
+    .line 1
+    iput-object p1, p0, Lcom/android/systemui/statusbar/policy/BatteryBarView$1;->this$0:Lcom/android/systemui/statusbar/policy/BatteryBarView;
+
+    .line 131
+    invoke-direct {p0}, Landroid/content/BroadcastReceiver;-><init>()V
+
+    return-void
+.end method
+
+
+# virtual methods
+.method public onReceive(Landroid/content/Context;Landroid/content/Intent;)V
+    .locals 6
+    .parameter "context"
+    .parameter "intent"
+
+    .prologue
+    const/16 v5, 0x64
+
+    const/4 v1, 0x0
+
+    .line 134
+    invoke-virtual {p2}, Landroid/content/Intent;->getAction()Ljava/lang/String;
+
+    move-result-object v0
+
+    .line 136
+    .local v0, action:Ljava/lang/String;
+    const-string v2, "android.intent.action.BATTERY_CHANGED"
+
+    invoke-virtual {v2, v0}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+
+    move-result v2
+
+    if-eqz v2, :cond_3
+
+    .line 137
+    iget-object v2, p0, Lcom/android/systemui/statusbar/policy/BatteryBarView$1;->this$0:Lcom/android/systemui/statusbar/policy/BatteryBarView;
+
+    const-string v3, "level"
+
+    invoke-virtual {p2, v3, v1}, Landroid/content/Intent;->getIntExtra(Ljava/lang/String;I)I
+
+    move-result v3
+
+    #setter for: Lcom/android/systemui/statusbar/policy/BatteryBarView;->mBatteryLevel:I
+    invoke-static {v2, v3}, Lcom/android/systemui/statusbar/policy/BatteryBarView;->access$0(Lcom/android/systemui/statusbar/policy/BatteryBarView;I)V
+
+    .line 138
+    iget-object v2, p0, Lcom/android/systemui/statusbar/policy/BatteryBarView$1;->this$0:Lcom/android/systemui/statusbar/policy/BatteryBarView;
+
+    const-string v3, "status"
+
+    invoke-virtual {p2, v3, v1}, Landroid/content/Intent;->getIntExtra(Ljava/lang/String;I)I
+
+    move-result v3
+
+    const/4 v4, 0x2
+
+    if-ne v3, v4, :cond_0
+
+    const/4 v1, 0x1
+
+    :cond_0
+    #setter for: Lcom/android/systemui/statusbar/policy/BatteryBarView;->mBatteryCharging:Z
+    invoke-static {v2, v1}, Lcom/android/systemui/statusbar/policy/BatteryBarView;->access$1(Lcom/android/systemui/statusbar/policy/BatteryBarView;Z)V
+
+    .line 139
+    iget-object v1, p0, Lcom/android/systemui/statusbar/policy/BatteryBarView$1;->this$0:Lcom/android/systemui/statusbar/policy/BatteryBarView;
+
+    #getter for: Lcom/android/systemui/statusbar/policy/BatteryBarView;->mBatteryCharging:Z
+    invoke-static {v1}, Lcom/android/systemui/statusbar/policy/BatteryBarView;->access$2(Lcom/android/systemui/statusbar/policy/BatteryBarView;)Z
+
+    move-result v1
+
+    if-eqz v1, :cond_2
+
+    iget-object v1, p0, Lcom/android/systemui/statusbar/policy/BatteryBarView$1;->this$0:Lcom/android/systemui/statusbar/policy/BatteryBarView;
+
+    #getter for: Lcom/android/systemui/statusbar/policy/BatteryBarView;->mBatteryLevel:I
+    invoke-static {v1}, Lcom/android/systemui/statusbar/policy/BatteryBarView;->access$3(Lcom/android/systemui/statusbar/policy/BatteryBarView;)I
+
+    move-result v1
+
+    if-ge v1, v5, :cond_2
+
+    .line 140
+    iget-object v1, p0, Lcom/android/systemui/statusbar/policy/BatteryBarView$1;->this$0:Lcom/android/systemui/statusbar/policy/BatteryBarView;
+
+    invoke-virtual {v1}, Lcom/android/systemui/statusbar/policy/BatteryBarView;->start()V
+
+    .line 144
+    :goto_0
+    iget-object v1, p0, Lcom/android/systemui/statusbar/policy/BatteryBarView$1;->this$0:Lcom/android/systemui/statusbar/policy/BatteryBarView;
+
+    iget-object v2, p0, Lcom/android/systemui/statusbar/policy/BatteryBarView$1;->this$0:Lcom/android/systemui/statusbar/policy/BatteryBarView;
+
+    #getter for: Lcom/android/systemui/statusbar/policy/BatteryBarView;->mBatteryLevel:I
+    invoke-static {v2}, Lcom/android/systemui/statusbar/policy/BatteryBarView;->access$3(Lcom/android/systemui/statusbar/policy/BatteryBarView;)I
+
+    move-result v2
+
+    #calls: Lcom/android/systemui/statusbar/policy/BatteryBarView;->setProgress(I)V
+    invoke-static {v1, v2}, Lcom/android/systemui/statusbar/policy/BatteryBarView;->access$4(Lcom/android/systemui/statusbar/policy/BatteryBarView;I)V
+
+    .line 145
+    iget-object v1, p0, Lcom/android/systemui/statusbar/policy/BatteryBarView$1;->this$0:Lcom/android/systemui/statusbar/policy/BatteryBarView;
+
+    #calls: Lcom/android/systemui/statusbar/policy/BatteryBarView;->updateBatteryColor()V
+    invoke-static {v1}, Lcom/android/systemui/statusbar/policy/BatteryBarView;->access$5(Lcom/android/systemui/statusbar/policy/BatteryBarView;)V
+
+    .line 155
+    :cond_1
+    :goto_1
+    return-void
+
+    .line 142
+    :cond_2
+    iget-object v1, p0, Lcom/android/systemui/statusbar/policy/BatteryBarView$1;->this$0:Lcom/android/systemui/statusbar/policy/BatteryBarView;
+
+    invoke-virtual {v1}, Lcom/android/systemui/statusbar/policy/BatteryBarView;->stop()V
+
+    goto :goto_0
+
+    .line 146
+    :cond_3
+    const-string v1, "android.intent.action.SCREEN_OFF"
+
+    invoke-virtual {v1, v0}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+
+    move-result v1
+
+    if-eqz v1, :cond_4
+
+    .line 147
+    iget-object v1, p0, Lcom/android/systemui/statusbar/policy/BatteryBarView$1;->this$0:Lcom/android/systemui/statusbar/policy/BatteryBarView;
+
+    invoke-virtual {v1}, Lcom/android/systemui/statusbar/policy/BatteryBarView;->stop()V
+
+    goto :goto_1
+
+    .line 148
+    :cond_4
+    const-string v1, "android.intent.action.SCREEN_ON"
+
+    invoke-virtual {v1, v0}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+
+    move-result v1
+
+    if-eqz v1, :cond_1
+
+    .line 149
+    iget-object v1, p0, Lcom/android/systemui/statusbar/policy/BatteryBarView$1;->this$0:Lcom/android/systemui/statusbar/policy/BatteryBarView;
+
+    #getter for: Lcom/android/systemui/statusbar/policy/BatteryBarView;->mBatteryCharging:Z
+    invoke-static {v1}, Lcom/android/systemui/statusbar/policy/BatteryBarView;->access$2(Lcom/android/systemui/statusbar/policy/BatteryBarView;)Z
+
+    move-result v1
+
+    if-eqz v1, :cond_1
+
+    iget-object v1, p0, Lcom/android/systemui/statusbar/policy/BatteryBarView$1;->this$0:Lcom/android/systemui/statusbar/policy/BatteryBarView;
+
+    #getter for: Lcom/android/systemui/statusbar/policy/BatteryBarView;->mBatteryLevel:I
+    invoke-static {v1}, Lcom/android/systemui/statusbar/policy/BatteryBarView;->access$3(Lcom/android/systemui/statusbar/policy/BatteryBarView;)I
+
+    move-result v1
+
+    if-ge v1, v5, :cond_1
+
+    .line 150
+    iget-object v1, p0, Lcom/android/systemui/statusbar/policy/BatteryBarView$1;->this$0:Lcom/android/systemui/statusbar/policy/BatteryBarView;
+
+    invoke-virtual {v1}, Lcom/android/systemui/statusbar/policy/BatteryBarView;->start()V
+
+    goto :goto_1
+.end method

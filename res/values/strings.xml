@@ -419,4 +419,9 @@ Unplug charger."</string>
     <string name="edit">Edit</string>
     <string name="accessibility_open_traybar">Open mini apps tray</string>
     <string name="accessibility_close_traybar">Close mini apps tray</string>
+    <string name="quickpanel_wificall_text">"Wi-Fi
+calling"</string>
+    <string name="quickpanel_flashlight_text">Torch</string>
+    <string name="quickpanel_tsm_text">"TSM
+Parts"</string>
 </resources>

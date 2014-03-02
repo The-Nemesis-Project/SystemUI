@@ -38,6 +38,8 @@
 
 .field private mBasePaddingTop:I
 
+.field mBatteryBar:Landroid/widget/LinearLayout;
+
 .field mBlackBGView:Landroid/view/View;
 
 .field private mClearCoverMargin:I
@@ -916,6 +918,16 @@
     iput-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;->mBlackBGView:Landroid/view/View;
 
     .line 133
+    const v1, 0x7f09013d
+
+    invoke-virtual {p0, v1}, Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;->findViewById(I)Landroid/view/View;
+
+    move-result-object v1
+
+    check-cast v1, Landroid/widget/LinearLayout;
+
+    iput-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;->mBatteryBar:Landroid/widget/LinearLayout;
+
     const v1, 0x7f09006b
 
     invoke-virtual {p0, v1}, Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;->findViewById(I)Landroid/view/View;

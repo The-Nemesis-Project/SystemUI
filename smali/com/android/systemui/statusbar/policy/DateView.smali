@@ -518,6 +518,20 @@
 
     invoke-virtual {v2, v3, v4, v5}, Landroid/content/ContentResolver;->registerContentObserver(Landroid/net/Uri;ZLandroid/database/ContentObserver;)V
 
+    iget-object v2, p0, Lcom/android/systemui/statusbar/policy/DateView;->mContentResolver:Landroid/content/ContentResolver;
+
+    const-string v3, "dateclock_color"
+
+    invoke-static {v3}, Landroid/provider/Settings$Global;->getUriFor(Ljava/lang/String;)Landroid/net/Uri;
+
+    move-result-object v3
+
+    const/4 v4, 0x0
+
+    iget-object v5, p0, Lcom/android/systemui/statusbar/policy/DateView;->mDateFormatObserver:Lcom/android/systemui/statusbar/policy/DateView$DateFormatObserver;
+
+    invoke-virtual {v2, v3, v4, v5}, Landroid/content/ContentResolver;->registerContentObserver(Landroid/net/Uri;ZLandroid/database/ContentObserver;)V
+
     .line 86
     const-string v1, ""
 
@@ -751,7 +765,7 @@
 .end method
 
 .method protected updateClock()V
-    .locals 2
+    .locals 3
 
     .prologue
     .line 130
@@ -773,6 +787,18 @@
     const/4 v1, 0x0
 
     invoke-virtual {p0, v0, v1}, Lcom/android/systemui/statusbar/policy/DateView;->setTypeface(Landroid/graphics/Typeface;I)V
+
+    iget-object v0, p0, Lcom/android/systemui/statusbar/policy/DateView;->mContentResolver:Landroid/content/ContentResolver;
+
+    const-string v1, "dateclock_color"
+
+    const v2, -0x333334
+
+    invoke-static {v0, v1, v2}, Landroid/provider/Settings$Global;->getInt(Landroid/content/ContentResolver;Ljava/lang/String;I)I
+
+    move-result v1
+
+    invoke-virtual {p0, v1}, Lcom/android/systemui/statusbar/policy/DateView;->setTextColor(I)V
 
     .line 137
     return-void

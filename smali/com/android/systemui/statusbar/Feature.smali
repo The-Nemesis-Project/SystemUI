@@ -186,7 +186,7 @@
 .field public static final mShowLgtLabelType:Z = false
 
 #the value of this static final field might be set in the static constructor
-.field public static final mShowMenuKeyAlways:Z = false
+.field public static final mShowMenuKeyAlways:Z = true
 
 #the value of this static final field might be set in the static constructor
 .field public static final mShowOperatorLogoIcon:Z = false
@@ -232,7 +232,7 @@
 .field public static final mUseAttNfcIcon:Z = false
 
 #the value of this static final field might be set in the static constructor
-.field public static final mUseAutoBrightnessDetail:Z = false
+.field public static final mUseAutoBrightnessDetail:Z = true
 
 #the value of this static final field might be set in the static constructor
 .field public static final mUseCHNFontType:Z = false
@@ -986,6 +986,8 @@
     .line 88
     sget-boolean v0, Lcom/android/systemui/statusbar/Feature;->U_PROJECT:Z
 
+    move v0, v2
+
     sput-boolean v0, Lcom/android/systemui/statusbar/Feature;->mShowMenuKeyAlways:Z
 
     .line 89
@@ -1182,7 +1184,9 @@
     if-nez v0, :cond_11
 
     :cond_11
-    sput-boolean v1, Lcom/android/systemui/statusbar/Feature;->mUseAutoBrightnessDetail:Z
+    const/4 v0, 0x1
+
+    sput-boolean v0, Lcom/android/systemui/statusbar/Feature;->mUseAutoBrightnessDetail:Z
 
     .line 111
     sget-boolean v0, Lcom/android/systemui/statusbar/Feature;->ATT:Z
@@ -1871,4 +1875,14 @@
     const-string v0, "OPEN"
 
     goto :goto_0
+.end method
+
+.method public static final setPLMNIconDisplay(Z)V
+    .locals 0
+    .parameter "bool"
+
+    .line 213
+    sput-boolean p0, Lcom/android/systemui/statusbar/Feature;->mPLMNIconDisplay:Z
+
+    return-void
 .end method

@@ -355,7 +355,7 @@
 
     move-result v9
 
-    if-eqz v9, :cond_2
+    if-eqz v9, :cond_3
 
     .line 3323
     iget-object v9, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$22;->this$0:Lcom/android/systemui/statusbar/phone/PhoneStatusBar;
@@ -393,19 +393,56 @@
 
     move-result-object v11
 
+    invoke-virtual {v11}, Landroid/widget/LinearLayout;->getVisibility()I
+
+    move-result v11
+
+    if-eqz v11, :cond_2
+
+    const/4 v11, 0x0
+
+    goto :goto_1
+
+    :cond_2
+    iget-object v11, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$22;->this$0:Lcom/android/systemui/statusbar/phone/PhoneStatusBar;
+
+    #getter for: Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mOngoingNotificationTitle:Landroid/widget/LinearLayout;
+    invoke-static {v11}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->access$4700(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)Landroid/widget/LinearLayout;
+
+    move-result-object v11
+
     invoke-virtual {v11}, Landroid/widget/LinearLayout;->getHeight()I
 
     move-result v11
 
+    :goto_1
     add-int/2addr v9, v11
 
     add-int/2addr v5, v9
 
     .line 3325
-    :cond_2
-    if-eqz v4, :cond_3
+    :cond_3
+    if-eqz v4, :cond_5
 
     .line 3326
+    iget-object v9, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$22;->this$0:Lcom/android/systemui/statusbar/phone/PhoneStatusBar;
+
+    #getter for: Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mLatestNotificationTitle:Landroid/widget/LinearLayout;
+    invoke-static {v9}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->access$4800(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)Landroid/widget/LinearLayout;
+
+    move-result-object v9
+
+    invoke-virtual {v9}, Landroid/widget/LinearLayout;->getVisibility()I
+
+    move-result v9
+
+    if-eqz v9, :cond_4
+
+    const/4 v9, 0x0
+
+    goto :goto_2
+
+    :cond_4
     iget-object v9, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$22;->this$0:Lcom/android/systemui/statusbar/phone/PhoneStatusBar;
 
     #getter for: Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mLatestNotificationTitle:Landroid/widget/LinearLayout;
@@ -417,10 +454,11 @@
 
     move-result v9
 
+    :goto_2
     add-int/2addr v5, v9
 
     .line 3329
-    :cond_3
+    :cond_5
     new-instance v8, Ljava/util/ArrayList;
 
     invoke-direct {v8, v4}, Ljava/util/ArrayList;-><init>(I)V
@@ -429,8 +467,8 @@
     .local v8, snapshot:Ljava/util/ArrayList;,"Ljava/util/ArrayList<Landroid/view/View;>;"
     const/4 v1, 0x0
 
-    :goto_1
-    if-ge v1, v4, :cond_5
+    :goto_3
+    if-ge v1, v4, :cond_7
 
     .line 3331
     iget-object v9, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$22;->this$0:Lcom/android/systemui/statusbar/phone/PhoneStatusBar;
@@ -457,7 +495,7 @@
 
     move-result v9
 
-    if-eqz v9, :cond_4
+    if-eqz v9, :cond_6
 
     invoke-virtual {v0}, Landroid/view/View;->getBottom()I
 
@@ -465,7 +503,7 @@
 
     add-int/2addr v9, v5
 
-    if-le v9, v7, :cond_4
+    if-le v9, v7, :cond_6
 
     invoke-virtual {v0}, Landroid/view/View;->getTop()I
 
@@ -473,25 +511,25 @@
 
     add-int/2addr v9, v5
 
-    if-ge v9, v6, :cond_4
+    if-ge v9, v6, :cond_6
 
     .line 3334
     invoke-virtual {v8, v0}, Ljava/util/ArrayList;->add(Ljava/lang/Object;)Z
 
     .line 3330
-    :cond_4
+    :cond_6
     add-int/lit8 v1, v1, 0x1
 
-    goto :goto_1
+    goto :goto_3
 
     .line 3337
     .end local v0           #child:Landroid/view/View;
-    :cond_5
+    :cond_7
     invoke-virtual {v8}, Ljava/util/ArrayList;->isEmpty()Z
 
     move-result v9
 
-    if-eqz v9, :cond_6
+    if-eqz v9, :cond_8
 
     .line 3338
     iget-object v9, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$22;->this$0:Lcom/android/systemui/statusbar/phone/PhoneStatusBar;
@@ -504,11 +542,11 @@
     monitor-exit v10
 
     .line 3400
-    :goto_2
+    :goto_4
     return-void
 
     .line 3341
-    :cond_6
+    :cond_8
     new-instance v9, Ljava/lang/Thread;
 
     new-instance v11, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$22$1;
@@ -522,7 +560,7 @@
     .line 3399
     monitor-exit v10
 
-    goto :goto_2
+    goto :goto_4
 
     .end local v1           #i:I
     .end local v2           #intent:Landroid/content/Intent;

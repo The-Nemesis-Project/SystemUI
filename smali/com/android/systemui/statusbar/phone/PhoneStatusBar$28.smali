@@ -260,6 +260,10 @@
 
     if-eq v2, v8, :cond_6
 
+    const/4 v8, 0x0
+
+    if-eqz v8, :cond_6
+
     .line 3608
     iget-object v8, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$28;->this$0:Lcom/android/systemui/statusbar/phone/PhoneStatusBar;
 
@@ -483,7 +487,7 @@
 
     move-result v8
 
-    if-eqz v8, :cond_1
+    if-eqz v8, :cond_d
 
     .line 3640
     :cond_c
@@ -505,6 +509,55 @@
     move-result-object v8
 
     invoke-virtual {v8, v10}, Lcom/android/systemui/statusbar/BaseStatusBar$H;->sendEmptyMessage(I)Z
+
+    goto/16 :goto_0
+
+    :cond_d
+    const-string v8, "com.samsung.cover.OPEN"
+
+    invoke-virtual {p2}, Landroid/content/Intent;->getAction()Ljava/lang/String;
+
+    move-result-object v9
+
+    invoke-virtual {v8, v9}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+
+    move-result v8
+
+    if-eqz v8, :cond_1
+
+    const-string v8, "coverType"
+
+    const/4 v9, -0x1
+
+    invoke-virtual {p2, v8, v9}, Landroid/content/Intent;->getIntExtra(Ljava/lang/String;I)I
+
+    move-result v8
+
+    const/4 v9, 0x1
+
+    if-eq v8, v9, :cond_e
+
+    const/4 v9, 0x3
+
+    if-ne v8, v9, :cond_1
+
+    :cond_e
+    const-string v8, "coverOpen"
+
+    const/4 v9, 0x0
+
+    invoke-virtual {p2, v8, v9}, Landroid/content/Intent;->getBooleanExtra(Ljava/lang/String;Z)Z
+
+    move-result v8
+
+    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$28;->this$0:Lcom/android/systemui/statusbar/phone/PhoneStatusBar;
+
+    invoke-virtual {v0, v8}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->coverCheck(Z)V
+
+    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$28;->this$0:Lcom/android/systemui/statusbar/phone/PhoneStatusBar;
+
+    #calls: Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->updateNetContSettings()V
+    invoke-static {v0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->access$910(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)V
 
     goto/16 :goto_0
 .end method

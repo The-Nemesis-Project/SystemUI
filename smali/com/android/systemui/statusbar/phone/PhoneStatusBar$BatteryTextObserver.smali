@@ -86,8 +86,52 @@
 
     invoke-virtual {v0, v3}, Landroid/widget/TextView;->setVisibility(I)V
 
-    .line 4046
+    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$BatteryTextObserver;->this$0:Lcom/android/systemui/statusbar/phone/PhoneStatusBar;
+
+    #getter for: Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mBatteryText:Landroid/widget/TextView;
+    invoke-static {v0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->access$6900(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)Landroid/widget/TextView;
+
+    move-result-object v0
+
+    iget-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$BatteryTextObserver;->this$0:Lcom/android/systemui/statusbar/phone/PhoneStatusBar;
+
+    #calls: Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->updateBatteryColor()I
+    invoke-static {v1}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->access$5910(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)I
+
+    move-result v1
+
+    invoke-virtual {v0, v1}, Landroid/widget/TextView;->setTextColor(I)V
+
     :goto_0
+    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$BatteryTextObserver;->this$0:Lcom/android/systemui/statusbar/phone/PhoneStatusBar;
+
+    iget-object v0, v0, Lcom/android/systemui/SystemUI;->mContext:Landroid/content/Context;
+
+    invoke-virtual {v0}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
+
+    move-result-object v0
+
+    const-string v1, "statusbar_hide_battery"
+
+    invoke-static {v0, v1, v3}, Landroid/provider/Settings$Global;->getInt(Landroid/content/ContentResolver;Ljava/lang/String;I)I
+
+    move-result v0
+
+    if-eqz v0, :cond_1
+
+    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$BatteryTextObserver;->this$0:Lcom/android/systemui/statusbar/phone/PhoneStatusBar;
+
+    #getter for: Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mBatteryIcon:Landroid/widget/ImageView;
+    invoke-static {v0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->access$5920(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)Landroid/widget/ImageView;
+
+    move-result-object v0
+
+    const/16 v1, 0x8
+
+    invoke-virtual {v0, v1}, Landroid/widget/ImageView;->setVisibility(I)V
+
+    .line 4046
+    :goto_1
     return-void
 
     .line 4044
@@ -104,4 +148,21 @@
     invoke-virtual {v0, v1}, Landroid/widget/TextView;->setVisibility(I)V
 
     goto :goto_0
+
+    :cond_1
+    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$BatteryTextObserver;->this$0:Lcom/android/systemui/statusbar/phone/PhoneStatusBar;
+
+    #calls: Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->updateBatteryImage()V
+    invoke-static {v0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->access$5915(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)V
+
+    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$BatteryTextObserver;->this$0:Lcom/android/systemui/statusbar/phone/PhoneStatusBar;
+
+    #getter for: Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mBatteryIcon:Landroid/widget/ImageView;
+    invoke-static {v0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->access$5920(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)Landroid/widget/ImageView;
+
+    move-result-object v0
+
+    invoke-virtual {v0, v3}, Landroid/widget/ImageView;->setVisibility(I)V
+
+    goto :goto_1
 .end method

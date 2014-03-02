@@ -310,4 +310,11 @@
     <item type="id" name="notification_inspect_item">false</item>
     <item type="id" name="recent_remove_item">false</item>
     <item type="id" name="recent_inspect_item">false</item>
+    <item type="id" name="clear_all_button2">false</item>
+    <item type="id" name="clear2_holder">false</item>
+    <item type="id" name="center">false</item>
+    <item type="id" name="clockcenter">false</item>
+    <item type="id" name="clockleft">false</item>
+    <item type="id" name="batterybar">false</item>
+    <item type="id" name="signaltext">false</item>
 </resources>

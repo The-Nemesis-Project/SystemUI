@@ -115,7 +115,7 @@
     <dimen name="notification_panel_header_clock_margin_left">4.0dip</dimen>
     <dimen name="notification_panel_header_date_margin_bottom">4.0dip</dimen>
     <dimen name="notification_panel_check_box_width">30.0dip</dimen>
-    <dimen name="button_holder_width">55.0dip</dimen>
+    <dimen name="button_holder_width">36.0dip</dimen>
     <dimen name="smart_alert_popup_text_padding">13.0dip</dimen>
     <dimen name="smart_alert_popup_margin">25.0dip</dimen>
     <dimen name="checkbox_popup_text_margin">17.0dip</dimen>
@@ -126,10 +126,6 @@
     <dimen name="quick_setting_panel_setting_button_divider_margin">7.0dip</dimen>
     <dimen name="notification_icon_bottom_margin">0.0dip</dimen>
     <dimen name="notification_scrollview_bottom_padding">0.0dip</dimen>
-    <dimen name="mini_app_tray_item_width">170.0dip</dimen>
-    <dimen name="mini_app_tray_item_height">130.0dip</dimen>
-    <dimen name="mini_app_tray_container_padding">45.0dip</dimen>
-    <dimen name="mini_app_panel_bg_height">47.0dip</dimen>
     <item type="dimen" name="APKTOOL_DUMMY_007f">false</item>
     <item type="dimen" name="APKTOOL_DUMMY_0080">false</item>
     <item type="dimen" name="APKTOOL_DUMMY_0081">false</item>
@@ -141,4 +137,8 @@
     <item type="dimen" name="APKTOOL_DUMMY_0087">false</item>
     <item type="dimen" name="APKTOOL_DUMMY_0088">false</item>
     <item type="dimen" name="APKTOOL_DUMMY_0089">false</item>
+    <dimen name="mini_app_tray_item_width">170.0dip</dimen>
+    <dimen name="mini_app_tray_item_height">130.0dip</dimen>
+    <dimen name="mini_app_tray_container_padding">45.0dip</dimen>
+    <dimen name="mini_app_panel_bg_height">47.0dip</dimen>
 </resources>

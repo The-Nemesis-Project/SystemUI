@@ -45,7 +45,7 @@
     .parameter "selfChange"
 
     .prologue
-    const/16 v6, 0xa
+    const/16 v6, 0x14
 
     .line 287
     invoke-super {p0, p1}, Landroid/database/ContentObserver;->onChange(Z)V
@@ -71,11 +71,11 @@
 
     move-result-object v3
 
-    const-string v4, "notification_panel_active_number_of_apps"
+    const-string v4, "custom_toggle_number"
 
-    const/4 v5, -0x2
+    const/16 v5, 0x14
 
-    invoke-static {v3, v4, v5}, Landroid/provider/Settings$System;->getIntForUser(Landroid/content/ContentResolver;Ljava/lang/String;I)I
+    invoke-static {v3, v4, v5}, Landroid/provider/Settings$Global;->getInt(Landroid/content/ContentResolver;Ljava/lang/String;I)I
 
     move-result v3
 
@@ -97,11 +97,11 @@
 
     move-result-object v1
 
-    const-string v2, "notification_panel_active_number_of_apps"
+    const-string v2, "custom_toggle_number"
 
-    const/4 v3, -0x2
+    const/16 v3, 0x14
 
-    invoke-static {v1, v2, v3}, Landroid/provider/Settings$System;->getIntForUser(Landroid/content/ContentResolver;Ljava/lang/String;I)I
+    invoke-static {v1, v2, v3}, Landroid/provider/Settings$Global;->getInt(Landroid/content/ContentResolver;Ljava/lang/String;I)I
 
     move-result v1
 
@@ -110,7 +110,7 @@
     .line 292
     iget-object v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingPanel$QuickSettingButtonNumberObserver;->this$0:Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingPanel;
 
-    const/16 v2, 0xa
+    const/16 v2, 0x14
 
     #setter for: Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingPanel;->mVisibleButtonNum:I
     invoke-static {v1, v2}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingPanel;->access$202(Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingPanel;I)I
@@ -139,11 +139,11 @@
 
     move-result-object v2
 
-    const-string v3, "notification_panel_active_number_of_apps"
+    const-string v3, "custom_toggle_number"
 
-    const/4 v4, -0x2
+    const/16 v4, 0x14
 
-    invoke-static {v2, v3, v4}, Landroid/provider/Settings$System;->getIntForUser(Landroid/content/ContentResolver;Ljava/lang/String;I)I
+    invoke-static {v2, v3, v4}, Landroid/provider/Settings$Global;->getInt(Landroid/content/ContentResolver;Ljava/lang/String;I)I
 
     move-result v2
 
@@ -162,7 +162,7 @@
     .local v0, e:Landroid/provider/Settings$SettingNotFoundException;
     const-string v1, "STATUSBAR-QuickSettingPanel"
 
-    const-string v2, " SettingNotFoundException : number_of_apps = 10"
+    const-string v2, " SettingNotFoundException : number_of_apps = 20"
 
     invoke-static {v1, v2}, Landroid/util/Slog;->d(Ljava/lang/String;Ljava/lang/String;)I
 

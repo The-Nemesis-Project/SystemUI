@@ -433,6 +433,48 @@
     throw v2
 .end method
 
+.method private final hideFullBattery()Z
+    .locals 3
+
+    .prologue
+    const/4 v2, 0x0
+
+    iget-object v0, p0, Lcom/android/systemui/SystemUI;->mContext:Landroid/content/Context;
+
+    invoke-virtual {v0}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
+
+    move-result-object v0
+
+    const-string v1, "hidefullbatt"
+
+    invoke-static {v0, v1, v2}, Landroid/provider/Settings$Global;->getInt(Landroid/content/ContentResolver;Ljava/lang/String;I)I
+
+    move-result v0
+
+    return v0
+.end method
+
+.method private hideLowBattery()Z
+    .locals 3
+
+    .prologue
+    const/4 v2, 0x0
+
+    iget-object v0, p0, Lcom/android/systemui/SystemUI;->mContext:Landroid/content/Context;
+
+    invoke-virtual {v0}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
+
+    move-result-object v0
+
+    const-string v1, "hidelowbatt"
+
+    invoke-static {v0, v1, v2}, Landroid/provider/Settings$Global;->getInt(Landroid/content/ContentResolver;Ljava/lang/String;I)I
+
+    move-result v0
+
+    return v0
+.end method
+
 
 # virtual methods
 .method cancelAbnormalChargingNotification()V
@@ -1245,6 +1287,17 @@
     const/4 v10, 0x0
 
     .line 1308
+    invoke-direct {p0}, Lcom/android/systemui/power/PowerUI;->hideFullBattery()Z
+
+    move-result v7
+
+    if-eqz v7, :cond_0
+
+    invoke-virtual {p0}, Lcom/android/systemui/power/PowerUI;->cancelFullBatteryNotification()V
+
+    goto :goto_0
+
+    :cond_0
     iget-object v7, p0, Lcom/android/systemui/SystemUI;->mContext:Landroid/content/Context;
 
     const-string v8, "notification"
@@ -1257,7 +1310,7 @@
 
     .line 1310
     .local v2, notificationManager:Landroid/app/NotificationManager;
-    if-nez v2, :cond_0
+    if-nez v2, :cond_1
 
     .line 1311
     const-string v7, "PowerUI"
@@ -1271,7 +1324,7 @@
     return-void
 
     .line 1315
-    :cond_0
+    :cond_1
     iget-object v7, p0, Lcom/android/systemui/SystemUI;->mContext:Landroid/content/Context;
 
     const v8, 0x7f0c0122
@@ -1294,7 +1347,7 @@
     .local v5, text:Ljava/lang/CharSequence;
     iget-object v7, p0, Lcom/android/systemui/power/PowerUI;->mFullBatteryNotification:Landroid/app/Notification;
 
-    if-nez v7, :cond_1
+    if-nez v7, :cond_2
 
     .line 1319
     new-instance v7, Landroid/app/Notification;
@@ -1330,7 +1383,7 @@
     iput-object v5, v7, Landroid/app/Notification;->tickerText:Ljava/lang/CharSequence;
 
     .line 1326
-    :cond_1
+    :cond_2
     new-instance v1, Landroid/content/Intent;
 
     invoke-direct {v1}, Landroid/content/Intent;-><init>()V
@@ -1371,7 +1424,7 @@
 
     .line 1334
     .local v4, powerManager:Landroid/os/PowerManager;
-    if-nez v4, :cond_2
+    if-nez v4, :cond_3
 
     .line 1335
     const-string v7, "PowerUI"
@@ -1383,7 +1436,7 @@
     goto :goto_0
 
     .line 1338
-    :cond_2
+    :cond_3
     const v7, 0x10000006
 
     const-string v8, "PowerUI"
@@ -2698,6 +2751,17 @@
 
     .prologue
     .line 661
+    move-object/from16 v0, p0
+
+    invoke-direct {v0}, Lcom/android/systemui/power/PowerUI;->hideLowBattery()Z
+
+    move-result v0
+
+    if-eqz v0, :cond_0
+
+    goto/16 :goto_2
+
+    :cond_0
     const-string v16, "PowerUI"
 
     new-instance v17, Ljava/lang/StringBuilder;
@@ -2708,7 +2772,7 @@
 
     iget-object v15, v0, Lcom/android/systemui/power/PowerUI;->mBatteryLevelTextView:Landroid/widget/TextView;
 
-    if-nez v15, :cond_0
+    if-nez v15, :cond_1
 
     const-string v15, "showing"
 
@@ -2818,14 +2882,14 @@
 
     move/from16 v0, v16
 
-    if-ne v15, v0, :cond_1
+    if-ne v15, v0, :cond_2
 
     const/4 v8, 0x1
 
     .line 673
     .local v8, isShutdownOn:Z
     :goto_1
-    if-eqz v8, :cond_2
+    if-eqz v8, :cond_3
 
     .line 674
     const-string v15, "PowerUI"
@@ -2841,30 +2905,30 @@
     .line 661
     .end local v3           #bucket:I
     .end local v8           #isShutdownOn:Z
-    :cond_0
+    :cond_1
     const-string v15, "updating"
 
     goto :goto_0
 
     .line 672
     .restart local v3       #bucket:I
-    :cond_1
+    :cond_2
     const/4 v8, 0x0
 
     goto :goto_1
 
     .line 678
     .restart local v8       #isShutdownOn:Z
-    :cond_2
+    :cond_3
     move-object/from16 v0, p0
 
     iget-boolean v15, v0, Lcom/android/systemui/power/PowerUI;->mFTAMode:Z
 
-    if-eqz v15, :cond_3
+    if-eqz v15, :cond_4
 
     const/4 v15, -0x2
 
-    if-eq v15, v3, :cond_3
+    if-eq v15, v3, :cond_4
 
     .line 679
     const-string v15, "PowerUI"
@@ -2876,12 +2940,12 @@
     goto :goto_2
 
     .line 683
-    :cond_3
+    :cond_4
     move-object/from16 v0, p0
 
     iget-boolean v15, v0, Lcom/android/systemui/power/PowerUI;->mCoverCamera:Z
 
-    if-eqz v15, :cond_4
+    if-eqz v15, :cond_5
 
     .line 684
     const-string v15, "PowerUI"
@@ -2893,10 +2957,10 @@
     goto :goto_2
 
     .line 688
-    :cond_4
+    :cond_5
     const/4 v15, -0x2
 
-    if-ne v15, v3, :cond_5
+    if-ne v15, v3, :cond_6
 
     .line 689
     move-object/from16 v0, p0
@@ -2922,7 +2986,7 @@
 
     move/from16 v0, v16
 
-    if-ne v15, v0, :cond_6
+    if-ne v15, v0, :cond_7
 
     .line 695
     move-object/from16 v0, p0
@@ -2942,7 +3006,7 @@
 
     iget-object v15, v0, Lcom/android/systemui/power/PowerUI;->mBatteryLevelTextView:Landroid/widget/TextView;
 
-    if-eqz v15, :cond_7
+    if-eqz v15, :cond_8
 
     .line 724
     move-object/from16 v0, p0
@@ -2999,7 +3063,7 @@
 
     .line 786
     .local v11, powerManager:Landroid/os/PowerManager;
-    if-nez v11, :cond_a
+    if-nez v11, :cond_b
 
     .line 787
     const-string v15, "PowerUI"
@@ -3016,7 +3080,7 @@
     .end local v11           #powerManager:Landroid/os/PowerManager;
     .end local v12           #soundPath:Ljava/lang/String;
     .end local v13           #title:Ljava/lang/CharSequence;
-    :cond_5
+    :cond_6
     move-object/from16 v0, p0
 
     iget-object v15, v0, Lcom/android/systemui/SystemUI;->mContext:Landroid/content/Context;
@@ -3031,7 +3095,7 @@
     goto :goto_3
 
     .line 697
-    :cond_6
+    :cond_7
     move-object/from16 v0, p0
 
     iget-object v15, v0, Lcom/android/systemui/SystemUI;->mContext:Landroid/content/Context;
@@ -3046,7 +3110,7 @@
     goto :goto_4
 
     .line 729
-    :cond_7
+    :cond_8
     const/4 v15, 0x2
 
     move-object/from16 v0, p0
@@ -3057,7 +3121,7 @@
 
     move/from16 v0, v16
 
-    if-ne v15, v0, :cond_9
+    if-ne v15, v0, :cond_a
 
     sget-object v15, Landroid/os/Build;->MODEL:Ljava/lang/String;
 
@@ -3067,7 +3131,7 @@
 
     move-result v15
 
-    if-nez v15, :cond_9
+    if-nez v15, :cond_a
 
     .line 730
     const v6, 0x7f020005
@@ -3177,7 +3241,7 @@
 
     move-result-object v15
 
-    if-eqz v15, :cond_8
+    if-eqz v15, :cond_9
 
     .line 756
     const v15, 0x7f0c001e
@@ -3195,7 +3259,7 @@
     invoke-virtual {v2, v15, v0}, Landroid/app/AlertDialog$Builder;->setNegativeButton(ILandroid/content/DialogInterface$OnClickListener;)Landroid/app/AlertDialog$Builder;
 
     .line 766
-    :cond_8
+    :cond_9
     invoke-virtual {v2}, Landroid/app/AlertDialog$Builder;->create()Landroid/app/AlertDialog;
 
     move-result-object v5
@@ -3254,7 +3318,7 @@
     .end local v6           #imageId:I
     .end local v7           #intent:Landroid/content/Intent;
     .end local v14           #v:Landroid/view/View;
-    :cond_9
+    :cond_a
     const v6, 0x7f020004
 
     .restart local v6       #imageId:I
@@ -3265,7 +3329,7 @@
     .restart local v4       #cr:Landroid/content/ContentResolver;
     .restart local v11       #powerManager:Landroid/os/PowerManager;
     .restart local v12       #soundPath:Ljava/lang/String;
-    :cond_a
+    :cond_b
     const v15, 0x10000006
 
     const-string v16, "PowerUI"
@@ -4421,6 +4485,19 @@
 
     .prologue
     .line 796
+    move-object/from16 v0, p0
+
+    invoke-direct {v0}, Lcom/android/systemui/power/PowerUI;->hideLowBattery()Z
+
+    move-result v0
+
+    if-eqz v0, :cond_0
+
+    if-eqz p1, :cond_0
+
+    goto :goto_0
+
+    :cond_0
     new-instance v1, Landroid/widget/RemoteViews;
 
     iget-object v2, p0, Lcom/android/systemui/SystemUI;->mContext:Landroid/content/Context;
@@ -4465,5 +4542,6 @@
     invoke-virtual {v2, v0}, Landroid/content/Context;->sendBroadcast(Landroid/content/Intent;)V
 
     .line 802
+    :goto_0
     return-void
 .end method

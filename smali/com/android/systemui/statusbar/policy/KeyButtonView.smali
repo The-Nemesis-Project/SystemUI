@@ -175,7 +175,7 @@
     iput v6, p0, Lcom/android/systemui/statusbar/policy/KeyButtonView;->mDrawingAlpha:F
 
     .line 70
-    iput-boolean v3, p0, Lcom/android/systemui/statusbar/policy/KeyButtonView;->mSupportsLongpress:Z
+    iput-boolean v4, p0, Lcom/android/systemui/statusbar/policy/KeyButtonView;->mSupportsLongpress:Z
 
     .line 71
     new-instance v1, Landroid/graphics/RectF;
@@ -210,6 +210,8 @@
     invoke-virtual {v0, v3, v3}, Landroid/content/res/TypedArray;->getBoolean(IZ)Z
 
     move-result v1
+
+    const/4 v1, 0x0
 
     iput-boolean v1, p0, Lcom/android/systemui/statusbar/policy/KeyButtonView;->mSupportsLongpress:Z
 

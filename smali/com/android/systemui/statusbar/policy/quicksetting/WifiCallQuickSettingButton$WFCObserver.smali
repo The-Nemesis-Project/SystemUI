@@ -1,0 +1,149 @@
+.class Lcom/android/systemui/statusbar/policy/quicksetting/WifiCallQuickSettingButton$WFCObserver;
+.super Landroid/database/ContentObserver;
+.source "WifiCallQuickSettingButton.java"
+
+
+# annotations
+.annotation system Ldalvik/annotation/EnclosingClass;
+    value = Lcom/android/systemui/statusbar/policy/quicksetting/WifiCallQuickSettingButton;
+.end annotation
+
+.annotation system Ldalvik/annotation/InnerClass;
+    accessFlags = 0x2
+    name = "WFCObserver"
+.end annotation
+
+
+# instance fields
+.field final synthetic this$0:Lcom/android/systemui/statusbar/policy/quicksetting/WifiCallQuickSettingButton;
+
+
+# direct methods
+.method constructor <init>(Lcom/android/systemui/statusbar/policy/quicksetting/WifiCallQuickSettingButton;)V
+    .locals 1
+    .parameter
+
+    .prologue
+    .line 119
+    iput-object p1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/WifiCallQuickSettingButton$WFCObserver;->this$0:Lcom/android/systemui/statusbar/policy/quicksetting/WifiCallQuickSettingButton;
+
+    .line 120
+    new-instance v0, Landroid/os/Handler;
+
+    invoke-direct {v0}, Landroid/os/Handler;-><init>()V
+
+    invoke-direct {p0, v0}, Landroid/database/ContentObserver;-><init>(Landroid/os/Handler;)V
+
+    .line 121
+    return-void
+.end method
+
+
+# virtual methods
+.method public onChange(Z)V
+    .locals 6
+    .parameter "selfChange"
+
+    .prologue
+    const/4 v1, 0x1
+
+    const/4 v2, 0x0
+
+    .line 125
+    const-string v0, "STATUSBAR-WifiCall"
+
+    new-instance v3, Ljava/lang/StringBuilder;
+
+    invoke-direct {v3}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v4, "WFCObserver.onChange() - DB_WIFI_CALL_TOGGLE = "
+
+    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v3
+
+    iget-object v4, p0, Lcom/android/systemui/statusbar/policy/quicksetting/WifiCallQuickSettingButton$WFCObserver;->this$0:Lcom/android/systemui/statusbar/policy/quicksetting/WifiCallQuickSettingButton;
+
+    #getter for: Lcom/android/systemui/statusbar/policy/quicksetting/WifiCallQuickSettingButton;->mContentResolver:Landroid/content/ContentResolver;
+    invoke-static {v4}, Lcom/android/systemui/statusbar/policy/quicksetting/WifiCallQuickSettingButton;->access$000(Lcom/android/systemui/statusbar/policy/quicksetting/WifiCallQuickSettingButton;)Landroid/content/ContentResolver;
+
+    move-result-object v4
+
+    const-string v5, "wifi_call_toggle"
+
+    invoke-static {v4, v5, v1}, Landroid/provider/Settings$System;->getInt(Landroid/content/ContentResolver;Ljava/lang/String;I)I
+
+    move-result v4
+
+    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    move-result-object v3
+
+    invoke-virtual {v3}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v3
+
+    invoke-static {v0, v3}, Landroid/util/secutil/Log;->secD(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 128
+    invoke-super {p0, p1}, Landroid/database/ContentObserver;->onChange(Z)V
+
+    .line 129
+    iget-object v3, p0, Lcom/android/systemui/statusbar/policy/quicksetting/WifiCallQuickSettingButton$WFCObserver;->this$0:Lcom/android/systemui/statusbar/policy/quicksetting/WifiCallQuickSettingButton;
+
+    iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/WifiCallQuickSettingButton$WFCObserver;->this$0:Lcom/android/systemui/statusbar/policy/quicksetting/WifiCallQuickSettingButton;
+
+    #getter for: Lcom/android/systemui/statusbar/policy/quicksetting/WifiCallQuickSettingButton;->mContentResolver:Landroid/content/ContentResolver;
+    invoke-static {v0}, Lcom/android/systemui/statusbar/policy/quicksetting/WifiCallQuickSettingButton;->access$000(Lcom/android/systemui/statusbar/policy/quicksetting/WifiCallQuickSettingButton;)Landroid/content/ContentResolver;
+
+    move-result-object v0
+
+    const-string v4, "wifi_call_toggle"
+
+    invoke-static {v0, v4, v1}, Landroid/provider/Settings$System;->getInt(Landroid/content/ContentResolver;Ljava/lang/String;I)I
+
+    move-result v0
+
+    if-ne v0, v1, :cond_0
+
+    move v0, v1
+
+    :goto_0
+    invoke-virtual {v3, v0}, Lcom/android/systemui/statusbar/policy/quicksetting/WifiCallQuickSettingButton;->setActivateStatus(I)V
+
+    .line 131
+    iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/WifiCallQuickSettingButton$WFCObserver;->this$0:Lcom/android/systemui/statusbar/policy/quicksetting/WifiCallQuickSettingButton;
+
+    iget-object v3, p0, Lcom/android/systemui/statusbar/policy/quicksetting/WifiCallQuickSettingButton$WFCObserver;->this$0:Lcom/android/systemui/statusbar/policy/quicksetting/WifiCallQuickSettingButton;
+
+    #calls: Lcom/android/systemui/statusbar/policy/quicksetting/WifiCallQuickSettingButton;->getMode()I
+    invoke-static {v3}, Lcom/android/systemui/statusbar/policy/quicksetting/WifiCallQuickSettingButton;->access$200(Lcom/android/systemui/statusbar/policy/quicksetting/WifiCallQuickSettingButton;)I
+
+    move-result v3
+
+    if-ne v3, v1, :cond_1
+
+    :goto_1
+    #setter for: Lcom/android/systemui/statusbar/policy/quicksetting/WifiCallQuickSettingButton;->mState:Z
+    invoke-static {v0, v1}, Lcom/android/systemui/statusbar/policy/quicksetting/WifiCallQuickSettingButton;->access$102(Lcom/android/systemui/statusbar/policy/quicksetting/WifiCallQuickSettingButton;Z)Z
+
+    .line 134
+    iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/WifiCallQuickSettingButton$WFCObserver;->this$0:Lcom/android/systemui/statusbar/policy/quicksetting/WifiCallQuickSettingButton;
+
+    iput-boolean v2, v0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->mIsProcessing:Z
+
+    .line 135
+    return-void
+
+    .line 129
+    :cond_0
+    const/4 v0, 0x2
+
+    goto :goto_0
+
+    :cond_1
+    move v1, v2
+
+    .line 131
+    goto :goto_1
+.end method

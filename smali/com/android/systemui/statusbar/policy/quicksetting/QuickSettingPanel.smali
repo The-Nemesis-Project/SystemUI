@@ -202,12 +202,72 @@
 
     invoke-virtual {v0, v1, v3, v2, v4}, Landroid/content/ContentResolver;->registerContentObserver(Landroid/net/Uri;ZLandroid/database/ContentObserver;I)V
 
+    iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingPanel;->mContentResolver:Landroid/content/ContentResolver;
+
+    const-string v1, "statusbar_toggletext_color"
+
+    invoke-static {v1}, Landroid/provider/Settings$Global;->getUriFor(Ljava/lang/String;)Landroid/net/Uri;
+
+    move-result-object v1
+
+    iget-object v2, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingPanel;->mEditObserver:Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingPanel$QuickSettingButtonEditObserver;
+
+    invoke-virtual {v0, v1, v3, v2, v4}, Landroid/content/ContentResolver;->registerContentObserver(Landroid/net/Uri;ZLandroid/database/ContentObserver;I)V
+
+    iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingPanel;->mContentResolver:Landroid/content/ContentResolver;
+
+    const-string v1, "statusbar_toggle_color"
+
+    invoke-static {v1}, Landroid/provider/Settings$Global;->getUriFor(Ljava/lang/String;)Landroid/net/Uri;
+
+    move-result-object v1
+
+    iget-object v2, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingPanel;->mEditObserver:Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingPanel$QuickSettingButtonEditObserver;
+
+    invoke-virtual {v0, v1, v3, v2, v4}, Landroid/content/ContentResolver;->registerContentObserver(Landroid/net/Uri;ZLandroid/database/ContentObserver;I)V
+
+    iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingPanel;->mContentResolver:Landroid/content/ContentResolver;
+
+    const-string v1, "toggle_custom_textcolor"
+
+    invoke-static {v1}, Landroid/provider/Settings$Global;->getUriFor(Ljava/lang/String;)Landroid/net/Uri;
+
+    move-result-object v1
+
+    iget-object v2, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingPanel;->mEditObserver:Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingPanel$QuickSettingButtonEditObserver;
+
+    invoke-virtual {v0, v1, v3, v2, v4}, Landroid/content/ContentResolver;->registerContentObserver(Landroid/net/Uri;ZLandroid/database/ContentObserver;I)V
+
+    iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingPanel;->mContentResolver:Landroid/content/ContentResolver;
+
+    const-string v1, "toggle_custom_color"
+
+    invoke-static {v1}, Landroid/provider/Settings$Global;->getUriFor(Ljava/lang/String;)Landroid/net/Uri;
+
+    move-result-object v1
+
+    iget-object v2, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingPanel;->mEditObserver:Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingPanel$QuickSettingButtonEditObserver;
+
+    invoke-virtual {v0, v1, v3, v2, v4}, Landroid/content/ContentResolver;->registerContentObserver(Landroid/net/Uri;ZLandroid/database/ContentObserver;I)V
+
     .line 125
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingPanel;->mContentResolver:Landroid/content/ContentResolver;
 
-    const-string v1, "notification_panel_active_number_of_apps"
+    const-string v1, "custom_toggle_number"
 
-    invoke-static {v1}, Landroid/provider/Settings$System;->getUriFor(Ljava/lang/String;)Landroid/net/Uri;
+    invoke-static {v1}, Landroid/provider/Settings$Global;->getUriFor(Ljava/lang/String;)Landroid/net/Uri;
+
+    move-result-object v1
+
+    iget-object v2, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingPanel;->mNumberObserver:Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingPanel$QuickSettingButtonNumberObserver;
+
+    invoke-virtual {v0, v1, v3, v2, v4}, Landroid/content/ContentResolver;->registerContentObserver(Landroid/net/Uri;ZLandroid/database/ContentObserver;I)V
+
+    iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingPanel;->mContentResolver:Landroid/content/ContentResolver;
+
+    const-string v1, "statusbar_panel_number"
+
+    invoke-static {v1}, Landroid/provider/Settings$Global;->getUriFor(Ljava/lang/String;)Landroid/net/Uri;
 
     move-result-object v1
 
@@ -383,6 +443,28 @@
     iget v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingPanel;->mButtonCnt:I
 
     return v0
+.end method
+
+.method private checkPanelLimit()Z
+    .locals 3
+
+    .prologue
+    const/4 v2, 0x0
+
+    .line 304
+    iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingPanel;->mContext:Landroid/content/Context;
+
+    invoke-virtual {v0}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
+
+    move-result-object v0
+
+    const-string v1, "statusbar_panel_number"
+
+    invoke-static {v0, v1, v2}, Landroid/provider/Settings$Global;->getInt(Landroid/content/ContentResolver;Ljava/lang/String;I)I
+
+    move-result v1
+
+    return v1
 .end method
 
 .method private makeArrayQuickSettingButtonToOneString([Ljava/lang/String;)Ljava/lang/String;
@@ -595,7 +677,7 @@
 
     move-result-object v13
 
-    if-eqz v13, :cond_2
+    if-eqz v13, :cond_3
 
     .line 606
     move-object/from16 v0, p0
@@ -740,6 +822,22 @@
 
     iget-object v13, v0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingPanel;->mContext:Landroid/content/Context;
 
+    invoke-virtual {v13}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
+
+    move-result-object v13
+
+    const-string v14, "custom_toggle_number"
+
+    const/16 v15, 0x14
+
+    invoke-static {v13, v14, v15}, Landroid/provider/Settings$Global;->getInt(Landroid/content/ContentResolver;Ljava/lang/String;I)I
+
+    move-result v15
+
+    move-object/from16 v0, p0
+
+    iget-object v13, v0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingPanel;->mContext:Landroid/content/Context;
+
     invoke-virtual {v13}, Landroid/content/Context;->getResources()Landroid/content/res/Resources;
 
     move-result-object v13
@@ -750,6 +848,11 @@
 
     move-result v13
 
+    if-ge v15, v13, :cond_1
+
+    move v13, v15
+
+    :cond_1
     move-object/from16 v0, p0
 
     iput v13, v0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingPanel;->mCurButtonNum:I
@@ -759,7 +862,7 @@
 
     iget-boolean v13, v0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingPanel;->mFullWidthNotifications:Z
 
-    if-eqz v13, :cond_3
+    if-eqz v13, :cond_4
 
     .line 633
     move-object/from16 v0, p0
@@ -818,7 +921,7 @@
 
     iget v13, v0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingPanel;->mButtonCnt:I
 
-    if-ge v10, v13, :cond_5
+    if-ge v10, v13, :cond_6
 
     .line 647
     :try_start_1
@@ -873,7 +976,7 @@
 
     aget-boolean v13, v13, v10
 
-    if-eqz v13, :cond_1
+    if-eqz v13, :cond_2
 
     .line 657
     :try_start_2
@@ -969,7 +1072,7 @@
 
     .end local v4           #correctionCount:I
     .local v5, correctionCount:I
-    if-lez v4, :cond_4
+    if-lez v4, :cond_5
 
     .line 669
     :try_start_3
@@ -1118,7 +1221,7 @@
     .end local v5           #correctionCount:I
     .end local v12           #lp:Landroid/widget/FrameLayout$LayoutParams;
     .restart local v4       #correctionCount:I
-    :cond_1
+    :cond_2
     :goto_6
     add-int/lit8 v10, v10, 0x1
 
@@ -1132,7 +1235,7 @@
     .end local v6           #correctionLeftMargin:I
     .end local v7           #correctionWidth:I
     .end local v10           #i:I
-    :cond_2
+    :cond_3
     const-string v13, ";"
 
     move-object/from16 v0, p0
@@ -1148,7 +1251,7 @@
     .restart local v2       #QBtnClass:[Ljava/lang/Class;
     .restart local v3       #QBtnConstructor:[Ljava/lang/reflect/Constructor;
     .restart local v7       #correctionWidth:I
-    :cond_3
+    :cond_4
     invoke-virtual/range {p0 .. p0}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingPanel;->getResources()Landroid/content/res/Resources;
 
     move-result-object v13
@@ -1242,7 +1345,7 @@
     .end local v9           #e1:Ljava/lang/ClassNotFoundException;
     .restart local v5       #correctionCount:I
     .restart local v12       #lp:Landroid/widget/FrameLayout$LayoutParams;
-    :cond_4
+    :cond_5
     move v6, v7
 
     goto/16 :goto_5
@@ -1455,7 +1558,7 @@
 
     .line 702
     .end local v8           #e:Ljava/lang/reflect/InvocationTargetException;
-    :cond_5
+    :cond_6
     return-void
 
     .line 697
@@ -1588,6 +1691,70 @@
 
     invoke-virtual {v0, v1, v3, v2, v4}, Landroid/content/ContentResolver;->registerContentObserver(Landroid/net/Uri;ZLandroid/database/ContentObserver;I)V
 
+    iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingPanel;->mContext:Landroid/content/Context;
+
+    invoke-virtual {v0}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
+
+    move-result-object v0
+
+    const-string v1, "toggle_custom_textcolor"
+
+    invoke-static {v1}, Landroid/provider/Settings$Global;->getUriFor(Ljava/lang/String;)Landroid/net/Uri;
+
+    move-result-object v1
+
+    iget-object v2, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingPanel;->mEditObserver:Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingPanel$QuickSettingButtonEditObserver;
+
+    invoke-virtual {v0, v1, v3, v2, v4}, Landroid/content/ContentResolver;->registerContentObserver(Landroid/net/Uri;ZLandroid/database/ContentObserver;I)V
+
+    iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingPanel;->mContext:Landroid/content/Context;
+
+    invoke-virtual {v0}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
+
+    move-result-object v0
+
+    const-string v1, "toggle_custom_color"
+
+    invoke-static {v1}, Landroid/provider/Settings$Global;->getUriFor(Ljava/lang/String;)Landroid/net/Uri;
+
+    move-result-object v1
+
+    iget-object v2, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingPanel;->mEditObserver:Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingPanel$QuickSettingButtonEditObserver;
+
+    invoke-virtual {v0, v1, v3, v2, v4}, Landroid/content/ContentResolver;->registerContentObserver(Landroid/net/Uri;ZLandroid/database/ContentObserver;I)V
+
+    iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingPanel;->mContext:Landroid/content/Context;
+
+    invoke-virtual {v0}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
+
+    move-result-object v0
+
+    const-string v1, "statusbar_toggle_color"
+
+    invoke-static {v1}, Landroid/provider/Settings$Global;->getUriFor(Ljava/lang/String;)Landroid/net/Uri;
+
+    move-result-object v1
+
+    iget-object v2, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingPanel;->mEditObserver:Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingPanel$QuickSettingButtonEditObserver;
+
+    invoke-virtual {v0, v1, v3, v2, v4}, Landroid/content/ContentResolver;->registerContentObserver(Landroid/net/Uri;ZLandroid/database/ContentObserver;I)V
+
+    iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingPanel;->mContext:Landroid/content/Context;
+
+    invoke-virtual {v0}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
+
+    move-result-object v0
+
+    const-string v1, "statusbar_toggletext_color"
+
+    invoke-static {v1}, Landroid/provider/Settings$Global;->getUriFor(Ljava/lang/String;)Landroid/net/Uri;
+
+    move-result-object v1
+
+    iget-object v2, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingPanel;->mEditObserver:Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingPanel$QuickSettingButtonEditObserver;
+
+    invoke-virtual {v0, v1, v3, v2, v4}, Landroid/content/ContentResolver;->registerContentObserver(Landroid/net/Uri;ZLandroid/database/ContentObserver;I)V
+
     .line 753
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingPanel;->mContext:Landroid/content/Context;
 
@@ -1614,6 +1781,22 @@
     const-string v1, "notification_panel_active_app_list"
 
     invoke-static {v1}, Landroid/provider/Settings$System;->getUriFor(Ljava/lang/String;)Landroid/net/Uri;
+
+    move-result-object v1
+
+    iget-object v2, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingPanel;->mNumberObserver:Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingPanel$QuickSettingButtonNumberObserver;
+
+    invoke-virtual {v0, v1, v3, v2, v4}, Landroid/content/ContentResolver;->registerContentObserver(Landroid/net/Uri;ZLandroid/database/ContentObserver;I)V
+
+    iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingPanel;->mContext:Landroid/content/Context;
+
+    invoke-virtual {v0}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
+
+    move-result-object v0
+
+    const-string v1, "custom_toggle_number"
+
+    invoke-static {v1}, Landroid/provider/Settings$Global;->getUriFor(Ljava/lang/String;)Landroid/net/Uri;
 
     move-result-object v1
 
@@ -1945,7 +2128,7 @@
     .locals 11
 
     .prologue
-    const/16 v10, 0xa
+    const/16 v10, 0x14
 
     const/4 v4, 0x1
 
@@ -1969,12 +2152,31 @@
     iput v5, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingPanel;->mCellGap:I
 
     .line 139
+    iget-object v5, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingPanel;->mContext:Landroid/content/Context;
+
+    invoke-virtual {v5}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
+
+    move-result-object v5
+
+    const-string v6, "custom_toggle_number"
+
+    const/16 v7, 0x14
+
+    invoke-static {v5, v6, v7}, Landroid/provider/Settings$Global;->getInt(Landroid/content/ContentResolver;Ljava/lang/String;I)I
+
+    move-result v6
+
     const v5, 0x7f0d0009
 
     invoke-virtual {v2, v5}, Landroid/content/res/Resources;->getInteger(I)I
 
     move-result v5
 
+    if-ge v6, v5, :cond_0
+
+    move v5, v6
+
+    :cond_0
     iput v5, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingPanel;->mCurButtonNum:I
 
     .line 140
@@ -2004,11 +2206,11 @@
 
     iget-object v7, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingPanel;->mContentResolver:Landroid/content/ContentResolver;
 
-    const-string v8, "notification_panel_active_number_of_apps"
+    const-string v8, "custom_toggle_number"
 
-    const/4 v9, -0x2
+    const/16 v9, 0x14
 
-    invoke-static {v7, v8, v9}, Landroid/provider/Settings$System;->getIntForUser(Landroid/content/ContentResolver;Ljava/lang/String;I)I
+    invoke-static {v7, v8, v9}, Landroid/provider/Settings$Global;->getInt(Landroid/content/ContentResolver;Ljava/lang/String;I)I
 
     move-result v7
 
@@ -2025,18 +2227,18 @@
     .line 145
     iget-object v5, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingPanel;->mContentResolver:Landroid/content/ContentResolver;
 
-    const-string v6, "notification_panel_active_number_of_apps"
+    const-string v6, "custom_toggle_number"
 
-    const/4 v7, -0x2
+    const/16 v7, 0x14
 
-    invoke-static {v5, v6, v7}, Landroid/provider/Settings$System;->getIntForUser(Landroid/content/ContentResolver;Ljava/lang/String;I)I
+    invoke-static {v5, v6, v7}, Landroid/provider/Settings$Global;->getInt(Landroid/content/ContentResolver;Ljava/lang/String;I)I
 
     move-result v5
 
-    if-gtz v5, :cond_0
+    if-gtz v5, :cond_1
 
     .line 146
-    const/16 v5, 0xa
+    const/16 v5, 0x14
 
     iput v5, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingPanel;->mVisibleButtonNum:I
     :try_end_0
@@ -2067,7 +2269,7 @@
 
     cmpg-float v5, v3, v5
 
-    if-gtz v5, :cond_1
+    if-gtz v5, :cond_2
 
     :goto_2
     iput-boolean v4, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingPanel;->mFullWidthNotifications:Z
@@ -2077,15 +2279,15 @@
 
     .line 148
     .end local v3           #settingsPanelDragzoneFrac:F
-    :cond_0
+    :cond_1
     :try_start_2
     iget-object v5, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingPanel;->mContentResolver:Landroid/content/ContentResolver;
 
-    const-string v6, "notification_panel_active_number_of_apps"
+    const-string v6, "custom_toggle_number"
 
-    const/4 v7, -0x2
+    const/16 v7, 0x14
 
-    invoke-static {v5, v6, v7}, Landroid/provider/Settings$System;->getIntForUser(Landroid/content/ContentResolver;Ljava/lang/String;I)I
+    invoke-static {v5, v6, v7}, Landroid/provider/Settings$Global;->getInt(Landroid/content/ContentResolver;Ljava/lang/String;I)I
 
     move-result v5
 
@@ -2103,7 +2305,7 @@
     .local v0, e:Landroid/provider/Settings$SettingNotFoundException;
     const-string v5, "STATUSBAR-QuickSettingPanel"
 
-    const-string v6, " SettingNotFoundException : number_of_apps = 10"
+    const-string v6, " SettingNotFoundException : number_of_apps = 20"
 
     invoke-static {v5, v6}, Landroid/util/Slog;->d(Ljava/lang/String;Ljava/lang/String;)I
 
@@ -2126,7 +2328,7 @@
 
     .line 162
     .end local v1           #ex:Landroid/content/res/Resources$NotFoundException;
-    :cond_1
+    :cond_2
     const/4 v4, 0x0
 
     goto :goto_2
@@ -2438,10 +2640,22 @@
 
     iget v9, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingPanel;->mButtonNumLandscape:I
 
-    if-nez v9, :cond_2
+    if-nez v9, :cond_1
 
     .line 427
     :cond_1
+    iget-object v9, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingPanel;->mContentResolver:Landroid/content/ContentResolver;
+
+    const-string v10, "custom_toggle_number"
+
+    const/16 v13, 0x14
+
+    invoke-static {v9, v10, v13}, Landroid/provider/Settings$Global;->getInt(Landroid/content/ContentResolver;Ljava/lang/String;I)I
+
+    move-result v10
+
+    const v13, 0x7f0d0009
+
     iget-object v9, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingPanel;->mContext:Landroid/content/Context;
 
     invoke-virtual {v9}, Landroid/content/Context;->getResources()Landroid/content/res/Resources;
@@ -2451,6 +2665,10 @@
     invoke-virtual {v9, v13}, Landroid/content/res/Resources;->getInteger(I)I
 
     move-result v0
+
+    if-ge v10, v0, :cond_2
+
+    move v0, v10
 
     .line 429
     :cond_2
@@ -2465,14 +2683,14 @@
 
     iget v10, v10, Landroid/util/DisplayMetrics;->heightPixels:I
 
-    if-ge v9, v10, :cond_4
+    if-ge v9, v10, :cond_5
 
     move v6, v8
 
     .line 431
     .local v6, isPortraitDisplay:Z
     :goto_1
-    if-eqz v6, :cond_5
+    if-eqz v6, :cond_6
 
     .line 432
     iget v9, p1, Landroid/content/res/Configuration;->orientation:I
@@ -2490,6 +2708,16 @@
 
     .line 445
     .local v4, correctionWidth:I
+    iget-object v8, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingPanel;->mContentResolver:Landroid/content/ContentResolver;
+
+    const-string v9, "custom_toggle_number"
+
+    const/16 v10, 0x14
+
+    invoke-static {v8, v9, v10}, Landroid/provider/Settings$Global;->getInt(Landroid/content/ContentResolver;Ljava/lang/String;I)I
+
+    move-result v9
+
     iget-object v8, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingPanel;->mContext:Landroid/content/Context;
 
     invoke-virtual {v8}, Landroid/content/Context;->getResources()Landroid/content/res/Resources;
@@ -2500,12 +2728,17 @@
 
     move-result v8
 
+    if-ge v9, v8, :cond_4
+
+    move v8, v9
+
+    :cond_4
     iput v8, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingPanel;->mCurButtonNum:I
 
     .line 448
     iget-boolean v8, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingPanel;->mFullWidthNotifications:Z
 
-    if-eqz v8, :cond_6
+    if-eqz v8, :cond_7
 
     .line 449
     iget-object v8, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingPanel;->mDisplayMetrics:Landroid/util/DisplayMetrics;
@@ -2548,7 +2781,7 @@
     .local v1, correctionCount:I
     sget-boolean v8, Lcom/android/systemui/statusbar/BaseStatusBar;->canStatusBarHide:Z
 
-    if-eqz v8, :cond_8
+    if-eqz v8, :cond_9
 
     .line 462
     const/4 v5, 0x0
@@ -2559,7 +2792,7 @@
 
     move-result v8
 
-    if-ge v5, v8, :cond_8
+    if-ge v5, v8, :cond_9
 
     .line 463
     new-instance v7, Landroid/widget/FrameLayout$LayoutParams;
@@ -2579,7 +2812,7 @@
 
     .end local v1           #correctionCount:I
     .local v2, correctionCount:I
-    if-lez v1, :cond_7
+    if-lez v1, :cond_8
 
     .line 469
     iget v8, v7, Landroid/view/ViewGroup$LayoutParams;->width:I
@@ -2643,14 +2876,14 @@
     .end local v4           #correctionWidth:I
     .end local v5           #i:I
     .end local v7           #lp:Landroid/widget/FrameLayout$LayoutParams;
-    :cond_4
+    :cond_5
     const/4 v6, 0x0
 
-    goto :goto_1
+    goto/16 :goto_1
 
     .line 436
     .restart local v6       #isPortraitDisplay:Z
-    :cond_5
+    :cond_6
     iget v8, p1, Landroid/content/res/Configuration;->orientation:I
 
     if-ne v8, v11, :cond_3
@@ -2658,12 +2891,12 @@
     .line 437
     iput v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingPanel;->mButtonNumLandscape:I
 
-    goto :goto_2
+    goto/16 :goto_2
 
     .line 452
     .end local v6           #isPortraitDisplay:Z
     .restart local v4       #correctionWidth:I
-    :cond_6
+    :cond_7
     invoke-virtual {p0}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingPanel;->getResources()Landroid/content/res/Resources;
 
     move-result-object v8
@@ -2705,7 +2938,7 @@
     .restart local v3       #correctionLeftMargin:I
     .restart local v5       #i:I
     .restart local v7       #lp:Landroid/widget/FrameLayout$LayoutParams;
-    :cond_7
+    :cond_8
     move v3, v4
 
     goto :goto_5
@@ -2715,7 +2948,7 @@
     .end local v5           #i:I
     .end local v7           #lp:Landroid/widget/FrameLayout$LayoutParams;
     .restart local v1       #correctionCount:I
-    :cond_8
+    :cond_9
     iget-boolean v8, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingPanel;->mSingleLine:Z
 
     invoke-virtual {p0, v8}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingPanel;->setSingleLine(Z)V
@@ -2870,6 +3103,16 @@
 
     .line 506
     .local v3, correctionWidth:I
+    iget-object v8, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingPanel;->mContentResolver:Landroid/content/ContentResolver;
+
+    const-string v9, "custom_toggle_number"
+
+    const/16 v10, 0x14
+
+    invoke-static {v8, v9, v10}, Landroid/provider/Settings$Global;->getInt(Landroid/content/ContentResolver;Ljava/lang/String;I)I
+
+    move-result v10
+
     iget-object v8, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingPanel;->mContext:Landroid/content/Context;
 
     invoke-virtual {v8}, Landroid/content/Context;->getResources()Landroid/content/res/Resources;
@@ -2882,12 +3125,17 @@
 
     move-result v8
 
+    if-ge v10, v8, :cond_3
+
+    move v8, v10
+
+    :cond_3
     iput v8, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingPanel;->mCurButtonNum:I
 
     .line 509
     iget-boolean v8, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingPanel;->mFullWidthNotifications:Z
 
-    if-eqz v8, :cond_3
+    if-eqz v8, :cond_4
 
     .line 510
     iget-object v8, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingPanel;->mDisplayMetrics:Landroid/util/DisplayMetrics;
@@ -2941,7 +3189,7 @@
 
     .line 527
     .local v7, w:I
-    if-eqz p1, :cond_6
+    if-eqz p1, :cond_7
 
     .line 528
     const/4 v4, 0x0
@@ -2957,11 +3205,11 @@
 
     aget-object v8, v8, v4
 
-    if-eqz v8, :cond_5
+    if-eqz v8, :cond_6
 
     iget v8, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingPanel;->mVisibleButtonNum:I
 
-    if-ge v4, v8, :cond_5
+    if-ge v4, v8, :cond_6
 
     .line 531
     invoke-direct {p0, v4, v5}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingPanel;->makeDividerVisible(II)V
@@ -2980,7 +3228,7 @@
 
     .end local v0           #correctionCount:I
     .local v1, correctionCount:I
-    if-lez v0, :cond_4
+    if-lez v0, :cond_5
 
     .line 538
     iget v8, v6, Landroid/view/ViewGroup$LayoutParams;->width:I
@@ -3033,7 +3281,7 @@
     .end local v4           #i:I
     .end local v5           #j:I
     .end local v7           #w:I
-    :cond_3
+    :cond_4
     invoke-virtual {p0}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingPanel;->getResources()Landroid/content/res/Resources;
 
     move-result-object v8
@@ -3077,7 +3325,7 @@
     .restart local v5       #j:I
     .restart local v6       #lp:Landroid/widget/FrameLayout$LayoutParams;
     .restart local v7       #w:I
-    :cond_4
+    :cond_5
     move v2, v3
 
     goto :goto_3
@@ -3086,7 +3334,7 @@
     .end local v1           #correctionCount:I
     .end local v6           #lp:Landroid/widget/FrameLayout$LayoutParams;
     .restart local v0       #correctionCount:I
-    :cond_5
+    :cond_6
     iget-object v8, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingPanel;->mQuickSettingButton:[Landroid/view/View;
 
     aget-object v8, v8, v4
@@ -3099,7 +3347,7 @@
 
     .line 554
     .end local v4           #i:I
-    :cond_6
+    :cond_7
     const/4 v4, 0x0
 
     .restart local v4       #i:I
@@ -3113,9 +3361,20 @@
 
     aget-object v8, v8, v4
 
-    if-eqz v8, :cond_7
+    if-eqz v8, :cond_9
+
+    invoke-direct {p0}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingPanel;->checkPanelLimit()Z
+
+    move-result v8
+
+    if-eqz v8, :cond_8
+
+    iget v8, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingPanel;->mVisibleButtonNum:I
+
+    if-ge v4, v8, :cond_9
 
     .line 557
+    :cond_8
     invoke-direct {p0, v4, v5}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingPanel;->makeDividerVisible(II)V
 
     .line 559
@@ -3132,7 +3391,7 @@
 
     rem-int v8, v5, v8
 
-    if-nez v8, :cond_9
+    if-nez v8, :cond_b
 
     .line 564
     move v0, v3
@@ -3150,7 +3409,7 @@
 
     .end local v1           #correctionCount:I
     .restart local v0       #correctionCount:I
-    if-lez v1, :cond_8
+    if-lez v1, :cond_a
 
     .line 568
     iget v8, v6, Landroid/view/ViewGroup$LayoutParams;->width:I
@@ -3211,14 +3470,14 @@
 
     .line 554
     .end local v6           #lp:Landroid/widget/FrameLayout$LayoutParams;
-    :cond_7
+    :cond_9
     add-int/lit8 v4, v4, 0x1
 
     goto :goto_5
 
     .line 570
     .restart local v6       #lp:Landroid/widget/FrameLayout$LayoutParams;
-    :cond_8
+    :cond_a
     move v2, v3
 
     goto :goto_7
@@ -3243,7 +3502,7 @@
     .restart local v5       #j:I
     .restart local v6       #lp:Landroid/widget/FrameLayout$LayoutParams;
     .restart local v7       #w:I
-    :cond_9
+    :cond_b
     move v1, v0
 
     .end local v0           #correctionCount:I

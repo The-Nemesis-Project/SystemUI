@@ -374,6 +374,10 @@
 
     move-result v3
 
+    invoke-direct {p0, v3}, Lcom/android/systemui/statusbar/policy/quicksetting/AirplaneModeQuickSettingButton;->setAirplaneMode(Z)V
+
+    goto/16 :goto_4
+
     .line 224
     .local v3, value:Z
     if-eqz p1, :cond_1
@@ -514,6 +518,7 @@
     invoke-virtual {v4}, Landroid/app/AlertDialog;->show()V
 
     .line 291
+    :goto_4
     return-void
 
     .line 224
@@ -539,14 +544,14 @@
     const v1, 0x10401de
 
     .restart local v1       #resMsg:I
-    :goto_4
+    :goto_5
     goto :goto_1
 
     .end local v1           #resMsg:I
     :cond_4
     move v1, v4
 
-    goto :goto_4
+    goto :goto_5
 
     .restart local v1       #resMsg:I
     :cond_5

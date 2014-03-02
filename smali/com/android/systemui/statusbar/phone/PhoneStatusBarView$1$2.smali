@@ -152,6 +152,10 @@
 
     invoke-virtual {v0, v1, v2, v3, v4}, Landroid/view/ViewGroup;->setPadding(IIII)V
 
+    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBarView$1$2;->this$1:Lcom/android/systemui/statusbar/phone/PhoneStatusBarView$1;
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBarView$1;->this$0:Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;
+
     .line 196
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBarView$1$2;->this$1:Lcom/android/systemui/statusbar/phone/PhoneStatusBarView$1;
 

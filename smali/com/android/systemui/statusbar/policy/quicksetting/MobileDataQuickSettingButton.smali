@@ -518,6 +518,12 @@
     const/high16 v8, -0x100
 
     .line 440
+    const/4 v0, 0x0
+
+    invoke-direct {p0, v0}, Lcom/android/systemui/statusbar/policy/quicksetting/MobileDataQuickSettingButton;->setMobileDataEnabled(Z)V
+
+    goto/16 :goto_1
+
     iget-object v6, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->mContext:Landroid/content/Context;
 
     const-string v7, "layout_inflater"
@@ -699,6 +705,7 @@
     invoke-virtual {v6}, Landroid/app/AlertDialog;->show()V
 
     .line 511
+    :goto_1
     return-void
 
     .line 508
@@ -721,6 +728,12 @@
 
     .prologue
     .line 536
+    const/4 v0, 0x0
+
+    invoke-direct {p0, v0}, Lcom/android/systemui/statusbar/policy/quicksetting/MobileDataQuickSettingButton;->setMobileDataEnabled(Z)V
+
+    goto :goto_0
+
     new-instance v1, Landroid/app/AlertDialog$Builder;
 
     iget-object v2, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->mContext:Landroid/content/Context;
@@ -783,6 +796,7 @@
     invoke-virtual {v0}, Landroid/app/AlertDialog;->show()V
 
     .line 559
+    :goto_0
     return-void
 .end method
 
@@ -791,6 +805,12 @@
 
     .prologue
     .line 563
+    const/4 v0, 0x1
+
+    invoke-direct {p0, v0}, Lcom/android/systemui/statusbar/policy/quicksetting/MobileDataQuickSettingButton;->setMobileDataEnabled(Z)V
+
+    goto :goto_0
+
     new-instance v1, Landroid/app/AlertDialog$Builder;
 
     iget-object v2, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->mContext:Landroid/content/Context;
@@ -853,6 +873,7 @@
     invoke-virtual {v0}, Landroid/app/AlertDialog;->show()V
 
     .line 586
+    :goto_0
     return-void
 .end method
 

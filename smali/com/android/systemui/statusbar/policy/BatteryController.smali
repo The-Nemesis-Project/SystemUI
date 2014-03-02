@@ -18,6 +18,10 @@
 
 
 # instance fields
+.field private mBattLev:I
+
+.field private mBattStat:I
+
 .field mBatteryChargeIcon:I
 
 .field mBatteryIcon:I
@@ -57,6 +61,8 @@
     .end annotation
 .end field
 
+.field private mPlugged:Z
+
 
 # direct methods
 .method public constructor <init>(Landroid/content/Context;)V
@@ -81,25 +87,17 @@
 
     iput-object v1, p0, Lcom/android/systemui/statusbar/policy/BatteryController;->mLabelViews:Ljava/util/ArrayList;
 
-    .line 46
-    const v1, 0x7f02022b
-
-    iput v1, p0, Lcom/android/systemui/statusbar/policy/BatteryController;->mBatteryIcon:I
-
-    .line 47
-    const v1, 0x7f020238
-
-    iput v1, p0, Lcom/android/systemui/statusbar/policy/BatteryController;->mBatteryChargeIcon:I
-
-    .line 50
     new-instance v1, Ljava/util/ArrayList;
 
     invoke-direct {v1}, Ljava/util/ArrayList;-><init>()V
 
     iput-object v1, p0, Lcom/android/systemui/statusbar/policy/BatteryController;->mChangeCallbacks:Ljava/util/ArrayList;
 
-    .line 59
+    .line 50
     iput-object p1, p0, Lcom/android/systemui/statusbar/policy/BatteryController;->mContext:Landroid/content/Context;
+
+    .line 59
+    invoke-virtual {p0}, Lcom/android/systemui/statusbar/policy/BatteryController;->updateXmlUsed()V
 
     .line 61
     new-instance v0, Landroid/content/IntentFilter;
@@ -119,6 +117,8 @@
     sget-boolean v1, Lcom/android/systemui/statusbar/Feature;->mUseRedBatteryIcon:Z
 
     if-eqz v1, :cond_0
+
+    if-nez v1, :cond_0
 
     .line 67
     const v1, 0x7f02024d
@@ -174,6 +174,172 @@
     return-void
 .end method
 
+.method public getBattLevColor()I
+    .locals 10
+
+    .prologue
+    const v9, -0x333334
+
+    const/4 v8, 0x1
+
+    .line 61
+    iget-object v6, p0, Lcom/android/systemui/statusbar/policy/BatteryController;->mContext:Landroid/content/Context;
+
+    .line 62
+    invoke-virtual {v6}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
+
+    move-result-object v6
+
+    .local v6, resolver:Landroid/content/ContentResolver;
+    const-string v7, "battery_text_color"
+
+    .line 104
+    invoke-static {v6, v7, v8}, Landroid/provider/Settings$Global;->getInt(Landroid/content/ContentResolver;Ljava/lang/String;I)I
+
+    move-result v7
+
+    if-ne v7, v8, :cond_1
+
+    move v0, v8
+
+    .line 63
+    .local v0, autoColorBatteryText:Z
+    :goto_0
+    const-string v7, "battery_color_auto_charging"
+
+    .line 64
+    const v8, -0x6c2b00
+
+    .line 65
+    invoke-static {v6, v7, v8}, Landroid/provider/Settings$Global;->getInt(Landroid/content/ContentResolver;Ljava/lang/String;I)I
+
+    move-result v1
+
+    .line 66
+    .local v1, color_auto_charging:I
+    const-string v7, "battery_color_auto_regular"
+
+    .line 67
+    invoke-static {v6, v7, v9}, Landroid/provider/Settings$Global;->getInt(Landroid/content/ContentResolver;Ljava/lang/String;I)I
+
+    move-result v4
+
+    .line 68
+    .local v4, color_auto_regular:I
+    const-string v7, "battery_color_auto_medium"
+
+    const v8, -0x1313f0
+
+    .line 69
+    invoke-static {v6, v7, v8}, Landroid/provider/Settings$Global;->getInt(Landroid/content/ContentResolver;Ljava/lang/String;I)I
+
+    move-result v3
+
+    .line 70
+    .local v3, color_auto_medium:I
+    const-string v7, "battery_color_auto_low"
+
+    const v8, -0x15e7e8
+
+    .line 71
+    invoke-static {v6, v7, v8}, Landroid/provider/Settings$Global;->getInt(Landroid/content/ContentResolver;Ljava/lang/String;I)I
+
+    move-result v2
+
+    .line 72
+    .local v2, color_auto_low:I
+    const-string v7, "battery_color"
+
+    .line 73
+    invoke-static {v6, v7, v9}, Landroid/provider/Settings$Global;->getInt(Landroid/content/ContentResolver;Ljava/lang/String;I)I
+
+    move-result v5
+
+    .line 74
+    .local v5, color_regular:I
+    if-eqz v0, :cond_5
+
+    .line 75
+    iget v9, p0, Lcom/android/systemui/statusbar/policy/BatteryController;->mBattStat:I
+
+    const/4 v7, 0x2
+
+    if-eq v9, v7, :cond_0
+
+    .line 76
+    const/4 v7, 0x5
+
+    if-ne v9, v7, :cond_2
+
+    .line 77
+    :cond_0
+    move v8, v1
+
+    .line 85
+    :goto_1
+    return v8
+
+    .line 70
+    .end local v0           #autoColorBatteryText:Z
+    .end local v1           #color_auto_charging:I
+    .end local v2           #color_auto_low:I
+    .end local v3           #color_auto_medium:I
+    .end local v4           #color_auto_regular:I
+    .end local v5           #color_regular:I
+    .end local v6           #resolver:Landroid/content/ContentResolver;
+    :cond_1
+    const/4 v7, 0x0
+
+    move v0, v7
+
+    goto :goto_0
+
+    .line 78
+    .restart local v0       #autoColorBatteryText:Z
+    .restart local v1       #color_auto_charging:I
+    .restart local v2       #color_auto_low:I
+    .restart local v3       #color_auto_medium:I
+    .restart local v4       #color_auto_regular:I
+    .restart local v5       #color_regular:I
+    .restart local v6       #resolver:Landroid/content/ContentResolver;
+    :cond_2
+    iget v8, p0, Lcom/android/systemui/statusbar/policy/BatteryController;->mBattLev:I
+
+    const/16 v7, 0xf
+
+    if-ge v8, v7, :cond_3
+
+    .line 79
+    move v8, v2
+
+    goto :goto_1
+
+    .line 80
+    :cond_3
+    iget v8, p0, Lcom/android/systemui/statusbar/policy/BatteryController;->mBattLev:I
+
+    const/16 v7, 0x28
+
+    if-ge v8, v7, :cond_4
+
+    .line 81
+    move v8, v3
+
+    goto :goto_1
+
+    .line 82
+    :cond_4
+    move v8, v4
+
+    goto :goto_1
+
+    .line 83
+    :cond_5
+    move v8, v5
+
+    goto :goto_1
+.end method
+
 .method public onReceive(Landroid/content/Context;Landroid/content/Intent;)V
     .locals 20
     .parameter "context"
@@ -203,6 +369,10 @@
     invoke-static/range {v15 .. v16}, Landroid/util/Slog;->d(Ljava/lang/String;Ljava/lang/String;)I
 
     .line 88
+    move-object/from16 v0, p0
+
+    invoke-virtual {v0}, Lcom/android/systemui/statusbar/policy/BatteryController;->updateXmlUsed()V
+
     const-string v15, "level"
 
     const/16 v16, 0x0
@@ -214,6 +384,12 @@
     invoke-virtual {v0, v15, v1}, Landroid/content/Intent;->getIntExtra(Ljava/lang/String;I)I
 
     move-result v10
+
+    move-object/from16 v0, p0
+
+    iput v10, v0, Lcom/android/systemui/statusbar/policy/BatteryController;->mBattLev:I
+
+    iget v10, v0, Lcom/android/systemui/statusbar/policy/BatteryController;->mBattLev:I
 
     .line 89
     .local v10, level:I
@@ -236,6 +412,12 @@
     .line 90
     .local v12, plugged:Z
     :goto_0
+    move-object/from16 v0, p0
+
+    iput-boolean v12, v0, Lcom/android/systemui/statusbar/policy/BatteryController;->mPlugged:Z
+
+    iget-boolean v12, v0, Lcom/android/systemui/statusbar/policy/BatteryController;->mPlugged:Z
+
     const-string v15, "plugged"
 
     const/16 v16, 0x0
@@ -261,6 +443,12 @@
     invoke-virtual {v0, v15, v1}, Landroid/content/Intent;->getIntExtra(Ljava/lang/String;I)I
 
     move-result v5
+
+    move-object/from16 v0, p0
+
+    iput v5, v0, Lcom/android/systemui/statusbar/policy/BatteryController;->mBattStat:I
+
+    iget v5, v0, Lcom/android/systemui/statusbar/policy/BatteryController;->mBattStat:I
 
     .line 92
     .local v5, batteryStatus:I
@@ -681,6 +869,14 @@
 
     invoke-virtual {v14, v15}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
+    move-object/from16 v0, p0
+
+    invoke-virtual {v0}, Lcom/android/systemui/statusbar/policy/BatteryController;->getBattLevColor()I
+
+    move-result v15
+
+    invoke-virtual {v14, v15}, Landroid/widget/TextView;->setTextColor(I)V
+
     .line 164
     add-int/lit8 v7, v7, 0x1
 
@@ -739,4 +935,193 @@
         :pswitch_2
         :pswitch_3
     .end packed-switch
+.end method
+
+.method public updateImage()V
+    .locals 5
+
+    .prologue
+    .line 51
+    invoke-virtual {p0}, Lcom/android/systemui/statusbar/policy/BatteryController;->updateXmlUsed()V
+
+    iget-boolean v0, p0, Lcom/android/systemui/statusbar/policy/BatteryController;->mPlugged:Z
+
+    if-eqz v0, :cond_0
+
+    iget v3, p0, Lcom/android/systemui/statusbar/policy/BatteryController;->mBatteryChargeIcon:I
+
+    :goto_0
+    iget v0, p0, Lcom/android/systemui/statusbar/policy/BatteryController;->mBattStat:I
+
+    packed-switch v0, :pswitch_data_0
+
+    .line 126
+    :goto_1
+    iget-object v0, p0, Lcom/android/systemui/statusbar/policy/BatteryController;->mIconViews:Ljava/util/ArrayList;
+
+    invoke-virtual {v0}, Ljava/util/ArrayList;->size()I
+
+    move-result v0
+
+    .line 125
+    .local v0, N:I
+    const/4 v1, 0x0
+
+    .local v1, i:I
+    :goto_2
+    if-ge v1, v0, :cond_3
+
+    iget-object v2, p0, Lcom/android/systemui/statusbar/policy/BatteryController;->mIconViews:Ljava/util/ArrayList;
+
+    invoke-virtual {v2, v1}, Ljava/util/ArrayList;->get(I)Ljava/lang/Object;
+
+    move-result-object v2
+
+    check-cast v2, Landroid/widget/ImageView;
+
+    .line 127
+    .local v2, v:Landroid/widget/ImageView;
+    invoke-virtual {v2, v3}, Landroid/widget/ImageView;->setImageResource(I)V
+
+    .line 128
+    iget v4, p0, Lcom/android/systemui/statusbar/policy/BatteryController;->mBattLev:I
+
+    invoke-virtual {v2, v4}, Landroid/widget/ImageView;->setImageLevel(I)V
+
+    add-int/lit8 v1, v1, 0x1
+
+    goto :goto_2
+
+    :cond_0
+    iget v3, p0, Lcom/android/systemui/statusbar/policy/BatteryController;->mBatteryIcon:I
+
+    goto :goto_0
+
+    :pswitch_0
+    iget v3, p0, Lcom/android/systemui/statusbar/policy/BatteryController;->mBatteryChargeIcon:I
+
+    .line 79
+    goto :goto_1
+
+    .line 81
+    :pswitch_1
+    sget-boolean v4, Lcom/android/systemui/statusbar/BaseStatusBar;->canStatusBarHide:Z
+
+    if-eqz v4, :cond_1
+
+    sget-boolean v4, Lcom/android/systemui/statusbar/BaseStatusBar;->canNavigationBarMove:Z
+
+    if-nez v4, :cond_2
+
+    :cond_1
+    const/4 v4, 0x2
+
+    if-ne v0, v4, :cond_2
+
+    .line 83
+    const v3, 0x7f0201e9
+
+    .line 84
+    goto :goto_1
+
+    .line 86
+    :cond_2
+    iget v3, p0, Lcom/android/systemui/statusbar/policy/BatteryController;->mBatteryIcon:I
+
+    .line 87
+    goto :goto_1
+
+    .line 91
+    :pswitch_2
+    iget v3, p0, Lcom/android/systemui/statusbar/policy/BatteryController;->mBatteryIcon:I
+
+    .line 102
+    goto/16 :goto_1
+
+    .line 109
+    :pswitch_3
+    iget v3, p0, Lcom/android/systemui/statusbar/policy/BatteryController;->mBatteryIcon:I
+
+    .line 111
+    goto/16 :goto_1
+
+    .line 113
+    :pswitch_4
+    iget v3, p0, Lcom/android/systemui/statusbar/policy/BatteryController;->mBatteryIcon:I
+
+    .line 115
+    goto/16 :goto_1
+
+    :cond_3
+    return-void
+
+    nop
+
+    :pswitch_data_0
+    .packed-switch 0x1
+        :pswitch_4
+        :pswitch_0
+        :pswitch_1
+        :pswitch_2
+        :pswitch_3
+    .end packed-switch
+.end method
+
+.method public updateXmlUsed()V
+    .locals 3
+
+    .prologue
+    const/4 v2, 0x0
+
+    .line 51
+    iget-object v0, p0, Lcom/android/systemui/statusbar/policy/BatteryController;->mContext:Landroid/content/Context;
+
+    invoke-virtual {v0}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
+
+    move-result-object v0
+
+    const-string v1, "statusbar_acc_battery"
+
+    invoke-static {v0, v1, v2}, Landroid/provider/Settings$Global;->getInt(Landroid/content/ContentResolver;Ljava/lang/String;I)I
+
+    move-result v1
+
+    if-eqz v1, :cond_0
+
+    const/4 v2, 0x2
+
+    if-eq v1, v2, :cond_1
+
+    const v2, 0x7f02027a
+
+    iput v2, p0, Lcom/android/systemui/statusbar/policy/BatteryController;->mBatteryIcon:I
+
+    const v2, 0x7f02027b
+
+    iput v2, p0, Lcom/android/systemui/statusbar/policy/BatteryController;->mBatteryChargeIcon:I
+
+    :goto_0
+    return-void
+
+    :cond_0
+    const v2, 0x7f02022b
+
+    iput v2, p0, Lcom/android/systemui/statusbar/policy/BatteryController;->mBatteryIcon:I
+
+    const v2, 0x7f020238
+
+    iput v2, p0, Lcom/android/systemui/statusbar/policy/BatteryController;->mBatteryChargeIcon:I
+
+    goto :goto_0
+
+    :cond_1
+    const v2, 0x7f02027c
+
+    iput v2, p0, Lcom/android/systemui/statusbar/policy/BatteryController;->mBatteryIcon:I
+
+    const v2, 0x7f02027d
+
+    iput v2, p0, Lcom/android/systemui/statusbar/policy/BatteryController;->mBatteryChargeIcon:I
+
+    goto :goto_0
 .end method

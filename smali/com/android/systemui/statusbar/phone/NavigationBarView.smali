@@ -1202,7 +1202,7 @@
 
     const/16 v1, 0x8
 
-    invoke-virtual {v0, v1}, Landroid/view/View;->setVisibility(I)V
+    invoke-virtual {v0, v4}, Landroid/view/View;->setVisibility(I)V
 
     .line 461
     invoke-virtual {p0}, Lcom/android/systemui/statusbar/phone/NavigationBarView;->getMenuButton()Landroid/view/View;
@@ -1487,12 +1487,6 @@
     if-eqz v2, :cond_1
 
     .line 500
-    invoke-virtual {p0}, Lcom/android/systemui/statusbar/phone/NavigationBarView;->getRecentsButton()Landroid/view/View;
-
-    move-result-object v2
-
-    invoke-virtual {v2, v6}, Landroid/view/View;->setVisibility(I)V
-
     .line 512
     :cond_1
     iget v2, p0, Lcom/android/systemui/statusbar/phone/NavigationBarView;->mNavigationIconHints:I
@@ -1703,11 +1697,6 @@
     invoke-virtual {v10, v6}, Landroid/view/View;->setVisibility(I)V
 
     .line 327
-    sget-boolean v6, Lcom/android/systemui/statusbar/Feature;->mShowMenuKeyAlways:Z
-
-    if-nez v6, :cond_c
-
-    .line 328
     invoke-virtual {p0}, Lcom/android/systemui/statusbar/phone/NavigationBarView;->getRecentsButton()Landroid/view/View;
 
     move-result-object v10
@@ -1718,6 +1707,11 @@
 
     :goto_9
     invoke-virtual {v10, v6}, Landroid/view/View;->setVisibility(I)V
+
+    .line 327
+    sget-boolean v6, Lcom/android/systemui/statusbar/Feature;->mShowMenuKeyAlways:Z
+
+    if-nez v6, :cond_c
 
     .line 338
     :goto_a

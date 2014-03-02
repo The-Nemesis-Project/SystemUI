@@ -77,9 +77,16 @@
     invoke-virtual {p0, v4}, Lcom/android/systemui/statusbar/StatusBarIconView;->setScaleY(F)V
 
     .line 96
-    const v5, 0x7f0e001d
+    new-instance v6, Landroid/util/TypedValue;
 
-    invoke-virtual {v3, v5, v7, v7}, Landroid/content/res/Resources;->getFraction(III)F
+    invoke-direct {v6}, Landroid/util/TypedValue;-><init>()V
+
+    .local v6, outValue:Landroid/util/TypedValue;
+    const v5, 0x7f0e0079
+
+    invoke-virtual {v3, v5, v6, v7}, Landroid/content/res/Resources;->getValue(ILandroid/util/TypedValue;Z)V
+
+    invoke-virtual {v6}, Landroid/util/TypedValue;->getFloat()F
 
     move-result v0
 
@@ -182,9 +189,16 @@
     invoke-virtual {p0, v4}, Lcom/android/systemui/statusbar/StatusBarIconView;->setScaleY(F)V
 
     .line 78
-    const v5, 0x7f0e001d
+    new-instance v6, Landroid/util/TypedValue;
 
-    invoke-virtual {v3, v5, v7, v7}, Landroid/content/res/Resources;->getFraction(III)F
+    invoke-direct {v6}, Landroid/util/TypedValue;-><init>()V
+
+    .local v6, outValue:Landroid/util/TypedValue;
+    const v5, 0x7f0e0079
+
+    invoke-virtual {v3, v5, v6, v7}, Landroid/content/res/Resources;->getValue(ILandroid/util/TypedValue;Z)V
+
+    invoke-virtual {v6}, Landroid/util/TypedValue;->getFloat()F
 
     move-result v0
 
@@ -197,6 +211,7 @@
     .end local v1           #imageBounds:I
     .end local v2           #outerBounds:I
     .end local v4           #scale:F
+    .end local v6           #outValue:Landroid/util/TypedValue;
     :cond_0
     sget-object v5, Landroid/widget/ImageView$ScaleType;->CENTER:Landroid/widget/ImageView$ScaleType;
 

@@ -1,29 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <item type="drawable" name="quick_setting_button_divider_bg">#ff000000</item>
-    <item type="drawable" name="notification_number_text_color">#ffffffff</item>
-    <item type="drawable" name="ticker_background_color">#ff1d1d1d</item>
-    <item type="drawable" name="status_bar_background">#ff1e1e1e</item>
-    <item type="drawable" name="status_bar_recents_app_thumbnail_background">#88000000</item>
-    <item type="drawable" name="status_bar_notification_row_background_color">#ff090909</item>
-    <item type="drawable" name="recents_callout_line">#99ffffff</item>
-    <item type="drawable" name="notification_item_background_legacy_color">#ffaaaaaa</item>
-    <item type="drawable" name="intruder_bg_pressed">#ff33b5e5</item>
-    <item type="drawable" name="notification_header_bg">#ff000000</item>
-    <item type="drawable" name="notification_background_color">#ff000000</item>
-    <item type="drawable" name="setting_background_color">#ff000000</item>
-    <item type="drawable" name="close_handler_divider">#ff405260</item>
-    <item type="drawable" name="system_bar_background">#ff000000</item>
-    <item type="drawable" name="notification_icon_area_smoke">#aa000000</item>
-    <item type="drawable" name="tw_notification_background_null">#ff000000</item>
-    <item type="drawable" name="tw_notification_background_pressed">#ff02556a</item>
-    <item type="drawable" name="status_bar_background_transparent">#00000000</item>
-    <item type="drawable" name="notification_title_background">#ff303b43</item>
     <item type="drawable" name="APKTOOL_DUMMY_0077">false</item>
     <item type="drawable" name="APKTOOL_DUMMY_0080">false</item>
     <item type="drawable" name="APKTOOL_DUMMY_0081">false</item>
     <item type="drawable" name="APKTOOL_DUMMY_0093">false</item>
     <item type="drawable" name="APKTOOL_DUMMY_0094">false</item>
+    <item type="drawable" name="quick_setting_button_divider_bg">#00000000</item>
     <item type="drawable" name="APKTOOL_DUMMY_009f">false</item>
     <item type="drawable" name="APKTOOL_DUMMY_00a0">false</item>
     <item type="drawable" name="APKTOOL_DUMMY_00ba">false</item>
@@ -73,4 +55,22 @@
     <item type="drawable" name="APKTOOL_DUMMY_01eb">false</item>
     <item type="drawable" name="APKTOOL_DUMMY_01ec">false</item>
     <item type="drawable" name="APKTOOL_DUMMY_01ed">false</item>
+    <item type="drawable" name="notification_number_text_color">#ffffffff</item>
+    <item type="drawable" name="ticker_background_color">#ff1d1d1d</item>
+    <item type="drawable" name="status_bar_background">@drawable/tweaked_status_bar_background</item>
+    <item type="drawable" name="status_bar_recents_app_thumbnail_background">#00000000</item>
+    <item type="drawable" name="status_bar_notification_row_background_color">#00000000</item>
+    <item type="drawable" name="recents_callout_line">#99ffffff</item>
+    <item type="drawable" name="notification_item_background_legacy_color">#ffaaaaaa</item>
+    <item type="drawable" name="intruder_bg_pressed">#ff33b5e5</item>
+    <item type="drawable" name="notification_header_bg">@drawable/tweaked_notification_header_bg</item>
+    <item type="drawable" name="notification_background_color">@drawable/tweaked_notification_bg</item>
+    <item type="drawable" name="setting_background_color">#00000000</item>
+    <item type="drawable" name="close_handler_divider">#00000000</item>
+    <item type="drawable" name="system_bar_background">#00000000</item>
+    <item type="drawable" name="notification_icon_area_smoke">#00000000</item>
+    <item type="drawable" name="tw_notification_background_null">@drawable/tweaked_app_notification_bg</item>
+    <item type="drawable" name="tw_notification_background_pressed">@drawable/tweaked_app_notification_pressed_bg</item>
+    <item type="drawable" name="status_bar_background_transparent">@drawable/tweaked_status_bar_background_transparent</item>
+    <item type="drawable" name="notification_title_background">@drawable/tweaked_notification_divider</item>
 </resources>

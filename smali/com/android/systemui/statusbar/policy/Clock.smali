@@ -3,6 +3,14 @@
 .source "Clock.java"
 
 
+# annotations
+.annotation system Ldalvik/annotation/MemberClasses;
+    value = {
+        Lcom/android/systemui/statusbar/policy/Clock$SettingsObserver;
+    }
+.end annotation
+
+
 # static fields
 #the value of this static final field might be set in the static constructor
 .field private static final TEXT_SIZE_DEFAULT:F = 0.0f
@@ -28,6 +36,8 @@
 .field private mClockFormatString:Ljava/lang/String;
 
 .field private mExpandedHeader:Z
+
+.field mHandler:Landroid/os/Handler;
 
 .field private final mIntentReceiver:Landroid/content/BroadcastReceiver;
 
@@ -138,7 +148,36 @@
     invoke-virtual {v0}, Landroid/content/res/TypedArray;->recycle()V
 
     .line 86
+    new-instance v1, Landroid/os/Handler;
+
+    invoke-direct {v1}, Landroid/os/Handler;-><init>()V
+
+    iput-object v1, p0, Lcom/android/systemui/statusbar/policy/Clock;->mHandler:Landroid/os/Handler;
+
+    new-instance v2, Lcom/android/systemui/statusbar/policy/Clock$SettingsObserver;
+
+    iget-object v1, p0, Lcom/android/systemui/statusbar/policy/Clock;->mHandler:Landroid/os/Handler;
+
+    invoke-direct {v2, p0, v1}, Lcom/android/systemui/statusbar/policy/Clock$SettingsObserver;-><init>(Lcom/android/systemui/statusbar/policy/Clock;Landroid/os/Handler;)V
+
+    .local v2, settingsObserver:Lcom/android/systemui/statusbar/policy/Clock$SettingsObserver;
+    invoke-virtual {v2}, Lcom/android/systemui/statusbar/policy/Clock$SettingsObserver;->observe()V
+
+    invoke-virtual {p0}, Lcom/android/systemui/statusbar/policy/Clock;->updateSettings()V
+
+    .line 87
     return-void
+.end method
+
+.method static synthetic access$001(Lcom/android/systemui/statusbar/policy/Clock;)Landroid/content/Context;
+    .locals 1
+    .parameter "x0"
+
+    .prologue
+    .line 34
+    iget-object v0, p0, Lcom/android/systemui/statusbar/policy/Clock;->mContext:Landroid/content/Context;
+
+    return-object v0
 .end method
 
 .method private final getSmallTime(Ljava/util/Calendar;)Ljava/lang/CharSequence;
@@ -1234,4 +1273,32 @@
     invoke-virtual {v0, v12}, Lcom/android/systemui/statusbar/policy/Clock;->setText(Ljava/lang/CharSequence;)V
 
     goto :goto_1
+.end method
+
+.method protected updateSettings()V
+    .locals 3
+
+    .prologue
+    .line 253
+    iget-object v0, p0, Lcom/android/systemui/statusbar/policy/Clock;->mContext:Landroid/content/Context;
+
+    invoke-virtual {v0}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
+
+    move-result-object v0
+
+    .line 255
+    .local v0, resolver:Landroid/content/ContentResolver;
+    const-string v1, "dateclock_color"
+
+    const v2, -0x333334
+
+    invoke-static {v0, v1, v2}, Landroid/provider/Settings$Global;->getInt(Landroid/content/ContentResolver;Ljava/lang/String;I)I
+
+    move-result v1
+
+    .line 257
+    .local v1, mClockColor:I
+    invoke-virtual {p0, v1}, Lcom/android/systemui/statusbar/policy/Clock;->setTextColor(I)V
+
+    return-void
 .end method
