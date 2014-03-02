@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="navbar_search_targets">
+        <item>@null</item>
+        <item>@*android:drawable/ic_action_assist_generic</item>
+        <item>@null</item>
+        <item>@null</item>
+    </array>
+    <array name="navbar_search_target_descriptions">
+        <item>@null</item>
+        <item>@*android:string/description_target_search</item>
+        <item>@null</item>
+        <item>@null</item>
+    </array>
+    <array name="navbar_search_direction_descriptions">
+        <item>@null</item>
+        <item>@*android:string/description_direction_up</item>
+        <item>@null</item>
+        <item>@null</item>
+    </array>
+    <string-array name="QuickSettingButtonAttribute">
+        <item>Wifi</item>
+        <item>Location</item>
+        <item>SilentMode</item>
+        <item>AutoRotate</item>
+        <item>Bluetooth</item>
+        <item>MobileData</item>
+        <item>DormantMode</item>
+        <item>PowerSaving</item>
+        <item>AllShareCast</item>
+        <item>MultiWindow</item>
+        <item>WiFiHotspot</item>
+        <item>SBeam</item>
+        <item>Nfc</item>
+        <item>AirView</item>
+        <item>DrivingMode</item>
+        <item>SmartStay</item>
+        <item>Sync</item>
+        <item>AirplaneMode</item>
+        <item>SmartScroll</item>
+    </string-array>
+    <string-array name="mini_mode_apps">
+        <item>com.sec.minimode.minidialertabservice.DialerTabService</item>
+        <item>com.sec.minimode.mms.minimode.MiniMessageService</item>
+        <item>com.sec.minimode.memail.MiniEmailService</item>
+        <item>com.sec.minimode.taskcloser.MiniTaskcloserService</item>
+        <item>com.diotek.mini_penmemo.Mini_PenMemo_Service</item>
+        <item>com.android.calendar.month.MiniCalendarService</item>
+        <item>com.sec.android.app.music.minimode.MiniMusicService</item>
+        <item>com.android.deskclock.MiniAlarmClockService</item>
+        <item>com.sec.android.app.worldclock.MiniWorldClockService</item>
+        <item>com.sec.android.app.popupcalculator.PopupCalculatorService</item>
+    </string-array>
+</resources>
