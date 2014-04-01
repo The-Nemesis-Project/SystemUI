@@ -10702,6 +10702,36 @@
 
     iput-object v0, v1, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mBatteryController:Lcom/android/systemui/statusbar/policy/BatteryController;
 
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mBatteryController:Lcom/android/systemui/statusbar/policy/BatteryController;
+
+    move-object/from16 v26, v0
+
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarView:Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;
+
+    move-object/from16 v25, v0
+
+    const v27, 0x7f070077
+
+    move-object/from16 v0, v25
+
+    move/from16 v1, v27
+
+    invoke-virtual {v0, v1}, Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;->findViewById(I)Landroid/view/View;
+
+    move-result-object v25
+
+    check-cast v25, Landroid/widget/ImageView;
+
+    move-object/from16 v0, v26
+
+    move-object/from16 v1, v25
+
+    invoke-virtual {v0, v1}, Lcom/android/systemui/statusbar/policy/BatteryController;->addIconView(Landroid/widget/ImageView;)V
+
     .line 726
     new-instance v25, Lcom/android/systemui/statusbar/policy/SmartBondingController;
 
@@ -10739,6 +10769,20 @@
     move-object/from16 v1, p0
 
     iput-object v0, v1, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mBatteryText:Landroid/widget/TextView;
+
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mBatteryController:Lcom/android/systemui/statusbar/policy/BatteryController;
+
+    move-object/from16 v25, v0
+
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mBatteryText:Landroid/widget/TextView;
+
+    move-object/from16 v26, v0
+
+    invoke-virtual/range {v25 .. v26}, Lcom/android/systemui/statusbar/policy/BatteryController;->addLabelView(Landroid/widget/TextView;)V
 
     .line 730
     move-object/from16 v0, p0
