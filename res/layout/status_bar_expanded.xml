@@ -10,6 +10,9 @@
             <ViewStub android:id="@id/flip_settings_stub" android:layout="@layout/flip_settings" android:layout_width="fill_parent" android:layout_height="wrap_content" />
             <ScrollView android:id="@id/scroll" android:paddingBottom="@dimen/notification_scrollview_bottom_padding" android:fadingEdge="none" android:layout_width="fill_parent" android:layout_height="wrap_content" android:overScrollMode="ifContentScrolls">
                 <LinearLayout android:orientation="vertical" android:id="@id/scrollCart" android:layout_width="fill_parent" android:layout_height="wrap_content">
+                    <HorizontalScrollView android:scrollbars="none" android:layout_width="fill_parent" android:layout_height="wrap_content">
+                        <com.android.systemui.statusbar.policy.quicklaunch.QuickLaunchContainer android:gravity="center" android:layout_width="wrap_content" android:layout_height="fill_parent" />
+                    </HorizontalScrollView>
                     <LinearLayout android:orientation="vertical" android:id="@id/brightness_controller" android:layout_width="fill_parent" android:layout_height="wrap_content">
                         <com.android.systemui.statusbar.policy.ToggleSlider android:layout_gravity="center_vertical" android:id="@id/brightness_slider" android:background="@color/toggle_slider_background_color" android:layout_width="fill_parent" android:layout_height="@dimen/toggle_slider_height" systemui:text="@string/status_bar_settings_auto_brightness_label" />
                         <View android:background="@color/toggle_slider_divider_color" android:layout_width="fill_parent" android:layout_height="1.0dip" />

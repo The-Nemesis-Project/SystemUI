@@ -490,4 +490,7 @@ After the phone cools down, performance will automatically go back to normal."</
     <item type="string" name="APKTOOL_DUMMY_01a7">false</item>
     <item type="string" name="APKTOOL_DUMMY_01a8">false</item>
     <item type="string" name="APKTOOL_DUMMY_01a9">false</item>
+    <string name="quickpanel_flashlight_text">Torch</string>
+    <string name="quickpanel_wificall_text">"Wi-Fi
+calling"</string>
 </resources>
