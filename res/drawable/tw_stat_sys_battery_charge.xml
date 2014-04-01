@@ -5660,7 +5660,7 @@
     <item android:maxLevel="101">
         <animation-list android:oneshot="false"
           xmlns:android="http://schemas.android.com/apk/res/android">
-            <item android:duration="1000" android:drawable="@drawable/tw_stat_sys_battery_charge_animfull" />
+            <item android:duration="1000" android:drawable="@drawable/tw_stat_sys_battery_charge_full" />
         </animation-list>
     </item>
 </level-list>
