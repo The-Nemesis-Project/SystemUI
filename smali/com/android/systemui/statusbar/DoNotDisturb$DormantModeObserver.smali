@@ -24,17 +24,17 @@
     .parameter
 
     .prologue
-    .line 204
+    .line 208
     iput-object p1, p0, Lcom/android/systemui/statusbar/DoNotDisturb$DormantModeObserver;->this$0:Lcom/android/systemui/statusbar/DoNotDisturb;
 
-    .line 205
+    .line 209
     new-instance v0, Landroid/os/Handler;
 
     invoke-direct {v0}, Landroid/os/Handler;-><init>()V
 
     invoke-direct {p0, v0}, Landroid/database/ContentObserver;-><init>(Landroid/os/Handler;)V
 
-    .line 206
+    .line 210
     return-void
 .end method
 
@@ -45,18 +45,18 @@
     .parameter "selfChange"
 
     .prologue
-    .line 209
+    .line 213
     iget-object v0, p0, Lcom/android/systemui/statusbar/DoNotDisturb$DormantModeObserver;->this$0:Lcom/android/systemui/statusbar/DoNotDisturb;
 
     invoke-virtual {v0}, Lcom/android/systemui/statusbar/DoNotDisturb;->updateDoNotDisturbStatus()V
 
-    .line 210
+    .line 214
     const-string v0, "StatusBar-DoNotDistrub"
 
     const-string v1, "Dormant settings changed. DormantModeObserver"
 
-    invoke-static {v0, v1}, Landroid/util/secutil/Log;->secD(Ljava/lang/String;Ljava/lang/String;)I
+    invoke-static {v0, v1}, Landroid/util/Slog;->d(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 211
+    .line 215
     return-void
 .end method

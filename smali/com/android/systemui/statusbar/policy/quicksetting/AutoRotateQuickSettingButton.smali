@@ -38,30 +38,25 @@
 
 # direct methods
 .method public constructor <init>(Landroid/content/Context;)V
-    .locals 9
+    .locals 7
     .parameter "context"
 
     .prologue
-    const/4 v6, 0x0
+    const v1, 0x7f0a00e1
+
+    const/4 v4, 0x0
 
     .line 98
     const/4 v2, 0x0
 
-    const v3, 0x7f0c00d8
+    sget-boolean v0, Lcom/android/systemui/statusbar/Feature;->mUseJellyBeanGUI:Z
 
-    const v4, 0x7f0201d7
+    if-nez v0, :cond_0
 
-    const v5, 0x7f0201d6
+    const/4 v0, 0x1
 
-    move-object v0, p0
-
-    move-object v1, p1
-
-    move v7, v6
-
-    move v8, v6
-
-    invoke-direct/range {v0 .. v8}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;-><init>(Landroid/content/Context;Landroid/util/AttributeSet;IIIIII)V
+    :goto_0
+    invoke-direct {p0, p1, v2, v0}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;-><init>(Landroid/content/Context;Landroid/util/AttributeSet;Z)V
 
     .line 57
     new-instance v0, Lcom/android/systemui/statusbar/policy/quicksetting/AutoRotateQuickSettingButton$AutoRotationObserver;
@@ -71,7 +66,7 @@
     iput-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/AutoRotateQuickSettingButton;->mAutoRotationObserver:Lcom/android/systemui/statusbar/policy/quicksetting/AutoRotateQuickSettingButton$AutoRotationObserver;
 
     .line 65
-    iput-boolean v6, p0, Lcom/android/systemui/statusbar/policy/quicksetting/AutoRotateQuickSettingButton;->mSupportFolderType:Z
+    iput-boolean v4, p0, Lcom/android/systemui/statusbar/policy/quicksetting/AutoRotateQuickSettingButton;->mSupportFolderType:Z
 
     .line 68
     new-instance v0, Lcom/android/systemui/statusbar/policy/quicksetting/AutoRotateQuickSettingButton$1;
@@ -80,11 +75,44 @@
 
     iput-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/AutoRotateQuickSettingButton;->mIntentReceiver:Landroid/content/BroadcastReceiver;
 
-    .line 105
-    invoke-virtual {p0, p0}, Lcom/android/systemui/statusbar/policy/quicksetting/AutoRotateQuickSettingButton;->setListener(Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton$Listener;)V
+    .line 100
+    sget-boolean v0, Lcom/android/systemui/statusbar/Feature;->mUseJellyBeanGUI:Z
 
-    .line 106
+    if-eqz v0, :cond_1
+
+    .line 101
+    const v2, 0x7f0201ef
+
+    const v3, 0x7f0201ee
+
+    move-object v0, p0
+
+    move v5, v4
+
+    move v6, v4
+
+    invoke-virtual/range {v0 .. v6}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->initLayout(IIIIII)V
+
+    .line 111
+    :goto_1
+    invoke-virtual {p0, p0}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->setListener(Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton$Listener;)V
+
+    .line 112
     return-void
+
+    :cond_0
+    move v0, v4
+
+    .line 98
+    goto :goto_0
+
+    .line 108
+    :cond_1
+    const v0, 0x7f0201f0
+
+    invoke-virtual {p0, v1, v0}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->initLayout(II)V
+
+    goto :goto_1
 .end method
 
 .method static synthetic access$000(Lcom/android/systemui/statusbar/policy/quicksetting/AutoRotateQuickSettingButton;)Z
@@ -153,7 +181,7 @@
     .prologue
     const/4 v1, 0x0
 
-    .line 110
+    .line 116
     iget-boolean v2, p0, Lcom/android/systemui/statusbar/policy/quicksetting/AutoRotateQuickSettingButton;->mSupportFolderType:Z
 
     if-eqz v2, :cond_1
@@ -164,30 +192,30 @@
 
     if-eqz v2, :cond_1
 
-    .line 111
+    .line 117
     invoke-direct {p0}, Lcom/android/systemui/statusbar/policy/quicksetting/AutoRotateQuickSettingButton;->getAutoRotationSecond()Z
 
     move-result v1
 
     iput-boolean v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/AutoRotateQuickSettingButton;->mAutoRotation:Z
 
-    .line 112
+    .line 118
     iget-boolean v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/AutoRotateQuickSettingButton;->mAutoRotation:Z
 
-    .line 117
+    .line 123
     :cond_0
     :goto_0
     return v1
 
-    .line 116
+    .line 122
     :cond_1
-    iget-object v2, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->mContext:Landroid/content/Context;
+    iget-object v2, p0, Landroid/view/View;->mContext:Landroid/content/Context;
 
     invoke-virtual {v2}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
 
     move-result-object v0
 
-    .line 117
+    .line 123
     .local v0, cr:Landroid/content/ContentResolver;
     const-string v2, "accelerometer_rotation"
 
@@ -210,14 +238,14 @@
     .prologue
     const/4 v1, 0x0
 
-    .line 223
-    iget-object v2, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->mContext:Landroid/content/Context;
+    .line 229
+    iget-object v2, p0, Landroid/view/View;->mContext:Landroid/content/Context;
 
     invoke-virtual {v2}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
 
     move-result-object v0
 
-    .line 224
+    .line 230
     .local v0, cr:Landroid/content/ContentResolver;
     const-string v2, "accelerometer_rotation_second"
 
@@ -241,8 +269,8 @@
     .prologue
     const/4 v1, 0x1
 
-    .line 234
-    invoke-virtual {p0}, Lcom/android/systemui/statusbar/policy/quicksetting/AutoRotateQuickSettingButton;->getResources()Landroid/content/res/Resources;
+    .line 240
+    invoke-virtual {p0}, Landroid/view/View;->getResources()Landroid/content/res/Resources;
 
     move-result-object v2
 
@@ -250,13 +278,13 @@
 
     move-result-object v0
 
-    .line 235
+    .line 241
     .local v0, config:Landroid/content/res/Configuration;
     iget v2, v0, Landroid/content/res/Configuration;->hardKeyboardHidden:I
 
     iput v2, p0, Lcom/android/systemui/statusbar/policy/quicksetting/AutoRotateQuickSettingButton;->mKeyboardHidden:I
 
-    .line 236
+    .line 242
     iget v2, p0, Lcom/android/systemui/statusbar/policy/quicksetting/AutoRotateQuickSettingButton;->mKeyboardHidden:I
 
     if-ne v2, v1, :cond_0
@@ -275,22 +303,22 @@
     .parameter "autorotate"
 
     .prologue
-    .line 123
+    .line 129
     const/4 v0, 0x1
 
     iput-boolean v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->mIsProcessing:Z
 
-    .line 125
+    .line 131
     iput-boolean p1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/AutoRotateQuickSettingButton;->mAutoRotation:Z
 
-    .line 127
+    .line 133
     new-instance v0, Lcom/android/systemui/statusbar/policy/quicksetting/AutoRotateQuickSettingButton$2;
 
     invoke-direct {v0, p0, p1}, Lcom/android/systemui/statusbar/policy/quicksetting/AutoRotateQuickSettingButton$2;-><init>(Lcom/android/systemui/statusbar/policy/quicksetting/AutoRotateQuickSettingButton;Z)V
 
     invoke-static {v0}, Landroid/os/AsyncTask;->execute(Ljava/lang/Runnable;)V
 
-    .line 152
+    .line 158
     return-void
 .end method
 
@@ -299,11 +327,11 @@
     .parameter "autorotate"
 
     .prologue
-    .line 228
+    .line 234
     iput-boolean p1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/AutoRotateQuickSettingButton;->mAutoRotation:Z
 
-    .line 229
-    iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->mContext:Landroid/content/Context;
+    .line 235
+    iget-object v0, p0, Landroid/view/View;->mContext:Landroid/content/Context;
 
     invoke-virtual {v0}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
 
@@ -320,10 +348,10 @@
 
     invoke-static {v1, v2, v0, v3}, Landroid/provider/Settings$System;->putIntForUser(Landroid/content/ContentResolver;Ljava/lang/String;II)Z
 
-    .line 231
+    .line 237
     return-void
 
-    .line 229
+    .line 235
     :cond_0
     const/4 v0, 0x0
 
@@ -336,8 +364,8 @@
     .locals 2
 
     .prologue
-    .line 175
-    iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->mContext:Landroid/content/Context;
+    .line 181
+    iget-object v0, p0, Landroid/view/View;->mContext:Landroid/content/Context;
 
     invoke-virtual {v0}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
 
@@ -347,7 +375,7 @@
 
     invoke-virtual {v0, v1}, Landroid/content/ContentResolver;->unregisterContentObserver(Landroid/database/ContentObserver;)V
 
-    .line 176
+    .line 182
     return-void
 .end method
 
@@ -361,8 +389,8 @@
 
     const/4 v4, -0x2
 
-    .line 155
-    iget-object v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->mContext:Landroid/content/Context;
+    .line 161
+    iget-object v1, p0, Landroid/view/View;->mContext:Landroid/content/Context;
 
     invoke-virtual {v1}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
 
@@ -378,8 +406,8 @@
 
     invoke-virtual {v1, v2, v5, v3, v4}, Landroid/content/ContentResolver;->registerContentObserver(Landroid/net/Uri;ZLandroid/database/ContentObserver;I)V
 
-    .line 159
-    iget-object v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->mContext:Landroid/content/Context;
+    .line 165
+    iget-object v1, p0, Landroid/view/View;->mContext:Landroid/content/Context;
 
     invoke-virtual {v1}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
 
@@ -395,26 +423,26 @@
 
     invoke-virtual {v1, v2, v5, v3, v4}, Landroid/content/ContentResolver;->registerContentObserver(Landroid/net/Uri;ZLandroid/database/ContentObserver;I)V
 
-    .line 162
+    .line 168
     new-instance v0, Landroid/content/IntentFilter;
 
     invoke-direct {v0}, Landroid/content/IntentFilter;-><init>()V
 
-    .line 163
+    .line 169
     .local v0, filter:Landroid/content/IntentFilter;
     const-string v1, "android.intent.action.CONFIGURATION_CHANGED"
 
     invoke-virtual {v0, v1}, Landroid/content/IntentFilter;->addAction(Ljava/lang/String;)V
 
-    .line 164
-    iget-object v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->mContext:Landroid/content/Context;
+    .line 170
+    iget-object v1, p0, Landroid/view/View;->mContext:Landroid/content/Context;
 
     iget-object v2, p0, Lcom/android/systemui/statusbar/policy/quicksetting/AutoRotateQuickSettingButton;->mIntentReceiver:Landroid/content/BroadcastReceiver;
 
     invoke-virtual {v1, v2, v0, v6, v6}, Landroid/content/Context;->registerReceiver(Landroid/content/BroadcastReceiver;Landroid/content/IntentFilter;Ljava/lang/String;Landroid/os/Handler;)Landroid/content/Intent;
 
-    .line 165
-    iget-object v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->mContext:Landroid/content/Context;
+    .line 171
+    iget-object v1, p0, Landroid/view/View;->mContext:Landroid/content/Context;
 
     invoke-virtual {v1}, Landroid/content/Context;->getPackageManager()Landroid/content/pm/PackageManager;
 
@@ -428,14 +456,14 @@
 
     iput-boolean v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/AutoRotateQuickSettingButton;->mSupportFolderType:Z
 
-    .line 168
+    .line 174
     invoke-direct {p0}, Lcom/android/systemui/statusbar/policy/quicksetting/AutoRotateQuickSettingButton;->getAutoRotation()Z
 
     move-result v1
 
     iput-boolean v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/AutoRotateQuickSettingButton;->mAutoRotation:Z
 
-    .line 169
+    .line 175
     iget-boolean v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/AutoRotateQuickSettingButton;->mAutoRotation:Z
 
     if-eqz v1, :cond_0
@@ -443,12 +471,12 @@
     const/4 v1, 0x1
 
     :goto_0
-    invoke-virtual {p0, v1}, Lcom/android/systemui/statusbar/policy/quicksetting/AutoRotateQuickSettingButton;->setActivateStatus(I)V
+    invoke-virtual {p0, v1}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->setActivateStatus(I)V
 
-    .line 172
+    .line 178
     return-void
 
-    .line 169
+    .line 175
     :cond_0
     const/4 v1, 0x2
 
@@ -460,26 +488,26 @@
     .parameter "state"
 
     .prologue
-    .line 180
+    .line 186
     iget-boolean v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->mIsProcessing:Z
 
     if-eqz v0, :cond_1
 
-    .line 181
+    .line 187
     const-string v0, "STATUSBAR-AutoRotateQuickSettingButton"
 
     const-string v1, "onClick(): Processing..."
 
     invoke-static {v0, v1}, Landroid/util/secutil/Log;->secW(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 201
+    .line 207
     :cond_0
     :goto_0
     return-void
 
-    .line 187
+    .line 193
     :cond_1
-    iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->mContext:Landroid/content/Context;
+    iget-object v0, p0, Landroid/view/View;->mContext:Landroid/content/Context;
 
     const-string v1, "enterprise_policy"
 
@@ -491,7 +519,7 @@
 
     iput-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/AutoRotateQuickSettingButton;->mEDM:Landroid/app/enterprise/EnterpriseDeviceManager;
 
-    .line 188
+    .line 194
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/AutoRotateQuickSettingButton;->mEDM:Landroid/app/enterprise/EnterpriseDeviceManager;
 
     invoke-virtual {v0}, Landroid/app/enterprise/EnterpriseDeviceManager;->getRestrictionPolicy()Landroid/app/enterprise/RestrictionPolicy;
@@ -500,7 +528,7 @@
 
     iput-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/AutoRotateQuickSettingButton;->mRestrictionPolicy:Landroid/app/enterprise/RestrictionPolicy;
 
-    .line 189
+    .line 195
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/AutoRotateQuickSettingButton;->mRestrictionPolicy:Landroid/app/enterprise/RestrictionPolicy;
 
     const/4 v1, 0x0
@@ -511,7 +539,7 @@
 
     if-nez v0, :cond_2
 
-    .line 190
+    .line 196
     const-string v0, "STATUSBAR-AutoRotateQuickSettingButton"
 
     const-string v1, "onClick(): Rotation state change is not allowed"
@@ -520,7 +548,7 @@
 
     goto :goto_0
 
-    .line 196
+    .line 202
     :cond_2
     invoke-direct {p0}, Lcom/android/systemui/statusbar/policy/quicksetting/AutoRotateQuickSettingButton;->getAutoRotation()Z
 
@@ -528,12 +556,12 @@
 
     iput-boolean v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/AutoRotateQuickSettingButton;->mAutoRotation:Z
 
-    .line 198
+    .line 204
     iget-boolean v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/AutoRotateQuickSettingButton;->mAutoRotation:Z
 
     if-eq p1, v0, :cond_0
 
-    .line 199
+    .line 205
     invoke-direct {p0, p1}, Lcom/android/systemui/statusbar/policy/quicksetting/AutoRotateQuickSettingButton;->setAutoRotation(Z)V
 
     goto :goto_0
@@ -543,8 +571,8 @@
     .locals 2
 
     .prologue
-    .line 207
-    iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->mContext:Landroid/content/Context;
+    .line 213
+    iget-object v0, p0, Landroid/view/View;->mContext:Landroid/content/Context;
 
     invoke-static {v0}, Lcom/android/internal/view/RotationPolicy;->isRotationLockToggleSupported(Landroid/content/Context;)Z
 
@@ -552,22 +580,22 @@
 
     if-eqz v0, :cond_0
 
-    .line 208
+    .line 214
     const-string v0, "android.settings.ACCESSIBILITY_SETTINGS"
 
-    invoke-virtual {p0, v0}, Lcom/android/systemui/statusbar/policy/quicksetting/AutoRotateQuickSettingButton;->callActivity(Ljava/lang/String;)V
+    invoke-virtual {p0, v0}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->callActivity(Ljava/lang/String;)V
 
-    .line 213
+    .line 219
     :goto_0
     return-void
 
-    .line 210
+    .line 216
     :cond_0
     const-string v0, "com.android.settings"
 
     const-string v1, "com.android.settings.Settings$DisplaySettingsActivity"
 
-    invoke-virtual {p0, v0, v1}, Lcom/android/systemui/statusbar/policy/quicksetting/AutoRotateQuickSettingButton;->callActivity(Ljava/lang/String;Ljava/lang/String;)V
+    invoke-virtual {p0, v0, v1}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->callActivity(Ljava/lang/String;Ljava/lang/String;)V
 
     goto :goto_0
 .end method
@@ -576,13 +604,13 @@
     .locals 2
 
     .prologue
-    .line 217
+    .line 223
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/AutoRotateQuickSettingButton;->mAutoRotationObserver:Lcom/android/systemui/statusbar/policy/quicksetting/AutoRotateQuickSettingButton$AutoRotationObserver;
 
     const/4 v1, 0x0
 
     invoke-virtual {v0, v1}, Lcom/android/systemui/statusbar/policy/quicksetting/AutoRotateQuickSettingButton$AutoRotationObserver;->onChange(Z)V
 
-    .line 218
+    .line 224
     return-void
 .end method

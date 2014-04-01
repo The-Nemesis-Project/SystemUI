@@ -24,17 +24,17 @@
     .parameter
 
     .prologue
-    .line 352
+    .line 374
     iput-object p1, p0, Lcom/android/systemui/statusbar/policy/BrightnessController$AutomaticBrightnessObserver;->this$0:Lcom/android/systemui/statusbar/policy/BrightnessController;
 
-    .line 353
+    .line 375
     new-instance v0, Landroid/os/Handler;
 
     invoke-direct {v0}, Landroid/os/Handler;-><init>()V
 
     invoke-direct {p0, v0}, Landroid/database/ContentObserver;-><init>(Landroid/os/Handler;)V
 
-    .line 354
+    .line 376
     return-void
 .end method
 
@@ -45,10 +45,10 @@
     .parameter "selfChange"
 
     .prologue
-    .line 358
+    .line 380
     invoke-super {p0, p1}, Landroid/database/ContentObserver;->onChange(Z)V
 
-    .line 360
+    .line 382
     iget-object v1, p0, Lcom/android/systemui/statusbar/policy/BrightnessController$AutomaticBrightnessObserver;->this$0:Lcom/android/systemui/statusbar/policy/BrightnessController;
 
     #getter for: Lcom/android/systemui/statusbar/policy/BrightnessController;->mControl:Lcom/android/systemui/statusbar/policy/ToggleSlider;
@@ -62,7 +62,7 @@
 
     if-eqz v1, :cond_0
 
-    .line 361
+    .line 383
     iget-object v1, p0, Lcom/android/systemui/statusbar/policy/BrightnessController$AutomaticBrightnessObserver;->this$0:Lcom/android/systemui/statusbar/policy/BrightnessController;
 
     #getter for: Lcom/android/systemui/statusbar/policy/BrightnessController;->mContentResolver:Landroid/content/ContentResolver;
@@ -89,7 +89,7 @@
 
     move-result v0
 
-    .line 363
+    .line 385
     .local v0, automaticBrightness:I
     iget-object v1, p0, Lcom/android/systemui/statusbar/policy/BrightnessController$AutomaticBrightnessObserver;->this$0:Lcom/android/systemui/statusbar/policy/BrightnessController;
 
@@ -102,7 +102,7 @@
 
     invoke-virtual {v1, v2}, Lcom/android/systemui/statusbar/policy/ToggleSlider;->setSplitValue(I)V
 
-    .line 364
+    .line 386
     iget-object v1, p0, Lcom/android/systemui/statusbar/policy/BrightnessController$AutomaticBrightnessObserver;->this$0:Lcom/android/systemui/statusbar/policy/BrightnessController;
 
     #getter for: Lcom/android/systemui/statusbar/policy/BrightnessController;->mControl:Lcom/android/systemui/statusbar/policy/ToggleSlider;
@@ -114,30 +114,7 @@
 
     invoke-virtual {v1, v2}, Lcom/android/systemui/statusbar/policy/ToggleSlider;->setSplitText(I)V
 
-    .line 366
-    const-string v1, "StatusBar.BrightnessController"
-
-    new-instance v2, Ljava/lang/StringBuilder;
-
-    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
-
-    const-string v3, "AutomaticBrightnessObserver onChange() - automaticBrightness : "
-
-    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v2
-
-    invoke-virtual {v2, v0}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
-
-    move-result-object v2
-
-    invoke-virtual {v2}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v2
-
-    invoke-static {v1, v2}, Landroid/util/secutil/Log;->secD(Ljava/lang/String;Ljava/lang/String;)I
-
-    .line 368
+    .line 390
     .end local v0           #automaticBrightness:I
     :cond_0
     return-void

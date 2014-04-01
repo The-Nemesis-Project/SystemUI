@@ -25,7 +25,7 @@
     .parameter "x0"
 
     .prologue
-    .line 1273
+    .line 1378
     iput-object p1, p0, Lcom/android/systemui/power/PowerUI$16;->this$0:Lcom/android/systemui/power/PowerUI;
 
     invoke-direct {p0, p2}, Landroid/app/Dialog;-><init>(Landroid/content/Context;)V
@@ -40,10 +40,10 @@
     .parameter "event"
 
     .prologue
-    .line 1280
-    invoke-virtual {p0}, Lcom/android/systemui/power/PowerUI$16;->dismiss()V
+    .line 1385
+    invoke-virtual {p0}, Landroid/app/Dialog;->dismiss()V
 
-    .line 1281
+    .line 1386
     const/4 v0, 0x0
 
     return v0
@@ -54,10 +54,10 @@
     .parameter "event"
 
     .prologue
-    .line 1275
-    invoke-virtual {p0}, Lcom/android/systemui/power/PowerUI$16;->dismiss()V
+    .line 1380
+    invoke-virtual {p0}, Landroid/app/Dialog;->dismiss()V
 
-    .line 1276
+    .line 1381
     const/4 v0, 0x0
 
     return v0

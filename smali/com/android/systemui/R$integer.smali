@@ -15,37 +15,41 @@
 
 
 # static fields
-.field public static final blinds_pop_duration_ms:I = 0x7f0d000d
+.field public static final blinds_pop_duration_ms:I = 0x7f0b000d
 
-.field public static final config_maxNotificationIcons:I = 0x7f0d0000
+.field public static final config_maxNotificationIcons:I = 0x7f0b0000
 
-.field public static final config_recent_item_min_alpha:I = 0x7f0d0008
+.field public static final config_recent_item_min_alpha:I = 0x7f0b0008
 
-.field public static final config_search_panel_view_vibration_duration:I = 0x7f0d0003
+.field public static final config_search_panel_view_vibration_duration:I = 0x7f0b0003
 
-.field public static final config_show_search_delay:I = 0x7f0d0001
+.field public static final config_show_search_delay:I = 0x7f0b0001
 
-.field public static final config_vibration_duration:I = 0x7f0d0002
+.field public static final config_vibration_duration:I = 0x7f0b0002
 
-.field public static final navigation_bar_deadzone_decay:I = 0x7f0d0007
+.field public static final heads_up_notification_decay:I = 0x7f0b000e
 
-.field public static final navigation_bar_deadzone_hold:I = 0x7f0d0006
+.field public static final heads_up_sensitivity_delay:I = 0x7f0b000f
 
-.field public static final notification_panel_layout_gravity:I = 0x7f0d000e
+.field public static final navigation_bar_deadzone_decay:I = 0x7f0b0007
 
-.field public static final one_finger_pop_duration_ms:I = 0x7f0d0004
+.field public static final navigation_bar_deadzone_hold:I = 0x7f0b0006
 
-.field public static final quick_settings_brightness_dialog_long_timeout:I = 0x7f0d000c
+.field public static final notification_panel_layout_gravity:I = 0x7f0b0010
 
-.field public static final quick_settings_brightness_dialog_short_timeout:I = 0x7f0d000b
+.field public static final one_finger_pop_duration_ms:I = 0x7f0b0004
 
-.field public static final quick_settings_num_columns:I = 0x7f0d0009
+.field public static final quick_settings_brightness_dialog_long_timeout:I = 0x7f0b000c
 
-.field public static final quick_settings_user_time_settings_tile_span:I = 0x7f0d000a
+.field public static final quick_settings_brightness_dialog_short_timeout:I = 0x7f0b000b
 
-.field public static final settings_panel_layout_gravity:I = 0x7f0d000f
+.field public static final quick_settings_num_columns:I = 0x7f0b0009
 
-.field public static final status_bar_recents_bg_gradient_degrees:I = 0x7f0d0005
+.field public static final quick_settings_user_time_settings_tile_span:I = 0x7f0b000a
+
+.field public static final settings_panel_layout_gravity:I = 0x7f0b0011
+
+.field public static final status_bar_recents_bg_gradient_degrees:I = 0x7f0b0005
 
 
 # direct methods
@@ -53,8 +57,8 @@
     .locals 0
 
     .prologue
-    .line 1616
-    invoke-direct/range {p0 .. p0}, Ljava/lang/Object;-><init>()V
+    .line 1488
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
     return-void
 .end method

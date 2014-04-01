@@ -24,7 +24,7 @@
     .parameter
 
     .prologue
-    .line 95
+    .line 72
     iput-object p1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/AirViewQuickSettingButton$1;->this$0:Lcom/android/systemui/statusbar/policy/quicksetting/AirViewQuickSettingButton;
 
     invoke-direct {p0}, Landroid/content/BroadcastReceiver;-><init>()V
@@ -42,7 +42,7 @@
     .prologue
     const/4 v3, 0x0
 
-    .line 98
+    .line 75
     const-string v0, "STATUSBAR-AirView"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -69,7 +69,7 @@
 
     invoke-static {v0, v1}, Landroid/util/Slog;->d(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 99
+    .line 76
     const-string v0, "com.samsung.pen.INSERT"
 
     invoke-virtual {p2}, Landroid/content/Intent;->getAction()Ljava/lang/String;
@@ -82,7 +82,7 @@
 
     if-eqz v0, :cond_0
 
-    .line 100
+    .line 77
     const-string v0, "penInsert"
 
     invoke-virtual {p2, v0, v3}, Landroid/content/Intent;->getBooleanExtra(Ljava/lang/String;Z)Z
@@ -91,18 +91,18 @@
 
     if-eqz v0, :cond_1
 
-    .line 101
+    .line 78
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/AirViewQuickSettingButton$1;->this$0:Lcom/android/systemui/statusbar/policy/quicksetting/AirViewQuickSettingButton;
 
     #setter for: Lcom/android/systemui/statusbar/policy/quicksetting/AirViewQuickSettingButton;->mPenDettachedState:Z
     invoke-static {v0, v3}, Lcom/android/systemui/statusbar/policy/quicksetting/AirViewQuickSettingButton;->access$002(Lcom/android/systemui/statusbar/policy/quicksetting/AirViewQuickSettingButton;Z)Z
 
-    .line 106
+    .line 83
     :cond_0
     :goto_0
     return-void
 
-    .line 103
+    .line 80
     :cond_1
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/AirViewQuickSettingButton$1;->this$0:Lcom/android/systemui/statusbar/policy/quicksetting/AirViewQuickSettingButton;
 

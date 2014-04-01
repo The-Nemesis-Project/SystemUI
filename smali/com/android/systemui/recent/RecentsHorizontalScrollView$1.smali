@@ -27,10 +27,10 @@
     .parameter
 
     .prologue
-    .line 119
+    .line 120
     iput-object p1, p0, Lcom/android/systemui/recent/RecentsHorizontalScrollView$1;->this$0:Lcom/android/systemui/recent/RecentsHorizontalScrollView;
 
-    invoke-direct/range {p0 .. p0}, Ljava/lang/Object;-><init>()V
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
     return-void
 .end method
@@ -43,7 +43,7 @@
     .parameter "event"
 
     .prologue
-    .line 122
+    .line 123
     const/4 v0, 0x1
 
     return v0

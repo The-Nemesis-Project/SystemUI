@@ -41,48 +41,48 @@
     .prologue
     const/16 v1, 0xe
 
-    .line 51
+    .line 50
     invoke-direct {p0, p1}, Landroid/view/View;-><init>(Landroid/content/Context;)V
 
-    .line 35
+    .line 34
     const-string v0, "CaptureEffectViewForShutterClick"
 
     iput-object v0, p0, Lcom/android/systemui/screenshot/CaptureEffectViewForShutterClick;->TAG:Ljava/lang/String;
 
-    .line 37
+    .line 36
     iput v1, p0, Lcom/android/systemui/screenshot/CaptureEffectViewForShutterClick;->CAPTURE_REGION1:I
 
-    .line 38
+    .line 37
     iput v1, p0, Lcom/android/systemui/screenshot/CaptureEffectViewForShutterClick;->CAPTURE_REGION2:I
 
-    .line 40
+    .line 39
     const/16 v0, 0xfa
 
     iput v0, p0, Lcom/android/systemui/screenshot/CaptureEffectViewForShutterClick;->ANIMATION_TIME:I
 
-    .line 42
+    .line 41
     new-instance v0, Landroid/graphics/Rect;
 
     invoke-direct {v0}, Landroid/graphics/Rect;-><init>()V
 
     iput-object v0, p0, Lcom/android/systemui/screenshot/CaptureEffectViewForShutterClick;->mRect:Landroid/graphics/Rect;
 
-    .line 44
+    .line 43
     const/4 v0, 0x0
 
     iput v0, p0, Lcom/android/systemui/screenshot/CaptureEffectViewForShutterClick;->alpha:F
 
-    .line 45
+    .line 44
     const/4 v0, 0x0
 
     iput-boolean v0, p0, Lcom/android/systemui/screenshot/CaptureEffectViewForShutterClick;->isRectInit:Z
 
-    .line 48
+    .line 47
     const/4 v0, 0x0
 
     iput-object v0, p0, Lcom/android/systemui/screenshot/CaptureEffectViewForShutterClick;->mCaptureAnimationListener:Lcom/android/systemui/screenshot/CaptureEffectViewForShutterClick$OnCaptureAnimationListener;
 
-    .line 52
+    .line 51
     const/4 v0, 0x1
 
     if-eq p2, v0, :cond_0
@@ -91,14 +91,14 @@
 
     if-ne p2, v0, :cond_1
 
-    .line 53
+    .line 52
     :cond_0
     iput v1, p0, Lcom/android/systemui/screenshot/CaptureEffectViewForShutterClick;->CAPTURE_REGION1:I
 
-    .line 54
+    .line 53
     iput v1, p0, Lcom/android/systemui/screenshot/CaptureEffectViewForShutterClick;->CAPTURE_REGION2:I
 
-    .line 56
+    .line 55
     :cond_1
     return-void
 .end method
@@ -111,48 +111,48 @@
     .prologue
     const/16 v1, 0xe
 
-    .line 59
+    .line 58
     invoke-direct {p0, p1, p2}, Landroid/view/View;-><init>(Landroid/content/Context;Landroid/util/AttributeSet;)V
 
-    .line 35
+    .line 34
     const-string v0, "CaptureEffectViewForShutterClick"
 
     iput-object v0, p0, Lcom/android/systemui/screenshot/CaptureEffectViewForShutterClick;->TAG:Ljava/lang/String;
 
-    .line 37
+    .line 36
     iput v1, p0, Lcom/android/systemui/screenshot/CaptureEffectViewForShutterClick;->CAPTURE_REGION1:I
 
-    .line 38
+    .line 37
     iput v1, p0, Lcom/android/systemui/screenshot/CaptureEffectViewForShutterClick;->CAPTURE_REGION2:I
 
-    .line 40
+    .line 39
     const/16 v0, 0xfa
 
     iput v0, p0, Lcom/android/systemui/screenshot/CaptureEffectViewForShutterClick;->ANIMATION_TIME:I
 
-    .line 42
+    .line 41
     new-instance v0, Landroid/graphics/Rect;
 
     invoke-direct {v0}, Landroid/graphics/Rect;-><init>()V
 
     iput-object v0, p0, Lcom/android/systemui/screenshot/CaptureEffectViewForShutterClick;->mRect:Landroid/graphics/Rect;
 
-    .line 44
+    .line 43
     const/4 v0, 0x0
 
     iput v0, p0, Lcom/android/systemui/screenshot/CaptureEffectViewForShutterClick;->alpha:F
 
-    .line 45
+    .line 44
     const/4 v0, 0x0
 
     iput-boolean v0, p0, Lcom/android/systemui/screenshot/CaptureEffectViewForShutterClick;->isRectInit:Z
 
-    .line 48
+    .line 47
     const/4 v0, 0x0
 
     iput-object v0, p0, Lcom/android/systemui/screenshot/CaptureEffectViewForShutterClick;->mCaptureAnimationListener:Lcom/android/systemui/screenshot/CaptureEffectViewForShutterClick$OnCaptureAnimationListener;
 
-    .line 60
+    .line 59
     return-void
 .end method
 
@@ -161,7 +161,7 @@
     .parameter "x0"
 
     .prologue
-    .line 33
+    .line 32
     iget-object v0, p0, Lcom/android/systemui/screenshot/CaptureEffectViewForShutterClick;->mCaptureAnimationListener:Lcom/android/systemui/screenshot/CaptureEffectViewForShutterClick$OnCaptureAnimationListener;
 
     return-object v0
@@ -174,22 +174,22 @@
     .parameter "canvas"
 
     .prologue
-    .line 91
+    .line 90
     iget-boolean v0, p0, Lcom/android/systemui/screenshot/CaptureEffectViewForShutterClick;->isRectInit:Z
 
     if-nez v0, :cond_0
 
-    .line 92
+    .line 91
     const/4 v0, 0x1
 
     iput-boolean v0, p0, Lcom/android/systemui/screenshot/CaptureEffectViewForShutterClick;->isRectInit:Z
 
-    .line 93
+    .line 92
     iget-object v0, p0, Lcom/android/systemui/screenshot/CaptureEffectViewForShutterClick;->mRect:Landroid/graphics/Rect;
 
-    invoke-virtual {p0, v0}, Lcom/android/systemui/screenshot/CaptureEffectViewForShutterClick;->getHitRect(Landroid/graphics/Rect;)V
+    invoke-virtual {p0, v0}, Landroid/view/View;->getHitRect(Landroid/graphics/Rect;)V
 
-    .line 96
+    .line 95
     :cond_0
     iget v0, p0, Lcom/android/systemui/screenshot/CaptureEffectViewForShutterClick;->CAPTURE_REGION1:I
 
@@ -199,7 +199,7 @@
 
     mul-float v6, v0, v1
 
-    .line 97
+    .line 96
     .local v6, lr_bound:F
     iget v0, p0, Lcom/android/systemui/screenshot/CaptureEffectViewForShutterClick;->CAPTURE_REGION2:I
 
@@ -209,7 +209,7 @@
 
     mul-float v7, v0, v1
 
-    .line 99
+    .line 98
     .local v7, tb_bound:F
     iget-object v0, p0, Lcom/android/systemui/screenshot/CaptureEffectViewForShutterClick;->mRect:Landroid/graphics/Rect;
 
@@ -249,12 +249,12 @@
 
     invoke-virtual/range {v0 .. v5}, Landroid/graphics/Canvas;->clipRect(FFFFLandroid/graphics/Region$Op;)Z
 
-    .line 102
+    .line 101
     const/4 v0, -0x1
 
     invoke-virtual {p1, v0}, Landroid/graphics/Canvas;->drawColor(I)V
 
-    .line 103
+    .line 102
     return-void
 .end method
 
@@ -263,10 +263,10 @@
     .parameter "l"
 
     .prologue
-    .line 63
+    .line 62
     iput-object p1, p0, Lcom/android/systemui/screenshot/CaptureEffectViewForShutterClick;->mCaptureAnimationListener:Lcom/android/systemui/screenshot/CaptureEffectViewForShutterClick$OnCaptureAnimationListener;
 
-    .line 64
+    .line 63
     return-void
 .end method
 
@@ -274,7 +274,7 @@
     .locals 3
 
     .prologue
-    .line 68
+    .line 67
     new-instance v0, Lcom/android/systemui/screenshot/CaptureEffectViewForShutterClick$CaptureAnimation;
 
     const/4 v1, 0x0
@@ -285,20 +285,20 @@
 
     iput-object v0, p0, Lcom/android/systemui/screenshot/CaptureEffectViewForShutterClick;->mCaptureAnimation:Lcom/android/systemui/screenshot/CaptureEffectViewForShutterClick$CaptureAnimation;
 
-    .line 70
+    .line 69
     iget-object v0, p0, Lcom/android/systemui/screenshot/CaptureEffectViewForShutterClick;->mCaptureAnimation:Lcom/android/systemui/screenshot/CaptureEffectViewForShutterClick$CaptureAnimation;
 
     new-instance v1, Lcom/android/systemui/screenshot/CaptureEffectViewForShutterClick$1;
 
     invoke-direct {v1, p0}, Lcom/android/systemui/screenshot/CaptureEffectViewForShutterClick$1;-><init>(Lcom/android/systemui/screenshot/CaptureEffectViewForShutterClick;)V
 
-    invoke-virtual {v0, v1}, Lcom/android/systemui/screenshot/CaptureEffectViewForShutterClick$CaptureAnimation;->setAnimationListener(Landroid/view/animation/Animation$AnimationListener;)V
+    invoke-virtual {v0, v1}, Landroid/view/animation/Animation;->setAnimationListener(Landroid/view/animation/Animation$AnimationListener;)V
 
-    .line 86
+    .line 85
     iget-object v0, p0, Lcom/android/systemui/screenshot/CaptureEffectViewForShutterClick;->mCaptureAnimation:Lcom/android/systemui/screenshot/CaptureEffectViewForShutterClick$CaptureAnimation;
 
-    invoke-virtual {p0, v0}, Lcom/android/systemui/screenshot/CaptureEffectViewForShutterClick;->startAnimation(Landroid/view/animation/Animation;)V
+    invoke-virtual {p0, v0}, Landroid/view/View;->startAnimation(Landroid/view/animation/Animation;)V
 
-    .line 87
+    .line 86
     return-void
 .end method

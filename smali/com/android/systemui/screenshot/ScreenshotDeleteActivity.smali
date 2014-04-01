@@ -4,23 +4,15 @@
 
 
 # static fields
-.field private static final PAPER_ARTIST_CLASS_NAME:Ljava/lang/String; = "com.dama.paperartist.PaperArtistActivity"
-
-.field private static final PAPER_ARTIST_PACKAGE_NAME:Ljava/lang/String; = "com.dama.paperartist"
-
-.field private static final SAVED_FILE_EXTENSION:Ljava/lang/String; = ".png"
-
-.field private static final SCREENCAPTURE_NAME:Ljava/lang/String; = ".screenshotEdits"
-
 .field private static final SCREENSHOT_NOTIFICATION_ID:I = 0x315
 
 .field private static final TAG:Ljava/lang/String; = "ScreenshotDeleteActivity"
 
 
 # instance fields
-.field private mDeleteFile:Ljava/io/File;
+.field private mAlertDialog:Landroid/app/AlertDialog;
 
-.field private mImageDirPath:Ljava/lang/String;
+.field private mDeleteFile:Ljava/io/File;
 
 .field private mImageFilePath:Ljava/lang/String;
 
@@ -30,7 +22,7 @@
     .locals 0
 
     .prologue
-    .line 60
+    .line 57
     invoke-direct {p0}, Landroid/app/Activity;-><init>()V
 
     return-void
@@ -41,7 +33,7 @@
     .parameter "x0"
 
     .prologue
-    .line 60
+    .line 57
     iget-object v0, p0, Lcom/android/systemui/screenshot/ScreenshotDeleteActivity;->mImageFilePath:Ljava/lang/String;
 
     return-object v0
@@ -50,273 +42,242 @@
 
 # virtual methods
 .method public onCreate(Landroid/os/Bundle;)V
-    .locals 6
+    .locals 7
     .parameter "savedInstanceState"
 
     .prologue
-    const/4 v3, 0x4
-
-    const/4 v5, 0x0
-
-    .line 74
+    .line 66
     invoke-super {p0, p1}, Landroid/app/Activity;->onCreate(Landroid/os/Bundle;)V
 
-    .line 75
-    const/4 v2, 0x1
+    .line 67
+    const/4 v4, 0x1
 
-    invoke-virtual {p0, v2}, Lcom/android/systemui/screenshot/ScreenshotDeleteActivity;->requestWindowFeature(I)Z
+    invoke-virtual {p0, v4}, Landroid/app/Activity;->requestWindowFeature(I)Z
 
-    .line 76
-    const v2, 0x7f040022
+    .line 68
+    const v4, 0x7f040014
 
-    invoke-virtual {p0, v2}, Lcom/android/systemui/screenshot/ScreenshotDeleteActivity;->setContentView(I)V
+    invoke-virtual {p0, v4}, Landroid/app/Activity;->setContentView(I)V
 
-    .line 77
-    invoke-virtual {p0}, Lcom/android/systemui/screenshot/ScreenshotDeleteActivity;->getWindow()Landroid/view/Window;
-
-    move-result-object v2
-
-    invoke-virtual {v2, v3, v3}, Landroid/view/Window;->setFlags(II)V
-
-    .line 80
-    invoke-virtual {p0}, Lcom/android/systemui/screenshot/ScreenshotDeleteActivity;->getIntent()Landroid/content/Intent;
+    .line 71
+    invoke-virtual {p0}, Landroid/app/Activity;->getIntent()Landroid/content/Intent;
 
     move-result-object v0
 
-    .line 81
+    .line 72
     .local v0, intent:Landroid/content/Intent;
-    const-string v2, "FilePath"
+    const-string v4, "FilePath"
 
-    invoke-virtual {v0, v2}, Landroid/content/Intent;->getStringExtra(Ljava/lang/String;)Ljava/lang/String;
+    invoke-virtual {v0, v4}, Landroid/content/Intent;->getStringExtra(Ljava/lang/String;)Ljava/lang/String;
 
-    move-result-object v2
+    move-result-object v4
 
-    iput-object v2, p0, Lcom/android/systemui/screenshot/ScreenshotDeleteActivity;->mImageFilePath:Ljava/lang/String;
+    iput-object v4, p0, Lcom/android/systemui/screenshot/ScreenshotDeleteActivity;->mImageFilePath:Ljava/lang/String;
 
-    .line 82
-    const-string v2, "ScreenshotDeleteActivity"
+    .line 73
+    const-string v4, "ScreenshotDeleteActivity"
 
-    new-instance v3, Ljava/lang/StringBuilder;
+    new-instance v5, Ljava/lang/StringBuilder;
 
-    invoke-direct {v3}, Ljava/lang/StringBuilder;-><init>()V
+    invoke-direct {v5}, Ljava/lang/StringBuilder;-><init>()V
 
-    const-string v4, "onCreate : "
+    const-string v6, "onCreate : "
 
-    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v5, v6}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    move-result-object v3
+    move-result-object v5
 
-    iget-object v4, p0, Lcom/android/systemui/screenshot/ScreenshotDeleteActivity;->mImageFilePath:Ljava/lang/String;
+    iget-object v6, p0, Lcom/android/systemui/screenshot/ScreenshotDeleteActivity;->mImageFilePath:Ljava/lang/String;
 
-    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v5, v6}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    move-result-object v3
+    move-result-object v5
 
-    invoke-virtual {v3}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+    invoke-virtual {v5}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
 
-    move-result-object v3
+    move-result-object v5
 
-    invoke-static {v2, v3}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
+    invoke-static {v4, v5}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 84
-    new-instance v2, Ljava/io/File;
+    .line 75
+    new-instance v4, Ljava/io/File;
 
-    iget-object v3, p0, Lcom/android/systemui/screenshot/ScreenshotDeleteActivity;->mImageFilePath:Ljava/lang/String;
+    iget-object v5, p0, Lcom/android/systemui/screenshot/ScreenshotDeleteActivity;->mImageFilePath:Ljava/lang/String;
 
-    invoke-direct {v2, v3}, Ljava/io/File;-><init>(Ljava/lang/String;)V
+    invoke-direct {v4, v5}, Ljava/io/File;-><init>(Ljava/lang/String;)V
 
-    iput-object v2, p0, Lcom/android/systemui/screenshot/ScreenshotDeleteActivity;->mDeleteFile:Ljava/io/File;
+    iput-object v4, p0, Lcom/android/systemui/screenshot/ScreenshotDeleteActivity;->mDeleteFile:Ljava/io/File;
 
-    .line 85
-    iget-object v2, p0, Lcom/android/systemui/screenshot/ScreenshotDeleteActivity;->mDeleteFile:Ljava/io/File;
+    .line 76
+    iget-object v4, p0, Lcom/android/systemui/screenshot/ScreenshotDeleteActivity;->mDeleteFile:Ljava/io/File;
 
-    invoke-virtual {v2}, Ljava/io/File;->exists()Z
+    invoke-virtual {v4}, Ljava/io/File;->exists()Z
 
-    move-result v2
+    move-result v4
 
-    if-nez v2, :cond_0
+    if-nez v4, :cond_0
 
-    .line 86
-    invoke-virtual {p0}, Lcom/android/systemui/screenshot/ScreenshotDeleteActivity;->getBaseContext()Landroid/content/Context;
+    .line 77
+    invoke-virtual {p0}, Landroid/content/ContextWrapper;->getBaseContext()Landroid/content/Context;
 
-    move-result-object v2
+    move-result-object v4
 
-    const v3, 0x7f0c0143
+    const v5, 0x7f0a0154
 
-    invoke-static {v2, v3, v5}, Landroid/widget/Toast;->makeText(Landroid/content/Context;II)Landroid/widget/Toast;
+    const/4 v6, 0x0
 
-    move-result-object v2
+    invoke-static {v4, v5, v6}, Landroid/widget/Toast;->makeText(Landroid/content/Context;II)Landroid/widget/Toast;
 
-    invoke-virtual {v2}, Landroid/widget/Toast;->show()V
+    move-result-object v4
 
-    .line 88
-    const-string v2, "notification"
+    invoke-virtual {v4}, Landroid/widget/Toast;->show()V
 
-    invoke-virtual {p0, v2}, Lcom/android/systemui/screenshot/ScreenshotDeleteActivity;->getSystemService(Ljava/lang/String;)Ljava/lang/Object;
+    .line 79
+    const-string v4, "notification"
+
+    invoke-virtual {p0, v4}, Landroid/app/Activity;->getSystemService(Ljava/lang/String;)Ljava/lang/Object;
 
     move-result-object v1
 
     check-cast v1, Landroid/app/NotificationManager;
 
-    .line 89
+    .line 80
     .local v1, notificationManager:Landroid/app/NotificationManager;
-    const/16 v2, 0x315
+    const/16 v4, 0x315
 
-    invoke-virtual {v1, v2}, Landroid/app/NotificationManager;->cancel(I)V
+    invoke-virtual {v1, v4}, Landroid/app/NotificationManager;->cancel(I)V
 
-    .line 90
-    invoke-virtual {p0}, Lcom/android/systemui/screenshot/ScreenshotDeleteActivity;->finish()V
+    .line 81
+    invoke-virtual {p0}, Landroid/app/Activity;->finish()V
 
-    .line 102
+    .line 142
     .end local v1           #notificationManager:Landroid/app/NotificationManager;
     :goto_0
     return-void
 
-    .line 95
+    .line 85
     :cond_0
-    const-string v2, "android.intent.action.DELETE"
+    invoke-virtual {p0}, Landroid/view/ContextThemeWrapper;->getResources()Landroid/content/res/Resources;
+
+    move-result-object v2
+
+    .line 86
+    .local v2, r:Landroid/content/res/Resources;
+    const v3, 0x103033a
+
+    .line 87
+    .local v3, theme:I
+    sget-boolean v4, Lcom/android/systemui/statusbar/BaseStatusBar;->isLightTheme:Z
+
+    if-eqz v4, :cond_1
+
+    .line 88
+    const v3, 0x103033b
+
+    .line 90
+    :cond_1
+    new-instance v4, Landroid/app/AlertDialog$Builder;
+
+    invoke-direct {v4, p0, v3}, Landroid/app/AlertDialog$Builder;-><init>(Landroid/content/Context;I)V
+
+    const v5, 0x104064c
+
+    invoke-virtual {v2, v5}, Landroid/content/res/Resources;->getString(I)Ljava/lang/String;
+
+    move-result-object v5
+
+    invoke-virtual {v4, v5}, Landroid/app/AlertDialog$Builder;->setTitle(Ljava/lang/CharSequence;)Landroid/app/AlertDialog$Builder;
+
+    move-result-object v4
+
+    const v5, 0x7f0a0047
+
+    invoke-virtual {v2, v5}, Landroid/content/res/Resources;->getString(I)Ljava/lang/String;
+
+    move-result-object v5
+
+    invoke-virtual {v4, v5}, Landroid/app/AlertDialog$Builder;->setMessage(Ljava/lang/CharSequence;)Landroid/app/AlertDialog$Builder;
+
+    move-result-object v4
+
+    const v5, 0x1040013
+
+    invoke-virtual {v2, v5}, Landroid/content/res/Resources;->getString(I)Ljava/lang/String;
+
+    move-result-object v5
+
+    new-instance v6, Lcom/android/systemui/screenshot/ScreenshotDeleteActivity$3;
+
+    invoke-direct {v6, p0}, Lcom/android/systemui/screenshot/ScreenshotDeleteActivity$3;-><init>(Lcom/android/systemui/screenshot/ScreenshotDeleteActivity;)V
+
+    invoke-virtual {v4, v5, v6}, Landroid/app/AlertDialog$Builder;->setPositiveButton(Ljava/lang/CharSequence;Landroid/content/DialogInterface$OnClickListener;)Landroid/app/AlertDialog$Builder;
+
+    move-result-object v4
+
+    const v5, 0x1040009
+
+    invoke-virtual {v2, v5}, Landroid/content/res/Resources;->getString(I)Ljava/lang/String;
+
+    move-result-object v5
+
+    new-instance v6, Lcom/android/systemui/screenshot/ScreenshotDeleteActivity$2;
+
+    invoke-direct {v6, p0}, Lcom/android/systemui/screenshot/ScreenshotDeleteActivity$2;-><init>(Lcom/android/systemui/screenshot/ScreenshotDeleteActivity;)V
+
+    invoke-virtual {v4, v5, v6}, Landroid/app/AlertDialog$Builder;->setNegativeButton(Ljava/lang/CharSequence;Landroid/content/DialogInterface$OnClickListener;)Landroid/app/AlertDialog$Builder;
+
+    move-result-object v4
+
+    new-instance v5, Lcom/android/systemui/screenshot/ScreenshotDeleteActivity$1;
+
+    invoke-direct {v5, p0}, Lcom/android/systemui/screenshot/ScreenshotDeleteActivity$1;-><init>(Lcom/android/systemui/screenshot/ScreenshotDeleteActivity;)V
+
+    invoke-virtual {v4, v5}, Landroid/app/AlertDialog$Builder;->setOnKeyListener(Landroid/content/DialogInterface$OnKeyListener;)Landroid/app/AlertDialog$Builder;
+
+    move-result-object v4
+
+    invoke-virtual {v4}, Landroid/app/AlertDialog$Builder;->create()Landroid/app/AlertDialog;
+
+    move-result-object v4
+
+    iput-object v4, p0, Lcom/android/systemui/screenshot/ScreenshotDeleteActivity;->mAlertDialog:Landroid/app/AlertDialog;
+
+    .line 136
+    const-string v4, "android.intent.action.DELETE"
 
     invoke-virtual {v0}, Landroid/content/Intent;->getAction()Ljava/lang/String;
 
-    move-result-object v3
+    move-result-object v5
 
-    invoke-virtual {v2, v3}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+    invoke-virtual {v4, v5}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
 
-    move-result v2
+    move-result v4
 
-    if-eqz v2, :cond_1
+    if-eqz v4, :cond_2
 
-    .line 96
-    invoke-virtual {p0, v5}, Lcom/android/systemui/screenshot/ScreenshotDeleteActivity;->showDialog(I)V
+    iget-object v4, p0, Lcom/android/systemui/screenshot/ScreenshotDeleteActivity;->mAlertDialog:Landroid/app/AlertDialog;
 
-    goto :goto_0
+    if-eqz v4, :cond_2
 
-    .line 99
-    :cond_1
-    const-string v2, "ScreenshotDeleteActivity"
+    .line 137
+    iget-object v4, p0, Lcom/android/systemui/screenshot/ScreenshotDeleteActivity;->mAlertDialog:Landroid/app/AlertDialog;
 
-    const-string v3, "Fail : Invaild intent action"
-
-    invoke-static {v2, v3}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I
-
-    .line 100
-    invoke-virtual {p0}, Lcom/android/systemui/screenshot/ScreenshotDeleteActivity;->finish()V
-
-    goto :goto_0
-.end method
-
-.method protected onCreateDialog(I)Landroid/app/Dialog;
-    .locals 6
-    .parameter "id"
-
-    .prologue
-    .line 118
-    invoke-virtual {p0}, Lcom/android/systemui/screenshot/ScreenshotDeleteActivity;->getResources()Landroid/content/res/Resources;
-
-    move-result-object v1
-
-    .line 119
-    .local v1, r:Landroid/content/res/Resources;
-    packed-switch p1, :pswitch_data_0
-
-    .line 174
-    const/4 v0, 0x0
-
-    :goto_0
-    return-object v0
-
-    .line 122
-    :pswitch_0
-    const v2, 0x1030332
-
-    .line 123
-    .local v2, theme:I
-    sget-boolean v3, Lcom/android/systemui/statusbar/BaseStatusBar;->isLightTheme:Z
-
-    if-eqz v3, :cond_0
-
-    .line 124
-    const v2, 0x1030333
-
-    .line 127
-    :cond_0
-    new-instance v3, Landroid/app/AlertDialog$Builder;
-
-    invoke-direct {v3, p0, v2}, Landroid/app/AlertDialog$Builder;-><init>(Landroid/content/Context;I)V
-
-    const v4, 0x1040601
-
-    invoke-virtual {v1, v4}, Landroid/content/res/Resources;->getString(I)Ljava/lang/String;
-
-    move-result-object v4
-
-    invoke-virtual {v3, v4}, Landroid/app/AlertDialog$Builder;->setTitle(Ljava/lang/CharSequence;)Landroid/app/AlertDialog$Builder;
-
-    move-result-object v3
-
-    const v4, 0x7f0c0046
-
-    invoke-virtual {v1, v4}, Landroid/content/res/Resources;->getString(I)Ljava/lang/String;
-
-    move-result-object v4
-
-    invoke-virtual {v3, v4}, Landroid/app/AlertDialog$Builder;->setMessage(Ljava/lang/CharSequence;)Landroid/app/AlertDialog$Builder;
-
-    move-result-object v3
-
-    const v4, 0x1040013
-
-    invoke-virtual {v1, v4}, Landroid/content/res/Resources;->getString(I)Ljava/lang/String;
-
-    move-result-object v4
-
-    new-instance v5, Lcom/android/systemui/screenshot/ScreenshotDeleteActivity$3;
-
-    invoke-direct {v5, p0}, Lcom/android/systemui/screenshot/ScreenshotDeleteActivity$3;-><init>(Lcom/android/systemui/screenshot/ScreenshotDeleteActivity;)V
-
-    invoke-virtual {v3, v4, v5}, Landroid/app/AlertDialog$Builder;->setPositiveButton(Ljava/lang/CharSequence;Landroid/content/DialogInterface$OnClickListener;)Landroid/app/AlertDialog$Builder;
-
-    move-result-object v3
-
-    const v4, 0x1040009
-
-    invoke-virtual {v1, v4}, Landroid/content/res/Resources;->getString(I)Ljava/lang/String;
-
-    move-result-object v4
-
-    new-instance v5, Lcom/android/systemui/screenshot/ScreenshotDeleteActivity$2;
-
-    invoke-direct {v5, p0}, Lcom/android/systemui/screenshot/ScreenshotDeleteActivity$2;-><init>(Lcom/android/systemui/screenshot/ScreenshotDeleteActivity;)V
-
-    invoke-virtual {v3, v4, v5}, Landroid/app/AlertDialog$Builder;->setNegativeButton(Ljava/lang/CharSequence;Landroid/content/DialogInterface$OnClickListener;)Landroid/app/AlertDialog$Builder;
-
-    move-result-object v3
-
-    new-instance v4, Lcom/android/systemui/screenshot/ScreenshotDeleteActivity$1;
-
-    invoke-direct {v4, p0}, Lcom/android/systemui/screenshot/ScreenshotDeleteActivity$1;-><init>(Lcom/android/systemui/screenshot/ScreenshotDeleteActivity;)V
-
-    invoke-virtual {v3, v4}, Landroid/app/AlertDialog$Builder;->setOnKeyListener(Landroid/content/DialogInterface$OnKeyListener;)Landroid/app/AlertDialog$Builder;
-
-    move-result-object v3
-
-    invoke-virtual {v3}, Landroid/app/AlertDialog$Builder;->create()Landroid/app/AlertDialog;
-
-    move-result-object v0
-
-    .line 171
-    .local v0, dialog:Landroid/app/AlertDialog;
-    invoke-virtual {v0}, Landroid/app/AlertDialog;->show()V
+    invoke-virtual {v4}, Landroid/app/Dialog;->show()V
 
     goto :goto_0
 
-    .line 119
-    nop
+    .line 139
+    :cond_2
+    const-string v4, "ScreenshotDeleteActivity"
 
-    :pswitch_data_0
-    .packed-switch 0x0
-        :pswitch_0
-    .end packed-switch
+    const-string v5, "Fail : Invaild intent action"
+
+    invoke-static {v4, v5}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 140
+    invoke-virtual {p0}, Landroid/app/Activity;->finish()V
+
+    goto :goto_0
 .end method
 
 .method public onPause(Landroid/os/Bundle;)V
@@ -324,10 +285,10 @@
     .parameter "savedInstanceState"
 
     .prologue
-    .line 114
-    invoke-virtual {p0}, Lcom/android/systemui/screenshot/ScreenshotDeleteActivity;->finish()V
+    .line 154
+    invoke-virtual {p0}, Landroid/app/Activity;->finish()V
 
-    .line 115
+    .line 155
     return-void
 .end method
 
@@ -335,7 +296,7 @@
     .locals 2
 
     .prologue
-    .line 107
+    .line 147
     :try_start_0
     invoke-static {}, Landroid/app/ActivityManagerNative;->getDefault()Landroid/app/IActivityManager;
 
@@ -347,14 +308,14 @@
     :try_end_0
     .catch Landroid/os/RemoteException; {:try_start_0 .. :try_end_0} :catch_0
 
-    .line 110
+    .line 150
     :goto_0
     invoke-super {p0}, Landroid/app/Activity;->onResume()V
 
-    .line 111
+    .line 151
     return-void
 
-    .line 108
+    .line 148
     :catch_0
     move-exception v0
 

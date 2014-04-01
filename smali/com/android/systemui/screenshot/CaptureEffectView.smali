@@ -274,14 +274,14 @@
     invoke-direct {p0}, Lcom/android/systemui/screenshot/CaptureEffectView;->clearCaptureBitmap()V
 
     .line 107
-    invoke-virtual {p0}, Lcom/android/systemui/screenshot/CaptureEffectView;->getAnimation()Landroid/view/animation/Animation;
+    invoke-virtual {p0}, Landroid/view/View;->getAnimation()Landroid/view/animation/Animation;
 
     move-result-object v0
 
     if-eqz v0, :cond_0
 
     .line 108
-    invoke-virtual {p0}, Lcom/android/systemui/screenshot/CaptureEffectView;->clearAnimation()V
+    invoke-virtual {p0}, Landroid/view/View;->clearAnimation()V
 
     .line 110
     :cond_0
@@ -504,7 +504,7 @@
 
     .prologue
     .line 74
-    invoke-virtual {p0}, Lcom/android/systemui/screenshot/CaptureEffectView;->getContext()Landroid/content/Context;
+    invoke-virtual {p0}, Landroid/view/View;->getContext()Landroid/content/Context;
 
     move-result-object v0
 
@@ -559,7 +559,7 @@
 
     invoke-direct {v0, p0}, Lcom/android/systemui/screenshot/CaptureEffectView$CaptureAnimation;-><init>(Lcom/android/systemui/screenshot/CaptureEffectView;)V
 
-    invoke-virtual {p0, v0}, Lcom/android/systemui/screenshot/CaptureEffectView;->startAnimation(Landroid/view/animation/Animation;)V
+    invoke-virtual {p0, v0}, Landroid/view/View;->startAnimation(Landroid/view/animation/Animation;)V
 
     .line 90
     return-void

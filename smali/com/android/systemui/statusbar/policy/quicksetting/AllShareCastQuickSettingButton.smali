@@ -15,15 +15,9 @@
 
 .field private mDisplayManager:Landroid/hardware/display/DisplayManager;
 
-.field private mEDM:Landroid/app/enterprise/EnterpriseDeviceManager;
-
 .field private mIntentReceiver:Landroid/content/BroadcastReceiver;
 
-.field private mRestrictionPolicy:Landroid/app/enterprise/RestrictionPolicy;
-
 .field private final mSettingsObserver:Landroid/database/ContentObserver;
-
-.field private mWfdManager:Lcom/samsung/wfd/WfdManager;
 
 .field private mWifiDisplayOnSetting:Z
 
@@ -32,83 +26,131 @@
 
 # direct methods
 .method public constructor <init>(Landroid/content/Context;)V
-    .locals 9
+    .locals 7
     .parameter "context"
 
     .prologue
-    const/4 v7, 0x0
+    const v1, 0x7f0a00e7
 
     const/4 v2, 0x0
 
-    .line 99
-    const v3, 0x7f0c00de
+    const/4 v5, 0x0
 
-    const v4, 0x7f0201ac
+    .line 57
+    sget-boolean v0, Lcom/android/systemui/statusbar/Feature;->mUseJellyBeanGUI:Z
 
-    const v5, 0x7f0201ab
+    if-nez v0, :cond_0
 
-    const v6, 0x7f0201aa
+    const/4 v0, 0x1
 
-    move-object v0, p0
+    :goto_0
+    invoke-direct {p0, p1, v2, v0}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;-><init>(Landroid/content/Context;Landroid/util/AttributeSet;Z)V
 
-    move-object v1, p1
-
-    move v8, v7
-
-    invoke-direct/range {v0 .. v8}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;-><init>(Landroid/content/Context;Landroid/util/AttributeSet;IIIIII)V
-
-    .line 41
-    iput-object v2, p0, Lcom/android/systemui/statusbar/policy/quicksetting/AllShareCastQuickSettingButton;->mWfdManager:Lcom/samsung/wfd/WfdManager;
-
-    .line 47
-    iput-object v2, p0, Lcom/android/systemui/statusbar/policy/quicksetting/AllShareCastQuickSettingButton;->mDPM:Landroid/app/admin/DevicePolicyManager;
-
-    .line 50
+    .line 36
     iput-object v2, p0, Lcom/android/systemui/statusbar/policy/quicksetting/AllShareCastQuickSettingButton;->mDisplayManager:Landroid/hardware/display/DisplayManager;
 
-    .line 54
+    .line 39
+    iput-object v2, p0, Lcom/android/systemui/statusbar/policy/quicksetting/AllShareCastQuickSettingButton;->mDPM:Landroid/app/admin/DevicePolicyManager;
+
+    .line 41
     new-instance v0, Lcom/android/systemui/statusbar/policy/quicksetting/AllShareCastQuickSettingButton$1;
 
     invoke-direct {v0, p0}, Lcom/android/systemui/statusbar/policy/quicksetting/AllShareCastQuickSettingButton$1;-><init>(Lcom/android/systemui/statusbar/policy/quicksetting/AllShareCastQuickSettingButton;)V
 
     iput-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/AllShareCastQuickSettingButton;->mIntentReceiver:Landroid/content/BroadcastReceiver;
 
-    .line 152
+    .line 87
     new-instance v0, Lcom/android/systemui/statusbar/policy/quicksetting/AllShareCastQuickSettingButton$2;
 
-    new-instance v1, Landroid/os/Handler;
+    new-instance v2, Landroid/os/Handler;
 
-    invoke-direct {v1}, Landroid/os/Handler;-><init>()V
+    invoke-direct {v2}, Landroid/os/Handler;-><init>()V
 
-    invoke-direct {v0, p0, v1}, Lcom/android/systemui/statusbar/policy/quicksetting/AllShareCastQuickSettingButton$2;-><init>(Lcom/android/systemui/statusbar/policy/quicksetting/AllShareCastQuickSettingButton;Landroid/os/Handler;)V
+    invoke-direct {v0, p0, v2}, Lcom/android/systemui/statusbar/policy/quicksetting/AllShareCastQuickSettingButton$2;-><init>(Lcom/android/systemui/statusbar/policy/quicksetting/AllShareCastQuickSettingButton;Landroid/os/Handler;)V
 
     iput-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/AllShareCastQuickSettingButton;->mSettingsObserver:Landroid/database/ContentObserver;
 
-    .line 106
-    invoke-virtual {p0, p0}, Lcom/android/systemui/statusbar/policy/quicksetting/AllShareCastQuickSettingButton;->setListener(Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton$Listener;)V
+    .line 59
+    sget-boolean v0, Lcom/android/systemui/statusbar/Feature;->mUseJellyBeanGUI:Z
 
-    .line 108
+    if-eqz v0, :cond_1
+
+    .line 60
+    const v2, 0x7f0201b0
+
+    const v3, 0x7f0201af
+
+    const v4, 0x7f0201ae
+
+    move-object v0, p0
+
+    move v6, v5
+
+    invoke-virtual/range {v0 .. v6}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->initLayout(IIIIII)V
+
+    .line 70
+    :goto_1
+    invoke-virtual {p0, p0}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->setListener(Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton$Listener;)V
+
+    .line 71
     return-void
+
+    :cond_0
+    move v0, v5
+
+    .line 57
+    goto :goto_0
+
+    .line 67
+    :cond_1
+    const v0, 0x7f0201b1
+
+    invoke-virtual {p0, v1, v0}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->initLayout(II)V
+
+    goto :goto_1
 .end method
 
-.method static synthetic access$000(Lcom/android/systemui/statusbar/policy/quicksetting/AllShareCastQuickSettingButton;)Lcom/samsung/wfd/WfdManager;
+.method static synthetic access$000(Lcom/android/systemui/statusbar/policy/quicksetting/AllShareCastQuickSettingButton;)Landroid/hardware/display/WifiDisplayStatus;
     .locals 1
     .parameter "x0"
 
     .prologue
-    .line 38
-    iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/AllShareCastQuickSettingButton;->mWfdManager:Lcom/samsung/wfd/WfdManager;
+    .line 31
+    iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/AllShareCastQuickSettingButton;->mWifiDisplayStatus:Landroid/hardware/display/WifiDisplayStatus;
 
     return-object v0
 .end method
 
-.method static synthetic access$100(Lcom/android/systemui/statusbar/policy/quicksetting/AllShareCastQuickSettingButton;I)I
+.method static synthetic access$002(Lcom/android/systemui/statusbar/policy/quicksetting/AllShareCastQuickSettingButton;Landroid/hardware/display/WifiDisplayStatus;)Landroid/hardware/display/WifiDisplayStatus;
+    .locals 0
+    .parameter "x0"
+    .parameter "x1"
+
+    .prologue
+    .line 31
+    iput-object p1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/AllShareCastQuickSettingButton;->mWifiDisplayStatus:Landroid/hardware/display/WifiDisplayStatus;
+
+    return-object p1
+.end method
+
+.method static synthetic access$100(Lcom/android/systemui/statusbar/policy/quicksetting/AllShareCastQuickSettingButton;)Landroid/hardware/display/DisplayManager;
+    .locals 1
+    .parameter "x0"
+
+    .prologue
+    .line 31
+    iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/AllShareCastQuickSettingButton;->mDisplayManager:Landroid/hardware/display/DisplayManager;
+
+    return-object v0
+.end method
+
+.method static synthetic access$200(Lcom/android/systemui/statusbar/policy/quicksetting/AllShareCastQuickSettingButton;I)I
     .locals 1
     .parameter "x0"
     .parameter "x1"
 
     .prologue
-    .line 38
+    .line 31
     invoke-direct {p0, p1}, Lcom/android/systemui/statusbar/policy/quicksetting/AllShareCastQuickSettingButton;->handleStateChanged(I)I
 
     move-result v0
@@ -116,12 +158,12 @@
     return v0
 .end method
 
-.method static synthetic access$200(Lcom/android/systemui/statusbar/policy/quicksetting/AllShareCastQuickSettingButton;)V
+.method static synthetic access$300(Lcom/android/systemui/statusbar/policy/quicksetting/AllShareCastQuickSettingButton;)V
     .locals 0
     .parameter "x0"
 
     .prologue
-    .line 38
+    .line 31
     invoke-direct {p0}, Lcom/android/systemui/statusbar/policy/quicksetting/AllShareCastQuickSettingButton;->update()V
 
     return-void
@@ -132,17 +174,12 @@
     .parameter "intentFilter"
 
     .prologue
-    .line 147
-    const-string v0, "com.samsung.wfd.STATE_CHANGED"
+    .line 84
+    const-string v0, "android.hardware.display.action.WIFI_DISPLAY_STATUS_CHANGED"
 
     invoke-virtual {p1, v0}, Landroid/content/IntentFilter;->addAction(Ljava/lang/String;)V
 
-    .line 148
-    const-string v0, "android.net.wifi.p2p.STATE_CHANGED"
-
-    invoke-virtual {p1, v0}, Landroid/content/IntentFilter;->addAction(Ljava/lang/String;)V
-
-    .line 150
+    .line 85
     return-void
 .end method
 
@@ -151,14 +188,14 @@
     .parameter "state"
 
     .prologue
-    .line 122
+    .line 74
     const-string v0, "STATUSBAR-AllShareCastQuickSettingButton"
 
     new-instance v1, Ljava/lang/StringBuilder;
 
     invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
 
-    const-string v2, "WfdManager handleStateChanged state = "
+    const-string v2, "DisplayManager handleStateChanged state = "
 
     invoke-virtual {v1, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
@@ -174,76 +211,20 @@
 
     invoke-static {v0, v1}, Landroid/util/secutil/Log;->secD(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 124
-    packed-switch p1, :pswitch_data_0
+    .line 75
+    const/4 v0, 0x3
 
-    .line 136
-    const/4 v0, 0x0
+    if-ne p1, v0, :cond_0
 
+    .line 76
+    const/4 v0, 0x1
+
+    .line 79
     :goto_0
     return v0
 
-    .line 129
-    :pswitch_0
-    const/4 v0, 0x1
-
-    goto :goto_0
-
-    .line 134
-    :pswitch_1
-    const/4 v0, 0x2
-
-    goto :goto_0
-
-    .line 124
-    nop
-
-    :pswitch_data_0
-    .packed-switch -0x1
-        :pswitch_1
-        :pswitch_1
-        :pswitch_1
-        :pswitch_0
-        :pswitch_0
-        :pswitch_0
-        :pswitch_0
-    .end packed-switch
-.end method
-
-.method private isSideSyncRunning()Z
-    .locals 5
-
-    .prologue
-    const/4 v1, 0x1
-
-    .line 204
-    const/4 v0, -0x1
-
-    .line 205
-    .local v0, isSideSync:I
-    iget-object v2, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->mContext:Landroid/content/Context;
-
-    invoke-virtual {v2}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
-
-    move-result-object v2
-
-    const-string v3, "PSS_SERVICE_CONNECTED"
-
-    const/4 v4, -0x1
-
-    invoke-static {v2, v3, v4}, Landroid/provider/Settings$System;->getInt(Landroid/content/ContentResolver;Ljava/lang/String;I)I
-
-    move-result v0
-
-    .line 206
-    if-ne v0, v1, :cond_0
-
-    .line 209
-    :goto_0
-    return v1
-
     :cond_0
-    const/4 v1, 0x0
+    const/4 v0, 0x2
 
     goto :goto_0
 .end method
@@ -254,8 +235,8 @@
     .prologue
     const/4 v0, 0x0
 
-    .line 161
-    iget-object v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->mContext:Landroid/content/Context;
+    .line 96
+    iget-object v1, p0, Landroid/view/View;->mContext:Landroid/content/Context;
 
     invoke-virtual {v1}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
 
@@ -274,7 +255,7 @@
     :cond_0
     iput-boolean v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/AllShareCastQuickSettingButton;->mWifiDisplayOnSetting:Z
 
-    .line 163
+    .line 98
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/AllShareCastQuickSettingButton;->mDisplayManager:Landroid/hardware/display/DisplayManager;
 
     invoke-virtual {v0}, Landroid/hardware/display/DisplayManager;->getWifiDisplayStatus()Landroid/hardware/display/WifiDisplayStatus;
@@ -283,7 +264,7 @@
 
     iput-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/AllShareCastQuickSettingButton;->mWifiDisplayStatus:Landroid/hardware/display/WifiDisplayStatus;
 
-    .line 164
+    .line 99
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/AllShareCastQuickSettingButton;->mWifiDisplayStatus:Landroid/hardware/display/WifiDisplayStatus;
 
     invoke-virtual {v0}, Landroid/hardware/display/WifiDisplayStatus;->getFeatureState()I
@@ -294,9 +275,9 @@
 
     move-result v0
 
-    invoke-virtual {p0, v0}, Lcom/android/systemui/statusbar/policy/quicksetting/AllShareCastQuickSettingButton;->setActivateStatus(I)V
+    invoke-virtual {p0, v0}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->setActivateStatus(I)V
 
-    .line 165
+    .line 100
     return-void
 .end method
 
@@ -306,71 +287,98 @@
     .locals 2
 
     .prologue
-    .line 199
-    iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->mContext:Landroid/content/Context;
+    .line 119
+    iget-object v0, p0, Landroid/view/View;->mContext:Landroid/content/Context;
+
+    invoke-virtual {v0}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
+
+    move-result-object v0
+
+    iget-object v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/AllShareCastQuickSettingButton;->mSettingsObserver:Landroid/database/ContentObserver;
+
+    invoke-virtual {v0, v1}, Landroid/content/ContentResolver;->unregisterContentObserver(Landroid/database/ContentObserver;)V
+
+    .line 120
+    iget-object v0, p0, Landroid/view/View;->mContext:Landroid/content/Context;
 
     iget-object v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/AllShareCastQuickSettingButton;->mIntentReceiver:Landroid/content/BroadcastReceiver;
 
     invoke-virtual {v0, v1}, Landroid/content/Context;->unregisterReceiver(Landroid/content/BroadcastReceiver;)V
 
-    .line 201
+    .line 121
     return-void
 .end method
 
 .method public init()V
-    .locals 4
+    .locals 5
 
     .prologue
     const/4 v3, 0x0
 
-    .line 168
-    invoke-virtual {p0, p0}, Lcom/android/systemui/statusbar/policy/quicksetting/AllShareCastQuickSettingButton;->setListener(Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton$Listener;)V
+    .line 103
+    invoke-virtual {p0, p0}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->setListener(Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton$Listener;)V
 
-    .line 169
-    const-string v1, "STATUSBAR-AllShareCastQuickSettingButton"
-
-    const-string v2, "init SecProductFeature_WLAN.SEC_PRODUCT_FEATURE_WLAN_WIFIDISPLAY_OLD:true"
-
-    invoke-static {v1, v2}, Landroid/util/secutil/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
-
-    .line 171
+    .line 105
     new-instance v0, Landroid/content/IntentFilter;
 
     invoke-direct {v0}, Landroid/content/IntentFilter;-><init>()V
 
-    .line 172
+    .line 106
     .local v0, intentFilter:Landroid/content/IntentFilter;
     invoke-direct {p0, v0}, Lcom/android/systemui/statusbar/policy/quicksetting/AllShareCastQuickSettingButton;->addActionsTo(Landroid/content/IntentFilter;)V
 
-    .line 173
-    iget-object v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->mContext:Landroid/content/Context;
+    .line 107
+    iget-object v1, p0, Landroid/view/View;->mContext:Landroid/content/Context;
 
     iget-object v2, p0, Lcom/android/systemui/statusbar/policy/quicksetting/AllShareCastQuickSettingButton;->mIntentReceiver:Landroid/content/BroadcastReceiver;
 
     invoke-virtual {v1, v2, v0, v3, v3}, Landroid/content/Context;->registerReceiver(Landroid/content/BroadcastReceiver;Landroid/content/IntentFilter;Ljava/lang/String;Landroid/os/Handler;)Landroid/content/Intent;
 
-    .line 186
-    iget-object v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->mContext:Landroid/content/Context;
+    .line 109
+    iget-object v1, p0, Landroid/view/View;->mContext:Landroid/content/Context;
 
-    const-string v2, "wfd"
+    const-string v2, "display"
 
     invoke-virtual {v1, v2}, Landroid/content/Context;->getSystemService(Ljava/lang/String;)Ljava/lang/Object;
 
     move-result-object v1
 
-    check-cast v1, Lcom/samsung/wfd/WfdManager;
+    check-cast v1, Landroid/hardware/display/DisplayManager;
 
-    iput-object v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/AllShareCastQuickSettingButton;->mWfdManager:Lcom/samsung/wfd/WfdManager;
+    iput-object v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/AllShareCastQuickSettingButton;->mDisplayManager:Landroid/hardware/display/DisplayManager;
 
-    .line 188
-    iget-object v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/AllShareCastQuickSettingButton;->mWfdManager:Lcom/samsung/wfd/WfdManager;
+    .line 110
+    iget-object v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/AllShareCastQuickSettingButton;->mDisplayManager:Landroid/hardware/display/DisplayManager;
 
     if-eqz v1, :cond_0
 
-    .line 189
-    iget-object v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/AllShareCastQuickSettingButton;->mWfdManager:Lcom/samsung/wfd/WfdManager;
+    .line 111
+    iget-object v1, p0, Landroid/view/View;->mContext:Landroid/content/Context;
 
-    invoke-virtual {v1}, Lcom/samsung/wfd/WfdManager;->getWfdState()I
+    invoke-virtual {v1}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
+
+    move-result-object v1
+
+    const-string v2, "wifi_display_on"
+
+    invoke-static {v2}, Landroid/provider/Settings$Secure;->getUriFor(Ljava/lang/String;)Landroid/net/Uri;
+
+    move-result-object v2
+
+    const/4 v3, 0x0
+
+    iget-object v4, p0, Lcom/android/systemui/statusbar/policy/quicksetting/AllShareCastQuickSettingButton;->mSettingsObserver:Landroid/database/ContentObserver;
+
+    invoke-virtual {v1, v2, v3, v4}, Landroid/content/ContentResolver;->registerContentObserver(Landroid/net/Uri;ZLandroid/database/ContentObserver;)V
+
+    .line 114
+    iget-object v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/AllShareCastQuickSettingButton;->mDisplayManager:Landroid/hardware/display/DisplayManager;
+
+    invoke-virtual {v1}, Landroid/hardware/display/DisplayManager;->getWifiDisplayStatus()Landroid/hardware/display/WifiDisplayStatus;
+
+    move-result-object v1
+
+    invoke-virtual {v1}, Landroid/hardware/display/WifiDisplayStatus;->getFeatureState()I
 
     move-result v1
 
@@ -378,9 +386,9 @@
 
     move-result v1
 
-    invoke-virtual {p0, v1}, Lcom/android/systemui/statusbar/policy/quicksetting/AllShareCastQuickSettingButton;->setActivateStatus(I)V
+    invoke-virtual {p0, v1}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->setActivateStatus(I)V
 
-    .line 192
+    .line 116
     :cond_0
     return-void
 .end method
@@ -394,7 +402,7 @@
 
     const/4 v4, 0x0
 
-    .line 213
+    .line 124
     const-string v1, "STATUSBAR-AllShareCastQuickSettingButton"
 
     new-instance v2, Ljava/lang/StringBuilder;
@@ -417,60 +425,94 @@
 
     invoke-static {v1, v2}, Landroid/util/secutil/Log;->secD(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 216
-    iget-object v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->mContext:Landroid/content/Context;
-
-    const-string v2, "enterprise_policy"
-
-    invoke-virtual {v1, v2}, Landroid/content/Context;->getSystemService(Ljava/lang/String;)Ljava/lang/Object;
-
-    move-result-object v1
-
-    check-cast v1, Landroid/app/enterprise/EnterpriseDeviceManager;
-
-    iput-object v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/AllShareCastQuickSettingButton;->mEDM:Landroid/app/enterprise/EnterpriseDeviceManager;
-
-    .line 217
-    iget-object v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/AllShareCastQuickSettingButton;->mEDM:Landroid/app/enterprise/EnterpriseDeviceManager;
-
-    invoke-virtual {v1}, Landroid/app/enterprise/EnterpriseDeviceManager;->getRestrictionPolicy()Landroid/app/enterprise/RestrictionPolicy;
-
-    move-result-object v1
-
-    iput-object v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/AllShareCastQuickSettingButton;->mRestrictionPolicy:Landroid/app/enterprise/RestrictionPolicy;
-
-    .line 218
-    iget-object v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/AllShareCastQuickSettingButton;->mRestrictionPolicy:Landroid/app/enterprise/RestrictionPolicy;
-
-    invoke-virtual {v1, v4}, Landroid/app/enterprise/RestrictionPolicy;->isSettingsChangesAllowed(Z)Z
-
-    move-result v1
-
-    if-eqz v1, :cond_0
-
-    iget-object v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/AllShareCastQuickSettingButton;->mRestrictionPolicy:Landroid/app/enterprise/RestrictionPolicy;
-
-    invoke-virtual {v1, v4}, Landroid/app/enterprise/RestrictionPolicy;->isWiFiEnabled(Z)Z
-
-    move-result v1
+    .line 126
+    iget-object v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/AllShareCastQuickSettingButton;->mDisplayManager:Landroid/hardware/display/DisplayManager;
 
     if-nez v1, :cond_1
 
-    .line 219
-    :cond_0
+    .line 127
     const-string v1, "STATUSBAR-AllShareCastQuickSettingButton"
 
-    const-string v2, "onClick(): AllShare state change is not allowed"
+    const-string v2, "mDisplayManager is null"
 
-    invoke-static {v1, v2}, Landroid/util/secutil/Log;->secW(Ljava/lang/String;Ljava/lang/String;)I
+    invoke-static {v1, v2}, Landroid/util/secutil/Log;->secD(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 298
+    .line 159
+    :cond_0
     :goto_0
     return-void
 
-    .line 224
+    .line 131
     :cond_1
-    iget-object v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->mContext:Landroid/content/Context;
+    if-eqz p1, :cond_4
+
+    .line 132
+    const-string v1, "STATUSBAR-AllShareCastQuickSettingButton"
+
+    const-string v2, "Enable Wifi display"
+
+    invoke-static {v1, v2}, Landroid/util/secutil/Log;->secD(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 134
+    const-string v1, "wlan.wfd.settingontop"
+
+    const-string v2, "0"
+
+    invoke-static {v1, v2}, Landroid/os/SystemProperties;->get(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v1
+
+    const-string v2, "0"
+
+    invoke-virtual {v1, v2}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+
+    move-result v1
+
+    if-eqz v1, :cond_3
+
+    .line 136
+    new-instance v0, Landroid/content/Intent;
+
+    const-string v1, "com.samsung.wfd.LAUNCH_WFD_PICKER_DLG"
+
+    invoke-direct {v0, v1}, Landroid/content/Intent;-><init>(Ljava/lang/String;)V
+
+    .line 137
+    .local v0, intent:Landroid/content/Intent;
+    const-string v1, "show_dialog_once"
+
+    invoke-virtual {v0, v1, v5}, Landroid/content/Intent;->putExtra(Ljava/lang/String;Z)Landroid/content/Intent;
+
+    .line 138
+    const-string v1, "tag_write_if_success"
+
+    invoke-virtual {v0, v1, v4}, Landroid/content/Intent;->putExtra(Ljava/lang/String;Z)Landroid/content/Intent;
+
+    .line 139
+    const/high16 v1, 0x1080
+
+    invoke-virtual {v0, v1}, Landroid/content/Intent;->addFlags(I)Landroid/content/Intent;
+
+    .line 141
+    iget-object v1, p0, Landroid/view/View;->mContext:Landroid/content/Context;
+
+    sget-object v2, Landroid/os/UserHandle;->CURRENT:Landroid/os/UserHandle;
+
+    invoke-virtual {v1, v0, v2}, Landroid/content/Context;->startActivityAsUser(Landroid/content/Intent;Landroid/os/UserHandle;)V
+
+    .line 142
+    const/4 v1, 0x2
+
+    invoke-direct {p0, v1}, Lcom/android/systemui/statusbar/policy/quicksetting/AllShareCastQuickSettingButton;->handleStateChanged(I)I
+
+    move-result v1
+
+    invoke-virtual {p0, v1}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->setActivateStatus(I)V
+
+    .line 154
+    .end local v0           #intent:Landroid/content/Intent;
+    :goto_1
+    iget-object v1, p0, Landroid/view/View;->mContext:Landroid/content/Context;
 
     invoke-virtual {v1}, Landroid/content/Context;->getApplicationContext()Landroid/content/Context;
 
@@ -486,11 +528,7 @@
 
     iput-object v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/AllShareCastQuickSettingButton;->mDPM:Landroid/app/admin/DevicePolicyManager;
 
-    .line 262
-    iget-object v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/AllShareCastQuickSettingButton;->mWfdManager:Lcom/samsung/wfd/WfdManager;
-
-    if-eqz v1, :cond_2
-
+    .line 156
     iget-object v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/AllShareCastQuickSettingButton;->mDPM:Landroid/app/admin/DevicePolicyManager;
 
     if-eqz v1, :cond_2
@@ -503,141 +541,107 @@
 
     move-result v1
 
-    if-nez v1, :cond_2
+    if-eqz v1, :cond_0
 
-    .line 263
-    const-string v1, "STATUSBAR-AllShareCastQuickSettingButton"
-
-    const-string v2, "onClick(): Screen Mirroring state change is not allowed, DPM"
-
-    invoke-static {v1, v2}, Landroid/util/secutil/Log;->secW(Ljava/lang/String;Ljava/lang/String;)I
-
-    .line 264
-    iget-object v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/AllShareCastQuickSettingButton;->mWfdManager:Lcom/samsung/wfd/WfdManager;
-
-    invoke-virtual {v1, v5}, Lcom/samsung/wfd/WfdManager;->setWfdEnabledDialog(Z)Z
-
-    .line 265
-    iget-object v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/AllShareCastQuickSettingButton;->mWfdManager:Lcom/samsung/wfd/WfdManager;
-
-    invoke-virtual {v1}, Lcom/samsung/wfd/WfdManager;->setWfdTerminate()Z
-
-    goto :goto_0
-
-    .line 269
+    .line 158
     :cond_2
-    iget-object v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/AllShareCastQuickSettingButton;->mWfdManager:Lcom/samsung/wfd/WfdManager;
-
-    if-nez v1, :cond_3
-
-    .line 270
-    const-string v1, "STATUSBAR-AllShareCastQuickSettingButton"
-
-    const-string v2, "mWfdManager is null"
-
-    invoke-static {v1, v2}, Landroid/util/secutil/Log;->secD(Ljava/lang/String;Ljava/lang/String;)I
+    invoke-virtual {p0}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->statusBarCollapse()V
 
     goto :goto_0
 
-    .line 275
+    .line 146
     :cond_3
-    if-eqz p1, :cond_5
+    iget-object v1, p0, Landroid/view/View;->mContext:Landroid/content/Context;
 
-    .line 276
-    const-string v1, "STATUSBAR-AllShareCastQuickSettingButton"
+    invoke-virtual {v1}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
 
-    const-string v2, "WFD activate"
+    move-result-object v1
 
-    invoke-static {v1, v2}, Landroid/util/secutil/Log;->secD(Ljava/lang/String;Ljava/lang/String;)I
+    const-string v2, "wifi_display_on"
 
-    .line 278
-    new-instance v0, Landroid/content/Intent;
+    invoke-static {v1, v2, v5}, Landroid/provider/Settings$Global;->putInt(Landroid/content/ContentResolver;Ljava/lang/String;I)Z
 
-    const-string v1, "com.samsung.wfd.LAUNCH_WFD_PICKER_DLG"
+    goto :goto_1
 
-    invoke-direct {v0, v1}, Landroid/content/Intent;-><init>(Ljava/lang/String;)V
-
-    .line 279
-    .local v0, intent:Landroid/content/Intent;
-    const-string v1, "show_dialog_once"
-
-    invoke-virtual {v0, v1, v5}, Landroid/content/Intent;->putExtra(Ljava/lang/String;Z)Landroid/content/Intent;
-
-    .line 280
-    const-string v1, "tag_write_if_success"
-
-    invoke-virtual {v0, v1, v4}, Landroid/content/Intent;->putExtra(Ljava/lang/String;Z)Landroid/content/Intent;
-
-    .line 281
-    const/high16 v1, 0x1080
-
-    invoke-virtual {v0, v1}, Landroid/content/Intent;->addFlags(I)Landroid/content/Intent;
-
-    .line 282
-    iget-object v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/AllShareCastQuickSettingButton;->mWfdManager:Lcom/samsung/wfd/WfdManager;
-
-    invoke-virtual {v1}, Lcom/samsung/wfd/WfdManager;->isWfdEnabledPlayer()Z
-
-    move-result v1
-
-    if-eqz v1, :cond_4
-
-    .line 283
-    const/4 v1, 0x2
-
-    invoke-direct {p0, v1}, Lcom/android/systemui/statusbar/policy/quicksetting/AllShareCastQuickSettingButton;->handleStateChanged(I)I
-
-    move-result v1
-
-    invoke-virtual {p0, v1}, Lcom/android/systemui/statusbar/policy/quicksetting/AllShareCastQuickSettingButton;->setActivateStatus(I)V
-
-    .line 285
+    .line 149
     :cond_4
-    iget-object v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/AllShareCastQuickSettingButton;->mWfdManager:Lcom/samsung/wfd/WfdManager;
-
-    invoke-virtual {v1}, Lcom/samsung/wfd/WfdManager;->setWfdModeAlways()V
-
-    .line 286
-    iget-object v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->mContext:Landroid/content/Context;
-
-    sget-object v2, Landroid/os/UserHandle;->CURRENT:Landroid/os/UserHandle;
-
-    invoke-virtual {v1, v0, v2}, Landroid/content/Context;->startActivityAsUser(Landroid/content/Intent;Landroid/os/UserHandle;)V
-
-    .line 296
-    .end local v0           #intent:Landroid/content/Intent;
-    :goto_1
-    invoke-virtual {p0}, Lcom/android/systemui/statusbar/policy/quicksetting/AllShareCastQuickSettingButton;->statusBarCollapse()V
-
-    goto :goto_0
-
-    .line 289
-    :cond_5
     const-string v1, "STATUSBAR-AllShareCastQuickSettingButton"
 
-    const-string v2, "WFD deactivate()"
+    const-string v2, "Disable wifi display"
 
     invoke-static {v1, v2}, Landroid/util/secutil/Log;->secD(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 290
-    iget-object v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/AllShareCastQuickSettingButton;->mWfdManager:Lcom/samsung/wfd/WfdManager;
+    .line 150
+    iget-object v1, p0, Landroid/view/View;->mContext:Landroid/content/Context;
 
-    invoke-virtual {v1, v4}, Lcom/samsung/wfd/WfdManager;->setWfdEnabledDialog(Z)Z
+    invoke-virtual {v1}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
+
+    move-result-object v1
+
+    const-string v2, "wifi_display_on"
+
+    invoke-static {v1, v2, v4}, Landroid/provider/Settings$Global;->putInt(Landroid/content/ContentResolver;Ljava/lang/String;I)Z
 
     goto :goto_1
 .end method
 
 .method public onLongClick()V
-    .locals 2
+    .locals 3
 
     .prologue
-    .line 306
+    .line 163
+    const-string v0, "wlan.wfd.pickerdialogontop"
+
+    const-string v1, "0"
+
+    invoke-static {v0, v1}, Landroid/os/SystemProperties;->get(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v0
+
+    const-string v1, "1"
+
+    invoke-virtual {v0, v1}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+
+    move-result v0
+
+    if-nez v0, :cond_0
+
+    const-string v0, "wlan.wfd.settingontop"
+
+    const-string v1, "0"
+
+    invoke-static {v0, v1}, Landroid/os/SystemProperties;->get(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v0
+
+    const-string v1, "1"
+
+    invoke-virtual {v0, v1}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+
+    move-result v0
+
+    if-eqz v0, :cond_1
+
+    .line 164
+    :cond_0
+    iget-object v0, p0, Landroid/view/View;->mContext:Landroid/content/Context;
+
+    new-instance v1, Landroid/content/Intent;
+
+    const-string v2, "android.intent.action.DETACH_WIFIDISPLAY_SETTINGS"
+
+    invoke-direct {v1, v2}, Landroid/content/Intent;-><init>(Ljava/lang/String;)V
+
+    invoke-virtual {v0, v1}, Landroid/content/Context;->sendBroadcast(Landroid/content/Intent;)V
+
+    .line 166
+    :cond_1
     const-string v0, "com.android.settings"
 
-    const-string v1, "com.android.settings.Settings$AllShareCastSettingsActivity"
+    const-string v1, "com.android.settings.Settings$WifiDisplaySettingsActivity"
 
-    invoke-virtual {p0, v0, v1}, Lcom/android/systemui/statusbar/policy/quicksetting/AllShareCastQuickSettingButton;->callActivity(Ljava/lang/String;Ljava/lang/String;)V
+    invoke-virtual {p0, v0, v1}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->callActivity(Ljava/lang/String;Ljava/lang/String;)V
 
-    .line 308
+    .line 167
     return-void
 .end method

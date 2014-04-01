@@ -24,7 +24,7 @@
     .parameter
 
     .prologue
-    .line 98
+    .line 92
     iput-object p1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/WifiQuickSettingButton$1;->this$0:Lcom/android/systemui/statusbar/policy/quicksetting/WifiQuickSettingButton;
 
     invoke-direct {p0}, Landroid/content/BroadcastReceiver;-><init>()V
@@ -42,12 +42,12 @@
     .prologue
     const/4 v6, 0x0
 
-    .line 101
+    .line 95
     invoke-virtual {p2}, Landroid/content/Intent;->getAction()Ljava/lang/String;
 
     move-result-object v0
 
-    .line 102
+    .line 96
     .local v0, action:Ljava/lang/String;
     const-string v3, "android.net.wifi.WIFI_STATE_CHANGED"
 
@@ -57,7 +57,7 @@
 
     if-eqz v3, :cond_1
 
-    .line 103
+    .line 97
     const-string v3, "wifi_state"
 
     const/4 v4, 0x4
@@ -66,7 +66,7 @@
 
     move-result v2
 
-    .line 105
+    .line 99
     .local v2, state:I
     const-string v3, "STATUSBAR-WifiQuickSettingButton"
 
@@ -96,7 +96,7 @@
 
     invoke-static {v3, v4}, Landroid/util/secutil/Log;->secD(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 106
+    .line 100
     iget-object v3, p0, Lcom/android/systemui/statusbar/policy/quicksetting/WifiQuickSettingButton$1;->this$0:Lcom/android/systemui/statusbar/policy/quicksetting/WifiQuickSettingButton;
 
     iget-object v4, p0, Lcom/android/systemui/statusbar/policy/quicksetting/WifiQuickSettingButton$1;->this$0:Lcom/android/systemui/statusbar/policy/quicksetting/WifiQuickSettingButton;
@@ -106,9 +106,9 @@
 
     move-result v4
 
-    invoke-virtual {v3, v4}, Lcom/android/systemui/statusbar/policy/quicksetting/WifiQuickSettingButton;->setActivateStatus(I)V
+    invoke-virtual {v3, v4}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->setActivateStatus(I)V
 
-    .line 129
+    .line 123
     .end local v2           #state:I
     :cond_0
     :goto_0
@@ -116,10 +116,10 @@
 
     iput-boolean v6, v3, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->mIsProcessing:Z
 
-    .line 130
+    .line 124
     return-void
 
-    .line 109
+    .line 103
     :cond_1
     const-string v3, "android.net.wifi.WIFI_DIALOG_CANCEL_ACTION"
 
@@ -129,7 +129,7 @@
 
     if-eqz v3, :cond_2
 
-    .line 110
+    .line 104
     const-string v3, "STATUSBAR-WifiQuickSettingButton"
 
     new-instance v4, Ljava/lang/StringBuilder;
@@ -164,7 +164,7 @@
 
     invoke-static {v3, v4}, Landroid/util/secutil/Log;->secW(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 111
+    .line 105
     const-string v3, "called_dialog"
 
     invoke-virtual {p2, v3, v6}, Landroid/content/Intent;->getIntExtra(Ljava/lang/String;I)I
@@ -175,20 +175,20 @@
 
     if-ne v3, v4, :cond_0
 
-    .line 112
+    .line 106
     iget-object v3, p0, Lcom/android/systemui/statusbar/policy/quicksetting/WifiQuickSettingButton$1;->this$0:Lcom/android/systemui/statusbar/policy/quicksetting/WifiQuickSettingButton;
 
     iget-object v4, p0, Lcom/android/systemui/statusbar/policy/quicksetting/WifiQuickSettingButton$1;->this$0:Lcom/android/systemui/statusbar/policy/quicksetting/WifiQuickSettingButton;
 
-    invoke-virtual {v4}, Lcom/android/systemui/statusbar/policy/quicksetting/WifiQuickSettingButton;->getActivateStatus()I
+    invoke-virtual {v4}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->getActivateStatus()I
 
     move-result v4
 
-    invoke-virtual {v3, v4}, Lcom/android/systemui/statusbar/policy/quicksetting/WifiQuickSettingButton;->setActivateStatus(I)V
+    invoke-virtual {v3, v4}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->setActivateStatus(I)V
 
     goto :goto_0
 
-    .line 119
+    .line 113
     :cond_2
     const-string v3, "android.net.wifi.SHOW_INFO_MESSAGE"
 
@@ -198,14 +198,14 @@
 
     if-eqz v3, :cond_0
 
-    .line 120
+    .line 114
     const-string v3, "info_type"
 
     invoke-virtual {p2, v3, v6}, Landroid/content/Intent;->getIntExtra(Ljava/lang/String;I)I
 
     move-result v1
 
-    .line 121
+    .line 115
     .local v1, msgId:I
     const-string v3, "STATUSBAR-WifiQuickSettingButton"
 
@@ -235,7 +235,7 @@
 
     invoke-static {v3, v4}, Landroid/util/secutil/Log;->secD(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 122
+    .line 116
     iget-object v3, p0, Lcom/android/systemui/statusbar/policy/quicksetting/WifiQuickSettingButton$1;->this$0:Lcom/android/systemui/statusbar/policy/quicksetting/WifiQuickSettingButton;
 
     #getter for: Lcom/android/systemui/statusbar/policy/quicksetting/WifiQuickSettingButton;->INFO_TYPE_DPM_WIFI:I
@@ -254,7 +254,7 @@
 
     if-ne v1, v3, :cond_0
 
-    .line 123
+    .line 117
     :cond_3
     const-string v3, "STATUSBAR-WifiQuickSettingButton"
 
@@ -282,7 +282,7 @@
 
     invoke-static {v3, v4}, Landroid/util/secutil/Log;->secD(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 124
+    .line 118
     iget-object v3, p0, Lcom/android/systemui/statusbar/policy/quicksetting/WifiQuickSettingButton$1;->this$0:Lcom/android/systemui/statusbar/policy/quicksetting/WifiQuickSettingButton;
 
     iget-boolean v3, v3, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->mIsProcessing:Z
@@ -293,7 +293,7 @@
 
     const/4 v4, 0x2
 
-    invoke-virtual {v3, v4}, Lcom/android/systemui/statusbar/policy/quicksetting/WifiQuickSettingButton;->setActivateStatus(I)V
+    invoke-virtual {v3, v4}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->setActivateStatus(I)V
 
     goto/16 :goto_0
 .end method

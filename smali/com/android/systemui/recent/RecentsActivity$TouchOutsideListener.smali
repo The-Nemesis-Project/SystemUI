@@ -18,27 +18,27 @@
 
 
 # instance fields
-.field private mPanel:Lcom/android/systemui/statusbar/tablet/StatusBarPanel;
+.field private mPanel:Lcom/android/systemui/statusbar/StatusBarPanel;
 
 .field final synthetic this$0:Lcom/android/systemui/recent/RecentsActivity;
 
 
 # direct methods
-.method public constructor <init>(Lcom/android/systemui/recent/RecentsActivity;Lcom/android/systemui/statusbar/tablet/StatusBarPanel;)V
+.method public constructor <init>(Lcom/android/systemui/recent/RecentsActivity;Lcom/android/systemui/statusbar/StatusBarPanel;)V
     .locals 0
     .parameter
     .parameter "panel"
 
     .prologue
-    .line 100
+    .line 101
     iput-object p1, p0, Lcom/android/systemui/recent/RecentsActivity$TouchOutsideListener;->this$0:Lcom/android/systemui/recent/RecentsActivity;
 
-    invoke-direct/range {p0 .. p0}, Ljava/lang/Object;-><init>()V
-
-    .line 101
-    iput-object p2, p0, Lcom/android/systemui/recent/RecentsActivity$TouchOutsideListener;->mPanel:Lcom/android/systemui/statusbar/tablet/StatusBarPanel;
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
     .line 102
+    iput-object p2, p0, Lcom/android/systemui/recent/RecentsActivity$TouchOutsideListener;->mPanel:Lcom/android/systemui/statusbar/StatusBarPanel;
+
+    .line 103
     return-void
 .end method
 
@@ -50,12 +50,12 @@
     .parameter "ev"
 
     .prologue
-    .line 105
+    .line 106
     invoke-virtual {p2}, Landroid/view/MotionEvent;->getAction()I
 
     move-result v0
 
-    .line 106
+    .line 107
     .local v0, action:I
     const/4 v1, 0x4
 
@@ -63,7 +63,7 @@
 
     if-nez v0, :cond_1
 
-    iget-object v1, p0, Lcom/android/systemui/recent/RecentsActivity$TouchOutsideListener;->mPanel:Lcom/android/systemui/statusbar/tablet/StatusBarPanel;
+    iget-object v1, p0, Lcom/android/systemui/recent/RecentsActivity$TouchOutsideListener;->mPanel:Lcom/android/systemui/statusbar/StatusBarPanel;
 
     invoke-virtual {p2}, Landroid/view/MotionEvent;->getX()F
 
@@ -77,22 +77,22 @@
 
     float-to-int v3, v3
 
-    invoke-interface {v1, v2, v3}, Lcom/android/systemui/statusbar/tablet/StatusBarPanel;->isInContentArea(II)Z
+    invoke-interface {v1, v2, v3}, Lcom/android/systemui/statusbar/StatusBarPanel;->isInContentArea(II)Z
 
     move-result v1
 
     if-nez v1, :cond_1
 
-    .line 109
+    .line 110
     :cond_0
     iget-object v1, p0, Lcom/android/systemui/recent/RecentsActivity$TouchOutsideListener;->this$0:Lcom/android/systemui/recent/RecentsActivity;
 
     invoke-virtual {v1}, Lcom/android/systemui/recent/RecentsActivity;->dismissAndGoHome()V
 
-    .line 110
+    .line 111
     const/4 v1, 0x1
 
-    .line 112
+    .line 113
     :goto_0
     return v1
 

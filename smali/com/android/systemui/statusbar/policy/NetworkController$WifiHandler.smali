@@ -24,7 +24,7 @@
     .parameter
 
     .prologue
-    .line 3605
+    .line 1626
     iput-object p1, p0, Lcom/android/systemui/statusbar/policy/NetworkController$WifiHandler;->this$0:Lcom/android/systemui/statusbar/policy/NetworkController;
 
     invoke-direct {p0}, Landroid/os/Handler;-><init>()V
@@ -39,23 +39,23 @@
     .parameter "msg"
 
     .prologue
-    .line 3608
+    .line 1629
     iget v0, p1, Landroid/os/Message;->what:I
 
     sparse-switch v0, :sswitch_data_0
 
-    .line 3627
+    .line 1648
     :cond_0
     :goto_0
     return-void
 
-    .line 3610
+    .line 1631
     :sswitch_0
     iget v0, p1, Landroid/os/Message;->arg1:I
 
     if-nez v0, :cond_1
 
-    .line 3611
+    .line 1632
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/NetworkController$WifiHandler;->this$0:Lcom/android/systemui/statusbar/policy/NetworkController;
 
     iget-object v0, v0, Lcom/android/systemui/statusbar/policy/NetworkController;->mWifiChannel:Lcom/android/internal/util/AsyncChannel;
@@ -70,7 +70,7 @@
 
     goto :goto_0
 
-    .line 3614
+    .line 1635
     :cond_1
     const-string v0, "StatusBar.NetworkController"
 
@@ -80,7 +80,7 @@
 
     goto :goto_0
 
-    .line 3618
+    .line 1639
     :sswitch_1
     iget v0, p1, Landroid/os/Message;->arg1:I
 
@@ -90,21 +90,21 @@
 
     if-eq v0, v1, :cond_0
 
-    .line 3619
+    .line 1640
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/NetworkController$WifiHandler;->this$0:Lcom/android/systemui/statusbar/policy/NetworkController;
 
     iget v1, p1, Landroid/os/Message;->arg1:I
 
     iput v1, v0, Lcom/android/systemui/statusbar/policy/NetworkController;->mWifiActivity:I
 
-    .line 3620
+    .line 1641
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/NetworkController$WifiHandler;->this$0:Lcom/android/systemui/statusbar/policy/NetworkController;
 
     invoke-virtual {v0}, Lcom/android/systemui/statusbar/policy/NetworkController;->refreshViews()V
 
     goto :goto_0
 
-    .line 3608
+    .line 1629
     nop
 
     :sswitch_data_0

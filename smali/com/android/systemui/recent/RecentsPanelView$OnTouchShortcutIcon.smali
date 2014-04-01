@@ -27,10 +27,10 @@
     .parameter
 
     .prologue
-    .line 1302
+    .line 1283
     iput-object p1, p0, Lcom/android/systemui/recent/RecentsPanelView$OnTouchShortcutIcon;->this$0:Lcom/android/systemui/recent/RecentsPanelView;
 
-    invoke-direct/range {p0 .. p0}, Ljava/lang/Object;-><init>()V
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
     return-void
 .end method
@@ -41,7 +41,7 @@
     .parameter "x1"
 
     .prologue
-    .line 1302
+    .line 1283
     invoke-direct {p0, p1}, Lcom/android/systemui/recent/RecentsPanelView$OnTouchShortcutIcon;-><init>(Lcom/android/systemui/recent/RecentsPanelView;)V
 
     return-void
@@ -55,12 +55,12 @@
     .parameter "event"
 
     .prologue
-    .line 1305
+    .line 1285
     move-object v0, p1
 
     check-cast v0, Landroid/widget/ImageView;
 
-    .line 1307
+    .line 1287
     .local v0, iv:Landroid/widget/ImageView;
     invoke-virtual {p2}, Landroid/view/MotionEvent;->getAction()I
 
@@ -68,7 +68,7 @@
 
     if-nez v1, :cond_0
 
-    .line 1308
+    .line 1288
     invoke-virtual {v0}, Landroid/widget/ImageView;->getDrawable()Landroid/graphics/drawable/Drawable;
 
     move-result-object v1
@@ -77,7 +77,7 @@
 
     invoke-virtual {v1, v2}, Landroid/graphics/drawable/Drawable;->setAlpha(I)V
 
-    .line 1311
+    .line 1291
     :cond_0
     invoke-virtual {p2}, Landroid/view/MotionEvent;->getAction()I
 
@@ -87,7 +87,7 @@
 
     if-ne v1, v2, :cond_1
 
-    .line 1312
+    .line 1292
     invoke-virtual {v0}, Landroid/widget/ImageView;->getDrawable()Landroid/graphics/drawable/Drawable;
 
     move-result-object v1
@@ -96,7 +96,7 @@
 
     invoke-virtual {v1, v2}, Landroid/graphics/drawable/Drawable;->setAlpha(I)V
 
-    .line 1315
+    .line 1295
     :cond_1
     const/4 v1, 0x0
 

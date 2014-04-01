@@ -27,10 +27,10 @@
     .parameter
 
     .prologue
-    .line 1288
+    .line 1393
     iput-object p1, p0, Lcom/android/systemui/power/PowerUI$17;->this$0:Lcom/android/systemui/power/PowerUI;
 
-    invoke-direct/range {p0 .. p0}, Ljava/lang/Object;-><init>()V
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
     return-void
 .end method
@@ -44,16 +44,16 @@
     .prologue
     const/4 v1, 0x0
 
-    .line 1291
+    .line 1396
     iget-object v0, p0, Lcom/android/systemui/power/PowerUI$17;->this$0:Lcom/android/systemui/power/PowerUI;
 
     iput-object v1, v0, Lcom/android/systemui/power/PowerUI;->mWaterDamageDialog:Landroid/app/Dialog;
 
-    .line 1292
+    .line 1397
     iget-object v0, p0, Lcom/android/systemui/power/PowerUI$17;->this$0:Lcom/android/systemui/power/PowerUI;
 
     iput-object v1, v0, Lcom/android/systemui/power/PowerUI;->mWaterDamageTextView:Landroid/widget/TextView;
 
-    .line 1293
+    .line 1398
     return-void
 .end method

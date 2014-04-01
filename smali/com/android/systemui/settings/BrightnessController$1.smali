@@ -25,7 +25,7 @@
     .parameter "x0"
 
     .prologue
-    .line 118
+    .line 114
     iput-object p1, p0, Lcom/android/systemui/settings/BrightnessController$1;->this$0:Lcom/android/systemui/settings/BrightnessController;
 
     invoke-direct {p0, p2}, Lcom/android/systemui/settings/CurrentUserTracker;-><init>(Landroid/content/Context;)V
@@ -40,18 +40,18 @@
     .parameter "newUserId"
 
     .prologue
-    .line 121
+    .line 117
     iget-object v0, p0, Lcom/android/systemui/settings/BrightnessController$1;->this$0:Lcom/android/systemui/settings/BrightnessController;
 
     #calls: Lcom/android/systemui/settings/BrightnessController;->updateMode()V
     invoke-static {v0}, Lcom/android/systemui/settings/BrightnessController;->access$000(Lcom/android/systemui/settings/BrightnessController;)V
 
-    .line 122
+    .line 118
     iget-object v0, p0, Lcom/android/systemui/settings/BrightnessController$1;->this$0:Lcom/android/systemui/settings/BrightnessController;
 
     #calls: Lcom/android/systemui/settings/BrightnessController;->updateSlider()V
     invoke-static {v0}, Lcom/android/systemui/settings/BrightnessController;->access$100(Lcom/android/systemui/settings/BrightnessController;)V
 
-    .line 123
+    .line 119
     return-void
 .end method

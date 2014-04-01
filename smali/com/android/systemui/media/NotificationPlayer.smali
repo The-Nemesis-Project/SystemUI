@@ -77,60 +77,60 @@
     .parameter "tag"
 
     .prologue
-    .line 312
-    invoke-direct/range {p0 .. p0}, Ljava/lang/Object;-><init>()V
+    .line 281
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 79
+    .line 66
     new-instance v0, Ljava/util/LinkedList;
 
     invoke-direct {v0}, Ljava/util/LinkedList;-><init>()V
 
     iput-object v0, p0, Lcom/android/systemui/media/NotificationPlayer;->mCmdQueue:Ljava/util/LinkedList;
 
-    .line 297
+    .line 266
     new-instance v0, Ljava/lang/Object;
 
-    invoke-direct/range {v0 .. v0}, Ljava/lang/Object;-><init>()V
+    invoke-direct {v0}, Ljava/lang/Object;-><init>()V
 
     iput-object v0, p0, Lcom/android/systemui/media/NotificationPlayer;->mCompletionHandlingLock:Ljava/lang/Object;
 
-    .line 300
+    .line 269
     new-instance v0, Ljava/lang/Object;
 
-    invoke-direct/range {v0 .. v0}, Ljava/lang/Object;-><init>()V
+    invoke-direct {v0}, Ljava/lang/Object;-><init>()V
 
     iput-object v0, p0, Lcom/android/systemui/media/NotificationPlayer;->mQueueAudioFocusLock:Ljava/lang/Object;
 
-    .line 305
+    .line 274
     const/4 v0, 0x2
 
     iput v0, p0, Lcom/android/systemui/media/NotificationPlayer;->mState:I
 
-    .line 411
+    .line 380
     new-instance v0, Landroid/os/Binder;
 
     invoke-direct {v0}, Landroid/os/Binder;-><init>()V
 
     iput-object v0, p0, Lcom/android/systemui/media/NotificationPlayer;->mBinder:Landroid/os/IBinder;
 
-    .line 412
+    .line 381
     new-instance v0, Ljava/util/Vector;
 
     invoke-direct {v0}, Ljava/util/Vector;-><init>()V
 
     iput-object v0, p0, Lcom/android/systemui/media/NotificationPlayer;->mOnCompletionListener:Ljava/util/Vector;
 
-    .line 313
+    .line 282
     if-eqz p1, :cond_0
 
-    .line 314
+    .line 283
     iput-object p1, p0, Lcom/android/systemui/media/NotificationPlayer;->mTag:Ljava/lang/String;
 
-    .line 318
+    .line 287
     :goto_0
     return-void
 
-    .line 316
+    .line 285
     :cond_0
     const-string v0, "NotificationPlayer"
 
@@ -144,7 +144,7 @@
     .parameter "x0"
 
     .prologue
-    .line 60
+    .line 47
     iget-object v0, p0, Lcom/android/systemui/media/NotificationPlayer;->mLooper:Landroid/os/Looper;
 
     return-object v0
@@ -156,7 +156,7 @@
     .parameter "x1"
 
     .prologue
-    .line 60
+    .line 47
     iput-object p1, p0, Lcom/android/systemui/media/NotificationPlayer;->mLooper:Landroid/os/Looper;
 
     return-object p1
@@ -167,7 +167,7 @@
     .parameter "x0"
 
     .prologue
-    .line 60
+    .line 47
     iget-object v0, p0, Lcom/android/systemui/media/NotificationPlayer;->mQueueAudioFocusLock:Ljava/lang/Object;
 
     return-object v0
@@ -178,7 +178,7 @@
     .parameter "x0"
 
     .prologue
-    .line 60
+    .line 47
     iget-object v0, p0, Lcom/android/systemui/media/NotificationPlayer;->mAudioManagerWithAudioFocus:Landroid/media/AudioManager;
 
     return-object v0
@@ -190,7 +190,7 @@
     .parameter "x1"
 
     .prologue
-    .line 60
+    .line 47
     iput-object p1, p0, Lcom/android/systemui/media/NotificationPlayer;->mAudioManagerWithAudioFocus:Landroid/media/AudioManager;
 
     return-object p1
@@ -201,7 +201,7 @@
     .parameter "x0"
 
     .prologue
-    .line 60
+    .line 47
     iget-object v0, p0, Lcom/android/systemui/media/NotificationPlayer;->mPlayer:Landroid/media/MediaPlayer;
 
     return-object v0
@@ -213,7 +213,7 @@
     .parameter "x1"
 
     .prologue
-    .line 60
+    .line 47
     iput-object p1, p0, Lcom/android/systemui/media/NotificationPlayer;->mPlayer:Landroid/media/MediaPlayer;
 
     return-object p1
@@ -224,7 +224,7 @@
     .parameter "x0"
 
     .prologue
-    .line 60
+    .line 47
     iget-object v0, p0, Lcom/android/systemui/media/NotificationPlayer;->mTag:Ljava/lang/String;
 
     return-object v0
@@ -235,7 +235,7 @@
     .parameter "x0"
 
     .prologue
-    .line 60
+    .line 47
     iget-object v0, p0, Lcom/android/systemui/media/NotificationPlayer;->mCmdQueue:Ljava/util/LinkedList;
 
     return-object v0
@@ -247,7 +247,7 @@
     .parameter "x1"
 
     .prologue
-    .line 60
+    .line 47
     invoke-direct {p0, p1}, Lcom/android/systemui/media/NotificationPlayer;->startSound(Lcom/android/systemui/media/NotificationPlayer$Command;)V
 
     return-void
@@ -259,7 +259,7 @@
     .parameter "x1"
 
     .prologue
-    .line 60
+    .line 47
     iput-object p1, p0, Lcom/android/systemui/media/NotificationPlayer;->mThread:Lcom/android/systemui/media/NotificationPlayer$CmdThread;
 
     return-object p1
@@ -270,7 +270,7 @@
     .parameter "x0"
 
     .prologue
-    .line 60
+    .line 47
     invoke-direct {p0}, Lcom/android/systemui/media/NotificationPlayer;->releaseWakeLock()V
 
     return-void
@@ -280,17 +280,17 @@
     .locals 1
 
     .prologue
-    .line 399
+    .line 368
     iget-object v0, p0, Lcom/android/systemui/media/NotificationPlayer;->mWakeLock:Landroid/os/PowerManager$WakeLock;
 
     if-eqz v0, :cond_0
 
-    .line 400
+    .line 369
     iget-object v0, p0, Lcom/android/systemui/media/NotificationPlayer;->mWakeLock:Landroid/os/PowerManager$WakeLock;
 
     invoke-virtual {v0}, Landroid/os/PowerManager$WakeLock;->acquire()V
 
-    .line 402
+    .line 371
     :cond_0
     return-void
 .end method
@@ -300,32 +300,32 @@
     .parameter "cmd"
 
     .prologue
-    .line 366
+    .line 335
     iget-object v0, p0, Lcom/android/systemui/media/NotificationPlayer;->mCmdQueue:Ljava/util/LinkedList;
 
     invoke-virtual {v0, p1}, Ljava/util/LinkedList;->add(Ljava/lang/Object;)Z
 
-    .line 367
+    .line 336
     iget-object v0, p0, Lcom/android/systemui/media/NotificationPlayer;->mThread:Lcom/android/systemui/media/NotificationPlayer$CmdThread;
 
     if-nez v0, :cond_0
 
-    .line 368
+    .line 337
     invoke-direct {p0}, Lcom/android/systemui/media/NotificationPlayer;->acquireWakeLock()V
 
-    .line 369
+    .line 338
     new-instance v0, Lcom/android/systemui/media/NotificationPlayer$CmdThread;
 
     invoke-direct {v0, p0}, Lcom/android/systemui/media/NotificationPlayer$CmdThread;-><init>(Lcom/android/systemui/media/NotificationPlayer;)V
 
     iput-object v0, p0, Lcom/android/systemui/media/NotificationPlayer;->mThread:Lcom/android/systemui/media/NotificationPlayer$CmdThread;
 
-    .line 370
+    .line 339
     iget-object v0, p0, Lcom/android/systemui/media/NotificationPlayer;->mThread:Lcom/android/systemui/media/NotificationPlayer$CmdThread;
 
-    invoke-virtual {v0}, Lcom/android/systemui/media/NotificationPlayer$CmdThread;->start()V
+    invoke-virtual {v0}, Ljava/lang/Thread;->start()V
 
-    .line 372
+    .line 341
     :cond_0
     return-void
 .end method
@@ -334,17 +334,17 @@
     .locals 1
 
     .prologue
-    .line 405
+    .line 374
     iget-object v0, p0, Lcom/android/systemui/media/NotificationPlayer;->mWakeLock:Landroid/os/PowerManager$WakeLock;
 
     if-eqz v0, :cond_0
 
-    .line 406
+    .line 375
     iget-object v0, p0, Lcom/android/systemui/media/NotificationPlayer;->mWakeLock:Landroid/os/PowerManager$WakeLock;
 
     invoke-virtual {v0}, Landroid/os/PowerManager$WakeLock;->release()V
 
-    .line 408
+    .line 377
     :cond_0
     return-void
 .end method
@@ -354,7 +354,7 @@
     .parameter "cmd"
 
     .prologue
-    .line 176
+    .line 145
     :try_start_0
     iget-object v4, p0, Lcom/android/systemui/media/NotificationPlayer;->mCompletionHandlingLock:Ljava/lang/Object;
 
@@ -362,7 +362,7 @@
     :try_end_0
     .catch Ljava/lang/Exception; {:try_start_0 .. :try_end_0} :catch_0
 
-    .line 180
+    .line 149
     :try_start_1
     iget-object v3, p0, Lcom/android/systemui/media/NotificationPlayer;->mLooper:Landroid/os/Looper;
 
@@ -382,12 +382,12 @@
 
     if-eq v3, v5, :cond_0
 
-    .line 182
+    .line 151
     iget-object v3, p0, Lcom/android/systemui/media/NotificationPlayer;->mLooper:Landroid/os/Looper;
 
     invoke-virtual {v3}, Landroid/os/Looper;->quit()V
 
-    .line 184
+    .line 153
     :cond_0
     new-instance v3, Lcom/android/systemui/media/NotificationPlayer$CreationAndCompletionThread;
 
@@ -395,36 +395,36 @@
 
     iput-object v3, p0, Lcom/android/systemui/media/NotificationPlayer;->mCompletionThread:Lcom/android/systemui/media/NotificationPlayer$CreationAndCompletionThread;
 
-    .line 185
+    .line 154
     iget-object v5, p0, Lcom/android/systemui/media/NotificationPlayer;->mCompletionThread:Lcom/android/systemui/media/NotificationPlayer$CreationAndCompletionThread;
 
     monitor-enter v5
     :try_end_1
     .catchall {:try_start_1 .. :try_end_1} :catchall_1
 
-    .line 186
+    .line 155
     :try_start_2
     iget-object v3, p0, Lcom/android/systemui/media/NotificationPlayer;->mCompletionThread:Lcom/android/systemui/media/NotificationPlayer$CreationAndCompletionThread;
 
-    invoke-virtual {v3}, Lcom/android/systemui/media/NotificationPlayer$CreationAndCompletionThread;->start()V
+    invoke-virtual {v3}, Ljava/lang/Thread;->start()V
 
-    .line 187
+    .line 156
     iget-object v3, p0, Lcom/android/systemui/media/NotificationPlayer;->mCompletionThread:Lcom/android/systemui/media/NotificationPlayer$CreationAndCompletionThread;
 
     invoke-virtual {v3}, Ljava/lang/Object;->wait()V
 
-    .line 188
+    .line 157
     monitor-exit v5
     :try_end_2
     .catchall {:try_start_2 .. :try_end_2} :catchall_0
 
-    .line 189
+    .line 158
     :try_start_3
     monitor-exit v4
     :try_end_3
     .catchall {:try_start_3 .. :try_end_3} :catchall_1
 
-    .line 192
+    .line 161
     :try_start_4
     invoke-static {}, Landroid/os/SystemClock;->uptimeMillis()J
 
@@ -434,7 +434,7 @@
 
     sub-long v0, v3, v5
 
-    .line 193
+    .line 162
     .local v0, delay:J
     const-wide/16 v3, 0x3e8
 
@@ -442,7 +442,7 @@
 
     if-lez v3, :cond_1
 
-    .line 194
+    .line 163
     iget-object v3, p0, Lcom/android/systemui/media/NotificationPlayer;->mTag:Ljava/lang/String;
 
     new-instance v4, Ljava/lang/StringBuilder;
@@ -473,13 +473,13 @@
     :try_end_4
     .catch Ljava/lang/Exception; {:try_start_4 .. :try_end_4} :catch_0
 
-    .line 200
+    .line 169
     .end local v0           #delay:J
     :cond_1
     :goto_0
     return-void
 
-    .line 188
+    .line 157
     :catchall_0
     move-exception v3
 
@@ -491,7 +491,7 @@
     :try_start_6
     throw v3
 
-    .line 189
+    .line 158
     :catchall_1
     move-exception v3
 
@@ -504,11 +504,11 @@
     :try_end_7
     .catch Ljava/lang/Exception; {:try_start_7 .. :try_end_7} :catch_0
 
-    .line 197
+    .line 166
     :catch_0
     move-exception v2
 
-    .line 198
+    .line 167
     .local v2, e:Ljava/lang/Exception;
     iget-object v3, p0, Lcom/android/systemui/media/NotificationPlayer;->mTag:Ljava/lang/String;
 
@@ -544,41 +544,41 @@
     .parameter "mp"
 
     .prologue
-    .line 263
+    .line 232
     iget-object v3, p0, Lcom/android/systemui/media/NotificationPlayer;->mQueueAudioFocusLock:Ljava/lang/Object;
 
     monitor-enter v3
 
-    .line 264
+    .line 233
     :try_start_0
     iget-object v2, p0, Lcom/android/systemui/media/NotificationPlayer;->mAudioManagerWithAudioFocus:Landroid/media/AudioManager;
 
     if-eqz v2, :cond_0
 
-    .line 266
+    .line 235
     iget-object v2, p0, Lcom/android/systemui/media/NotificationPlayer;->mAudioManagerWithAudioFocus:Landroid/media/AudioManager;
 
     const/4 v4, 0x0
 
     invoke-virtual {v2, v4}, Landroid/media/AudioManager;->abandonAudioFocus(Landroid/media/AudioManager$OnAudioFocusChangeListener;)I
 
-    .line 267
+    .line 236
     const/4 v2, 0x0
 
     iput-object v2, p0, Lcom/android/systemui/media/NotificationPlayer;->mAudioManagerWithAudioFocus:Landroid/media/AudioManager;
 
-    .line 271
+    .line 240
     :cond_0
     monitor-exit v3
     :try_end_0
     .catchall {:try_start_0 .. :try_end_0} :catchall_0
 
-    .line 273
+    .line 242
     iget-object v3, p0, Lcom/android/systemui/media/NotificationPlayer;->mCmdQueue:Ljava/util/LinkedList;
 
     monitor-enter v3
 
-    .line 274
+    .line 243
     :try_start_1
     iget-object v2, p0, Lcom/android/systemui/media/NotificationPlayer;->mCmdQueue:Ljava/util/LinkedList;
 
@@ -588,47 +588,47 @@
 
     if-nez v2, :cond_2
 
-    .line 275
+    .line 244
     iget-object v4, p0, Lcom/android/systemui/media/NotificationPlayer;->mCompletionHandlingLock:Ljava/lang/Object;
 
     monitor-enter v4
     :try_end_1
     .catchall {:try_start_1 .. :try_end_1} :catchall_2
 
-    .line 276
+    .line 245
     :try_start_2
     iget-object v2, p0, Lcom/android/systemui/media/NotificationPlayer;->mLooper:Landroid/os/Looper;
 
     if-eqz v2, :cond_1
 
-    .line 277
+    .line 246
     iget-object v2, p0, Lcom/android/systemui/media/NotificationPlayer;->mLooper:Landroid/os/Looper;
 
     invoke-virtual {v2}, Landroid/os/Looper;->quit()V
 
-    .line 279
+    .line 248
     :cond_1
     const/4 v2, 0x0
 
     iput-object v2, p0, Lcom/android/systemui/media/NotificationPlayer;->mCompletionThread:Lcom/android/systemui/media/NotificationPlayer$CreationAndCompletionThread;
 
-    .line 280
+    .line 249
     monitor-exit v4
     :try_end_2
     .catchall {:try_start_2 .. :try_end_2} :catchall_1
 
-    .line 282
+    .line 251
     :cond_2
     :try_start_3
     monitor-exit v3
     :try_end_3
     .catchall {:try_start_3 .. :try_end_3} :catchall_2
 
-    .line 286
+    .line 255
     :try_start_4
     iget-object v2, p0, Lcom/android/systemui/media/NotificationPlayer;->mOnCompletionListener:Ljava/util/Vector;
 
-    invoke-virtual {v2}, Ljava/util/Vector;->iterator()Ljava/util/Iterator;
+    invoke-virtual {v2}, Ljava/util/AbstractList;->iterator()Ljava/util/Iterator;
 
     move-result-object v0
 
@@ -646,7 +646,7 @@
 
     check-cast v1, Landroid/app/INotificationPlayerOnCompletionListener;
 
-    .line 287
+    .line 256
     .local v1, l:Landroid/app/INotificationPlayerOnCompletionListener;
     invoke-interface {v1}, Landroid/app/INotificationPlayerOnCompletionListener;->onCompletion()V
     :try_end_4
@@ -654,17 +654,17 @@
 
     goto :goto_0
 
-    .line 289
+    .line 258
     .end local v0           #i$:Ljava/util/Iterator;
     .end local v1           #l:Landroid/app/INotificationPlayerOnCompletionListener;
     :catch_0
     move-exception v2
 
-    .line 292
+    .line 261
     :cond_3
     return-void
 
-    .line 271
+    .line 240
     :catchall_0
     move-exception v2
 
@@ -675,7 +675,7 @@
 
     throw v2
 
-    .line 280
+    .line 249
     :catchall_1
     move-exception v2
 
@@ -687,7 +687,7 @@
     :try_start_7
     throw v2
 
-    .line 282
+    .line 251
     :catchall_2
     move-exception v2
 
@@ -708,14 +708,14 @@
     .prologue
     const/4 v3, 0x1
 
-    .line 334
+    .line 303
     new-instance v0, Lcom/android/systemui/media/NotificationPlayer$Command;
 
     const/4 v1, 0x0
 
     invoke-direct {v0, v1}, Lcom/android/systemui/media/NotificationPlayer$Command;-><init>(Lcom/android/systemui/media/NotificationPlayer$1;)V
 
-    .line 335
+    .line 304
     .local v0, cmd:Lcom/android/systemui/media/NotificationPlayer$Command;
     invoke-static {}, Landroid/os/SystemClock;->uptimeMillis()J
 
@@ -723,42 +723,42 @@
 
     iput-wide v1, v0, Lcom/android/systemui/media/NotificationPlayer$Command;->requestTime:J
 
-    .line 336
+    .line 305
     iput v3, v0, Lcom/android/systemui/media/NotificationPlayer$Command;->code:I
 
-    .line 337
+    .line 306
     iput-object p1, v0, Lcom/android/systemui/media/NotificationPlayer$Command;->context:Landroid/content/Context;
 
-    .line 338
+    .line 307
     iput-object p2, v0, Lcom/android/systemui/media/NotificationPlayer$Command;->uri:Landroid/net/Uri;
 
-    .line 339
+    .line 308
     iput-boolean p3, v0, Lcom/android/systemui/media/NotificationPlayer$Command;->looping:Z
 
-    .line 340
+    .line 309
     iput p4, v0, Lcom/android/systemui/media/NotificationPlayer$Command;->stream:I
 
-    .line 341
+    .line 310
     iget-object v2, p0, Lcom/android/systemui/media/NotificationPlayer;->mCmdQueue:Ljava/util/LinkedList;
 
     monitor-enter v2
 
-    .line 342
+    .line 311
     :try_start_0
     invoke-direct {p0, v0}, Lcom/android/systemui/media/NotificationPlayer;->enqueueLocked(Lcom/android/systemui/media/NotificationPlayer$Command;)V
 
-    .line 343
+    .line 312
     const/4 v1, 0x1
 
     iput v1, p0, Lcom/android/systemui/media/NotificationPlayer;->mState:I
 
-    .line 344
+    .line 313
     monitor-exit v2
 
-    .line 345
+    .line 314
     return-void
 
-    .line 344
+    .line 313
     :catchall_0
     move-exception v1
 
@@ -774,12 +774,12 @@
     .parameter "l"
 
     .prologue
-    .line 416
+    .line 385
     iget-object v0, p0, Lcom/android/systemui/media/NotificationPlayer;->mOnCompletionListener:Ljava/util/Vector;
 
     invoke-virtual {v0, p1}, Ljava/util/Vector;->addElement(Ljava/lang/Object;)V
 
-    .line 417
+    .line 386
     iget-object v0, p0, Lcom/android/systemui/media/NotificationPlayer;->mBinder:Landroid/os/IBinder;
 
     return-object v0
@@ -790,7 +790,7 @@
     .parameter "context"
 
     .prologue
-    .line 388
+    .line 357
     iget-object v1, p0, Lcom/android/systemui/media/NotificationPlayer;->mWakeLock:Landroid/os/PowerManager$WakeLock;
 
     if-nez v1, :cond_0
@@ -799,7 +799,7 @@
 
     if-eqz v1, :cond_1
 
-    .line 391
+    .line 360
     :cond_0
     new-instance v1, Ljava/lang/RuntimeException;
 
@@ -839,7 +839,7 @@
 
     throw v1
 
-    .line 394
+    .line 363
     :cond_1
     const-string v1, "power"
 
@@ -849,7 +849,7 @@
 
     check-cast v0, Landroid/os/PowerManager;
 
-    .line 395
+    .line 364
     .local v0, pm:Landroid/os/PowerManager;
     const/4 v1, 0x1
 
@@ -861,7 +861,7 @@
 
     iput-object v1, p0, Lcom/android/systemui/media/NotificationPlayer;->mWakeLock:Landroid/os/PowerManager$WakeLock;
 
-    .line 396
+    .line 365
     return-void
 .end method
 
@@ -871,25 +871,25 @@
     .prologue
     const/4 v3, 0x2
 
-    .line 352
+    .line 321
     iget-object v2, p0, Lcom/android/systemui/media/NotificationPlayer;->mCmdQueue:Ljava/util/LinkedList;
 
     monitor-enter v2
 
-    .line 355
+    .line 324
     :try_start_0
     iget v1, p0, Lcom/android/systemui/media/NotificationPlayer;->mState:I
 
     if-eq v1, v3, :cond_0
 
-    .line 356
+    .line 325
     new-instance v0, Lcom/android/systemui/media/NotificationPlayer$Command;
 
     const/4 v1, 0x0
 
     invoke-direct {v0, v1}, Lcom/android/systemui/media/NotificationPlayer$Command;-><init>(Lcom/android/systemui/media/NotificationPlayer$1;)V
 
-    .line 357
+    .line 326
     .local v0, cmd:Lcom/android/systemui/media/NotificationPlayer$Command;
     invoke-static {}, Landroid/os/SystemClock;->uptimeMillis()J
 
@@ -897,28 +897,28 @@
 
     iput-wide v3, v0, Lcom/android/systemui/media/NotificationPlayer$Command;->requestTime:J
 
-    .line 358
+    .line 327
     const/4 v1, 0x2
 
     iput v1, v0, Lcom/android/systemui/media/NotificationPlayer$Command;->code:I
 
-    .line 359
+    .line 328
     invoke-direct {p0, v0}, Lcom/android/systemui/media/NotificationPlayer;->enqueueLocked(Lcom/android/systemui/media/NotificationPlayer$Command;)V
 
-    .line 360
+    .line 329
     const/4 v1, 0x2
 
     iput v1, p0, Lcom/android/systemui/media/NotificationPlayer;->mState:I
 
-    .line 362
+    .line 331
     .end local v0           #cmd:Lcom/android/systemui/media/NotificationPlayer$Command;
     :cond_0
     monitor-exit v2
 
-    .line 363
+    .line 332
     return-void
 
-    .line 362
+    .line 331
     :catchall_0
     move-exception v1
 

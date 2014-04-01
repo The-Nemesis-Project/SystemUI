@@ -19,10 +19,6 @@
 
 .field private static final TW_TAG:Ljava/lang/String; = "STATUSBAR-ToddlerModeController"
 
-.field private static mPreviousMobileDataState:Z
-
-.field private static mPreviousWifiState:Z
-
 
 # instance fields
 .field private mAlertDialog:Landroid/app/AlertDialog;
@@ -43,57 +39,37 @@
 
 
 # direct methods
-.method static constructor <clinit>()V
-    .locals 1
-
-    .prologue
-    const/4 v0, 0x0
-
-    .line 67
-    sput-boolean v0, Lcom/android/systemui/statusbar/policy/quicksetting/ToddlerModeQuickSettingButton;->mPreviousMobileDataState:Z
-
-    .line 68
-    sput-boolean v0, Lcom/android/systemui/statusbar/policy/quicksetting/ToddlerModeQuickSettingButton;->mPreviousWifiState:Z
-
-    return-void
-.end method
-
 .method public constructor <init>(Landroid/content/Context;)V
-    .locals 10
+    .locals 9
     .parameter "context"
 
     .prologue
-    const/4 v9, 0x1
+    const v1, 0x7f0a00f7
 
-    const/4 v2, 0x0
+    const/4 v7, 0x1
 
-    const/4 v7, 0x0
+    const/4 v8, 0x0
+
+    const/4 v5, 0x0
 
     .line 89
-    const v3, 0x7f0c00ee
+    sget-boolean v0, Lcom/android/systemui/statusbar/Feature;->mUseJellyBeanGUI:Z
 
-    const v4, 0x7f0201f3
+    if-nez v0, :cond_0
 
-    const v5, 0x7f0201f2
+    move v0, v7
 
-    const v6, 0x7f0201f1
-
-    move-object v0, p0
-
-    move-object v1, p1
-
-    move v8, v7
-
-    invoke-direct/range {v0 .. v8}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;-><init>(Landroid/content/Context;Landroid/util/AttributeSet;IIIIII)V
+    :goto_0
+    invoke-direct {p0, p1, v8, v0}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;-><init>(Landroid/content/Context;Landroid/util/AttributeSet;Z)V
 
     .line 72
-    iput-object v2, p0, Lcom/android/systemui/statusbar/policy/quicksetting/ToddlerModeQuickSettingButton;->mService:Landroid/app/StatusBarManager;
+    iput-object v8, p0, Lcom/android/systemui/statusbar/policy/quicksetting/ToddlerModeQuickSettingButton;->mService:Landroid/app/StatusBarManager;
 
     .line 73
-    iput-object v2, p0, Lcom/android/systemui/statusbar/policy/quicksetting/ToddlerModeQuickSettingButton;->mWifiManager:Landroid/net/wifi/WifiManager;
+    iput-object v8, p0, Lcom/android/systemui/statusbar/policy/quicksetting/ToddlerModeQuickSettingButton;->mWifiManager:Landroid/net/wifi/WifiManager;
 
     .line 74
-    iput-object v2, p0, Lcom/android/systemui/statusbar/policy/quicksetting/ToddlerModeQuickSettingButton;->mConnectivityManager:Landroid/net/ConnectivityManager;
+    iput-object v8, p0, Lcom/android/systemui/statusbar/policy/quicksetting/ToddlerModeQuickSettingButton;->mConnectivityManager:Landroid/net/ConnectivityManager;
 
     .line 77
     new-instance v0, Lcom/android/systemui/statusbar/policy/quicksetting/ToddlerModeQuickSettingButton$1;
@@ -102,50 +78,69 @@
 
     iput-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/ToddlerModeQuickSettingButton;->mIntentReceiver:Landroid/content/BroadcastReceiver;
 
-    .line 97
+    .line 91
+    sget-boolean v0, Lcom/android/systemui/statusbar/Feature;->mUseJellyBeanGUI:Z
+
+    if-eqz v0, :cond_1
+
+    .line 92
+    const v2, 0x7f0201d4
+
+    const v3, 0x7f0201d3
+
+    const v4, 0x7f0201d2
+
+    move-object v0, p0
+
+    move v6, v5
+
+    invoke-virtual/range {v0 .. v6}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->initLayout(IIIIII)V
+
+    .line 103
+    :goto_1
     invoke-virtual {p1}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
 
     move-result-object v0
 
     iput-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/ToddlerModeQuickSettingButton;->mContentResolver:Landroid/content/ContentResolver;
 
-    .line 98
+    .line 104
     new-instance v0, Lcom/android/systemui/statusbar/policy/quicksetting/ToddlerModeQuickSettingButton$ToddlerModeObserver;
 
     invoke-direct {v0, p0}, Lcom/android/systemui/statusbar/policy/quicksetting/ToddlerModeQuickSettingButton$ToddlerModeObserver;-><init>(Lcom/android/systemui/statusbar/policy/quicksetting/ToddlerModeQuickSettingButton;)V
 
     iput-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/ToddlerModeQuickSettingButton;->mToddlerModeObserver:Lcom/android/systemui/statusbar/policy/quicksetting/ToddlerModeQuickSettingButton$ToddlerModeObserver;
 
-    .line 99
-    invoke-virtual {p0, p0}, Lcom/android/systemui/statusbar/policy/quicksetting/ToddlerModeQuickSettingButton;->setListener(Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton$Listener;)V
+    .line 105
+    invoke-virtual {p0, p0}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->setListener(Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton$Listener;)V
 
-    .line 101
+    .line 107
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/ToddlerModeQuickSettingButton;->mContentResolver:Landroid/content/ContentResolver;
 
     const-string v1, "toddler_mode_switch"
 
-    const/4 v3, -0x2
+    const/4 v2, -0x2
 
-    invoke-static {v0, v1, v7, v3}, Landroid/provider/Settings$System;->getIntForUser(Landroid/content/ContentResolver;Ljava/lang/String;II)I
+    invoke-static {v0, v1, v5, v2}, Landroid/provider/Settings$System;->getIntForUser(Landroid/content/ContentResolver;Ljava/lang/String;II)I
 
     move-result v0
 
-    if-ne v0, v9, :cond_0
+    if-ne v0, v7, :cond_2
 
-    move v0, v9
+    move v0, v7
 
-    :goto_0
+    :goto_2
     iput-boolean v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/ToddlerModeQuickSettingButton;->mState:Z
 
-    .line 102
+    .line 108
     iget-boolean v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/ToddlerModeQuickSettingButton;->mState:Z
 
-    if-eqz v0, :cond_1
+    if-eqz v0, :cond_3
 
-    :goto_1
-    invoke-virtual {p0, v9}, Lcom/android/systemui/statusbar/policy/quicksetting/ToddlerModeQuickSettingButton;->setActivateStatus(I)V
+    :goto_3
+    invoke-virtual {p0, v7}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->setActivateStatus(I)V
 
-    .line 104
+    .line 110
     const-string v0, "wifi"
 
     invoke-virtual {p1, v0}, Landroid/content/Context;->getSystemService(Ljava/lang/String;)Ljava/lang/Object;
@@ -156,8 +151,8 @@
 
     iput-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/ToddlerModeQuickSettingButton;->mWifiManager:Landroid/net/wifi/WifiManager;
 
-    .line 105
-    iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->mContext:Landroid/content/Context;
+    .line 111
+    iget-object v0, p0, Landroid/view/View;->mContext:Landroid/content/Context;
 
     const-string v1, "connectivity"
 
@@ -169,7 +164,7 @@
 
     iput-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/ToddlerModeQuickSettingButton;->mConnectivityManager:Landroid/net/ConnectivityManager;
 
-    .line 107
+    .line 113
     const-string v0, "statusbar"
 
     invoke-virtual {p1, v0}, Landroid/content/Context;->getSystemService(Ljava/lang/String;)Ljava/lang/Object;
@@ -180,16 +175,16 @@
 
     iput-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/ToddlerModeQuickSettingButton;->mService:Landroid/app/StatusBarManager;
 
-    .line 108
+    .line 114
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/ToddlerModeQuickSettingButton;->mService:Landroid/app/StatusBarManager;
 
     const-string v1, "toddler"
 
-    const v3, 0x7f020141
+    const v2, 0x7f020156
 
-    invoke-virtual {v0, v1, v3, v7, v2}, Landroid/app/StatusBarManager;->setIcon(Ljava/lang/String;IILjava/lang/String;)V
+    invoke-virtual {v0, v1, v2, v5, v8}, Landroid/app/StatusBarManager;->setIcon(Ljava/lang/String;IILjava/lang/String;)V
 
-    .line 109
+    .line 115
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/ToddlerModeQuickSettingButton;->mService:Landroid/app/StatusBarManager;
 
     const-string v1, "toddler"
@@ -198,20 +193,34 @@
 
     invoke-virtual {v0, v1, v2}, Landroid/app/StatusBarManager;->setIconVisibility(Ljava/lang/String;Z)V
 
-    .line 110
+    .line 116
     return-void
 
     :cond_0
-    move v0, v7
+    move v0, v5
 
-    .line 101
+    .line 89
     goto :goto_0
 
-    .line 102
+    .line 99
     :cond_1
-    const/4 v9, 0x2
+    const v0, 0x7f0201bd
+
+    invoke-virtual {p0, v1, v0}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->initLayout(II)V
 
     goto :goto_1
+
+    :cond_2
+    move v0, v5
+
+    .line 107
+    goto :goto_2
+
+    .line 108
+    :cond_3
+    const/4 v7, 0x2
+
+    goto :goto_3
 .end method
 
 .method static synthetic access$000(Lcom/android/systemui/statusbar/policy/quicksetting/ToddlerModeQuickSettingButton;)Landroid/app/AlertDialog;
@@ -219,7 +228,7 @@
     .parameter "x0"
 
     .prologue
-    .line 59
+    .line 62
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/ToddlerModeQuickSettingButton;->mAlertDialog:Landroid/app/AlertDialog;
 
     return-object v0
@@ -230,7 +239,7 @@
     .parameter "x0"
 
     .prologue
-    .line 59
+    .line 62
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/ToddlerModeQuickSettingButton;->mContentResolver:Landroid/content/ContentResolver;
 
     return-object v0
@@ -241,7 +250,7 @@
     .parameter "x0"
 
     .prologue
-    .line 59
+    .line 62
     iget-boolean v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/ToddlerModeQuickSettingButton;->mState:Z
 
     return v0
@@ -253,7 +262,7 @@
     .parameter "x1"
 
     .prologue
-    .line 59
+    .line 62
     iput-boolean p1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/ToddlerModeQuickSettingButton;->mState:Z
 
     return p1
@@ -264,7 +273,7 @@
     .parameter "x0"
 
     .prologue
-    .line 59
+    .line 62
     invoke-direct {p0}, Lcom/android/systemui/statusbar/policy/quicksetting/ToddlerModeQuickSettingButton;->getMode()I
 
     move-result v0
@@ -277,7 +286,7 @@
     .parameter "x0"
 
     .prologue
-    .line 59
+    .line 62
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/ToddlerModeQuickSettingButton;->mService:Landroid/app/StatusBarManager;
 
     return-object v0
@@ -289,7 +298,7 @@
     .parameter "x1"
 
     .prologue
-    .line 59
+    .line 62
     invoke-direct {p0, p1}, Lcom/android/systemui/statusbar/policy/quicksetting/ToddlerModeQuickSettingButton;->setMode(Z)V
 
     return-void
@@ -304,7 +313,7 @@
 
     const/4 v3, 0x0
 
-    .line 254
+    .line 274
     invoke-static {}, Landroid/telephony/TelephonyManager;->getDefault()Landroid/telephony/TelephonyManager;
 
     move-result-object v5
@@ -313,7 +322,7 @@
 
     move-result v0
 
-    .line 255
+    .line 275
     .local v0, SimState:I
     if-eqz v0, :cond_0
 
@@ -332,65 +341,65 @@
 
     if-eq v5, v6, :cond_3
 
-    .line 261
+    .line 281
     if-nez p1, :cond_1
 
-    .line 295
+    .line 315
     :goto_0
     return v3
 
-    .line 264
+    .line 284
     :cond_1
     new-instance v1, Landroid/app/AlertDialog$Builder;
 
-    iget-object v4, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->mContext:Landroid/content/Context;
+    iget-object v4, p0, Landroid/view/View;->mContext:Landroid/content/Context;
 
     invoke-direct {v1, v4}, Landroid/app/AlertDialog$Builder;-><init>(Landroid/content/Context;)V
 
-    .line 265
+    .line 285
     .local v1, builder:Landroid/app/AlertDialog$Builder;
-    const v4, 0x7f0c0112
+    const v4, 0x7f0a011e
 
     invoke-virtual {v1, v4}, Landroid/app/AlertDialog$Builder;->setTitle(I)Landroid/app/AlertDialog$Builder;
 
-    .line 266
-    const v4, 0x7f0c0113
+    .line 286
+    const v4, 0x7f0a011f
 
     invoke-virtual {v1, v4}, Landroid/app/AlertDialog$Builder;->setMessage(I)Landroid/app/AlertDialog$Builder;
 
-    .line 267
+    .line 287
     invoke-virtual {v1, v3}, Landroid/app/AlertDialog$Builder;->setCancelable(Z)Landroid/app/AlertDialog$Builder;
 
-    .line 268
+    .line 288
     const v4, 0x104000a
 
-    new-instance v5, Lcom/android/systemui/statusbar/policy/quicksetting/ToddlerModeQuickSettingButton$4;
+    new-instance v5, Lcom/android/systemui/statusbar/policy/quicksetting/ToddlerModeQuickSettingButton$5;
 
-    invoke-direct {v5, p0}, Lcom/android/systemui/statusbar/policy/quicksetting/ToddlerModeQuickSettingButton$4;-><init>(Lcom/android/systemui/statusbar/policy/quicksetting/ToddlerModeQuickSettingButton;)V
+    invoke-direct {v5, p0}, Lcom/android/systemui/statusbar/policy/quicksetting/ToddlerModeQuickSettingButton$5;-><init>(Lcom/android/systemui/statusbar/policy/quicksetting/ToddlerModeQuickSettingButton;)V
 
     invoke-virtual {v1, v4, v5}, Landroid/app/AlertDialog$Builder;->setNegativeButton(ILandroid/content/DialogInterface$OnClickListener;)Landroid/app/AlertDialog$Builder;
 
-    .line 274
-    invoke-virtual {p0}, Lcom/android/systemui/statusbar/policy/quicksetting/ToddlerModeQuickSettingButton;->statusBarCollapse()V
+    .line 294
+    invoke-virtual {p0}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->statusBarCollapse()V
 
-    .line 276
+    .line 296
     invoke-virtual {v1}, Landroid/app/AlertDialog$Builder;->create()Landroid/app/AlertDialog;
 
     move-result-object v4
 
     iput-object v4, p0, Lcom/android/systemui/statusbar/policy/quicksetting/ToddlerModeQuickSettingButton;->mAlertDialog:Landroid/app/AlertDialog;
 
-    .line 279
+    .line 299
     iget-object v4, p0, Lcom/android/systemui/statusbar/policy/quicksetting/ToddlerModeQuickSettingButton;->mAlertDialog:Landroid/app/AlertDialog;
 
-    new-instance v5, Lcom/android/systemui/statusbar/policy/quicksetting/ToddlerModeQuickSettingButton$5;
+    new-instance v5, Lcom/android/systemui/statusbar/policy/quicksetting/ToddlerModeQuickSettingButton$6;
 
-    invoke-direct {v5, p0}, Lcom/android/systemui/statusbar/policy/quicksetting/ToddlerModeQuickSettingButton$5;-><init>(Lcom/android/systemui/statusbar/policy/quicksetting/ToddlerModeQuickSettingButton;)V
+    invoke-direct {v5, p0}, Lcom/android/systemui/statusbar/policy/quicksetting/ToddlerModeQuickSettingButton$6;-><init>(Lcom/android/systemui/statusbar/policy/quicksetting/ToddlerModeQuickSettingButton;)V
 
-    invoke-virtual {v4, v5}, Landroid/app/AlertDialog;->setOnDismissListener(Landroid/content/DialogInterface$OnDismissListener;)V
+    invoke-virtual {v4, v5}, Landroid/app/Dialog;->setOnDismissListener(Landroid/content/DialogInterface$OnDismissListener;)V
 
-    .line 285
-    iget-object v4, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->mContext:Landroid/content/Context;
+    .line 305
+    iget-object v4, p0, Landroid/view/View;->mContext:Landroid/content/Context;
 
     const-string v5, "keyguard"
 
@@ -400,7 +409,7 @@
 
     check-cast v2, Landroid/app/KeyguardManager;
 
-    .line 287
+    .line 307
     .local v2, kgm:Landroid/app/KeyguardManager;
     if-eqz v2, :cond_2
 
@@ -410,10 +419,10 @@
 
     if-eqz v4, :cond_2
 
-    .line 288
+    .line 308
     iget-object v4, p0, Lcom/android/systemui/statusbar/policy/quicksetting/ToddlerModeQuickSettingButton;->mAlertDialog:Landroid/app/AlertDialog;
 
-    invoke-virtual {v4}, Landroid/app/AlertDialog;->getWindow()Landroid/view/Window;
+    invoke-virtual {v4}, Landroid/app/Dialog;->getWindow()Landroid/view/Window;
 
     move-result-object v4
 
@@ -421,19 +430,19 @@
 
     invoke-virtual {v4, v5}, Landroid/view/Window;->setType(I)V
 
-    .line 292
+    .line 312
     :goto_1
     iget-object v4, p0, Lcom/android/systemui/statusbar/policy/quicksetting/ToddlerModeQuickSettingButton;->mAlertDialog:Landroid/app/AlertDialog;
 
-    invoke-virtual {v4}, Landroid/app/AlertDialog;->show()V
+    invoke-virtual {v4}, Landroid/app/Dialog;->show()V
 
     goto :goto_0
 
-    .line 290
+    .line 310
     :cond_2
     iget-object v4, p0, Lcom/android/systemui/statusbar/policy/quicksetting/ToddlerModeQuickSettingButton;->mAlertDialog:Landroid/app/AlertDialog;
 
-    invoke-virtual {v4}, Landroid/app/AlertDialog;->getWindow()Landroid/view/Window;
+    invoke-virtual {v4}, Landroid/app/Dialog;->getWindow()Landroid/view/Window;
 
     move-result-object v4
 
@@ -448,7 +457,7 @@
     :cond_3
     move v3, v4
 
-    .line 295
+    .line 315
     goto :goto_0
 .end method
 
@@ -456,7 +465,7 @@
     .locals 4
 
     .prologue
-    .line 185
+    .line 199
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/ToddlerModeQuickSettingButton;->mContentResolver:Landroid/content/ContentResolver;
 
     const-string v1, "toddler_mode_switch"
@@ -473,136 +482,235 @@
 .end method
 
 .method private setMode(Z)V
-    .locals 6
+    .locals 9
     .parameter "mode"
 
     .prologue
-    const/4 v1, 0x1
+    const/4 v3, 0x1
 
-    const/4 v2, 0x0
+    const/4 v4, 0x0
 
-    .line 145
+    .line 151
     if-nez p1, :cond_4
 
-    move v0, v1
+    move v0, v3
 
-    .line 147
+    .line 153
     .local v0, mEnableConnectivity:Z
     :goto_0
-    iget-object v3, p0, Lcom/android/systemui/statusbar/policy/quicksetting/ToddlerModeQuickSettingButton;->mContentResolver:Landroid/content/ContentResolver;
+    iget-object v6, p0, Lcom/android/systemui/statusbar/policy/quicksetting/ToddlerModeQuickSettingButton;->mContentResolver:Landroid/content/ContentResolver;
 
-    const-string v4, "toddler_mode_switch"
+    const-string v7, "toddler_mode_switch"
 
     if-eqz p1, :cond_5
 
+    move v5, v3
+
     :goto_1
-    const/4 v5, -0x2
+    const/4 v8, -0x2
 
-    invoke-static {v3, v4, v1, v5}, Landroid/provider/Settings$System;->putIntForUser(Landroid/content/ContentResolver;Ljava/lang/String;II)Z
-
-    .line 150
-    const-string v1, "STATUSBAR-ToddlerModeController"
-
-    new-instance v3, Ljava/lang/StringBuilder;
-
-    invoke-direct {v3}, Ljava/lang/StringBuilder;-><init>()V
-
-    const-string v4, "setConnectivity : set to  = "
-
-    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v3
-
-    invoke-virtual {v3, v0}, Ljava/lang/StringBuilder;->append(Z)Ljava/lang/StringBuilder;
-
-    move-result-object v3
-
-    invoke-virtual {v3}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v3
-
-    invoke-static {v1, v3}, Landroid/util/secutil/Log;->secD(Ljava/lang/String;Ljava/lang/String;)I
-
-    .line 153
-    iget-object v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/ToddlerModeQuickSettingButton;->mConnectivityManager:Landroid/net/ConnectivityManager;
-
-    if-eqz v1, :cond_1
-
-    invoke-direct {p0, v2}, Lcom/android/systemui/statusbar/policy/quicksetting/ToddlerModeQuickSettingButton;->checkSimReady(Z)Z
-
-    move-result v1
-
-    if-eqz v1, :cond_1
+    invoke-static {v6, v7, v5, v8}, Landroid/provider/Settings$System;->putIntForUser(Landroid/content/ContentResolver;Ljava/lang/String;II)Z
 
     .line 156
-    if-eqz p1, :cond_0
+    const-string v5, "STATUSBAR-ToddlerModeController"
 
-    .line 157
-    iget-object v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/ToddlerModeQuickSettingButton;->mConnectivityManager:Landroid/net/ConnectivityManager;
+    new-instance v6, Ljava/lang/StringBuilder;
 
-    invoke-virtual {v1}, Landroid/net/ConnectivityManager;->getMobileDataEnabled()Z
+    invoke-direct {v6}, Ljava/lang/StringBuilder;-><init>()V
 
-    move-result v1
+    const-string v7, "setConnectivity : set to  = "
 
-    sput-boolean v1, Lcom/android/systemui/statusbar/policy/quicksetting/ToddlerModeQuickSettingButton;->mPreviousMobileDataState:Z
+    invoke-virtual {v6, v7}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v6
+
+    invoke-virtual {v6, v0}, Ljava/lang/StringBuilder;->append(Z)Ljava/lang/StringBuilder;
+
+    move-result-object v6
+
+    invoke-virtual {v6}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v6
+
+    invoke-static {v5, v6}, Landroid/util/secutil/Log;->secD(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 159
+    iget-object v5, p0, Lcom/android/systemui/statusbar/policy/quicksetting/ToddlerModeQuickSettingButton;->mConnectivityManager:Landroid/net/ConnectivityManager;
+
+    if-eqz v5, :cond_1
+
+    invoke-direct {p0, v4}, Lcom/android/systemui/statusbar/policy/quicksetting/ToddlerModeQuickSettingButton;->checkSimReady(Z)Z
+
+    move-result v5
+
+    if-eqz v5, :cond_1
 
     .line 160
-    :cond_0
-    sget-boolean v1, Lcom/android/systemui/statusbar/policy/quicksetting/ToddlerModeQuickSettingButton;->mPreviousMobileDataState:Z
+    const/4 v1, 0x0
 
-    if-eqz v1, :cond_1
+    .line 164
+    .local v1, mPreviousMobileDataState:Z
+    if-eqz p1, :cond_0
 
-    .line 161
-    iget-object v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/ToddlerModeQuickSettingButton;->mConnectivityManager:Landroid/net/ConnectivityManager;
+    .line 165
+    iget-object v5, p0, Lcom/android/systemui/statusbar/policy/quicksetting/ToddlerModeQuickSettingButton;->mConnectivityManager:Landroid/net/ConnectivityManager;
 
-    invoke-virtual {v1, v0}, Landroid/net/ConnectivityManager;->setMobileDataEnabled(Z)V
-
-    .line 166
-    :cond_1
-    iget-object v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/ToddlerModeQuickSettingButton;->mWifiManager:Landroid/net/wifi/WifiManager;
-
-    if-eqz v1, :cond_3
-
-    .line 167
-    if-eqz p1, :cond_2
-
-    .line 168
-    iget-object v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/ToddlerModeQuickSettingButton;->mWifiManager:Landroid/net/wifi/WifiManager;
-
-    invoke-virtual {v1}, Landroid/net/wifi/WifiManager;->isWifiEnabled()Z
+    invoke-virtual {v5}, Landroid/net/ConnectivityManager;->getMobileDataEnabled()Z
 
     move-result v1
 
-    sput-boolean v1, Lcom/android/systemui/statusbar/policy/quicksetting/ToddlerModeQuickSettingButton;->mPreviousWifiState:Z
+    .line 166
+    iget-object v5, p0, Landroid/view/View;->mContext:Landroid/content/Context;
+
+    invoke-virtual {v5}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
+
+    move-result-object v6
+
+    const-string v7, "toddler_mode_data_state"
+
+    if-eqz v1, :cond_6
+
+    move v5, v3
+
+    :goto_2
+    invoke-static {v6, v7, v5}, Landroid/provider/Settings$System;->putInt(Landroid/content/ContentResolver;Ljava/lang/String;I)Z
+
+    .line 169
+    :cond_0
+    iget-object v5, p0, Landroid/view/View;->mContext:Landroid/content/Context;
+
+    invoke-virtual {v5}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
+
+    move-result-object v5
+
+    const-string v6, "toddler_mode_data_state"
+
+    invoke-static {v5, v6, v4}, Landroid/provider/Settings$System;->getInt(Landroid/content/ContentResolver;Ljava/lang/String;I)I
+
+    move-result v5
+
+    if-ne v5, v3, :cond_7
+
+    move v1, v3
+
+    .line 170
+    :goto_3
+    if-eqz v1, :cond_1
 
     .line 171
+    iget-object v5, p0, Lcom/android/systemui/statusbar/policy/quicksetting/ToddlerModeQuickSettingButton;->mConnectivityManager:Landroid/net/ConnectivityManager;
+
+    invoke-virtual {v5, v0}, Landroid/net/ConnectivityManager;->setMobileDataEnabled(Z)V
+
+    .line 176
+    .end local v1           #mPreviousMobileDataState:Z
+    :cond_1
+    iget-object v5, p0, Lcom/android/systemui/statusbar/policy/quicksetting/ToddlerModeQuickSettingButton;->mWifiManager:Landroid/net/wifi/WifiManager;
+
+    if-eqz v5, :cond_3
+
+    .line 177
+    const/4 v2, 0x0
+
+    .line 179
+    .local v2, mPreviousWifiState:Z
+    if-eqz p1, :cond_2
+
+    .line 180
+    iget-object v5, p0, Lcom/android/systemui/statusbar/policy/quicksetting/ToddlerModeQuickSettingButton;->mWifiManager:Landroid/net/wifi/WifiManager;
+
+    invoke-virtual {v5}, Landroid/net/wifi/WifiManager;->isWifiEnabled()Z
+
+    move-result v2
+
+    .line 181
+    iget-object v5, p0, Landroid/view/View;->mContext:Landroid/content/Context;
+
+    invoke-virtual {v5}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
+
+    move-result-object v6
+
+    const-string v7, "toddler_mode_wifi_state"
+
+    if-eqz v2, :cond_8
+
+    move v5, v3
+
+    :goto_4
+    invoke-static {v6, v7, v5}, Landroid/provider/Settings$System;->putInt(Landroid/content/ContentResolver;Ljava/lang/String;I)Z
+
+    .line 184
     :cond_2
-    sget-boolean v1, Lcom/android/systemui/statusbar/policy/quicksetting/ToddlerModeQuickSettingButton;->mPreviousWifiState:Z
+    iget-object v5, p0, Landroid/view/View;->mContext:Landroid/content/Context;
 
-    if-eqz v1, :cond_3
+    invoke-virtual {v5}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
 
-    .line 172
-    iget-object v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/ToddlerModeQuickSettingButton;->mWifiManager:Landroid/net/wifi/WifiManager;
+    move-result-object v5
 
-    invoke-virtual {v1, v0}, Landroid/net/wifi/WifiManager;->setWifiEnabled(Z)Z
+    const-string v6, "toddler_mode_wifi_state"
 
-    .line 182
+    invoke-static {v5, v6, v4}, Landroid/provider/Settings$System;->getInt(Landroid/content/ContentResolver;Ljava/lang/String;I)I
+
+    move-result v5
+
+    if-ne v5, v3, :cond_9
+
+    move v2, v3
+
+    .line 185
+    :goto_5
+    if-eqz v2, :cond_3
+
+    .line 186
+    iget-object v3, p0, Lcom/android/systemui/statusbar/policy/quicksetting/ToddlerModeQuickSettingButton;->mWifiManager:Landroid/net/wifi/WifiManager;
+
+    invoke-virtual {v3, v0}, Landroid/net/wifi/WifiManager;->setWifiEnabled(Z)Z
+
+    .line 196
+    .end local v2           #mPreviousWifiState:Z
     :cond_3
     return-void
 
     .end local v0           #mEnableConnectivity:Z
     :cond_4
-    move v0, v2
+    move v0, v4
 
-    .line 145
-    goto :goto_0
+    .line 151
+    goto/16 :goto_0
 
     .restart local v0       #mEnableConnectivity:Z
     :cond_5
-    move v1, v2
+    move v5, v4
 
-    .line 147
-    goto :goto_1
+    .line 153
+    goto/16 :goto_1
+
+    .restart local v1       #mPreviousMobileDataState:Z
+    :cond_6
+    move v5, v4
+
+    .line 166
+    goto :goto_2
+
+    :cond_7
+    move v1, v4
+
+    .line 169
+    goto :goto_3
+
+    .end local v1           #mPreviousMobileDataState:Z
+    .restart local v2       #mPreviousWifiState:Z
+    :cond_8
+    move v5, v4
+
+    .line 181
+    goto :goto_4
+
+    :cond_9
+    move v2, v4
+
+    .line 184
+    goto :goto_5
 .end method
 
 .method private showConfirmPopup(Z)V
@@ -610,32 +718,32 @@
     .parameter "state"
 
     .prologue
-    .line 206
+    .line 220
     const/4 v1, 0x0
 
-    .line 207
+    .line 221
     .local v1, theme:I
     sget-boolean v2, Lcom/android/systemui/statusbar/BaseStatusBar;->isLightTheme:Z
 
     if-eqz v2, :cond_0
 
-    .line 208
+    .line 222
     const/4 v1, 0x5
 
-    .line 211
+    .line 225
     :cond_0
     const/4 v2, 0x1
 
     iput-boolean v2, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->mIsProcessing:Z
 
-    .line 213
+    .line 227
     new-instance v2, Landroid/app/AlertDialog$Builder;
 
-    iget-object v3, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->mContext:Landroid/content/Context;
+    iget-object v3, p0, Landroid/view/View;->mContext:Landroid/content/Context;
 
     invoke-direct {v2, v3, v1}, Landroid/app/AlertDialog$Builder;-><init>(Landroid/content/Context;I)V
 
-    const v3, 0x7f0c00ee
+    const v3, 0x7f0a00f7
 
     invoke-virtual {v2, v3}, Landroid/app/AlertDialog$Builder;->setTitle(I)Landroid/app/AlertDialog$Builder;
 
@@ -643,7 +751,7 @@
 
     if-eqz p1, :cond_1
 
-    const v2, 0x7f0c011c
+    const v2, 0x7f0a0128
 
     :goto_0
     invoke-virtual {v3, v2}, Landroid/app/AlertDialog$Builder;->setMessage(I)Landroid/app/AlertDialog$Builder;
@@ -682,11 +790,20 @@
 
     iput-object v2, p0, Lcom/android/systemui/statusbar/policy/quicksetting/ToddlerModeQuickSettingButton;->mAlertDialog:Landroid/app/AlertDialog;
 
-    .line 238
-    invoke-virtual {p0}, Lcom/android/systemui/statusbar/policy/quicksetting/ToddlerModeQuickSettingButton;->statusBarCollapse()V
+    .line 252
+    iget-object v2, p0, Lcom/android/systemui/statusbar/policy/quicksetting/ToddlerModeQuickSettingButton;->mAlertDialog:Landroid/app/AlertDialog;
 
-    .line 241
-    iget-object v2, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->mContext:Landroid/content/Context;
+    new-instance v3, Lcom/android/systemui/statusbar/policy/quicksetting/ToddlerModeQuickSettingButton$4;
+
+    invoke-direct {v3, p0}, Lcom/android/systemui/statusbar/policy/quicksetting/ToddlerModeQuickSettingButton$4;-><init>(Lcom/android/systemui/statusbar/policy/quicksetting/ToddlerModeQuickSettingButton;)V
+
+    invoke-virtual {v2, v3}, Landroid/app/Dialog;->setOnDismissListener(Landroid/content/DialogInterface$OnDismissListener;)V
+
+    .line 258
+    invoke-virtual {p0}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->statusBarCollapse()V
+
+    .line 261
+    iget-object v2, p0, Landroid/view/View;->mContext:Landroid/content/Context;
 
     const-string v3, "keyguard"
 
@@ -696,7 +813,7 @@
 
     check-cast v0, Landroid/app/KeyguardManager;
 
-    .line 242
+    .line 262
     .local v0, kgm:Landroid/app/KeyguardManager;
     if-eqz v0, :cond_2
 
@@ -706,10 +823,10 @@
 
     if-eqz v2, :cond_2
 
-    .line 243
+    .line 263
     iget-object v2, p0, Lcom/android/systemui/statusbar/policy/quicksetting/ToddlerModeQuickSettingButton;->mAlertDialog:Landroid/app/AlertDialog;
 
-    invoke-virtual {v2}, Landroid/app/AlertDialog;->getWindow()Landroid/view/Window;
+    invoke-virtual {v2}, Landroid/app/Dialog;->getWindow()Landroid/view/Window;
 
     move-result-object v2
 
@@ -717,28 +834,28 @@
 
     invoke-virtual {v2, v3}, Landroid/view/Window;->setType(I)V
 
-    .line 247
+    .line 267
     :goto_1
     iget-object v2, p0, Lcom/android/systemui/statusbar/policy/quicksetting/ToddlerModeQuickSettingButton;->mAlertDialog:Landroid/app/AlertDialog;
 
-    invoke-virtual {v2}, Landroid/app/AlertDialog;->show()V
+    invoke-virtual {v2}, Landroid/app/Dialog;->show()V
 
-    .line 248
+    .line 268
     return-void
 
-    .line 213
+    .line 227
     .end local v0           #kgm:Landroid/app/KeyguardManager;
     :cond_1
-    const v2, 0x7f0c011d
+    const v2, 0x7f0a0129
 
     goto :goto_0
 
-    .line 245
+    .line 265
     .restart local v0       #kgm:Landroid/app/KeyguardManager;
     :cond_2
     iget-object v2, p0, Lcom/android/systemui/statusbar/policy/quicksetting/ToddlerModeQuickSettingButton;->mAlertDialog:Landroid/app/AlertDialog;
 
-    invoke-virtual {v2}, Landroid/app/AlertDialog;->getWindow()Landroid/view/Window;
+    invoke-virtual {v2}, Landroid/app/Dialog;->getWindow()Landroid/view/Window;
 
     move-result-object v2
 
@@ -755,21 +872,21 @@
     .locals 2
 
     .prologue
-    .line 124
+    .line 130
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/ToddlerModeQuickSettingButton;->mContentResolver:Landroid/content/ContentResolver;
 
     iget-object v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/ToddlerModeQuickSettingButton;->mToddlerModeObserver:Lcom/android/systemui/statusbar/policy/quicksetting/ToddlerModeQuickSettingButton$ToddlerModeObserver;
 
     invoke-virtual {v0, v1}, Landroid/content/ContentResolver;->unregisterContentObserver(Landroid/database/ContentObserver;)V
 
-    .line 125
-    iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->mContext:Landroid/content/Context;
+    .line 131
+    iget-object v0, p0, Landroid/view/View;->mContext:Landroid/content/Context;
 
     iget-object v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/ToddlerModeQuickSettingButton;->mIntentReceiver:Landroid/content/BroadcastReceiver;
 
     invoke-virtual {v0, v1}, Landroid/content/Context;->unregisterReceiver(Landroid/content/BroadcastReceiver;)V
 
-    .line 126
+    .line 132
     return-void
 .end method
 
@@ -779,7 +896,7 @@
     .prologue
     const/4 v4, 0x0
 
-    .line 113
+    .line 119
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/ToddlerModeQuickSettingButton;->mContentResolver:Landroid/content/ContentResolver;
 
     const-string v1, "toddler_mode_switch"
@@ -796,19 +913,19 @@
 
     invoke-virtual {v0, v1, v2, v5, v6}, Landroid/content/ContentResolver;->registerContentObserver(Landroid/net/Uri;ZLandroid/database/ContentObserver;I)V
 
-    .line 118
+    .line 124
     new-instance v3, Landroid/content/IntentFilter;
 
     invoke-direct {v3}, Landroid/content/IntentFilter;-><init>()V
 
-    .line 119
+    .line 125
     .local v3, filter:Landroid/content/IntentFilter;
     const-string v0, "android.intent.action.CLOSE_SYSTEM_DIALOGS"
 
     invoke-virtual {v3, v0}, Landroid/content/IntentFilter;->addAction(Ljava/lang/String;)V
 
-    .line 120
-    iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->mContext:Landroid/content/Context;
+    .line 126
+    iget-object v0, p0, Landroid/view/View;->mContext:Landroid/content/Context;
 
     iget-object v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/ToddlerModeQuickSettingButton;->mIntentReceiver:Landroid/content/BroadcastReceiver;
 
@@ -818,7 +935,7 @@
 
     invoke-virtual/range {v0 .. v5}, Landroid/content/Context;->registerReceiverAsUser(Landroid/content/BroadcastReceiver;Landroid/os/UserHandle;Landroid/content/IntentFilter;Ljava/lang/String;Landroid/os/Handler;)Landroid/content/Intent;
 
-    .line 121
+    .line 127
     return-void
 .end method
 
@@ -827,24 +944,24 @@
     .parameter "state"
 
     .prologue
-    .line 130
+    .line 136
     iget-boolean v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->mIsProcessing:Z
 
     if-eqz v0, :cond_1
 
-    .line 131
+    .line 137
     const-string v0, "STATUSBAR-ToddlerModeController"
 
     const-string v1, "onClick(): Processing..."
 
     invoke-static {v0, v1}, Landroid/util/secutil/Log;->secW(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 141
+    .line 147
     :cond_0
     :goto_0
     return-void
 
-    .line 136
+    .line 142
     :cond_1
     const-string v0, "STATUSBAR-ToddlerModeController"
 
@@ -874,12 +991,12 @@
 
     invoke-static {v0, v1}, Landroid/util/secutil/Log;->secD(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 138
+    .line 144
     iget-boolean v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/ToddlerModeQuickSettingButton;->mState:Z
 
     if-eq v0, p1, :cond_0
 
-    .line 139
+    .line 145
     invoke-direct {p0, p1}, Lcom/android/systemui/statusbar/policy/quicksetting/ToddlerModeQuickSettingButton;->showConfirmPopup(Z)V
 
     goto :goto_0
@@ -889,14 +1006,14 @@
     .locals 2
 
     .prologue
-    .line 302
+    .line 322
     const-string v0, "com.android.settings"
 
     const-string v1, "com.android.settings.Settings"
 
-    invoke-virtual {p0, v0, v1}, Lcom/android/systemui/statusbar/policy/quicksetting/ToddlerModeQuickSettingButton;->callActivity(Ljava/lang/String;Ljava/lang/String;)V
+    invoke-virtual {p0, v0, v1}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->callActivity(Ljava/lang/String;Ljava/lang/String;)V
 
-    .line 303
+    .line 323
     return-void
 .end method
 
@@ -904,13 +1021,13 @@
     .locals 2
 
     .prologue
-    .line 307
+    .line 327
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/ToddlerModeQuickSettingButton;->mToddlerModeObserver:Lcom/android/systemui/statusbar/policy/quicksetting/ToddlerModeQuickSettingButton$ToddlerModeObserver;
 
     const/4 v1, 0x0
 
     invoke-virtual {v0, v1}, Lcom/android/systemui/statusbar/policy/quicksetting/ToddlerModeQuickSettingButton$ToddlerModeObserver;->onChange(Z)V
 
-    .line 308
+    .line 328
     return-void
 .end method

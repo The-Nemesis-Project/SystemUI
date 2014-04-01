@@ -3,12 +3,12 @@
 .source "BaseStatusBar.java"
 
 # interfaces
-.implements Landroid/app/ActivityOptions$OnAnimationStartedListener;
+.implements Landroid/view/View$OnTouchListener;
 
 
 # annotations
-.annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lcom/android/systemui/statusbar/BaseStatusBar;->toggleRecentsActivity()V
+.annotation system Ldalvik/annotation/EnclosingClass;
+    value = Lcom/android/systemui/statusbar/BaseStatusBar;
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -27,46 +27,75 @@
     .parameter
 
     .prologue
-    .line 894
+    .line 673
     iput-object p1, p0, Lcom/android/systemui/statusbar/BaseStatusBar$7;->this$0:Lcom/android/systemui/statusbar/BaseStatusBar;
 
-    invoke-direct/range {p0 .. p0}, Ljava/lang/Object;-><init>()V
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
     return-void
 .end method
 
 
 # virtual methods
-.method public onAnimationStarted()V
-    .locals 4
+.method public onTouch(Landroid/view/View;Landroid/view/MotionEvent;)Z
+    .locals 2
+    .parameter "v"
+    .parameter "event"
 
     .prologue
-    .line 896
-    new-instance v0, Landroid/content/Intent;
+    .line 678
+    invoke-virtual {p2}, Landroid/view/MotionEvent;->getAction()I
 
-    const-string v1, "com.android.systemui.recent.action.WINDOW_ANIMATION_START"
+    move-result v1
 
-    invoke-direct {v0, v1}, Landroid/content/Intent;-><init>(Ljava/lang/String;)V
+    and-int/lit16 v0, v1, 0xff
 
-    .line 897
-    .local v0, intent:Landroid/content/Intent;
-    const-string v1, "com.android.systemui"
+    .line 679
+    .local v0, action:I
+    if-nez v0, :cond_1
 
-    invoke-virtual {v0, v1}, Landroid/content/Intent;->setPackage(Ljava/lang/String;)Landroid/content/Intent;
-
-    .line 898
+    .line 680
     iget-object v1, p0, Lcom/android/systemui/statusbar/BaseStatusBar$7;->this$0:Lcom/android/systemui/statusbar/BaseStatusBar;
 
-    iget-object v1, v1, Lcom/android/systemui/SystemUI;->mContext:Landroid/content/Context;
+    invoke-virtual {v1}, Lcom/android/systemui/statusbar/BaseStatusBar;->preloadRecentTasksList()V
 
-    new-instance v2, Landroid/os/UserHandle;
+    .line 689
+    :cond_0
+    :goto_0
+    const/4 v1, 0x0
 
-    const/4 v3, -0x2
+    return v1
 
-    invoke-direct {v2, v3}, Landroid/os/UserHandle;-><init>(I)V
+    .line 681
+    :cond_1
+    const/4 v1, 0x3
 
-    invoke-virtual {v1, v0, v2}, Landroid/content/Context;->sendBroadcastAsUser(Landroid/content/Intent;Landroid/os/UserHandle;)V
+    if-ne v0, v1, :cond_2
 
-    .line 899
-    return-void
+    .line 682
+    iget-object v1, p0, Lcom/android/systemui/statusbar/BaseStatusBar$7;->this$0:Lcom/android/systemui/statusbar/BaseStatusBar;
+
+    invoke-virtual {v1}, Lcom/android/systemui/statusbar/BaseStatusBar;->cancelPreloadingRecentTasksList()V
+
+    goto :goto_0
+
+    .line 683
+    :cond_2
+    const/4 v1, 0x1
+
+    if-ne v0, v1, :cond_0
+
+    .line 684
+    invoke-virtual {p1}, Landroid/view/View;->isPressed()Z
+
+    move-result v1
+
+    if-nez v1, :cond_0
+
+    .line 685
+    iget-object v1, p0, Lcom/android/systemui/statusbar/BaseStatusBar$7;->this$0:Lcom/android/systemui/statusbar/BaseStatusBar;
+
+    invoke-virtual {v1}, Lcom/android/systemui/statusbar/BaseStatusBar;->cancelPreloadingRecentTasksList()V
+
+    goto :goto_0
 .end method

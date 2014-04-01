@@ -30,15 +30,15 @@
     .parameter "other"
 
     .prologue
-    .line 173
+    .line 185
     iput-object p1, p0, Lcom/android/systemui/recent/RecentsPanelView$OnLongClickDelegate;->this$0:Lcom/android/systemui/recent/RecentsPanelView;
 
-    invoke-direct/range {p0 .. p0}, Ljava/lang/Object;-><init>()V
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 174
+    .line 186
     iput-object p2, p0, Lcom/android/systemui/recent/RecentsPanelView$OnLongClickDelegate;->mOtherView:Landroid/view/View;
 
-    .line 175
+    .line 187
     return-void
 .end method
 
@@ -49,7 +49,7 @@
     .parameter "v"
 
     .prologue
-    .line 177
+    .line 190
     iget-object v0, p0, Lcom/android/systemui/recent/RecentsPanelView$OnLongClickDelegate;->mOtherView:Landroid/view/View;
 
     invoke-virtual {v0}, Landroid/view/View;->performLongClick()Z

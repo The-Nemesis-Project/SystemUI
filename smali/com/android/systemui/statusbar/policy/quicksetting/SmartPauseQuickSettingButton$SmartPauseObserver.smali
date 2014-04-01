@@ -24,17 +24,17 @@
     .parameter
 
     .prologue
-    .line 130
+    .line 137
     iput-object p1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/SmartPauseQuickSettingButton$SmartPauseObserver;->this$0:Lcom/android/systemui/statusbar/policy/quicksetting/SmartPauseQuickSettingButton;
 
-    .line 131
+    .line 138
     new-instance v0, Landroid/os/Handler;
 
     invoke-direct {v0}, Landroid/os/Handler;-><init>()V
 
     invoke-direct {p0, v0}, Landroid/database/ContentObserver;-><init>(Landroid/os/Handler;)V
 
-    .line 132
+    .line 139
     return-void
 .end method
 
@@ -51,7 +51,7 @@
 
     const/4 v2, 0x0
 
-    .line 136
+    .line 143
     const-string v0, "STATUSBAR-SmartPause"
 
     new-instance v3, Ljava/lang/StringBuilder;
@@ -87,7 +87,7 @@
 
     invoke-static {v0, v3}, Landroid/util/secutil/Log;->secD(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 138
+    .line 145
     const-string v0, "STATUSBAR-SmartPause"
 
     new-instance v3, Ljava/lang/StringBuilder;
@@ -123,10 +123,10 @@
 
     invoke-static {v0, v3}, Landroid/util/Slog;->d(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 141
+    .line 148
     invoke-super {p0, p1}, Landroid/database/ContentObserver;->onChange(Z)V
 
-    .line 142
+    .line 149
     iget-object v3, p0, Lcom/android/systemui/statusbar/policy/quicksetting/SmartPauseQuickSettingButton$SmartPauseObserver;->this$0:Lcom/android/systemui/statusbar/policy/quicksetting/SmartPauseQuickSettingButton;
 
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/SmartPauseQuickSettingButton$SmartPauseObserver;->this$0:Lcom/android/systemui/statusbar/policy/quicksetting/SmartPauseQuickSettingButton;
@@ -147,9 +147,9 @@
     move v0, v1
 
     :goto_0
-    invoke-virtual {v3, v0}, Lcom/android/systemui/statusbar/policy/quicksetting/SmartPauseQuickSettingButton;->setActivateStatus(I)V
+    invoke-virtual {v3, v0}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->setActivateStatus(I)V
 
-    .line 144
+    .line 151
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/SmartPauseQuickSettingButton$SmartPauseObserver;->this$0:Lcom/android/systemui/statusbar/policy/quicksetting/SmartPauseQuickSettingButton;
 
     iget-object v3, p0, Lcom/android/systemui/statusbar/policy/quicksetting/SmartPauseQuickSettingButton$SmartPauseObserver;->this$0:Lcom/android/systemui/statusbar/policy/quicksetting/SmartPauseQuickSettingButton;
@@ -165,15 +165,15 @@
     #setter for: Lcom/android/systemui/statusbar/policy/quicksetting/SmartPauseQuickSettingButton;->mState:Z
     invoke-static {v0, v1}, Lcom/android/systemui/statusbar/policy/quicksetting/SmartPauseQuickSettingButton;->access$102(Lcom/android/systemui/statusbar/policy/quicksetting/SmartPauseQuickSettingButton;Z)Z
 
-    .line 147
+    .line 154
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/SmartPauseQuickSettingButton$SmartPauseObserver;->this$0:Lcom/android/systemui/statusbar/policy/quicksetting/SmartPauseQuickSettingButton;
 
     iput-boolean v2, v0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->mIsProcessing:Z
 
-    .line 148
+    .line 155
     return-void
 
-    .line 142
+    .line 149
     :cond_0
     const/4 v0, 0x2
 
@@ -182,6 +182,6 @@
     :cond_1
     move v1, v2
 
-    .line 144
+    .line 151
     goto :goto_1
 .end method

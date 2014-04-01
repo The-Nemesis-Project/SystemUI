@@ -8,7 +8,7 @@
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lcom/android/systemui/usb/StorageNotification;->onUsbMassStorageConnectionChanged(Z)V
+    value = Lcom/android/systemui/usb/StorageNotification;->onStorageStateChanged(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -20,22 +20,32 @@
 # instance fields
 .field final synthetic this$0:Lcom/android/systemui/usb/StorageNotification;
 
-.field final synthetic val$connected:Z
+.field final synthetic val$newState:Ljava/lang/String;
+
+.field final synthetic val$oldState:Ljava/lang/String;
+
+.field final synthetic val$path:Ljava/lang/String;
 
 
 # direct methods
-.method constructor <init>(Lcom/android/systemui/usb/StorageNotification;Z)V
+.method constructor <init>(Lcom/android/systemui/usb/StorageNotification;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
     .locals 0
+    .parameter
+    .parameter
     .parameter
     .parameter
 
     .prologue
-    .line 144
+    .line 194
     iput-object p1, p0, Lcom/android/systemui/usb/StorageNotification$2;->this$0:Lcom/android/systemui/usb/StorageNotification;
 
-    iput-boolean p2, p0, Lcom/android/systemui/usb/StorageNotification$2;->val$connected:Z
+    iput-object p2, p0, Lcom/android/systemui/usb/StorageNotification$2;->val$path:Ljava/lang/String;
 
-    invoke-direct/range {p0 .. p0}, Ljava/lang/Object;-><init>()V
+    iput-object p3, p0, Lcom/android/systemui/usb/StorageNotification$2;->val$oldState:Ljava/lang/String;
+
+    iput-object p4, p0, Lcom/android/systemui/usb/StorageNotification$2;->val$newState:Ljava/lang/String;
+
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
     return-void
 .end method
@@ -43,17 +53,21 @@
 
 # virtual methods
 .method public run()V
-    .locals 2
+    .locals 4
 
     .prologue
-    .line 147
+    .line 197
     iget-object v0, p0, Lcom/android/systemui/usb/StorageNotification$2;->this$0:Lcom/android/systemui/usb/StorageNotification;
 
-    iget-boolean v1, p0, Lcom/android/systemui/usb/StorageNotification$2;->val$connected:Z
+    iget-object v1, p0, Lcom/android/systemui/usb/StorageNotification$2;->val$path:Ljava/lang/String;
 
-    #calls: Lcom/android/systemui/usb/StorageNotification;->onUsbMassStorageConnectionChangedAsync(Z)V
-    invoke-static {v0, v1}, Lcom/android/systemui/usb/StorageNotification;->access$600(Lcom/android/systemui/usb/StorageNotification;Z)V
+    iget-object v2, p0, Lcom/android/systemui/usb/StorageNotification$2;->val$oldState:Ljava/lang/String;
 
-    .line 148
+    iget-object v3, p0, Lcom/android/systemui/usb/StorageNotification$2;->val$newState:Ljava/lang/String;
+
+    #calls: Lcom/android/systemui/usb/StorageNotification;->onStorageStateChangedAsync(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
+    invoke-static {v0, v1, v2, v3}, Lcom/android/systemui/usb/StorageNotification;->access$200(Lcom/android/systemui/usb/StorageNotification;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
+
+    .line 198
     return-void
 .end method

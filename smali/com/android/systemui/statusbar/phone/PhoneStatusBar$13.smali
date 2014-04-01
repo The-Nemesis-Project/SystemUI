@@ -1,14 +1,11 @@
 .class Lcom/android/systemui/statusbar/phone/PhoneStatusBar$13;
-.super Ljava/lang/Object;
+.super Landroid/animation/AnimatorListenerAdapter;
 .source "PhoneStatusBar.java"
-
-# interfaces
-.implements Landroid/view/View$OnFocusChangeListener;
 
 
 # annotations
-.annotation system Ldalvik/annotation/EnclosingClass;
-    value = Lcom/android/systemui/statusbar/phone/PhoneStatusBar;
+.annotation system Ldalvik/annotation/EnclosingMethod;
+    value = Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->setAreThereNotifications()V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -20,47 +17,40 @@
 # instance fields
 .field final synthetic this$0:Lcom/android/systemui/statusbar/phone/PhoneStatusBar;
 
+.field final synthetic val$nlo:Landroid/view/View;
+
 
 # direct methods
-.method constructor <init>(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)V
+.method constructor <init>(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;Landroid/view/View;)V
     .locals 0
+    .parameter
     .parameter
 
     .prologue
-    .line 2190
+    .line 1756
     iput-object p1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$13;->this$0:Lcom/android/systemui/statusbar/phone/PhoneStatusBar;
 
-    invoke-direct/range {p0 .. p0}, Ljava/lang/Object;-><init>()V
+    iput-object p2, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$13;->val$nlo:Landroid/view/View;
+
+    invoke-direct {p0}, Landroid/animation/AnimatorListenerAdapter;-><init>()V
 
     return-void
 .end method
 
 
 # virtual methods
-.method public onFocusChange(Landroid/view/View;Z)V
-    .locals 1
-    .parameter "v"
-    .parameter "hasFocus"
+.method public onAnimationEnd(Landroid/animation/Animator;)V
+    .locals 2
+    .parameter "_a"
 
     .prologue
-    .line 2192
-    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$13;->this$0:Lcom/android/systemui/statusbar/phone/PhoneStatusBar;
+    .line 1759
+    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$13;->val$nlo:Landroid/view/View;
 
-    #getter for: Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mLatestNotificationTitle:Landroid/widget/LinearLayout;
-    invoke-static {v0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->access$2600(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)Landroid/widget/LinearLayout;
+    const/16 v1, 0x8
 
-    move-result-object v0
+    invoke-virtual {v0, v1}, Landroid/view/View;->setVisibility(I)V
 
-    if-ne p1, v0, :cond_0
-
-    .line 2193
-    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$13;->this$0:Lcom/android/systemui/statusbar/phone/PhoneStatusBar;
-
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mClearButton:Landroid/view/View;
-
-    invoke-virtual {v0}, Landroid/view/View;->requestFocus()Z
-
-    .line 2195
-    :cond_0
+    .line 1760
     return-void
 .end method

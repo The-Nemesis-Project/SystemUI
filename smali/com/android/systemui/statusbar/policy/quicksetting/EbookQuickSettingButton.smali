@@ -40,46 +40,60 @@
 
 # direct methods
 .method public constructor <init>(Landroid/content/Context;)V
-    .locals 11
+    .locals 9
     .parameter "context"
 
     .prologue
-    const/4 v10, -0x2
+    const v1, 0x7f0a00f5
 
-    const/4 v9, 0x1
+    const/4 v8, -0x2
 
-    const/4 v7, 0x0
+    const/4 v7, 0x1
 
-    .line 62
+    const/4 v5, 0x0
+
+    .line 65
     const/4 v2, 0x0
 
-    const v3, 0x7f0c00ec
+    sget-boolean v0, Lcom/android/systemui/statusbar/Feature;->mUseJellyBeanGUI:Z
 
-    const v4, 0x7f0201d4
+    if-nez v0, :cond_0
 
-    const v5, 0x7f0201d3
+    move v0, v7
 
-    const v6, 0x7f0201d2
+    :goto_0
+    invoke-direct {p0, p1, v2, v0}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;-><init>(Landroid/content/Context;Landroid/util/AttributeSet;Z)V
 
-    move-object v0, p0
-
-    move-object v1, p1
-
-    move v8, v7
-
-    invoke-direct/range {v0 .. v8}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;-><init>(Landroid/content/Context;Landroid/util/AttributeSet;IIIIII)V
-
-    .line 51
+    .line 53
     new-instance v0, Lcom/android/systemui/statusbar/policy/quicksetting/EbookQuickSettingButton$1;
 
     invoke-direct {v0, p0}, Lcom/android/systemui/statusbar/policy/quicksetting/EbookQuickSettingButton$1;-><init>(Lcom/android/systemui/statusbar/policy/quicksetting/EbookQuickSettingButton;)V
 
     iput-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/EbookQuickSettingButton;->mIntentReceiver:Landroid/content/BroadcastReceiver;
 
-    .line 69
+    .line 67
+    sget-boolean v0, Lcom/android/systemui/statusbar/Feature;->mUseJellyBeanGUI:Z
+
+    if-eqz v0, :cond_1
+
+    .line 68
+    const v2, 0x7f0201eb
+
+    const v3, 0x7f0201ea
+
+    const v4, 0x7f0201e9
+
+    move-object v0, p0
+
+    move v6, v5
+
+    invoke-virtual/range {v0 .. v6}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->initLayout(IIIIII)V
+
+    .line 78
+    :goto_1
     iput-object p1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/EbookQuickSettingButton;->mContext:Landroid/content/Context;
 
-    .line 70
+    .line 79
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/EbookQuickSettingButton;->mContext:Landroid/content/Context;
 
     invoke-virtual {v0}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
@@ -88,60 +102,74 @@
 
     iput-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/EbookQuickSettingButton;->mContentResolver:Landroid/content/ContentResolver;
 
-    .line 71
+    .line 80
     new-instance v0, Lcom/android/systemui/statusbar/policy/quicksetting/EbookQuickSettingButton$EbookModeObserver;
 
     invoke-direct {v0, p0}, Lcom/android/systemui/statusbar/policy/quicksetting/EbookQuickSettingButton$EbookModeObserver;-><init>(Lcom/android/systemui/statusbar/policy/quicksetting/EbookQuickSettingButton;)V
 
     iput-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/EbookQuickSettingButton;->mEbookModeObserver:Lcom/android/systemui/statusbar/policy/quicksetting/EbookQuickSettingButton$EbookModeObserver;
 
-    .line 72
-    invoke-virtual {p0, p0}, Lcom/android/systemui/statusbar/policy/quicksetting/EbookQuickSettingButton;->setListener(Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton$Listener;)V
+    .line 81
+    invoke-virtual {p0, p0}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->setListener(Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton$Listener;)V
 
-    .line 73
+    .line 82
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/EbookQuickSettingButton;->mContentResolver:Landroid/content/ContentResolver;
 
     const-string v1, "e_reading_display_mode"
 
-    invoke-static {v0, v1, v7, v10}, Landroid/provider/Settings$System;->getIntForUser(Landroid/content/ContentResolver;Ljava/lang/String;II)I
+    invoke-static {v0, v1, v5, v8}, Landroid/provider/Settings$System;->getIntForUser(Landroid/content/ContentResolver;Ljava/lang/String;II)I
 
     move-result v0
 
-    if-ne v0, v9, :cond_0
+    if-ne v0, v7, :cond_2
 
-    move v0, v9
+    move v0, v7
 
-    :goto_0
-    invoke-virtual {p0, v0}, Lcom/android/systemui/statusbar/policy/quicksetting/EbookQuickSettingButton;->setActivateStatus(I)V
+    :goto_2
+    invoke-virtual {p0, v0}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->setActivateStatus(I)V
 
-    .line 75
+    .line 84
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/EbookQuickSettingButton;->mContentResolver:Landroid/content/ContentResolver;
 
     const-string v1, "e_reading_display_mode"
 
-    invoke-static {v0, v1, v7, v10}, Landroid/provider/Settings$System;->getIntForUser(Landroid/content/ContentResolver;Ljava/lang/String;II)I
+    invoke-static {v0, v1, v5, v8}, Landroid/provider/Settings$System;->getIntForUser(Landroid/content/ContentResolver;Ljava/lang/String;II)I
 
     move-result v0
 
-    if-ne v0, v9, :cond_1
+    if-ne v0, v7, :cond_3
 
-    :goto_1
-    iput-boolean v9, p0, Lcom/android/systemui/statusbar/policy/quicksetting/EbookQuickSettingButton;->mState:Z
+    :goto_3
+    iput-boolean v7, p0, Lcom/android/systemui/statusbar/policy/quicksetting/EbookQuickSettingButton;->mState:Z
 
-    .line 77
+    .line 86
     return-void
 
-    .line 73
     :cond_0
-    const/4 v0, 0x2
+    move v0, v5
 
+    .line 65
     goto :goto_0
 
-    :cond_1
-    move v9, v7
-
     .line 75
+    :cond_1
+    const v0, 0x7f0201ec
+
+    invoke-virtual {p0, v1, v0}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->initLayout(II)V
+
     goto :goto_1
+
+    .line 82
+    :cond_2
+    const/4 v0, 0x2
+
+    goto :goto_2
+
+    :cond_3
+    move v7, v5
+
+    .line 84
+    goto :goto_3
 .end method
 
 .method static synthetic access$000(Lcom/android/systemui/statusbar/policy/quicksetting/EbookQuickSettingButton;)Landroid/app/AlertDialog;
@@ -149,7 +177,7 @@
     .parameter "x0"
 
     .prologue
-    .line 37
+    .line 39
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/EbookQuickSettingButton;->mAlertDialog:Landroid/app/AlertDialog;
 
     return-object v0
@@ -160,7 +188,7 @@
     .parameter "x0"
 
     .prologue
-    .line 37
+    .line 39
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/EbookQuickSettingButton;->mContentResolver:Landroid/content/ContentResolver;
 
     return-object v0
@@ -171,7 +199,7 @@
     .parameter "x0"
 
     .prologue
-    .line 37
+    .line 39
     iget-boolean v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/EbookQuickSettingButton;->mState:Z
 
     return v0
@@ -183,7 +211,7 @@
     .parameter "x1"
 
     .prologue
-    .line 37
+    .line 39
     iput-boolean p1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/EbookQuickSettingButton;->mState:Z
 
     return p1
@@ -194,7 +222,7 @@
     .parameter "x0"
 
     .prologue
-    .line 37
+    .line 39
     invoke-direct {p0}, Lcom/android/systemui/statusbar/policy/quicksetting/EbookQuickSettingButton;->getMode()I
 
     move-result v0
@@ -207,7 +235,7 @@
     .parameter "x0"
 
     .prologue
-    .line 37
+    .line 39
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/EbookQuickSettingButton;->mContext:Landroid/content/Context;
 
     return-object v0
@@ -219,7 +247,7 @@
     .parameter "x1"
 
     .prologue
-    .line 37
+    .line 39
     invoke-direct {p0, p1}, Lcom/android/systemui/statusbar/policy/quicksetting/EbookQuickSettingButton;->setMode(I)V
 
     return-void
@@ -229,7 +257,7 @@
     .locals 4
 
     .prologue
-    .line 115
+    .line 124
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/EbookQuickSettingButton;->mContentResolver:Landroid/content/ContentResolver;
 
     const-string v1, "e_reading_display_mode"
@@ -251,7 +279,7 @@
     .prologue
     const/high16 v7, -0x100
 
-    .line 134
+    .line 143
     iget-object v5, p0, Lcom/android/systemui/statusbar/policy/quicksetting/EbookQuickSettingButton;->mContext:Landroid/content/Context;
 
     const-string v6, "layout_inflater"
@@ -262,9 +290,9 @@
 
     check-cast v2, Landroid/view/LayoutInflater;
 
-    .line 136
+    .line 145
     .local v2, readingModeAlertLayout:Landroid/view/LayoutInflater;
-    const v5, 0x7f040048
+    const v5, 0x7f040028
 
     const/4 v6, 0x0
 
@@ -272,9 +300,9 @@
 
     move-result-object v3
 
-    .line 138
+    .line 147
     .local v3, readingModeAlertView:Landroid/view/View;
-    const v5, 0x7f090114
+    const v5, 0x7f0700b5
 
     invoke-virtual {v3, v5}, Landroid/view/View;->findViewById(I)Landroid/view/View;
 
@@ -282,33 +310,33 @@
 
     check-cast v4, Landroid/widget/CheckBox;
 
-    .line 140
+    .line 149
     .local v4, readingModeCheckBox:Landroid/widget/CheckBox;
     new-instance v5, Lcom/android/systemui/statusbar/policy/quicksetting/EbookQuickSettingButton$2;
 
     invoke-direct {v5, p0, v4}, Lcom/android/systemui/statusbar/policy/quicksetting/EbookQuickSettingButton$2;-><init>(Lcom/android/systemui/statusbar/policy/quicksetting/EbookQuickSettingButton;Landroid/widget/CheckBox;)V
 
-    invoke-virtual {v4, v5}, Landroid/widget/CheckBox;->setOnCheckedChangeListener(Landroid/widget/CompoundButton$OnCheckedChangeListener;)V
+    invoke-virtual {v4, v5}, Landroid/widget/CompoundButton;->setOnCheckedChangeListener(Landroid/widget/CompoundButton$OnCheckedChangeListener;)V
 
-    .line 155
+    .line 164
     new-instance v0, Landroid/app/AlertDialog$Builder;
 
     iget-object v5, p0, Lcom/android/systemui/statusbar/policy/quicksetting/EbookQuickSettingButton;->mContext:Landroid/content/Context;
 
     invoke-direct {v0, v5}, Landroid/app/AlertDialog$Builder;-><init>(Landroid/content/Context;)V
 
-    .line 156
+    .line 165
     .local v0, builder:Landroid/app/AlertDialog$Builder;
-    const v5, 0x7f0c0164
+    const v5, 0x7f0a0176
 
     invoke-virtual {v0, v5}, Landroid/app/AlertDialog$Builder;->setTitle(I)Landroid/app/AlertDialog$Builder;
 
-    .line 157
+    .line 166
     const/4 v5, 0x0
 
     invoke-virtual {v0, v5}, Landroid/app/AlertDialog$Builder;->setCancelable(Z)Landroid/app/AlertDialog$Builder;
 
-    .line 159
+    .line 168
     const v5, 0x104000a
 
     new-instance v6, Lcom/android/systemui/statusbar/policy/quicksetting/EbookQuickSettingButton$3;
@@ -317,8 +345,8 @@
 
     invoke-virtual {v0, v5, v6}, Landroid/app/AlertDialog$Builder;->setPositiveButton(ILandroid/content/DialogInterface$OnClickListener;)Landroid/app/AlertDialog$Builder;
 
-    .line 165
-    const v5, 0x7f0c0166
+    .line 174
+    const v5, 0x7f0a0178
 
     new-instance v6, Lcom/android/systemui/statusbar/policy/quicksetting/EbookQuickSettingButton$4;
 
@@ -326,13 +354,13 @@
 
     invoke-virtual {v0, v5, v6}, Landroid/app/AlertDialog$Builder;->setNegativeButton(ILandroid/content/DialogInterface$OnClickListener;)Landroid/app/AlertDialog$Builder;
 
-    .line 175
+    .line 184
     sget-boolean v5, Lcom/android/systemui/statusbar/BaseStatusBar;->isLightTheme:Z
 
     if-eqz v5, :cond_0
 
-    .line 176
-    const v5, 0x7f090113
+    .line 185
+    const v5, 0x7f0700b4
 
     invoke-virtual {v3, v5}, Landroid/view/View;->findViewById(I)Landroid/view/View;
 
@@ -342,33 +370,33 @@
 
     invoke-virtual {v5, v7}, Landroid/widget/TextView;->setTextColor(I)V
 
-    .line 177
+    .line 186
     invoke-virtual {v4, v7}, Landroid/widget/TextView;->setTextColor(I)V
 
-    .line 180
+    .line 189
     :cond_0
     invoke-virtual {v0, v3}, Landroid/app/AlertDialog$Builder;->setView(Landroid/view/View;)Landroid/app/AlertDialog$Builder;
 
-    .line 181
-    invoke-virtual {p0}, Lcom/android/systemui/statusbar/policy/quicksetting/EbookQuickSettingButton;->statusBarCollapse()V
+    .line 190
+    invoke-virtual {p0}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->statusBarCollapse()V
 
-    .line 182
+    .line 191
     invoke-virtual {v0}, Landroid/app/AlertDialog$Builder;->create()Landroid/app/AlertDialog;
 
     move-result-object v5
 
     iput-object v5, p0, Lcom/android/systemui/statusbar/policy/quicksetting/EbookQuickSettingButton;->mAlertDialog:Landroid/app/AlertDialog;
 
-    .line 183
+    .line 192
     iget-object v5, p0, Lcom/android/systemui/statusbar/policy/quicksetting/EbookQuickSettingButton;->mAlertDialog:Landroid/app/AlertDialog;
 
     new-instance v6, Lcom/android/systemui/statusbar/policy/quicksetting/EbookQuickSettingButton$5;
 
     invoke-direct {v6, p0}, Lcom/android/systemui/statusbar/policy/quicksetting/EbookQuickSettingButton$5;-><init>(Lcom/android/systemui/statusbar/policy/quicksetting/EbookQuickSettingButton;)V
 
-    invoke-virtual {v5, v6}, Landroid/app/AlertDialog;->setOnDismissListener(Landroid/content/DialogInterface$OnDismissListener;)V
+    invoke-virtual {v5, v6}, Landroid/app/Dialog;->setOnDismissListener(Landroid/content/DialogInterface$OnDismissListener;)V
 
-    .line 190
+    .line 199
     iget-object v5, p0, Lcom/android/systemui/statusbar/policy/quicksetting/EbookQuickSettingButton;->mContext:Landroid/content/Context;
 
     const-string v6, "keyguard"
@@ -379,7 +407,7 @@
 
     check-cast v1, Landroid/app/KeyguardManager;
 
-    .line 191
+    .line 200
     .local v1, kgm:Landroid/app/KeyguardManager;
     if-eqz v1, :cond_1
 
@@ -389,10 +417,10 @@
 
     if-eqz v5, :cond_1
 
-    .line 192
+    .line 201
     iget-object v5, p0, Lcom/android/systemui/statusbar/policy/quicksetting/EbookQuickSettingButton;->mAlertDialog:Landroid/app/AlertDialog;
 
-    invoke-virtual {v5}, Landroid/app/AlertDialog;->getWindow()Landroid/view/Window;
+    invoke-virtual {v5}, Landroid/app/Dialog;->getWindow()Landroid/view/Window;
 
     move-result-object v5
 
@@ -400,20 +428,20 @@
 
     invoke-virtual {v5, v6}, Landroid/view/Window;->setType(I)V
 
-    .line 196
+    .line 205
     :goto_0
     iget-object v5, p0, Lcom/android/systemui/statusbar/policy/quicksetting/EbookQuickSettingButton;->mAlertDialog:Landroid/app/AlertDialog;
 
-    invoke-virtual {v5}, Landroid/app/AlertDialog;->show()V
+    invoke-virtual {v5}, Landroid/app/Dialog;->show()V
 
-    .line 197
+    .line 206
     return-void
 
-    .line 194
+    .line 203
     :cond_1
     iget-object v5, p0, Lcom/android/systemui/statusbar/policy/quicksetting/EbookQuickSettingButton;->mAlertDialog:Landroid/app/AlertDialog;
 
-    invoke-virtual {v5}, Landroid/app/AlertDialog;->getWindow()Landroid/view/Window;
+    invoke-virtual {v5}, Landroid/app/Dialog;->getWindow()Landroid/view/Window;
 
     move-result-object v5
 
@@ -431,7 +459,7 @@
     .prologue
     const/4 v0, 0x1
 
-    .line 110
+    .line 119
     iget-object v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/EbookQuickSettingButton;->mContentResolver:Landroid/content/ContentResolver;
 
     const-string v2, "e_reading_display_mode"
@@ -440,7 +468,7 @@
 
     invoke-static {v1, v2, p1, v3}, Landroid/provider/Settings$System;->putIntForUser(Landroid/content/ContentResolver;Ljava/lang/String;II)Z
 
-    .line 112
+    .line 121
     invoke-direct {p0}, Lcom/android/systemui/statusbar/policy/quicksetting/EbookQuickSettingButton;->getMode()I
 
     move-result v1
@@ -450,10 +478,10 @@
     :goto_0
     iput-boolean v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/EbookQuickSettingButton;->mState:Z
 
-    .line 113
+    .line 122
     return-void
 
-    .line 112
+    .line 121
     :cond_0
     const/4 v0, 0x0
 
@@ -467,7 +495,7 @@
     .prologue
     const/4 v4, 0x0
 
-    .line 199
+    .line 208
     iget-object v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/EbookQuickSettingButton;->mContext:Landroid/content/Context;
 
     invoke-virtual {v1}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
@@ -482,21 +510,21 @@
 
     move-result v0
 
-    .line 201
+    .line 210
     .local v0, checked:I
     if-eqz p1, :cond_1
 
-    .line 202
+    .line 211
     if-nez v0, :cond_0
 
-    .line 203
+    .line 212
     invoke-direct {p0}, Lcom/android/systemui/statusbar/policy/quicksetting/EbookQuickSettingButton;->onDisplayReadingModeAlert()V
 
-    .line 210
+    .line 219
     :goto_0
     return-void
 
-    .line 205
+    .line 214
     :cond_0
     const/4 v1, 0x1
 
@@ -504,7 +532,7 @@
 
     goto :goto_0
 
-    .line 208
+    .line 217
     :cond_1
     invoke-direct {p0, v4}, Lcom/android/systemui/statusbar/policy/quicksetting/EbookQuickSettingButton;->setMode(I)V
 
@@ -517,14 +545,14 @@
     .locals 2
 
     .prologue
-    .line 84
+    .line 93
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/EbookQuickSettingButton;->mContentResolver:Landroid/content/ContentResolver;
 
     iget-object v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/EbookQuickSettingButton;->mEbookModeObserver:Lcom/android/systemui/statusbar/policy/quicksetting/EbookQuickSettingButton$EbookModeObserver;
 
     invoke-virtual {v0, v1}, Landroid/content/ContentResolver;->unregisterContentObserver(Landroid/database/ContentObserver;)V
 
-    .line 85
+    .line 94
     return-void
 .end method
 
@@ -532,7 +560,7 @@
     .locals 5
 
     .prologue
-    .line 79
+    .line 88
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/EbookQuickSettingButton;->mContentResolver:Landroid/content/ContentResolver;
 
     const-string v1, "e_reading_display_mode"
@@ -549,7 +577,7 @@
 
     invoke-virtual {v0, v1, v2, v3, v4}, Landroid/content/ContentResolver;->registerContentObserver(Landroid/net/Uri;ZLandroid/database/ContentObserver;I)V
 
-    .line 82
+    .line 91
     return-void
 .end method
 
@@ -558,7 +586,7 @@
     .parameter "state"
 
     .prologue
-    .line 87
+    .line 96
     const-string v0, "STATUSBAR-E-BookSettingButton"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -587,7 +615,7 @@
 
     invoke-static {v0, v1}, Landroid/util/Slog;->d(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 90
+    .line 99
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/EbookQuickSettingButton;->mContext:Landroid/content/Context;
 
     const-string v1, "enterprise_policy"
@@ -600,7 +628,7 @@
 
     iput-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/EbookQuickSettingButton;->mEDM:Landroid/app/enterprise/EnterpriseDeviceManager;
 
-    .line 91
+    .line 100
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/EbookQuickSettingButton;->mEDM:Landroid/app/enterprise/EnterpriseDeviceManager;
 
     invoke-virtual {v0}, Landroid/app/enterprise/EnterpriseDeviceManager;->getRestrictionPolicy()Landroid/app/enterprise/RestrictionPolicy;
@@ -609,7 +637,7 @@
 
     iput-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/EbookQuickSettingButton;->mRestrictionPolicy:Landroid/app/enterprise/RestrictionPolicy;
 
-    .line 92
+    .line 101
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/EbookQuickSettingButton;->mRestrictionPolicy:Landroid/app/enterprise/RestrictionPolicy;
 
     const/4 v1, 0x0
@@ -620,30 +648,30 @@
 
     if-nez v0, :cond_1
 
-    .line 93
+    .line 102
     const-string v0, "STATUSBAR-E-BookSettingButton"
 
     const-string v1, "onClick(): Reading mode state change is not allowed"
 
     invoke-static {v0, v1}, Landroid/util/Log;->secW(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 103
+    .line 112
     :cond_0
     :goto_0
     return-void
 
-    .line 99
+    .line 108
     :cond_1
     iget-boolean v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/EbookQuickSettingButton;->mState:Z
 
     if-eq v0, p1, :cond_0
 
-    .line 100
+    .line 109
     const/4 v0, 0x3
 
-    invoke-virtual {p0, v0}, Lcom/android/systemui/statusbar/policy/quicksetting/EbookQuickSettingButton;->setActivateStatus(I)V
+    invoke-virtual {p0, v0}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->setActivateStatus(I)V
 
-    .line 101
+    .line 110
     invoke-direct {p0, p1}, Lcom/android/systemui/statusbar/policy/quicksetting/EbookQuickSettingButton;->setReadingMode(Z)V
 
     goto :goto_0
@@ -653,14 +681,14 @@
     .locals 2
 
     .prologue
-    .line 106
+    .line 115
     const-string v0, "com.android.settings"
 
     const-string v1, "com.android.settings.Settings$ReadingModeSettingsActivity"
 
-    invoke-virtual {p0, v0, v1}, Lcom/android/systemui/statusbar/policy/quicksetting/EbookQuickSettingButton;->callActivity(Ljava/lang/String;Ljava/lang/String;)V
+    invoke-virtual {p0, v0, v1}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->callActivity(Ljava/lang/String;Ljava/lang/String;)V
 
-    .line 107
+    .line 116
     return-void
 .end method
 
@@ -668,13 +696,13 @@
     .locals 2
 
     .prologue
-    .line 213
+    .line 222
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/EbookQuickSettingButton;->mEbookModeObserver:Lcom/android/systemui/statusbar/policy/quicksetting/EbookQuickSettingButton$EbookModeObserver;
 
     const/4 v1, 0x0
 
     invoke-virtual {v0, v1}, Lcom/android/systemui/statusbar/policy/quicksetting/EbookQuickSettingButton$EbookModeObserver;->onChange(Z)V
 
-    .line 214
+    .line 223
     return-void
 .end method

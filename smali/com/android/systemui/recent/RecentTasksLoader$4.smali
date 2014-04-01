@@ -38,7 +38,7 @@
     .parameter
 
     .prologue
-    .line 631
+    .line 609
     iput-object p1, p0, Lcom/android/systemui/recent/RecentTasksLoader$4;->this$0:Lcom/android/systemui/recent/RecentTasksLoader;
 
     iput-object p2, p0, Lcom/android/systemui/recent/RecentTasksLoader$4;->val$tasksWaitingForThumbnails:Ljava/util/concurrent/BlockingQueue;
@@ -55,7 +55,7 @@
     .parameter "x0"
 
     .prologue
-    .line 631
+    .line 609
     check-cast p1, [Ljava/lang/Void;
 
     .end local p1
@@ -77,14 +77,14 @@
 
     const/4 v6, 0x0
 
-    .line 650
+    .line 628
     const-string v4, "STATUSBAR-RecentTasksLoader"
 
     const-string v5, "loadThumbnailsAndIconsInBackground-doInBackground()"
 
     invoke-static {v4, v5}, Landroid/util/Slog;->d(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 651
+    .line 629
     invoke-static {}, Landroid/os/Process;->myTid()I
 
     move-result v4
@@ -93,39 +93,39 @@
 
     move-result v2
 
-    .line 652
+    .line 630
     .local v2, origPri:I
     const/16 v4, 0xa
 
     invoke-static {v4}, Landroid/os/Process;->setThreadPriority(I)V
 
-    .line 655
+    .line 633
     :goto_0
-    invoke-virtual {p0}, Lcom/android/systemui/recent/RecentTasksLoader$4;->isCancelled()Z
+    invoke-virtual {p0}, Landroid/os/AsyncTask;->isCancelled()Z
 
     move-result v4
 
     if-eqz v4, :cond_0
 
-    .line 679
+    .line 657
     :goto_1
     invoke-static {v2}, Landroid/os/Process;->setThreadPriority(I)V
 
-    .line 680
+    .line 658
     :goto_2
     return-object v8
 
-    .line 658
+    .line 636
     :cond_0
     const/4 v3, 0x0
 
-    .line 659
+    .line 637
     .local v3, td:Lcom/android/systemui/recent/TaskDescription;
     :cond_1
     :goto_3
     if-nez v3, :cond_2
 
-    .line 661
+    .line 639
     :try_start_0
     iget-object v4, p0, Lcom/android/systemui/recent/RecentTasksLoader$4;->val$tasksWaitingForThumbnails:Ljava/util/concurrent/BlockingQueue;
 
@@ -143,11 +143,11 @@
 
     goto :goto_3
 
-    .line 662
+    .line 640
     :catch_0
     move-exception v1
 
-    .line 663
+    .line 641
     .local v1, e:Ljava/lang/InterruptedException;
     const-string v4, "STATUSBAR-RecentTasksLoader"
 
@@ -155,19 +155,19 @@
 
     invoke-static {v4, v5}, Landroid/util/Slog;->e(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 664
-    invoke-virtual {p0}, Lcom/android/systemui/recent/RecentTasksLoader$4;->isCancelled()Z
+    .line 642
+    invoke-virtual {p0}, Landroid/os/AsyncTask;->isCancelled()Z
 
     move-result v4
 
     if-eqz v4, :cond_1
 
-    .line 665
+    .line 643
     invoke-static {v2}, Landroid/os/Process;->setThreadPriority(I)V
 
     goto :goto_2
 
-    .line 670
+    .line 648
     .end local v1           #e:Ljava/lang/InterruptedException;
     :cond_2
     invoke-virtual {v3}, Lcom/android/systemui/recent/TaskDescription;->isNull()Z
@@ -176,27 +176,27 @@
 
     if-eqz v4, :cond_3
 
-    .line 671
+    .line 649
     new-array v4, v7, [Lcom/android/systemui/recent/TaskDescription;
 
     aput-object v3, v4, v6
 
-    invoke-virtual {p0, v4}, Lcom/android/systemui/recent/RecentTasksLoader$4;->publishProgress([Ljava/lang/Object;)V
+    invoke-virtual {p0, v4}, Landroid/os/AsyncTask;->publishProgress([Ljava/lang/Object;)V
 
     goto :goto_1
 
-    .line 674
+    .line 652
     :cond_3
     iget-object v4, p0, Lcom/android/systemui/recent/RecentTasksLoader$4;->this$0:Lcom/android/systemui/recent/RecentTasksLoader;
 
     invoke-virtual {v4, v3}, Lcom/android/systemui/recent/RecentTasksLoader;->loadThumbnailAndIcon(Lcom/android/systemui/recent/TaskDescription;)V
 
-    .line 676
+    .line 654
     new-array v4, v7, [Lcom/android/systemui/recent/TaskDescription;
 
     aput-object v3, v4, v6
 
-    invoke-virtual {p0, v4}, Lcom/android/systemui/recent/RecentTasksLoader$4;->publishProgress([Ljava/lang/Object;)V
+    invoke-virtual {p0, v4}, Landroid/os/AsyncTask;->publishProgress([Ljava/lang/Object;)V
 
     goto :goto_0
 .end method
@@ -206,33 +206,33 @@
     .parameter "values"
 
     .prologue
-    .line 634
+    .line 612
     const-string v1, "STATUSBAR-RecentTasksLoader"
 
     const-string v2, "loadThumbnailsAndIconsInBackground-onProgressUpdate()"
 
     invoke-static {v1, v2}, Landroid/util/Slog;->d(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 635
-    invoke-virtual {p0}, Lcom/android/systemui/recent/RecentTasksLoader$4;->isCancelled()Z
+    .line 613
+    invoke-virtual {p0}, Landroid/os/AsyncTask;->isCancelled()Z
 
     move-result v1
 
     if-nez v1, :cond_0
 
-    .line 636
+    .line 614
     const-string v1, "STATUSBAR-RecentTasksLoader"
 
     const-string v2, "    !isCancelled()"
 
     invoke-static {v1, v2}, Landroid/util/Slog;->d(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 637
+    .line 615
     const/4 v1, 0x0
 
     aget-object v0, p1, v1
 
-    .line 638
+    .line 616
     .local v0, td:Lcom/android/systemui/recent/TaskDescription;
     invoke-virtual {v0}, Lcom/android/systemui/recent/TaskDescription;->isNull()Z
 
@@ -240,7 +240,7 @@
 
     if-eqz v1, :cond_1
 
-    .line 639
+    .line 617
     iget-object v1, p0, Lcom/android/systemui/recent/RecentTasksLoader$4;->this$0:Lcom/android/systemui/recent/RecentTasksLoader;
 
     sget-object v2, Lcom/android/systemui/recent/RecentTasksLoader$State;->LOADED:Lcom/android/systemui/recent/RecentTasksLoader$State;
@@ -248,20 +248,20 @@
     #setter for: Lcom/android/systemui/recent/RecentTasksLoader;->mState:Lcom/android/systemui/recent/RecentTasksLoader$State;
     invoke-static {v1, v2}, Lcom/android/systemui/recent/RecentTasksLoader;->access$1002(Lcom/android/systemui/recent/RecentTasksLoader;Lcom/android/systemui/recent/RecentTasksLoader$State;)Lcom/android/systemui/recent/RecentTasksLoader$State;
 
-    .line 640
+    .line 618
     const-string v1, "STATUSBAR-RecentTasksLoader"
 
     const-string v2, "mState = State.LOADED"
 
     invoke-static {v1, v2}, Landroid/util/Slog;->d(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 647
+    .line 625
     .end local v0           #td:Lcom/android/systemui/recent/TaskDescription;
     :cond_0
     :goto_0
     return-void
 
-    .line 642
+    .line 620
     .restart local v0       #td:Lcom/android/systemui/recent/TaskDescription;
     :cond_1
     iget-object v1, p0, Lcom/android/systemui/recent/RecentTasksLoader$4;->this$0:Lcom/android/systemui/recent/RecentTasksLoader;
@@ -273,7 +273,7 @@
 
     if-eqz v1, :cond_0
 
-    .line 643
+    .line 621
     iget-object v1, p0, Lcom/android/systemui/recent/RecentTasksLoader$4;->this$0:Lcom/android/systemui/recent/RecentTasksLoader;
 
     #getter for: Lcom/android/systemui/recent/RecentTasksLoader;->mRecentsPanel:Lcom/android/systemui/recent/RecentsPanelView;
@@ -291,7 +291,7 @@
     .parameter "x0"
 
     .prologue
-    .line 631
+    .line 609
     check-cast p1, [Lcom/android/systemui/recent/TaskDescription;
 
     .end local p1

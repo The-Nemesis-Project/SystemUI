@@ -3,12 +3,12 @@
 .source "PowerUI.java"
 
 # interfaces
-.implements Ljava/lang/Runnable;
+.implements Landroid/content/DialogInterface$OnClickListener;
 
 
 # annotations
-.annotation system Ldalvik/annotation/EnclosingClass;
-    value = Lcom/android/systemui/power/PowerUI;
+.annotation system Ldalvik/annotation/EnclosingMethod;
+    value = Lcom/android/systemui/power/PowerUI;->showOverheatShutdownWarning()V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -27,43 +27,27 @@
     .parameter
 
     .prologue
-    .line 1398
+    .line 1438
     iput-object p1, p0, Lcom/android/systemui/power/PowerUI$18;->this$0:Lcom/android/systemui/power/PowerUI;
 
-    invoke-direct/range {p0 .. p0}, Ljava/lang/Object;-><init>()V
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
     return-void
 .end method
 
 
 # virtual methods
-.method public run()V
-    .locals 2
+.method public onClick(Landroid/content/DialogInterface;I)V
+    .locals 1
+    .parameter "dialog"
+    .parameter "which"
 
     .prologue
-    .line 1400
-    const-string v0, "PowerUI"
-
-    const-string v1, "Face detection failure task runs"
-
-    invoke-static {v0, v1}, Landroid/util/Slog;->d(Ljava/lang/String;Ljava/lang/String;)I
-
-    .line 1401
+    .line 1441
     iget-object v0, p0, Lcom/android/systemui/power/PowerUI$18;->this$0:Lcom/android/systemui/power/PowerUI;
 
-    invoke-virtual {v0}, Lcom/android/systemui/power/PowerUI;->cancelFaceDetectionFailureNotification()V
+    invoke-virtual {v0}, Lcom/android/systemui/power/PowerUI;->dismissOverheatShutdownWarning()V
 
-    .line 1403
-    iget-object v0, p0, Lcom/android/systemui/power/PowerUI$18;->this$0:Lcom/android/systemui/power/PowerUI;
-
-    iget-object v0, v0, Lcom/android/systemui/power/PowerUI;->mHandler:Landroid/os/Handler;
-
-    iget-object v1, p0, Lcom/android/systemui/power/PowerUI$18;->this$0:Lcom/android/systemui/power/PowerUI;
-
-    iget-object v1, v1, Lcom/android/systemui/power/PowerUI;->mFaceDetectionFailureTask:Ljava/lang/Runnable;
-
-    invoke-virtual {v0, v1}, Landroid/os/Handler;->removeCallbacks(Ljava/lang/Runnable;)V
-
-    .line 1404
+    .line 1442
     return-void
 .end method

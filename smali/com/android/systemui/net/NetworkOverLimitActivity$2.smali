@@ -27,10 +27,10 @@
     .parameter
 
     .prologue
-    .line 84
+    .line 80
     iput-object p1, p0, Lcom/android/systemui/net/NetworkOverLimitActivity$2;->this$0:Lcom/android/systemui/net/NetworkOverLimitActivity;
 
-    invoke-direct/range {p0 .. p0}, Ljava/lang/Object;-><init>()V
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
     return-void
 .end method
@@ -42,11 +42,11 @@
     .parameter "dialog"
 
     .prologue
-    .line 86
+    .line 82
     iget-object v0, p0, Lcom/android/systemui/net/NetworkOverLimitActivity$2;->this$0:Lcom/android/systemui/net/NetworkOverLimitActivity;
 
-    invoke-virtual {v0}, Lcom/android/systemui/net/NetworkOverLimitActivity;->finish()V
+    invoke-virtual {v0}, Landroid/app/Activity;->finish()V
 
-    .line 87
+    .line 83
     return-void
 .end method

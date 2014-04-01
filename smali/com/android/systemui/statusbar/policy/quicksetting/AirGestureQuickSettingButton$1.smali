@@ -27,10 +27,10 @@
     .parameter
 
     .prologue
-    .line 188
+    .line 196
     iput-object p1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/AirGestureQuickSettingButton$1;->this$0:Lcom/android/systemui/statusbar/policy/quicksetting/AirGestureQuickSettingButton;
 
-    invoke-direct/range {p0 .. p0}, Ljava/lang/Object;-><init>()V
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
     return-void
 .end method
@@ -43,13 +43,13 @@
     .parameter "which"
 
     .prologue
-    .line 191
+    .line 199
     const-string v0, "STATUSBAR-AirGesture"
 
     const-string v1, "showConfirmPopup() - Negative onClick mode: cancel"
 
     invoke-static {v0, v1}, Landroid/util/secutil/Log;->secW(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 192
+    .line 200
     return-void
 .end method

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item type="drawable" name="notification_background_color">#ff1e2022</item>
+    <item type="drawable" name="notification_title_background">@drawable/tw_preference_list_section_divider_holo_dark</item>
+    <item type="drawable" name="tw_notification_background_null">#00000000</item>
+    <item type="drawable" name="tw_notification_background_pressed">#ff105a76</item>
+    <item type="drawable" name="notification_header_bg">#fff5f5f5</item>
+    <item type="drawable" name="notification_panel_bg">#00000000</item>
+    <item type="drawable" name="tw_quick_panel_quick_setting_button_bg_normal">#fff5f5f5</item>
+</resources>

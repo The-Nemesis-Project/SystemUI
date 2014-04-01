@@ -24,7 +24,7 @@
     .parameter
 
     .prologue
-    .line 98
+    .line 96
     iput-object p1, p0, Lcom/android/systemui/usb/UsbStorageActivity$2;->this$0:Lcom/android/systemui/usb/UsbStorageActivity;
 
     invoke-direct {p0}, Landroid/os/storage/StorageEventListener;-><init>()V
@@ -41,20 +41,20 @@
     .parameter "newState"
 
     .prologue
-    .line 101
+    .line 99
     const-string v1, "shared"
 
     invoke-virtual {p3, v1}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
 
     move-result v0
 
-    .line 102
+    .line 100
     .local v0, on:Z
     iget-object v1, p0, Lcom/android/systemui/usb/UsbStorageActivity$2;->this$0:Lcom/android/systemui/usb/UsbStorageActivity;
 
     #calls: Lcom/android/systemui/usb/UsbStorageActivity;->switchDisplay(Z)V
     invoke-static {v1, v0}, Lcom/android/systemui/usb/UsbStorageActivity;->access$100(Lcom/android/systemui/usb/UsbStorageActivity;Z)V
 
-    .line 103
+    .line 101
     return-void
 .end method

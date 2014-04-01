@@ -30,18 +30,18 @@
     .parameter "attrs"
 
     .prologue
-    .line 52
+    .line 45
     invoke-direct {p0, p1, p2}, Landroid/widget/LinearLayout;-><init>(Landroid/content/Context;Landroid/util/AttributeSet;)V
 
-    .line 54
+    .line 47
     iput-object p1, p0, Lcom/android/systemui/statusbar/phone/IconMerger;->mContext:Landroid/content/Context;
 
-    .line 56
+    .line 49
     invoke-virtual {p1}, Landroid/content/Context;->getResources()Landroid/content/res/Resources;
 
     move-result-object v1
 
-    const v2, 0x7f0e0017
+    const v2, 0x7f0c0023
 
     invoke-virtual {v1, v2}, Landroid/content/res/Resources;->getDimensionPixelSize(I)I
 
@@ -49,18 +49,18 @@
 
     iput v1, p0, Lcom/android/systemui/statusbar/phone/IconMerger;->mIconSize:I
 
-    .line 59
+    .line 52
     invoke-virtual {p1}, Landroid/content/Context;->getResources()Landroid/content/res/Resources;
 
     move-result-object v1
 
-    const v2, 0x7f0e001e
+    const v2, 0x7f0c002a
 
     invoke-virtual {v1, v2}, Landroid/content/res/Resources;->getDimensionPixelSize(I)I
 
     move-result v0
 
-    .line 61
+    .line 54
     .local v0, iconPadding:I
     iget v1, p0, Lcom/android/systemui/statusbar/phone/IconMerger;->mIconSize:I
 
@@ -70,7 +70,7 @@
 
     iput v1, p0, Lcom/android/systemui/statusbar/phone/IconMerger;->mIconSize:I
 
-    .line 67
+    .line 60
     return-void
 .end method
 
@@ -79,7 +79,7 @@
     .parameter "x0"
 
     .prologue
-    .line 40
+    .line 33
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/IconMerger;->mOperatorLogoView:Landroid/view/View;
 
     return-object v0
@@ -90,7 +90,7 @@
     .parameter "x0"
 
     .prologue
-    .line 40
+    .line 33
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/IconMerger;->mCarrierNameView:Landroid/view/View;
 
     return-object v0
@@ -101,7 +101,7 @@
     .parameter "x0"
 
     .prologue
-    .line 40
+    .line 33
     iget v0, p0, Lcom/android/systemui/statusbar/phone/IconMerger;->mIconSize:I
 
     return v0
@@ -112,7 +112,7 @@
     .parameter "x0"
 
     .prologue
-    .line 40
+    .line 33
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/IconMerger;->mMoreView:Landroid/view/View;
 
     return-object v0
@@ -127,30 +127,30 @@
 
     const/4 v6, 0x0
 
-    .line 118
+    .line 111
     iget-object v7, p0, Lcom/android/systemui/statusbar/phone/IconMerger;->mMoreView:Landroid/view/View;
 
     if-nez v7, :cond_0
 
-    .line 155
+    .line 144
     :goto_0
     return-void
 
-    .line 120
+    .line 113
     :cond_0
-    invoke-virtual {p0}, Lcom/android/systemui/statusbar/phone/IconMerger;->getChildCount()I
+    invoke-virtual {p0}, Landroid/view/ViewGroup;->getChildCount()I
 
     move-result v0
 
-    .line 121
+    .line 114
     .local v0, N:I
     move v3, p1
 
-    .line 122
+    .line 115
     .local v3, notificationIconsWidth:I
     const/4 v5, 0x0
 
-    .line 123
+    .line 116
     .local v5, visibleChildren:I
     const/4 v1, 0x0
 
@@ -158,8 +158,8 @@
     :goto_1
     if-ge v1, v0, :cond_2
 
-    .line 124
-    invoke-virtual {p0, v1}, Lcom/android/systemui/statusbar/phone/IconMerger;->getChildAt(I)Landroid/view/View;
+    .line 117
+    invoke-virtual {p0, v1}, Landroid/view/ViewGroup;->getChildAt(I)Landroid/view/View;
 
     move-result-object v7
 
@@ -173,13 +173,13 @@
 
     add-int/lit8 v5, v5, 0x1
 
-    .line 123
+    .line 116
     :cond_1
     add-int/lit8 v1, v1, 0x1
 
     goto :goto_1
 
-    .line 126
+    .line 119
     :cond_2
     iget-object v7, p0, Lcom/android/systemui/statusbar/phone/IconMerger;->mMoreView:Landroid/view/View;
 
@@ -191,7 +191,7 @@
 
     move v4, v2
 
-    .line 128
+    .line 121
     .local v4, overflowShown:Z
     :goto_2
     if-eqz v4, :cond_3
@@ -204,7 +204,7 @@
 
     add-int/lit8 v5, v5, -0x1
 
-    .line 130
+    .line 122
     :cond_3
     iget v7, p0, Lcom/android/systemui/statusbar/phone/IconMerger;->mIconSize:I
 
@@ -212,19 +212,19 @@
 
     if-le v7, p1, :cond_6
 
-    .line 131
+    .line 123
     .local v2, moreRequired:Z
     :goto_3
     if-eq v2, v4, :cond_4
 
-    .line 132
+    .line 124
     new-instance v6, Lcom/android/systemui/statusbar/phone/IconMerger$1;
 
-    invoke-direct {v6, p0, v2, v4, v3}, Lcom/android/systemui/statusbar/phone/IconMerger$1;-><init>(Lcom/android/systemui/statusbar/phone/IconMerger;ZZI)V
+    invoke-direct {v6, p0, v2, v3}, Lcom/android/systemui/statusbar/phone/IconMerger$1;-><init>(Lcom/android/systemui/statusbar/phone/IconMerger;ZI)V
 
-    invoke-virtual {p0, v6}, Lcom/android/systemui/statusbar/phone/IconMerger;->post(Ljava/lang/Runnable;)Z
+    invoke-virtual {p0, v6}, Landroid/view/View;->post(Ljava/lang/Runnable;)Z
 
-    .line 154
+    .line 143
     :cond_4
     const-string v6, "STATUSBAR-IconMerger"
 
@@ -285,14 +285,14 @@
     :cond_5
     move v4, v6
 
-    .line 126
+    .line 119
     goto :goto_2
 
     .restart local v4       #overflowShown:Z
     :cond_6
     move v2, v6
 
-    .line 130
+    .line 122
     goto :goto_3
 .end method
 
@@ -304,17 +304,17 @@
     .prologue
     const/4 v0, 0x1
 
-    .line 93
+    .line 86
     sget-boolean v1, Lcom/android/systemui/statusbar/Feature;->mShowOperatorLogoIcon:Z
 
     if-nez v1, :cond_1
 
-    .line 99
+    .line 92
     :cond_0
     :goto_0
     return v0
 
-    .line 96
+    .line 89
     :cond_1
     iget-object v1, p0, Lcom/android/systemui/statusbar/phone/IconMerger;->mOperatorLogoView:Landroid/view/View;
 
@@ -342,7 +342,7 @@
 
     if-eqz v1, :cond_0
 
-    .line 99
+    .line 92
     :cond_2
     const/4 v0, 0x0
 
@@ -358,15 +358,15 @@
     .parameter "b"
 
     .prologue
-    .line 113
+    .line 106
     invoke-super/range {p0 .. p5}, Landroid/widget/LinearLayout;->onLayout(ZIIII)V
 
-    .line 114
+    .line 107
     sub-int v0, p4, p2
 
     invoke-direct {p0, v0}, Lcom/android/systemui/statusbar/phone/IconMerger;->checkOverflow(I)V
 
-    .line 115
+    .line 108
     return-void
 .end method
 
@@ -376,15 +376,15 @@
     .parameter "heightMeasureSpec"
 
     .prologue
-    .line 105
+    .line 98
     invoke-super {p0, p1, p2}, Landroid/widget/LinearLayout;->onMeasure(II)V
 
-    .line 107
-    invoke-virtual {p0}, Lcom/android/systemui/statusbar/phone/IconMerger;->getMeasuredWidth()I
+    .line 100
+    invoke-virtual {p0}, Landroid/view/View;->getMeasuredWidth()I
 
     move-result v0
 
-    .line 108
+    .line 101
     .local v0, width:I
     iget v1, p0, Lcom/android/systemui/statusbar/phone/IconMerger;->mIconSize:I
 
@@ -392,13 +392,13 @@
 
     sub-int v1, v0, v1
 
-    invoke-virtual {p0}, Lcom/android/systemui/statusbar/phone/IconMerger;->getMeasuredHeight()I
+    invoke-virtual {p0}, Landroid/view/View;->getMeasuredHeight()I
 
     move-result v2
 
-    invoke-virtual {p0, v1, v2}, Lcom/android/systemui/statusbar/phone/IconMerger;->setMeasuredDimension(II)V
+    invoke-virtual {p0, v1, v2}, Landroid/view/View;->setMeasuredDimension(II)V
 
-    .line 109
+    .line 102
     return-void
 .end method
 
@@ -407,10 +407,10 @@
     .parameter "v"
 
     .prologue
-    .line 87
+    .line 80
     iput-object p1, p0, Lcom/android/systemui/statusbar/phone/IconMerger;->mCarrierNameView:Landroid/view/View;
 
-    .line 88
+    .line 81
     return-void
 .end method
 
@@ -419,10 +419,10 @@
     .parameter "v"
 
     .prologue
-    .line 81
+    .line 74
     iput-object p1, p0, Lcom/android/systemui/statusbar/phone/IconMerger;->mOperatorLogoView:Landroid/view/View;
 
-    .line 82
+    .line 75
     return-void
 .end method
 
@@ -431,10 +431,10 @@
     .parameter "v"
 
     .prologue
-    .line 70
+    .line 63
     iput-object p1, p0, Lcom/android/systemui/statusbar/phone/IconMerger;->mMoreView:Landroid/view/View;
 
-    .line 72
+    .line 65
     iget-object v2, p0, Lcom/android/systemui/statusbar/phone/IconMerger;->mContext:Landroid/content/Context;
 
     invoke-virtual {v2}, Landroid/content/Context;->getResources()Landroid/content/res/Resources;
@@ -447,7 +447,7 @@
 
     move-result v0
 
-    .line 74
+    .line 67
     .local v0, NaturalBarHeight:I
     new-instance v1, Landroid/widget/LinearLayout$LayoutParams;
 
@@ -455,17 +455,17 @@
 
     invoke-direct {v1, v2, v0}, Landroid/widget/LinearLayout$LayoutParams;-><init>(II)V
 
-    .line 75
+    .line 68
     .local v1, params:Landroid/widget/LinearLayout$LayoutParams;
     const/16 v2, 0x11
 
     iput v2, v1, Landroid/widget/LinearLayout$LayoutParams;->gravity:I
 
-    .line 76
+    .line 69
     iget-object v2, p0, Lcom/android/systemui/statusbar/phone/IconMerger;->mMoreView:Landroid/view/View;
 
     invoke-virtual {v2, v1}, Landroid/view/View;->setLayoutParams(Landroid/view/ViewGroup$LayoutParams;)V
 
-    .line 77
+    .line 70
     return-void
 .end method

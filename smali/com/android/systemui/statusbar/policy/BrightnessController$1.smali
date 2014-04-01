@@ -25,7 +25,7 @@
     .parameter "x0"
 
     .prologue
-    .line 118
+    .line 131
     iput-object p1, p0, Lcom/android/systemui/statusbar/policy/BrightnessController$1;->this$0:Lcom/android/systemui/statusbar/policy/BrightnessController;
 
     invoke-direct {p0, p2}, Lcom/android/systemui/statusbar/policy/CurrentUserTracker;-><init>(Landroid/content/Context;)V
@@ -41,15 +41,15 @@
     .parameter "intent"
 
     .prologue
-    .line 121
+    .line 134
     invoke-super {p0, p1, p2}, Lcom/android/systemui/statusbar/policy/CurrentUserTracker;->onReceive(Landroid/content/Context;Landroid/content/Intent;)V
 
-    .line 122
+    .line 135
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/BrightnessController$1;->this$0:Lcom/android/systemui/statusbar/policy/BrightnessController;
 
     #calls: Lcom/android/systemui/statusbar/policy/BrightnessController;->resetObservers()V
     invoke-static {v0}, Lcom/android/systemui/statusbar/policy/BrightnessController;->access$000(Lcom/android/systemui/statusbar/policy/BrightnessController;)V
 
-    .line 123
+    .line 136
     return-void
 .end method

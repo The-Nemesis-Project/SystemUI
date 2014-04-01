@@ -15,33 +15,31 @@
 
 
 # static fields
-.field public static final config_BlockWifiQuickSettingButton:I = 0x7f0b000b
+.field public static final config_dead_zone_flash:I = 0x7f090007
 
-.field public static final config_dead_zone_flash:I = 0x7f0b0007
+.field public static final config_hasFlipSettingsPanel:I = 0x7f09000b
 
-.field public static final config_hasFlipSettingsPanel:I = 0x7f0b000a
+.field public static final config_hasSettingsPanel:I = 0x7f09000a
 
-.field public static final config_hasSettingsPanel:I = 0x7f0b0009
+.field public static final config_hspa_data_distinguishable:I = 0x7f090002
 
-.field public static final config_hspa_data_distinguishable:I = 0x7f0b0002
+.field public static final config_recents_interface_for_tablets:I = 0x7f090000
 
-.field public static final config_recents_interface_for_tablets:I = 0x7f0b0000
+.field public static final config_recents_thumbnail_image_fits_to_xy:I = 0x7f090001
 
-.field public static final config_recents_thumbnail_image_fits_to_xy:I = 0x7f0b0001
+.field public static final config_show4GForLTE:I = 0x7f09000c
 
-.field public static final config_showMin3G:I = 0x7f0b0005
+.field public static final config_showMin3G:I = 0x7f090005
 
-.field public static final config_showPhoneRSSIForData:I = 0x7f0b0004
+.field public static final config_showPhoneRSSIForData:I = 0x7f090004
 
-.field public static final config_showRotationLock:I = 0x7f0b0006
+.field public static final config_showRotationLock:I = 0x7f090006
 
-.field public static final config_statusBarShowNumber:I = 0x7f0b0003
+.field public static final config_statusBarShowNumber:I = 0x7f090003
 
-.field public static final config_supportHapticFeedback:I = 0x7f0b000d
+.field public static final quick_settings_rssi_tile_capitalization:I = 0x7f090009
 
-.field public static final config_useChinaQuickLaunch:I = 0x7f0b000c
-
-.field public static final quick_settings_show_rotation_lock:I = 0x7f0b0008
+.field public static final quick_settings_show_rotation_lock:I = 0x7f090008
 
 
 # direct methods
@@ -49,8 +47,8 @@
     .locals 0
 
     .prologue
-    .line 157
-    invoke-direct/range {p0 .. p0}, Ljava/lang/Object;-><init>()V
+    .line 158
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
     return-void
 .end method

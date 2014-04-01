@@ -27,10 +27,10 @@
     .parameter
 
     .prologue
-    .line 95
+    .line 207
     iput-object p1, p0, Lcom/android/systemui/statusbar/phone/PanelView$1;->this$0:Lcom/android/systemui/statusbar/phone/PanelView;
 
-    invoke-direct/range {p0 .. p0}, Ljava/lang/Object;-><init>()V
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
     return-void
 .end method
@@ -44,12 +44,12 @@
     .parameter "deltaTime"
 
     .prologue
-    .line 98
+    .line 210
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PanelView$1;->this$0:Lcom/android/systemui/statusbar/phone/PanelView;
 
     #calls: Lcom/android/systemui/statusbar/phone/PanelView;->animationTick(J)V
     invoke-static {v0, p4, p5}, Lcom/android/systemui/statusbar/phone/PanelView;->access$000(Lcom/android/systemui/statusbar/phone/PanelView;J)V
 
-    .line 99
+    .line 211
     return-void
 .end method

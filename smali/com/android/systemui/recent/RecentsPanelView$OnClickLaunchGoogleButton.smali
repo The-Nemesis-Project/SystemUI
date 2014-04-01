@@ -18,33 +18,19 @@
 
 
 # instance fields
-.field final CLASS_NAME:Ljava/lang/String;
-
-.field final PACKAGE_NAME:Ljava/lang/String;
-
 .field final synthetic this$0:Lcom/android/systemui/recent/RecentsPanelView;
 
 
 # direct methods
 .method private constructor <init>(Lcom/android/systemui/recent/RecentsPanelView;)V
-    .locals 1
+    .locals 0
     .parameter
 
     .prologue
-    .line 1241
+    .line 1218
     iput-object p1, p0, Lcom/android/systemui/recent/RecentsPanelView$OnClickLaunchGoogleButton;->this$0:Lcom/android/systemui/recent/RecentsPanelView;
 
-    invoke-direct/range {p0 .. p0}, Ljava/lang/Object;-><init>()V
-
-    .line 1242
-    const-string v0, "com.sec.android.app.controlpanel"
-
-    iput-object v0, p0, Lcom/android/systemui/recent/RecentsPanelView$OnClickLaunchGoogleButton;->PACKAGE_NAME:Ljava/lang/String;
-
-    .line 1244
-    const-string v0, "com.sec.android.app.controlpanel.activity.JobManagerActivity"
-
-    iput-object v0, p0, Lcom/android/systemui/recent/RecentsPanelView$OnClickLaunchGoogleButton;->CLASS_NAME:Ljava/lang/String;
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
     return-void
 .end method
@@ -55,7 +41,7 @@
     .parameter "x1"
 
     .prologue
-    .line 1241
+    .line 1218
     invoke-direct {p0, p1}, Lcom/android/systemui/recent/RecentsPanelView$OnClickLaunchGoogleButton;-><init>(Lcom/android/systemui/recent/RecentsPanelView;)V
 
     return-void
@@ -68,26 +54,26 @@
     .parameter "v"
 
     .prologue
-    .line 1249
+    .line 1223
     :try_start_0
     iget-object v2, p0, Lcom/android/systemui/recent/RecentsPanelView$OnClickLaunchGoogleButton;->this$0:Lcom/android/systemui/recent/RecentsPanelView;
 
     const/4 v3, 0x1
 
-    invoke-virtual {v2, v3}, Lcom/android/systemui/recent/RecentsPanelView;->sendAccessibilityEvent(I)V
+    invoke-virtual {v2, v3}, Landroid/view/View;->sendAccessibilityEvent(I)V
 
-    .line 1250
+    .line 1224
     iget-object v2, p0, Lcom/android/systemui/recent/RecentsPanelView$OnClickLaunchGoogleButton;->this$0:Lcom/android/systemui/recent/RecentsPanelView;
 
     const/4 v3, 0x0
 
     invoke-virtual {v2, v3}, Lcom/android/systemui/recent/RecentsPanelView;->show(Z)V
 
-    .line 1252
+    .line 1226
     iget-object v2, p0, Lcom/android/systemui/recent/RecentsPanelView$OnClickLaunchGoogleButton;->this$0:Lcom/android/systemui/recent/RecentsPanelView;
 
-    #getter for: Lcom/android/systemui/recent/RecentsPanelView;->mContext:Landroid/content/Context;
-    invoke-static {v2}, Lcom/android/systemui/recent/RecentsPanelView;->access$1600(Lcom/android/systemui/recent/RecentsPanelView;)Landroid/content/Context;
+    #getter for: Landroid/view/View;->mContext:Landroid/content/Context;
+    invoke-static {v2}, Lcom/android/systemui/recent/RecentsPanelView;->access$1800(Lcom/android/systemui/recent/RecentsPanelView;)Landroid/content/Context;
 
     move-result-object v2
 
@@ -101,8 +87,8 @@
 
     iget-object v3, p0, Lcom/android/systemui/recent/RecentsPanelView$OnClickLaunchGoogleButton;->this$0:Lcom/android/systemui/recent/RecentsPanelView;
 
-    #getter for: Lcom/android/systemui/recent/RecentsPanelView;->mContext:Landroid/content/Context;
-    invoke-static {v3}, Lcom/android/systemui/recent/RecentsPanelView;->access$1500(Lcom/android/systemui/recent/RecentsPanelView;)Landroid/content/Context;
+    #getter for: Landroid/view/View;->mContext:Landroid/content/Context;
+    invoke-static {v3}, Lcom/android/systemui/recent/RecentsPanelView;->access$1700(Lcom/android/systemui/recent/RecentsPanelView;)Landroid/content/Context;
 
     move-result-object v3
 
@@ -114,20 +100,20 @@
 
     move-result-object v1
 
-    .line 1254
+    .line 1228
     .local v1, intent:Landroid/content/Intent;
     if-eqz v1, :cond_0
 
-    .line 1255
+    .line 1229
     const v2, 0x10004000
 
     invoke-virtual {v1, v2}, Landroid/content/Intent;->setFlags(I)Landroid/content/Intent;
 
-    .line 1257
+    .line 1231
     iget-object v2, p0, Lcom/android/systemui/recent/RecentsPanelView$OnClickLaunchGoogleButton;->this$0:Lcom/android/systemui/recent/RecentsPanelView;
 
-    #getter for: Lcom/android/systemui/recent/RecentsPanelView;->mContext:Landroid/content/Context;
-    invoke-static {v2}, Lcom/android/systemui/recent/RecentsPanelView;->access$1700(Lcom/android/systemui/recent/RecentsPanelView;)Landroid/content/Context;
+    #getter for: Landroid/view/View;->mContext:Landroid/content/Context;
+    invoke-static {v2}, Lcom/android/systemui/recent/RecentsPanelView;->access$1900(Lcom/android/systemui/recent/RecentsPanelView;)Landroid/content/Context;
 
     move-result-object v2
 
@@ -140,20 +126,50 @@
     invoke-direct {v4, v5}, Landroid/os/UserHandle;-><init>(I)V
 
     invoke-virtual {v2, v1, v3, v4}, Landroid/content/Context;->startActivityAsUser(Landroid/content/Intent;Landroid/os/Bundle;Landroid/os/UserHandle;)V
-    :try_end_0
-    .catch Ljava/lang/Exception; {:try_start_0 .. :try_end_0} :catch_0
 
-    .line 1264
-    .end local v1           #intent:Landroid/content/Intent;
+    .line 1234
     :cond_0
+    sget-boolean v2, Lcom/android/systemui/statusbar/Feature;->mUseRecentsTrayConcept:Z
+
+    if-eqz v2, :cond_1
+
+    .line 1235
+    iget-object v2, p0, Lcom/android/systemui/recent/RecentsPanelView$OnClickLaunchGoogleButton;->this$0:Lcom/android/systemui/recent/RecentsPanelView;
+
+    #getter for: Lcom/android/systemui/recent/RecentsPanelView;->mRecentsCallbacks:Lcom/android/systemui/recent/IRecentsUI;
+    invoke-static {v2}, Lcom/android/systemui/recent/RecentsPanelView;->access$1300(Lcom/android/systemui/recent/RecentsPanelView;)Lcom/android/systemui/recent/IRecentsUI;
+
+    move-result-object v2
+
+    invoke-interface {v2}, Lcom/android/systemui/recent/IRecentsUI;->dismissAndGoBack()V
+
+    .line 1242
+    .end local v1           #intent:Landroid/content/Intent;
     :goto_0
     return-void
 
-    .line 1261
+    .line 1237
+    .restart local v1       #intent:Landroid/content/Intent;
+    :cond_1
+    iget-object v2, p0, Lcom/android/systemui/recent/RecentsPanelView$OnClickLaunchGoogleButton;->this$0:Lcom/android/systemui/recent/RecentsPanelView;
+
+    #getter for: Lcom/android/systemui/recent/RecentsPanelView;->mRecentsCallbacks:Lcom/android/systemui/recent/IRecentsUI;
+    invoke-static {v2}, Lcom/android/systemui/recent/RecentsPanelView;->access$1300(Lcom/android/systemui/recent/RecentsPanelView;)Lcom/android/systemui/recent/IRecentsUI;
+
+    move-result-object v2
+
+    invoke-interface {v2}, Lcom/android/systemui/recent/IRecentsUI;->dismissAndGoHome()V
+    :try_end_0
+    .catch Ljava/lang/Exception; {:try_start_0 .. :try_end_0} :catch_0
+
+    goto :goto_0
+
+    .line 1239
+    .end local v1           #intent:Landroid/content/Intent;
     :catch_0
     move-exception v0
 
-    .line 1262
+    .line 1240
     .local v0, e:Ljava/lang/Exception;
     const-string v2, "RecentsPanelView"
 

@@ -42,203 +42,237 @@
 
 .field private mDormantModeObserver:Lcom/android/systemui/statusbar/DoNotDisturb$DormantModeObserver;
 
+.field mEndTimePendingIntent:Landroid/app/PendingIntent;
+
 .field private mIntentReceiver:Landroid/content/BroadcastReceiver;
+
+.field mStartTimePendingIntent:Landroid/app/PendingIntent;
 
 .field private mStatusBar:Landroid/app/StatusBarManager;
 
 
 # direct methods
 .method public constructor <init>(Landroid/content/Context;)V
-    .locals 5
+    .locals 7
     .parameter "context"
 
     .prologue
-    const/4 v4, 0x0
+    const/high16 v6, 0x1000
 
-    .line 66
-    invoke-direct/range {p0 .. p0}, Ljava/lang/Object;-><init>()V
-
-    .line 62
-    const/4 v2, 0x0
-
-    iput-object v2, p0, Lcom/android/systemui/statusbar/DoNotDisturb;->mAudioManager:Landroid/media/AudioManager;
-
-    .line 64
-    new-instance v2, Lcom/android/systemui/statusbar/DoNotDisturb$DormantModeObserver;
-
-    invoke-direct {v2, p0}, Lcom/android/systemui/statusbar/DoNotDisturb$DormantModeObserver;-><init>(Lcom/android/systemui/statusbar/DoNotDisturb;)V
-
-    iput-object v2, p0, Lcom/android/systemui/statusbar/DoNotDisturb;->mDormantModeObserver:Lcom/android/systemui/statusbar/DoNotDisturb$DormantModeObserver;
-
-    .line 214
-    new-instance v2, Lcom/android/systemui/statusbar/DoNotDisturb$1;
-
-    invoke-direct {v2, p0}, Lcom/android/systemui/statusbar/DoNotDisturb$1;-><init>(Lcom/android/systemui/statusbar/DoNotDisturb;)V
-
-    iput-object v2, p0, Lcom/android/systemui/statusbar/DoNotDisturb;->mIntentReceiver:Landroid/content/BroadcastReceiver;
-
-    .line 67
-    const-string v2, "StatusBar-DoNotDistrub"
-
-    const-string v3, "DoNotDisturb constructor called"
-
-    invoke-static {v2, v3}, Landroid/util/secutil/Log;->secD(Ljava/lang/String;Ljava/lang/String;)I
+    const/4 v5, 0x0
 
     .line 68
-    iput-object p1, p0, Lcom/android/systemui/statusbar/DoNotDisturb;->mContext:Landroid/content/Context;
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
+
+    .line 64
+    const/4 v3, 0x0
+
+    iput-object v3, p0, Lcom/android/systemui/statusbar/DoNotDisturb;->mAudioManager:Landroid/media/AudioManager;
+
+    .line 66
+    new-instance v3, Lcom/android/systemui/statusbar/DoNotDisturb$DormantModeObserver;
+
+    invoke-direct {v3, p0}, Lcom/android/systemui/statusbar/DoNotDisturb$DormantModeObserver;-><init>(Lcom/android/systemui/statusbar/DoNotDisturb;)V
+
+    iput-object v3, p0, Lcom/android/systemui/statusbar/DoNotDisturb;->mDormantModeObserver:Lcom/android/systemui/statusbar/DoNotDisturb$DormantModeObserver;
+
+    .line 218
+    new-instance v3, Lcom/android/systemui/statusbar/DoNotDisturb$1;
+
+    invoke-direct {v3, p0}, Lcom/android/systemui/statusbar/DoNotDisturb$1;-><init>(Lcom/android/systemui/statusbar/DoNotDisturb;)V
+
+    iput-object v3, p0, Lcom/android/systemui/statusbar/DoNotDisturb;->mIntentReceiver:Landroid/content/BroadcastReceiver;
 
     .line 69
-    iget-object v2, p0, Lcom/android/systemui/statusbar/DoNotDisturb;->mContext:Landroid/content/Context;
+    const-string v3, "StatusBar-DoNotDistrub"
 
-    invoke-virtual {v2}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
+    const-string v4, "DoNotDisturb constructor called"
+
+    invoke-static {v3, v4}, Landroid/util/Slog;->d(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 70
+    iput-object p1, p0, Lcom/android/systemui/statusbar/DoNotDisturb;->mContext:Landroid/content/Context;
+
+    .line 71
+    iget-object v3, p0, Lcom/android/systemui/statusbar/DoNotDisturb;->mContext:Landroid/content/Context;
+
+    invoke-virtual {v3}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
 
     move-result-object v1
 
-    .line 70
-    .local v1, mContentResolver:Landroid/content/ContentResolver;
-    const-string v2, "statusbar"
-
-    invoke-virtual {p1, v2}, Landroid/content/Context;->getSystemService(Ljava/lang/String;)Ljava/lang/Object;
-
-    move-result-object v2
-
-    check-cast v2, Landroid/app/StatusBarManager;
-
-    iput-object v2, p0, Lcom/android/systemui/statusbar/DoNotDisturb;->mStatusBar:Landroid/app/StatusBarManager;
-
-    .line 71
-    iget-object v2, p0, Lcom/android/systemui/statusbar/DoNotDisturb;->mContext:Landroid/content/Context;
-
-    const-string v3, "audio"
-
-    invoke-virtual {v2, v3}, Landroid/content/Context;->getSystemService(Ljava/lang/String;)Ljava/lang/Object;
-
-    move-result-object v2
-
-    check-cast v2, Landroid/media/AudioManager;
-
-    iput-object v2, p0, Lcom/android/systemui/statusbar/DoNotDisturb;->mAudioManager:Landroid/media/AudioManager;
-
     .line 72
-    const-string v2, "dormant_switch_onoff"
+    .local v1, mContentResolver:Landroid/content/ContentResolver;
+    const-string v3, "statusbar"
 
-    invoke-static {v2}, Landroid/provider/Settings$System;->getUriFor(Ljava/lang/String;)Landroid/net/Uri;
+    invoke-virtual {p1, v3}, Landroid/content/Context;->getSystemService(Ljava/lang/String;)Ljava/lang/Object;
 
-    move-result-object v2
+    move-result-object v3
 
-    iget-object v3, p0, Lcom/android/systemui/statusbar/DoNotDisturb;->mDormantModeObserver:Lcom/android/systemui/statusbar/DoNotDisturb$DormantModeObserver;
+    check-cast v3, Landroid/app/StatusBarManager;
 
-    invoke-virtual {v1, v2, v4, v3}, Landroid/content/ContentResolver;->registerContentObserver(Landroid/net/Uri;ZLandroid/database/ContentObserver;)V
+    iput-object v3, p0, Lcom/android/systemui/statusbar/DoNotDisturb;->mStatusBar:Landroid/app/StatusBarManager;
+
+    .line 73
+    iget-object v3, p0, Lcom/android/systemui/statusbar/DoNotDisturb;->mContext:Landroid/content/Context;
+
+    const-string v4, "audio"
+
+    invoke-virtual {v3, v4}, Landroid/content/Context;->getSystemService(Ljava/lang/String;)Ljava/lang/Object;
+
+    move-result-object v3
+
+    check-cast v3, Landroid/media/AudioManager;
+
+    iput-object v3, p0, Lcom/android/systemui/statusbar/DoNotDisturb;->mAudioManager:Landroid/media/AudioManager;
 
     .line 75
-    const-string v2, "dormant_disable_notifications"
+    new-instance v2, Landroid/content/Intent;
 
-    invoke-static {v2}, Landroid/provider/Settings$System;->getUriFor(Ljava/lang/String;)Landroid/net/Uri;
+    const-string v3, "android.intent.action.DORMANT_MODE_UPDATE"
 
-    move-result-object v2
+    invoke-direct {v2, v3}, Landroid/content/Intent;-><init>(Ljava/lang/String;)V
 
-    iget-object v3, p0, Lcom/android/systemui/statusbar/DoNotDisturb;->mDormantModeObserver:Lcom/android/systemui/statusbar/DoNotDisturb$DormantModeObserver;
+    .line 76
+    .local v2, schedulingIntent:Landroid/content/Intent;
+    iget-object v3, p0, Lcom/android/systemui/statusbar/DoNotDisturb;->mContext:Landroid/content/Context;
 
-    invoke-virtual {v1, v2, v4, v3}, Landroid/content/ContentResolver;->registerContentObserver(Landroid/net/Uri;ZLandroid/database/ContentObserver;)V
+    invoke-static {v3, v5, v2, v6}, Landroid/app/PendingIntent;->getBroadcast(Landroid/content/Context;ILandroid/content/Intent;I)Landroid/app/PendingIntent;
+
+    move-result-object v3
+
+    iput-object v3, p0, Lcom/android/systemui/statusbar/DoNotDisturb;->mStartTimePendingIntent:Landroid/app/PendingIntent;
 
     .line 78
-    const-string v2, "dormant_disable_led_indicator"
+    iget-object v3, p0, Lcom/android/systemui/statusbar/DoNotDisturb;->mContext:Landroid/content/Context;
 
-    invoke-static {v2}, Landroid/provider/Settings$System;->getUriFor(Ljava/lang/String;)Landroid/net/Uri;
+    const/4 v4, 0x1
 
-    move-result-object v2
+    invoke-static {v3, v4, v2, v6}, Landroid/app/PendingIntent;->getBroadcast(Landroid/content/Context;ILandroid/content/Intent;I)Landroid/app/PendingIntent;
 
-    iget-object v3, p0, Lcom/android/systemui/statusbar/DoNotDisturb;->mDormantModeObserver:Lcom/android/systemui/statusbar/DoNotDisturb$DormantModeObserver;
+    move-result-object v3
 
-    invoke-virtual {v1, v2, v4, v3}, Landroid/content/ContentResolver;->registerContentObserver(Landroid/net/Uri;ZLandroid/database/ContentObserver;)V
+    iput-object v3, p0, Lcom/android/systemui/statusbar/DoNotDisturb;->mEndTimePendingIntent:Landroid/app/PendingIntent;
 
     .line 81
-    const-string v2, "dormant_always"
+    const-string v3, "dormant_switch_onoff"
 
-    invoke-static {v2}, Landroid/provider/Settings$System;->getUriFor(Ljava/lang/String;)Landroid/net/Uri;
+    invoke-static {v3}, Landroid/provider/Settings$System;->getUriFor(Ljava/lang/String;)Landroid/net/Uri;
 
-    move-result-object v2
+    move-result-object v3
 
-    iget-object v3, p0, Lcom/android/systemui/statusbar/DoNotDisturb;->mDormantModeObserver:Lcom/android/systemui/statusbar/DoNotDisturb$DormantModeObserver;
+    iget-object v4, p0, Lcom/android/systemui/statusbar/DoNotDisturb;->mDormantModeObserver:Lcom/android/systemui/statusbar/DoNotDisturb$DormantModeObserver;
 
-    invoke-virtual {v1, v2, v4, v3}, Landroid/content/ContentResolver;->registerContentObserver(Landroid/net/Uri;ZLandroid/database/ContentObserver;)V
+    invoke-virtual {v1, v3, v5, v4}, Landroid/content/ContentResolver;->registerContentObserver(Landroid/net/Uri;ZLandroid/database/ContentObserver;)V
 
     .line 84
-    const-string v2, "dormant_start_hour"
+    const-string v3, "dormant_disable_notifications"
 
-    invoke-static {v2}, Landroid/provider/Settings$System;->getUriFor(Ljava/lang/String;)Landroid/net/Uri;
+    invoke-static {v3}, Landroid/provider/Settings$System;->getUriFor(Ljava/lang/String;)Landroid/net/Uri;
 
-    move-result-object v2
+    move-result-object v3
 
-    iget-object v3, p0, Lcom/android/systemui/statusbar/DoNotDisturb;->mDormantModeObserver:Lcom/android/systemui/statusbar/DoNotDisturb$DormantModeObserver;
+    iget-object v4, p0, Lcom/android/systemui/statusbar/DoNotDisturb;->mDormantModeObserver:Lcom/android/systemui/statusbar/DoNotDisturb$DormantModeObserver;
 
-    invoke-virtual {v1, v2, v4, v3}, Landroid/content/ContentResolver;->registerContentObserver(Landroid/net/Uri;ZLandroid/database/ContentObserver;)V
+    invoke-virtual {v1, v3, v5, v4}, Landroid/content/ContentResolver;->registerContentObserver(Landroid/net/Uri;ZLandroid/database/ContentObserver;)V
 
     .line 87
-    const-string v2, "dormant_start_min"
+    const-string v3, "dormant_disable_led_indicator"
 
-    invoke-static {v2}, Landroid/provider/Settings$System;->getUriFor(Ljava/lang/String;)Landroid/net/Uri;
+    invoke-static {v3}, Landroid/provider/Settings$System;->getUriFor(Ljava/lang/String;)Landroid/net/Uri;
 
-    move-result-object v2
+    move-result-object v3
 
-    iget-object v3, p0, Lcom/android/systemui/statusbar/DoNotDisturb;->mDormantModeObserver:Lcom/android/systemui/statusbar/DoNotDisturb$DormantModeObserver;
+    iget-object v4, p0, Lcom/android/systemui/statusbar/DoNotDisturb;->mDormantModeObserver:Lcom/android/systemui/statusbar/DoNotDisturb$DormantModeObserver;
 
-    invoke-virtual {v1, v2, v4, v3}, Landroid/content/ContentResolver;->registerContentObserver(Landroid/net/Uri;ZLandroid/database/ContentObserver;)V
+    invoke-virtual {v1, v3, v5, v4}, Landroid/content/ContentResolver;->registerContentObserver(Landroid/net/Uri;ZLandroid/database/ContentObserver;)V
 
     .line 90
-    const-string v2, "dormant_end_hour"
+    const-string v3, "dormant_always"
 
-    invoke-static {v2}, Landroid/provider/Settings$System;->getUriFor(Ljava/lang/String;)Landroid/net/Uri;
+    invoke-static {v3}, Landroid/provider/Settings$System;->getUriFor(Ljava/lang/String;)Landroid/net/Uri;
 
-    move-result-object v2
+    move-result-object v3
 
-    iget-object v3, p0, Lcom/android/systemui/statusbar/DoNotDisturb;->mDormantModeObserver:Lcom/android/systemui/statusbar/DoNotDisturb$DormantModeObserver;
+    iget-object v4, p0, Lcom/android/systemui/statusbar/DoNotDisturb;->mDormantModeObserver:Lcom/android/systemui/statusbar/DoNotDisturb$DormantModeObserver;
 
-    invoke-virtual {v1, v2, v4, v3}, Landroid/content/ContentResolver;->registerContentObserver(Landroid/net/Uri;ZLandroid/database/ContentObserver;)V
+    invoke-virtual {v1, v3, v5, v4}, Landroid/content/ContentResolver;->registerContentObserver(Landroid/net/Uri;ZLandroid/database/ContentObserver;)V
 
     .line 93
-    const-string v2, "dormant_end_min"
+    const-string v3, "dormant_start_hour"
 
-    invoke-static {v2}, Landroid/provider/Settings$System;->getUriFor(Ljava/lang/String;)Landroid/net/Uri;
+    invoke-static {v3}, Landroid/provider/Settings$System;->getUriFor(Ljava/lang/String;)Landroid/net/Uri;
 
-    move-result-object v2
+    move-result-object v3
 
-    iget-object v3, p0, Lcom/android/systemui/statusbar/DoNotDisturb;->mDormantModeObserver:Lcom/android/systemui/statusbar/DoNotDisturb$DormantModeObserver;
+    iget-object v4, p0, Lcom/android/systemui/statusbar/DoNotDisturb;->mDormantModeObserver:Lcom/android/systemui/statusbar/DoNotDisturb$DormantModeObserver;
 
-    invoke-virtual {v1, v2, v4, v3}, Landroid/content/ContentResolver;->registerContentObserver(Landroid/net/Uri;ZLandroid/database/ContentObserver;)V
+    invoke-virtual {v1, v3, v5, v4}, Landroid/content/ContentResolver;->registerContentObserver(Landroid/net/Uri;ZLandroid/database/ContentObserver;)V
 
-    .line 97
+    .line 96
+    const-string v3, "dormant_start_min"
+
+    invoke-static {v3}, Landroid/provider/Settings$System;->getUriFor(Ljava/lang/String;)Landroid/net/Uri;
+
+    move-result-object v3
+
+    iget-object v4, p0, Lcom/android/systemui/statusbar/DoNotDisturb;->mDormantModeObserver:Lcom/android/systemui/statusbar/DoNotDisturb$DormantModeObserver;
+
+    invoke-virtual {v1, v3, v5, v4}, Landroid/content/ContentResolver;->registerContentObserver(Landroid/net/Uri;ZLandroid/database/ContentObserver;)V
+
+    .line 99
+    const-string v3, "dormant_end_hour"
+
+    invoke-static {v3}, Landroid/provider/Settings$System;->getUriFor(Ljava/lang/String;)Landroid/net/Uri;
+
+    move-result-object v3
+
+    iget-object v4, p0, Lcom/android/systemui/statusbar/DoNotDisturb;->mDormantModeObserver:Lcom/android/systemui/statusbar/DoNotDisturb$DormantModeObserver;
+
+    invoke-virtual {v1, v3, v5, v4}, Landroid/content/ContentResolver;->registerContentObserver(Landroid/net/Uri;ZLandroid/database/ContentObserver;)V
+
+    .line 102
+    const-string v3, "dormant_end_min"
+
+    invoke-static {v3}, Landroid/provider/Settings$System;->getUriFor(Ljava/lang/String;)Landroid/net/Uri;
+
+    move-result-object v3
+
+    iget-object v4, p0, Lcom/android/systemui/statusbar/DoNotDisturb;->mDormantModeObserver:Lcom/android/systemui/statusbar/DoNotDisturb$DormantModeObserver;
+
+    invoke-virtual {v1, v3, v5, v4}, Landroid/content/ContentResolver;->registerContentObserver(Landroid/net/Uri;ZLandroid/database/ContentObserver;)V
+
+    .line 106
     new-instance v0, Landroid/content/IntentFilter;
 
     invoke-direct {v0}, Landroid/content/IntentFilter;-><init>()V
 
-    .line 98
+    .line 107
     .local v0, filter:Landroid/content/IntentFilter;
-    const-string v2, "android.intent.action.DORMANT_MODE_UPDATE"
+    const-string v3, "android.intent.action.DORMANT_MODE_UPDATE"
 
-    invoke-virtual {v0, v2}, Landroid/content/IntentFilter;->addAction(Ljava/lang/String;)V
+    invoke-virtual {v0, v3}, Landroid/content/IntentFilter;->addAction(Ljava/lang/String;)V
 
-    .line 99
-    const-string v2, "android.intent.action.BOOT_COMPLETED"
+    .line 108
+    const-string v3, "android.intent.action.BOOT_COMPLETED"
 
-    invoke-virtual {v0, v2}, Landroid/content/IntentFilter;->addAction(Ljava/lang/String;)V
+    invoke-virtual {v0, v3}, Landroid/content/IntentFilter;->addAction(Ljava/lang/String;)V
 
-    .line 100
-    const-string v2, "android.intent.action.TIME_SET"
+    .line 109
+    const-string v3, "android.intent.action.TIME_SET"
 
-    invoke-virtual {v0, v2}, Landroid/content/IntentFilter;->addAction(Ljava/lang/String;)V
+    invoke-virtual {v0, v3}, Landroid/content/IntentFilter;->addAction(Ljava/lang/String;)V
 
-    .line 101
-    iget-object v2, p0, Lcom/android/systemui/statusbar/DoNotDisturb;->mContext:Landroid/content/Context;
+    .line 110
+    iget-object v3, p0, Lcom/android/systemui/statusbar/DoNotDisturb;->mContext:Landroid/content/Context;
 
-    iget-object v3, p0, Lcom/android/systemui/statusbar/DoNotDisturb;->mIntentReceiver:Landroid/content/BroadcastReceiver;
+    iget-object v4, p0, Lcom/android/systemui/statusbar/DoNotDisturb;->mIntentReceiver:Landroid/content/BroadcastReceiver;
 
-    invoke-virtual {v2, v3, v0}, Landroid/content/Context;->registerReceiver(Landroid/content/BroadcastReceiver;Landroid/content/IntentFilter;)Landroid/content/Intent;
+    invoke-virtual {v3, v4, v0}, Landroid/content/Context;->registerReceiver(Landroid/content/BroadcastReceiver;Landroid/content/IntentFilter;)Landroid/content/Intent;
 
-    .line 103
+    .line 112
     invoke-virtual {p0}, Lcom/android/systemui/statusbar/DoNotDisturb;->updateDoNotDisturbStatus()V
 
-    .line 104
+    .line 113
     return-void
 .end method
 
@@ -254,18 +288,18 @@
 
     const/4 v7, 0x0
 
-    .line 144
+    .line 152
     invoke-static {}, Ljava/util/Calendar;->getInstance()Ljava/util/Calendar;
 
     move-result-object v4
 
-    .line 145
+    .line 153
     .local v4, mCalendar:Ljava/util/Calendar;
     invoke-virtual {v4}, Ljava/util/Calendar;->getTimeInMillis()J
 
     move-result-wide v0
 
-    .line 146
+    .line 154
     .local v0, currentTime:J
     iget-object v8, p0, Lcom/android/systemui/statusbar/DoNotDisturb;->mContext:Landroid/content/Context;
 
@@ -281,7 +315,7 @@
 
     invoke-virtual {v4, v10, v8}, Ljava/util/Calendar;->set(II)V
 
-    .line 148
+    .line 156
     iget-object v8, p0, Lcom/android/systemui/statusbar/DoNotDisturb;->mContext:Landroid/content/Context;
 
     invoke-virtual {v8}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
@@ -296,15 +330,15 @@
 
     invoke-virtual {v4, v11, v8}, Ljava/util/Calendar;->set(II)V
 
-    .line 150
+    .line 158
     invoke-virtual {v4, v12, v7}, Ljava/util/Calendar;->set(II)V
 
-    .line 151
+    .line 159
     invoke-virtual {v4}, Ljava/util/Calendar;->getTimeInMillis()J
 
     move-result-wide v5
 
-    .line 152
+    .line 160
     .local v5, startTime:J
     iget-object v8, p0, Lcom/android/systemui/statusbar/DoNotDisturb;->mContext:Landroid/content/Context;
 
@@ -320,7 +354,7 @@
 
     invoke-virtual {v4, v10, v8}, Ljava/util/Calendar;->set(II)V
 
-    .line 154
+    .line 162
     iget-object v8, p0, Lcom/android/systemui/statusbar/DoNotDisturb;->mContext:Landroid/content/Context;
 
     invoke-virtual {v8}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
@@ -335,15 +369,15 @@
 
     invoke-virtual {v4, v11, v8}, Ljava/util/Calendar;->set(II)V
 
-    .line 156
+    .line 164
     invoke-virtual {v4, v12, v7}, Ljava/util/Calendar;->set(II)V
 
-    .line 157
+    .line 165
     invoke-virtual {v4}, Ljava/util/Calendar;->getTimeInMillis()J
 
     move-result-wide v2
 
-    .line 159
+    .line 167
     .local v2, endTime:J
     cmp-long v8, v5, v2
 
@@ -381,338 +415,313 @@
     .locals 22
 
     .prologue
-    .line 164
-    invoke-static {}, Ljava/util/Calendar;->getInstance()Ljava/util/Calendar;
-
-    move-result-object v16
-
-    .line 165
-    .local v16, calStartTime:Ljava/util/Calendar;
-    invoke-static {}, Ljava/util/Calendar;->getInstance()Ljava/util/Calendar;
-
-    move-result-object v2
-
-    invoke-virtual {v2}, Ljava/util/Calendar;->getTimeInMillis()J
-
-    move-result-wide v17
-
-    .line 166
-    .local v17, currentTimeL:J
-    const/16 v2, 0xb
-
-    move-object/from16 v0, p0
-
-    iget-object v5, v0, Lcom/android/systemui/statusbar/DoNotDisturb;->mContext:Landroid/content/Context;
-
-    invoke-virtual {v5}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
-
-    move-result-object v5
-
-    const-string v6, "dormant_start_hour"
-
-    const/4 v8, 0x0
-
-    invoke-static {v5, v6, v8}, Landroid/provider/Settings$System;->getInt(Landroid/content/ContentResolver;Ljava/lang/String;I)I
-
-    move-result v5
-
-    move-object/from16 v0, v16
-
-    invoke-virtual {v0, v2, v5}, Ljava/util/Calendar;->set(II)V
-
-    .line 168
-    const/16 v2, 0xc
-
-    move-object/from16 v0, p0
-
-    iget-object v5, v0, Lcom/android/systemui/statusbar/DoNotDisturb;->mContext:Landroid/content/Context;
-
-    invoke-virtual {v5}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
-
-    move-result-object v5
-
-    const-string v6, "dormant_start_min"
-
-    const/4 v8, 0x0
-
-    invoke-static {v5, v6, v8}, Landroid/provider/Settings$System;->getInt(Landroid/content/ContentResolver;Ljava/lang/String;I)I
-
-    move-result v5
-
-    move-object/from16 v0, v16
-
-    invoke-virtual {v0, v2, v5}, Ljava/util/Calendar;->set(II)V
-
-    .line 170
-    const/16 v2, 0xd
-
-    const/4 v5, 0x0
-
-    move-object/from16 v0, v16
-
-    invoke-virtual {v0, v2, v5}, Ljava/util/Calendar;->set(II)V
-
-    .line 171
+    .line 172
     invoke-static {}, Ljava/util/Calendar;->getInstance()Ljava/util/Calendar;
 
     move-result-object v15
 
-    .line 172
-    .local v15, calEndTime:Ljava/util/Calendar;
-    const/16 v2, 0xb
+    .line 173
+    .local v15, calStartTime:Ljava/util/Calendar;
+    invoke-static {}, Ljava/util/Calendar;->getInstance()Ljava/util/Calendar;
 
-    move-object/from16 v0, p0
+    move-result-object v4
 
-    iget-object v5, v0, Lcom/android/systemui/statusbar/DoNotDisturb;->mContext:Landroid/content/Context;
+    invoke-virtual {v4}, Ljava/util/Calendar;->getTimeInMillis()J
 
-    invoke-virtual {v5}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
-
-    move-result-object v5
-
-    const-string v6, "dormant_end_hour"
-
-    const/4 v8, 0x0
-
-    invoke-static {v5, v6, v8}, Landroid/provider/Settings$System;->getInt(Landroid/content/ContentResolver;Ljava/lang/String;I)I
-
-    move-result v5
-
-    invoke-virtual {v15, v2, v5}, Ljava/util/Calendar;->set(II)V
+    move-result-wide v16
 
     .line 174
-    const/16 v2, 0xc
+    .local v16, currentTimeL:J
+    const/16 v4, 0xb
 
     move-object/from16 v0, p0
 
-    iget-object v5, v0, Lcom/android/systemui/statusbar/DoNotDisturb;->mContext:Landroid/content/Context;
+    iget-object v7, v0, Lcom/android/systemui/statusbar/DoNotDisturb;->mContext:Landroid/content/Context;
 
-    invoke-virtual {v5}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
-
-    move-result-object v5
-
-    const-string v6, "dormant_end_min"
-
-    const/4 v8, 0x0
-
-    invoke-static {v5, v6, v8}, Landroid/provider/Settings$System;->getInt(Landroid/content/ContentResolver;Ljava/lang/String;I)I
-
-    move-result v5
-
-    invoke-virtual {v15, v2, v5}, Ljava/util/Calendar;->set(II)V
-
-    .line 176
-    const/16 v2, 0xd
-
-    const/4 v5, 0x0
-
-    invoke-virtual {v15, v2, v5}, Ljava/util/Calendar;->set(II)V
-
-    .line 177
-    invoke-virtual/range {v16 .. v16}, Ljava/util/Calendar;->getTimeInMillis()J
-
-    move-result-wide v5
-
-    cmp-long v2, v5, v17
-
-    if-lez v2, :cond_0
-
-    invoke-virtual/range {v16 .. v16}, Ljava/util/Calendar;->getTimeInMillis()J
-
-    move-result-wide v5
-
-    :goto_0
-    const-wide/16 v8, 0x1f4
-
-    add-long v3, v5, v8
-
-    .line 180
-    .local v3, starTimeL:J
-    invoke-virtual {v15}, Ljava/util/Calendar;->getTimeInMillis()J
-
-    move-result-wide v5
-
-    cmp-long v2, v5, v17
-
-    if-lez v2, :cond_1
-
-    invoke-virtual {v15}, Ljava/util/Calendar;->getTimeInMillis()J
-
-    move-result-wide v5
-
-    :goto_1
-    const-wide/16 v8, 0x1f4
-
-    add-long v10, v5, v8
-
-    .line 183
-    .local v10, endTimeL:J
-    new-instance v21, Landroid/content/Intent;
-
-    const-string v2, "android.intent.action.DORMANT_MODE_UPDATE"
-
-    move-object/from16 v0, v21
-
-    invoke-direct {v0, v2}, Landroid/content/Intent;-><init>(Ljava/lang/String;)V
-
-    .line 184
-    .local v21, schedulingIntent:Landroid/content/Intent;
-    move-object/from16 v0, p0
-
-    iget-object v2, v0, Lcom/android/systemui/statusbar/DoNotDisturb;->mContext:Landroid/content/Context;
-
-    const/4 v5, 0x0
-
-    const/high16 v6, 0x1000
-
-    move-object/from16 v0, v21
-
-    invoke-static {v2, v5, v0, v6}, Landroid/app/PendingIntent;->getBroadcast(Landroid/content/Context;ILandroid/content/Intent;I)Landroid/app/PendingIntent;
+    invoke-virtual {v7}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
 
     move-result-object v7
 
-    .line 186
-    .local v7, mStartTimePendingIntent:Landroid/app/PendingIntent;
+    const-string v8, "dormant_start_hour"
+
+    const/4 v9, 0x0
+
+    invoke-static {v7, v8, v9}, Landroid/provider/Settings$System;->getInt(Landroid/content/ContentResolver;Ljava/lang/String;I)I
+
+    move-result v7
+
+    invoke-virtual {v15, v4, v7}, Ljava/util/Calendar;->set(II)V
+
+    .line 176
+    const/16 v4, 0xc
+
     move-object/from16 v0, p0
 
-    iget-object v2, v0, Lcom/android/systemui/statusbar/DoNotDisturb;->mContext:Landroid/content/Context;
+    iget-object v7, v0, Lcom/android/systemui/statusbar/DoNotDisturb;->mContext:Landroid/content/Context;
 
-    const/4 v5, 0x1
+    invoke-virtual {v7}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
 
-    const/high16 v6, 0x1000
+    move-result-object v7
 
-    move-object/from16 v0, v21
+    const-string v8, "dormant_start_min"
 
-    invoke-static {v2, v5, v0, v6}, Landroid/app/PendingIntent;->getBroadcast(Landroid/content/Context;ILandroid/content/Intent;I)Landroid/app/PendingIntent;
+    const/4 v9, 0x0
+
+    invoke-static {v7, v8, v9}, Landroid/provider/Settings$System;->getInt(Landroid/content/ContentResolver;Ljava/lang/String;I)I
+
+    move-result v7
+
+    invoke-virtual {v15, v4, v7}, Ljava/util/Calendar;->set(II)V
+
+    .line 178
+    const/16 v4, 0xd
+
+    const/4 v7, 0x0
+
+    invoke-virtual {v15, v4, v7}, Ljava/util/Calendar;->set(II)V
+
+    .line 179
+    invoke-static {}, Ljava/util/Calendar;->getInstance()Ljava/util/Calendar;
 
     move-result-object v14
 
-    .line 188
-    .local v14, mEndTimePendingIntent:Landroid/app/PendingIntent;
+    .line 180
+    .local v14, calEndTime:Ljava/util/Calendar;
+    const/16 v4, 0xb
+
     move-object/from16 v0, p0
 
-    iget-object v2, v0, Lcom/android/systemui/statusbar/DoNotDisturb;->mContext:Landroid/content/Context;
+    iget-object v7, v0, Lcom/android/systemui/statusbar/DoNotDisturb;->mContext:Landroid/content/Context;
 
-    const-string v5, "alarm"
+    invoke-virtual {v7}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
 
-    invoke-virtual {v2, v5}, Landroid/content/Context;->getSystemService(Ljava/lang/String;)Ljava/lang/Object;
+    move-result-object v7
 
-    move-result-object v1
+    const-string v8, "dormant_end_hour"
 
-    check-cast v1, Landroid/app/AlarmManager;
-
-    .line 189
-    .local v1, mAlarmManager:Landroid/app/AlarmManager;
-    const/4 v2, 0x0
-
-    const-wide/32 v5, 0x5265c00
-
-    invoke-virtual/range {v1 .. v7}, Landroid/app/AlarmManager;->setRepeating(IJJLandroid/app/PendingIntent;)V
-
-    .line 191
     const/4 v9, 0x0
 
-    const-wide/32 v12, 0x5265c00
+    invoke-static {v7, v8, v9}, Landroid/provider/Settings$System;->getInt(Landroid/content/ContentResolver;Ljava/lang/String;I)I
 
-    move-object v8, v1
+    move-result v7
 
-    invoke-virtual/range {v8 .. v14}, Landroid/app/AlarmManager;->setRepeating(IJJLandroid/app/PendingIntent;)V
+    invoke-virtual {v14, v4, v7}, Ljava/util/Calendar;->set(II)V
+
+    .line 182
+    const/16 v4, 0xc
+
+    move-object/from16 v0, p0
+
+    iget-object v7, v0, Lcom/android/systemui/statusbar/DoNotDisturb;->mContext:Landroid/content/Context;
+
+    invoke-virtual {v7}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
+
+    move-result-object v7
+
+    const-string v8, "dormant_end_min"
+
+    const/4 v9, 0x0
+
+    invoke-static {v7, v8, v9}, Landroid/provider/Settings$System;->getInt(Landroid/content/ContentResolver;Ljava/lang/String;I)I
+
+    move-result v7
+
+    invoke-virtual {v14, v4, v7}, Ljava/util/Calendar;->set(II)V
+
+    .line 184
+    const/16 v4, 0xd
+
+    const/4 v7, 0x0
+
+    invoke-virtual {v14, v4, v7}, Ljava/util/Calendar;->set(II)V
+
+    .line 185
+    invoke-virtual {v15}, Ljava/util/Calendar;->getTimeInMillis()J
+
+    move-result-wide v7
+
+    cmp-long v4, v7, v16
+
+    if-lez v4, :cond_0
+
+    invoke-virtual {v15}, Ljava/util/Calendar;->getTimeInMillis()J
+
+    move-result-wide v7
+
+    :goto_0
+    const-wide/16 v9, 0x1f4
+
+    add-long v5, v7, v9
+
+    .line 188
+    .local v5, starTimeL:J
+    invoke-virtual {v14}, Ljava/util/Calendar;->getTimeInMillis()J
+
+    move-result-wide v7
+
+    cmp-long v4, v7, v16
+
+    if-lez v4, :cond_1
+
+    invoke-virtual {v14}, Ljava/util/Calendar;->getTimeInMillis()J
+
+    move-result-wide v7
+
+    :goto_1
+    const-wide/16 v9, 0x1f4
+
+    add-long v18, v7, v9
+
+    .line 191
+    .local v18, endTimeL:J
+    move-object/from16 v0, p0
+
+    iget-object v4, v0, Lcom/android/systemui/statusbar/DoNotDisturb;->mContext:Landroid/content/Context;
+
+    const-string v7, "alarm"
+
+    invoke-virtual {v4, v7}, Landroid/content/Context;->getSystemService(Ljava/lang/String;)Ljava/lang/Object;
+
+    move-result-object v3
+
+    check-cast v3, Landroid/app/AlarmManager;
+
+    .line 192
+    .local v3, mAlarmManager:Landroid/app/AlarmManager;
+    move-object/from16 v0, p0
+
+    iget-object v4, v0, Lcom/android/systemui/statusbar/DoNotDisturb;->mStartTimePendingIntent:Landroid/app/PendingIntent;
+
+    invoke-virtual {v3, v4}, Landroid/app/AlarmManager;->cancel(Landroid/app/PendingIntent;)V
+
+    .line 193
+    move-object/from16 v0, p0
+
+    iget-object v4, v0, Lcom/android/systemui/statusbar/DoNotDisturb;->mEndTimePendingIntent:Landroid/app/PendingIntent;
+
+    invoke-virtual {v3, v4}, Landroid/app/AlarmManager;->cancel(Landroid/app/PendingIntent;)V
 
     .line 194
-    invoke-static {}, Ljava/util/Calendar;->getInstance()Ljava/util/Calendar;
+    const/4 v4, 0x0
 
-    move-result-object v19
+    const-wide/32 v7, 0x5265c00
 
-    .line 195
-    .local v19, mC:Ljava/util/Calendar;
-    move-object/from16 v0, v19
+    move-object/from16 v0, p0
 
-    invoke-virtual {v0, v3, v4}, Ljava/util/Calendar;->setTimeInMillis(J)V
+    iget-object v9, v0, Lcom/android/systemui/statusbar/DoNotDisturb;->mStartTimePendingIntent:Landroid/app/PendingIntent;
+
+    invoke-virtual/range {v3 .. v9}, Landroid/app/AlarmManager;->setRepeating(IJJLandroid/app/PendingIntent;)V
 
     .line 196
+    const/4 v8, 0x0
+
+    const-wide/32 v11, 0x5265c00
+
+    move-object/from16 v0, p0
+
+    iget-object v13, v0, Lcom/android/systemui/statusbar/DoNotDisturb;->mEndTimePendingIntent:Landroid/app/PendingIntent;
+
+    move-object v7, v3
+
+    move-wide/from16 v9, v18
+
+    invoke-virtual/range {v7 .. v13}, Landroid/app/AlarmManager;->setRepeating(IJJLandroid/app/PendingIntent;)V
+
+    .line 199
     invoke-static {}, Ljava/util/Calendar;->getInstance()Ljava/util/Calendar;
 
     move-result-object v20
 
-    .line 197
-    .local v20, mCend:Ljava/util/Calendar;
+    .line 200
+    .local v20, mC:Ljava/util/Calendar;
     move-object/from16 v0, v20
 
-    invoke-virtual {v0, v10, v11}, Ljava/util/Calendar;->setTimeInMillis(J)V
+    invoke-virtual {v0, v5, v6}, Ljava/util/Calendar;->setTimeInMillis(J)V
 
-    .line 198
-    const-string v2, "StatusBar-DoNotDistrub"
+    .line 201
+    invoke-static {}, Ljava/util/Calendar;->getInstance()Ljava/util/Calendar;
 
-    new-instance v5, Ljava/lang/StringBuilder;
+    move-result-object v21
 
-    invoke-direct {v5}, Ljava/lang/StringBuilder;-><init>()V
+    .line 202
+    .local v21, mCend:Ljava/util/Calendar;
+    move-object/from16 v0, v21
 
-    const-string v6, "set Repeating event for "
+    move-wide/from16 v1, v18
 
-    invoke-virtual {v5, v6}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v0, v1, v2}, Ljava/util/Calendar;->setTimeInMillis(J)V
 
-    move-result-object v5
+    .line 203
+    const-string v4, "StatusBar-DoNotDistrub"
 
-    invoke-virtual/range {v19 .. v19}, Ljava/util/Calendar;->getTime()Ljava/util/Date;
+    new-instance v7, Ljava/lang/StringBuilder;
 
-    move-result-object v6
+    invoke-direct {v7}, Ljava/lang/StringBuilder;-><init>()V
 
-    invoke-virtual {v5, v6}, Ljava/lang/StringBuilder;->append(Ljava/lang/Object;)Ljava/lang/StringBuilder;
+    const-string v8, "set Repeating event for "
 
-    move-result-object v5
+    invoke-virtual {v7, v8}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    const-string v6, " and for "
-
-    invoke-virtual {v5, v6}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v5
+    move-result-object v7
 
     invoke-virtual/range {v20 .. v20}, Ljava/util/Calendar;->getTime()Ljava/util/Date;
 
-    move-result-object v6
+    move-result-object v8
 
-    invoke-virtual {v5, v6}, Ljava/lang/StringBuilder;->append(Ljava/lang/Object;)Ljava/lang/StringBuilder;
+    invoke-virtual {v7, v8}, Ljava/lang/StringBuilder;->append(Ljava/lang/Object;)Ljava/lang/StringBuilder;
 
-    move-result-object v5
+    move-result-object v7
 
-    invoke-virtual {v5}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+    const-string v8, " and for "
 
-    move-result-object v5
+    invoke-virtual {v7, v8}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    invoke-static {v2, v5}, Landroid/util/secutil/Log;->secD(Ljava/lang/String;Ljava/lang/String;)I
+    move-result-object v7
 
-    .line 201
+    invoke-virtual/range {v21 .. v21}, Ljava/util/Calendar;->getTime()Ljava/util/Date;
+
+    move-result-object v8
+
+    invoke-virtual {v7, v8}, Ljava/lang/StringBuilder;->append(Ljava/lang/Object;)Ljava/lang/StringBuilder;
+
+    move-result-object v7
+
+    invoke-virtual {v7}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v7
+
+    invoke-static {v4, v7}, Landroid/util/Slog;->d(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 205
     return-void
 
-    .line 177
-    .end local v1           #mAlarmManager:Landroid/app/AlarmManager;
-    .end local v3           #starTimeL:J
-    .end local v7           #mStartTimePendingIntent:Landroid/app/PendingIntent;
-    .end local v10           #endTimeL:J
-    .end local v14           #mEndTimePendingIntent:Landroid/app/PendingIntent;
-    .end local v19           #mC:Ljava/util/Calendar;
-    .end local v20           #mCend:Ljava/util/Calendar;
-    .end local v21           #schedulingIntent:Landroid/content/Intent;
+    .line 185
+    .end local v3           #mAlarmManager:Landroid/app/AlarmManager;
+    .end local v5           #starTimeL:J
+    .end local v18           #endTimeL:J
+    .end local v20           #mC:Ljava/util/Calendar;
+    .end local v21           #mCend:Ljava/util/Calendar;
     :cond_0
-    invoke-virtual/range {v16 .. v16}, Ljava/util/Calendar;->getTimeInMillis()J
+    invoke-virtual {v15}, Ljava/util/Calendar;->getTimeInMillis()J
 
-    move-result-wide v5
+    move-result-wide v7
 
-    const-wide/32 v8, 0x5265c00
+    const-wide/32 v9, 0x5265c00
 
-    add-long/2addr v5, v8
+    add-long/2addr v7, v9
 
     goto/16 :goto_0
 
-    .line 180
-    .restart local v3       #starTimeL:J
+    .line 188
+    .restart local v5       #starTimeL:J
     :cond_1
-    invoke-virtual {v15}, Ljava/util/Calendar;->getTimeInMillis()J
+    invoke-virtual {v14}, Ljava/util/Calendar;->getTimeInMillis()J
 
-    move-result-wide v5
+    move-result-wide v7
 
-    const-wide/32 v8, 0x5265c00
+    const-wide/32 v9, 0x5265c00
 
-    add-long/2addr v5, v8
+    add-long/2addr v7, v9
 
     goto/16 :goto_1
 .end method
@@ -721,10 +730,10 @@
     .locals 3
 
     .prologue
-    .line 111
+    .line 119
     const/high16 v0, 0x4
 
-    .line 112
+    .line 120
     .local v0, disabled:I
     iget-object v1, p0, Lcom/android/systemui/statusbar/DoNotDisturb;->mStatusBar:Landroid/app/StatusBarManager;
 
@@ -740,10 +749,10 @@
     :goto_0
     invoke-virtual {v1, v0}, Landroid/app/StatusBarManager;->disable(I)V
 
-    .line 113
+    .line 121
     return-void
 
-    .line 112
+    .line 120
     .restart local v0       #disabled:I
     :cond_0
     const/4 v0, 0x0
@@ -761,7 +770,7 @@
 
     const/4 v2, 0x0
 
-    .line 116
+    .line 124
     iget-object v0, p0, Lcom/android/systemui/statusbar/DoNotDisturb;->mContext:Landroid/content/Context;
 
     invoke-virtual {v0}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
@@ -781,7 +790,7 @@
     :goto_0
     iput-boolean v0, p0, Lcom/android/systemui/statusbar/DoNotDisturb;->isDormantModeSwitchedOn:Z
 
-    .line 118
+    .line 126
     iget-object v0, p0, Lcom/android/systemui/statusbar/DoNotDisturb;->mContext:Landroid/content/Context;
 
     invoke-virtual {v0}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
@@ -801,7 +810,7 @@
     :goto_1
     iput-boolean v0, p0, Lcom/android/systemui/statusbar/DoNotDisturb;->isNotificationDisabled:Z
 
-    .line 120
+    .line 128
     iget-object v0, p0, Lcom/android/systemui/statusbar/DoNotDisturb;->mContext:Landroid/content/Context;
 
     invoke-virtual {v0}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
@@ -821,7 +830,7 @@
     :goto_2
     iput-boolean v0, p0, Lcom/android/systemui/statusbar/DoNotDisturb;->isAlwaysDormant:Z
 
-    .line 122
+    .line 130
     iget-boolean v0, p0, Lcom/android/systemui/statusbar/DoNotDisturb;->isDormantModeSwitchedOn:Z
 
     if-eqz v0, :cond_6
@@ -840,7 +849,7 @@
     :goto_3
     iput-boolean v1, p0, Lcom/android/systemui/statusbar/DoNotDisturb;->isDormantModeOn:Z
 
-    .line 123
+    .line 131
     iget-object v1, p0, Lcom/android/systemui/statusbar/DoNotDisturb;->mContext:Landroid/content/Context;
 
     new-instance v2, Landroid/content/Intent;
@@ -856,7 +865,7 @@
 
     invoke-virtual {v1, v2}, Landroid/content/Context;->sendBroadcast(Landroid/content/Intent;)V
 
-    .line 124
+    .line 132
     const-string v1, "StatusBar-DoNotDistrub"
 
     new-instance v0, Ljava/lang/StringBuilder;
@@ -884,14 +893,14 @@
 
     move-result-object v0
 
-    invoke-static {v1, v0}, Landroid/util/secutil/Log;->secD(Ljava/lang/String;Ljava/lang/String;)I
+    invoke-static {v1, v0}, Landroid/util/Slog;->d(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 125
+    .line 133
     iget-object v0, p0, Lcom/android/systemui/statusbar/DoNotDisturb;->mAudioManager:Landroid/media/AudioManager;
 
     if-eqz v0, :cond_1
 
-    .line 126
+    .line 134
     const-string v0, "StatusBar-DoNotDistrub"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -920,55 +929,55 @@
 
     move-result-object v1
 
-    invoke-static {v0, v1}, Landroid/util/secutil/Log;->secD(Ljava/lang/String;Ljava/lang/String;)I
+    invoke-static {v0, v1}, Landroid/util/Slog;->d(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 129
+    .line 137
     :cond_1
     invoke-direct {p0}, Lcom/android/systemui/statusbar/DoNotDisturb;->updateDisableRecord()V
 
-    .line 130
+    .line 138
     iget-boolean v0, p0, Lcom/android/systemui/statusbar/DoNotDisturb;->isAlwaysDormant:Z
 
     if-nez v0, :cond_2
 
-    .line 131
+    .line 139
     invoke-direct {p0}, Lcom/android/systemui/statusbar/DoNotDisturb;->setDormantAlarm()V
 
-    .line 133
+    .line 141
     :cond_2
     return-void
 
     :cond_3
     move v0, v2
 
-    .line 116
+    .line 124
     goto/16 :goto_0
 
     :cond_4
     move v0, v2
 
-    .line 118
+    .line 126
     goto/16 :goto_1
 
     :cond_5
     move v0, v2
 
-    .line 120
+    .line 128
     goto :goto_2
 
     :cond_6
     move v1, v2
 
-    .line 122
+    .line 130
     goto :goto_3
 
-    .line 123
+    .line 131
     :cond_7
     const-string v0, "android.intent.action.DORMANT_MODE_OFF"
 
     goto :goto_4
 
-    .line 124
+    .line 132
     :cond_8
     const-string v0, "android.intent.action.DORMANT_MODE_OFF"
 

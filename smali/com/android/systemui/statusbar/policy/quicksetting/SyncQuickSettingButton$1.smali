@@ -24,7 +24,7 @@
     .parameter
 
     .prologue
-    .line 49
+    .line 50
     iput-object p1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/SyncQuickSettingButton$1;->this$0:Lcom/android/systemui/statusbar/policy/quicksetting/SyncQuickSettingButton;
 
     invoke-direct {p0}, Landroid/content/BroadcastReceiver;-><init>()V
@@ -40,12 +40,12 @@
     .parameter "intent"
 
     .prologue
-    .line 52
+    .line 53
     invoke-virtual {p2}, Landroid/content/Intent;->getAction()Ljava/lang/String;
 
     move-result-object v0
 
-    .line 53
+    .line 54
     .local v0, action:Ljava/lang/String;
     sget-object v1, Landroid/content/ContentResolver;->ACTION_SYNC_CONN_STATUS_CHANGED:Landroid/content/Intent;
 
@@ -59,21 +59,21 @@
 
     if-eqz v1, :cond_0
 
-    .line 54
+    .line 55
     invoke-static {}, Landroid/content/ContentResolver;->getMasterSyncAutomatically()Z
 
     move-result v1
 
     if-eqz v1, :cond_1
 
-    .line 55
+    .line 56
     iget-object v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/SyncQuickSettingButton$1;->this$0:Lcom/android/systemui/statusbar/policy/quicksetting/SyncQuickSettingButton;
 
     const/4 v2, 0x1
 
-    invoke-virtual {v1, v2}, Lcom/android/systemui/statusbar/policy/quicksetting/SyncQuickSettingButton;->setActivateStatus(I)V
+    invoke-virtual {v1, v2}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->setActivateStatus(I)V
 
-    .line 61
+    .line 62
     :goto_0
     iget-object v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/SyncQuickSettingButton$1;->this$0:Lcom/android/systemui/statusbar/policy/quicksetting/SyncQuickSettingButton;
 
@@ -81,17 +81,17 @@
 
     iput-boolean v2, v1, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->mIsProcessing:Z
 
-    .line 63
+    .line 64
     :cond_0
     return-void
 
-    .line 57
+    .line 58
     :cond_1
     iget-object v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/SyncQuickSettingButton$1;->this$0:Lcom/android/systemui/statusbar/policy/quicksetting/SyncQuickSettingButton;
 
     const/4 v2, 0x2
 
-    invoke-virtual {v1, v2}, Lcom/android/systemui/statusbar/policy/quicksetting/SyncQuickSettingButton;->setActivateStatus(I)V
+    invoke-virtual {v1, v2}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->setActivateStatus(I)V
 
     goto :goto_0
 .end method

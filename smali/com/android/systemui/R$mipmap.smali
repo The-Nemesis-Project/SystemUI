@@ -15,7 +15,9 @@
 
 
 # static fields
-.field public static final ic_launcher_dreams:I = 0x7f030000
+.field public static final ic_daydreams:I = 0x7f030000
+
+.field public static final ic_launcher_dreams:I = 0x7f030001
 
 
 # direct methods
@@ -23,8 +25,8 @@
     .locals 0
 
     .prologue
-    .line 1758
-    invoke-direct/range {p0 .. p0}, Ljava/lang/Object;-><init>()V
+    .line 1600
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
     return-void
 .end method

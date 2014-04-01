@@ -27,10 +27,10 @@
     .parameter
 
     .prologue
-    .line 238
+    .line 236
     iput-object p1, p0, Lcom/android/systemui/usb/UsbStorageActivity$5;->this$0:Lcom/android/systemui/usb/UsbStorageActivity;
 
-    invoke-direct/range {p0 .. p0}, Ljava/lang/Object;-><init>()V
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
     return-void
 .end method
@@ -43,7 +43,7 @@
     .parameter "which"
 
     .prologue
-    .line 240
+    .line 238
     iget-object v0, p0, Lcom/android/systemui/usb/UsbStorageActivity$5;->this$0:Lcom/android/systemui/usb/UsbStorageActivity;
 
     const/4 v1, 0x1
@@ -51,6 +51,6 @@
     #calls: Lcom/android/systemui/usb/UsbStorageActivity;->switchUsbMassStorage(Z)V
     invoke-static {v0, v1}, Lcom/android/systemui/usb/UsbStorageActivity;->access$400(Lcom/android/systemui/usb/UsbStorageActivity;Z)V
 
-    .line 241
+    .line 239
     return-void
 .end method

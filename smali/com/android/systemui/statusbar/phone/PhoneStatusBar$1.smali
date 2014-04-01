@@ -24,7 +24,7 @@
     .parameter
 
     .prologue
-    .line 455
+    .line 351
     iput-object p1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$1;->this$0:Lcom/android/systemui/statusbar/phone/PhoneStatusBar;
 
     invoke-direct {p0}, Landroid/animation/AnimatorListenerAdapter;-><init>()V
@@ -39,12 +39,12 @@
     .parameter "animation"
 
     .prologue
-    .line 459
+    .line 355
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$1;->this$0:Lcom/android/systemui/statusbar/phone/PhoneStatusBar;
 
     iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarContents:Landroid/widget/LinearLayout;
 
-    invoke-virtual {v0}, Landroid/widget/LinearLayout;->getAlpha()F
+    invoke-virtual {v0}, Landroid/view/View;->getAlpha()F
 
     move-result v0
 
@@ -54,16 +54,16 @@
 
     if-nez v0, :cond_0
 
-    .line 461
+    .line 357
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$1;->this$0:Lcom/android/systemui/statusbar/phone/PhoneStatusBar;
 
     iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarContents:Landroid/widget/LinearLayout;
 
     const/4 v1, 0x4
 
-    invoke-virtual {v0, v1}, Landroid/widget/LinearLayout;->setVisibility(I)V
+    invoke-virtual {v0, v1}, Landroid/view/View;->setVisibility(I)V
 
-    .line 463
+    .line 359
     :cond_0
     return-void
 .end method

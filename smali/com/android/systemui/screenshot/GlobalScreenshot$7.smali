@@ -27,10 +27,10 @@
     .parameter
 
     .prologue
-    .line 1062
+    .line 955
     iput-object p1, p0, Lcom/android/systemui/screenshot/GlobalScreenshot$7;->this$0:Lcom/android/systemui/screenshot/GlobalScreenshot;
 
-    invoke-direct/range {p0 .. p0}, Ljava/lang/Object;-><init>()V
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
     return-void
 .end method
@@ -41,21 +41,21 @@
     .locals 2
 
     .prologue
-    .line 1065
+    .line 958
     iget-object v0, p0, Lcom/android/systemui/screenshot/GlobalScreenshot$7;->this$0:Lcom/android/systemui/screenshot/GlobalScreenshot;
 
     iget-object v1, v0, Lcom/android/systemui/screenshot/GlobalScreenshot;->mShutterEffectLock:Ljava/lang/Object;
 
     monitor-enter v1
 
-    .line 1066
+    .line 959
     :try_start_0
     iget-object v0, p0, Lcom/android/systemui/screenshot/GlobalScreenshot$7;->this$0:Lcom/android/systemui/screenshot/GlobalScreenshot;
 
     #calls: Lcom/android/systemui/screenshot/GlobalScreenshot;->playCaptureSound()V
     invoke-static {v0}, Lcom/android/systemui/screenshot/GlobalScreenshot;->access$500(Lcom/android/systemui/screenshot/GlobalScreenshot;)V
 
-    .line 1068
+    .line 961
     iget-object v0, p0, Lcom/android/systemui/screenshot/GlobalScreenshot$7;->this$0:Lcom/android/systemui/screenshot/GlobalScreenshot;
 
     #getter for: Lcom/android/systemui/screenshot/GlobalScreenshot;->mCaptureViewForShutterClick:Lcom/android/systemui/screenshot/CaptureEffectViewForShutterClick;
@@ -65,7 +65,7 @@
 
     if-eqz v0, :cond_0
 
-    .line 1069
+    .line 962
     iget-object v0, p0, Lcom/android/systemui/screenshot/GlobalScreenshot$7;->this$0:Lcom/android/systemui/screenshot/GlobalScreenshot;
 
     #getter for: Lcom/android/systemui/screenshot/GlobalScreenshot;->mCaptureViewForShutterClick:Lcom/android/systemui/screenshot/CaptureEffectViewForShutterClick;
@@ -75,14 +75,14 @@
 
     invoke-virtual {v0}, Lcom/android/systemui/screenshot/CaptureEffectViewForShutterClick;->show()V
 
-    .line 1071
+    .line 964
     :cond_0
     monitor-exit v1
 
-    .line 1072
+    .line 965
     return-void
 
-    .line 1071
+    .line 964
     :catchall_0
     move-exception v0
 

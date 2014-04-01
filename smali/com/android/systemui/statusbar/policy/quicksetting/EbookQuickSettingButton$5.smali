@@ -27,10 +27,10 @@
     .parameter
 
     .prologue
-    .line 183
+    .line 192
     iput-object p1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/EbookQuickSettingButton$5;->this$0:Lcom/android/systemui/statusbar/policy/quicksetting/EbookQuickSettingButton;
 
-    invoke-direct/range {p0 .. p0}, Ljava/lang/Object;-><init>()V
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
     return-void
 .end method
@@ -42,14 +42,14 @@
     .parameter "unused"
 
     .prologue
-    .line 185
+    .line 194
     const-string v0, "STATUSBAR-E-BookSettingButton"
 
     const-string v1, "AlertDialog onDismiss()"
 
     invoke-static {v0, v1}, Landroid/util/Slog;->d(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 186
+    .line 195
     iget-object v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/EbookQuickSettingButton$5;->this$0:Lcom/android/systemui/statusbar/policy/quicksetting/EbookQuickSettingButton;
 
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/EbookQuickSettingButton$5;->this$0:Lcom/android/systemui/statusbar/policy/quicksetting/EbookQuickSettingButton;
@@ -64,12 +64,12 @@
     const/4 v0, 0x1
 
     :goto_0
-    invoke-virtual {v1, v0}, Lcom/android/systemui/statusbar/policy/quicksetting/EbookQuickSettingButton;->setActivateStatus(I)V
+    invoke-virtual {v1, v0}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->setActivateStatus(I)V
 
-    .line 188
+    .line 197
     return-void
 
-    .line 186
+    .line 195
     :cond_0
     const/4 v0, 0x2
 

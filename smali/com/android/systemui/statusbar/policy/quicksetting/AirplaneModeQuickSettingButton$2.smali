@@ -24,7 +24,7 @@
     .parameter
 
     .prologue
-    .line 116
+    .line 117
     iput-object p1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/AirplaneModeQuickSettingButton$2;->this$0:Lcom/android/systemui/statusbar/policy/quicksetting/AirplaneModeQuickSettingButton;
 
     invoke-direct {p0}, Landroid/telephony/PhoneStateListener;-><init>()V
@@ -43,7 +43,7 @@
 
     const/4 v2, 0x0
 
-    .line 119
+    .line 120
     invoke-virtual {p1}, Landroid/telephony/ServiceState;->getState()I
 
     move-result v3
@@ -54,7 +54,7 @@
 
     move v0, v1
 
-    .line 126
+    .line 127
     .local v0, inAirplaneMode:Z
     :goto_0
     iget-object v3, p0, Lcom/android/systemui/statusbar/policy/quicksetting/AirplaneModeQuickSettingButton$2;->this$0:Lcom/android/systemui/statusbar/policy/quicksetting/AirplaneModeQuickSettingButton;
@@ -62,7 +62,7 @@
     #setter for: Lcom/android/systemui/statusbar/policy/quicksetting/AirplaneModeQuickSettingButton;->mAirplaneMode:Z
     invoke-static {v3, v0}, Lcom/android/systemui/statusbar/policy/quicksetting/AirplaneModeQuickSettingButton;->access$002(Lcom/android/systemui/statusbar/policy/quicksetting/AirplaneModeQuickSettingButton;Z)Z
 
-    .line 127
+    .line 128
     const-string v3, "STATUSBAR-AirplaneModeQuickSettingButton"
 
     new-instance v4, Ljava/lang/StringBuilder;
@@ -85,20 +85,20 @@
 
     invoke-static {v3, v4}, Landroid/util/Slog;->d(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 128
+    .line 129
     iget-object v3, p0, Lcom/android/systemui/statusbar/policy/quicksetting/AirplaneModeQuickSettingButton$2;->this$0:Lcom/android/systemui/statusbar/policy/quicksetting/AirplaneModeQuickSettingButton;
 
     if-eqz v0, :cond_3
 
     :goto_1
-    invoke-virtual {v3, v1}, Lcom/android/systemui/statusbar/policy/quicksetting/AirplaneModeQuickSettingButton;->setActivateStatus(I)V
+    invoke-virtual {v3, v1}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->setActivateStatus(I)V
 
-    .line 131
+    .line 132
     iget-object v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/AirplaneModeQuickSettingButton$2;->this$0:Lcom/android/systemui/statusbar/policy/quicksetting/AirplaneModeQuickSettingButton;
 
     iput-boolean v2, v1, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->mIsProcessing:Z
 
-    .line 132
+    .line 133
     if-eqz v0, :cond_0
 
     iget-object v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/AirplaneModeQuickSettingButton$2;->this$0:Lcom/android/systemui/statusbar/policy/quicksetting/AirplaneModeQuickSettingButton;
@@ -110,20 +110,20 @@
 
     if-eqz v1, :cond_0
 
-    .line 133
+    .line 134
     const-string v1, "STATUSBAR-AirplaneModeQuickSettingButton"
 
     const-string v3, "mPhoneStateListener - Airplane mode truned on"
 
     invoke-static {v1, v3}, Landroid/util/Slog;->d(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 134
+    .line 135
     iget-object v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/AirplaneModeQuickSettingButton$2;->this$0:Lcom/android/systemui/statusbar/policy/quicksetting/AirplaneModeQuickSettingButton;
 
     #setter for: Lcom/android/systemui/statusbar/policy/quicksetting/AirplaneModeQuickSettingButton;->mIsTurningOn:Z
     invoke-static {v1, v2}, Lcom/android/systemui/statusbar/policy/quicksetting/AirplaneModeQuickSettingButton;->access$102(Lcom/android/systemui/statusbar/policy/quicksetting/AirplaneModeQuickSettingButton;Z)Z
 
-    .line 136
+    .line 137
     :cond_0
     if-nez v0, :cond_1
 
@@ -136,20 +136,20 @@
 
     if-eqz v1, :cond_1
 
-    .line 137
+    .line 138
     const-string v1, "STATUSBAR-AirplaneModeQuickSettingButton"
 
     const-string v3, "mPhoneStateListener - Airplane mode truned off"
 
     invoke-static {v1, v3}, Landroid/util/Slog;->d(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 138
+    .line 139
     iget-object v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/AirplaneModeQuickSettingButton$2;->this$0:Lcom/android/systemui/statusbar/policy/quicksetting/AirplaneModeQuickSettingButton;
 
     #setter for: Lcom/android/systemui/statusbar/policy/quicksetting/AirplaneModeQuickSettingButton;->mIsTurningOff:Z
     invoke-static {v1, v2}, Lcom/android/systemui/statusbar/policy/quicksetting/AirplaneModeQuickSettingButton;->access$202(Lcom/android/systemui/statusbar/policy/quicksetting/AirplaneModeQuickSettingButton;Z)Z
 
-    .line 140
+    .line 141
     :cond_1
     return-void
 
@@ -157,10 +157,10 @@
     :cond_2
     move v0, v2
 
-    .line 119
+    .line 120
     goto :goto_0
 
-    .line 128
+    .line 129
     .restart local v0       #inAirplaneMode:Z
     :cond_3
     const/4 v1, 0x2

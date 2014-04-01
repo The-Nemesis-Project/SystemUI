@@ -7,10 +7,8 @@
 .annotation system Ldalvik/annotation/MemberClasses;
     value = {
         Lcom/android/systemui/R$styleable;,
-        Lcom/android/systemui/R$xml;,
         Lcom/android/systemui/R$style;,
         Lcom/android/systemui/R$string;,
-        Lcom/android/systemui/R$raw;,
         Lcom/android/systemui/R$plurals;,
         Lcom/android/systemui/R$mipmap;,
         Lcom/android/systemui/R$menu;,
@@ -34,7 +32,7 @@
 
     .prologue
     .line 10
-    invoke-direct/range {p0 .. p0}, Ljava/lang/Object;-><init>()V
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
     return-void
 .end method

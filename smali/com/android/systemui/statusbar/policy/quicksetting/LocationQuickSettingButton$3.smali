@@ -27,10 +27,10 @@
     .parameter
 
     .prologue
-    .line 263
+    .line 269
     iput-object p1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/LocationQuickSettingButton$3;->this$0:Lcom/android/systemui/statusbar/policy/quicksetting/LocationQuickSettingButton;
 
-    invoke-direct/range {p0 .. p0}, Ljava/lang/Object;-><init>()V
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
     return-void
 .end method
@@ -43,7 +43,7 @@
     .parameter "which"
 
     .prologue
-    .line 266
+    .line 272
     const-string v0, "STATUSBAR-LocationQuickSettingButton"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -73,7 +73,7 @@
 
     invoke-static {v0, v1}, Landroid/util/secutil/Log;->secD(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 267
+    .line 273
     iget-object v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/LocationQuickSettingButton$3;->this$0:Lcom/android/systemui/statusbar/policy/quicksetting/LocationQuickSettingButton;
 
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/LocationQuickSettingButton$3;->this$0:Lcom/android/systemui/statusbar/policy/quicksetting/LocationQuickSettingButton;
@@ -88,12 +88,12 @@
     const/4 v0, 0x1
 
     :goto_0
-    invoke-virtual {v1, v0}, Lcom/android/systemui/statusbar/policy/quicksetting/LocationQuickSettingButton;->setActivateStatus(I)V
+    invoke-virtual {v1, v0}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->setActivateStatus(I)V
 
-    .line 269
+    .line 275
     return-void
 
-    .line 267
+    .line 273
     :cond_0
     const/4 v0, 0x2
 

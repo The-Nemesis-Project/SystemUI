@@ -30,12 +30,12 @@
     .parameter
 
     .prologue
-    .line 232
+    .line 238
     iput-object p1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/LocationQuickSettingButton$2;->this$0:Lcom/android/systemui/statusbar/policy/quicksetting/LocationQuickSettingButton;
 
     iput-object p2, p0, Lcom/android/systemui/statusbar/policy/quicksetting/LocationQuickSettingButton$2;->val$mGpsCheckBox:Landroid/widget/CheckBox;
 
-    invoke-direct/range {p0 .. p0}, Ljava/lang/Object;-><init>()V
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
     return-void
 .end method
@@ -48,19 +48,19 @@
     .parameter "isChecked"
 
     .prologue
-    .line 234
+    .line 240
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/LocationQuickSettingButton$2;->this$0:Lcom/android/systemui/statusbar/policy/quicksetting/LocationQuickSettingButton;
 
     #setter for: Lcom/android/systemui/statusbar/policy/quicksetting/LocationQuickSettingButton;->mIsPrefChecked:Z
-    invoke-static {v0, p2}, Lcom/android/systemui/statusbar/policy/quicksetting/LocationQuickSettingButton;->access$102(Lcom/android/systemui/statusbar/policy/quicksetting/LocationQuickSettingButton;Z)Z
+    invoke-static {v0, p2}, Lcom/android/systemui/statusbar/policy/quicksetting/LocationQuickSettingButton;->access$202(Lcom/android/systemui/statusbar/policy/quicksetting/LocationQuickSettingButton;Z)Z
 
-    .line 235
+    .line 241
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/LocationQuickSettingButton$2;->val$mGpsCheckBox:Landroid/widget/CheckBox;
 
     const/4 v1, 0x0
 
-    invoke-virtual {v0, v1}, Landroid/widget/CheckBox;->playSoundEffect(I)V
+    invoke-virtual {v0, v1}, Landroid/view/View;->playSoundEffect(I)V
 
-    .line 236
+    .line 242
     return-void
 .end method

@@ -24,17 +24,17 @@
     .parameter
 
     .prologue
-    .line 301
+    .line 323
     iput-object p1, p0, Lcom/android/systemui/statusbar/policy/BrightnessController$BrightnessObserver;->this$0:Lcom/android/systemui/statusbar/policy/BrightnessController;
 
-    .line 302
+    .line 324
     new-instance v0, Landroid/os/Handler;
 
     invoke-direct {v0}, Landroid/os/Handler;-><init>()V
 
     invoke-direct {p0, v0}, Landroid/database/ContentObserver;-><init>(Landroid/os/Handler;)V
 
-    .line 303
+    .line 325
     return-void
 .end method
 
@@ -45,13 +45,13 @@
     .parameter "selfChange"
 
     .prologue
-    .line 307
+    .line 329
     invoke-super {p0, p1}, Landroid/database/ContentObserver;->onChange(Z)V
 
-    .line 309
+    .line 331
     const/4 v2, 0x0
 
-    .line 312
+    .line 334
     .local v2, val:I
     :try_start_0
     iget-object v3, p0, Lcom/android/systemui/statusbar/policy/BrightnessController$BrightnessObserver;->this$0:Lcom/android/systemui/statusbar/policy/BrightnessController;
@@ -61,9 +61,9 @@
 
     move-result-object v3
 
-    if-eqz v3, :cond_1
+    if-eqz v3, :cond_0
 
-    .line 313
+    .line 335
     iget-object v3, p0, Lcom/android/systemui/statusbar/policy/BrightnessController$BrightnessObserver;->this$0:Lcom/android/systemui/statusbar/policy/BrightnessController;
 
     #getter for: Lcom/android/systemui/statusbar/policy/BrightnessController;->mContext:Landroid/content/Context;
@@ -92,52 +92,28 @@
 
     move-result v0
 
-    .line 316
+    .line 338
     .local v0, brightness:I
     iget-object v3, p0, Lcom/android/systemui/statusbar/policy/BrightnessController$BrightnessObserver;->this$0:Lcom/android/systemui/statusbar/policy/BrightnessController;
 
     #getter for: Lcom/android/systemui/statusbar/policy/BrightnessController;->mMinimumBacklight:I
     invoke-static {v3}, Lcom/android/systemui/statusbar/policy/BrightnessController;->access$500(Lcom/android/systemui/statusbar/policy/BrightnessController;)I
+    :try_end_0
+    .catch Landroid/provider/Settings$SettingNotFoundException; {:try_start_0 .. :try_end_0} :catch_0
 
     move-result v3
 
     sub-int v2, v0, v3
 
-    .line 317
+    .line 339
     if-gez v2, :cond_0
 
-    .line 318
+    .line 340
     const/4 v2, 0x0
 
-    .line 320
-    :cond_0
-    const-string v3, "StatusBar.BrightnessController"
-
-    new-instance v4, Ljava/lang/StringBuilder;
-
-    invoke-direct {v4}, Ljava/lang/StringBuilder;-><init>()V
-
-    const-string v5, "BrightnessObserver onChange() - val : "
-
-    invoke-virtual {v4, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v4
-
-    invoke-virtual {v4, v2}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
-
-    move-result-object v4
-
-    invoke-virtual {v4}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v4
-
-    invoke-static {v3, v4}, Landroid/util/secutil/Log;->secD(Ljava/lang/String;Ljava/lang/String;)I
-    :try_end_0
-    .catch Landroid/provider/Settings$SettingNotFoundException; {:try_start_0 .. :try_end_0} :catch_0
-
-    .line 325
+    .line 347
     .end local v0           #brightness:I
-    :cond_1
+    :cond_0
     :goto_0
     iget-object v3, p0, Lcom/android/systemui/statusbar/policy/BrightnessController$BrightnessObserver;->this$0:Lcom/android/systemui/statusbar/policy/BrightnessController;
 
@@ -148,14 +124,14 @@
 
     invoke-virtual {v3, v2}, Lcom/android/systemui/statusbar/policy/ToggleSlider;->setValue(I)V
 
-    .line 326
+    .line 348
     return-void
 
-    .line 322
+    .line 344
     :catch_0
     move-exception v1
 
-    .line 323
+    .line 345
     .local v1, snfe:Landroid/provider/Settings$SettingNotFoundException;
     iget-object v3, p0, Lcom/android/systemui/statusbar/policy/BrightnessController$BrightnessObserver;->this$0:Lcom/android/systemui/statusbar/policy/BrightnessController;
 

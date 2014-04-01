@@ -27,10 +27,10 @@
     .parameter
 
     .prologue
-    .line 3528
+    .line 3487
     iput-object p1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$26;->this$0:Lcom/android/systemui/statusbar/phone/PhoneStatusBar;
 
-    invoke-direct/range {p0 .. p0}, Ljava/lang/Object;-><init>()V
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
     return-void
 .end method
@@ -38,114 +38,117 @@
 
 # virtual methods
 .method public onClick(Landroid/view/View;)V
-    .locals 6
+    .locals 5
     .parameter "v"
 
     .prologue
-    .line 3531
-    sget-boolean v3, Lcom/android/systemui/statusbar/Feature;->mShowWorldClock:Z
+    .line 3489
+    iget-object v2, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$26;->this$0:Lcom/android/systemui/statusbar/phone/PhoneStatusBar;
 
-    if-eqz v3, :cond_1
+    invoke-virtual {v2}, Lcom/android/systemui/statusbar/BaseStatusBar;->isDeviceProvisioned()Z
 
-    .line 3532
-    const-string v3, "PhoneStatusBar"
+    move-result v2
 
-    const-string v4, "onClick() : mClock clicked"
+    if-nez v2, :cond_0
 
-    invoke-static {v3, v4}, Landroid/util/Slog;->d(Ljava/lang/String;Ljava/lang/String;)I
-
-    .line 3534
-    const-string v3, "ro.build.characteristics"
-
-    invoke-static {v3}, Landroid/os/SystemProperties;->get(Ljava/lang/String;)Ljava/lang/String;
-
-    move-result-object v1
-
-    .line 3535
-    .local v1, deviceType:Ljava/lang/String;
-    if-eqz v1, :cond_0
-
-    const-string v3, "tablet"
-
-    invoke-virtual {v1, v3}, Ljava/lang/String;->contains(Ljava/lang/CharSequence;)Z
-
-    move-result v3
-
-    if-eqz v3, :cond_0
-
-    .line 3536
-    new-instance v2, Landroid/content/Intent;
-
-    const-string v3, "android.intent.action.SHOW_DATE_TIME_DIALOG"
-
-    invoke-direct {v2, v3}, Landroid/content/Intent;-><init>(Ljava/lang/String;)V
-
-    .line 3537
-    .local v2, i:Landroid/content/Intent;
-    iget-object v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$26;->this$0:Lcom/android/systemui/statusbar/phone/PhoneStatusBar;
-
-    iget-object v3, v3, Lcom/android/systemui/SystemUI;->mContext:Landroid/content/Context;
-
-    sget-object v4, Landroid/os/UserHandle;->CURRENT:Landroid/os/UserHandle;
-
-    invoke-virtual {v3, v2, v4}, Landroid/content/Context;->sendBroadcastAsUser(Landroid/content/Intent;Landroid/os/UserHandle;)V
-
-    .line 3550
-    .end local v1           #deviceType:Ljava/lang/String;
-    .end local v2           #i:Landroid/content/Intent;
+    .line 3519
     :goto_0
     return-void
 
-    .line 3539
-    .restart local v1       #deviceType:Ljava/lang/String;
+    .line 3493
     :cond_0
-    new-instance v2, Landroid/content/Intent;
+    :try_start_0
+    invoke-static {}, Landroid/app/ActivityManagerNative;->getDefault()Landroid/app/IActivityManager;
 
-    const-string v3, "android.intent.action.SHOW_WORLDCLOCK_DIALOG"
+    move-result-object v2
 
-    invoke-direct {v2, v3}, Landroid/content/Intent;-><init>(Ljava/lang/String;)V
+    invoke-interface {v2}, Landroid/app/IActivityManager;->dismissKeyguardOnNextActivity()V
+    :try_end_0
+    .catch Landroid/os/RemoteException; {:try_start_0 .. :try_end_0} :catch_0
 
-    .line 3540
-    .restart local v2       #i:Landroid/content/Intent;
-    new-instance v0, Landroid/content/ComponentName;
+    .line 3498
+    :goto_1
+    new-instance v0, Landroid/content/Intent;
 
-    const-string v3, "com.sec.android.app.clockpackage"
+    const-string v2, "DismissClipboardDialogFromPhoneStatusBar"
 
-    const-string v4, "com.sec.android.app.clockpackage.worldclock.ToWorldClockReceiver"
+    invoke-direct {v0, v2}, Landroid/content/Intent;-><init>(Ljava/lang/String;)V
 
-    invoke-direct {v0, v3, v4}, Landroid/content/ComponentName;-><init>(Ljava/lang/String;Ljava/lang/String;)V
+    .line 3499
+    .local v0, intent:Landroid/content/Intent;
+    if-eqz p1, :cond_1
 
-    .line 3542
-    .local v0, cn:Landroid/content/ComponentName;
-    invoke-virtual {v2, v0}, Landroid/content/Intent;->setComponent(Landroid/content/ComponentName;)Landroid/content/Intent;
+    invoke-virtual {p1}, Landroid/view/View;->getContext()Landroid/content/Context;
 
-    .line 3543
-    iget-object v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$26;->this$0:Lcom/android/systemui/statusbar/phone/PhoneStatusBar;
+    move-result-object v2
 
-    iget-object v3, v3, Lcom/android/systemui/SystemUI;->mContext:Landroid/content/Context;
+    if-eqz v2, :cond_1
 
-    sget-object v4, Landroid/os/UserHandle;->CURRENT:Landroid/os/UserHandle;
+    .line 3500
+    const-string v2, "ClipboardServiceEx"
 
-    invoke-virtual {v3, v2, v4}, Landroid/content/Context;->sendBroadcastAsUser(Landroid/content/Intent;Landroid/os/UserHandle;)V
+    const-string v3, "Send intent for dismiss clipboard dialog inside phonestatusbar() !"
 
-    goto :goto_0
+    invoke-static {v2, v3}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 3547
-    .end local v0           #cn:Landroid/content/ComponentName;
-    .end local v1           #deviceType:Ljava/lang/String;
-    .end local v2           #i:Landroid/content/Intent;
+    .line 3501
+    invoke-virtual {p1}, Landroid/view/View;->getContext()Landroid/content/Context;
+
+    move-result-object v2
+
+    invoke-virtual {v2, v0}, Landroid/content/Context;->sendBroadcast(Landroid/content/Intent;)V
+
+    .line 3506
+    new-instance v1, Landroid/content/Intent;
+
+    invoke-direct {v1}, Landroid/content/Intent;-><init>()V
+
+    .line 3508
+    .local v1, mIntent:Landroid/content/Intent;
+    const-string v2, "com.android.settings"
+
+    const-string v3, "com.android.settings.NotificationPanelSettings"
+
+    invoke-virtual {v1, v2, v3}, Landroid/content/Intent;->setClassName(Ljava/lang/String;Ljava/lang/String;)Landroid/content/Intent;
+
+    .line 3513
+    const-string v2, "direct_quickpanel"
+
+    const/4 v3, 0x1
+
+    invoke-virtual {v1, v2, v3}, Landroid/content/Intent;->putExtra(Ljava/lang/String;Z)Landroid/content/Intent;
+
+    .line 3514
+    const v2, 0x10008000
+
+    invoke-virtual {v1, v2}, Landroid/content/Intent;->addFlags(I)Landroid/content/Intent;
+
+    .line 3515
+    invoke-virtual {p1}, Landroid/view/View;->getContext()Landroid/content/Context;
+
+    move-result-object v2
+
+    new-instance v3, Landroid/os/UserHandle;
+
+    const/4 v4, -0x2
+
+    invoke-direct {v3, v4}, Landroid/os/UserHandle;-><init>(I)V
+
+    invoke-virtual {v2, v1, v3}, Landroid/content/Context;->startActivityAsUser(Landroid/content/Intent;Landroid/os/UserHandle;)V
+
+    .line 3518
+    .end local v1           #mIntent:Landroid/content/Intent;
     :cond_1
-    iget-object v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$26;->this$0:Lcom/android/systemui/statusbar/phone/PhoneStatusBar;
+    iget-object v2, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$26;->this$0:Lcom/android/systemui/statusbar/phone/PhoneStatusBar;
 
-    new-instance v4, Landroid/content/Intent;
-
-    const-string v5, "android.intent.action.QUICK_CLOCK"
-
-    invoke-direct {v4, v5}, Landroid/content/Intent;-><init>(Ljava/lang/String;)V
-
-    const/4 v5, 0x1
-
-    invoke-virtual {v3, v4, v5}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->startActivityDismissingKeyguard(Landroid/content/Intent;Z)V
+    invoke-virtual {v2}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->animateCollapsePanels()V
 
     goto :goto_0
+
+    .line 3494
+    .end local v0           #intent:Landroid/content/Intent;
+    :catch_0
+    move-exception v2
+
+    goto :goto_1
 .end method

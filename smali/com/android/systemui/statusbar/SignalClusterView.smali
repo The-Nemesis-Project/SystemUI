@@ -6,14 +6,6 @@
 .implements Lcom/android/systemui/statusbar/policy/NetworkController$SignalCluster;
 
 
-# annotations
-.annotation system Ldalvik/annotation/MemberClasses;
-    value = {
-        Lcom/android/systemui/statusbar/SignalClusterView$SettingsObserver;
-    }
-.end annotation
-
-
 # static fields
 .field static final DEBUG:Z = false
 
@@ -29,25 +21,7 @@
 
 .field private mBtTetherState:Z
 
-.field mContext:Landroid/content/Context;
-
-.field mEthernet:Landroid/widget/ImageView;
-
-.field mEthernetActivity:Landroid/widget/ImageView;
-
-.field private mEthernetActivityId:I
-
-.field private mEthernetConnected:Z
-
-.field private mEthernetDescription:Ljava/lang/String;
-
-.field mEthernetGroup:Landroid/view/ViewGroup;
-
-.field private mEthernetStateId:I
-
-.field private mEthernetVisible:Z
-
-.field mHandler:Landroid/os/Handler;
+.field mDummyMobileGroupForVZW:Landroid/widget/ImageView;
 
 .field private mHasService:Z
 
@@ -106,12 +80,12 @@
     .parameter "context"
 
     .prologue
-    .line 92
+    .line 79
     const/4 v0, 0x0
 
     invoke-direct {p0, p1, v0}, Lcom/android/systemui/statusbar/SignalClusterView;-><init>(Landroid/content/Context;Landroid/util/AttributeSet;)V
 
-    .line 93
+    .line 80
     return-void
 .end method
 
@@ -121,17 +95,17 @@
     .parameter "attrs"
 
     .prologue
-    .line 96
+    .line 83
     const/4 v0, 0x0
 
     invoke-direct {p0, p1, p2, v0}, Lcom/android/systemui/statusbar/SignalClusterView;-><init>(Landroid/content/Context;Landroid/util/AttributeSet;I)V
 
-    .line 97
+    .line 84
     return-void
 .end method
 
 .method public constructor <init>(Landroid/content/Context;Landroid/util/AttributeSet;I)V
-    .locals 2
+    .locals 1
     .parameter "context"
     .parameter "attrs"
     .parameter "defStyle"
@@ -139,477 +113,667 @@
     .prologue
     const/4 v0, 0x0
 
-    .line 100
+    .line 87
     invoke-direct {p0, p1, p2, p3}, Landroid/widget/LinearLayout;-><init>(Landroid/content/Context;Landroid/util/AttributeSet;I)V
 
-    .line 56
-    iput-object p1, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mContext:Landroid/content/Context;
-
+    .line 53
     iput-boolean v0, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mWifiVisible:Z
 
-    .line 57
+    .line 54
     iput v0, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mWifiStrengthId:I
 
     iput v0, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mWifiActivityId:I
 
-    .line 58
+    .line 55
     iput-boolean v0, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mMobileVisible:Z
 
-    .line 59
+    .line 56
     iput v0, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mMobileStrengthId:I
 
     iput v0, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mMobileActivityId:I
 
     iput v0, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mMobileTypeId:I
 
-    .line 60
+    .line 57
     iput-boolean v0, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mIsAirplaneMode:Z
 
-    .line 61
+    .line 58
     iput v0, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mAirplaneIconId:I
 
-    .line 65
-    iput-boolean v0, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mEthernetVisible:Z
-
-    iput-boolean v0, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mEthernetConnected:Z
-
-    .line 66
-    iput v0, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mEthernetStateId:I
-
-    iput v0, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mEthernetActivityId:I
-
-    .line 70
+    .line 61
     iput-boolean v0, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mHasService:Z
 
-    .line 82
+    .line 69
     iput v0, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mMobileRoamingId:I
 
-    .line 83
+    .line 70
     iput v0, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mMobileDataState:I
 
-    .line 89
+    .line 76
     iput-boolean v0, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mBtTetherState:Z
 
-    .line 90
-    new-instance v1, Landroid/os/Handler;
-
-    invoke-direct {v1}, Landroid/os/Handler;-><init>()V
-
-    iput-object v1, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mHandler:Landroid/os/Handler;
-
-    new-instance v0, Lcom/android/systemui/statusbar/SignalClusterView$SettingsObserver;
-
-    iget-object v1, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mHandler:Landroid/os/Handler;
-
-    invoke-direct {v0, p0, v1}, Lcom/android/systemui/statusbar/SignalClusterView$SettingsObserver;-><init>(Lcom/android/systemui/statusbar/SignalClusterView;Landroid/os/Handler;)V
-
-    .local v0, settingsObserver:Lcom/android/systemui/statusbar/SignalClusterView$SettingsObserver;
-    invoke-virtual {v0}, Lcom/android/systemui/statusbar/SignalClusterView$SettingsObserver;->observe()V
-
-    .line 101
+    .line 88
     return-void
-.end method
-
-.method static synthetic access$001(Lcom/android/systemui/statusbar/SignalClusterView;)Landroid/content/Context;
-    .locals 1
-    .parameter "x0"
-
-    .prologue
-    .line 34
-    iget-object v0, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mContext:Landroid/content/Context;
-
-    return-object v0
 .end method
 
 .method private apply()V
-    .locals 11
+    .locals 12
 
     .prologue
-    const/4 v10, 0x4
+    const/4 v11, 0x4
 
-    const/4 v9, 0x2
+    const/4 v10, 0x2
 
-    const/16 v6, 0x8
+    const/16 v7, 0x8
 
-    const/4 v5, 0x0
+    const/4 v6, 0x0
 
-    .line 256
-    iget-object v4, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mWifiGroup:Landroid/view/ViewGroup;
+    .line 221
+    iget-object v5, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mWifiGroup:Landroid/view/ViewGroup;
 
-    if-nez v4, :cond_0
+    if-nez v5, :cond_1
 
-    .line 370
+    .line 350
+    :cond_0
     :goto_0
     return-void
 
-    .line 258
-    :cond_0
+    .line 223
+    :cond_1
     invoke-static {}, Lcom/android/systemui/statusbar/Feature;->getOperator()Ljava/lang/String;
 
-    move-result-object v4
+    move-result-object v5
 
-    const-string v7, "ZVV"
+    const-string v8, "ZVV"
 
-    invoke-virtual {v4, v7}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+    invoke-virtual {v5, v8}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
 
-    move-result v1
+    move-result v2
 
-    .line 260
-    .local v1, isZVVOperator:Z
-    iget-boolean v4, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mWifiVisible:Z
+    .line 225
+    .local v2, isZVVOperator:Z
+    iget-boolean v5, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mWifiVisible:Z
 
-    if-eqz v4, :cond_7
+    if-eqz v5, :cond_a
 
-    .line 261
-    iget-object v4, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mWifiGroup:Landroid/view/ViewGroup;
+    .line 226
+    iget-object v5, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mWifiGroup:Landroid/view/ViewGroup;
 
-    invoke-virtual {v4, v5}, Landroid/view/ViewGroup;->setVisibility(I)V
+    invoke-virtual {v5, v6}, Landroid/view/View;->setVisibility(I)V
 
-    .line 262
-    sget-boolean v4, Lcom/android/systemui/statusbar/Feature;->mSimIconForCHN:Z
+    .line 227
+    sget-boolean v5, Lcom/android/systemui/statusbar/Feature;->mSimIconForCHN:Z
 
-    if-eqz v4, :cond_1
+    if-eqz v5, :cond_2
 
-    .line 263
-    iget-object v4, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mWifiGroup:Landroid/view/ViewGroup;
+    .line 228
+    iget-object v5, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mWifiGroup:Landroid/view/ViewGroup;
 
-    invoke-virtual {v4}, Landroid/view/ViewGroup;->getLayoutParams()Landroid/view/ViewGroup$LayoutParams;
-
-    move-result-object v2
-
-    check-cast v2, Landroid/view/ViewGroup$MarginLayoutParams;
-
-    .line 264
-    .local v2, params:Landroid/view/ViewGroup$MarginLayoutParams;
-    iget v4, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mMobileStrengthId:I
-
-    const v7, 0x7f020120
-
-    if-ne v4, v7, :cond_5
-
-    .line 265
-    iput v10, v2, Landroid/view/ViewGroup$MarginLayoutParams;->topMargin:I
-
-    .line 269
-    :goto_1
-    iget-object v4, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mWifiGroup:Landroid/view/ViewGroup;
-
-    invoke-virtual {v4, v2}, Landroid/view/ViewGroup;->setLayoutParams(Landroid/view/ViewGroup$LayoutParams;)V
-
-    .line 271
-    .end local v2           #params:Landroid/view/ViewGroup$MarginLayoutParams;
-    :cond_1
-    iget-object v4, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mWifi:Landroid/widget/ImageView;
-
-    iget v7, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mWifiStrengthId:I
-
-    invoke-virtual {v4, v7}, Landroid/widget/ImageView;->setImageResource(I)V
-
-    .line 272
-    iget-object v4, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mWifiActivity:Landroid/widget/ImageView;
-
-    iget v7, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mWifiActivityId:I
-
-    invoke-virtual {v4, v7}, Landroid/widget/ImageView;->setImageResource(I)V
-
-    .line 273
-    iget-object v4, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mWifiGroup:Landroid/view/ViewGroup;
-
-    iget-object v7, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mWifiDescription:Ljava/lang/String;
-
-    invoke-virtual {v4, v7}, Landroid/view/ViewGroup;->setContentDescription(Ljava/lang/CharSequence;)V
-
-    .line 274
-    iget-object v7, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mSeparateMobileGroup:Landroid/view/ViewGroup;
-
-    if-eqz v1, :cond_6
-
-    iget-boolean v4, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mHasService:Z
-
-    if-eqz v4, :cond_6
-
-    move v4, v5
-
-    :goto_2
-    invoke-virtual {v7, v4}, Landroid/view/ViewGroup;->setVisibility(I)V
-
-    .line 304
-    :goto_3
-    iget-boolean v4, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mMobileVisible:Z
-
-    if-eqz v4, :cond_8
-
-    iget-boolean v4, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mIsAirplaneMode:Z
-
-    if-nez v4, :cond_8
-
-    .line 305
-    iget-object v4, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mMobileGroup:Landroid/view/ViewGroup;
-
-    invoke-virtual {v4, v5}, Landroid/view/ViewGroup;->setVisibility(I)V
-
-    .line 306
-    iget-object v4, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mMobile:Landroid/widget/ImageView;
-
-    iget v7, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mMobileStrengthId:I
-
-    invoke-virtual {v4, v7}, Landroid/widget/ImageView;->setImageResource(I)V
-
-    .line 307
-    iget-object v4, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mMobileType:Landroid/widget/ImageView;
-
-    iget v7, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mMobileTypeId:I
-
-    invoke-virtual {v4, v7}, Landroid/widget/ImageView;->setImageResource(I)V
-
-    .line 308
-    iget-object v4, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mContext:Landroid/content/Context;
-
-    invoke-virtual {v4}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
-
-    move-result-object v4
-
-    const-string v7, "hide_signal_icon"
-
-    invoke-static {v4, v7, v5}, Landroid/provider/Settings$Global;->getInt(Landroid/content/ContentResolver;Ljava/lang/String;I)I
-
-    move-result v7
-
-    if-eqz v7, :cond_2
-
-    iget-object v4, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mMobile:Landroid/widget/ImageView;
-
-    invoke-virtual {v4, v6}, Landroid/widget/ImageView;->setVisibility(I)V
-
-    goto :goto_4
-
-    :cond_2
-    iget-object v4, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mMobile:Landroid/widget/ImageView;
-
-    invoke-virtual {v4, v5}, Landroid/widget/ImageView;->setVisibility(I)V
-
-    .line 309
-    :goto_4
-    iget-object v4, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mMobileGroup:Landroid/view/ViewGroup;
-
-    new-instance v7, Ljava/lang/StringBuilder;
-
-    invoke-direct {v7}, Ljava/lang/StringBuilder;-><init>()V
-
-    iget-object v8, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mMobileTypeDescription:Ljava/lang/String;
-
-    invoke-virtual {v7, v8}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v7
-
-    const-string v8, " "
-
-    invoke-virtual {v7, v8}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v7
-
-    iget-object v8, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mMobileDescription:Ljava/lang/String;
-
-    invoke-virtual {v7, v8}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v7
-
-    invoke-virtual {v7}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v7
-
-    invoke-virtual {v4, v7}, Landroid/view/ViewGroup;->setContentDescription(Ljava/lang/CharSequence;)V
-
-    .line 312
-    iget-object v4, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mMobileRoaming:Landroid/widget/ImageView;
-
-    iget v7, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mMobileRoamingId:I
-
-    invoke-virtual {v4, v7}, Landroid/widget/ImageView;->setBackgroundResource(I)V
-
-    .line 314
-    :try_start_0
-    iget-object v4, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mMobileRoaming:Landroid/widget/ImageView;
-
-    invoke-virtual {v4}, Landroid/widget/ImageView;->getBackground()Landroid/graphics/drawable/Drawable;
+    invoke-virtual {v5}, Landroid/view/View;->getLayoutParams()Landroid/view/ViewGroup$LayoutParams;
 
     move-result-object v3
 
-    check-cast v3, Landroid/graphics/drawable/AnimationDrawable;
+    check-cast v3, Landroid/view/ViewGroup$MarginLayoutParams;
 
-    .line 316
-    .local v3, roamingAnimation:Landroid/graphics/drawable/AnimationDrawable;
-    invoke-virtual {v3}, Landroid/graphics/drawable/AnimationDrawable;->start()V
+    .line 229
+    .local v3, params:Landroid/view/ViewGroup$MarginLayoutParams;
+    iget v5, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mMobileStrengthId:I
+
+    const v8, 0x7f02013f
+
+    if-ne v5, v8, :cond_8
+
+    .line 230
+    iput v11, v3, Landroid/view/ViewGroup$MarginLayoutParams;->topMargin:I
+
+    .line 234
+    :goto_1
+    iget-object v5, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mWifiGroup:Landroid/view/ViewGroup;
+
+    invoke-virtual {v5, v3}, Landroid/view/View;->setLayoutParams(Landroid/view/ViewGroup$LayoutParams;)V
+
+    .line 236
+    .end local v3           #params:Landroid/view/ViewGroup$MarginLayoutParams;
+    :cond_2
+    iget-object v5, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mWifi:Landroid/widget/ImageView;
+
+    iget v8, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mWifiStrengthId:I
+
+    invoke-virtual {v5, v8}, Landroid/widget/ImageView;->setImageResource(I)V
+
+    .line 237
+    iget-object v5, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mWifiActivity:Landroid/widget/ImageView;
+
+    iget v8, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mWifiActivityId:I
+
+    invoke-virtual {v5, v8}, Landroid/widget/ImageView;->setImageResource(I)V
+
+    .line 238
+    iget-object v5, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mWifiGroup:Landroid/view/ViewGroup;
+
+    iget-object v8, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mWifiDescription:Ljava/lang/String;
+
+    invoke-virtual {v5, v8}, Landroid/view/View;->setContentDescription(Ljava/lang/CharSequence;)V
+
+    .line 239
+    iget-object v8, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mSeparateMobileGroup:Landroid/view/ViewGroup;
+
+    if-nez v2, :cond_3
+
+    sget-boolean v5, Lcom/android/systemui/statusbar/Feature;->mUseDisabledDataIcon:Z
+
+    if-eqz v5, :cond_9
+
+    :cond_3
+    iget-boolean v5, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mHasService:Z
+
+    if-eqz v5, :cond_9
+
+    move v5, v6
+
+    :goto_2
+    invoke-virtual {v8, v5}, Landroid/view/View;->setVisibility(I)V
+
+    .line 252
+    :goto_3
+    iget-boolean v5, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mMobileVisible:Z
+
+    if-eqz v5, :cond_4
+
+    iget-boolean v5, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mIsAirplaneMode:Z
+
+    if-eqz v5, :cond_5
+
+    :cond_4
+    iget-boolean v5, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mBtTetherState:Z
+
+    if-eqz v5, :cond_b
+
+    .line 253
+    :cond_5
+    iget-object v5, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mMobileGroup:Landroid/view/ViewGroup;
+
+    invoke-virtual {v5, v6}, Landroid/view/View;->setVisibility(I)V
+
+    .line 254
+    iget-object v5, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mMobile:Landroid/widget/ImageView;
+
+    iget v8, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mMobileStrengthId:I
+
+    invoke-virtual {v5, v8}, Landroid/widget/ImageView;->setImageResource(I)V
+
+    .line 256
+    iget-object v5, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mMobileType:Landroid/widget/ImageView;
+
+    iget v8, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mMobileTypeId:I
+
+    invoke-virtual {v5, v8}, Landroid/widget/ImageView;->setImageResource(I)V
+
+    .line 257
+    iget-object v5, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mMobileGroup:Landroid/view/ViewGroup;
+
+    new-instance v8, Ljava/lang/StringBuilder;
+
+    invoke-direct {v8}, Ljava/lang/StringBuilder;-><init>()V
+
+    iget-object v9, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mMobileTypeDescription:Ljava/lang/String;
+
+    invoke-virtual {v8, v9}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v8
+
+    const-string v9, " "
+
+    invoke-virtual {v8, v9}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v8
+
+    iget-object v9, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mMobileDescription:Ljava/lang/String;
+
+    invoke-virtual {v8, v9}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v8
+
+    invoke-virtual {v8}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v8
+
+    invoke-virtual {v5, v8}, Landroid/view/View;->setContentDescription(Ljava/lang/CharSequence;)V
+
+    .line 260
+    iget-object v5, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mMobileRoaming:Landroid/widget/ImageView;
+
+    iget v8, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mMobileRoamingId:I
+
+    invoke-virtual {v5, v8}, Landroid/view/View;->setBackgroundResource(I)V
+
+    .line 262
+    :try_start_0
+    iget-object v5, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mMobileRoaming:Landroid/widget/ImageView;
+
+    invoke-virtual {v5}, Landroid/view/View;->getBackground()Landroid/graphics/drawable/Drawable;
+
+    move-result-object v4
+
+    check-cast v4, Landroid/graphics/drawable/AnimationDrawable;
+
+    .line 264
+    .local v4, roamingAnimation:Landroid/graphics/drawable/AnimationDrawable;
+    invoke-virtual {v4}, Landroid/graphics/drawable/AnimationDrawable;->start()V
     :try_end_0
     .catch Ljava/lang/Exception; {:try_start_0 .. :try_end_0} :catch_1
 
-    .line 322
-    .end local v3           #roamingAnimation:Landroid/graphics/drawable/AnimationDrawable;
-    :goto_5
-    iget-object v4, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mMobileActivity:Landroid/widget/ImageView;
+    .line 270
+    .end local v4           #roamingAnimation:Landroid/graphics/drawable/AnimationDrawable;
+    :goto_4
+    iget-object v5, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mMobileActivity:Landroid/widget/ImageView;
 
-    iget v7, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mMobileActivityId:I
+    iget v8, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mMobileActivityId:I
 
-    invoke-virtual {v4, v7}, Landroid/widget/ImageView;->setBackgroundResource(I)V
+    invoke-virtual {v5, v8}, Landroid/view/View;->setBackgroundResource(I)V
 
-    .line 324
+    .line 272
     :try_start_1
-    iget-object v4, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mMobileActivity:Landroid/widget/ImageView;
+    iget-object v5, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mMobileActivity:Landroid/widget/ImageView;
 
-    invoke-virtual {v4}, Landroid/widget/ImageView;->getBackground()Landroid/graphics/drawable/Drawable;
+    invoke-virtual {v5}, Landroid/view/View;->getBackground()Landroid/graphics/drawable/Drawable;
 
     move-result-object v0
 
     check-cast v0, Landroid/graphics/drawable/AnimationDrawable;
 
-    .line 326
+    .line 274
     .local v0, frameAnimation:Landroid/graphics/drawable/AnimationDrawable;
     invoke-virtual {v0}, Landroid/graphics/drawable/AnimationDrawable;->start()V
     :try_end_1
     .catch Ljava/lang/Exception; {:try_start_1 .. :try_end_1} :catch_0
 
-    .line 335
+    .line 283
     .end local v0           #frameAnimation:Landroid/graphics/drawable/AnimationDrawable;
+    :goto_5
+    iget-boolean v5, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mIsAirplaneMode:Z
+
+    if-eqz v5, :cond_c
+
+    .line 284
+    iget-object v5, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mAirplane:Landroid/widget/ImageView;
+
+    invoke-virtual {v5, v6}, Landroid/widget/ImageView;->setVisibility(I)V
+
+    .line 285
+    iget-object v5, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mAirplane:Landroid/widget/ImageView;
+
+    iget v8, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mAirplaneIconId:I
+
+    invoke-virtual {v5, v8}, Landroid/widget/ImageView;->setImageResource(I)V
+
+    .line 290
     :goto_6
-    iget-boolean v4, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mIsAirplaneMode:Z
+    iget-boolean v5, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mMobileVisible:Z
 
-    if-eqz v4, :cond_9
+    if-eqz v5, :cond_d
 
-    .line 336
-    iget-object v4, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mAirplane:Landroid/widget/ImageView;
+    iget-boolean v5, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mWifiVisible:Z
 
-    invoke-virtual {v4, v5}, Landroid/widget/ImageView;->setVisibility(I)V
+    if-eqz v5, :cond_d
 
-    .line 337
-    iget-object v4, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mAirplane:Landroid/widget/ImageView;
+    iget-boolean v5, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mIsAirplaneMode:Z
 
-    iget v7, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mAirplaneIconId:I
+    if-eqz v5, :cond_d
 
-    invoke-virtual {v4, v7}, Landroid/widget/ImageView;->setImageResource(I)V
+    .line 291
+    iget-object v5, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mSpacer:Landroid/view/View;
 
-    .line 342
+    invoke-virtual {v5, v11}, Landroid/view/View;->setVisibility(I)V
+
+    .line 299
     :goto_7
-    iget-boolean v4, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mMobileVisible:Z
+    sget-boolean v5, Lcom/android/systemui/statusbar/Feature;->mUseDisabledDataIcon:Z
 
-    if-eqz v4, :cond_a
+    if-eqz v5, :cond_6
 
-    iget-boolean v4, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mWifiVisible:Z
+    .line 300
+    iget v5, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mMobileStrengthId:I
 
-    if-eqz v4, :cond_a
+    const v8, 0x7f02026b
 
-    iget-boolean v4, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mIsAirplaneMode:Z
+    if-ne v5, v8, :cond_e
 
-    if-eqz v4, :cond_a
+    const/4 v1, 0x1
 
-    .line 343
-    iget-object v4, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mSpacer:Landroid/view/View;
-
-    invoke-virtual {v4, v10}, Landroid/view/View;->setVisibility(I)V
-
-    .line 354
+    .line 301
+    .local v1, isSignalNull:Z
     :goto_8
-    if-eqz v1, :cond_b
+    const-string v5, "STATUSBAR-SignalClusterView"
 
-    .line 355
-    iget-object v4, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mSeparateMobileGroup:Landroid/view/ViewGroup;
+    new-instance v8, Ljava/lang/StringBuilder;
+
+    invoke-direct {v8}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v9, "isSignalNull="
+
+    invoke-virtual {v8, v9}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v8
+
+    invoke-virtual {v8, v1}, Ljava/lang/StringBuilder;->append(Z)Ljava/lang/StringBuilder;
+
+    move-result-object v8
+
+    const-string v9, ", mIsAirplaneMode="
+
+    invoke-virtual {v8, v9}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v8
+
+    iget-boolean v9, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mIsAirplaneMode:Z
+
+    invoke-virtual {v8, v9}, Ljava/lang/StringBuilder;->append(Z)Ljava/lang/StringBuilder;
+
+    move-result-object v8
+
+    const-string v9, ", mWifiVisible="
+
+    invoke-virtual {v8, v9}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v8
+
+    iget-boolean v9, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mWifiVisible:Z
+
+    invoke-virtual {v8, v9}, Ljava/lang/StringBuilder;->append(Z)Ljava/lang/StringBuilder;
+
+    move-result-object v8
+
+    const-string v9, ", mMobileStrengthId="
+
+    invoke-virtual {v8, v9}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v8
+
+    iget v9, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mMobileStrengthId:I
+
+    invoke-virtual {v8, v9}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    move-result-object v8
+
+    invoke-virtual {v8}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v8
+
+    invoke-static {v5, v8}, Landroid/util/Slog;->d(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 302
+    iget-boolean v5, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mIsAirplaneMode:Z
+
+    if-eqz v5, :cond_f
+
+    .line 303
+    iget-object v5, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mDummyMobileGroupForVZW:Landroid/widget/ImageView;
+
+    invoke-virtual {v5, v7}, Landroid/widget/ImageView;->setVisibility(I)V
+
+    .line 327
+    .end local v1           #isSignalNull:Z
+    :cond_6
+    :goto_9
+    sget-boolean v5, Lcom/android/systemui/statusbar/Feature;->mUseDisabledDataIcon:Z
+
+    if-eqz v5, :cond_13
+
+    .line 328
+    iget-object v5, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mSeparateMobileGroup:Landroid/view/ViewGroup;
+
+    iget v8, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mMobileDataState:I
+
+    if-eq v8, v10, :cond_7
+
+    iget-boolean v8, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mBtTetherState:Z
+
+    if-nez v8, :cond_7
+
+    iget-boolean v8, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mHasService:Z
+
+    if-eqz v8, :cond_12
+
+    iget v8, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mMobileTypeId:I
+
+    if-eqz v8, :cond_12
+
+    :cond_7
+    :goto_a
+    invoke-virtual {v5, v6}, Landroid/view/View;->setVisibility(I)V
+
+    .line 330
+    iget-object v5, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mSeparateMobileGroup:Landroid/view/ViewGroup;
+
+    invoke-virtual {v5}, Landroid/view/View;->getVisibility()I
+
+    move-result v5
+
+    if-ne v5, v7, :cond_0
+
+    .line 331
+    const-string v5, "STATUSBAR-SignalClusterView"
+
+    new-instance v6, Ljava/lang/StringBuilder;
+
+    invoke-direct {v6}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v7, "data type is gone : mMobileDataState = "
+
+    invoke-virtual {v6, v7}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v6
 
     iget v7, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mMobileDataState:I
 
-    if-eq v7, v9, :cond_3
+    invoke-virtual {v6, v7}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    move-result-object v6
+
+    const-string v7, " mBtTetherState = "
+
+    invoke-virtual {v6, v7}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v6
 
     iget-boolean v7, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mBtTetherState:Z
 
-    if-nez v7, :cond_3
+    invoke-virtual {v6, v7}, Ljava/lang/StringBuilder;->append(Z)Ljava/lang/StringBuilder;
+
+    move-result-object v6
+
+    const-string v7, " mHasService = "
+
+    invoke-virtual {v6, v7}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v6
 
     iget-boolean v7, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mHasService:Z
 
-    if-eqz v7, :cond_4
+    invoke-virtual {v6, v7}, Ljava/lang/StringBuilder;->append(Z)Ljava/lang/StringBuilder;
 
-    :cond_3
-    move v6, v5
+    move-result-object v6
 
-    :cond_4
-    invoke-virtual {v4, v6}, Landroid/view/ViewGroup;->setVisibility(I)V
+    invoke-virtual {v6}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v6
+
+    invoke-static {v5, v6}, Landroid/util/Slog;->d(Ljava/lang/String;Ljava/lang/String;)I
 
     goto/16 :goto_0
 
-    .line 267
-    .restart local v2       #params:Landroid/view/ViewGroup$MarginLayoutParams;
-    :cond_5
-    iput v5, v2, Landroid/view/ViewGroup$MarginLayoutParams;->topMargin:I
+    .line 232
+    .restart local v3       #params:Landroid/view/ViewGroup$MarginLayoutParams;
+    :cond_8
+    iput v6, v3, Landroid/view/ViewGroup$MarginLayoutParams;->topMargin:I
 
     goto/16 :goto_1
 
-    .end local v2           #params:Landroid/view/ViewGroup$MarginLayoutParams;
-    :cond_6
-    move v4, v6
+    .end local v3           #params:Landroid/view/ViewGroup$MarginLayoutParams;
+    :cond_9
+    move v5, v7
 
-    .line 274
+    .line 239
     goto/16 :goto_2
 
-    .line 278
-    :cond_7
-    iget-object v4, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mWifiGroup:Landroid/view/ViewGroup;
+    .line 243
+    :cond_a
+    iget-object v5, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mWifiGroup:Landroid/view/ViewGroup;
 
-    invoke-virtual {v4, v6}, Landroid/view/ViewGroup;->setVisibility(I)V
+    invoke-virtual {v5, v7}, Landroid/view/View;->setVisibility(I)V
 
     goto/16 :goto_3
 
-    .line 332
-    :cond_8
-    iget-object v4, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mMobileGroup:Landroid/view/ViewGroup;
-
-    invoke-virtual {v4, v6}, Landroid/view/ViewGroup;->setVisibility(I)V
-
-    goto :goto_6
-
-    .line 339
-    :cond_9
-    iget-object v4, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mAirplane:Landroid/widget/ImageView;
-
-    invoke-virtual {v4, v6}, Landroid/widget/ImageView;->setVisibility(I)V
-
-    goto :goto_7
-
-    .line 345
-    :cond_a
-    iget-object v4, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mSpacer:Landroid/view/View;
-
-    invoke-virtual {v4, v6}, Landroid/view/View;->setVisibility(I)V
-
-    goto :goto_8
-
-    .line 364
+    .line 280
     :cond_b
-    iget-object v4, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mSeparateMobileGroup:Landroid/view/ViewGroup;
+    iget-object v5, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mMobileGroup:Landroid/view/ViewGroup;
 
-    iget v7, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mMobileDataState:I
+    invoke-virtual {v5, v7}, Landroid/view/View;->setVisibility(I)V
 
-    if-eq v7, v9, :cond_c
+    goto/16 :goto_5
 
-    iget-boolean v7, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mBtTetherState:Z
-
-    if-eqz v7, :cond_d
-
+    .line 287
     :cond_c
-    move v6, v5
+    iget-object v5, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mAirplane:Landroid/widget/ImageView;
 
+    invoke-virtual {v5, v7}, Landroid/widget/ImageView;->setVisibility(I)V
+
+    goto/16 :goto_6
+
+    .line 293
     :cond_d
-    invoke-virtual {v4, v6}, Landroid/view/ViewGroup;->setVisibility(I)V
+    iget-object v5, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mSpacer:Landroid/view/View;
+
+    invoke-virtual {v5, v7}, Landroid/view/View;->setVisibility(I)V
+
+    goto/16 :goto_7
+
+    :cond_e
+    move v1, v6
+
+    .line 300
+    goto/16 :goto_8
+
+    .line 305
+    .restart local v1       #isSignalNull:Z
+    :cond_f
+    iget-boolean v5, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mWifiVisible:Z
+
+    if-eqz v5, :cond_10
+
+    if-eqz v1, :cond_10
+
+    .line 306
+    iget-object v5, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mMobileGroup:Landroid/view/ViewGroup;
+
+    invoke-virtual {v5, v7}, Landroid/view/View;->setVisibility(I)V
+
+    .line 307
+    iget-object v5, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mDummyMobileGroupForVZW:Landroid/widget/ImageView;
+
+    invoke-virtual {v5, v6}, Landroid/widget/ImageView;->setVisibility(I)V
+
+    goto/16 :goto_9
+
+    .line 308
+    :cond_10
+    iget-boolean v5, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mWifiVisible:Z
+
+    if-nez v5, :cond_11
+
+    if-eqz v1, :cond_11
+
+    .line 309
+    iget-object v5, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mMobileGroup:Landroid/view/ViewGroup;
+
+    invoke-virtual {v5, v6}, Landroid/view/View;->setVisibility(I)V
+
+    .line 310
+    iget-object v5, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mDummyMobileGroupForVZW:Landroid/widget/ImageView;
+
+    invoke-virtual {v5, v6}, Landroid/widget/ImageView;->setVisibility(I)V
+
+    goto/16 :goto_9
+
+    .line 312
+    :cond_11
+    iget-object v5, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mMobileGroup:Landroid/view/ViewGroup;
+
+    invoke-virtual {v5, v6}, Landroid/view/View;->setVisibility(I)V
+
+    .line 313
+    iget-object v5, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mDummyMobileGroupForVZW:Landroid/widget/ImageView;
+
+    invoke-virtual {v5, v7}, Landroid/widget/ImageView;->setVisibility(I)V
+
+    goto/16 :goto_9
+
+    .end local v1           #isSignalNull:Z
+    :cond_12
+    move v6, v7
+
+    .line 328
+    goto/16 :goto_a
+
+    .line 334
+    :cond_13
+    if-eqz v2, :cond_16
+
+    .line 336
+    iget-object v5, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mSeparateMobileGroup:Landroid/view/ViewGroup;
+
+    iget v8, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mMobileDataState:I
+
+    if-eq v8, v10, :cond_14
+
+    iget-boolean v8, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mBtTetherState:Z
+
+    if-nez v8, :cond_14
+
+    iget-boolean v8, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mHasService:Z
+
+    if-eqz v8, :cond_15
+
+    :cond_14
+    move v7, v6
+
+    :cond_15
+    invoke-virtual {v5, v7}, Landroid/view/View;->setVisibility(I)V
 
     goto/16 :goto_0
 
-    .line 327
+    .line 344
+    :cond_16
+    iget-object v5, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mSeparateMobileGroup:Landroid/view/ViewGroup;
+
+    iget v8, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mMobileDataState:I
+
+    if-eq v8, v10, :cond_17
+
+    iget-boolean v8, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mBtTetherState:Z
+
+    if-eqz v8, :cond_18
+
+    :cond_17
+    move v7, v6
+
+    :cond_18
+    invoke-virtual {v5, v7}, Landroid/view/View;->setVisibility(I)V
+
+    goto/16 :goto_0
+
+    .line 275
     :catch_0
-    move-exception v4
+    move-exception v5
 
-    goto :goto_6
+    goto/16 :goto_5
 
-    .line 317
+    .line 265
     :catch_1
-    move-exception v4
+    move-exception v5
 
-    goto :goto_5
+    goto/16 :goto_4
 .end method
 
 
@@ -619,89 +783,62 @@
     .parameter "event"
 
     .prologue
-    .line 215
+    .line 183
     iget-boolean v0, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mWifiVisible:Z
 
     if-eqz v0, :cond_0
 
     iget-object v0, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mWifiGroup:Landroid/view/ViewGroup;
 
-    invoke-virtual {v0}, Landroid/view/ViewGroup;->getContentDescription()Ljava/lang/CharSequence;
+    invoke-virtual {v0}, Landroid/view/View;->getContentDescription()Ljava/lang/CharSequence;
 
     move-result-object v0
 
     if-eqz v0, :cond_0
 
-    .line 216
-    invoke-virtual {p1}, Landroid/view/accessibility/AccessibilityEvent;->getText()Ljava/util/List;
+    .line 184
+    invoke-virtual {p1}, Landroid/view/accessibility/AccessibilityRecord;->getText()Ljava/util/List;
 
     move-result-object v0
 
     iget-object v1, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mWifiGroup:Landroid/view/ViewGroup;
 
-    invoke-virtual {v1}, Landroid/view/ViewGroup;->getContentDescription()Ljava/lang/CharSequence;
+    invoke-virtual {v1}, Landroid/view/View;->getContentDescription()Ljava/lang/CharSequence;
 
     move-result-object v1
 
     invoke-interface {v0, v1}, Ljava/util/List;->add(Ljava/lang/Object;)Z
 
-    .line 218
+    .line 186
     :cond_0
-    iget-boolean v0, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mEthernetVisible:Z
-
-    if-eqz v0, :cond_1
-
-    iget-object v0, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mEthernetGroup:Landroid/view/ViewGroup;
-
-    invoke-virtual {v0}, Landroid/view/ViewGroup;->getContentDescription()Ljava/lang/CharSequence;
-
-    move-result-object v0
-
-    if-eqz v0, :cond_1
-
-    .line 219
-    invoke-virtual {p1}, Landroid/view/accessibility/AccessibilityEvent;->getText()Ljava/util/List;
-
-    move-result-object v0
-
-    iget-object v1, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mEthernetGroup:Landroid/view/ViewGroup;
-
-    invoke-virtual {v1}, Landroid/view/ViewGroup;->getContentDescription()Ljava/lang/CharSequence;
-
-    move-result-object v1
-
-    invoke-interface {v0, v1}, Ljava/util/List;->add(Ljava/lang/Object;)Z
-
-    .line 221
-    :cond_1
     iget-boolean v0, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mMobileVisible:Z
 
-    if-eqz v0, :cond_2
+    if-eqz v0, :cond_1
 
     iget-object v0, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mMobileGroup:Landroid/view/ViewGroup;
 
-    invoke-virtual {v0}, Landroid/view/ViewGroup;->getContentDescription()Ljava/lang/CharSequence;
+    invoke-virtual {v0}, Landroid/view/View;->getContentDescription()Ljava/lang/CharSequence;
 
     move-result-object v0
 
-    if-eqz v0, :cond_2
+    if-eqz v0, :cond_1
 
-    .line 222
-    invoke-virtual {p1}, Landroid/view/accessibility/AccessibilityEvent;->getText()Ljava/util/List;
+    .line 187
+    invoke-virtual {p1}, Landroid/view/accessibility/AccessibilityRecord;->getText()Ljava/util/List;
 
     move-result-object v0
 
     iget-object v1, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mMobileGroup:Landroid/view/ViewGroup;
 
-    invoke-virtual {v1}, Landroid/view/ViewGroup;->getContentDescription()Ljava/lang/CharSequence;
+    invoke-virtual {v1}, Landroid/view/View;->getContentDescription()Ljava/lang/CharSequence;
 
     move-result-object v1
 
     invoke-interface {v0, v1}, Ljava/util/List;->add(Ljava/lang/Object;)Z
 
-    .line 223
-    :cond_2
-    invoke-super {p0, p1}, Landroid/widget/LinearLayout;->dispatchPopulateAccessibilityEvent(Landroid/view/accessibility/AccessibilityEvent;)Z
+    .line 188
+    :cond_1
+    invoke-super {p0, p1}, Landroid/view/View;->dispatchPopulateAccessibilityEvent(Landroid/view/accessibility/AccessibilityEvent;)Z
 
     move-result v0
 
@@ -712,13 +849,13 @@
     .locals 1
 
     .prologue
-    .line 110
-    invoke-super {p0}, Landroid/widget/LinearLayout;->onAttachedToWindow()V
+    .line 97
+    invoke-super {p0}, Landroid/view/ViewGroup;->onAttachedToWindow()V
 
-    .line 112
-    const v0, 0x7f090049
+    .line 99
+    const v0, 0x7f07005b
 
-    invoke-virtual {p0, v0}, Lcom/android/systemui/statusbar/SignalClusterView;->findViewById(I)Landroid/view/View;
+    invoke-virtual {p0, v0}, Landroid/view/View;->findViewById(I)Landroid/view/View;
 
     move-result-object v0
 
@@ -726,10 +863,10 @@
 
     iput-object v0, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mWifiGroup:Landroid/view/ViewGroup;
 
-    .line 113
-    const v0, 0x7f09004a
+    .line 100
+    const v0, 0x7f07005c
 
-    invoke-virtual {p0, v0}, Lcom/android/systemui/statusbar/SignalClusterView;->findViewById(I)Landroid/view/View;
+    invoke-virtual {p0, v0}, Landroid/view/View;->findViewById(I)Landroid/view/View;
 
     move-result-object v0
 
@@ -737,10 +874,10 @@
 
     iput-object v0, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mWifi:Landroid/widget/ImageView;
 
-    .line 114
-    const v0, 0x7f09004b
+    .line 101
+    const v0, 0x7f07005d
 
-    invoke-virtual {p0, v0}, Lcom/android/systemui/statusbar/SignalClusterView;->findViewById(I)Landroid/view/View;
+    invoke-virtual {p0, v0}, Landroid/view/View;->findViewById(I)Landroid/view/View;
 
     move-result-object v0
 
@@ -748,43 +885,10 @@
 
     iput-object v0, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mWifiActivity:Landroid/widget/ImageView;
 
-    .line 116
-    const v0, 0x7f09004c
+    .line 103
+    const v0, 0x7f070063
 
-    invoke-virtual {p0, v0}, Lcom/android/systemui/statusbar/SignalClusterView;->findViewById(I)Landroid/view/View;
-
-    move-result-object v0
-
-    check-cast v0, Landroid/view/ViewGroup;
-
-    iput-object v0, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mEthernetGroup:Landroid/view/ViewGroup;
-
-    .line 117
-    const v0, 0x7f09004d
-
-    invoke-virtual {p0, v0}, Lcom/android/systemui/statusbar/SignalClusterView;->findViewById(I)Landroid/view/View;
-
-    move-result-object v0
-
-    check-cast v0, Landroid/widget/ImageView;
-
-    iput-object v0, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mEthernet:Landroid/widget/ImageView;
-
-    .line 118
-    const v0, 0x7f09004e
-
-    invoke-virtual {p0, v0}, Lcom/android/systemui/statusbar/SignalClusterView;->findViewById(I)Landroid/view/View;
-
-    move-result-object v0
-
-    check-cast v0, Landroid/widget/ImageView;
-
-    iput-object v0, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mEthernetActivity:Landroid/widget/ImageView;
-
-    .line 120
-    const v0, 0x7f090054
-
-    invoke-virtual {p0, v0}, Lcom/android/systemui/statusbar/SignalClusterView;->findViewById(I)Landroid/view/View;
+    invoke-virtual {p0, v0}, Landroid/view/View;->findViewById(I)Landroid/view/View;
 
     move-result-object v0
 
@@ -792,10 +896,10 @@
 
     iput-object v0, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mMobileGroup:Landroid/view/ViewGroup;
 
-    .line 121
-    const v0, 0x7f090055
+    .line 104
+    const v0, 0x7f070064
 
-    invoke-virtual {p0, v0}, Lcom/android/systemui/statusbar/SignalClusterView;->findViewById(I)Landroid/view/View;
+    invoke-virtual {p0, v0}, Landroid/view/View;->findViewById(I)Landroid/view/View;
 
     move-result-object v0
 
@@ -803,10 +907,10 @@
 
     iput-object v0, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mMobile:Landroid/widget/ImageView;
 
-    .line 122
-    const v0, 0x7f090057
+    .line 105
+    const v0, 0x7f070066
 
-    invoke-virtual {p0, v0}, Lcom/android/systemui/statusbar/SignalClusterView;->findViewById(I)Landroid/view/View;
+    invoke-virtual {p0, v0}, Landroid/view/View;->findViewById(I)Landroid/view/View;
 
     move-result-object v0
 
@@ -814,10 +918,10 @@
 
     iput-object v0, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mMobileActivity:Landroid/widget/ImageView;
 
-    .line 123
-    const v0, 0x7f090056
+    .line 106
+    const v0, 0x7f070065
 
-    invoke-virtual {p0, v0}, Lcom/android/systemui/statusbar/SignalClusterView;->findViewById(I)Landroid/view/View;
+    invoke-virtual {p0, v0}, Landroid/view/View;->findViewById(I)Landroid/view/View;
 
     move-result-object v0
 
@@ -825,19 +929,19 @@
 
     iput-object v0, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mMobileType:Landroid/widget/ImageView;
 
-    .line 124
-    const v0, 0x7f09004f
+    .line 107
+    const v0, 0x7f07005e
 
-    invoke-virtual {p0, v0}, Lcom/android/systemui/statusbar/SignalClusterView;->findViewById(I)Landroid/view/View;
+    invoke-virtual {p0, v0}, Landroid/view/View;->findViewById(I)Landroid/view/View;
 
     move-result-object v0
 
     iput-object v0, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mSpacer:Landroid/view/View;
 
-    .line 125
-    const v0, 0x7f090059
+    .line 108
+    const v0, 0x7f070068
 
-    invoke-virtual {p0, v0}, Lcom/android/systemui/statusbar/SignalClusterView;->findViewById(I)Landroid/view/View;
+    invoke-virtual {p0, v0}, Landroid/view/View;->findViewById(I)Landroid/view/View;
 
     move-result-object v0
 
@@ -845,10 +949,10 @@
 
     iput-object v0, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mAirplane:Landroid/widget/ImageView;
 
-    .line 128
-    const v0, 0x7f090050
+    .line 111
+    const v0, 0x7f07005f
 
-    invoke-virtual {p0, v0}, Lcom/android/systemui/statusbar/SignalClusterView;->findViewById(I)Landroid/view/View;
+    invoke-virtual {p0, v0}, Landroid/view/View;->findViewById(I)Landroid/view/View;
 
     move-result-object v0
 
@@ -856,10 +960,10 @@
 
     iput-object v0, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mMobileGroup:Landroid/view/ViewGroup;
 
-    .line 129
-    const v0, 0x7f090051
+    .line 112
+    const v0, 0x7f070060
 
-    invoke-virtual {p0, v0}, Lcom/android/systemui/statusbar/SignalClusterView;->findViewById(I)Landroid/view/View;
+    invoke-virtual {p0, v0}, Landroid/view/View;->findViewById(I)Landroid/view/View;
 
     move-result-object v0
 
@@ -867,10 +971,10 @@
 
     iput-object v0, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mSeparateMobileGroup:Landroid/view/ViewGroup;
 
-    .line 130
-    const v0, 0x7f090053
+    .line 113
+    const v0, 0x7f070062
 
-    invoke-virtual {p0, v0}, Lcom/android/systemui/statusbar/SignalClusterView;->findViewById(I)Landroid/view/View;
+    invoke-virtual {p0, v0}, Landroid/view/View;->findViewById(I)Landroid/view/View;
 
     move-result-object v0
 
@@ -878,10 +982,10 @@
 
     iput-object v0, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mMobileActivity:Landroid/widget/ImageView;
 
-    .line 131
-    const v0, 0x7f090052
+    .line 114
+    const v0, 0x7f070061
 
-    invoke-virtual {p0, v0}, Lcom/android/systemui/statusbar/SignalClusterView;->findViewById(I)Landroid/view/View;
+    invoke-virtual {p0, v0}, Landroid/view/View;->findViewById(I)Landroid/view/View;
 
     move-result-object v0
 
@@ -889,10 +993,10 @@
 
     iput-object v0, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mMobileType:Landroid/widget/ImageView;
 
-    .line 132
-    const v0, 0x7f090058
+    .line 115
+    const v0, 0x7f070067
 
-    invoke-virtual {p0, v0}, Lcom/android/systemui/statusbar/SignalClusterView;->findViewById(I)Landroid/view/View;
+    invoke-virtual {p0, v0}, Landroid/view/View;->findViewById(I)Landroid/view/View;
 
     move-result-object v0
 
@@ -900,10 +1004,21 @@
 
     iput-object v0, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mMobileRoaming:Landroid/widget/ImageView;
 
-    .line 136
+    .line 118
+    const v0, 0x7f070069
+
+    invoke-virtual {p0, v0}, Landroid/view/View;->findViewById(I)Landroid/view/View;
+
+    move-result-object v0
+
+    check-cast v0, Landroid/widget/ImageView;
+
+    iput-object v0, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mDummyMobileGroupForVZW:Landroid/widget/ImageView;
+
+    .line 121
     invoke-direct {p0}, Lcom/android/systemui/statusbar/SignalClusterView;->apply()V
 
-    .line 137
+    .line 122
     return-void
 .end method
 
@@ -913,52 +1028,43 @@
     .prologue
     const/4 v0, 0x0
 
-    .line 141
+    .line 126
     iput-object v0, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mWifiGroup:Landroid/view/ViewGroup;
 
-    .line 142
+    .line 127
     iput-object v0, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mWifi:Landroid/widget/ImageView;
 
-    .line 143
+    .line 128
     iput-object v0, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mWifiActivity:Landroid/widget/ImageView;
 
-    .line 145
-    iput-object v0, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mEthernetGroup:Landroid/view/ViewGroup;
-
-    .line 146
-    iput-object v0, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mEthernet:Landroid/widget/ImageView;
-
-    .line 147
-    iput-object v0, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mEthernetActivity:Landroid/widget/ImageView;
-
-    .line 149
+    .line 130
     iput-object v0, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mMobileGroup:Landroid/view/ViewGroup;
 
-    .line 150
+    .line 131
     iput-object v0, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mMobile:Landroid/widget/ImageView;
 
-    .line 151
+    .line 132
     iput-object v0, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mMobileActivity:Landroid/widget/ImageView;
 
-    .line 152
+    .line 133
     iput-object v0, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mMobileType:Landroid/widget/ImageView;
 
-    .line 153
+    .line 134
     iput-object v0, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mSpacer:Landroid/view/View;
 
-    .line 154
+    .line 135
     iput-object v0, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mAirplane:Landroid/widget/ImageView;
 
-    .line 157
+    .line 138
     iput-object v0, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mSeparateMobileGroup:Landroid/view/ViewGroup;
 
-    .line 158
+    .line 139
     iput-object v0, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mMobileRoaming:Landroid/widget/ImageView;
 
-    .line 162
-    invoke-super {p0}, Landroid/widget/LinearLayout;->onDetachedFromWindow()V
+    .line 143
+    invoke-super {p0}, Landroid/view/ViewGroup;->onDetachedFromWindow()V
 
-    .line 163
+    .line 144
     return-void
 .end method
 
@@ -969,79 +1075,79 @@
     .prologue
     const/4 v1, 0x0
 
-    .line 228
-    invoke-super {p0, p1}, Landroid/widget/LinearLayout;->onRtlPropertiesChanged(I)V
+    .line 193
+    invoke-super {p0, p1}, Landroid/view/View;->onRtlPropertiesChanged(I)V
 
-    .line 230
+    .line 195
     iget-object v0, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mWifi:Landroid/widget/ImageView;
 
     if-eqz v0, :cond_0
 
-    .line 231
+    .line 196
     iget-object v0, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mWifi:Landroid/widget/ImageView;
 
     invoke-virtual {v0, v1}, Landroid/widget/ImageView;->setImageDrawable(Landroid/graphics/drawable/Drawable;)V
 
-    .line 233
+    .line 198
     :cond_0
     iget-object v0, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mWifiActivity:Landroid/widget/ImageView;
 
     if-eqz v0, :cond_1
 
-    .line 234
+    .line 199
     iget-object v0, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mWifiActivity:Landroid/widget/ImageView;
 
     invoke-virtual {v0, v1}, Landroid/widget/ImageView;->setImageDrawable(Landroid/graphics/drawable/Drawable;)V
 
-    .line 237
+    .line 202
     :cond_1
     iget-object v0, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mMobile:Landroid/widget/ImageView;
 
     if-eqz v0, :cond_2
 
-    .line 238
+    .line 203
     iget-object v0, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mMobile:Landroid/widget/ImageView;
 
     invoke-virtual {v0, v1}, Landroid/widget/ImageView;->setImageDrawable(Landroid/graphics/drawable/Drawable;)V
 
-    .line 240
+    .line 205
     :cond_2
     iget-object v0, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mMobileActivity:Landroid/widget/ImageView;
 
     if-eqz v0, :cond_3
 
-    .line 241
+    .line 206
     iget-object v0, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mMobileActivity:Landroid/widget/ImageView;
 
     invoke-virtual {v0, v1}, Landroid/widget/ImageView;->setImageDrawable(Landroid/graphics/drawable/Drawable;)V
 
-    .line 243
+    .line 208
     :cond_3
     iget-object v0, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mMobileType:Landroid/widget/ImageView;
 
     if-eqz v0, :cond_4
 
-    .line 244
+    .line 209
     iget-object v0, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mMobileType:Landroid/widget/ImageView;
 
     invoke-virtual {v0, v1}, Landroid/widget/ImageView;->setImageDrawable(Landroid/graphics/drawable/Drawable;)V
 
-    .line 247
+    .line 212
     :cond_4
     iget-object v0, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mAirplane:Landroid/widget/ImageView;
 
     if-eqz v0, :cond_5
 
-    .line 248
+    .line 213
     iget-object v0, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mAirplane:Landroid/widget/ImageView;
 
     invoke-virtual {v0, v1}, Landroid/widget/ImageView;->setImageDrawable(Landroid/graphics/drawable/Drawable;)V
 
-    .line 251
+    .line 216
     :cond_5
     invoke-direct {p0}, Lcom/android/systemui/statusbar/SignalClusterView;->apply()V
 
-    .line 252
+    .line 217
     return-void
 .end method
 
@@ -1050,10 +1156,10 @@
     .parameter "btState"
 
     .prologue
-    .line 384
+    .line 364
     iput-boolean p1, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mBtTetherState:Z
 
-    .line 385
+    .line 365
     return-void
 .end method
 
@@ -1062,41 +1168,10 @@
     .parameter "dataState"
 
     .prologue
-    .line 378
+    .line 358
     iput p1, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mMobileDataState:I
 
-    .line 379
-    return-void
-.end method
-
-.method public setEthernetIndicators(ZZIILjava/lang/String;)V
-    .locals 0
-    .parameter "visible"
-    .parameter "connected"
-    .parameter "stateIcon"
-    .parameter "activityIcon"
-    .parameter "contentDescription"
-
-    .prologue
-    .line 180
-    iput-boolean p1, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mEthernetVisible:Z
-
-    .line 181
-    iput-boolean p2, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mEthernetConnected:Z
-
-    .line 182
-    iput p3, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mEthernetStateId:I
-
-    .line 183
-    iput p4, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mEthernetActivityId:I
-
-    .line 184
-    iput-object p5, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mEthernetDescription:Ljava/lang/String;
-
-    .line 186
-    invoke-direct {p0}, Lcom/android/systemui/statusbar/SignalClusterView;->apply()V
-
-    .line 187
+    .line 359
     return-void
 .end method
 
@@ -1105,10 +1180,10 @@
     .parameter "hasService"
 
     .prologue
-    .line 390
+    .line 370
     iput-boolean p1, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mHasService:Z
 
-    .line 391
+    .line 371
     return-void
 .end method
 
@@ -1118,16 +1193,16 @@
     .parameter "airplaneIconId"
 
     .prologue
-    .line 205
+    .line 173
     iput-boolean p1, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mIsAirplaneMode:Z
 
-    .line 206
+    .line 174
     iput p2, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mAirplaneIconId:I
 
-    .line 208
+    .line 176
     invoke-direct {p0}, Lcom/android/systemui/statusbar/SignalClusterView;->apply()V
 
-    .line 209
+    .line 177
     return-void
 .end method
 
@@ -1141,28 +1216,28 @@
     .parameter "typeContentDescription"
 
     .prologue
-    .line 193
+    .line 161
     iput-boolean p1, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mMobileVisible:Z
 
-    .line 194
+    .line 162
     iput p2, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mMobileStrengthId:I
 
-    .line 195
+    .line 163
     iput p3, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mMobileActivityId:I
 
-    .line 196
+    .line 164
     iput p4, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mMobileTypeId:I
 
-    .line 197
+    .line 165
     iput-object p5, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mMobileDescription:Ljava/lang/String;
 
-    .line 198
+    .line 166
     iput-object p6, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mMobileTypeDescription:Ljava/lang/String;
 
-    .line 200
+    .line 168
     invoke-direct {p0}, Lcom/android/systemui/statusbar/SignalClusterView;->apply()V
 
-    .line 201
+    .line 169
     return-void
 .end method
 
@@ -1171,10 +1246,10 @@
     .parameter "nc"
 
     .prologue
-    .line 105
+    .line 92
     iput-object p1, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mNC:Lcom/android/systemui/statusbar/policy/NetworkController;
 
-    .line 106
+    .line 93
     return-void
 .end method
 
@@ -1183,10 +1258,10 @@
     .parameter "roamingIconId"
 
     .prologue
-    .line 374
+    .line 354
     iput p1, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mMobileRoamingId:I
 
-    .line 375
+    .line 355
     return-void
 .end method
 
@@ -1198,52 +1273,21 @@
     .parameter "contentDescription"
 
     .prologue
-    .line 168
+    .line 149
     iput-boolean p1, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mWifiVisible:Z
 
-    .line 169
+    .line 150
     iput p2, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mWifiStrengthId:I
 
-    .line 170
+    .line 151
     iput p3, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mWifiActivityId:I
 
-    .line 171
+    .line 152
     iput-object p4, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mWifiDescription:Ljava/lang/String;
 
-    .line 173
+    .line 154
     invoke-direct {p0}, Lcom/android/systemui/statusbar/SignalClusterView;->apply()V
 
-    .line 174
-    return-void
-.end method
-
-.method public updateSettings()V
-    .locals 3
-
-    .prologue
-    const/4 v2, 0x0
-
-    .line 234
-    iget-object v0, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mContext:Landroid/content/Context;
-
-    invoke-virtual {v0}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
-
-    move-result-object v0
-
-    const-string v1, "hide_signal_icon"
-
-    invoke-static {v0, v1, v2}, Landroid/provider/Settings$Global;->getInt(Landroid/content/ContentResolver;Ljava/lang/String;I)I
-
-    move-result v1
-
-    iget-object v0, p0, Lcom/android/systemui/statusbar/SignalClusterView;->mMobile:Landroid/widget/ImageView;
-
-    if-eqz v1, :cond_0
-
-    const/16 v2, 0x8
-
-    :cond_0
-    invoke-virtual {v0, v2}, Landroid/widget/ImageView;->setVisibility(I)V
-
+    .line 155
     return-void
 .end method

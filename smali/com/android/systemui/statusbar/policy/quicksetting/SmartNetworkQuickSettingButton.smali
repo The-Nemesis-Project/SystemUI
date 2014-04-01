@@ -36,150 +36,200 @@
 
 # direct methods
 .method public constructor <init>(Landroid/content/Context;)V
-    .locals 11
+    .locals 9
     .parameter "context"
 
     .prologue
-    const/4 v10, -0x2
+    const v1, 0x7f0a00ed
 
-    const/4 v9, 0x1
+    const/4 v8, -0x2
 
-    const/4 v7, 0x0
+    const/4 v7, 0x1
 
-    .line 62
+    const/4 v5, 0x0
+
+    .line 63
     const/4 v2, 0x0
 
-    const v3, 0x7f0c00e4
+    sget-boolean v0, Lcom/android/systemui/statusbar/Feature;->mUseJellyBeanGUI:Z
 
-    const v4, 0x7f0201e0
+    if-nez v0, :cond_0
 
-    const v5, 0x7f0201df
+    move v0, v7
 
-    const v6, 0x7f0201de
+    :goto_0
+    invoke-direct {p0, p1, v2, v0}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;-><init>(Landroid/content/Context;Landroid/util/AttributeSet;Z)V
+
+    .line 65
+    sget-boolean v0, Lcom/android/systemui/statusbar/Feature;->mUseJellyBeanGUI:Z
+
+    if-eqz v0, :cond_1
+
+    .line 66
+    const v2, 0x7f020201
+
+    const v3, 0x7f020200
+
+    const v4, 0x7f0201ff
 
     move-object v0, p0
 
-    move-object v1, p1
+    move v6, v5
 
-    move v8, v7
+    invoke-virtual/range {v0 .. v6}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->initLayout(IIIIII)V
 
-    invoke-direct/range {v0 .. v8}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;-><init>(Landroid/content/Context;Landroid/util/AttributeSet;IIIIII)V
-
-    .line 69
+    .line 76
+    :goto_1
     invoke-virtual {p1}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
 
     move-result-object v0
 
     iput-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/SmartNetworkQuickSettingButton;->mContentResolver:Landroid/content/ContentResolver;
 
-    .line 70
+    .line 77
     new-instance v0, Lcom/android/systemui/statusbar/policy/quicksetting/SmartNetworkQuickSettingButton$SmartPauseObserver;
 
     invoke-direct {v0, p0}, Lcom/android/systemui/statusbar/policy/quicksetting/SmartNetworkQuickSettingButton$SmartPauseObserver;-><init>(Lcom/android/systemui/statusbar/policy/quicksetting/SmartNetworkQuickSettingButton;)V
 
     iput-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/SmartNetworkQuickSettingButton;->mSmartPauseObserver:Lcom/android/systemui/statusbar/policy/quicksetting/SmartNetworkQuickSettingButton$SmartPauseObserver;
 
-    .line 71
-    invoke-virtual {p0, p0}, Lcom/android/systemui/statusbar/policy/quicksetting/SmartNetworkQuickSettingButton;->setListener(Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton$Listener;)V
+    .line 78
+    invoke-virtual {p0, p0}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->setListener(Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton$Listener;)V
 
-    .line 72
+    .line 79
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/SmartNetworkQuickSettingButton;->mContentResolver:Landroid/content/ContentResolver;
 
     const-string v1, "smart_network"
 
-    invoke-static {v0, v1, v7, v10}, Landroid/provider/Settings$System;->getIntForUser(Landroid/content/ContentResolver;Ljava/lang/String;II)I
+    invoke-static {v0, v1, v5, v8}, Landroid/provider/Settings$System;->getIntForUser(Landroid/content/ContentResolver;Ljava/lang/String;II)I
 
     move-result v0
 
-    if-ne v0, v9, :cond_0
+    if-ne v0, v7, :cond_2
 
-    move v0, v9
+    move v0, v7
 
-    :goto_0
-    invoke-virtual {p0, v0}, Lcom/android/systemui/statusbar/policy/quicksetting/SmartNetworkQuickSettingButton;->setActivateStatus(I)V
+    :goto_2
+    invoke-virtual {p0, v0}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->setActivateStatus(I)V
 
-    .line 74
+    .line 81
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/SmartNetworkQuickSettingButton;->mContentResolver:Landroid/content/ContentResolver;
 
     const-string v1, "smart_network"
 
-    invoke-static {v0, v1, v7, v10}, Landroid/provider/Settings$System;->getIntForUser(Landroid/content/ContentResolver;Ljava/lang/String;II)I
+    invoke-static {v0, v1, v5, v8}, Landroid/provider/Settings$System;->getIntForUser(Landroid/content/ContentResolver;Ljava/lang/String;II)I
 
     move-result v0
 
-    if-ne v0, v9, :cond_1
+    if-ne v0, v7, :cond_3
 
-    :goto_1
-    iput-boolean v9, p0, Lcom/android/systemui/statusbar/policy/quicksetting/SmartNetworkQuickSettingButton;->mState:Z
+    :goto_3
+    iput-boolean v7, p0, Lcom/android/systemui/statusbar/policy/quicksetting/SmartNetworkQuickSettingButton;->mState:Z
 
-    .line 76
+    .line 83
     return-void
 
-    .line 72
     :cond_0
-    const/4 v0, 0x2
+    move v0, v5
 
+    .line 63
     goto :goto_0
 
+    .line 73
     :cond_1
-    move v9, v7
+    const v0, 0x7f0201bd
 
-    .line 74
+    invoke-virtual {p0, v1, v0}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->initLayout(II)V
+
     goto :goto_1
+
+    .line 79
+    :cond_2
+    const/4 v0, 0x2
+
+    goto :goto_2
+
+    :cond_3
+    move v7, v5
+
+    .line 81
+    goto :goto_3
 .end method
 
-.method static synthetic access$000(Lcom/android/systemui/statusbar/policy/quicksetting/SmartNetworkQuickSettingButton;I)V
+.method static synthetic access$000(Lcom/android/systemui/statusbar/policy/quicksetting/SmartNetworkQuickSettingButton;)Landroid/content/Context;
+    .locals 1
+    .parameter "x0"
+
+    .prologue
+    .line 50
+    iget-object v0, p0, Landroid/view/View;->mContext:Landroid/content/Context;
+
+    return-object v0
+.end method
+
+.method static synthetic access$100(Lcom/android/systemui/statusbar/policy/quicksetting/SmartNetworkQuickSettingButton;)Landroid/content/Context;
+    .locals 1
+    .parameter "x0"
+
+    .prologue
+    .line 50
+    iget-object v0, p0, Landroid/view/View;->mContext:Landroid/content/Context;
+
+    return-object v0
+.end method
+
+.method static synthetic access$200(Lcom/android/systemui/statusbar/policy/quicksetting/SmartNetworkQuickSettingButton;I)V
     .locals 0
     .parameter "x0"
     .parameter "x1"
 
     .prologue
-    .line 49
+    .line 50
     invoke-direct {p0, p1}, Lcom/android/systemui/statusbar/policy/quicksetting/SmartNetworkQuickSettingButton;->setMode(I)V
 
     return-void
 .end method
 
-.method static synthetic access$100(Lcom/android/systemui/statusbar/policy/quicksetting/SmartNetworkQuickSettingButton;)Z
+.method static synthetic access$300(Lcom/android/systemui/statusbar/policy/quicksetting/SmartNetworkQuickSettingButton;)Z
     .locals 1
     .parameter "x0"
 
     .prologue
-    .line 49
+    .line 50
     iget-boolean v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/SmartNetworkQuickSettingButton;->mState:Z
 
     return v0
 .end method
 
-.method static synthetic access$102(Lcom/android/systemui/statusbar/policy/quicksetting/SmartNetworkQuickSettingButton;Z)Z
+.method static synthetic access$302(Lcom/android/systemui/statusbar/policy/quicksetting/SmartNetworkQuickSettingButton;Z)Z
     .locals 0
     .parameter "x0"
     .parameter "x1"
 
     .prologue
-    .line 49
+    .line 50
     iput-boolean p1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/SmartNetworkQuickSettingButton;->mState:Z
 
     return p1
 .end method
 
-.method static synthetic access$200(Lcom/android/systemui/statusbar/policy/quicksetting/SmartNetworkQuickSettingButton;)Landroid/content/ContentResolver;
+.method static synthetic access$400(Lcom/android/systemui/statusbar/policy/quicksetting/SmartNetworkQuickSettingButton;)Landroid/content/ContentResolver;
     .locals 1
     .parameter "x0"
 
     .prologue
-    .line 49
+    .line 50
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/SmartNetworkQuickSettingButton;->mContentResolver:Landroid/content/ContentResolver;
 
     return-object v0
 .end method
 
-.method static synthetic access$300(Lcom/android/systemui/statusbar/policy/quicksetting/SmartNetworkQuickSettingButton;)I
+.method static synthetic access$500(Lcom/android/systemui/statusbar/policy/quicksetting/SmartNetworkQuickSettingButton;)I
     .locals 1
     .parameter "x0"
 
     .prologue
-    .line 49
+    .line 50
     invoke-direct {p0}, Lcom/android/systemui/statusbar/policy/quicksetting/SmartNetworkQuickSettingButton;->getMode()I
 
     move-result v0
@@ -191,7 +241,7 @@
     .locals 4
 
     .prologue
-    .line 222
+    .line 229
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/SmartNetworkQuickSettingButton;->mContentResolver:Landroid/content/ContentResolver;
 
     const-string v1, "smart_network"
@@ -213,8 +263,8 @@
     .prologue
     const/high16 v7, -0x100
 
-    .line 118
-    iget-object v5, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->mContext:Landroid/content/Context;
+    .line 125
+    iget-object v5, p0, Landroid/view/View;->mContext:Landroid/content/Context;
 
     const-string v6, "layout_inflater"
 
@@ -224,9 +274,9 @@
 
     check-cast v2, Landroid/view/LayoutInflater;
 
-    .line 120
+    .line 127
     .local v2, mDormantModeAlertLayout:Landroid/view/LayoutInflater;
-    const v5, 0x7f040049
+    const v5, 0x7f040029
 
     const/4 v6, 0x0
 
@@ -234,9 +284,9 @@
 
     move-result-object v3
 
-    .line 123
+    .line 130
     .local v3, mSmartNetworkAlertView:Landroid/view/View;
-    const v5, 0x7f090116
+    const v5, 0x7f0700b7
 
     invoke-virtual {v3, v5}, Landroid/view/View;->findViewById(I)Landroid/view/View;
 
@@ -244,33 +294,33 @@
 
     check-cast v4, Landroid/widget/CheckBox;
 
-    .line 125
+    .line 132
     .local v4, mSmartNetworkCheckBox:Landroid/widget/CheckBox;
     new-instance v5, Lcom/android/systemui/statusbar/policy/quicksetting/SmartNetworkQuickSettingButton$1;
 
     invoke-direct {v5, p0, v4}, Lcom/android/systemui/statusbar/policy/quicksetting/SmartNetworkQuickSettingButton$1;-><init>(Lcom/android/systemui/statusbar/policy/quicksetting/SmartNetworkQuickSettingButton;Landroid/widget/CheckBox;)V
 
-    invoke-virtual {v4, v5}, Landroid/widget/CheckBox;->setOnCheckedChangeListener(Landroid/widget/CompoundButton$OnCheckedChangeListener;)V
+    invoke-virtual {v4, v5}, Landroid/widget/CompoundButton;->setOnCheckedChangeListener(Landroid/widget/CompoundButton$OnCheckedChangeListener;)V
 
-    .line 140
+    .line 147
     new-instance v0, Landroid/app/AlertDialog$Builder;
 
-    iget-object v5, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->mContext:Landroid/content/Context;
+    iget-object v5, p0, Landroid/view/View;->mContext:Landroid/content/Context;
 
     invoke-direct {v0, v5}, Landroid/app/AlertDialog$Builder;-><init>(Landroid/content/Context;)V
 
-    .line 141
+    .line 148
     .local v0, builder:Landroid/app/AlertDialog$Builder;
-    const v5, 0x7f0c00fb
+    const v5, 0x7f0a0104
 
     invoke-virtual {v0, v5}, Landroid/app/AlertDialog$Builder;->setTitle(I)Landroid/app/AlertDialog$Builder;
 
-    .line 142
+    .line 149
     const/4 v5, 0x0
 
     invoke-virtual {v0, v5}, Landroid/app/AlertDialog$Builder;->setCancelable(Z)Landroid/app/AlertDialog$Builder;
 
-    .line 143
+    .line 150
     const v5, 0x104000a
 
     new-instance v6, Lcom/android/systemui/statusbar/policy/quicksetting/SmartNetworkQuickSettingButton$2;
@@ -279,7 +329,7 @@
 
     invoke-virtual {v0, v5, v6}, Landroid/app/AlertDialog$Builder;->setPositiveButton(ILandroid/content/DialogInterface$OnClickListener;)Landroid/app/AlertDialog$Builder;
 
-    .line 149
+    .line 156
     const/high16 v5, 0x104
 
     new-instance v6, Lcom/android/systemui/statusbar/policy/quicksetting/SmartNetworkQuickSettingButton$3;
@@ -288,13 +338,13 @@
 
     invoke-virtual {v0, v5, v6}, Landroid/app/AlertDialog$Builder;->setNegativeButton(ILandroid/content/DialogInterface$OnClickListener;)Landroid/app/AlertDialog$Builder;
 
-    .line 158
+    .line 165
     sget-boolean v5, Lcom/android/systemui/statusbar/BaseStatusBar;->isLightTheme:Z
 
     if-eqz v5, :cond_0
 
-    .line 159
-    const v5, 0x7f090115
+    .line 166
+    const v5, 0x7f0700b6
 
     invoke-virtual {v3, v5}, Landroid/view/View;->findViewById(I)Landroid/view/View;
 
@@ -304,34 +354,34 @@
 
     invoke-virtual {v5, v7}, Landroid/widget/TextView;->setTextColor(I)V
 
-    .line 160
+    .line 167
     invoke-virtual {v4, v7}, Landroid/widget/TextView;->setTextColor(I)V
 
-    .line 163
+    .line 170
     :cond_0
     invoke-virtual {v0, v3}, Landroid/app/AlertDialog$Builder;->setView(Landroid/view/View;)Landroid/app/AlertDialog$Builder;
 
-    .line 165
-    invoke-virtual {p0}, Lcom/android/systemui/statusbar/policy/quicksetting/SmartNetworkQuickSettingButton;->statusBarCollapse()V
+    .line 172
+    invoke-virtual {p0}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->statusBarCollapse()V
 
-    .line 167
+    .line 174
     invoke-virtual {v0}, Landroid/app/AlertDialog$Builder;->create()Landroid/app/AlertDialog;
 
     move-result-object v5
 
     iput-object v5, p0, Lcom/android/systemui/statusbar/policy/quicksetting/SmartNetworkQuickSettingButton;->mAlertDialog:Landroid/app/AlertDialog;
 
-    .line 170
+    .line 177
     iget-object v5, p0, Lcom/android/systemui/statusbar/policy/quicksetting/SmartNetworkQuickSettingButton;->mAlertDialog:Landroid/app/AlertDialog;
 
     new-instance v6, Lcom/android/systemui/statusbar/policy/quicksetting/SmartNetworkQuickSettingButton$4;
 
     invoke-direct {v6, p0}, Lcom/android/systemui/statusbar/policy/quicksetting/SmartNetworkQuickSettingButton$4;-><init>(Lcom/android/systemui/statusbar/policy/quicksetting/SmartNetworkQuickSettingButton;)V
 
-    invoke-virtual {v5, v6}, Landroid/app/AlertDialog;->setOnDismissListener(Landroid/content/DialogInterface$OnDismissListener;)V
+    invoke-virtual {v5, v6}, Landroid/app/Dialog;->setOnDismissListener(Landroid/content/DialogInterface$OnDismissListener;)V
 
-    .line 178
-    iget-object v5, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->mContext:Landroid/content/Context;
+    .line 185
+    iget-object v5, p0, Landroid/view/View;->mContext:Landroid/content/Context;
 
     const-string v6, "keyguard"
 
@@ -341,7 +391,7 @@
 
     check-cast v1, Landroid/app/KeyguardManager;
 
-    .line 179
+    .line 186
     .local v1, kgm:Landroid/app/KeyguardManager;
     if-eqz v1, :cond_1
 
@@ -351,10 +401,10 @@
 
     if-eqz v5, :cond_1
 
-    .line 180
+    .line 187
     iget-object v5, p0, Lcom/android/systemui/statusbar/policy/quicksetting/SmartNetworkQuickSettingButton;->mAlertDialog:Landroid/app/AlertDialog;
 
-    invoke-virtual {v5}, Landroid/app/AlertDialog;->getWindow()Landroid/view/Window;
+    invoke-virtual {v5}, Landroid/app/Dialog;->getWindow()Landroid/view/Window;
 
     move-result-object v5
 
@@ -362,20 +412,20 @@
 
     invoke-virtual {v5, v6}, Landroid/view/Window;->setType(I)V
 
-    .line 184
+    .line 191
     :goto_0
     iget-object v5, p0, Lcom/android/systemui/statusbar/policy/quicksetting/SmartNetworkQuickSettingButton;->mAlertDialog:Landroid/app/AlertDialog;
 
-    invoke-virtual {v5}, Landroid/app/AlertDialog;->show()V
+    invoke-virtual {v5}, Landroid/app/Dialog;->show()V
 
-    .line 185
+    .line 192
     return-void
 
-    .line 182
+    .line 189
     :cond_1
     iget-object v5, p0, Lcom/android/systemui/statusbar/policy/quicksetting/SmartNetworkQuickSettingButton;->mAlertDialog:Landroid/app/AlertDialog;
 
-    invoke-virtual {v5}, Landroid/app/AlertDialog;->getWindow()Landroid/view/Window;
+    invoke-virtual {v5}, Landroid/app/Dialog;->getWindow()Landroid/view/Window;
 
     move-result-object v5
 
@@ -393,21 +443,21 @@
     .prologue
     const/4 v3, 0x1
 
-    .line 200
+    .line 207
     iput-boolean v3, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->mIsProcessing:Z
 
-    .line 204
+    .line 211
     iget-object v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/SmartNetworkQuickSettingButton;->mContentResolver:Landroid/content/ContentResolver;
 
     const-string v2, "smart_network"
 
     invoke-static {v1, v2, p1}, Landroid/provider/Settings$System;->putInt(Landroid/content/ContentResolver;Ljava/lang/String;I)Z
 
-    .line 207
+    .line 214
     if-ne p1, v3, :cond_0
 
-    .line 208
-    iget-object v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->mContext:Landroid/content/Context;
+    .line 215
+    iget-object v1, p0, Landroid/view/View;->mContext:Landroid/content/Context;
 
     invoke-virtual {v1}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
 
@@ -419,7 +469,7 @@
 
     invoke-static {v1, v2, v3}, Landroid/provider/Settings$System;->putInt(Landroid/content/ContentResolver;Ljava/lang/String;I)Z
 
-    .line 213
+    .line 220
     :goto_0
     new-instance v0, Landroid/content/Intent;
 
@@ -427,21 +477,21 @@
 
     invoke-direct {v0, v1}, Landroid/content/Intent;-><init>(Ljava/lang/String;)V
 
-    .line 214
+    .line 221
     .local v0, smart_network_changed:Landroid/content/Intent;
-    iget-object v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->mContext:Landroid/content/Context;
+    iget-object v1, p0, Landroid/view/View;->mContext:Landroid/content/Context;
 
     sget-object v2, Landroid/os/UserHandle;->CURRENT:Landroid/os/UserHandle;
 
     invoke-virtual {v1, v0, v2}, Landroid/content/Context;->sendBroadcastAsUser(Landroid/content/Intent;Landroid/os/UserHandle;)V
 
-    .line 215
+    .line 222
     return-void
 
-    .line 210
+    .line 217
     .end local v0           #smart_network_changed:Landroid/content/Intent;
     :cond_0
-    iget-object v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->mContext:Landroid/content/Context;
+    iget-object v1, p0, Landroid/view/View;->mContext:Landroid/content/Context;
 
     invoke-virtual {v1}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
 
@@ -460,14 +510,14 @@
     .locals 2
 
     .prologue
-    .line 85
+    .line 92
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/SmartNetworkQuickSettingButton;->mContentResolver:Landroid/content/ContentResolver;
 
     iget-object v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/SmartNetworkQuickSettingButton;->mSmartPauseObserver:Lcom/android/systemui/statusbar/policy/quicksetting/SmartNetworkQuickSettingButton$SmartPauseObserver;
 
     invoke-virtual {v0, v1}, Landroid/content/ContentResolver;->unregisterContentObserver(Landroid/database/ContentObserver;)V
 
-    .line 86
+    .line 93
     return-void
 .end method
 
@@ -475,7 +525,7 @@
     .locals 5
 
     .prologue
-    .line 79
+    .line 86
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/SmartNetworkQuickSettingButton;->mContentResolver:Landroid/content/ContentResolver;
 
     const-string v1, "smart_network"
@@ -492,7 +542,7 @@
 
     invoke-virtual {v0, v1, v2, v3, v4}, Landroid/content/ContentResolver;->registerContentObserver(Landroid/net/Uri;ZLandroid/database/ContentObserver;I)V
 
-    .line 82
+    .line 89
     return-void
 .end method
 
@@ -503,23 +553,23 @@
     .prologue
     const/4 v4, 0x0
 
-    .line 90
+    .line 97
     iget-boolean v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->mIsProcessing:Z
 
     if-eqz v1, :cond_0
 
-    .line 91
+    .line 98
     const-string v1, "STATUSBAR-SmartNetwork"
 
     const-string v2, "onClick(): Processing..."
 
     invoke-static {v1, v2}, Landroid/util/secutil/Log;->secW(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 112
+    .line 119
     :goto_0
     return-void
 
-    .line 96
+    .line 103
     :cond_0
     const-string v1, "STATUSBAR-SmartNetwork"
 
@@ -549,7 +599,7 @@
 
     invoke-static {v1, v2}, Landroid/util/secutil/Log;->secD(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 97
+    .line 104
     const-string v1, "STATUSBAR-SmartNetwork"
 
     new-instance v2, Ljava/lang/StringBuilder;
@@ -578,8 +628,8 @@
 
     invoke-static {v1, v2}, Landroid/util/Slog;->d(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 100
-    iget-object v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->mContext:Landroid/content/Context;
+    .line 107
+    iget-object v1, p0, Landroid/view/View;->mContext:Landroid/content/Context;
 
     invoke-virtual {v1}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
 
@@ -593,19 +643,19 @@
 
     move-result v0
 
-    .line 103
+    .line 110
     .local v0, mChecked:I
     if-eqz p1, :cond_2
 
-    .line 104
+    .line 111
     if-nez v0, :cond_1
 
-    .line 105
+    .line 112
     invoke-direct {p0}, Lcom/android/systemui/statusbar/policy/quicksetting/SmartNetworkQuickSettingButton;->onSmartNetworkPopup()V
 
     goto :goto_0
 
-    .line 107
+    .line 114
     :cond_1
     const/4 v1, 0x1
 
@@ -613,7 +663,7 @@
 
     goto :goto_0
 
-    .line 110
+    .line 117
     :cond_2
     invoke-direct {p0, v4}, Lcom/android/systemui/statusbar/policy/quicksetting/SmartNetworkQuickSettingButton;->setMode(I)V
 
@@ -624,14 +674,14 @@
     .locals 2
 
     .prologue
-    .line 249
+    .line 256
     const-string v0, "com.android.settings"
 
     const-string v1, "com.android.settings.Settings$WirelessSettingsActivity"
 
-    invoke-virtual {p0, v0, v1}, Lcom/android/systemui/statusbar/policy/quicksetting/SmartNetworkQuickSettingButton;->callActivity(Ljava/lang/String;Ljava/lang/String;)V
+    invoke-virtual {p0, v0, v1}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->callActivity(Ljava/lang/String;Ljava/lang/String;)V
 
-    .line 251
+    .line 258
     return-void
 .end method
 
@@ -639,13 +689,13 @@
     .locals 2
 
     .prologue
-    .line 256
+    .line 263
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/SmartNetworkQuickSettingButton;->mSmartPauseObserver:Lcom/android/systemui/statusbar/policy/quicksetting/SmartNetworkQuickSettingButton$SmartPauseObserver;
 
     const/4 v1, 0x0
 
     invoke-virtual {v0, v1}, Lcom/android/systemui/statusbar/policy/quicksetting/SmartNetworkQuickSettingButton$SmartPauseObserver;->onChange(Z)V
 
-    .line 257
+    .line 264
     return-void
 .end method

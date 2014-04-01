@@ -30,7 +30,7 @@
     .parameter
 
     .prologue
-    .line 323
+    .line 324
     iput-object p1, p0, Lcom/android/systemui/SwipeHelper$5;->this$0:Lcom/android/systemui/SwipeHelper;
 
     iput-object p2, p0, Lcom/android/systemui/SwipeHelper$5;->val$animView:Landroid/view/View;
@@ -49,7 +49,7 @@
     .parameter "animator"
 
     .prologue
-    .line 325
+    .line 326
     iget-object v0, p0, Lcom/android/systemui/SwipeHelper$5;->this$0:Lcom/android/systemui/SwipeHelper;
 
     iget-object v1, p0, Lcom/android/systemui/SwipeHelper$5;->val$animView:Landroid/view/View;
@@ -59,6 +59,6 @@
     #calls: Lcom/android/systemui/SwipeHelper;->updateAlphaFromOffset(Landroid/view/View;Z)V
     invoke-static {v0, v1, v2}, Lcom/android/systemui/SwipeHelper;->access$400(Lcom/android/systemui/SwipeHelper;Landroid/view/View;Z)V
 
-    .line 326
+    .line 327
     return-void
 .end method

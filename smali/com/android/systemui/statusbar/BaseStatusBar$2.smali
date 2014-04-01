@@ -24,7 +24,7 @@
     .parameter
 
     .prologue
-    .line 272
+    .line 234
     iput-object p1, p0, Lcom/android/systemui/statusbar/BaseStatusBar$2;->this$0:Lcom/android/systemui/statusbar/BaseStatusBar;
 
     invoke-direct {p0}, Landroid/widget/RemoteViews$OnClickHandler;-><init>()V
@@ -43,16 +43,16 @@
     .prologue
     const/4 v3, 0x0
 
-    .line 278
+    .line 240
     invoke-virtual {p2}, Landroid/app/PendingIntent;->isActivity()Z
 
     move-result v1
 
-    .line 279
+    .line 241
     .local v1, isActivity:Z
     if-eqz v1, :cond_0
 
-    .line 285
+    .line 247
     :try_start_0
     invoke-static {}, Landroid/app/ActivityManagerNative;->getDefault()Landroid/app/IActivityManager;
 
@@ -60,7 +60,7 @@
 
     invoke-interface {v2}, Landroid/app/IActivityManager;->resumeAppSwitches()V
 
-    .line 288
+    .line 250
     invoke-static {}, Landroid/app/ActivityManagerNative;->getDefault()Landroid/app/IActivityManager;
 
     move-result-object v2
@@ -69,34 +69,34 @@
     :try_end_0
     .catch Landroid/os/RemoteException; {:try_start_0 .. :try_end_0} :catch_0
 
-    .line 293
+    .line 255
     :cond_0
     :goto_0
     invoke-super {p0, p1, p2, p3}, Landroid/widget/RemoteViews$OnClickHandler;->onClickHandler(Landroid/view/View;Landroid/app/PendingIntent;Landroid/content/Intent;)Z
 
     move-result v0
 
-    .line 295
+    .line 257
     .local v0, handled:Z
     if-eqz v1, :cond_1
 
     if-eqz v0, :cond_1
 
-    .line 297
+    .line 259
     iget-object v2, p0, Lcom/android/systemui/statusbar/BaseStatusBar$2;->this$0:Lcom/android/systemui/statusbar/BaseStatusBar;
 
     invoke-virtual {v2, v3}, Lcom/android/systemui/statusbar/BaseStatusBar;->animateCollapsePanels(I)V
 
-    .line 298
+    .line 260
     iget-object v2, p0, Lcom/android/systemui/statusbar/BaseStatusBar$2;->this$0:Lcom/android/systemui/statusbar/BaseStatusBar;
 
     invoke-virtual {v2, v3}, Lcom/android/systemui/statusbar/BaseStatusBar;->visibilityChanged(Z)V
 
-    .line 300
+    .line 262
     :cond_1
     return v0
 
-    .line 289
+    .line 251
     .end local v0           #handled:Z
     :catch_0
     move-exception v2

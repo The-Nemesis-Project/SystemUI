@@ -27,10 +27,10 @@
     .parameter
 
     .prologue
-    .line 165
+    .line 174
     iput-object p1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/EbookQuickSettingButton$4;->this$0:Lcom/android/systemui/statusbar/policy/quicksetting/EbookQuickSettingButton;
 
-    invoke-direct/range {p0 .. p0}, Ljava/lang/Object;-><init>()V
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
     return-void
 .end method
@@ -43,19 +43,19 @@
     .parameter "id"
 
     .prologue
-    .line 167
+    .line 176
     invoke-interface {p1}, Landroid/content/DialogInterface;->cancel()V
 
-    .line 168
+    .line 177
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/EbookQuickSettingButton$4;->this$0:Lcom/android/systemui/statusbar/policy/quicksetting/EbookQuickSettingButton;
 
     const-string v1, "com.android.settings"
 
     const-string v2, "com.android.settings.Settings$ReadingModeSettingsActivity"
 
-    invoke-virtual {v0, v1, v2}, Lcom/android/systemui/statusbar/policy/quicksetting/EbookQuickSettingButton;->callActivity(Ljava/lang/String;Ljava/lang/String;)V
+    invoke-virtual {v0, v1, v2}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->callActivity(Ljava/lang/String;Ljava/lang/String;)V
 
-    .line 169
+    .line 178
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/EbookQuickSettingButton$4;->this$0:Lcom/android/systemui/statusbar/policy/quicksetting/EbookQuickSettingButton;
 
     const/4 v1, 0x1
@@ -63,6 +63,6 @@
     #calls: Lcom/android/systemui/statusbar/policy/quicksetting/EbookQuickSettingButton;->setMode(I)V
     invoke-static {v0, v1}, Lcom/android/systemui/statusbar/policy/quicksetting/EbookQuickSettingButton;->access$500(Lcom/android/systemui/statusbar/policy/quicksetting/EbookQuickSettingButton;I)V
 
-    .line 170
+    .line 179
     return-void
 .end method

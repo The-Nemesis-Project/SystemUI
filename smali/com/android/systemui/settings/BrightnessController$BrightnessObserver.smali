@@ -29,13 +29,13 @@
     .parameter "handler"
 
     .prologue
-    .line 70
+    .line 66
     iput-object p1, p0, Lcom/android/systemui/settings/BrightnessController$BrightnessObserver;->this$0:Lcom/android/systemui/settings/BrightnessController;
 
-    .line 71
+    .line 67
     invoke-direct {p0, p2}, Landroid/database/ContentObserver;-><init>(Landroid/os/Handler;)V
 
-    .line 65
+    .line 61
     const-string v0, "screen_brightness_mode"
 
     invoke-static {v0}, Landroid/provider/Settings$System;->getUriFor(Ljava/lang/String;)Landroid/net/Uri;
@@ -44,7 +44,7 @@
 
     iput-object v0, p0, Lcom/android/systemui/settings/BrightnessController$BrightnessObserver;->BRIGHTNESS_MODE_URI:Landroid/net/Uri;
 
-    .line 67
+    .line 63
     const-string v0, "screen_brightness"
 
     invoke-static {v0}, Landroid/provider/Settings$System;->getUriFor(Ljava/lang/String;)Landroid/net/Uri;
@@ -53,7 +53,7 @@
 
     iput-object v0, p0, Lcom/android/systemui/settings/BrightnessController$BrightnessObserver;->BRIGHTNESS_URI:Landroid/net/Uri;
 
-    .line 72
+    .line 68
     return-void
 .end method
 
@@ -64,12 +64,12 @@
     .parameter "selfChange"
 
     .prologue
-    .line 76
+    .line 72
     const/4 v0, 0x0
 
     invoke-virtual {p0, p1, v0}, Lcom/android/systemui/settings/BrightnessController$BrightnessObserver;->onChange(ZLandroid/net/Uri;)V
 
-    .line 77
+    .line 73
     return-void
 .end method
 
@@ -79,14 +79,14 @@
     .parameter "uri"
 
     .prologue
-    .line 81
+    .line 77
     if-eqz p1, :cond_1
 
-    .line 93
+    .line 89
     :cond_0
     return-void
 
-    .line 82
+    .line 78
     :cond_1
     iget-object v2, p0, Lcom/android/systemui/settings/BrightnessController$BrightnessObserver;->BRIGHTNESS_MODE_URI:Landroid/net/Uri;
 
@@ -96,13 +96,13 @@
 
     if-eqz v2, :cond_2
 
-    .line 83
+    .line 79
     iget-object v2, p0, Lcom/android/systemui/settings/BrightnessController$BrightnessObserver;->this$0:Lcom/android/systemui/settings/BrightnessController;
 
     #calls: Lcom/android/systemui/settings/BrightnessController;->updateMode()V
     invoke-static {v2}, Lcom/android/systemui/settings/BrightnessController;->access$000(Lcom/android/systemui/settings/BrightnessController;)V
 
-    .line 90
+    .line 86
     :goto_0
     iget-object v2, p0, Lcom/android/systemui/settings/BrightnessController$BrightnessObserver;->this$0:Lcom/android/systemui/settings/BrightnessController;
 
@@ -129,13 +129,13 @@
 
     check-cast v0, Lcom/android/systemui/settings/BrightnessController$BrightnessStateChangeCallback;
 
-    .line 91
+    .line 87
     .local v0, cb:Lcom/android/systemui/settings/BrightnessController$BrightnessStateChangeCallback;
     invoke-interface {v0}, Lcom/android/systemui/settings/BrightnessController$BrightnessStateChangeCallback;->onBrightnessLevelChanged()V
 
     goto :goto_1
 
-    .line 84
+    .line 80
     .end local v0           #cb:Lcom/android/systemui/settings/BrightnessController$BrightnessStateChangeCallback;
     .end local v1           #i$:Ljava/util/Iterator;
     :cond_2
@@ -147,7 +147,7 @@
 
     if-eqz v2, :cond_3
 
-    .line 85
+    .line 81
     iget-object v2, p0, Lcom/android/systemui/settings/BrightnessController$BrightnessObserver;->this$0:Lcom/android/systemui/settings/BrightnessController;
 
     #calls: Lcom/android/systemui/settings/BrightnessController;->updateSlider()V
@@ -155,14 +155,14 @@
 
     goto :goto_0
 
-    .line 87
+    .line 83
     :cond_3
     iget-object v2, p0, Lcom/android/systemui/settings/BrightnessController$BrightnessObserver;->this$0:Lcom/android/systemui/settings/BrightnessController;
 
     #calls: Lcom/android/systemui/settings/BrightnessController;->updateMode()V
     invoke-static {v2}, Lcom/android/systemui/settings/BrightnessController;->access$000(Lcom/android/systemui/settings/BrightnessController;)V
 
-    .line 88
+    .line 84
     iget-object v2, p0, Lcom/android/systemui/settings/BrightnessController$BrightnessObserver;->this$0:Lcom/android/systemui/settings/BrightnessController;
 
     #calls: Lcom/android/systemui/settings/BrightnessController;->updateSlider()V
@@ -179,7 +179,7 @@
 
     const/4 v2, -0x1
 
-    .line 96
+    .line 92
     iget-object v1, p0, Lcom/android/systemui/settings/BrightnessController$BrightnessObserver;->this$0:Lcom/android/systemui/settings/BrightnessController;
 
     #getter for: Lcom/android/systemui/settings/BrightnessController;->mContext:Landroid/content/Context;
@@ -191,21 +191,21 @@
 
     move-result-object v0
 
-    .line 97
+    .line 93
     .local v0, cr:Landroid/content/ContentResolver;
     invoke-virtual {v0, p0}, Landroid/content/ContentResolver;->unregisterContentObserver(Landroid/database/ContentObserver;)V
 
-    .line 98
+    .line 94
     iget-object v1, p0, Lcom/android/systemui/settings/BrightnessController$BrightnessObserver;->BRIGHTNESS_MODE_URI:Landroid/net/Uri;
 
     invoke-virtual {v0, v1, v3, p0, v2}, Landroid/content/ContentResolver;->registerContentObserver(Landroid/net/Uri;ZLandroid/database/ContentObserver;I)V
 
-    .line 101
+    .line 97
     iget-object v1, p0, Lcom/android/systemui/settings/BrightnessController$BrightnessObserver;->BRIGHTNESS_URI:Landroid/net/Uri;
 
     invoke-virtual {v0, v1, v3, p0, v2}, Landroid/content/ContentResolver;->registerContentObserver(Landroid/net/Uri;ZLandroid/database/ContentObserver;I)V
 
-    .line 104
+    .line 100
     return-void
 .end method
 
@@ -213,7 +213,7 @@
     .locals 2
 
     .prologue
-    .line 107
+    .line 103
     iget-object v1, p0, Lcom/android/systemui/settings/BrightnessController$BrightnessObserver;->this$0:Lcom/android/systemui/settings/BrightnessController;
 
     #getter for: Lcom/android/systemui/settings/BrightnessController;->mContext:Landroid/content/Context;
@@ -225,10 +225,10 @@
 
     move-result-object v0
 
-    .line 108
+    .line 104
     .local v0, cr:Landroid/content/ContentResolver;
     invoke-virtual {v0, p0}, Landroid/content/ContentResolver;->unregisterContentObserver(Landroid/database/ContentObserver;)V
 
-    .line 109
+    .line 105
     return-void
 .end method

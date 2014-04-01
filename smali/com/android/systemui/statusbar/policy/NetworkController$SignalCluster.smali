@@ -21,9 +21,6 @@
 .method public abstract setDataState(I)V
 .end method
 
-.method public abstract setEthernetIndicators(ZZIILjava/lang/String;)V
-.end method
-
 .method public abstract setHasService(Z)V
 .end method
 

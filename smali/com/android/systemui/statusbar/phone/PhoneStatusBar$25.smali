@@ -27,10 +27,10 @@
     .parameter
 
     .prologue
-    .line 3511
+    .line 3423
     iput-object p1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$25;->this$0:Lcom/android/systemui/statusbar/phone/PhoneStatusBar;
 
-    invoke-direct/range {p0 .. p0}, Ljava/lang/Object;-><init>()V
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
     return-void
 .end method
@@ -42,60 +42,66 @@
     .parameter "v"
 
     .prologue
-    const/4 v4, 0x1
-
-    .line 3513
+    .line 3427
     iget-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$25;->this$0:Lcom/android/systemui/statusbar/phone/PhoneStatusBar;
 
-    iget-boolean v1, v1, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mHasSettingsPanel:Z
-
-    if-eqz v1, :cond_1
-
-    .line 3515
-    iget-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$25;->this$0:Lcom/android/systemui/statusbar/phone/PhoneStatusBar;
-
-    iget-object v1, v1, Lcom/android/systemui/SystemUI;->mContext:Landroid/content/Context;
-
-    const-string v2, "enterprise_policy"
-
-    invoke-virtual {v1, v2}, Landroid/content/Context;->getSystemService(Ljava/lang/String;)Ljava/lang/Object;
-
-    move-result-object v0
-
-    check-cast v0, Landroid/app/enterprise/EnterpriseDeviceManager;
-
-    .line 3517
-    .local v0, edm:Landroid/app/enterprise/EnterpriseDeviceManager;
-    if-eqz v0, :cond_0
-
-    invoke-virtual {v0}, Landroid/app/enterprise/EnterpriseDeviceManager;->getRestrictionPolicy()Landroid/app/enterprise/RestrictionPolicy;
-
-    move-result-object v1
-
-    invoke-virtual {v1, v4}, Landroid/app/enterprise/RestrictionPolicy;->isSettingsChangesAllowed(Z)Z
+    invoke-virtual {v1}, Lcom/android/systemui/statusbar/BaseStatusBar;->isDeviceProvisioned()Z
 
     move-result v1
 
     if-nez v1, :cond_0
 
-    .line 3525
-    .end local v0           #edm:Landroid/app/enterprise/EnterpriseDeviceManager;
+    .line 3484
     :goto_0
     return-void
 
-    .line 3520
-    .restart local v0       #edm:Landroid/app/enterprise/EnterpriseDeviceManager;
+    .line 3430
     :cond_0
-    iget-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$25;->this$0:Lcom/android/systemui/statusbar/phone/PhoneStatusBar;
+    :try_start_0
+    invoke-static {}, Landroid/app/ActivityManagerNative;->getDefault()Landroid/app/IActivityManager;
 
-    invoke-virtual {v1}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->animateExpandSettingsPanel()V
+    move-result-object v1
 
-    goto :goto_0
+    invoke-interface {v1}, Landroid/app/IActivityManager;->dismissKeyguardOnNextActivity()V
+    :try_end_0
+    .catch Landroid/os/RemoteException; {:try_start_0 .. :try_end_0} :catch_0
 
-    .line 3522
-    .end local v0           #edm:Landroid/app/enterprise/EnterpriseDeviceManager;
-    :cond_1
-    iget-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$25;->this$0:Lcom/android/systemui/statusbar/phone/PhoneStatusBar;
+    .line 3435
+    :goto_1
+    new-instance v0, Landroid/content/Intent;
+
+    const-string v1, "DismissClipboardDialogFromPhoneStatusBar"
+
+    invoke-direct {v0, v1}, Landroid/content/Intent;-><init>(Ljava/lang/String;)V
+
+    .line 3436
+    .local v0, intent:Landroid/content/Intent;
+    if-eqz p1, :cond_1
+
+    invoke-virtual {p1}, Landroid/view/View;->getContext()Landroid/content/Context;
+
+    move-result-object v1
+
+    if-eqz v1, :cond_1
+
+    .line 3437
+    const-string v1, "ClipboardServiceEx"
+
+    const-string v2, "Send intent for dismiss clipboard dialog inside phonestatusbar() !"
+
+    invoke-static {v1, v2}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 3438
+    invoke-virtual {p1}, Landroid/view/View;->getContext()Landroid/content/Context;
+
+    move-result-object v1
+
+    invoke-virtual {v1, v0}, Landroid/content/Context;->sendBroadcast(Landroid/content/Intent;)V
+
+    .line 3443
+    invoke-virtual {p1}, Landroid/view/View;->getContext()Landroid/content/Context;
+
+    move-result-object v1
 
     new-instance v2, Landroid/content/Intent;
 
@@ -103,7 +109,32 @@
 
     invoke-direct {v2, v3}, Landroid/content/Intent;-><init>(Ljava/lang/String;)V
 
-    invoke-virtual {v1, v2, v4}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->startActivityDismissingKeyguard(Landroid/content/Intent;Z)V
+    const/high16 v3, 0x1000
+
+    invoke-virtual {v2, v3}, Landroid/content/Intent;->setFlags(I)Landroid/content/Intent;
+
+    move-result-object v2
+
+    new-instance v3, Landroid/os/UserHandle;
+
+    const/4 v4, -0x2
+
+    invoke-direct {v3, v4}, Landroid/os/UserHandle;-><init>(I)V
+
+    invoke-virtual {v1, v2, v3}, Landroid/content/Context;->startActivityAsUser(Landroid/content/Intent;Landroid/os/UserHandle;)V
+
+    .line 3463
+    :cond_1
+    iget-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$25;->this$0:Lcom/android/systemui/statusbar/phone/PhoneStatusBar;
+
+    invoke-virtual {v1}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->animateCollapsePanels()V
 
     goto :goto_0
+
+    .line 3431
+    .end local v0           #intent:Landroid/content/Intent;
+    :catch_0
+    move-exception v1
+
+    goto :goto_1
 .end method

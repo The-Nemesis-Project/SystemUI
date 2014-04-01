@@ -27,10 +27,10 @@
     .parameter
 
     .prologue
-    .line 1047
+    .line 940
     iput-object p1, p0, Lcom/android/systemui/screenshot/GlobalScreenshot$6$1;->this$1:Lcom/android/systemui/screenshot/GlobalScreenshot$6;
 
-    invoke-direct/range {p0 .. p0}, Ljava/lang/Object;-><init>()V
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
     return-void
 .end method
@@ -41,7 +41,7 @@
     .locals 2
 
     .prologue
-    .line 1049
+    .line 942
     iget-object v0, p0, Lcom/android/systemui/screenshot/GlobalScreenshot$6$1;->this$1:Lcom/android/systemui/screenshot/GlobalScreenshot$6;
 
     iget-object v0, v0, Lcom/android/systemui/screenshot/GlobalScreenshot$6;->this$0:Lcom/android/systemui/screenshot/GlobalScreenshot;
@@ -50,7 +50,7 @@
 
     monitor-enter v1
 
-    .line 1050
+    .line 943
     :try_start_0
     iget-object v0, p0, Lcom/android/systemui/screenshot/GlobalScreenshot$6$1;->this$1:Lcom/android/systemui/screenshot/GlobalScreenshot$6;
 
@@ -59,7 +59,7 @@
     #calls: Lcom/android/systemui/screenshot/GlobalScreenshot;->playCaptureSound()V
     invoke-static {v0}, Lcom/android/systemui/screenshot/GlobalScreenshot;->access$500(Lcom/android/systemui/screenshot/GlobalScreenshot;)V
 
-    .line 1052
+    .line 946
     iget-object v0, p0, Lcom/android/systemui/screenshot/GlobalScreenshot$6$1;->this$1:Lcom/android/systemui/screenshot/GlobalScreenshot$6;
 
     iget-object v0, v0, Lcom/android/systemui/screenshot/GlobalScreenshot$6;->this$0:Lcom/android/systemui/screenshot/GlobalScreenshot;
@@ -71,13 +71,13 @@
 
     invoke-virtual {v0}, Lcom/android/systemui/screenshot/CaptureEffectViewForShutterClick;->show()V
 
-    .line 1053
+    .line 947
     monitor-exit v1
 
-    .line 1054
+    .line 948
     return-void
 
-    .line 1053
+    .line 947
     :catchall_0
     move-exception v0
 

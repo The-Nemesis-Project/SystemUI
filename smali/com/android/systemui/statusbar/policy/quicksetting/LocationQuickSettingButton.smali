@@ -36,30 +36,25 @@
 
 # direct methods
 .method public constructor <init>(Landroid/content/Context;)V
-    .locals 9
+    .locals 7
     .parameter "context"
 
     .prologue
-    const/4 v7, 0x0
+    const v1, 0x7f0a00dc
+
+    const/4 v5, 0x0
 
     .line 114
     const/4 v2, 0x0
 
-    const v3, 0x7f0c00d3
+    sget-boolean v0, Lcom/android/systemui/statusbar/Feature;->mUseJellyBeanGUI:Z
 
-    const v4, 0x7f0201be
+    if-nez v0, :cond_0
 
-    const v5, 0x7f0201bd
+    const/4 v0, 0x1
 
-    const v6, 0x7f0201bc
-
-    move-object v0, p0
-
-    move-object v1, p1
-
-    move v8, v7
-
-    invoke-direct/range {v0 .. v8}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;-><init>(Landroid/content/Context;Landroid/util/AttributeSet;IIIIII)V
+    :goto_0
+    invoke-direct {p0, p1, v2, v0}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;-><init>(Landroid/content/Context;Landroid/util/AttributeSet;Z)V
 
     .line 71
     new-instance v0, Lcom/android/systemui/statusbar/policy/quicksetting/LocationQuickSettingButton$GpsObserver;
@@ -75,11 +70,44 @@
 
     iput-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/LocationQuickSettingButton;->mIntentReceiver:Landroid/content/BroadcastReceiver;
 
-    .line 121
-    invoke-virtual {p0, p0}, Lcom/android/systemui/statusbar/policy/quicksetting/LocationQuickSettingButton;->setListener(Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton$Listener;)V
+    .line 116
+    sget-boolean v0, Lcom/android/systemui/statusbar/Feature;->mUseJellyBeanGUI:Z
 
-    .line 122
+    if-eqz v0, :cond_1
+
+    .line 117
+    const v2, 0x7f0201c8
+
+    const v3, 0x7f0201c7
+
+    const v4, 0x7f0201c6
+
+    move-object v0, p0
+
+    move v6, v5
+
+    invoke-virtual/range {v0 .. v6}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->initLayout(IIIIII)V
+
+    .line 127
+    :goto_1
+    invoke-virtual {p0, p0}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->setListener(Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton$Listener;)V
+
+    .line 128
     return-void
+
+    :cond_0
+    move v0, v5
+
+    .line 114
+    goto :goto_0
+
+    .line 124
+    :cond_1
+    const v0, 0x7f0201c9
+
+    invoke-virtual {p0, v1, v0}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->initLayout(II)V
+
+    goto :goto_1
 .end method
 
 .method static synthetic access$000(Lcom/android/systemui/statusbar/policy/quicksetting/LocationQuickSettingButton;)Z
@@ -105,7 +133,18 @@
     return p1
 .end method
 
-.method static synthetic access$100(Lcom/android/systemui/statusbar/policy/quicksetting/LocationQuickSettingButton;)Z
+.method static synthetic access$100(Lcom/android/systemui/statusbar/policy/quicksetting/LocationQuickSettingButton;)Landroid/content/Context;
+    .locals 1
+    .parameter "x0"
+
+    .prologue
+    .line 67
+    iget-object v0, p0, Landroid/view/View;->mContext:Landroid/content/Context;
+
+    return-object v0
+.end method
+
+.method static synthetic access$200(Lcom/android/systemui/statusbar/policy/quicksetting/LocationQuickSettingButton;)Z
     .locals 1
     .parameter "x0"
 
@@ -116,7 +155,7 @@
     return v0
 .end method
 
-.method static synthetic access$102(Lcom/android/systemui/statusbar/policy/quicksetting/LocationQuickSettingButton;Z)Z
+.method static synthetic access$202(Lcom/android/systemui/statusbar/policy/quicksetting/LocationQuickSettingButton;Z)Z
     .locals 0
     .parameter "x0"
     .parameter "x1"
@@ -128,7 +167,18 @@
     return p1
 .end method
 
-.method static synthetic access$200(Lcom/android/systemui/statusbar/policy/quicksetting/LocationQuickSettingButton;Z)V
+.method static synthetic access$300(Lcom/android/systemui/statusbar/policy/quicksetting/LocationQuickSettingButton;)Landroid/content/Context;
+    .locals 1
+    .parameter "x0"
+
+    .prologue
+    .line 67
+    iget-object v0, p0, Landroid/view/View;->mContext:Landroid/content/Context;
+
+    return-object v0
+.end method
+
+.method static synthetic access$400(Lcom/android/systemui/statusbar/policy/quicksetting/LocationQuickSettingButton;Z)V
     .locals 0
     .parameter "x0"
     .parameter "x1"
@@ -145,13 +195,13 @@
     .parameter "state"
 
     .prologue
-    .line 305
+    .line 311
     const/4 v1, 0x1
 
     iput-boolean v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->mIsProcessing:Z
 
-    .line 307
-    iget-object v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->mContext:Landroid/content/Context;
+    .line 313
+    iget-object v1, p0, Landroid/view/View;->mContext:Landroid/content/Context;
 
     invoke-virtual {v1}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
 
@@ -161,22 +211,22 @@
 
     const/4 v3, -0x2
 
-    invoke-static {v1, v2, p1, v3}, Landroid/provider/Settings$Secure;->setLocationProviderEnabledForUser(Landroid/content/ContentResolver;Ljava/lang/String;ZI)V
+    invoke-static {v1, v2, p1, v3}, Landroid/provider/Settings$Secure;->setLocationProviderEnabledForUser(Landroid/content/ContentResolver;Ljava/lang/String;ZI)Z
 
-    .line 309
+    .line 315
     new-instance v0, Landroid/content/Intent;
 
     const-string v1, "android.location.GPS_ENABLED_CHANGE"
 
     invoke-direct {v0, v1}, Landroid/content/Intent;-><init>(Ljava/lang/String;)V
 
-    .line 310
+    .line 316
     .local v0, intent:Landroid/content/Intent;
-    iget-object v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->mContext:Landroid/content/Context;
+    iget-object v1, p0, Landroid/view/View;->mContext:Landroid/content/Context;
 
     invoke-virtual {v1, v0}, Landroid/content/Context;->sendBroadcast(Landroid/content/Intent;)V
 
-    .line 311
+    .line 317
     return-void
 .end method
 
@@ -189,8 +239,8 @@
 
     const/high16 v11, -0x100
 
-    .line 216
-    iget-object v9, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->mContext:Landroid/content/Context;
+    .line 222
+    iget-object v9, p0, Landroid/view/View;->mContext:Landroid/content/Context;
 
     const-string v10, "layout_inflater"
 
@@ -200,9 +250,9 @@
 
     check-cast v1, Landroid/view/LayoutInflater;
 
-    .line 218
+    .line 224
     .local v1, mGpsAlertLayoutInflater:Landroid/view/LayoutInflater;
-    const v9, 0x7f040046
+    const v9, 0x7f040026
 
     const/4 v10, 0x0
 
@@ -210,9 +260,9 @@
 
     move-result-object v2
 
-    .line 221
+    .line 227
     .local v2, mGpsAlertView:Landroid/view/View;
-    const v9, 0x7f090110
+    const v9, 0x7f0700b1
 
     invoke-virtual {v2, v9}, Landroid/view/View;->findViewById(I)Landroid/view/View;
 
@@ -220,9 +270,9 @@
 
     check-cast v3, Landroid/widget/CheckBox;
 
-    .line 224
+    .line 230
     .local v3, mGpsCheckBox:Landroid/widget/CheckBox;
-    const v9, 0x7f09010c
+    const v9, 0x7f0700ad
 
     invoke-virtual {v2, v9}, Landroid/view/View;->findViewById(I)Landroid/view/View;
 
@@ -230,9 +280,9 @@
 
     check-cast v7, Landroid/widget/TextView;
 
-    .line 225
+    .line 231
     .local v7, mVzwText:Landroid/widget/TextView;
-    const v9, 0x7f09010d
+    const v9, 0x7f0700ae
 
     invoke-virtual {v2, v9}, Landroid/view/View;->findViewById(I)Landroid/view/View;
 
@@ -240,9 +290,9 @@
 
     check-cast v6, Landroid/widget/TextView;
 
-    .line 226
+    .line 232
     .local v6, mUsccTitle:Landroid/widget/TextView;
-    const v9, 0x7f09010e
+    const v9, 0x7f0700af
 
     invoke-virtual {v2, v9}, Landroid/view/View;->findViewById(I)Landroid/view/View;
 
@@ -250,9 +300,9 @@
 
     check-cast v4, Landroid/widget/TextView;
 
-    .line 227
+    .line 233
     .local v4, mUsccBody:Landroid/widget/TextView;
-    const v9, 0x7f09010f
+    const v9, 0x7f0700b0
 
     invoke-virtual {v2, v9}, Landroid/view/View;->findViewById(I)Landroid/view/View;
 
@@ -260,42 +310,42 @@
 
     check-cast v5, Landroid/widget/TextView;
 
-    .line 229
+    .line 235
     .local v5, mUsccBottom:Landroid/widget/TextView;
-    invoke-virtual {v3}, Landroid/widget/CheckBox;->isChecked()Z
+    invoke-virtual {v3}, Landroid/widget/CompoundButton;->isChecked()Z
 
     move-result v9
 
     iput-boolean v9, p0, Lcom/android/systemui/statusbar/policy/quicksetting/LocationQuickSettingButton;->mIsPrefChecked:Z
 
-    .line 231
+    .line 237
     new-instance v9, Lcom/android/systemui/statusbar/policy/quicksetting/LocationQuickSettingButton$2;
 
     invoke-direct {v9, p0, v3}, Lcom/android/systemui/statusbar/policy/quicksetting/LocationQuickSettingButton$2;-><init>(Lcom/android/systemui/statusbar/policy/quicksetting/LocationQuickSettingButton;Landroid/widget/CheckBox;)V
 
-    invoke-virtual {v3, v9}, Landroid/widget/CheckBox;->setOnCheckedChangeListener(Landroid/widget/CompoundButton$OnCheckedChangeListener;)V
+    invoke-virtual {v3, v9}, Landroid/widget/CompoundButton;->setOnCheckedChangeListener(Landroid/widget/CompoundButton$OnCheckedChangeListener;)V
 
-    .line 241
+    .line 247
     sget-boolean v9, Lcom/android/systemui/statusbar/BaseStatusBar;->isLightTheme:Z
 
     if-eqz v9, :cond_0
 
-    .line 242
+    .line 248
     invoke-virtual {v7, v11}, Landroid/widget/TextView;->setTextColor(I)V
 
-    .line 243
+    .line 249
     invoke-virtual {v6, v11}, Landroid/widget/TextView;->setTextColor(I)V
 
-    .line 244
+    .line 250
     invoke-virtual {v4, v11}, Landroid/widget/TextView;->setTextColor(I)V
 
-    .line 245
+    .line 251
     invoke-virtual {v5, v11}, Landroid/widget/TextView;->setTextColor(I)V
 
-    .line 246
+    .line 252
     invoke-virtual {v3, v11}, Landroid/widget/TextView;->setTextColor(I)V
 
-    .line 249
+    .line 255
     :cond_0
     invoke-static {p1}, Ljava/lang/Boolean;->valueOf(Z)Ljava/lang/Boolean;
 
@@ -305,11 +355,11 @@
 
     move-result v8
 
-    .line 250
+    .line 256
     .local v8, value:Z
     new-instance v10, Landroid/app/AlertDialog$Builder;
 
-    iget-object v9, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->mContext:Landroid/content/Context;
+    iget-object v9, p0, Landroid/view/View;->mContext:Landroid/content/Context;
 
     invoke-direct {v10, v9}, Landroid/app/AlertDialog$Builder;-><init>(Landroid/content/Context;)V
 
@@ -317,7 +367,7 @@
 
     if-eqz v9, :cond_1
 
-    const v9, 0x7f0c015c
+    const v9, 0x7f0a016e
 
     :goto_0
     invoke-virtual {v10, v9}, Landroid/app/AlertDialog$Builder;->setTitle(I)Landroid/app/AlertDialog$Builder;
@@ -328,7 +378,7 @@
 
     move-result-object v9
 
-    const v10, 0x7f0c0150
+    const v10, 0x7f0a0161
 
     new-instance v11, Lcom/android/systemui/statusbar/policy/quicksetting/LocationQuickSettingButton$4;
 
@@ -358,40 +408,40 @@
 
     iput-object v9, p0, Lcom/android/systemui/statusbar/policy/quicksetting/LocationQuickSettingButton;->mAlertDialog:Landroid/app/AlertDialog;
 
-    .line 274
+    .line 280
     iget-object v9, p0, Lcom/android/systemui/statusbar/policy/quicksetting/LocationQuickSettingButton;->mAlertDialog:Landroid/app/AlertDialog;
 
     new-instance v10, Lcom/android/systemui/statusbar/policy/quicksetting/LocationQuickSettingButton$5;
 
     invoke-direct {v10, p0}, Lcom/android/systemui/statusbar/policy/quicksetting/LocationQuickSettingButton$5;-><init>(Lcom/android/systemui/statusbar/policy/quicksetting/LocationQuickSettingButton;)V
 
-    invoke-virtual {v9, v10}, Landroid/app/AlertDialog;->setOnDismissListener(Landroid/content/DialogInterface$OnDismissListener;)V
+    invoke-virtual {v9, v10}, Landroid/app/Dialog;->setOnDismissListener(Landroid/content/DialogInterface$OnDismissListener;)V
 
-    .line 282
+    .line 288
     sget-boolean v9, Lcom/android/systemui/statusbar/Feature;->mShowGPSlicensPopup:Z
 
     if-eqz v9, :cond_2
 
-    .line 283
-    invoke-virtual {v6, v12}, Landroid/widget/TextView;->setVisibility(I)V
+    .line 289
+    invoke-virtual {v6, v12}, Landroid/view/View;->setVisibility(I)V
 
-    .line 284
-    invoke-virtual {v4, v12}, Landroid/widget/TextView;->setVisibility(I)V
-
-    .line 285
-    invoke-virtual {v5, v12}, Landroid/widget/TextView;->setVisibility(I)V
-
-    .line 286
-    const/high16 v9, 0x4160
-
-    invoke-virtual {v3, v9}, Landroid/widget/Button;->setTextSize(F)V
+    .line 290
+    invoke-virtual {v4, v12}, Landroid/view/View;->setVisibility(I)V
 
     .line 291
-    :goto_1
-    invoke-virtual {p0}, Lcom/android/systemui/statusbar/policy/quicksetting/LocationQuickSettingButton;->statusBarCollapse()V
+    invoke-virtual {v5, v12}, Landroid/view/View;->setVisibility(I)V
 
-    .line 294
-    iget-object v9, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->mContext:Landroid/content/Context;
+    .line 292
+    const/high16 v9, 0x4160
+
+    invoke-virtual {v3, v9}, Landroid/widget/TextView;->setTextSize(F)V
+
+    .line 297
+    :goto_1
+    invoke-virtual {p0}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->statusBarCollapse()V
+
+    .line 300
+    iget-object v9, p0, Landroid/view/View;->mContext:Landroid/content/Context;
 
     const-string v10, "keyguard"
 
@@ -401,7 +451,7 @@
 
     check-cast v0, Landroid/app/KeyguardManager;
 
-    .line 295
+    .line 301
     .local v0, kgm:Landroid/app/KeyguardManager;
     if-eqz v0, :cond_3
 
@@ -411,10 +461,10 @@
 
     if-eqz v9, :cond_3
 
-    .line 296
+    .line 302
     iget-object v9, p0, Lcom/android/systemui/statusbar/policy/quicksetting/LocationQuickSettingButton;->mAlertDialog:Landroid/app/AlertDialog;
 
-    invoke-virtual {v9}, Landroid/app/AlertDialog;->getWindow()Landroid/view/Window;
+    invoke-virtual {v9}, Landroid/app/Dialog;->getWindow()Landroid/view/Window;
 
     move-result-object v9
 
@@ -422,34 +472,34 @@
 
     invoke-virtual {v9, v10}, Landroid/view/Window;->setType(I)V
 
-    .line 300
+    .line 306
     :goto_2
     iget-object v9, p0, Lcom/android/systemui/statusbar/policy/quicksetting/LocationQuickSettingButton;->mAlertDialog:Landroid/app/AlertDialog;
 
-    invoke-virtual {v9}, Landroid/app/AlertDialog;->show()V
+    invoke-virtual {v9}, Landroid/app/Dialog;->show()V
 
-    .line 301
+    .line 307
     return-void
 
-    .line 250
+    .line 256
     .end local v0           #kgm:Landroid/app/KeyguardManager;
     :cond_1
-    const v9, 0x7f0c014e
+    const v9, 0x7f0a015f
 
     goto :goto_0
 
-    .line 288
+    .line 294
     :cond_2
-    invoke-virtual {v7, v12}, Landroid/widget/TextView;->setVisibility(I)V
+    invoke-virtual {v7, v12}, Landroid/view/View;->setVisibility(I)V
 
     goto :goto_1
 
-    .line 298
+    .line 304
     .restart local v0       #kgm:Landroid/app/KeyguardManager;
     :cond_3
     iget-object v9, p0, Lcom/android/systemui/statusbar/policy/quicksetting/LocationQuickSettingButton;->mAlertDialog:Landroid/app/AlertDialog;
 
-    invoke-virtual {v9}, Landroid/app/AlertDialog;->getWindow()Landroid/view/Window;
+    invoke-virtual {v9}, Landroid/app/Dialog;->getWindow()Landroid/view/Window;
 
     move-result-object v9
 
@@ -466,15 +516,15 @@
     .locals 2
 
     .prologue
-    .line 142
-    iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->mContext:Landroid/content/Context;
+    .line 148
+    iget-object v0, p0, Landroid/view/View;->mContext:Landroid/content/Context;
 
     iget-object v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/LocationQuickSettingButton;->mIntentReceiver:Landroid/content/BroadcastReceiver;
 
     invoke-virtual {v0, v1}, Landroid/content/Context;->unregisterReceiver(Landroid/content/BroadcastReceiver;)V
 
-    .line 143
-    iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->mContext:Landroid/content/Context;
+    .line 149
+    iget-object v0, p0, Landroid/view/View;->mContext:Landroid/content/Context;
 
     invoke-virtual {v0}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
 
@@ -484,7 +534,7 @@
 
     invoke-virtual {v0, v1}, Landroid/content/ContentResolver;->unregisterContentObserver(Landroid/database/ContentObserver;)V
 
-    .line 144
+    .line 150
     return-void
 .end method
 
@@ -494,26 +544,26 @@
     .prologue
     const/4 v5, -0x2
 
-    .line 125
+    .line 131
     new-instance v0, Landroid/content/IntentFilter;
 
     invoke-direct {v0}, Landroid/content/IntentFilter;-><init>()V
 
-    .line 126
+    .line 132
     .local v0, filter:Landroid/content/IntentFilter;
     const-string v1, "android.intent.action.CLOSE_SYSTEM_DIALOGS"
 
     invoke-virtual {v0, v1}, Landroid/content/IntentFilter;->addAction(Ljava/lang/String;)V
 
-    .line 127
-    iget-object v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->mContext:Landroid/content/Context;
+    .line 133
+    iget-object v1, p0, Landroid/view/View;->mContext:Landroid/content/Context;
 
     iget-object v2, p0, Lcom/android/systemui/statusbar/policy/quicksetting/LocationQuickSettingButton;->mIntentReceiver:Landroid/content/BroadcastReceiver;
 
     invoke-virtual {v1, v2, v0}, Landroid/content/Context;->registerReceiver(Landroid/content/BroadcastReceiver;Landroid/content/IntentFilter;)Landroid/content/Intent;
 
-    .line 129
-    iget-object v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->mContext:Landroid/content/Context;
+    .line 135
+    iget-object v1, p0, Landroid/view/View;->mContext:Landroid/content/Context;
 
     invoke-virtual {v1}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
 
@@ -531,8 +581,8 @@
 
     invoke-virtual {v1, v2, v3, v4, v5}, Landroid/content/ContentResolver;->registerContentObserver(Landroid/net/Uri;ZLandroid/database/ContentObserver;I)V
 
-    .line 133
-    iget-object v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->mContext:Landroid/content/Context;
+    .line 139
+    iget-object v1, p0, Landroid/view/View;->mContext:Landroid/content/Context;
 
     invoke-virtual {v1}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
 
@@ -546,7 +596,7 @@
 
     iput-boolean v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/LocationQuickSettingButton;->mGpsActivated:Z
 
-    .line 135
+    .line 141
     iget-boolean v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/LocationQuickSettingButton;->mGpsActivated:Z
 
     if-eqz v1, :cond_0
@@ -554,9 +604,9 @@
     const/4 v1, 0x1
 
     :goto_0
-    invoke-virtual {p0, v1}, Lcom/android/systemui/statusbar/policy/quicksetting/LocationQuickSettingButton;->setActivateStatus(I)V
+    invoke-virtual {p0, v1}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->setActivateStatus(I)V
 
-    .line 138
+    .line 144
     const-string v1, "STATUSBAR-LocationQuickSettingButton"
 
     new-instance v2, Ljava/lang/StringBuilder;
@@ -581,10 +631,10 @@
 
     invoke-static {v1, v2}, Landroid/util/secutil/Log;->secD(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 139
+    .line 145
     return-void
 
-    .line 135
+    .line 141
     :cond_0
     const/4 v1, 0x2
 
@@ -598,24 +648,24 @@
     .prologue
     const/4 v5, 0x0
 
-    .line 148
+    .line 154
     iget-boolean v2, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->mIsProcessing:Z
 
     if-eqz v2, :cond_1
 
-    .line 149
+    .line 155
     const-string v2, "STATUSBAR-LocationQuickSettingButton"
 
     const-string v3, "onClick(): Processing..."
 
     invoke-static {v2, v3}, Landroid/util/secutil/Log;->secW(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 206
+    .line 212
     :cond_0
     :goto_0
     return-void
 
-    .line 154
+    .line 160
     :cond_1
     const-string v2, "STATUSBAR-LocationQuickSettingButton"
 
@@ -651,8 +701,8 @@
 
     invoke-static {v2, v3}, Landroid/util/secutil/Log;->secD(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 156
-    iget-object v2, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->mContext:Landroid/content/Context;
+    .line 162
+    iget-object v2, p0, Landroid/view/View;->mContext:Landroid/content/Context;
 
     const-string v3, "enterprise_policy"
 
@@ -664,7 +714,7 @@
 
     iput-object v2, p0, Lcom/android/systemui/statusbar/policy/quicksetting/LocationQuickSettingButton;->mEDM:Landroid/app/enterprise/EnterpriseDeviceManager;
 
-    .line 157
+    .line 163
     iget-object v2, p0, Lcom/android/systemui/statusbar/policy/quicksetting/LocationQuickSettingButton;->mEDM:Landroid/app/enterprise/EnterpriseDeviceManager;
 
     invoke-virtual {v2}, Landroid/app/enterprise/EnterpriseDeviceManager;->getRestrictionPolicy()Landroid/app/enterprise/RestrictionPolicy;
@@ -673,7 +723,7 @@
 
     iput-object v2, p0, Lcom/android/systemui/statusbar/policy/quicksetting/LocationQuickSettingButton;->mRestrictionPolicy:Landroid/app/enterprise/RestrictionPolicy;
 
-    .line 158
+    .line 164
     iget-object v2, p0, Lcom/android/systemui/statusbar/policy/quicksetting/LocationQuickSettingButton;->mRestrictionPolicy:Landroid/app/enterprise/RestrictionPolicy;
 
     invoke-virtual {v2, v5}, Landroid/app/enterprise/RestrictionPolicy;->isSettingsChangesAllowed(Z)Z
@@ -682,7 +732,7 @@
 
     if-nez v2, :cond_2
 
-    .line 159
+    .line 165
     const-string v2, "STATUSBAR-LocationQuickSettingButton"
 
     const-string v3, "onClick(): Location state change is not allowed"
@@ -691,7 +741,7 @@
 
     goto :goto_0
 
-    .line 163
+    .line 169
     :cond_2
     iget-object v2, p0, Lcom/android/systemui/statusbar/policy/quicksetting/LocationQuickSettingButton;->mEDM:Landroid/app/enterprise/EnterpriseDeviceManager;
 
@@ -699,7 +749,7 @@
 
     move-result-object v1
 
-    .line 164
+    .line 170
     .local v1, lp:Landroid/app/enterprise/LocationPolicy;
     if-eqz v1, :cond_3
 
@@ -711,7 +761,7 @@
 
     if-eqz v2, :cond_3
 
-    .line 165
+    .line 171
     const-string v2, "STATUSBAR-LocationQuickSettingButton"
 
     const-string v3, "onClick(): Location provider is blocked"
@@ -720,16 +770,16 @@
 
     goto :goto_0
 
-    .line 186
+    .line 192
     :cond_3
     sget-boolean v2, Lcom/android/systemui/statusbar/Feature;->mShowGPSlicensPopup:Z
 
     if-eqz v2, :cond_5
 
-    .line 187
+    .line 193
     if-eqz p1, :cond_4
 
-    iget-object v2, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->mContext:Landroid/content/Context;
+    iget-object v2, p0, Landroid/view/View;->mContext:Landroid/content/Context;
 
     invoke-static {v2}, Lcom/android/systemui/statusbar/policy/Prefs;->read(Landroid/content/Context;)Landroid/content/SharedPreferences;
 
@@ -743,35 +793,35 @@
 
     if-nez v2, :cond_4
 
-    .line 188
+    .line 194
     const/4 v2, 0x3
 
-    invoke-virtual {p0, v2}, Lcom/android/systemui/statusbar/policy/quicksetting/LocationQuickSettingButton;->setActivateStatus(I)V
+    invoke-virtual {p0, v2}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->setActivateStatus(I)V
 
-    .line 189
+    .line 195
     invoke-direct {p0, p1}, Lcom/android/systemui/statusbar/policy/quicksetting/LocationQuickSettingButton;->showConfirmPopup(Z)V
 
     goto :goto_0
 
-    .line 191
+    .line 197
     :cond_4
     invoke-direct {p0, p1}, Lcom/android/systemui/statusbar/policy/quicksetting/LocationQuickSettingButton;->setGpsMode(Z)V
 
     goto :goto_0
 
-    .line 195
+    .line 201
     :cond_5
     iget-boolean v2, p0, Lcom/android/systemui/statusbar/policy/quicksetting/LocationQuickSettingButton;->mGpsActivated:Z
 
     if-eq p1, v2, :cond_0
 
-    .line 197
+    .line 203
     const/4 v2, 0x1
 
     iput-boolean v2, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->mIsProcessing:Z
 
-    .line 199
-    iget-object v2, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->mContext:Landroid/content/Context;
+    .line 205
+    iget-object v2, p0, Landroid/view/View;->mContext:Landroid/content/Context;
 
     invoke-virtual {v2}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
 
@@ -781,22 +831,22 @@
 
     const/4 v4, -0x2
 
-    invoke-static {v2, v3, p1, v4}, Landroid/provider/Settings$Secure;->setLocationProviderEnabledForUser(Landroid/content/ContentResolver;Ljava/lang/String;ZI)V
+    invoke-static {v2, v3, p1, v4}, Landroid/provider/Settings$Secure;->setLocationProviderEnabledForUser(Landroid/content/ContentResolver;Ljava/lang/String;ZI)Z
 
-    .line 201
+    .line 207
     new-instance v0, Landroid/content/Intent;
 
     const-string v2, "android.settings.GPS_CHANGED"
 
     invoke-direct {v0, v2}, Landroid/content/Intent;-><init>(Ljava/lang/String;)V
 
-    .line 202
+    .line 208
     .local v0, intent:Landroid/content/Intent;
-    iget-object v2, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->mContext:Landroid/content/Context;
+    iget-object v2, p0, Landroid/view/View;->mContext:Landroid/content/Context;
 
     invoke-virtual {v2, v0}, Landroid/content/Context;->sendBroadcast(Landroid/content/Intent;)V
 
-    .line 203
+    .line 209
     const-string v2, "STATUSBAR-LocationQuickSettingButton"
 
     new-instance v3, Ljava/lang/StringBuilder;
@@ -832,14 +882,14 @@
     .locals 2
 
     .prologue
-    .line 210
+    .line 216
     const-string v0, "com.android.settings"
 
     const-string v1, "com.android.settings.Settings$LocationSettingsActivity"
 
-    invoke-virtual {p0, v0, v1}, Lcom/android/systemui/statusbar/policy/quicksetting/LocationQuickSettingButton;->callActivity(Ljava/lang/String;Ljava/lang/String;)V
+    invoke-virtual {p0, v0, v1}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->callActivity(Ljava/lang/String;Ljava/lang/String;)V
 
-    .line 212
+    .line 218
     return-void
 .end method
 
@@ -847,13 +897,13 @@
     .locals 2
 
     .prologue
-    .line 315
+    .line 321
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/LocationQuickSettingButton;->mGpsObserver:Lcom/android/systemui/statusbar/policy/quicksetting/LocationQuickSettingButton$GpsObserver;
 
     const/4 v1, 0x0
 
     invoke-virtual {v0, v1}, Lcom/android/systemui/statusbar/policy/quicksetting/LocationQuickSettingButton$GpsObserver;->onChange(Z)V
 
-    .line 316
+    .line 322
     return-void
 .end method

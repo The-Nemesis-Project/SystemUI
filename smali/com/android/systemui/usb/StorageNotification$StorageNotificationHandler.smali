@@ -25,13 +25,13 @@
     .parameter "l"
 
     .prologue
-    .line 732
+    .line 743
     iput-object p1, p0, Lcom/android/systemui/usb/StorageNotification$StorageNotificationHandler;->this$0:Lcom/android/systemui/usb/StorageNotification;
 
-    .line 733
+    .line 744
     invoke-direct {p0, p2}, Landroid/os/Handler;-><init>(Landroid/os/Looper;)V
 
-    .line 734
+    .line 745
     return-void
 .end method
 
@@ -42,18 +42,18 @@
     .parameter "msg"
 
     .prologue
-    .line 737
+    .line 748
     move-object/from16 v0, p1
 
     iget v2, v0, Landroid/os/Message;->what:I
 
     packed-switch v2, :pswitch_data_0
 
-    .line 779
+    .line 790
     :goto_0
     return-void
 
-    .line 739
+    .line 750
     :pswitch_0
     move-object/from16 v0, p1
 
@@ -61,7 +61,7 @@
 
     check-cast v9, Ljava/lang/String;
 
-    .line 740
+    .line 751
     .local v9, path:Ljava/lang/String;
     const-string v2, "StorageNotification"
 
@@ -85,26 +85,26 @@
 
     invoke-static {v2, v3}, Landroid/util/Slog;->d(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 741
+    .line 752
     move-object/from16 v0, p0
 
     iget-object v2, v0, Lcom/android/systemui/usb/StorageNotification$StorageNotificationHandler;->this$0:Lcom/android/systemui/usb/StorageNotification;
 
     #calls: Lcom/android/systemui/usb/StorageNotification;->isSDCard(Ljava/lang/String;)Z
-    invoke-static {v2, v9}, Lcom/android/systemui/usb/StorageNotification;->access$800(Lcom/android/systemui/usb/StorageNotification;Ljava/lang/String;)Z
+    invoke-static {v2, v9}, Lcom/android/systemui/usb/StorageNotification;->access$900(Lcom/android/systemui/usb/StorageNotification;Ljava/lang/String;)Z
 
     move-result v2
 
     if-eqz v2, :cond_0
 
-    .line 742
+    .line 753
     move-object/from16 v0, p0
 
     iget-object v2, v0, Lcom/android/systemui/usb/StorageNotification$StorageNotificationHandler;->this$0:Lcom/android/systemui/usb/StorageNotification;
 
-    const v3, 0x10406ee
+    const v3, 0x1040757
 
-    const v4, 0x10406f0
+    const v4, 0x1040759
 
     const v5, 0x108007a
 
@@ -115,19 +115,19 @@
     const/4 v8, 0x0
 
     #calls: Lcom/android/systemui/usb/StorageNotification;->setMediaStorageNotification(IIIZZLandroid/app/PendingIntent;Ljava/lang/String;)V
-    invoke-static/range {v2 .. v9}, Lcom/android/systemui/usb/StorageNotification;->access$900(Lcom/android/systemui/usb/StorageNotification;IIIZZLandroid/app/PendingIntent;Ljava/lang/String;)V
+    invoke-static/range {v2 .. v9}, Lcom/android/systemui/usb/StorageNotification;->access$1000(Lcom/android/systemui/usb/StorageNotification;IIIZZLandroid/app/PendingIntent;Ljava/lang/String;)V
 
     goto :goto_0
 
-    .line 747
+    .line 758
     :cond_0
     move-object/from16 v0, p0
 
     iget-object v2, v0, Lcom/android/systemui/usb/StorageNotification$StorageNotificationHandler;->this$0:Lcom/android/systemui/usb/StorageNotification;
 
-    const v3, 0x10406ed
+    const v3, 0x1040756
 
-    const v4, 0x10406ef
+    const v4, 0x1040758
 
     const v5, 0x108007a
 
@@ -138,11 +138,11 @@
     const/4 v8, 0x0
 
     #calls: Lcom/android/systemui/usb/StorageNotification;->setMediaStorageNotification(IIIZZLandroid/app/PendingIntent;Ljava/lang/String;)V
-    invoke-static/range {v2 .. v9}, Lcom/android/systemui/usb/StorageNotification;->access$900(Lcom/android/systemui/usb/StorageNotification;IIIZZLandroid/app/PendingIntent;Ljava/lang/String;)V
+    invoke-static/range {v2 .. v9}, Lcom/android/systemui/usb/StorageNotification;->access$1000(Lcom/android/systemui/usb/StorageNotification;IIIZZLandroid/app/PendingIntent;Ljava/lang/String;)V
 
     goto :goto_0
 
-    .line 754
+    .line 765
     .end local v9           #path:Ljava/lang/String;
     :pswitch_1
     move-object/from16 v0, p1
@@ -153,7 +153,7 @@
 
     check-cast v19, Ljava/lang/String;
 
-    .line 755
+    .line 766
     .local v19, path1:Ljava/lang/String;
     const-string v2, "StorageNotification"
 
@@ -179,17 +179,14 @@
 
     invoke-static {v2, v3}, Landroid/util/Slog;->d(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 756
+    .line 767
     move-object/from16 v0, p0
 
     iget-object v2, v0, Lcom/android/systemui/usb/StorageNotification$StorageNotificationHandler;->this$0:Lcom/android/systemui/usb/StorageNotification;
 
-    #getter for: Lcom/android/systemui/usb/StorageNotification;->mContext:Landroid/content/Context;
-    invoke-static {v2}, Lcom/android/systemui/usb/StorageNotification;->access$000(Lcom/android/systemui/usb/StorageNotification;)Landroid/content/Context;
+    iget-object v2, v2, Lcom/android/systemui/SystemUI;->mContext:Landroid/content/Context;
 
-    move-result-object v2
-
-    const v3, 0x10407e0
+    const v3, 0x1040718
 
     const/4 v4, 0x1
 
@@ -201,7 +198,7 @@
 
     goto/16 :goto_0
 
-    .line 759
+    .line 770
     .end local v19           #path1:Ljava/lang/String;
     :pswitch_2
     move-object/from16 v0, p1
@@ -212,7 +209,7 @@
 
     check-cast v17, Ljava/lang/String;
 
-    .line 760
+    .line 771
     .local v17, path2:Ljava/lang/String;
     const-string v2, "StorageNotification"
 
@@ -238,21 +235,18 @@
 
     invoke-static {v2, v3}, Landroid/util/Slog;->d(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 761
+    .line 772
     new-instance v18, Landroid/content/Intent;
 
     invoke-direct/range {v18 .. v18}, Landroid/content/Intent;-><init>()V
 
-    .line 762
+    .line 773
     .local v18, intent:Landroid/content/Intent;
     move-object/from16 v0, p0
 
     iget-object v2, v0, Lcom/android/systemui/usb/StorageNotification$StorageNotificationHandler;->this$0:Lcom/android/systemui/usb/StorageNotification;
 
-    #getter for: Lcom/android/systemui/usb/StorageNotification;->mContext:Landroid/content/Context;
-    invoke-static {v2}, Lcom/android/systemui/usb/StorageNotification;->access$000(Lcom/android/systemui/usb/StorageNotification;)Landroid/content/Context;
-
-    move-result-object v2
+    iget-object v2, v2, Lcom/android/systemui/SystemUI;->mContext:Landroid/content/Context;
 
     const-class v3, Lcom/android/internal/app/ExternalMediaFormatActivity;
 
@@ -260,7 +254,7 @@
 
     invoke-virtual {v0, v2, v3}, Landroid/content/Intent;->setClass(Landroid/content/Context;Ljava/lang/Class;)Landroid/content/Intent;
 
-    .line 763
+    .line 774
     const-string v2, "storage_volume"
 
     move-object/from16 v0, v18
@@ -269,15 +263,12 @@
 
     invoke-virtual {v0, v2, v1}, Landroid/content/Intent;->putExtra(Ljava/lang/String;Ljava/lang/String;)Landroid/content/Intent;
 
-    .line 764
+    .line 775
     move-object/from16 v0, p0
 
     iget-object v2, v0, Lcom/android/systemui/usb/StorageNotification$StorageNotificationHandler;->this$0:Lcom/android/systemui/usb/StorageNotification;
 
-    #getter for: Lcom/android/systemui/usb/StorageNotification;->mContext:Landroid/content/Context;
-    invoke-static {v2}, Lcom/android/systemui/usb/StorageNotification;->access$000(Lcom/android/systemui/usb/StorageNotification;)Landroid/content/Context;
-
-    move-result-object v2
+    iget-object v2, v2, Lcom/android/systemui/SystemUI;->mContext:Landroid/content/Context;
 
     const/4 v3, 0x0
 
@@ -289,7 +280,7 @@
 
     move-result-object v16
 
-    .line 765
+    .line 776
     .local v16, pi:Landroid/app/PendingIntent;
     move-object/from16 v0, p0
 
@@ -298,20 +289,20 @@
     move-object/from16 v0, v17
 
     #calls: Lcom/android/systemui/usb/StorageNotification;->isSDCard(Ljava/lang/String;)Z
-    invoke-static {v2, v0}, Lcom/android/systemui/usb/StorageNotification;->access$800(Lcom/android/systemui/usb/StorageNotification;Ljava/lang/String;)Z
+    invoke-static {v2, v0}, Lcom/android/systemui/usb/StorageNotification;->access$900(Lcom/android/systemui/usb/StorageNotification;Ljava/lang/String;)Z
 
     move-result v2
 
     if-eqz v2, :cond_1
 
-    .line 766
+    .line 777
     move-object/from16 v0, p0
 
     iget-object v10, v0, Lcom/android/systemui/usb/StorageNotification$StorageNotificationHandler;->this$0:Lcom/android/systemui/usb/StorageNotification;
 
-    const v11, 0x10406e6
+    const v11, 0x104074f
 
-    const v12, 0x10406e8
+    const v12, 0x1040751
 
     const v13, 0x108007b
 
@@ -320,19 +311,19 @@
     const/4 v15, 0x0
 
     #calls: Lcom/android/systemui/usb/StorageNotification;->setMediaStorageNotification(IIIZZLandroid/app/PendingIntent;Ljava/lang/String;)V
-    invoke-static/range {v10 .. v17}, Lcom/android/systemui/usb/StorageNotification;->access$900(Lcom/android/systemui/usb/StorageNotification;IIIZZLandroid/app/PendingIntent;Ljava/lang/String;)V
+    invoke-static/range {v10 .. v17}, Lcom/android/systemui/usb/StorageNotification;->access$1000(Lcom/android/systemui/usb/StorageNotification;IIIZZLandroid/app/PendingIntent;Ljava/lang/String;)V
 
     goto/16 :goto_0
 
-    .line 771
+    .line 782
     :cond_1
     move-object/from16 v0, p0
 
     iget-object v10, v0, Lcom/android/systemui/usb/StorageNotification$StorageNotificationHandler;->this$0:Lcom/android/systemui/usb/StorageNotification;
 
-    const v11, 0x10406e5
+    const v11, 0x104074e
 
-    const v12, 0x10406e7
+    const v12, 0x1040750
 
     const v13, 0x108007b
 
@@ -341,11 +332,11 @@
     const/4 v15, 0x0
 
     #calls: Lcom/android/systemui/usb/StorageNotification;->setMediaStorageNotification(IIIZZLandroid/app/PendingIntent;Ljava/lang/String;)V
-    invoke-static/range {v10 .. v17}, Lcom/android/systemui/usb/StorageNotification;->access$900(Lcom/android/systemui/usb/StorageNotification;IIIZZLandroid/app/PendingIntent;Ljava/lang/String;)V
+    invoke-static/range {v10 .. v17}, Lcom/android/systemui/usb/StorageNotification;->access$1000(Lcom/android/systemui/usb/StorageNotification;IIIZZLandroid/app/PendingIntent;Ljava/lang/String;)V
 
     goto/16 :goto_0
 
-    .line 737
+    .line 748
     :pswitch_data_0
     .packed-switch 0x0
         :pswitch_0

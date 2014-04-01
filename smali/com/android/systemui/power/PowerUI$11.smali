@@ -27,10 +27,10 @@
     .parameter
 
     .prologue
-    .line 1121
+    .line 1226
     iput-object p1, p0, Lcom/android/systemui/power/PowerUI$11;->this$0:Lcom/android/systemui/power/PowerUI;
 
-    invoke-direct/range {p0 .. p0}, Ljava/lang/Object;-><init>()V
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
     return-void
 .end method
@@ -42,13 +42,13 @@
     .parameter "dialog"
 
     .prologue
-    .line 1123
+    .line 1228
     iget-object v0, p0, Lcom/android/systemui/power/PowerUI$11;->this$0:Lcom/android/systemui/power/PowerUI;
 
     const/4 v1, 0x0
 
     iput-object v1, v0, Lcom/android/systemui/power/PowerUI;->mBatterySwellingDialog:Landroid/app/AlertDialog;
 
-    .line 1124
+    .line 1229
     return-void
 .end method

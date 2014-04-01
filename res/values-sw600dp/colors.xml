@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="status_bar_recents_app_label_color">#fff2f2f2</color>
+    <color name="notification_category_color">#ff2b9cbc</color>
+    <color name="status_bar_clear_btn_text">#ff000000</color>
+    <color name="notification_header_clock_color">#ff000000</color>
+    <color name="notification_header_date_color">#ff000000</color>
+    <color name="quick_setting_btn_text_color">#ff2f414f</color>
+    <color name="toggle_slider_background_color">#ffececec</color>
+    <color name="toggle_slider_text_color">#ff000000</color>
+    <color name="recents_item_background">#00000000</color>
+    <color name="quick_panel_setting_text_focus_color">#ff17aa07</color>
+    <color name="animated_brightness_icon_color">#ff58595b</color>
+</resources>

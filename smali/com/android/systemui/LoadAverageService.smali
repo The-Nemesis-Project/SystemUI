@@ -7,7 +7,7 @@
 .annotation system Ldalvik/annotation/MemberClasses;
     value = {
         Lcom/android/systemui/LoadAverageService$LoadView;,
-        Lcom/android/systemui/LoadAverageService$Stats;
+        Lcom/android/systemui/LoadAverageService$CpuTracker;
     }
 .end annotation
 
@@ -84,7 +84,7 @@
     .line 298
     const-string v1, "window"
 
-    invoke-virtual {p0, v1}, Lcom/android/systemui/LoadAverageService;->getSystemService(Ljava/lang/String;)Ljava/lang/Object;
+    invoke-virtual {p0, v1}, Landroid/content/ContextWrapper;->getSystemService(Ljava/lang/String;)Ljava/lang/Object;
 
     move-result-object v6
 
@@ -110,7 +110,7 @@
     .line 305
     const-string v0, "window"
 
-    invoke-virtual {p0, v0}, Lcom/android/systemui/LoadAverageService;->getSystemService(Ljava/lang/String;)Ljava/lang/Object;
+    invoke-virtual {p0, v0}, Landroid/content/ContextWrapper;->getSystemService(Ljava/lang/String;)Ljava/lang/Object;
 
     move-result-object v0
 

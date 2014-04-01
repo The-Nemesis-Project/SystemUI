@@ -1,53 +1,58 @@
-.class final Lcom/android/systemui/recent/FirstFrameAnimatorHelper$2;
+.class Lcom/android/systemui/recent/FirstFrameAnimatorHelper$2;
 .super Ljava/lang/Object;
 .source "FirstFrameAnimatorHelper.java"
 
 # interfaces
-.implements Landroid/view/ViewTreeObserver$OnDrawListener;
+.implements Ljava/lang/Runnable;
 
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lcom/android/systemui/recent/FirstFrameAnimatorHelper;->initializeDrawListener(Landroid/view/View;)V
+    value = Lcom/android/systemui/recent/FirstFrameAnimatorHelper;->onAnimationUpdate(Landroid/animation/ValueAnimator;)V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
-    accessFlags = 0x8
+    accessFlags = 0x0
     name = null
 .end annotation
 
 
 # instance fields
-.field private mTime:J
+.field final synthetic this$0:Lcom/android/systemui/recent/FirstFrameAnimatorHelper;
+
+.field final synthetic val$animation:Landroid/animation/ValueAnimator;
 
 
 # direct methods
-.method constructor <init>()V
-    .locals 2
+.method constructor <init>(Lcom/android/systemui/recent/FirstFrameAnimatorHelper;Landroid/animation/ValueAnimator;)V
+    .locals 0
+    .parameter
+    .parameter
 
     .prologue
-    .line 66
-    invoke-direct/range {p0 .. p0}, Ljava/lang/Object;-><init>()V
+    .line 114
+    iput-object p1, p0, Lcom/android/systemui/recent/FirstFrameAnimatorHelper$2;->this$0:Lcom/android/systemui/recent/FirstFrameAnimatorHelper;
 
-    .line 67
-    invoke-static {}, Ljava/lang/System;->currentTimeMillis()J
+    iput-object p2, p0, Lcom/android/systemui/recent/FirstFrameAnimatorHelper$2;->val$animation:Landroid/animation/ValueAnimator;
 
-    move-result-wide v0
-
-    iput-wide v0, p0, Lcom/android/systemui/recent/FirstFrameAnimatorHelper$2;->mTime:J
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
     return-void
 .end method
 
 
 # virtual methods
-.method public onDraw()V
-    .locals 0
+.method public run()V
+    .locals 2
 
     .prologue
-    .line 69
-    invoke-static {}, Lcom/android/systemui/recent/FirstFrameAnimatorHelper;->access$008()J
+    .line 116
+    iget-object v0, p0, Lcom/android/systemui/recent/FirstFrameAnimatorHelper$2;->val$animation:Landroid/animation/ValueAnimator;
 
-    .line 75
+    iget-object v1, p0, Lcom/android/systemui/recent/FirstFrameAnimatorHelper$2;->this$0:Lcom/android/systemui/recent/FirstFrameAnimatorHelper;
+
+    invoke-virtual {v0, v1}, Landroid/animation/ValueAnimator;->removeUpdateListener(Landroid/animation/ValueAnimator$AnimatorUpdateListener;)V
+
+    .line 117
     return-void
 .end method

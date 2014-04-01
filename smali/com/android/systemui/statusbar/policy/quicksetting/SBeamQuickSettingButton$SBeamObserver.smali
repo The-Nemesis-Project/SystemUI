@@ -24,17 +24,17 @@
     .parameter
 
     .prologue
-    .line 119
+    .line 133
     iput-object p1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/SBeamQuickSettingButton$SBeamObserver;->this$0:Lcom/android/systemui/statusbar/policy/quicksetting/SBeamQuickSettingButton;
 
-    .line 120
+    .line 134
     new-instance v0, Landroid/os/Handler;
 
     invoke-direct {v0}, Landroid/os/Handler;-><init>()V
 
     invoke-direct {p0, v0}, Landroid/database/ContentObserver;-><init>(Landroid/os/Handler;)V
 
-    .line 121
+    .line 135
     return-void
 .end method
 
@@ -51,7 +51,7 @@
 
     const/4 v2, 0x0
 
-    .line 125
+    .line 139
     const-string v0, "STATUSBAR-SBeam"
 
     new-instance v3, Ljava/lang/StringBuilder;
@@ -87,10 +87,10 @@
 
     invoke-static {v0, v3}, Landroid/util/secutil/Log;->secD(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 128
+    .line 142
     invoke-super {p0, p1}, Landroid/database/ContentObserver;->onChange(Z)V
 
-    .line 129
+    .line 143
     iget-object v3, p0, Lcom/android/systemui/statusbar/policy/quicksetting/SBeamQuickSettingButton$SBeamObserver;->this$0:Lcom/android/systemui/statusbar/policy/quicksetting/SBeamQuickSettingButton;
 
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/SBeamQuickSettingButton$SBeamObserver;->this$0:Lcom/android/systemui/statusbar/policy/quicksetting/SBeamQuickSettingButton;
@@ -111,9 +111,9 @@
     move v0, v1
 
     :goto_0
-    invoke-virtual {v3, v0}, Lcom/android/systemui/statusbar/policy/quicksetting/SBeamQuickSettingButton;->setActivateStatus(I)V
+    invoke-virtual {v3, v0}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->setActivateStatus(I)V
 
-    .line 131
+    .line 145
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/SBeamQuickSettingButton$SBeamObserver;->this$0:Lcom/android/systemui/statusbar/policy/quicksetting/SBeamQuickSettingButton;
 
     iget-object v3, p0, Lcom/android/systemui/statusbar/policy/quicksetting/SBeamQuickSettingButton$SBeamObserver;->this$0:Lcom/android/systemui/statusbar/policy/quicksetting/SBeamQuickSettingButton;
@@ -129,15 +129,15 @@
     #setter for: Lcom/android/systemui/statusbar/policy/quicksetting/SBeamQuickSettingButton;->mState:Z
     invoke-static {v0, v1}, Lcom/android/systemui/statusbar/policy/quicksetting/SBeamQuickSettingButton;->access$102(Lcom/android/systemui/statusbar/policy/quicksetting/SBeamQuickSettingButton;Z)Z
 
-    .line 134
+    .line 148
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/SBeamQuickSettingButton$SBeamObserver;->this$0:Lcom/android/systemui/statusbar/policy/quicksetting/SBeamQuickSettingButton;
 
     iput-boolean v2, v0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->mIsProcessing:Z
 
-    .line 135
+    .line 149
     return-void
 
-    .line 129
+    .line 143
     :cond_0
     const/4 v0, 0x2
 
@@ -146,6 +146,6 @@
     :cond_1
     move v1, v2
 
-    .line 131
+    .line 145
     goto :goto_1
 .end method

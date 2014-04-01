@@ -3,8 +3,8 @@
 .source "NotificationRowLayout.java"
 
 # interfaces
-.implements Lcom/android/systemui/SwipeHelper$Callback;
 .implements Lcom/android/systemui/ExpandHelper$Callback;
+.implements Lcom/android/systemui/SwipeHelper$Callback;
 
 
 # static fields
@@ -64,12 +64,12 @@
     .parameter "attrs"
 
     .prologue
-    .line 75
+    .line 70
     const/4 v0, 0x0
 
     invoke-direct {p0, p1, p2, v0}, Lcom/android/systemui/statusbar/policy/NotificationRowLayout;-><init>(Landroid/content/Context;Landroid/util/AttributeSet;I)V
 
-    .line 76
+    .line 71
     return-void
 .end method
 
@@ -82,56 +82,56 @@
     .prologue
     const/4 v3, 0x1
 
-    .line 79
+    .line 74
     invoke-direct {p0, p1, p2, p3}, Landroid/widget/LinearLayout;-><init>(Landroid/content/Context;Landroid/util/AttributeSet;I)V
 
-    .line 57
+    .line 52
     iput-boolean v3, p0, Lcom/android/systemui/statusbar/policy/NotificationRowLayout;->mAnimateBounds:Z
 
-    .line 59
+    .line 54
     new-instance v2, Landroid/graphics/Rect;
 
     invoke-direct {v2}, Landroid/graphics/Rect;-><init>()V
 
     iput-object v2, p0, Lcom/android/systemui/statusbar/policy/NotificationRowLayout;->mTmpRect:Landroid/graphics/Rect;
 
-    .line 61
+    .line 56
     new-instance v2, Ljava/util/HashMap;
 
     invoke-direct {v2}, Ljava/util/HashMap;-><init>()V
 
     iput-object v2, p0, Lcom/android/systemui/statusbar/policy/NotificationRowLayout;->mAppearingViews:Ljava/util/HashMap;
 
-    .line 62
+    .line 57
     new-instance v2, Ljava/util/HashMap;
 
     invoke-direct {v2}, Ljava/util/HashMap;-><init>()V
 
     iput-object v2, p0, Lcom/android/systemui/statusbar/policy/NotificationRowLayout;->mDisappearingViews:Ljava/util/HashMap;
 
-    .line 70
+    .line 65
     iput-boolean v3, p0, Lcom/android/systemui/statusbar/policy/NotificationRowLayout;->mRemoveViews:Z
 
-    .line 81
+    .line 76
     new-instance v2, Landroid/animation/LayoutTransition;
 
     invoke-direct {v2}, Landroid/animation/LayoutTransition;-><init>()V
 
     iput-object v2, p0, Lcom/android/systemui/statusbar/policy/NotificationRowLayout;->mRealLayoutTransition:Landroid/animation/LayoutTransition;
 
-    .line 82
+    .line 77
     iget-object v2, p0, Lcom/android/systemui/statusbar/policy/NotificationRowLayout;->mRealLayoutTransition:Landroid/animation/LayoutTransition;
 
     invoke-virtual {v2, v3}, Landroid/animation/LayoutTransition;->setAnimateParentHierarchy(Z)V
 
-    .line 83
+    .line 78
     invoke-virtual {p0, v3}, Lcom/android/systemui/statusbar/policy/NotificationRowLayout;->setLayoutTransitionsEnabled(Z)V
 
-    .line 85
-    invoke-virtual {p0, v3}, Lcom/android/systemui/statusbar/policy/NotificationRowLayout;->setOrientation(I)V
+    .line 80
+    invoke-virtual {p0, v3}, Landroid/widget/LinearLayout;->setOrientation(I)V
 
-    .line 102
-    invoke-virtual {p0}, Lcom/android/systemui/statusbar/policy/NotificationRowLayout;->getResources()Landroid/content/res/Resources;
+    .line 97
+    invoke-virtual {p0}, Landroid/view/View;->getResources()Landroid/content/res/Resources;
 
     move-result-object v2
 
@@ -141,9 +141,9 @@
 
     iget v0, v2, Landroid/util/DisplayMetrics;->density:F
 
-    .line 103
+    .line 98
     .local v0, densityScale:F
-    iget-object v2, p0, Lcom/android/systemui/statusbar/policy/NotificationRowLayout;->mContext:Landroid/content/Context;
+    iget-object v2, p0, Landroid/view/View;->mContext:Landroid/content/Context;
 
     invoke-static {v2}, Landroid/view/ViewConfiguration;->get(Landroid/content/Context;)Landroid/view/ViewConfiguration;
 
@@ -155,7 +155,7 @@
 
     int-to-float v1, v2
 
-    .line 104
+    .line 99
     .local v1, pagingTouchSlop:F
     new-instance v2, Lcom/android/systemui/SwipeHelper;
 
@@ -165,7 +165,7 @@
 
     iput-object v2, p0, Lcom/android/systemui/statusbar/policy/NotificationRowLayout;->mSwipeHelper:Lcom/android/systemui/SwipeHelper;
 
-    .line 105
+    .line 100
     return-void
 .end method
 
@@ -173,7 +173,7 @@
     .locals 3
 
     .prologue
-    .line 128
+    .line 123
     const-string v1, "NotificationRowLayout"
 
     new-instance v0, Ljava/lang/StringBuilder;
@@ -234,10 +234,10 @@
 
     invoke-static {v1, v0}, Landroid/util/Log;->v(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 133
+    .line 128
     return-void
 
-    .line 128
+    .line 123
     :cond_0
     const-string v0, "is not "
 
@@ -256,14 +256,14 @@
     .parameter "v"
 
     .prologue
-    .line 154
-    const v1, 0x7f0900a2
+    .line 149
+    const v1, 0x7f070099
 
     invoke-virtual {p1, v1}, Landroid/view/View;->findViewById(I)Landroid/view/View;
 
     move-result-object v0
 
-    .line 155
+    .line 150
     .local v0, veto:Landroid/view/View;
     if-eqz v0, :cond_0
 
@@ -291,12 +291,29 @@
     .parameter "v"
 
     .prologue
-    .line 159
-    invoke-static {p1}, Lcom/android/systemui/statusbar/NotificationData;->getIsExpandable(Landroid/view/View;)Z
+    .line 154
+    instance-of v0, p1, Lcom/android/systemui/statusbar/ExpandableNotificationRow;
+
+    if-eqz v0, :cond_0
+
+    check-cast p1, Lcom/android/systemui/statusbar/ExpandableNotificationRow;
+
+    .end local p1
+    invoke-virtual {p1}, Lcom/android/systemui/statusbar/ExpandableNotificationRow;->isExpandable()Z
 
     move-result v0
 
+    if-eqz v0, :cond_0
+
+    const/4 v0, 0x1
+
+    :goto_0
     return v0
+
+    :cond_0
+    const/4 v0, 0x0
+
+    goto :goto_0
 .end method
 
 .method public dismissRowAnimated(Landroid/view/View;)V
@@ -337,7 +354,7 @@
 
     .prologue
     .line 202
-    invoke-virtual {p0}, Lcom/android/systemui/statusbar/policy/NotificationRowLayout;->getChildCount()I
+    invoke-virtual {p0}, Landroid/view/ViewGroup;->getChildCount()I
 
     move-result v1
 
@@ -355,7 +372,7 @@
     if-ge v0, v1, :cond_2
 
     .line 207
-    invoke-virtual {p0, v0}, Lcom/android/systemui/statusbar/policy/NotificationRowLayout;->getChildAt(I)Landroid/view/View;
+    invoke-virtual {p0, v0}, Landroid/view/ViewGroup;->getChildAt(I)Landroid/view/View;
 
     move-result-object v2
 
@@ -435,7 +452,7 @@
 
     .line 196
     .local v0, location:[I
-    invoke-virtual {p0, v0}, Lcom/android/systemui/statusbar/policy/NotificationRowLayout;->getLocationOnScreen([I)V
+    invoke-virtual {p0, v0}, Landroid/view/View;->getLocationOnScreen([I)V
 
     .line 197
     const/4 v1, 0x0
@@ -478,7 +495,7 @@
     .line 184
     const/4 v0, 0x1
 
-    invoke-virtual {p0, v0}, Lcom/android/systemui/statusbar/policy/NotificationRowLayout;->requestDisallowInterceptTouchEvent(Z)V
+    invoke-virtual {p0, v0}, Landroid/view/ViewGroup;->requestDisallowInterceptTouchEvent(Z)V
 
     .line 185
     return-void
@@ -490,7 +507,7 @@
 
     .prologue
     .line 172
-    const v1, 0x7f0900a2
+    const v1, 0x7f070099
 
     invoke-virtual {p1, v1}, Landroid/view/View;->findViewById(I)Landroid/view/View;
 
@@ -536,10 +553,10 @@
 
     .prologue
     .line 223
-    invoke-super {p0, p1}, Landroid/widget/LinearLayout;->onConfigurationChanged(Landroid/content/res/Configuration;)V
+    invoke-super {p0, p1}, Landroid/view/View;->onConfigurationChanged(Landroid/content/res/Configuration;)V
 
     .line 224
-    invoke-virtual {p0}, Lcom/android/systemui/statusbar/policy/NotificationRowLayout;->getResources()Landroid/content/res/Resources;
+    invoke-virtual {p0}, Landroid/view/View;->getResources()Landroid/content/res/Resources;
 
     move-result-object v2
 
@@ -556,7 +573,7 @@
     invoke-virtual {v2, v0}, Lcom/android/systemui/SwipeHelper;->setDensityScale(F)V
 
     .line 226
-    iget-object v2, p0, Lcom/android/systemui/statusbar/policy/NotificationRowLayout;->mContext:Landroid/content/Context;
+    iget-object v2, p0, Landroid/view/View;->mContext:Landroid/content/Context;
 
     invoke-static {v2}, Landroid/view/ViewConfiguration;->get(Landroid/content/Context;)Landroid/view/ViewConfiguration;
 
@@ -592,10 +609,10 @@
     .parameter "c"
 
     .prologue
-    .line 270
+    .line 275
     invoke-super {p0, p1}, Landroid/widget/LinearLayout;->onDraw(Landroid/graphics/Canvas;)V
 
-    .line 281
+    .line 286
     return-void
 .end method
 
@@ -604,10 +621,21 @@
 
     .prologue
     .line 264
-    invoke-super {p0}, Landroid/widget/LinearLayout;->onFinishInflate()V
+    invoke-super {p0}, Landroid/view/View;->onFinishInflate()V
 
     .line 266
     return-void
+.end method
+
+.method public onInterceptHoverEvent(Landroid/view/MotionEvent;)Z
+    .locals 1
+    .parameter "event"
+
+    .prologue
+    .line 270
+    const/4 v0, 0x1
+
+    return v0
 .end method
 
 .method public onInterceptTouchEvent(Landroid/view/MotionEvent;)Z
@@ -615,7 +643,7 @@
     .parameter "ev"
 
     .prologue
-    .line 140
+    .line 135
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/NotificationRowLayout;->mSwipeHelper:Lcom/android/systemui/SwipeHelper;
 
     invoke-virtual {v0, p1}, Lcom/android/systemui/SwipeHelper;->onInterceptTouchEvent(Landroid/view/MotionEvent;)Z
@@ -624,7 +652,7 @@
 
     if-nez v0, :cond_0
 
-    invoke-super {p0, p1}, Landroid/widget/LinearLayout;->onInterceptTouchEvent(Landroid/view/MotionEvent;)Z
+    invoke-super {p0, p1}, Landroid/view/ViewGroup;->onInterceptTouchEvent(Landroid/view/MotionEvent;)Z
 
     move-result v0
 
@@ -650,12 +678,12 @@
     .parameter "oldh"
 
     .prologue
-    .line 285
+    .line 290
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/NotificationRowLayout;->mOnSizeChangedListener:Lcom/android/systemui/statusbar/policy/OnSizeChangedListener;
 
     if-eqz v0, :cond_0
 
-    .line 286
+    .line 291
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/NotificationRowLayout;->mOnSizeChangedListener:Lcom/android/systemui/statusbar/policy/OnSizeChangedListener;
 
     move-object v1, p0
@@ -670,7 +698,7 @@
 
     invoke-interface/range {v0 .. v5}, Lcom/android/systemui/statusbar/policy/OnSizeChangedListener;->onSizeChanged(Landroid/view/View;IIII)V
 
-    .line 288
+    .line 293
     :cond_0
     return-void
 .end method
@@ -680,7 +708,7 @@
     .parameter "ev"
 
     .prologue
-    .line 149
+    .line 144
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/NotificationRowLayout;->mSwipeHelper:Lcom/android/systemui/SwipeHelper;
 
     invoke-virtual {v0, p1}, Lcom/android/systemui/SwipeHelper;->onTouchEvent(Landroid/view/MotionEvent;)Z
@@ -689,7 +717,7 @@
 
     if-nez v0, :cond_0
 
-    invoke-super {p0, p1}, Landroid/widget/LinearLayout;->onTouchEvent(Landroid/view/MotionEvent;)Z
+    invoke-super {p0, p1}, Landroid/view/View;->onTouchEvent(Landroid/view/MotionEvent;)Z
 
     move-result v0
 
@@ -712,18 +740,18 @@
     .parameter "hasWindowFocus"
 
     .prologue
-    .line 117
-    invoke-super {p0, p1}, Landroid/widget/LinearLayout;->onWindowFocusChanged(Z)V
+    .line 112
+    invoke-super {p0, p1}, Landroid/view/View;->onWindowFocusChanged(Z)V
 
-    .line 118
+    .line 113
     if-nez p1, :cond_0
 
-    .line 119
+    .line 114
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/NotificationRowLayout;->mSwipeHelper:Lcom/android/systemui/SwipeHelper;
 
     invoke-virtual {v0}, Lcom/android/systemui/SwipeHelper;->removeLongPressCallback()V
 
-    .line 121
+    .line 116
     :cond_0
     return-void
 .end method
@@ -733,10 +761,10 @@
     .parameter "anim"
 
     .prologue
-    .line 124
+    .line 119
     iput-boolean p1, p0, Lcom/android/systemui/statusbar/policy/NotificationRowLayout;->mAnimateBounds:Z
 
-    .line 125
+    .line 120
     return-void
 .end method
 
@@ -751,7 +779,7 @@
     .line 245
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/NotificationRowLayout;->mRealLayoutTransition:Landroid/animation/LayoutTransition;
 
-    invoke-virtual {p0, v0}, Lcom/android/systemui/statusbar/policy/NotificationRowLayout;->setLayoutTransition(Landroid/animation/LayoutTransition;)V
+    invoke-virtual {p0, v0}, Landroid/view/ViewGroup;->setLayoutTransition(Landroid/animation/LayoutTransition;)V
 
     .line 252
     :goto_0
@@ -776,7 +804,7 @@
     :cond_1
     const/4 v0, 0x0
 
-    invoke-virtual {p0, v0}, Lcom/android/systemui/statusbar/policy/NotificationRowLayout;->setLayoutTransition(Landroid/animation/LayoutTransition;)V
+    invoke-virtual {p0, v0}, Landroid/view/ViewGroup;->setLayoutTransition(Landroid/animation/LayoutTransition;)V
 
     goto :goto_0
 .end method
@@ -786,12 +814,12 @@
     .parameter "listener"
 
     .prologue
-    .line 108
+    .line 103
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/NotificationRowLayout;->mSwipeHelper:Lcom/android/systemui/SwipeHelper;
 
     invoke-virtual {v0, p1}, Lcom/android/systemui/SwipeHelper;->setLongPressListener(Landroid/view/View$OnLongClickListener;)V
 
-    .line 109
+    .line 104
     return-void
 .end method
 
@@ -800,39 +828,55 @@
     .parameter "l"
 
     .prologue
-    .line 112
+    .line 107
     iput-object p1, p0, Lcom/android/systemui/statusbar/policy/NotificationRowLayout;->mOnSizeChangedListener:Lcom/android/systemui/statusbar/policy/OnSizeChangedListener;
 
-    .line 113
+    .line 108
     return-void
 .end method
 
-.method public setUserExpandedChild(Landroid/view/View;Z)Z
+.method public setUserExpandedChild(Landroid/view/View;Z)V
     .locals 1
     .parameter "v"
     .parameter "userExpanded"
 
     .prologue
-    .line 163
-    invoke-static {p1, p2}, Lcom/android/systemui/statusbar/NotificationData;->setUserExpanded(Landroid/view/View;Z)Z
+    .line 159
+    instance-of v0, p1, Lcom/android/systemui/statusbar/ExpandableNotificationRow;
 
-    move-result v0
+    if-eqz v0, :cond_0
 
-    return v0
+    .line 160
+    check-cast p1, Lcom/android/systemui/statusbar/ExpandableNotificationRow;
+
+    .end local p1
+    invoke-virtual {p1, p2}, Lcom/android/systemui/statusbar/ExpandableNotificationRow;->setUserExpanded(Z)V
+
+    .line 162
+    :cond_0
+    return-void
 .end method
 
-.method public setUserLockedChild(Landroid/view/View;Z)Z
+.method public setUserLockedChild(Landroid/view/View;Z)V
     .locals 1
     .parameter "v"
     .parameter "userLocked"
 
     .prologue
-    .line 167
-    invoke-static {p1, p2}, Lcom/android/systemui/statusbar/NotificationData;->setUserLocked(Landroid/view/View;Z)Z
+    .line 165
+    instance-of v0, p1, Lcom/android/systemui/statusbar/ExpandableNotificationRow;
 
-    move-result v0
+    if-eqz v0, :cond_0
 
-    return v0
+    .line 166
+    check-cast p1, Lcom/android/systemui/statusbar/ExpandableNotificationRow;
+
+    .end local p1
+    invoke-virtual {p1, p2}, Lcom/android/systemui/statusbar/ExpandableNotificationRow;->setUserLocked(Z)V
+
+    .line 168
+    :cond_0
+    return-void
 .end method
 
 .method public setViewRemoval(Z)V

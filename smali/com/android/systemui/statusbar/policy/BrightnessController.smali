@@ -22,7 +22,7 @@
 
 
 # instance fields
-.field private allowSettingsChanges:Z
+.field private mAllowSettingsChanges:Z
 
 .field private mAnimIcon:Lcom/android/systemui/statusbar/AnimatedBrightnessIconView;
 
@@ -55,9 +55,9 @@
 
 .field private final mControl:Lcom/android/systemui/statusbar/policy/ToggleSlider;
 
-.field private mEDM:Landroid/app/enterprise/EnterpriseDeviceManager;
-
 .field private final mIcon:Landroid/widget/ImageView;
+
+.field private mMDMReceiver:Landroid/content/BroadcastReceiver;
 
 .field private final mMaximumBacklight:I
 
@@ -65,15 +65,13 @@
 
 .field private final mPower:Landroid/os/IPowerManager;
 
-.field private mReceiver:Landroid/content/BroadcastReceiver;
-
 .field private mRestrictionPolicy:Landroid/app/enterprise/RestrictionPolicy;
 
 .field private mSeekBar:Landroid/view/View;
 
 .field private mSlider:Landroid/widget/SeekBar;
 
-.field private mToggle:Landroid/widget/CompoundButton;
+.field private mToggle:Lcom/sec/android/touchwiz/widget/TwCheckBox;
 
 .field private mTwSlider:Lcom/sec/android/touchwiz/widget/TwSeekBarSplit;
 
@@ -81,573 +79,743 @@
 
 
 # direct methods
+.method public constructor <init>(Landroid/content/Context;Landroid/widget/ImageView;Lcom/android/systemui/statusbar/policy/ToggleSlider;)V
+    .locals 3
+    .parameter "context"
+    .parameter "icon"
+    .parameter "control"
+
+    .prologue
+    .line 118
+    invoke-direct {p0, p1, p3}, Lcom/android/systemui/statusbar/policy/BrightnessController;-><init>(Landroid/content/Context;Lcom/android/systemui/statusbar/policy/ToggleSlider;)V
+
+    .line 120
+    const/16 v1, 0x8
+
+    invoke-virtual {p2, v1}, Landroid/widget/ImageView;->setVisibility(I)V
+
+    .line 122
+    const v1, 0x7f070020
+
+    invoke-virtual {p3, v1}, Lcom/android/systemui/statusbar/policy/ToggleSlider;->findViewById(I)Landroid/view/View;
+
+    move-result-object v0
+
+    check-cast v0, Landroid/widget/TextView;
+
+    .line 123
+    .local v0, level:Landroid/widget/TextView;
+    const/4 v1, 0x1
+
+    const/high16 v2, 0x4180
+
+    invoke-virtual {v0, v1, v2}, Landroid/widget/TextView;->setTextSize(IF)V
+
+    .line 124
+    return-void
+.end method
+
 .method public constructor <init>(Landroid/content/Context;Lcom/android/systemui/statusbar/policy/ToggleSlider;)V
-    .locals 15
+    .locals 19
     .parameter "context"
     .parameter "control"
 
     .prologue
-    .line 113
-    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
-
-    .line 90
-    const/4 v11, 0x0
-
-    iput-object v11, p0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mEDM:Landroid/app/enterprise/EnterpriseDeviceManager;
-
-    .line 91
-    const/4 v11, 0x0
-
-    iput-object v11, p0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mRestrictionPolicy:Landroid/app/enterprise/RestrictionPolicy;
+    .line 126
+    invoke-direct/range {p0 .. p0}, Ljava/lang/Object;-><init>()V
 
     .line 95
-    const/4 v11, 0x1
+    const/4 v2, 0x0
 
-    iput-boolean v11, p0, Lcom/android/systemui/statusbar/policy/BrightnessController;->allowSettingsChanges:Z
+    move-object/from16 v0, p0
 
-    .line 101
-    new-instance v11, Ljava/util/ArrayList;
+    iput-object v2, v0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mRestrictionPolicy:Landroid/app/enterprise/RestrictionPolicy;
 
-    invoke-direct {v11}, Ljava/util/ArrayList;-><init>()V
+    .line 99
+    const/4 v2, 0x1
 
-    iput-object v11, p0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mChangeCallbacks:Ljava/util/ArrayList;
+    move-object/from16 v0, p0
 
-    .line 372
-    new-instance v11, Lcom/android/systemui/statusbar/policy/BrightnessController$5;
+    iput-boolean v2, v0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mAllowSettingsChanges:Z
 
-    invoke-direct {v11, p0}, Lcom/android/systemui/statusbar/policy/BrightnessController$5;-><init>(Lcom/android/systemui/statusbar/policy/BrightnessController;)V
+    .line 105
+    new-instance v2, Ljava/util/ArrayList;
 
-    iput-object v11, p0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mReceiver:Landroid/content/BroadcastReceiver;
+    invoke-direct {v2}, Ljava/util/ArrayList;-><init>()V
 
-    .line 114
-    move-object/from16 v0, p1
+    move-object/from16 v0, p0
 
-    iput-object v0, p0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mContext:Landroid/content/Context;
+    iput-object v2, v0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mChangeCallbacks:Ljava/util/ArrayList;
 
-    .line 115
-    move-object/from16 v0, p2
+    .line 394
+    new-instance v2, Lcom/android/systemui/statusbar/policy/BrightnessController$5;
 
-    iput-object v0, p0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mControl:Lcom/android/systemui/statusbar/policy/ToggleSlider;
+    move-object/from16 v0, p0
 
-    .line 118
-    new-instance v11, Lcom/android/systemui/statusbar/policy/BrightnessController$1;
+    invoke-direct {v2, v0}, Lcom/android/systemui/statusbar/policy/BrightnessController$5;-><init>(Lcom/android/systemui/statusbar/policy/BrightnessController;)V
 
-    iget-object v12, p0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mContext:Landroid/content/Context;
+    move-object/from16 v0, p0
 
-    invoke-direct {v11, p0, v12}, Lcom/android/systemui/statusbar/policy/BrightnessController$1;-><init>(Lcom/android/systemui/statusbar/policy/BrightnessController;Landroid/content/Context;)V
-
-    iput-object v11, p0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mUserTracker:Lcom/android/systemui/statusbar/policy/CurrentUserTracker;
+    iput-object v2, v0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mMDMReceiver:Landroid/content/BroadcastReceiver;
 
     .line 127
-    const-string v11, "power"
-
     move-object/from16 v0, p1
 
-    invoke-virtual {v0, v11}, Landroid/content/Context;->getSystemService(Ljava/lang/String;)Ljava/lang/Object;
+    move-object/from16 v1, p0
 
-    move-result-object v5
-
-    check-cast v5, Landroid/os/PowerManager;
+    iput-object v0, v1, Lcom/android/systemui/statusbar/policy/BrightnessController;->mContext:Landroid/content/Context;
 
     .line 128
-    .local v5, pm:Landroid/os/PowerManager;
-    invoke-virtual {v5}, Landroid/os/PowerManager;->getMinimumScreenBrightnessSetting()I
-
-    move-result v11
-
-    iput v11, p0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mMinimumBacklight:I
-
-    .line 129
-    invoke-virtual {v5}, Landroid/os/PowerManager;->getMaximumScreenBrightnessSetting()I
-
-    move-result v11
-
-    iput v11, p0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mMaximumBacklight:I
-
-    .line 132
-    const v11, 0x7f090034
-
     move-object/from16 v0, p2
 
-    invoke-virtual {v0, v11}, Lcom/android/systemui/statusbar/policy/ToggleSlider;->findViewById(I)Landroid/view/View;
+    move-object/from16 v1, p0
 
-    move-result-object v11
+    iput-object v0, v1, Lcom/android/systemui/statusbar/policy/BrightnessController;->mControl:Lcom/android/systemui/statusbar/policy/ToggleSlider;
 
-    check-cast v11, Landroid/widget/ImageView;
+    .line 131
+    new-instance v2, Lcom/android/systemui/statusbar/policy/BrightnessController$1;
 
-    iput-object v11, p0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mIcon:Landroid/widget/ImageView;
+    move-object/from16 v0, p0
 
-    .line 133
-    const v11, 0x7f090035
+    iget-object v3, v0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mContext:Landroid/content/Context;
 
-    move-object/from16 v0, p2
+    move-object/from16 v0, p0
 
-    invoke-virtual {v0, v11}, Lcom/android/systemui/statusbar/policy/ToggleSlider;->findViewById(I)Landroid/view/View;
+    invoke-direct {v2, v0, v3}, Lcom/android/systemui/statusbar/policy/BrightnessController$1;-><init>(Lcom/android/systemui/statusbar/policy/BrightnessController;Landroid/content/Context;)V
 
-    move-result-object v11
+    move-object/from16 v0, p0
 
-    check-cast v11, Lcom/android/systemui/statusbar/AnimatedBrightnessIconView;
+    iput-object v2, v0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mUserTracker:Lcom/android/systemui/statusbar/policy/CurrentUserTracker;
 
-    iput-object v11, p0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mAnimIcon:Lcom/android/systemui/statusbar/AnimatedBrightnessIconView;
-
-    .line 134
-    iget-object v11, p0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mControl:Lcom/android/systemui/statusbar/policy/ToggleSlider;
-
-    iget v12, p0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mMaximumBacklight:I
-
-    iget v13, p0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mMinimumBacklight:I
-
-    sub-int/2addr v12, v13
-
-    invoke-virtual {v11, v12}, Lcom/android/systemui/statusbar/policy/ToggleSlider;->setMax(I)V
-
-    .line 137
-    const/4 v11, 0x0
-
-    iput-boolean v11, p0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mAutomaticAvailable:Z
-
-    .line 138
-    const-string v11, "sensor"
+    .line 140
+    const-string v2, "power"
 
     move-object/from16 v0, p1
 
-    invoke-virtual {v0, v11}, Landroid/content/Context;->getSystemService(Ljava/lang/String;)Ljava/lang/Object;
+    invoke-virtual {v0, v2}, Landroid/content/Context;->getSystemService(Ljava/lang/String;)Ljava/lang/Object;
 
-    move-result-object v7
+    move-result-object v13
 
-    check-cast v7, Landroid/hardware/SensorManager;
-
-    .line 139
-    .local v7, sensorMgr:Landroid/hardware/SensorManager;
-    const/4 v11, -0x1
-
-    invoke-virtual {v7, v11}, Landroid/hardware/SensorManager;->getSensorList(I)Ljava/util/List;
-
-    move-result-object v6
-
-    .line 140
-    .local v6, sensorList:Ljava/util/List;,"Ljava/util/List<Landroid/hardware/Sensor;>;"
-    const/4 v4, 0x0
-
-    .local v4, i:I
-    :goto_0
-    invoke-interface {v6}, Ljava/util/List;->size()I
-
-    move-result v11
-
-    if-ge v4, v11, :cond_1
+    check-cast v13, Landroid/os/PowerManager;
 
     .line 141
-    invoke-interface {v6, v4}, Ljava/util/List;->get(I)Ljava/lang/Object;
-
-    move-result-object v11
-
-    check-cast v11, Landroid/hardware/Sensor;
-
-    invoke-virtual {v11}, Landroid/hardware/Sensor;->getType()I
-
-    move-result v8
-
-    .line 143
-    .local v8, sensorType:I
-    const/4 v11, 0x5
-
-    if-ne v8, v11, :cond_0
-
-    .line 144
-    const/4 v11, 0x1
-
-    iput-boolean v11, p0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mAutomaticAvailable:Z
-
-    .line 140
-    :cond_0
-    add-int/lit8 v4, v4, 0x1
-
-    goto :goto_0
-
-    .line 147
-    .end local v8           #sensorType:I
-    :cond_1
-    iget-boolean v11, p0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mAutomaticAvailable:Z
-
-    if-eqz v11, :cond_5
-
-    .line 150
-    :try_start_0
-    iget-object v11, p0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mContext:Landroid/content/Context;
-
-    invoke-virtual {v11}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
-
-    move-result-object v11
-
-    const-string v12, "screen_brightness_mode"
-
-    iget-object v13, p0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mUserTracker:Lcom/android/systemui/statusbar/policy/CurrentUserTracker;
-
-    invoke-virtual {v13}, Lcom/android/systemui/statusbar/policy/CurrentUserTracker;->getCurrentUserId()I
-
-    move-result v13
-
-    invoke-static {v11, v12, v13}, Landroid/provider/Settings$System;->getIntForUser(Landroid/content/ContentResolver;Ljava/lang/String;I)I
-    :try_end_0
-    .catch Landroid/provider/Settings$SettingNotFoundException; {:try_start_0 .. :try_end_0} :catch_0
+    .local v13, pm:Landroid/os/PowerManager;
+    invoke-virtual {v13}, Landroid/os/PowerManager;->getMinimumScreenBrightnessSetting()I
 
     move-result v2
 
-    .line 155
-    .local v2, automatic:I
+    move-object/from16 v0, p0
+
+    iput v2, v0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mMinimumBacklight:I
+
+    .line 142
+    invoke-virtual {v13}, Landroid/os/PowerManager;->getMaximumScreenBrightnessSetting()I
+
+    move-result v2
+
+    move-object/from16 v0, p0
+
+    iput v2, v0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mMaximumBacklight:I
+
+    .line 145
+    const v2, 0x7f070019
+
+    move-object/from16 v0, p2
+
+    invoke-virtual {v0, v2}, Lcom/android/systemui/statusbar/policy/ToggleSlider;->findViewById(I)Landroid/view/View;
+
+    move-result-object v2
+
+    check-cast v2, Landroid/widget/ImageView;
+
+    move-object/from16 v0, p0
+
+    iput-object v2, v0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mIcon:Landroid/widget/ImageView;
+
+    .line 146
+    const v2, 0x7f07001a
+
+    move-object/from16 v0, p2
+
+    invoke-virtual {v0, v2}, Lcom/android/systemui/statusbar/policy/ToggleSlider;->findViewById(I)Landroid/view/View;
+
+    move-result-object v2
+
+    check-cast v2, Lcom/android/systemui/statusbar/AnimatedBrightnessIconView;
+
+    move-object/from16 v0, p0
+
+    iput-object v2, v0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mAnimIcon:Lcom/android/systemui/statusbar/AnimatedBrightnessIconView;
+
+    .line 147
+    move-object/from16 v0, p0
+
+    iget-object v2, v0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mControl:Lcom/android/systemui/statusbar/policy/ToggleSlider;
+
+    move-object/from16 v0, p0
+
+    iget v3, v0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mMaximumBacklight:I
+
+    move-object/from16 v0, p0
+
+    iget v4, v0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mMinimumBacklight:I
+
+    sub-int/2addr v3, v4
+
+    invoke-virtual {v2, v3}, Lcom/android/systemui/statusbar/policy/ToggleSlider;->setMax(I)V
+
+    .line 150
+    const/4 v2, 0x0
+
+    move-object/from16 v0, p0
+
+    iput-boolean v2, v0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mAutomaticAvailable:Z
+
+    .line 151
+    const-string v2, "sensor"
+
+    move-object/from16 v0, p1
+
+    invoke-virtual {v0, v2}, Landroid/content/Context;->getSystemService(Ljava/lang/String;)Ljava/lang/Object;
+
+    move-result-object v15
+
+    check-cast v15, Landroid/hardware/SensorManager;
+
+    .line 152
+    .local v15, sensorMgr:Landroid/hardware/SensorManager;
+    const/4 v2, -0x1
+
+    invoke-virtual {v15, v2}, Landroid/hardware/SensorManager;->getSensorList(I)Ljava/util/List;
+
+    move-result-object v14
+
+    .line 153
+    .local v14, sensorList:Ljava/util/List;,"Ljava/util/List<Landroid/hardware/Sensor;>;"
+    const/4 v12, 0x0
+
+    .local v12, i:I
+    :goto_0
+    invoke-interface {v14}, Ljava/util/List;->size()I
+
+    move-result v2
+
+    if-ge v12, v2, :cond_1
+
+    .line 154
+    invoke-interface {v14, v12}, Ljava/util/List;->get(I)Ljava/lang/Object;
+
+    move-result-object v2
+
+    check-cast v2, Landroid/hardware/Sensor;
+
+    invoke-virtual {v2}, Landroid/hardware/Sensor;->getType()I
+
+    move-result v16
+
+    .line 156
+    .local v16, sensorType:I
+    const/4 v2, 0x5
+
+    move/from16 v0, v16
+
+    if-ne v0, v2, :cond_0
+
+    .line 157
+    const/4 v2, 0x1
+
+    move-object/from16 v0, p0
+
+    iput-boolean v2, v0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mAutomaticAvailable:Z
+
+    .line 153
+    :cond_0
+    add-int/lit8 v12, v12, 0x1
+
+    goto :goto_0
+
+    .line 160
+    .end local v16           #sensorType:I
+    :cond_1
+    move-object/from16 v0, p0
+
+    iget-boolean v2, v0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mAutomaticAvailable:Z
+
+    if-eqz v2, :cond_5
+
+    .line 163
+    :try_start_0
+    move-object/from16 v0, p0
+
+    iget-object v2, v0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mContext:Landroid/content/Context;
+
+    invoke-virtual {v2}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
+
+    move-result-object v2
+
+    const-string v3, "screen_brightness_mode"
+
+    move-object/from16 v0, p0
+
+    iget-object v4, v0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mUserTracker:Lcom/android/systemui/statusbar/policy/CurrentUserTracker;
+
+    invoke-virtual {v4}, Lcom/android/systemui/statusbar/policy/CurrentUserTracker;->getCurrentUserId()I
+
+    move-result v4
+
+    invoke-static {v2, v3, v4}, Landroid/provider/Settings$System;->getIntForUser(Landroid/content/ContentResolver;Ljava/lang/String;I)I
+    :try_end_0
+    .catch Landroid/provider/Settings$SettingNotFoundException; {:try_start_0 .. :try_end_0} :catch_0
+
+    move-result v9
+
+    .line 168
+    .local v9, automatic:I
     :goto_1
-    iget-object v12, p0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mControl:Lcom/android/systemui/statusbar/policy/ToggleSlider;
+    move-object/from16 v0, p0
 
-    if-eqz v2, :cond_4
+    iget-object v3, v0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mControl:Lcom/android/systemui/statusbar/policy/ToggleSlider;
 
-    const/4 v11, 0x1
+    if-eqz v9, :cond_4
+
+    const/4 v2, 0x1
 
     :goto_2
-    invoke-virtual {v12, v11}, Lcom/android/systemui/statusbar/policy/ToggleSlider;->setChecked(Z)V
+    invoke-virtual {v3, v2}, Lcom/android/systemui/statusbar/policy/ToggleSlider;->setChecked(Z)V
 
-    .line 162
-    .end local v2           #automatic:I
+    .line 175
+    .end local v9           #automatic:I
     :goto_3
-    const-string v11, "power"
+    const-string v2, "power"
 
-    invoke-static {v11}, Landroid/os/ServiceManager;->getService(Ljava/lang/String;)Landroid/os/IBinder;
+    invoke-static {v2}, Landroid/os/ServiceManager;->getService(Ljava/lang/String;)Landroid/os/IBinder;
 
-    move-result-object v11
+    move-result-object v2
 
-    invoke-static {v11}, Landroid/os/IPowerManager$Stub;->asInterface(Landroid/os/IBinder;)Landroid/os/IPowerManager;
+    invoke-static {v2}, Landroid/os/IPowerManager$Stub;->asInterface(Landroid/os/IBinder;)Landroid/os/IPowerManager;
 
-    move-result-object v11
+    move-result-object v2
 
-    iput-object v11, p0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mPower:Landroid/os/IPowerManager;
+    move-object/from16 v0, p0
 
-    .line 166
+    iput-object v2, v0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mPower:Landroid/os/IPowerManager;
+
+    .line 179
     :try_start_1
-    iget-object v11, p0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mContext:Landroid/content/Context;
+    move-object/from16 v0, p0
 
-    invoke-virtual {v11}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
+    iget-object v2, v0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mContext:Landroid/content/Context;
 
-    move-result-object v11
+    invoke-virtual {v2}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
 
-    const-string v12, "screen_brightness"
+    move-result-object v2
 
-    iget-object v13, p0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mUserTracker:Lcom/android/systemui/statusbar/policy/CurrentUserTracker;
+    const-string v3, "screen_brightness"
 
-    invoke-virtual {v13}, Lcom/android/systemui/statusbar/policy/CurrentUserTracker;->getCurrentUserId()I
+    move-object/from16 v0, p0
 
-    move-result v13
+    iget-object v4, v0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mUserTracker:Lcom/android/systemui/statusbar/policy/CurrentUserTracker;
 
-    invoke-static {v11, v12, v13}, Landroid/provider/Settings$System;->getIntForUser(Landroid/content/ContentResolver;Ljava/lang/String;I)I
+    invoke-virtual {v4}, Lcom/android/systemui/statusbar/policy/CurrentUserTracker;->getCurrentUserId()I
+
+    move-result v4
+
+    invoke-static {v2, v3, v4}, Landroid/provider/Settings$System;->getIntForUser(Landroid/content/ContentResolver;Ljava/lang/String;I)I
     :try_end_1
     .catch Landroid/provider/Settings$SettingNotFoundException; {:try_start_1 .. :try_end_1} :catch_1
 
-    move-result v10
+    move-result v18
 
-    .line 171
-    .local v10, value:I
+    .line 184
+    .local v18, value:I
     :goto_4
-    iget-object v11, p0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mControl:Lcom/android/systemui/statusbar/policy/ToggleSlider;
+    move-object/from16 v0, p0
 
-    iget v12, p0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mMinimumBacklight:I
+    iget-object v2, v0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mControl:Lcom/android/systemui/statusbar/policy/ToggleSlider;
 
-    sub-int v12, v10, v12
+    move-object/from16 v0, p0
 
-    invoke-virtual {v11, v12}, Lcom/android/systemui/statusbar/policy/ToggleSlider;->setValue(I)V
+    iget v3, v0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mMinimumBacklight:I
 
-    .line 174
-    sget-boolean v11, Lcom/android/systemui/statusbar/Feature;->mUseAutoBrightnessDetail:Z
+    sub-int v3, v18, v3
 
-    if-eqz v11, :cond_2
+    invoke-virtual {v2, v3}, Lcom/android/systemui/statusbar/policy/ToggleSlider;->setValue(I)V
 
-    .line 175
-    iget-object v11, p0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mContext:Landroid/content/Context;
+    .line 187
+    sget-boolean v2, Lcom/android/systemui/statusbar/Feature;->mUseAutoBrightnessDetail:Z
 
-    invoke-virtual {v11}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
+    if-eqz v2, :cond_2
 
-    move-result-object v11
+    .line 188
+    move-object/from16 v0, p0
 
-    const-string v12, "auto_brightness_detail"
+    iget-object v2, v0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mContext:Landroid/content/Context;
 
-    const/16 v13, 0x64
+    invoke-virtual {v2}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
 
-    iget-object v14, p0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mUserTracker:Lcom/android/systemui/statusbar/policy/CurrentUserTracker;
+    move-result-object v2
 
-    invoke-virtual {v14}, Lcom/android/systemui/statusbar/policy/CurrentUserTracker;->getCurrentUserId()I
+    const-string v3, "auto_brightness_detail"
 
-    move-result v14
+    const/16 v4, 0x64
 
-    invoke-static {v11, v12, v13, v14}, Landroid/provider/Settings$System;->getIntForUser(Landroid/content/ContentResolver;Ljava/lang/String;II)I
+    move-object/from16 v0, p0
 
-    move-result v1
+    iget-object v6, v0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mUserTracker:Lcom/android/systemui/statusbar/policy/CurrentUserTracker;
 
-    .line 178
-    .local v1, autoValue:I
-    const/16 v11, 0xa
+    invoke-virtual {v6}, Lcom/android/systemui/statusbar/policy/CurrentUserTracker;->getCurrentUserId()I
 
-    move-object/from16 v0, p2
+    move-result v6
 
-    invoke-virtual {v0, v11}, Lcom/android/systemui/statusbar/policy/ToggleSlider;->setSplitMax(I)V
+    invoke-static {v2, v3, v4, v6}, Landroid/provider/Settings$System;->getIntForUser(Landroid/content/ContentResolver;Ljava/lang/String;II)I
 
-    .line 179
-    div-int/lit8 v11, v1, 0x14
+    move-result v8
 
-    move-object/from16 v0, p2
-
-    invoke-virtual {v0, v11}, Lcom/android/systemui/statusbar/policy/ToggleSlider;->setSplitValue(I)V
-
-    .line 180
-    div-int/lit8 v11, v1, 0x14
+    .line 191
+    .local v8, autoValue:I
+    const/16 v2, 0xa
 
     move-object/from16 v0, p2
 
-    invoke-virtual {v0, v11}, Lcom/android/systemui/statusbar/policy/ToggleSlider;->setSplitText(I)V
+    invoke-virtual {v0, v2}, Lcom/android/systemui/statusbar/policy/ToggleSlider;->setSplitMax(I)V
 
-    .line 183
-    .end local v1           #autoValue:I
+    .line 192
+    div-int/lit8 v2, v8, 0x14
+
+    move-object/from16 v0, p2
+
+    invoke-virtual {v0, v2}, Lcom/android/systemui/statusbar/policy/ToggleSlider;->setSplitValue(I)V
+
+    .line 193
+    div-int/lit8 v2, v8, 0x14
+
+    move-object/from16 v0, p2
+
+    invoke-virtual {v0, v2}, Lcom/android/systemui/statusbar/policy/ToggleSlider;->setSplitText(I)V
+
+    .line 196
+    .end local v8           #autoValue:I
     :cond_2
     move-object/from16 v0, p2
 
-    invoke-virtual {v0, p0}, Lcom/android/systemui/statusbar/policy/ToggleSlider;->setOnChangedListener(Lcom/android/systemui/statusbar/policy/ToggleSlider$Listener;)V
+    move-object/from16 v1, p0
 
-    .line 185
-    invoke-virtual/range {p1 .. p1}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
-
-    move-result-object v11
-
-    iput-object v11, p0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mContentResolver:Landroid/content/ContentResolver;
-
-    .line 186
-    new-instance v11, Lcom/android/systemui/statusbar/policy/BrightnessController$BrightnessObserver;
-
-    invoke-direct {v11, p0}, Lcom/android/systemui/statusbar/policy/BrightnessController$BrightnessObserver;-><init>(Lcom/android/systemui/statusbar/policy/BrightnessController;)V
-
-    iput-object v11, p0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mBrightnessObserver:Lcom/android/systemui/statusbar/policy/BrightnessController$BrightnessObserver;
-
-    .line 187
-    new-instance v11, Lcom/android/systemui/statusbar/policy/BrightnessController$AutomaticObserver;
-
-    invoke-direct {v11, p0}, Lcom/android/systemui/statusbar/policy/BrightnessController$AutomaticObserver;-><init>(Lcom/android/systemui/statusbar/policy/BrightnessController;)V
-
-    iput-object v11, p0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mAutomaticObserver:Lcom/android/systemui/statusbar/policy/BrightnessController$AutomaticObserver;
-
-    .line 188
-    new-instance v11, Lcom/android/systemui/statusbar/policy/BrightnessController$AutomaticBrightnessObserver;
-
-    invoke-direct {v11, p0}, Lcom/android/systemui/statusbar/policy/BrightnessController$AutomaticBrightnessObserver;-><init>(Lcom/android/systemui/statusbar/policy/BrightnessController;)V
-
-    iput-object v11, p0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mAutomaticBrightnessObserver:Lcom/android/systemui/statusbar/policy/BrightnessController$AutomaticBrightnessObserver;
-
-    .line 190
-    iget-object v11, p0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mContentResolver:Landroid/content/ContentResolver;
-
-    const-string v12, "screen_brightness"
-
-    invoke-static {v12}, Landroid/provider/Settings$System;->getUriFor(Ljava/lang/String;)Landroid/net/Uri;
-
-    move-result-object v12
-
-    const/4 v13, 0x0
-
-    iget-object v14, p0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mBrightnessObserver:Lcom/android/systemui/statusbar/policy/BrightnessController$BrightnessObserver;
-
-    invoke-virtual {v11, v12, v13, v14}, Landroid/content/ContentResolver;->registerContentObserver(Landroid/net/Uri;ZLandroid/database/ContentObserver;)V
-
-    .line 191
-    iget-object v11, p0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mContentResolver:Landroid/content/ContentResolver;
-
-    const-string v12, "screen_brightness_mode"
-
-    invoke-static {v12}, Landroid/provider/Settings$System;->getUriFor(Ljava/lang/String;)Landroid/net/Uri;
-
-    move-result-object v12
-
-    const/4 v13, 0x0
-
-    iget-object v14, p0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mAutomaticObserver:Lcom/android/systemui/statusbar/policy/BrightnessController$AutomaticObserver;
-
-    invoke-virtual {v11, v12, v13, v14}, Landroid/content/ContentResolver;->registerContentObserver(Landroid/net/Uri;ZLandroid/database/ContentObserver;)V
-
-    .line 192
-    iget-object v11, p0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mContentResolver:Landroid/content/ContentResolver;
-
-    const-string v12, "auto_brightness_detail"
-
-    invoke-static {v12}, Landroid/provider/Settings$System;->getUriFor(Ljava/lang/String;)Landroid/net/Uri;
-
-    move-result-object v12
-
-    const/4 v13, 0x0
-
-    iget-object v14, p0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mAutomaticBrightnessObserver:Lcom/android/systemui/statusbar/policy/BrightnessController$AutomaticBrightnessObserver;
-
-    invoke-virtual {v11, v12, v13, v14}, Landroid/content/ContentResolver;->registerContentObserver(Landroid/net/Uri;ZLandroid/database/ContentObserver;)V
-
-    .line 195
-    const v11, 0x7f0900ba
-
-    move-object/from16 v0, p2
-
-    invoke-virtual {v0, v11}, Lcom/android/systemui/statusbar/policy/ToggleSlider;->findViewById(I)Landroid/view/View;
-
-    move-result-object v11
-
-    check-cast v11, Landroid/widget/SeekBar;
-
-    iput-object v11, p0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mSlider:Landroid/widget/SeekBar;
-
-    .line 196
-    iget-object v11, p0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mSlider:Landroid/widget/SeekBar;
-
-    invoke-virtual {v11}, Landroid/widget/SeekBar;->getParent()Landroid/view/ViewParent;
-
-    move-result-object v11
-
-    check-cast v11, Landroid/view/View;
-
-    iput-object v11, p0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mSeekBar:Landroid/view/View;
-
-    .line 197
-    const v11, 0x7f0900bc
-
-    move-object/from16 v0, p2
-
-    invoke-virtual {v0, v11}, Lcom/android/systemui/statusbar/policy/ToggleSlider;->findViewById(I)Landroid/view/View;
-
-    move-result-object v11
-
-    check-cast v11, Lcom/sec/android/touchwiz/widget/TwSeekBarSplit;
-
-    iput-object v11, p0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mTwSlider:Lcom/sec/android/touchwiz/widget/TwSeekBarSplit;
+    invoke-virtual {v0, v1}, Lcom/android/systemui/statusbar/policy/ToggleSlider;->setOnChangedListener(Lcom/android/systemui/statusbar/policy/ToggleSlider$Listener;)V
 
     .line 198
-    const v11, 0x7f0900b5
+    invoke-virtual/range {p1 .. p1}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
+
+    move-result-object v2
+
+    move-object/from16 v0, p0
+
+    iput-object v2, v0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mContentResolver:Landroid/content/ContentResolver;
+
+    .line 199
+    new-instance v2, Lcom/android/systemui/statusbar/policy/BrightnessController$BrightnessObserver;
+
+    move-object/from16 v0, p0
+
+    invoke-direct {v2, v0}, Lcom/android/systemui/statusbar/policy/BrightnessController$BrightnessObserver;-><init>(Lcom/android/systemui/statusbar/policy/BrightnessController;)V
+
+    move-object/from16 v0, p0
+
+    iput-object v2, v0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mBrightnessObserver:Lcom/android/systemui/statusbar/policy/BrightnessController$BrightnessObserver;
+
+    .line 200
+    new-instance v2, Lcom/android/systemui/statusbar/policy/BrightnessController$AutomaticObserver;
+
+    move-object/from16 v0, p0
+
+    invoke-direct {v2, v0}, Lcom/android/systemui/statusbar/policy/BrightnessController$AutomaticObserver;-><init>(Lcom/android/systemui/statusbar/policy/BrightnessController;)V
+
+    move-object/from16 v0, p0
+
+    iput-object v2, v0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mAutomaticObserver:Lcom/android/systemui/statusbar/policy/BrightnessController$AutomaticObserver;
+
+    .line 201
+    new-instance v2, Lcom/android/systemui/statusbar/policy/BrightnessController$AutomaticBrightnessObserver;
+
+    move-object/from16 v0, p0
+
+    invoke-direct {v2, v0}, Lcom/android/systemui/statusbar/policy/BrightnessController$AutomaticBrightnessObserver;-><init>(Lcom/android/systemui/statusbar/policy/BrightnessController;)V
+
+    move-object/from16 v0, p0
+
+    iput-object v2, v0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mAutomaticBrightnessObserver:Lcom/android/systemui/statusbar/policy/BrightnessController$AutomaticBrightnessObserver;
+
+    .line 203
+    move-object/from16 v0, p0
+
+    iget-object v2, v0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mContentResolver:Landroid/content/ContentResolver;
+
+    const-string v3, "screen_brightness"
+
+    invoke-static {v3}, Landroid/provider/Settings$System;->getUriFor(Ljava/lang/String;)Landroid/net/Uri;
+
+    move-result-object v3
+
+    const/4 v4, 0x0
+
+    move-object/from16 v0, p0
+
+    iget-object v6, v0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mBrightnessObserver:Lcom/android/systemui/statusbar/policy/BrightnessController$BrightnessObserver;
+
+    invoke-virtual {v2, v3, v4, v6}, Landroid/content/ContentResolver;->registerContentObserver(Landroid/net/Uri;ZLandroid/database/ContentObserver;)V
+
+    .line 204
+    move-object/from16 v0, p0
+
+    iget-object v2, v0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mContentResolver:Landroid/content/ContentResolver;
+
+    const-string v3, "screen_brightness_mode"
+
+    invoke-static {v3}, Landroid/provider/Settings$System;->getUriFor(Ljava/lang/String;)Landroid/net/Uri;
+
+    move-result-object v3
+
+    const/4 v4, 0x0
+
+    move-object/from16 v0, p0
+
+    iget-object v6, v0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mAutomaticObserver:Lcom/android/systemui/statusbar/policy/BrightnessController$AutomaticObserver;
+
+    invoke-virtual {v2, v3, v4, v6}, Landroid/content/ContentResolver;->registerContentObserver(Landroid/net/Uri;ZLandroid/database/ContentObserver;)V
+
+    .line 205
+    move-object/from16 v0, p0
+
+    iget-object v2, v0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mContentResolver:Landroid/content/ContentResolver;
+
+    const-string v3, "auto_brightness_detail"
+
+    invoke-static {v3}, Landroid/provider/Settings$System;->getUriFor(Ljava/lang/String;)Landroid/net/Uri;
+
+    move-result-object v3
+
+    const/4 v4, 0x0
+
+    move-object/from16 v0, p0
+
+    iget-object v6, v0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mAutomaticBrightnessObserver:Lcom/android/systemui/statusbar/policy/BrightnessController$AutomaticBrightnessObserver;
+
+    invoke-virtual {v2, v3, v4, v6}, Landroid/content/ContentResolver;->registerContentObserver(Landroid/net/Uri;ZLandroid/database/ContentObserver;)V
+
+    .line 208
+    const v2, 0x7f07001d
 
     move-object/from16 v0, p2
 
-    invoke-virtual {v0, v11}, Lcom/android/systemui/statusbar/policy/ToggleSlider;->findViewById(I)Landroid/view/View;
+    invoke-virtual {v0, v2}, Lcom/android/systemui/statusbar/policy/ToggleSlider;->findViewById(I)Landroid/view/View;
 
-    move-result-object v11
+    move-result-object v2
 
-    check-cast v11, Landroid/widget/CompoundButton;
+    check-cast v2, Landroid/widget/SeekBar;
 
-    iput-object v11, p0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mToggle:Landroid/widget/CompoundButton;
+    move-object/from16 v0, p0
 
-    .line 199
-    iget-object v11, p0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mToggle:Landroid/widget/CompoundButton;
+    iput-object v2, v0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mSlider:Landroid/widget/SeekBar;
 
-    invoke-virtual {v11}, Landroid/widget/CompoundButton;->getParent()Landroid/view/ViewParent;
+    .line 209
+    move-object/from16 v0, p0
 
-    move-result-object v11
+    iget-object v2, v0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mSlider:Landroid/widget/SeekBar;
 
-    check-cast v11, Landroid/view/View;
+    invoke-virtual {v2}, Landroid/widget/SeekBar;->getParent()Landroid/view/ViewParent;
 
-    iput-object v11, p0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mCheckboxArea:Landroid/view/View;
+    move-result-object v2
 
-    .line 200
-    iget-object v11, p0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mContext:Landroid/content/Context;
+    check-cast v2, Landroid/view/View;
 
-    const-string v12, "enterprise_policy"
+    move-object/from16 v0, p0
 
-    invoke-virtual {v11, v12}, Landroid/content/Context;->getSystemService(Ljava/lang/String;)Ljava/lang/Object;
+    iput-object v2, v0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mSeekBar:Landroid/view/View;
 
-    move-result-object v11
+    .line 210
+    const v2, 0x7f07001f
 
-    check-cast v11, Landroid/app/enterprise/EnterpriseDeviceManager;
+    move-object/from16 v0, p2
 
-    iput-object v11, p0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mEDM:Landroid/app/enterprise/EnterpriseDeviceManager;
+    invoke-virtual {v0, v2}, Lcom/android/systemui/statusbar/policy/ToggleSlider;->findViewById(I)Landroid/view/View;
 
-    .line 201
-    iget-object v11, p0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mEDM:Landroid/app/enterprise/EnterpriseDeviceManager;
+    move-result-object v2
 
-    if-eqz v11, :cond_3
+    check-cast v2, Lcom/sec/android/touchwiz/widget/TwSeekBarSplit;
 
-    .line 202
-    iget-object v11, p0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mEDM:Landroid/app/enterprise/EnterpriseDeviceManager;
+    move-object/from16 v0, p0
 
-    invoke-virtual {v11}, Landroid/app/enterprise/EnterpriseDeviceManager;->getRestrictionPolicy()Landroid/app/enterprise/RestrictionPolicy;
+    iput-object v2, v0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mTwSlider:Lcom/sec/android/touchwiz/widget/TwSeekBarSplit;
 
-    move-result-object v11
+    .line 211
+    const v2, 0x7f070016
 
-    iput-object v11, p0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mRestrictionPolicy:Landroid/app/enterprise/RestrictionPolicy;
+    move-object/from16 v0, p2
 
-    .line 203
-    iget-object v11, p0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mRestrictionPolicy:Landroid/app/enterprise/RestrictionPolicy;
+    invoke-virtual {v0, v2}, Lcom/android/systemui/statusbar/policy/ToggleSlider;->findViewById(I)Landroid/view/View;
 
-    if-eqz v11, :cond_3
+    move-result-object v2
 
-    .line 204
-    iget-object v11, p0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mSlider:Landroid/widget/SeekBar;
+    check-cast v2, Lcom/sec/android/touchwiz/widget/TwCheckBox;
 
-    new-instance v12, Lcom/android/systemui/statusbar/policy/BrightnessController$2;
+    move-object/from16 v0, p0
 
-    invoke-direct {v12, p0}, Lcom/android/systemui/statusbar/policy/BrightnessController$2;-><init>(Lcom/android/systemui/statusbar/policy/BrightnessController;)V
-
-    invoke-virtual {v11, v12}, Landroid/widget/SeekBar;->setOnTouchListener(Landroid/view/View$OnTouchListener;)V
+    iput-object v2, v0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mToggle:Lcom/sec/android/touchwiz/widget/TwCheckBox;
 
     .line 212
-    invoke-direct {p0}, Lcom/android/systemui/statusbar/policy/BrightnessController;->setBrightnessEnabledState()V
+    move-object/from16 v0, p0
+
+    iget-object v2, v0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mToggle:Lcom/sec/android/touchwiz/widget/TwCheckBox;
+
+    invoke-virtual {v2}, Lcom/sec/android/touchwiz/widget/TwCheckBox;->getParent()Landroid/view/ViewParent;
+
+    move-result-object v2
+
+    check-cast v2, Landroid/view/View;
+
+    move-object/from16 v0, p0
+
+    iput-object v2, v0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mCheckboxArea:Landroid/view/View;
+
+    .line 213
+    move-object/from16 v0, p0
+
+    iget-object v2, v0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mContext:Landroid/content/Context;
+
+    const-string v3, "enterprise_policy"
+
+    invoke-virtual {v2, v3}, Landroid/content/Context;->getSystemService(Ljava/lang/String;)Ljava/lang/Object;
+
+    move-result-object v10
+
+    check-cast v10, Landroid/app/enterprise/EnterpriseDeviceManager;
 
     .line 215
-    :cond_3
-    iget-object v11, p0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mContext:Landroid/content/Context;
+    .local v10, edm:Landroid/app/enterprise/EnterpriseDeviceManager;
+    if-eqz v10, :cond_3
 
-    iget-object v12, p0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mReceiver:Landroid/content/BroadcastReceiver;
+    .line 216
+    invoke-virtual {v10}, Landroid/app/enterprise/EnterpriseDeviceManager;->getRestrictionPolicy()Landroid/app/enterprise/RestrictionPolicy;
 
-    new-instance v13, Landroid/content/IntentFilter;
+    move-result-object v2
 
-    const-string v14, "edm.intent.action.allow.settings"
+    move-object/from16 v0, p0
 
-    invoke-direct {v13, v14}, Landroid/content/IntentFilter;-><init>(Ljava/lang/String;)V
-
-    invoke-virtual {v11, v12, v13}, Landroid/content/Context;->registerReceiver(Landroid/content/BroadcastReceiver;Landroid/content/IntentFilter;)Landroid/content/Intent;
+    iput-object v2, v0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mRestrictionPolicy:Landroid/app/enterprise/RestrictionPolicy;
 
     .line 217
+    move-object/from16 v0, p0
+
+    iget-object v2, v0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mRestrictionPolicy:Landroid/app/enterprise/RestrictionPolicy;
+
+    if-eqz v2, :cond_3
+
+    .line 218
+    move-object/from16 v0, p0
+
+    iget-object v2, v0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mSlider:Landroid/widget/SeekBar;
+
+    new-instance v3, Lcom/android/systemui/statusbar/policy/BrightnessController$2;
+
+    move-object/from16 v0, p0
+
+    invoke-direct {v3, v0}, Lcom/android/systemui/statusbar/policy/BrightnessController$2;-><init>(Lcom/android/systemui/statusbar/policy/BrightnessController;)V
+
+    invoke-virtual {v2, v3}, Landroid/widget/SeekBar;->setOnTouchListener(Landroid/view/View$OnTouchListener;)V
+
+    .line 226
+    invoke-direct/range {p0 .. p0}, Lcom/android/systemui/statusbar/policy/BrightnessController;->setBrightnessEnabledState()V
+
+    .line 229
+    :cond_3
+    new-instance v5, Landroid/content/IntentFilter;
+
+    invoke-direct {v5}, Landroid/content/IntentFilter;-><init>()V
+
+    .line 230
+    .local v5, mdmFilter:Landroid/content/IntentFilter;
+    const-string v2, "edm.intent.action.allow.settings"
+
+    invoke-virtual {v5, v2}, Landroid/content/IntentFilter;->addAction(Ljava/lang/String;)V
+
+    .line 231
+    const-string v2, "android.intent.action.USER_SWITCHED"
+
+    invoke-virtual {v5, v2}, Landroid/content/IntentFilter;->addAction(Ljava/lang/String;)V
+
+    .line 232
+    move-object/from16 v0, p0
+
+    iget-object v2, v0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mContext:Landroid/content/Context;
+
+    move-object/from16 v0, p0
+
+    iget-object v3, v0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mMDMReceiver:Landroid/content/BroadcastReceiver;
+
+    sget-object v4, Landroid/os/UserHandle;->ALL:Landroid/os/UserHandle;
+
+    const/4 v6, 0x0
+
+    const/4 v7, 0x0
+
+    invoke-virtual/range {v2 .. v7}, Landroid/content/Context;->registerReceiverAsUser(Landroid/content/BroadcastReceiver;Landroid/os/UserHandle;Landroid/content/IntentFilter;Ljava/lang/String;Landroid/os/Handler;)Landroid/content/Intent;
+
+    .line 234
     return-void
 
-    .line 152
-    .end local v10           #value:I
+    .line 165
+    .end local v5           #mdmFilter:Landroid/content/IntentFilter;
+    .end local v10           #edm:Landroid/app/enterprise/EnterpriseDeviceManager;
+    .end local v18           #value:I
     :catch_0
-    move-exception v9
+    move-exception v17
 
-    .line 153
-    .local v9, snfe:Landroid/provider/Settings$SettingNotFoundException;
-    const/4 v2, 0x0
+    .line 166
+    .local v17, snfe:Landroid/provider/Settings$SettingNotFoundException;
+    const/4 v9, 0x0
 
-    .restart local v2       #automatic:I
+    .restart local v9       #automatic:I
     goto/16 :goto_1
 
-    .line 155
-    .end local v9           #snfe:Landroid/provider/Settings$SettingNotFoundException;
+    .line 168
+    .end local v17           #snfe:Landroid/provider/Settings$SettingNotFoundException;
     :cond_4
-    const/4 v11, 0x0
+    const/4 v2, 0x0
 
     goto/16 :goto_2
 
-    .line 157
-    .end local v2           #automatic:I
+    .line 170
+    .end local v9           #automatic:I
     :cond_5
-    iget-object v11, p0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mControl:Lcom/android/systemui/statusbar/policy/ToggleSlider;
+    move-object/from16 v0, p0
 
-    const/4 v12, 0x0
+    iget-object v2, v0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mControl:Lcom/android/systemui/statusbar/policy/ToggleSlider;
 
-    invoke-virtual {v11, v12}, Lcom/android/systemui/statusbar/policy/ToggleSlider;->setChecked(Z)V
+    const/4 v3, 0x0
 
-    .line 158
-    iget-object v11, p0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mControl:Lcom/android/systemui/statusbar/policy/ToggleSlider;
+    invoke-virtual {v2, v3}, Lcom/android/systemui/statusbar/policy/ToggleSlider;->setChecked(Z)V
 
-    invoke-virtual {v11}, Lcom/android/systemui/statusbar/policy/ToggleSlider;->hideToggle()V
+    .line 171
+    move-object/from16 v0, p0
+
+    iget-object v2, v0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mControl:Lcom/android/systemui/statusbar/policy/ToggleSlider;
+
+    invoke-virtual {v2}, Lcom/android/systemui/statusbar/policy/ToggleSlider;->hideToggle()V
 
     goto/16 :goto_3
 
-    .line 168
+    .line 181
     :catch_1
-    move-exception v3
+    move-exception v11
 
-    .line 169
-    .local v3, ex:Landroid/provider/Settings$SettingNotFoundException;
-    iget v10, p0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mMaximumBacklight:I
+    .line 182
+    .local v11, ex:Landroid/provider/Settings$SettingNotFoundException;
+    move-object/from16 v0, p0
 
-    .restart local v10       #value:I
+    iget v0, v0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mMaximumBacklight:I
+
+    move/from16 v18, v0
+
+    .restart local v18       #value:I
     goto/16 :goto_4
 .end method
 
@@ -656,7 +824,7 @@
     .parameter "x0"
 
     .prologue
-    .line 70
+    .line 75
     invoke-direct {p0}, Lcom/android/systemui/statusbar/policy/BrightnessController;->resetObservers()V
 
     return-void
@@ -667,21 +835,10 @@
     .parameter "x0"
 
     .prologue
-    .line 70
-    iget-boolean v0, p0, Lcom/android/systemui/statusbar/policy/BrightnessController;->allowSettingsChanges:Z
+    .line 75
+    iget-boolean v0, p0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mAllowSettingsChanges:Z
 
     return v0
-.end method
-
-.method static synthetic access$1000(Lcom/android/systemui/statusbar/policy/BrightnessController;)V
-    .locals 0
-    .parameter "x0"
-
-    .prologue
-    .line 70
-    invoke-direct {p0}, Lcom/android/systemui/statusbar/policy/BrightnessController;->setBrightnessEnabledState()V
-
-    return-void
 .end method
 
 .method static synthetic access$200(Lcom/android/systemui/statusbar/policy/BrightnessController;)Landroid/content/Context;
@@ -689,7 +846,7 @@
     .parameter "x0"
 
     .prologue
-    .line 70
+    .line 75
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mContext:Landroid/content/Context;
 
     return-object v0
@@ -700,7 +857,7 @@
     .parameter "x0"
 
     .prologue
-    .line 70
+    .line 75
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mUserTracker:Lcom/android/systemui/statusbar/policy/CurrentUserTracker;
 
     return-object v0
@@ -711,7 +868,7 @@
     .parameter "x0"
 
     .prologue
-    .line 70
+    .line 75
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mControl:Lcom/android/systemui/statusbar/policy/ToggleSlider;
 
     return-object v0
@@ -722,7 +879,7 @@
     .parameter "x0"
 
     .prologue
-    .line 70
+    .line 75
     iget v0, p0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mMinimumBacklight:I
 
     return v0
@@ -733,7 +890,7 @@
     .parameter "x0"
 
     .prologue
-    .line 70
+    .line 75
     iget v0, p0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mMaximumBacklight:I
 
     return v0
@@ -744,32 +901,32 @@
     .parameter "x0"
 
     .prologue
-    .line 70
+    .line 75
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mContentResolver:Landroid/content/ContentResolver;
 
     return-object v0
 .end method
 
-.method static synthetic access$800(Lcom/android/systemui/statusbar/policy/BrightnessController;)Landroid/app/enterprise/EnterpriseDeviceManager;
+.method static synthetic access$800(Lcom/android/systemui/statusbar/policy/BrightnessController;)Landroid/app/enterprise/RestrictionPolicy;
     .locals 1
     .parameter "x0"
 
     .prologue
-    .line 70
-    iget-object v0, p0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mEDM:Landroid/app/enterprise/EnterpriseDeviceManager;
+    .line 75
+    iget-object v0, p0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mRestrictionPolicy:Landroid/app/enterprise/RestrictionPolicy;
 
     return-object v0
 .end method
 
-.method static synthetic access$900(Lcom/android/systemui/statusbar/policy/BrightnessController;)Landroid/app/enterprise/RestrictionPolicy;
-    .locals 1
+.method static synthetic access$900(Lcom/android/systemui/statusbar/policy/BrightnessController;)V
+    .locals 0
     .parameter "x0"
 
     .prologue
-    .line 70
-    iget-object v0, p0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mRestrictionPolicy:Landroid/app/enterprise/RestrictionPolicy;
+    .line 75
+    invoke-direct {p0}, Lcom/android/systemui/statusbar/policy/BrightnessController;->setBrightnessEnabledState()V
 
-    return-object v0
+    return-void
 .end method
 
 .method private resetAutomaticBrightnessObserver()V
@@ -778,7 +935,7 @@
     .prologue
     const/4 v4, 0x0
 
-    .line 422
+    .line 456
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mContext:Landroid/content/Context;
 
     invoke-virtual {v0}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
@@ -789,12 +946,12 @@
 
     invoke-virtual {v0, v1}, Landroid/content/ContentResolver;->unregisterContentObserver(Landroid/database/ContentObserver;)V
 
-    .line 423
+    .line 457
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mAutomaticBrightnessObserver:Lcom/android/systemui/statusbar/policy/BrightnessController$AutomaticBrightnessObserver;
 
     invoke-virtual {v0, v4}, Lcom/android/systemui/statusbar/policy/BrightnessController$AutomaticBrightnessObserver;->onChange(Z)V
 
-    .line 424
+    .line 458
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mContext:Landroid/content/Context;
 
     invoke-virtual {v0}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
@@ -817,7 +974,7 @@
 
     invoke-virtual {v0, v1, v4, v2, v3}, Landroid/content/ContentResolver;->registerContentObserver(Landroid/net/Uri;ZLandroid/database/ContentObserver;I)V
 
-    .line 427
+    .line 461
     return-void
 .end method
 
@@ -827,7 +984,7 @@
     .prologue
     const/4 v4, 0x0
 
-    .line 414
+    .line 448
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mContext:Landroid/content/Context;
 
     invoke-virtual {v0}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
@@ -838,12 +995,12 @@
 
     invoke-virtual {v0, v1}, Landroid/content/ContentResolver;->unregisterContentObserver(Landroid/database/ContentObserver;)V
 
-    .line 415
+    .line 449
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mAutomaticObserver:Lcom/android/systemui/statusbar/policy/BrightnessController$AutomaticObserver;
 
     invoke-virtual {v0, v4}, Lcom/android/systemui/statusbar/policy/BrightnessController$AutomaticObserver;->onChange(Z)V
 
-    .line 416
+    .line 450
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mContext:Landroid/content/Context;
 
     invoke-virtual {v0}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
@@ -866,7 +1023,7 @@
 
     invoke-virtual {v0, v1, v4, v2, v3}, Landroid/content/ContentResolver;->registerContentObserver(Landroid/net/Uri;ZLandroid/database/ContentObserver;I)V
 
-    .line 419
+    .line 453
     return-void
 .end method
 
@@ -876,7 +1033,7 @@
     .prologue
     const/4 v4, 0x0
 
-    .line 406
+    .line 440
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mContext:Landroid/content/Context;
 
     invoke-virtual {v0}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
@@ -887,12 +1044,12 @@
 
     invoke-virtual {v0, v1}, Landroid/content/ContentResolver;->unregisterContentObserver(Landroid/database/ContentObserver;)V
 
-    .line 407
+    .line 441
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mBrightnessObserver:Lcom/android/systemui/statusbar/policy/BrightnessController$BrightnessObserver;
 
     invoke-virtual {v0, v4}, Lcom/android/systemui/statusbar/policy/BrightnessController$BrightnessObserver;->onChange(Z)V
 
-    .line 408
+    .line 442
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mContext:Landroid/content/Context;
 
     invoke-virtual {v0}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
@@ -915,7 +1072,7 @@
 
     invoke-virtual {v0, v1, v4, v2, v3}, Landroid/content/ContentResolver;->registerContentObserver(Landroid/net/Uri;ZLandroid/database/ContentObserver;I)V
 
-    .line 411
+    .line 445
     return-void
 .end method
 
@@ -923,40 +1080,34 @@
     .locals 0
 
     .prologue
-    .line 400
+    .line 434
     invoke-direct {p0}, Lcom/android/systemui/statusbar/policy/BrightnessController;->resetBrightnessObserver()V
 
-    .line 401
+    .line 435
     invoke-direct {p0}, Lcom/android/systemui/statusbar/policy/BrightnessController;->resetAutomaticObserver()V
 
-    .line 402
+    .line 436
     invoke-direct {p0}, Lcom/android/systemui/statusbar/policy/BrightnessController;->resetAutomaticBrightnessObserver()V
 
-    .line 403
+    .line 437
     return-void
 .end method
 
 .method private setBrightness(I)V
-    .locals 2
+    .locals 1
     .parameter "brightness"
 
     .prologue
-    .line 285
-    iget-object v0, p0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mRestrictionPolicy:Landroid/app/enterprise/RestrictionPolicy;
-
-    const/4 v1, 0x0
-
-    invoke-virtual {v0, v1}, Landroid/app/enterprise/RestrictionPolicy;->isSettingsChangesAllowed(Z)Z
-
-    move-result v0
+    .line 300
+    iget-boolean v0, p0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mAllowSettingsChanges:Z
 
     if-nez v0, :cond_0
 
-    .line 292
+    .line 307
     :goto_0
     return-void
 
-    .line 289
+    .line 304
     :cond_0
     :try_start_0
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mPower:Landroid/os/IPowerManager;
@@ -967,7 +1118,7 @@
 
     goto :goto_0
 
-    .line 290
+    .line 305
     :catch_0
     move-exception v0
 
@@ -975,74 +1126,89 @@
 .end method
 
 .method private setBrightnessEnabledState()V
-    .locals 3
+    .locals 2
 
     .prologue
-    .line 382
-    iget-object v1, p0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mRestrictionPolicy:Landroid/app/enterprise/RestrictionPolicy;
+    .line 417
+    iget-object v0, p0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mRestrictionPolicy:Landroid/app/enterprise/RestrictionPolicy;
 
-    if-eqz v1, :cond_0
+    if-eqz v0, :cond_0
 
-    .line 383
-    iget-object v1, p0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mRestrictionPolicy:Landroid/app/enterprise/RestrictionPolicy;
+    .line 418
+    iget-object v0, p0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mRestrictionPolicy:Landroid/app/enterprise/RestrictionPolicy;
 
-    const/4 v2, 0x0
+    const/4 v1, 0x0
 
-    invoke-virtual {v1, v2}, Landroid/app/enterprise/RestrictionPolicy;->isSettingsChangesAllowed(Z)Z
+    invoke-virtual {v0, v1}, Landroid/app/enterprise/RestrictionPolicy;->isSettingsChangesAllowed(Z)Z
 
     move-result v0
 
-    .line 384
-    .local v0, isAllowed:Z
-    iget-object v1, p0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mToggle:Landroid/widget/CompoundButton;
+    iput-boolean v0, p0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mAllowSettingsChanges:Z
 
-    invoke-virtual {v1, v0}, Landroid/widget/CompoundButton;->setEnabled(Z)V
+    .line 419
+    iget-object v0, p0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mToggle:Lcom/sec/android/touchwiz/widget/TwCheckBox;
 
-    .line 385
-    iget-object v1, p0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mSlider:Landroid/widget/SeekBar;
+    iget-boolean v1, p0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mAllowSettingsChanges:Z
 
-    invoke-virtual {v1, v0}, Landroid/widget/SeekBar;->setEnabled(Z)V
+    invoke-virtual {v0, v1}, Lcom/sec/android/touchwiz/widget/TwCheckBox;->setEnabled(Z)V
 
-    .line 386
-    iget-object v1, p0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mSlider:Landroid/widget/SeekBar;
+    .line 420
+    iget-object v0, p0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mSlider:Landroid/widget/SeekBar;
 
-    invoke-virtual {v1, v0}, Landroid/widget/SeekBar;->setClickable(Z)V
+    iget-boolean v1, p0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mAllowSettingsChanges:Z
 
-    .line 387
-    iget-object v1, p0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mTwSlider:Lcom/sec/android/touchwiz/widget/TwSeekBarSplit;
+    invoke-virtual {v0, v1}, Landroid/widget/SeekBar;->setEnabled(Z)V
 
-    invoke-virtual {v1, v0}, Lcom/sec/android/touchwiz/widget/TwSeekBarSplit;->setEnabled(Z)V
+    .line 421
+    iget-object v0, p0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mSlider:Landroid/widget/SeekBar;
 
-    .line 388
-    iget-object v1, p0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mTwSlider:Lcom/sec/android/touchwiz/widget/TwSeekBarSplit;
+    iget-boolean v1, p0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mAllowSettingsChanges:Z
 
-    invoke-virtual {v1, v0}, Lcom/sec/android/touchwiz/widget/TwSeekBarSplit;->setClickable(Z)V
+    invoke-virtual {v0, v1}, Landroid/widget/SeekBar;->setClickable(Z)V
 
-    .line 389
-    iget-object v1, p0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mSeekBar:Landroid/view/View;
+    .line 422
+    iget-object v0, p0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mTwSlider:Lcom/sec/android/touchwiz/widget/TwSeekBarSplit;
 
-    invoke-virtual {v1, v0}, Landroid/view/View;->setEnabled(Z)V
+    iget-boolean v1, p0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mAllowSettingsChanges:Z
 
-    .line 390
-    iget-object v1, p0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mSeekBar:Landroid/view/View;
+    invoke-virtual {v0, v1}, Lcom/sec/android/touchwiz/widget/TwSeekBarSplit;->setEnabled(Z)V
 
-    invoke-virtual {v1, v0}, Landroid/view/View;->setClickable(Z)V
+    .line 423
+    iget-object v0, p0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mTwSlider:Lcom/sec/android/touchwiz/widget/TwSeekBarSplit;
 
-    .line 391
-    iget-object v1, p0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mControl:Lcom/android/systemui/statusbar/policy/ToggleSlider;
+    iget-boolean v1, p0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mAllowSettingsChanges:Z
 
-    invoke-virtual {v1, v0}, Lcom/android/systemui/statusbar/policy/ToggleSlider;->setEnabled(Z)V
+    invoke-virtual {v0, v1}, Lcom/sec/android/touchwiz/widget/TwSeekBarSplit;->setClickable(Z)V
 
-    .line 392
-    iget-object v1, p0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mCheckboxArea:Landroid/view/View;
+    .line 424
+    iget-object v0, p0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mSeekBar:Landroid/view/View;
 
-    invoke-virtual {v1, v0}, Landroid/view/View;->setEnabled(Z)V
+    iget-boolean v1, p0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mAllowSettingsChanges:Z
 
-    .line 393
-    iput-boolean v0, p0, Lcom/android/systemui/statusbar/policy/BrightnessController;->allowSettingsChanges:Z
+    invoke-virtual {v0, v1}, Landroid/view/View;->setEnabled(Z)V
 
-    .line 395
-    .end local v0           #isAllowed:Z
+    .line 425
+    iget-object v0, p0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mSeekBar:Landroid/view/View;
+
+    iget-boolean v1, p0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mAllowSettingsChanges:Z
+
+    invoke-virtual {v0, v1}, Landroid/view/View;->setClickable(Z)V
+
+    .line 426
+    iget-object v0, p0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mControl:Lcom/android/systemui/statusbar/policy/ToggleSlider;
+
+    iget-boolean v1, p0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mAllowSettingsChanges:Z
+
+    invoke-virtual {v0, v1}, Lcom/android/systemui/statusbar/policy/ToggleSlider;->setEnabled(Z)V
+
+    .line 427
+    iget-object v0, p0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mCheckboxArea:Landroid/view/View;
+
+    iget-boolean v1, p0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mAllowSettingsChanges:Z
+
+    invoke-virtual {v0, v1}, Landroid/view/View;->setEnabled(Z)V
+
+    .line 429
     :cond_0
     return-void
 .end method
@@ -1052,7 +1218,7 @@
     .parameter "mode"
 
     .prologue
-    .line 277
+    .line 293
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mContext:Landroid/content/Context;
 
     invoke-virtual {v0}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
@@ -1069,7 +1235,7 @@
 
     invoke-static {v0, v1, p1, v2}, Landroid/provider/Settings$System;->putIntForUser(Landroid/content/ContentResolver;Ljava/lang/String;II)Z
 
-    .line 280
+    .line 296
     return-void
 .end method
 
@@ -1080,102 +1246,67 @@
     .parameter "cb"
 
     .prologue
-    .line 220
+    .line 237
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mChangeCallbacks:Ljava/util/ArrayList;
 
     invoke-virtual {v0, p1}, Ljava/util/ArrayList;->add(Ljava/lang/Object;)Z
 
-    .line 221
+    .line 238
     return-void
 .end method
 
 .method public onChanged(Lcom/android/systemui/statusbar/policy/ToggleSlider;ZZI)V
-    .locals 6
+    .locals 4
     .parameter "view"
     .parameter "tracking"
     .parameter "automatic"
     .parameter "value"
 
     .prologue
-    const/4 v3, 0x0
+    .line 244
+    iget-boolean v3, p0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mAllowSettingsChanges:Z
 
-    .line 224
-    const-string v4, "StatusBar.BrightnessController"
+    if-nez v3, :cond_1
 
-    const-string v5, "brightness controller onChanged() "
-
-    invoke-static {v4, v5}, Landroid/util/secutil/Log;->secD(Ljava/lang/String;Ljava/lang/String;)I
-
-    .line 227
-    iget-object v4, p0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mRestrictionPolicy:Landroid/app/enterprise/RestrictionPolicy;
-
-    invoke-virtual {v4, v3}, Landroid/app/enterprise/RestrictionPolicy;->isSettingsChangesAllowed(Z)Z
-
-    move-result v4
-
-    if-nez v4, :cond_1
-
-    .line 274
+    .line 290
     :cond_0
     return-void
 
-    .line 232
+    .line 255
     :cond_1
-    iget-object v4, p0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mContext:Landroid/content/Context;
-
-    invoke-static {v4}, Lcom/android/systemui/statusbar/BaseStatusBar;->IsDualFolderType(Landroid/content/Context;)Z
-
-    move-result v4
-
-    if-eqz v4, :cond_2
-
-    .line 233
-    iget-object v4, p0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mContext:Landroid/content/Context;
-
-    invoke-static {v4}, Lcom/android/systemui/statusbar/BaseStatusBar;->isFolderOpen(Landroid/content/Context;)Z
-
-    move-result v4
-
-    if-nez v4, :cond_2
-
-    .line 234
-    const/4 p3, 0x0
-
-    .line 239
-    :cond_2
     if-eqz p3, :cond_3
 
     const/4 v3, 0x1
 
-    :cond_3
+    :goto_0
     invoke-direct {p0, v3}, Lcom/android/systemui/statusbar/policy/BrightnessController;->setMode(I)V
 
-    .line 242
-    if-nez p3, :cond_5
+    .line 258
+    if-nez p3, :cond_4
 
-    .line 243
+    .line 259
     iget v3, p0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mMinimumBacklight:I
 
     add-int v2, p4, v3
 
-    .line 244
+    .line 260
     .local v2, val:I
     invoke-direct {p0, v2}, Lcom/android/systemui/statusbar/policy/BrightnessController;->setBrightness(I)V
 
-    .line 246
-    if-nez p2, :cond_4
+    .line 262
+    if-nez p2, :cond_2
 
-    .line 247
+    .line 263
     new-instance v3, Lcom/android/systemui/statusbar/policy/BrightnessController$3;
 
     invoke-direct {v3, p0, v2}, Lcom/android/systemui/statusbar/policy/BrightnessController$3;-><init>(Lcom/android/systemui/statusbar/policy/BrightnessController;I)V
 
     invoke-static {v3}, Landroid/os/AsyncTask;->execute(Ljava/lang/Runnable;)V
 
-    .line 271
+    .line 287
     .end local v2           #val:I
-    :cond_4
-    :goto_0
+    :cond_2
+    :goto_1
     iget-object v3, p0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mChangeCallbacks:Ljava/util/ArrayList;
 
     invoke-virtual {v3}, Ljava/util/ArrayList;->iterator()Ljava/util/Iterator;
@@ -1183,7 +1314,7 @@
     move-result-object v1
 
     .local v1, i$:Ljava/util/Iterator;
-    :goto_1
+    :goto_2
     invoke-interface {v1}, Ljava/util/Iterator;->hasNext()Z
 
     move-result v3
@@ -1196,24 +1327,30 @@
 
     check-cast v0, Lcom/android/systemui/statusbar/policy/BrightnessController$BrightnessStateChangeCallback;
 
-    .line 272
+    .line 288
     .local v0, cb:Lcom/android/systemui/statusbar/policy/BrightnessController$BrightnessStateChangeCallback;
     invoke-interface {v0}, Lcom/android/systemui/statusbar/policy/BrightnessController$BrightnessStateChangeCallback;->onBrightnessLevelChanged()V
 
-    goto :goto_1
+    goto :goto_2
 
-    .line 257
+    .line 255
     .end local v0           #cb:Lcom/android/systemui/statusbar/policy/BrightnessController$BrightnessStateChangeCallback;
     .end local v1           #i$:Ljava/util/Iterator;
-    :cond_5
+    :cond_3
+    const/4 v3, 0x0
+
+    goto :goto_0
+
+    .line 273
+    :cond_4
     sget-boolean v3, Lcom/android/systemui/statusbar/Feature;->mUseAutoBrightnessDetail:Z
 
-    if-eqz v3, :cond_4
+    if-eqz v3, :cond_2
 
-    .line 259
+    .line 275
     mul-int/lit8 v2, p4, 0x14
 
-    .line 260
+    .line 276
     .restart local v2       #val:I
     new-instance v3, Lcom/android/systemui/statusbar/policy/BrightnessController$4;
 
@@ -1221,7 +1358,7 @@
 
     invoke-static {v3}, Landroid/os/AsyncTask;->execute(Ljava/lang/Runnable;)V
 
-    goto :goto_0
+    goto :goto_1
 .end method
 
 .method public onInit(Lcom/android/systemui/statusbar/policy/ToggleSlider;)V
@@ -1229,6 +1366,35 @@
     .parameter "v"
 
     .prologue
-    .line 297
+    .line 312
+    return-void
+.end method
+
+.method public unregisterCallbacks()V
+    .locals 2
+
+    .prologue
+    .line 316
+    iget-object v0, p0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mContext:Landroid/content/Context;
+
+    invoke-virtual {v0}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
+
+    move-result-object v0
+
+    iget-object v1, p0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mBrightnessObserver:Lcom/android/systemui/statusbar/policy/BrightnessController$BrightnessObserver;
+
+    invoke-virtual {v0, v1}, Landroid/content/ContentResolver;->unregisterContentObserver(Landroid/database/ContentObserver;)V
+
+    .line 317
+    iget-object v0, p0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mChangeCallbacks:Ljava/util/ArrayList;
+
+    invoke-virtual {v0}, Ljava/util/ArrayList;->clear()V
+
+    .line 318
+    iget-object v0, p0, Lcom/android/systemui/statusbar/policy/BrightnessController;->mUserTracker:Lcom/android/systemui/statusbar/policy/CurrentUserTracker;
+
+    invoke-virtual {v0}, Lcom/android/systemui/statusbar/policy/CurrentUserTracker;->stopTracking()V
+
+    .line 319
     return-void
 .end method

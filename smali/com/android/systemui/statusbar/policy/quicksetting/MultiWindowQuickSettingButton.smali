@@ -43,44 +43,58 @@
 
 # direct methods
 .method public constructor <init>(Landroid/content/Context;)V
-    .locals 11
+    .locals 9
     .parameter "context"
 
     .prologue
-    const/4 v7, 0x0
+    const v1, 0x7f0a00f0
 
-    const/4 v10, -0x2
+    const/4 v8, -0x2
 
-    const/4 v9, 0x1
+    const/4 v5, 0x0
 
-    .line 64
+    const/4 v7, 0x1
+
+    .line 65
     const/4 v2, 0x0
 
-    const v3, 0x7f0c00e7
+    sget-boolean v0, Lcom/android/systemui/statusbar/Feature;->mUseJellyBeanGUI:Z
 
-    const v4, 0x7f0201c1
+    if-nez v0, :cond_1
 
-    const v5, 0x7f0201c0
+    move v0, v7
 
-    const v6, 0x7f0201bf
+    :goto_0
+    invoke-direct {p0, p1, v2, v0}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;-><init>(Landroid/content/Context;Landroid/util/AttributeSet;Z)V
 
-    move-object v0, p0
-
-    move-object v1, p1
-
-    move v8, v7
-
-    invoke-direct/range {v0 .. v8}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;-><init>(Landroid/content/Context;Landroid/util/AttributeSet;IIIIII)V
-
-    .line 51
+    .line 52
     new-instance v0, Lcom/android/systemui/statusbar/policy/quicksetting/MultiWindowQuickSettingButton$1;
 
     invoke-direct {v0, p0}, Lcom/android/systemui/statusbar/policy/quicksetting/MultiWindowQuickSettingButton$1;-><init>(Lcom/android/systemui/statusbar/policy/quicksetting/MultiWindowQuickSettingButton;)V
 
     iput-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/MultiWindowQuickSettingButton;->mIntentReceiver:Landroid/content/BroadcastReceiver;
 
-    .line 71
-    iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->mContext:Landroid/content/Context;
+    .line 67
+    sget-boolean v0, Lcom/android/systemui/statusbar/Feature;->mUseJellyBeanGUI:Z
+
+    if-eqz v0, :cond_2
+
+    .line 68
+    const v2, 0x7f0201cc
+
+    const v3, 0x7f0201cb
+
+    const v4, 0x7f0201ca
+
+    move-object v0, p0
+
+    move v6, v5
+
+    invoke-virtual/range {v0 .. v6}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->initLayout(IIIIII)V
+
+    .line 78
+    :goto_1
+    iget-object v0, p0, Landroid/view/View;->mContext:Landroid/content/Context;
 
     invoke-virtual {v0}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
 
@@ -88,84 +102,98 @@
 
     iput-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/MultiWindowQuickSettingButton;->mContentResolver:Landroid/content/ContentResolver;
 
-    .line 72
+    .line 79
     new-instance v0, Lcom/android/systemui/statusbar/policy/quicksetting/MultiWindowQuickSettingButton$MultiWindowModeObserver;
 
     invoke-direct {v0, p0}, Lcom/android/systemui/statusbar/policy/quicksetting/MultiWindowQuickSettingButton$MultiWindowModeObserver;-><init>(Lcom/android/systemui/statusbar/policy/quicksetting/MultiWindowQuickSettingButton;)V
 
     iput-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/MultiWindowQuickSettingButton;->mMultiWindowModeObserver:Lcom/android/systemui/statusbar/policy/quicksetting/MultiWindowQuickSettingButton$MultiWindowModeObserver;
 
-    .line 73
+    .line 80
     new-instance v0, Lcom/android/systemui/statusbar/policy/quicksetting/MultiWindowQuickSettingButton$EasyModeObserver;
 
     invoke-direct {v0, p0}, Lcom/android/systemui/statusbar/policy/quicksetting/MultiWindowQuickSettingButton$EasyModeObserver;-><init>(Lcom/android/systemui/statusbar/policy/quicksetting/MultiWindowQuickSettingButton;)V
 
     iput-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/MultiWindowQuickSettingButton;->mEasyModeObserver:Lcom/android/systemui/statusbar/policy/quicksetting/MultiWindowQuickSettingButton$EasyModeObserver;
 
-    .line 74
-    invoke-virtual {p0, p0}, Lcom/android/systemui/statusbar/policy/quicksetting/MultiWindowQuickSettingButton;->setListener(Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton$Listener;)V
+    .line 81
+    invoke-virtual {p0, p0}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->setListener(Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton$Listener;)V
 
-    .line 76
+    .line 83
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/MultiWindowQuickSettingButton;->mContentResolver:Landroid/content/ContentResolver;
 
     const-string v1, "multi_window_enabled"
 
-    invoke-static {v0, v1, v9, v10}, Landroid/provider/Settings$System;->getIntForUser(Landroid/content/ContentResolver;Ljava/lang/String;II)I
+    invoke-static {v0, v1, v7, v8}, Landroid/provider/Settings$System;->getIntForUser(Landroid/content/ContentResolver;Ljava/lang/String;II)I
 
     move-result v0
 
-    if-ne v0, v9, :cond_1
+    if-ne v0, v7, :cond_3
 
-    move v0, v9
+    move v0, v7
 
-    :goto_0
-    invoke-virtual {p0, v0}, Lcom/android/systemui/statusbar/policy/quicksetting/MultiWindowQuickSettingButton;->setActivateStatus(I)V
+    :goto_2
+    invoke-virtual {p0, v0}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->setActivateStatus(I)V
 
-    .line 79
+    .line 86
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/MultiWindowQuickSettingButton;->mContentResolver:Landroid/content/ContentResolver;
 
     const-string v1, "easy_mode_switch"
 
-    invoke-static {v0, v1, v9, v10}, Landroid/provider/Settings$System;->getIntForUser(Landroid/content/ContentResolver;Ljava/lang/String;II)I
+    invoke-static {v0, v1, v7, v8}, Landroid/provider/Settings$System;->getIntForUser(Landroid/content/ContentResolver;Ljava/lang/String;II)I
 
     move-result v0
 
     if-nez v0, :cond_0
 
-    .line 80
+    .line 87
     const/4 v0, 0x3
 
-    invoke-virtual {p0, v0}, Lcom/android/systemui/statusbar/policy/quicksetting/MultiWindowQuickSettingButton;->setActivateStatus(I)V
+    invoke-virtual {p0, v0}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->setActivateStatus(I)V
 
-    .line 82
+    .line 89
     :cond_0
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/MultiWindowQuickSettingButton;->mContentResolver:Landroid/content/ContentResolver;
 
     const-string v1, "multi_window_enabled"
 
-    invoke-static {v0, v1, v9, v10}, Landroid/provider/Settings$System;->getIntForUser(Landroid/content/ContentResolver;Ljava/lang/String;II)I
+    invoke-static {v0, v1, v7, v8}, Landroid/provider/Settings$System;->getIntForUser(Landroid/content/ContentResolver;Ljava/lang/String;II)I
 
     move-result v0
 
-    if-ne v0, v9, :cond_2
+    if-ne v0, v7, :cond_4
 
-    :goto_1
-    iput-boolean v9, p0, Lcom/android/systemui/statusbar/policy/quicksetting/MultiWindowQuickSettingButton;->mState:Z
+    :goto_3
+    iput-boolean v7, p0, Lcom/android/systemui/statusbar/policy/quicksetting/MultiWindowQuickSettingButton;->mState:Z
 
-    .line 84
+    .line 91
     return-void
 
-    .line 76
     :cond_1
-    const/4 v0, 0x2
+    move v0, v5
 
+    .line 65
     goto :goto_0
 
+    .line 75
     :cond_2
-    move v9, v7
+    const v0, 0x7f0201cd
 
-    .line 82
+    invoke-virtual {p0, v1, v0}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->initLayout(II)V
+
     goto :goto_1
+
+    .line 83
+    :cond_3
+    const/4 v0, 0x2
+
+    goto :goto_2
+
+    :cond_4
+    move v7, v5
+
+    .line 89
+    goto :goto_3
 .end method
 
 .method static synthetic access$000(Lcom/android/systemui/statusbar/policy/quicksetting/MultiWindowQuickSettingButton;)Landroid/app/AlertDialog;
@@ -173,7 +201,7 @@
     .parameter "x0"
 
     .prologue
-    .line 35
+    .line 36
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/MultiWindowQuickSettingButton;->mAlertDialog:Landroid/app/AlertDialog;
 
     return-object v0
@@ -184,7 +212,7 @@
     .parameter "x0"
 
     .prologue
-    .line 35
+    .line 36
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/MultiWindowQuickSettingButton;->mContentResolver:Landroid/content/ContentResolver;
 
     return-object v0
@@ -195,7 +223,7 @@
     .parameter "x0"
 
     .prologue
-    .line 35
+    .line 36
     invoke-direct {p0}, Lcom/android/systemui/statusbar/policy/quicksetting/MultiWindowQuickSettingButton;->changeStatus()V
 
     return-void
@@ -206,7 +234,7 @@
     .parameter "x0"
 
     .prologue
-    .line 35
+    .line 36
     iget-boolean v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/MultiWindowQuickSettingButton;->mState:Z
 
     return v0
@@ -220,7 +248,7 @@
 
     const/4 v1, 0x1
 
-    .line 175
+    .line 182
     invoke-direct {p0}, Lcom/android/systemui/statusbar/policy/quicksetting/MultiWindowQuickSettingButton;->getMode()I
 
     move-result v0
@@ -232,7 +260,7 @@
     :goto_0
     iput-boolean v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/MultiWindowQuickSettingButton;->mState:Z
 
-    .line 177
+    .line 184
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/MultiWindowQuickSettingButton;->mContentResolver:Landroid/content/ContentResolver;
 
     const-string v3, "easy_mode_switch"
@@ -245,32 +273,32 @@
 
     if-nez v0, :cond_1
 
-    .line 178
+    .line 185
     const/4 v0, 0x3
 
-    invoke-virtual {p0, v0}, Lcom/android/systemui/statusbar/policy/quicksetting/MultiWindowQuickSettingButton;->setActivateStatus(I)V
+    invoke-virtual {p0, v0}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->setActivateStatus(I)V
 
-    .line 184
+    .line 191
     :goto_1
     iput-boolean v2, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->mIsProcessing:Z
 
-    .line 185
+    .line 192
     return-void
 
     :cond_0
     move v0, v2
 
-    .line 175
+    .line 182
     goto :goto_0
 
-    .line 180
+    .line 187
     :cond_1
     iget-boolean v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/MultiWindowQuickSettingButton;->mState:Z
 
     if-eqz v0, :cond_2
 
     :goto_2
-    invoke-virtual {p0, v1}, Lcom/android/systemui/statusbar/policy/quicksetting/MultiWindowQuickSettingButton;->setActivateStatus(I)V
+    invoke-virtual {p0, v1}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->setActivateStatus(I)V
 
     goto :goto_1
 
@@ -284,7 +312,7 @@
     .locals 4
 
     .prologue
-    .line 170
+    .line 177
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/MultiWindowQuickSettingButton;->mContentResolver:Landroid/content/ContentResolver;
 
     const-string v1, "multi_window_enabled"
@@ -305,12 +333,12 @@
     .parameter "mode"
 
     .prologue
-    .line 158
+    .line 165
     const/4 v0, 0x1
 
     iput-boolean v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->mIsProcessing:Z
 
-    .line 160
+    .line 167
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/MultiWindowQuickSettingButton;->mContentResolver:Landroid/content/ContentResolver;
 
     const-string v1, "multi_window_enabled"
@@ -319,7 +347,7 @@
 
     invoke-static {v0, v1, p1, v2}, Landroid/provider/Settings$System;->putIntForUser(Landroid/content/ContentResolver;Ljava/lang/String;II)Z
 
-    .line 167
+    .line 174
     return-void
 .end method
 
@@ -329,28 +357,28 @@
     .locals 2
 
     .prologue
-    .line 100
+    .line 107
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/MultiWindowQuickSettingButton;->mContentResolver:Landroid/content/ContentResolver;
 
     iget-object v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/MultiWindowQuickSettingButton;->mMultiWindowModeObserver:Lcom/android/systemui/statusbar/policy/quicksetting/MultiWindowQuickSettingButton$MultiWindowModeObserver;
 
     invoke-virtual {v0, v1}, Landroid/content/ContentResolver;->unregisterContentObserver(Landroid/database/ContentObserver;)V
 
-    .line 101
+    .line 108
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/MultiWindowQuickSettingButton;->mContentResolver:Landroid/content/ContentResolver;
 
     iget-object v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/MultiWindowQuickSettingButton;->mEasyModeObserver:Lcom/android/systemui/statusbar/policy/quicksetting/MultiWindowQuickSettingButton$EasyModeObserver;
 
     invoke-virtual {v0, v1}, Landroid/content/ContentResolver;->unregisterContentObserver(Landroid/database/ContentObserver;)V
 
-    .line 102
-    iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->mContext:Landroid/content/Context;
+    .line 109
+    iget-object v0, p0, Landroid/view/View;->mContext:Landroid/content/Context;
 
     iget-object v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/MultiWindowQuickSettingButton;->mIntentReceiver:Landroid/content/BroadcastReceiver;
 
     invoke-virtual {v0, v1}, Landroid/content/Context;->unregisterReceiver(Landroid/content/BroadcastReceiver;)V
 
-    .line 103
+    .line 110
     return-void
 .end method
 
@@ -358,20 +386,20 @@
     .locals 1
 
     .prologue
-    .line 238
-    invoke-virtual {p0}, Lcom/android/systemui/statusbar/policy/quicksetting/MultiWindowQuickSettingButton;->removeEnabledScreenReaderValue()V
+    .line 245
+    invoke-virtual {p0}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->removeEnabledScreenReaderValue()V
 
-    .line 239
+    .line 246
     const/4 v0, 0x3
 
-    invoke-virtual {p0, v0}, Lcom/android/systemui/statusbar/policy/quicksetting/MultiWindowQuickSettingButton;->setActivateStatus(I)V
+    invoke-virtual {p0, v0}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->setActivateStatus(I)V
 
-    .line 240
+    .line 247
     const/4 v0, 0x1
 
     invoke-direct {p0, v0}, Lcom/android/systemui/statusbar/policy/quicksetting/MultiWindowQuickSettingButton;->setMode(I)V
 
-    .line 241
+    .line 248
     return-void
 .end method
 
@@ -379,7 +407,7 @@
     .locals 0
 
     .prologue
-    .line 244
+    .line 251
     return-void
 .end method
 
@@ -391,7 +419,7 @@
 
     const/4 v3, -0x2
 
-    .line 87
+    .line 94
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/MultiWindowQuickSettingButton;->mContentResolver:Landroid/content/ContentResolver;
 
     const-string v1, "multi_window_enabled"
@@ -404,7 +432,7 @@
 
     invoke-virtual {v0, v1, v4, v2, v3}, Landroid/content/ContentResolver;->registerContentObserver(Landroid/net/Uri;ZLandroid/database/ContentObserver;I)V
 
-    .line 91
+    .line 98
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/MultiWindowQuickSettingButton;->mContentResolver:Landroid/content/ContentResolver;
 
     const-string v1, "easy_mode_switch"
@@ -417,8 +445,8 @@
 
     invoke-virtual {v0, v1, v4, v2, v3}, Landroid/content/ContentResolver;->registerContentObserver(Landroid/net/Uri;ZLandroid/database/ContentObserver;I)V
 
-    .line 95
-    iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->mContext:Landroid/content/Context;
+    .line 102
+    iget-object v0, p0, Landroid/view/View;->mContext:Landroid/content/Context;
 
     iget-object v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/MultiWindowQuickSettingButton;->mIntentReceiver:Landroid/content/BroadcastReceiver;
 
@@ -430,7 +458,7 @@
 
     invoke-virtual {v0, v1, v2}, Landroid/content/Context;->registerReceiver(Landroid/content/BroadcastReceiver;Landroid/content/IntentFilter;)Landroid/content/Intent;
 
-    .line 97
+    .line 104
     return-void
 .end method
 
@@ -443,7 +471,7 @@
 
     const/4 v2, 0x0
 
-    .line 106
+    .line 113
     const-string v0, "STATUSBAR-MultiWindowSettingButton"
 
     new-instance v3, Ljava/lang/StringBuilder;
@@ -466,8 +494,8 @@
 
     invoke-static {v0, v3}, Landroid/util/secutil/Log;->secD(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 109
-    iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->mContext:Landroid/content/Context;
+    .line 116
+    iget-object v0, p0, Landroid/view/View;->mContext:Landroid/content/Context;
 
     const-string v3, "enterprise_policy"
 
@@ -479,7 +507,7 @@
 
     iput-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/MultiWindowQuickSettingButton;->mEDM:Landroid/app/enterprise/EnterpriseDeviceManager;
 
-    .line 110
+    .line 117
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/MultiWindowQuickSettingButton;->mEDM:Landroid/app/enterprise/EnterpriseDeviceManager;
 
     invoke-virtual {v0}, Landroid/app/enterprise/EnterpriseDeviceManager;->getRestrictionPolicy()Landroid/app/enterprise/RestrictionPolicy;
@@ -488,7 +516,7 @@
 
     iput-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/MultiWindowQuickSettingButton;->mRestrictionPolicy:Landroid/app/enterprise/RestrictionPolicy;
 
-    .line 111
+    .line 118
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/MultiWindowQuickSettingButton;->mRestrictionPolicy:Landroid/app/enterprise/RestrictionPolicy;
 
     invoke-virtual {v0, v2}, Landroid/app/enterprise/RestrictionPolicy;->isSettingsChangesAllowed(Z)Z
@@ -497,25 +525,25 @@
 
     if-nez v0, :cond_1
 
-    .line 112
+    .line 119
     const-string v0, "STATUSBAR-MultiWindowSettingButton"
 
     const-string v1, "onClick(): Multi window state change is not allowed"
 
     invoke-static {v0, v1}, Landroid/util/secutil/Log;->secW(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 142
+    .line 149
     :cond_0
     :goto_0
     return-void
 
-    .line 118
+    .line 125
     :cond_1
     iget-boolean v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->mIsProcessing:Z
 
     if-eqz v0, :cond_2
 
-    .line 119
+    .line 126
     const-string v0, "STATUSBAR-MultiWindowSettingButton"
 
     const-string v1, "onClick(): Processing..."
@@ -524,9 +552,9 @@
 
     goto :goto_0
 
-    .line 125
+    .line 132
     :cond_2
-    iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->mContext:Landroid/content/Context;
+    iget-object v0, p0, Landroid/view/View;->mContext:Landroid/content/Context;
 
     invoke-static {v0}, Landroid/app/enterprise/kioskmode/KioskMode;->getInstance(Landroid/content/Context;)Landroid/app/enterprise/kioskmode/KioskMode;
 
@@ -538,37 +566,37 @@
 
     if-eqz v0, :cond_0
 
-    .line 130
+    .line 137
     iget-boolean v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/MultiWindowQuickSettingButton;->mState:Z
 
     if-eq v0, p1, :cond_0
 
-    .line 131
+    .line 138
     if-eqz p1, :cond_3
 
-    .line 132
-    invoke-virtual {p0}, Lcom/android/systemui/statusbar/policy/quicksetting/MultiWindowQuickSettingButton;->isEnabledScreenReaderService()Z
+    .line 139
+    invoke-virtual {p0}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->isEnabledScreenReaderService()Z
 
     move-result v0
 
     if-eqz v0, :cond_3
 
-    .line 133
-    const v0, 0x7f0c00f3
+    .line 140
+    const v0, 0x7f0a00fc
 
-    const v1, 0x7f0c00f4
+    const v1, 0x7f0a00fd
 
-    invoke-virtual {p0, v0, v1}, Lcom/android/systemui/statusbar/policy/quicksetting/MultiWindowQuickSettingButton;->showTalkBackDisablePopup(II)V
+    invoke-virtual {p0, v0, v1}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->showTalkBackDisablePopup(II)V
 
     goto :goto_0
 
-    .line 139
+    .line 146
     :cond_3
     const/4 v0, 0x3
 
-    invoke-virtual {p0, v0}, Lcom/android/systemui/statusbar/policy/quicksetting/MultiWindowQuickSettingButton;->setActivateStatus(I)V
+    invoke-virtual {p0, v0}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->setActivateStatus(I)V
 
-    .line 140
+    .line 147
     if-eqz p1, :cond_4
 
     move v0, v1
@@ -588,7 +616,7 @@
     .locals 3
 
     .prologue
-    .line 146
+    .line 153
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/MultiWindowQuickSettingButton;->mContentResolver:Landroid/content/ContentResolver;
 
     const-string v1, "settings_listui"
@@ -603,24 +631,24 @@
 
     if-eq v0, v1, :cond_0
 
-    .line 148
+    .line 155
     const-string v0, "com.android.settings"
 
     const-string v1, "com.android.settings.Settings$MultiWindowSettingsActivity"
 
-    invoke-virtual {p0, v0, v1}, Lcom/android/systemui/statusbar/policy/quicksetting/MultiWindowQuickSettingButton;->callActivity(Ljava/lang/String;Ljava/lang/String;)V
+    invoke-virtual {p0, v0, v1}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->callActivity(Ljava/lang/String;Ljava/lang/String;)V
 
-    .line 154
+    .line 161
     :goto_0
     return-void
 
-    .line 151
+    .line 158
     :cond_0
     const-string v0, "com.android.settings"
 
     const-string v1, "com.android.settings.Settings$DisplaySettingsActivity"
 
-    invoke-virtual {p0, v0, v1}, Lcom/android/systemui/statusbar/policy/quicksetting/MultiWindowQuickSettingButton;->callActivity(Ljava/lang/String;Ljava/lang/String;)V
+    invoke-virtual {p0, v0, v1}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->callActivity(Ljava/lang/String;Ljava/lang/String;)V
 
     goto :goto_0
 .end method
@@ -631,16 +659,16 @@
     .prologue
     const/4 v1, 0x0
 
-    .line 250
+    .line 257
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/MultiWindowQuickSettingButton;->mMultiWindowModeObserver:Lcom/android/systemui/statusbar/policy/quicksetting/MultiWindowQuickSettingButton$MultiWindowModeObserver;
 
     invoke-virtual {v0, v1}, Lcom/android/systemui/statusbar/policy/quicksetting/MultiWindowQuickSettingButton$MultiWindowModeObserver;->onChange(Z)V
 
-    .line 251
+    .line 258
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/MultiWindowQuickSettingButton;->mEasyModeObserver:Lcom/android/systemui/statusbar/policy/quicksetting/MultiWindowQuickSettingButton$EasyModeObserver;
 
     invoke-virtual {v0, v1}, Lcom/android/systemui/statusbar/policy/quicksetting/MultiWindowQuickSettingButton$EasyModeObserver;->onChange(Z)V
 
-    .line 252
+    .line 259
     return-void
 .end method

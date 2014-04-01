@@ -27,15 +27,15 @@
     .parameter "activity"
 
     .prologue
-    .line 88
+    .line 87
     iput-object p1, p0, Lcom/android/systemui/usb/UsbDebuggingActivity$UsbDisconnectedReceiver;->this$0:Lcom/android/systemui/usb/UsbDebuggingActivity;
 
     invoke-direct {p0}, Landroid/content/BroadcastReceiver;-><init>()V
 
-    .line 89
+    .line 88
     iput-object p2, p0, Lcom/android/systemui/usb/UsbDebuggingActivity$UsbDisconnectedReceiver;->mActivity:Landroid/app/Activity;
 
-    .line 90
+    .line 89
     return-void
 .end method
 
@@ -47,12 +47,12 @@
     .parameter "intent"
 
     .prologue
-    .line 94
+    .line 93
     invoke-virtual {p2}, Landroid/content/Intent;->getAction()Ljava/lang/String;
 
     move-result-object v0
 
-    .line 95
+    .line 94
     .local v0, action:Ljava/lang/String;
     const-string v2, "android.hardware.usb.action.USB_STATE"
 
@@ -62,12 +62,12 @@
 
     if-nez v2, :cond_1
 
-    .line 102
+    .line 101
     :cond_0
     :goto_0
     return-void
 
-    .line 98
+    .line 97
     :cond_1
     const-string v2, "connected"
 
@@ -77,11 +77,11 @@
 
     move-result v1
 
-    .line 99
+    .line 98
     .local v1, connected:Z
     if-nez v1, :cond_0
 
-    .line 100
+    .line 99
     iget-object v2, p0, Lcom/android/systemui/usb/UsbDebuggingActivity$UsbDisconnectedReceiver;->mActivity:Landroid/app/Activity;
 
     invoke-virtual {v2}, Landroid/app/Activity;->finish()V

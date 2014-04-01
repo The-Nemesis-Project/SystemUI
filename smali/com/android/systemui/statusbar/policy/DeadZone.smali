@@ -138,7 +138,7 @@
 
     move-result-object v2
 
-    const v3, 0x7f0b0007
+    const v3, 0x7f090007
 
     invoke-virtual {v2, v3}, Landroid/content/res/Resources;->getBoolean(I)Z
 
@@ -147,9 +147,6 @@
     invoke-virtual {p0, v2}, Lcom/android/systemui/statusbar/policy/DeadZone;->setFlashOnTouchCapture(Z)V
 
     .line 82
-    invoke-virtual {v0}, Landroid/content/res/TypedArray;->recycle()V
-
-    .line 83
     return-void
 
     :cond_0
@@ -164,25 +161,25 @@
     .parameter "now"
 
     .prologue
-    .line 90
+    .line 89
     iget v2, p0, Lcom/android/systemui/statusbar/policy/DeadZone;->mSizeMax:I
 
     if-nez v2, :cond_0
 
-    .line 91
+    .line 90
     const/4 v2, 0x0
 
-    .line 97
+    .line 96
     :goto_0
     return v2
 
-    .line 92
+    .line 91
     :cond_0
     iget-wide v2, p0, Lcom/android/systemui/statusbar/policy/DeadZone;->mLastPokeTime:J
 
     sub-long v0, p1, v2
 
-    .line 93
+    .line 92
     .local v0, dt:J
     iget v2, p0, Lcom/android/systemui/statusbar/policy/DeadZone;->mHold:I
 
@@ -196,14 +193,14 @@
 
     if-lez v2, :cond_1
 
-    .line 94
+    .line 93
     iget v2, p0, Lcom/android/systemui/statusbar/policy/DeadZone;->mSizeMin:I
 
     int-to-float v2, v2
 
     goto :goto_0
 
-    .line 95
+    .line 94
     :cond_1
     iget v2, p0, Lcom/android/systemui/statusbar/policy/DeadZone;->mHold:I
 
@@ -213,14 +210,14 @@
 
     if-gez v2, :cond_2
 
-    .line 96
+    .line 95
     iget v2, p0, Lcom/android/systemui/statusbar/policy/DeadZone;->mSizeMax:I
 
     int-to-float v2, v2
 
     goto :goto_0
 
-    .line 97
+    .line 96
     :cond_2
     iget v2, p0, Lcom/android/systemui/statusbar/policy/DeadZone;->mSizeMax:I
 
@@ -262,7 +259,7 @@
     .parameter "f"
 
     .prologue
-    .line 86
+    .line 85
     sub-float v0, p1, p0
 
     mul-float/2addr v0, p2
@@ -278,7 +275,7 @@
     .locals 1
 
     .prologue
-    .line 148
+    .line 147
     iget v0, p0, Lcom/android/systemui/statusbar/policy/DeadZone;->mFlashFrac:F
 
     return v0
@@ -291,7 +288,7 @@
     .prologue
     const/4 v4, 0x0
 
-    .line 153
+    .line 152
     iget-boolean v2, p0, Lcom/android/systemui/statusbar/policy/DeadZone;->mShouldFlash:Z
 
     if-eqz v2, :cond_0
@@ -304,12 +301,12 @@
 
     if-gtz v2, :cond_1
 
-    .line 165
+    .line 164
     :cond_0
     :goto_0
     return-void
 
-    .line 157
+    .line 156
     :cond_1
     invoke-static {}, Landroid/os/SystemClock;->uptimeMillis()J
 
@@ -321,7 +318,7 @@
 
     float-to-int v1, v2
 
-    .line 158
+    .line 157
     .local v1, size:I
     iget-boolean v2, p0, Lcom/android/systemui/statusbar/policy/DeadZone;->mVertical:Z
 
@@ -342,10 +339,10 @@
     :cond_2
     invoke-virtual {p1, v4, v4, v2, v1}, Landroid/graphics/Canvas;->clipRect(IIII)Z
 
-    .line 159
+    .line 158
     iget v0, p0, Lcom/android/systemui/statusbar/policy/DeadZone;->mFlashFrac:F
 
-    .line 160
+    .line 159
     .local v0, frac:F
     const/high16 v2, 0x437f
 
@@ -363,7 +360,7 @@
 
     goto :goto_0
 
-    .line 158
+    .line 157
     .end local v0           #frac:F
     .restart local v1       #size:I
     :cond_3
@@ -379,32 +376,32 @@
     .parameter "event"
 
     .prologue
-    .line 113
+    .line 112
     invoke-virtual {p1}, Landroid/view/MotionEvent;->getAction()I
 
     move-result v0
 
-    .line 114
+    .line 113
     .local v0, action:I
     const/4 v2, 0x4
 
     if-ne v0, v2, :cond_1
 
-    .line 115
+    .line 114
     invoke-virtual {p0, p1}, Lcom/android/systemui/statusbar/policy/DeadZone;->poke(Landroid/view/MotionEvent;)V
 
-    .line 132
+    .line 131
     :cond_0
     const/4 v2, 0x0
 
     :goto_0
     return v2
 
-    .line 116
+    .line 115
     :cond_1
     if-nez v0, :cond_0
 
-    .line 120
+    .line 119
     invoke-virtual {p1}, Landroid/view/MotionEvent;->getEventTime()J
 
     move-result-wide v2
@@ -415,7 +412,7 @@
 
     float-to-int v1, v2
 
-    .line 121
+    .line 120
     .local v1, size:I
     iget-boolean v2, p0, Lcom/android/systemui/statusbar/policy/DeadZone;->mVertical:Z
 
@@ -442,7 +439,7 @@
 
     if-gez v2, :cond_0
 
-    .line 123
+    .line 122
     :cond_3
     const-string v2, "DeadZone"
 
@@ -490,20 +487,20 @@
 
     invoke-static {v2, v3}, Landroid/util/Slog;->v(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 125
+    .line 124
     iget-boolean v2, p0, Lcom/android/systemui/statusbar/policy/DeadZone;->mShouldFlash:Z
 
     if-eqz v2, :cond_4
 
-    .line 126
+    .line 125
     iget-object v2, p0, Lcom/android/systemui/statusbar/policy/DeadZone;->mDebugFlash:Ljava/lang/Runnable;
 
-    invoke-virtual {p0, v2}, Lcom/android/systemui/statusbar/policy/DeadZone;->post(Ljava/lang/Runnable;)Z
+    invoke-virtual {p0, v2}, Landroid/view/View;->post(Ljava/lang/Runnable;)Z
 
-    .line 127
-    invoke-virtual {p0}, Lcom/android/systemui/statusbar/policy/DeadZone;->postInvalidate()V
+    .line 126
+    invoke-virtual {p0}, Landroid/view/View;->postInvalidate()V
 
-    .line 129
+    .line 128
     :cond_4
     const/4 v2, 0x1
 
@@ -515,21 +512,21 @@
     .parameter "event"
 
     .prologue
-    .line 136
+    .line 135
     invoke-virtual {p1}, Landroid/view/MotionEvent;->getEventTime()J
 
     move-result-wide v0
 
     iput-wide v0, p0, Lcom/android/systemui/statusbar/policy/DeadZone;->mLastPokeTime:J
 
-    .line 139
+    .line 138
     iget-boolean v0, p0, Lcom/android/systemui/statusbar/policy/DeadZone;->mShouldFlash:Z
 
     if-eqz v0, :cond_0
 
-    invoke-virtual {p0}, Lcom/android/systemui/statusbar/policy/DeadZone;->postInvalidate()V
+    invoke-virtual {p0}, Landroid/view/View;->postInvalidate()V
 
-    .line 140
+    .line 139
     :cond_0
     return-void
 .end method
@@ -539,13 +536,13 @@
     .parameter "f"
 
     .prologue
-    .line 143
+    .line 142
     iput p1, p0, Lcom/android/systemui/statusbar/policy/DeadZone;->mFlashFrac:F
 
-    .line 144
-    invoke-virtual {p0}, Lcom/android/systemui/statusbar/policy/DeadZone;->postInvalidate()V
+    .line 143
+    invoke-virtual {p0}, Landroid/view/View;->postInvalidate()V
 
-    .line 145
+    .line 144
     return-void
 .end method
 
@@ -554,17 +551,17 @@
     .parameter "dbg"
 
     .prologue
-    .line 101
+    .line 100
     iput-boolean p1, p0, Lcom/android/systemui/statusbar/policy/DeadZone;->mShouldFlash:Z
 
-    .line 102
+    .line 101
     const/4 v0, 0x0
 
     iput v0, p0, Lcom/android/systemui/statusbar/policy/DeadZone;->mFlashFrac:F
 
-    .line 103
-    invoke-virtual {p0}, Lcom/android/systemui/statusbar/policy/DeadZone;->postInvalidate()V
+    .line 102
+    invoke-virtual {p0}, Landroid/view/View;->postInvalidate()V
 
-    .line 104
+    .line 103
     return-void
 .end method

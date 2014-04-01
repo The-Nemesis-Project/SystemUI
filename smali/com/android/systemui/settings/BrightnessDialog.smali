@@ -3,7 +3,7 @@
 .source "BrightnessDialog.java"
 
 # interfaces
-.implements Lcom/android/systemui/settings/BrightnessController$BrightnessStateChangeCallback;
+.implements Lcom/android/systemui/statusbar/policy/BrightnessController$BrightnessStateChangeCallback;
 
 
 # static fields
@@ -13,7 +13,7 @@
 
 
 # instance fields
-.field private mBrightnessController:Lcom/android/systemui/settings/BrightnessController;
+.field private mBrightnessController:Lcom/android/systemui/statusbar/policy/BrightnessController;
 
 .field private final mBrightnessDialogLongTimeout:I
 
@@ -30,31 +30,31 @@
     .parameter "ctx"
 
     .prologue
-    .line 56
+    .line 54
     invoke-direct {p0, p1}, Landroid/app/Dialog;-><init>(Landroid/content/Context;)V
 
-    .line 40
+    .line 38
     new-instance v1, Landroid/os/Handler;
 
     invoke-direct {v1}, Landroid/os/Handler;-><init>()V
 
     iput-object v1, p0, Lcom/android/systemui/settings/BrightnessDialog;->mHandler:Landroid/os/Handler;
 
-    .line 46
+    .line 44
     new-instance v1, Lcom/android/systemui/settings/BrightnessDialog$1;
 
     invoke-direct {v1, p0}, Lcom/android/systemui/settings/BrightnessDialog$1;-><init>(Lcom/android/systemui/settings/BrightnessDialog;)V
 
     iput-object v1, p0, Lcom/android/systemui/settings/BrightnessDialog;->mDismissDialogRunnable:Ljava/lang/Runnable;
 
-    .line 57
+    .line 55
     invoke-virtual {p1}, Landroid/content/Context;->getResources()Landroid/content/res/Resources;
 
     move-result-object v0
 
-    .line 58
+    .line 56
     .local v0, r:Landroid/content/res/Resources;
-    const v1, 0x7f0d000c
+    const v1, 0x7f0b000c
 
     invoke-virtual {v0, v1}, Landroid/content/res/Resources;->getInteger(I)I
 
@@ -62,8 +62,8 @@
 
     iput v1, p0, Lcom/android/systemui/settings/BrightnessDialog;->mBrightnessDialogLongTimeout:I
 
-    .line 60
-    const v1, 0x7f0d000b
+    .line 58
+    const v1, 0x7f0b000b
 
     invoke-virtual {v0, v1}, Landroid/content/res/Resources;->getInteger(I)I
 
@@ -71,7 +71,7 @@
 
     iput v1, p0, Lcom/android/systemui/settings/BrightnessDialog;->mBrightnessDialogShortTimeout:I
 
-    .line 62
+    .line 60
     return-void
 .end method
 
@@ -80,10 +80,10 @@
     .parameter "timeout"
 
     .prologue
-    .line 106
+    .line 103
     invoke-direct {p0}, Lcom/android/systemui/settings/BrightnessDialog;->removeAllBrightnessDialogCallbacks()V
 
-    .line 107
+    .line 104
     iget-object v0, p0, Lcom/android/systemui/settings/BrightnessDialog;->mHandler:Landroid/os/Handler;
 
     iget-object v1, p0, Lcom/android/systemui/settings/BrightnessDialog;->mDismissDialogRunnable:Ljava/lang/Runnable;
@@ -92,7 +92,7 @@
 
     invoke-virtual {v0, v1, v2, v3}, Landroid/os/Handler;->postDelayed(Ljava/lang/Runnable;J)Z
 
-    .line 108
+    .line 105
     return-void
 .end method
 
@@ -100,14 +100,14 @@
     .locals 2
 
     .prologue
-    .line 111
+    .line 108
     iget-object v0, p0, Lcom/android/systemui/settings/BrightnessDialog;->mHandler:Landroid/os/Handler;
 
     iget-object v1, p0, Lcom/android/systemui/settings/BrightnessDialog;->mDismissDialogRunnable:Ljava/lang/Runnable;
 
     invoke-virtual {v0, v1}, Landroid/os/Handler;->removeCallbacks(Ljava/lang/Runnable;)V
 
-    .line 112
+    .line 109
     return-void
 .end method
 
@@ -117,12 +117,12 @@
     .locals 1
 
     .prologue
-    .line 102
+    .line 99
     iget v0, p0, Lcom/android/systemui/settings/BrightnessDialog;->mBrightnessDialogShortTimeout:I
 
     invoke-direct {p0, v0}, Lcom/android/systemui/settings/BrightnessDialog;->dismissBrightnessDialog(I)V
 
-    .line 103
+    .line 100
     return-void
 .end method
 
@@ -133,21 +133,21 @@
     .prologue
     const/4 v3, 0x1
 
-    .line 71
+    .line 69
     invoke-super {p0, p1}, Landroid/app/Dialog;->onCreate(Landroid/os/Bundle;)V
 
-    .line 72
+    .line 70
     invoke-virtual {p0}, Lcom/android/systemui/settings/BrightnessDialog;->getWindow()Landroid/view/Window;
 
     move-result-object v0
 
-    .line 73
+    .line 71
     .local v0, window:Landroid/view/Window;
     const/16 v1, 0x7e4
 
     invoke-virtual {v0, v1}, Landroid/view/Window;->setType(I)V
 
-    .line 74
+    .line 72
     invoke-virtual {v0}, Landroid/view/Window;->getAttributes()Landroid/view/WindowManager$LayoutParams;
 
     move-result-object v1
@@ -158,71 +158,63 @@
 
     iput v2, v1, Landroid/view/WindowManager$LayoutParams;->privateFlags:I
 
-    .line 76
+    .line 74
     const/4 v1, 0x2
 
     invoke-virtual {v0, v1}, Landroid/view/Window;->clearFlags(I)V
 
-    .line 77
+    .line 75
     invoke-virtual {v0, v3}, Landroid/view/Window;->requestFeature(I)Z
 
-    .line 79
-    const v1, 0x7f040010
+    .line 77
+    const v1, 0x7f040013
 
     invoke-virtual {p0, v1}, Lcom/android/systemui/settings/BrightnessDialog;->setContentView(I)V
 
-    .line 80
+    .line 78
     invoke-virtual {p0, v3}, Lcom/android/systemui/settings/BrightnessDialog;->setCanceledOnTouchOutside(Z)V
 
-    .line 81
+    .line 79
     return-void
 .end method
 
 .method protected onStart()V
-    .locals 4
+    .locals 3
 
     .prologue
-    .line 86
+    .line 84
     invoke-super {p0}, Landroid/app/Dialog;->onStart()V
 
-    .line 87
-    new-instance v2, Lcom/android/systemui/settings/BrightnessController;
+    .line 85
+    new-instance v1, Lcom/android/systemui/statusbar/policy/BrightnessController;
 
     invoke-virtual {p0}, Lcom/android/systemui/settings/BrightnessDialog;->getContext()Landroid/content/Context;
 
-    move-result-object v3
+    move-result-object v2
 
-    const v0, 0x7f090034
+    const v0, 0x7f07005a
 
     invoke-virtual {p0, v0}, Lcom/android/systemui/settings/BrightnessDialog;->findViewById(I)Landroid/view/View;
 
     move-result-object v0
 
-    check-cast v0, Landroid/widget/ImageView;
+    check-cast v0, Lcom/android/systemui/statusbar/policy/ToggleSlider;
 
-    const v1, 0x7f090036
+    invoke-direct {v1, v2, v0}, Lcom/android/systemui/statusbar/policy/BrightnessController;-><init>(Landroid/content/Context;Lcom/android/systemui/statusbar/policy/ToggleSlider;)V
 
-    invoke-virtual {p0, v1}, Lcom/android/systemui/settings/BrightnessDialog;->findViewById(I)Landroid/view/View;
+    iput-object v1, p0, Lcom/android/systemui/settings/BrightnessDialog;->mBrightnessController:Lcom/android/systemui/statusbar/policy/BrightnessController;
 
-    move-result-object v1
-
-    check-cast v1, Lcom/android/systemui/settings/ToggleSlider;
-
-    invoke-direct {v2, v3, v0, v1}, Lcom/android/systemui/settings/BrightnessController;-><init>(Landroid/content/Context;Landroid/widget/ImageView;Lcom/android/systemui/settings/ToggleSlider;)V
-
-    iput-object v2, p0, Lcom/android/systemui/settings/BrightnessDialog;->mBrightnessController:Lcom/android/systemui/settings/BrightnessController;
-
-    .line 90
+    .line 87
     iget v0, p0, Lcom/android/systemui/settings/BrightnessDialog;->mBrightnessDialogLongTimeout:I
 
     invoke-direct {p0, v0}, Lcom/android/systemui/settings/BrightnessDialog;->dismissBrightnessDialog(I)V
 
-    .line 91
-    iget-object v0, p0, Lcom/android/systemui/settings/BrightnessDialog;->mBrightnessController:Lcom/android/systemui/settings/BrightnessController;
+    .line 88
+    iget-object v0, p0, Lcom/android/systemui/settings/BrightnessDialog;->mBrightnessController:Lcom/android/systemui/statusbar/policy/BrightnessController;
 
-    invoke-virtual {v0, p0}, Lcom/android/systemui/settings/BrightnessController;->addStateChangedCallback(Lcom/android/systemui/settings/BrightnessController$BrightnessStateChangeCallback;)V
+    invoke-virtual {v0, p0}, Lcom/android/systemui/statusbar/policy/BrightnessController;->addStateChangedCallback(Lcom/android/systemui/statusbar/policy/BrightnessController$BrightnessStateChangeCallback;)V
 
-    .line 92
+    .line 89
     return-void
 .end method
 
@@ -230,17 +222,17 @@
     .locals 1
 
     .prologue
-    .line 96
+    .line 93
     invoke-super {p0}, Landroid/app/Dialog;->onStop()V
 
-    .line 97
-    iget-object v0, p0, Lcom/android/systemui/settings/BrightnessDialog;->mBrightnessController:Lcom/android/systemui/settings/BrightnessController;
+    .line 94
+    iget-object v0, p0, Lcom/android/systemui/settings/BrightnessDialog;->mBrightnessController:Lcom/android/systemui/statusbar/policy/BrightnessController;
 
-    invoke-virtual {v0}, Lcom/android/systemui/settings/BrightnessController;->unregisterCallbacks()V
+    invoke-virtual {v0}, Lcom/android/systemui/statusbar/policy/BrightnessController;->unregisterCallbacks()V
 
-    .line 98
+    .line 95
     invoke-direct {p0}, Lcom/android/systemui/settings/BrightnessDialog;->removeAllBrightnessDialogCallbacks()V
 
-    .line 99
+    .line 96
     return-void
 .end method

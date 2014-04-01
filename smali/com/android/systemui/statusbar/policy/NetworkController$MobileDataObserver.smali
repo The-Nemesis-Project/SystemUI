@@ -24,17 +24,17 @@
     .parameter
 
     .prologue
-    .line 4979
+    .line 4097
     iput-object p1, p0, Lcom/android/systemui/statusbar/policy/NetworkController$MobileDataObserver;->this$0:Lcom/android/systemui/statusbar/policy/NetworkController;
 
-    .line 4980
+    .line 4098
     new-instance v0, Landroid/os/Handler;
 
     invoke-direct {v0}, Landroid/os/Handler;-><init>()V
 
     invoke-direct {p0, v0}, Landroid/database/ContentObserver;-><init>(Landroid/os/Handler;)V
 
-    .line 4981
+    .line 4099
     return-void
 .end method
 
@@ -45,7 +45,7 @@
     .parameter "selfChange"
 
     .prologue
-    .line 4984
+    .line 4102
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/NetworkController$MobileDataObserver;->this$0:Lcom/android/systemui/statusbar/policy/NetworkController;
 
     iget-object v1, p0, Lcom/android/systemui/statusbar/policy/NetworkController$MobileDataObserver;->this$0:Lcom/android/systemui/statusbar/policy/NetworkController;
@@ -57,23 +57,23 @@
 
     iput-boolean v1, v0, Lcom/android/systemui/statusbar/policy/NetworkController;->mMobileDataEnabled:Z
 
-    .line 4985
+    .line 4103
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/NetworkController$MobileDataObserver;->this$0:Lcom/android/systemui/statusbar/policy/NetworkController;
 
     #calls: Lcom/android/systemui/statusbar/policy/NetworkController;->getUpdateDataNetType()V
     invoke-static {v0}, Lcom/android/systemui/statusbar/policy/NetworkController;->access$400(Lcom/android/systemui/statusbar/policy/NetworkController;)V
 
-    .line 4986
+    .line 4104
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/NetworkController$MobileDataObserver;->this$0:Lcom/android/systemui/statusbar/policy/NetworkController;
 
     #calls: Lcom/android/systemui/statusbar/policy/NetworkController;->updateDataIcon()V
     invoke-static {v0}, Lcom/android/systemui/statusbar/policy/NetworkController;->access$500(Lcom/android/systemui/statusbar/policy/NetworkController;)V
 
-    .line 4987
+    .line 4105
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/NetworkController$MobileDataObserver;->this$0:Lcom/android/systemui/statusbar/policy/NetworkController;
 
     invoke-virtual {v0}, Lcom/android/systemui/statusbar/policy/NetworkController;->refreshViews()V
 
-    .line 4988
+    .line 4106
     return-void
 .end method

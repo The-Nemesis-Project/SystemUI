@@ -15,7 +15,6 @@
 
 .annotation system Ldalvik/annotation/MemberClasses;
     value = {
-        Lcom/android/systemui/ImageWallpaper$DrawableEngine$WallpaperSimObserver;,
         Lcom/android/systemui/ImageWallpaper$DrawableEngine$WallpaperObserver;
     }
 .end annotation
@@ -52,8 +51,6 @@
 
 .field private mEglSurface:Ljavax/microedition/khronos/egl/EGLSurface;
 
-.field private mGL:Ljavax/microedition/khronos/opengles/GL;
-
 .field mLastRotation:I
 
 .field mLastSurfaceHeight:I
@@ -64,15 +61,11 @@
 
 .field mLastYTranslation:I
 
-.field private final mLock:Ljava/lang/Object;
-
 .field mOffsetsChanged:Z
 
 .field private mReceiver:Lcom/android/systemui/ImageWallpaper$DrawableEngine$WallpaperObserver;
 
 .field mRedrawNeeded:Z
-
-.field private mSimReceiver:Lcom/android/systemui/ImageWallpaper$DrawableEngine$WallpaperSimObserver;
 
 .field mVisible:Z
 
@@ -85,54 +78,36 @@
 
 # direct methods
 .method public constructor <init>(Lcom/android/systemui/ImageWallpaper;)V
-    .locals 3
+    .locals 2
     .parameter
 
     .prologue
-    const/4 v2, 0x1
+    const/4 v1, 0x1
 
-    const/4 v1, -0x1
+    const/4 v0, -0x1
 
-    .line 183
+    .line 168
     iput-object p1, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->this$0:Lcom/android/systemui/ImageWallpaper;
 
-    .line 184
+    .line 169
     invoke-direct {p0, p1}, Landroid/service/wallpaper/WallpaperService$Engine;-><init>(Landroid/service/wallpaper/WallpaperService;)V
 
-    .line 106
-    const/4 v0, 0x0
-
-    new-array v0, v0, [Ljava/lang/Object;
-
-    iput-object v0, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mLock:Ljava/lang/Object;
-
-    .line 114
-    iput v1, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mLastSurfaceWidth:I
-
-    iput v1, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mLastSurfaceHeight:I
-
     .line 115
-    iput v1, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mLastRotation:I
+    iput v0, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mLastSurfaceWidth:I
 
-    .line 119
-    iput-boolean v2, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mVisible:Z
+    iput v0, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mLastSurfaceHeight:I
 
-    .line 185
-    invoke-virtual {p0, v2}, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->setFixedSizeAllowed(Z)V
+    .line 116
+    iput v0, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mLastRotation:I
 
-    .line 186
+    .line 120
+    iput-boolean v1, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mVisible:Z
+
+    .line 170
+    invoke-virtual {p0, v1}, Landroid/service/wallpaper/WallpaperService$Engine;->setFixedSizeAllowed(Z)V
+
+    .line 171
     return-void
-.end method
-
-.method static synthetic access$000(Lcom/android/systemui/ImageWallpaper$DrawableEngine;)Ljava/lang/Object;
-    .locals 1
-    .parameter "x0"
-
-    .prologue
-    .line 102
-    iget-object v0, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mLock:Ljava/lang/Object;
-
-    return-object v0
 .end method
 
 .method private buildProgram(Ljava/lang/String;Ljava/lang/String;)I
@@ -145,25 +120,25 @@
 
     const/4 v5, 0x0
 
-    .line 616
+    .line 578
     const v6, 0x8b31
 
     invoke-direct {p0, p1, v6}, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->buildShader(Ljava/lang/String;I)I
 
     move-result v4
 
-    .line 617
+    .line 579
     .local v4, vertexShader:I
     if-nez v4, :cond_1
 
     move v2, v5
 
-    .line 643
+    .line 605
     :cond_0
     :goto_0
     return v2
 
-    .line 619
+    .line 581
     :cond_1
     const v6, 0x8b30
 
@@ -171,7 +146,7 @@
 
     move-result v1
 
-    .line 620
+    .line 582
     .local v1, fragmentShader:I
     if-nez v1, :cond_2
 
@@ -179,51 +154,51 @@
 
     goto :goto_0
 
-    .line 622
+    .line 584
     :cond_2
     invoke-static {}, Landroid/opengl/GLES20;->glCreateProgram()I
 
     move-result v2
 
-    .line 623
+    .line 585
     .local v2, program:I
     invoke-static {v2, v4}, Landroid/opengl/GLES20;->glAttachShader(II)V
 
-    .line 624
+    .line 586
     invoke-direct {p0}, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->checkGlError()V
 
-    .line 626
+    .line 588
     invoke-static {v2, v1}, Landroid/opengl/GLES20;->glAttachShader(II)V
 
-    .line 627
+    .line 589
     invoke-direct {p0}, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->checkGlError()V
 
-    .line 629
+    .line 591
     invoke-static {v2}, Landroid/opengl/GLES20;->glLinkProgram(I)V
 
-    .line 630
+    .line 592
     invoke-direct {p0}, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->checkGlError()V
 
-    .line 632
+    .line 594
     new-array v3, v7, [I
 
-    .line 633
+    .line 595
     .local v3, status:[I
     const v6, 0x8b82
 
     invoke-static {v2, v6, v3, v5}, Landroid/opengl/GLES20;->glGetProgramiv(II[II)V
 
-    .line 634
+    .line 596
     aget v6, v3, v5
 
     if-eq v6, v7, :cond_0
 
-    .line 635
+    .line 597
     invoke-static {v2}, Landroid/opengl/GLES20;->glGetProgramInfoLog(I)Ljava/lang/String;
 
     move-result-object v0
 
-    .line 636
+    .line 598
     .local v0, error:Ljava/lang/String;
     const-string v6, "ImageWallpaperGL"
 
@@ -247,18 +222,18 @@
 
     invoke-static {v6, v7}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 637
+    .line 599
     invoke-static {v4}, Landroid/opengl/GLES20;->glDeleteShader(I)V
 
-    .line 638
+    .line 600
     invoke-static {v1}, Landroid/opengl/GLES20;->glDeleteShader(I)V
 
-    .line 639
+    .line 601
     invoke-static {v2}, Landroid/opengl/GLES20;->glDeleteProgram(I)V
 
     move v2, v5
 
-    .line 640
+    .line 602
     goto :goto_0
 .end method
 
@@ -272,44 +247,44 @@
 
     const/4 v3, 0x0
 
-    .line 647
+    .line 609
     invoke-static {p2}, Landroid/opengl/GLES20;->glCreateShader(I)I
 
     move-result v1
 
-    .line 649
+    .line 611
     .local v1, shader:I
     invoke-static {v1, p1}, Landroid/opengl/GLES20;->glShaderSource(ILjava/lang/String;)V
 
-    .line 650
+    .line 612
     invoke-direct {p0}, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->checkGlError()V
 
-    .line 652
+    .line 614
     invoke-static {v1}, Landroid/opengl/GLES20;->glCompileShader(I)V
 
-    .line 653
+    .line 615
     invoke-direct {p0}, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->checkGlError()V
 
-    .line 655
+    .line 617
     new-array v2, v5, [I
 
-    .line 656
+    .line 618
     .local v2, status:[I
     const v4, 0x8b81
 
     invoke-static {v1, v4, v2, v3}, Landroid/opengl/GLES20;->glGetShaderiv(II[II)V
 
-    .line 657
+    .line 619
     aget v4, v2, v3
 
     if-eq v4, v5, :cond_0
 
-    .line 658
+    .line 620
     invoke-static {v1}, Landroid/opengl/GLES20;->glGetShaderInfoLog(I)Ljava/lang/String;
 
     move-result-object v0
 
-    .line 659
+    .line 621
     .local v0, error:Ljava/lang/String;
     const-string v4, "ImageWallpaperGL"
 
@@ -333,12 +308,12 @@
 
     invoke-static {v4, v5}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 660
+    .line 622
     invoke-static {v1}, Landroid/opengl/GLES20;->glDeleteShader(I)V
 
     move v1, v3
 
-    .line 664
+    .line 626
     .end local v0           #error:Ljava/lang/String;
     .end local v1           #shader:I
     :cond_0
@@ -349,20 +324,20 @@
     .locals 4
 
     .prologue
-    .line 668
+    .line 630
     iget-object v1, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mEgl:Ljavax/microedition/khronos/egl/EGL10;
 
     invoke-interface {v1}, Ljavax/microedition/khronos/egl/EGL10;->eglGetError()I
 
     move-result v0
 
-    .line 669
+    .line 631
     .local v0, error:I
     const/16 v1, 0x3000
 
     if-eq v0, v1, :cond_0
 
-    .line 670
+    .line 632
     const-string v1, "ImageWallpaperGL"
 
     new-instance v2, Ljava/lang/StringBuilder;
@@ -389,7 +364,7 @@
 
     invoke-static {v1, v2}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 672
+    .line 634
     :cond_0
     return-void
 .end method
@@ -398,16 +373,16 @@
     .locals 4
 
     .prologue
-    .line 675
+    .line 637
     invoke-static {}, Landroid/opengl/GLES20;->glGetError()I
 
     move-result v0
 
-    .line 676
+    .line 638
     .local v0, error:I
     if-eqz v0, :cond_0
 
-    .line 677
+    .line 639
     const-string v1, "ImageWallpaperGL"
 
     new-instance v2, Ljava/lang/StringBuilder;
@@ -438,7 +413,7 @@
 
     invoke-static {v1, v2, v3}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)I
 
-    .line 679
+    .line 641
     :cond_0
     return-void
 .end method
@@ -451,20 +426,20 @@
 
     const/4 v4, 0x1
 
-    .line 738
+    .line 727
     new-array v5, v4, [I
 
-    .line 739
+    .line 728
     .local v5, configsCount:[I
     new-array v3, v4, [Ljavax/microedition/khronos/egl/EGLConfig;
 
-    .line 740
+    .line 729
     .local v3, configs:[Ljavax/microedition/khronos/egl/EGLConfig;
     invoke-direct {p0}, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->getConfig()[I
 
     move-result-object v2
 
-    .line 741
+    .line 730
     .local v2, configSpec:[I
     iget-object v0, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mEgl:Ljavax/microedition/khronos/egl/EGL10;
 
@@ -476,7 +451,7 @@
 
     if-nez v0, :cond_0
 
-    .line 742
+    .line 731
     new-instance v0, Ljava/lang/IllegalArgumentException;
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -511,16 +486,16 @@
 
     throw v0
 
-    .line 744
+    .line 733
     :cond_0
     aget v0, v5, v6
 
     if-lez v0, :cond_1
 
-    .line 745
+    .line 734
     aget-object v0, v3, v6
 
-    .line 747
+    .line 736
     :goto_0
     return-object v0
 
@@ -544,7 +519,7 @@
 
     const/4 v5, 0x0
 
-    .line 577
+    .line 539
     const/16 v3, 0x14
 
     new-array v2, v3, [F
@@ -635,13 +610,13 @@
 
     aput v5, v2, v3
 
-    .line 585
+    .line 547
     .local v2, verticesData:[F
     array-length v3, v2
 
     mul-int/lit8 v0, v3, 0x4
 
-    .line 586
+    .line 548
     .local v0, bytes:I
     invoke-static {v0}, Ljava/nio/ByteBuffer;->allocateDirect(I)Ljava/nio/ByteBuffer;
 
@@ -659,15 +634,15 @@
 
     move-result-object v1
 
-    .line 588
+    .line 550
     .local v1, triangleVertices:Ljava/nio/FloatBuffer;
     invoke-virtual {v1, v2}, Ljava/nio/FloatBuffer;->put([F)Ljava/nio/FloatBuffer;
 
     move-result-object v3
 
-    invoke-virtual {v3, v7}, Ljava/nio/FloatBuffer;->position(I)Ljava/nio/Buffer;
+    invoke-virtual {v3, v7}, Ljava/nio/Buffer;->position(I)Ljava/nio/Buffer;
 
-    .line 589
+    .line 551
     return-object v1
 .end method
 
@@ -680,16 +655,16 @@
     .parameter "y"
 
     .prologue
-    .line 493
+    .line 457
     invoke-interface {p1}, Landroid/view/SurfaceHolder;->lockCanvas()Landroid/graphics/Canvas;
 
     move-result-object v0
 
-    .line 494
+    .line 458
     .local v0, c:Landroid/graphics/Canvas;
     if-eqz v0, :cond_3
 
-    .line 500
+    .line 464
     int-to-float v1, p4
 
     int-to-float v2, p5
@@ -697,18 +672,18 @@
     :try_start_0
     invoke-virtual {v0, v1, v2}, Landroid/graphics/Canvas;->translate(FF)V
 
-    .line 501
+    .line 465
     if-ltz p2, :cond_0
 
     if-gez p3, :cond_1
 
-    .line 502
+    .line 466
     :cond_0
     const/4 v1, 0x2
 
     invoke-virtual {v0, v1}, Landroid/graphics/Canvas;->save(I)I
 
-    .line 503
+    .line 467
     const/4 v1, 0x0
 
     const/4 v2, 0x0
@@ -733,21 +708,21 @@
 
     invoke-virtual/range {v0 .. v5}, Landroid/graphics/Canvas;->clipRect(FFFFLandroid/graphics/Region$Op;)Z
 
-    .line 505
+    .line 469
     const/high16 v1, -0x100
 
     invoke-virtual {v0, v1}, Landroid/graphics/Canvas;->drawColor(I)V
 
-    .line 506
+    .line 470
     invoke-virtual {v0}, Landroid/graphics/Canvas;->restore()V
 
-    .line 508
+    .line 472
     :cond_1
     iget-object v1, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mBackground:Landroid/graphics/Bitmap;
 
     if-eqz v1, :cond_2
 
-    .line 509
+    .line 473
     iget-object v1, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mBackground:Landroid/graphics/Bitmap;
 
     const/4 v2, 0x0
@@ -760,15 +735,15 @@
     :try_end_0
     .catchall {:try_start_0 .. :try_end_0} :catchall_0
 
-    .line 512
+    .line 476
     :cond_2
     invoke-interface {p1, v0}, Landroid/view/SurfaceHolder;->unlockCanvasAndPost(Landroid/graphics/Canvas;)V
 
-    .line 515
+    .line 479
     :cond_3
     return-void
 
-    .line 512
+    .line 476
     :catchall_0
     move-exception v1
 
@@ -778,7 +753,7 @@
 .end method
 
 .method private drawWallpaperWithOpenGL(Landroid/view/SurfaceHolder;IIII)Z
-    .locals 25
+    .locals 26
     .parameter "sh"
     .parameter "w"
     .parameter "h"
@@ -786,20 +761,20 @@
     .parameter "top"
 
     .prologue
-    .line 518
+    .line 482
     invoke-direct/range {p0 .. p1}, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->initGL(Landroid/view/SurfaceHolder;)Z
 
     move-result v7
 
     if-nez v7, :cond_0
 
-    const/4 v7, 0x0
+    const/16 v22, 0x0
 
-    .line 573
+    .line 535
     :goto_0
-    return v7
+    return v22
 
-    .line 520
+    .line 484
     :cond_0
     move-object/from16 v0, p0
 
@@ -815,7 +790,7 @@
 
     move/from16 v21, v0
 
-    .line 521
+    .line 485
     .local v21, right:F
     move-object/from16 v0, p0
 
@@ -831,19 +806,19 @@
 
     move/from16 v18, v0
 
-    .line 523
+    .line 487
     .local v18, bottom:F
     invoke-interface/range {p1 .. p1}, Landroid/view/SurfaceHolder;->getSurfaceFrame()Landroid/graphics/Rect;
 
     move-result-object v19
 
-    .line 524
+    .line 488
     .local v19, frame:Landroid/graphics/Rect;
     new-instance v5, Landroid/renderscript/Matrix4f;
 
     invoke-direct {v5}, Landroid/renderscript/Matrix4f;-><init>()V
 
-    .line 525
+    .line 489
     .local v5, ortho:Landroid/renderscript/Matrix4f;
     const/4 v6, 0x0
 
@@ -867,7 +842,7 @@
 
     invoke-virtual/range {v5 .. v11}, Landroid/renderscript/Matrix4f;->loadOrtho(FFFFFF)V
 
-    .line 527
+    .line 491
     move-object/from16 v0, p0
 
     move/from16 v1, p4
@@ -882,7 +857,7 @@
 
     move-result-object v11
 
-    .line 529
+    .line 493
     .local v11, triangleVertices:Ljava/nio/FloatBuffer;
     move-object/from16 v0, p0
 
@@ -892,10 +867,10 @@
 
     invoke-direct {v0, v7}, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->loadTexture(Landroid/graphics/Bitmap;)I
 
-    move-result v22
+    move-result v23
 
-    .line 530
-    .local v22, texture:I
+    .line 494
+    .local v23, texture:I
     const-string v7, "attribute vec4 position;\nattribute vec2 texCoords;\nvarying vec2 outTexCoords;\nuniform mat4 projection;\n\nvoid main(void) {\n    outTexCoords = texCoords;\n    gl_Position = projection * position;\n}\n\n"
 
     const-string v8, "precision mediump float;\n\nvarying vec2 outTexCoords;\nuniform sampler2D texture;\n\nvoid main(void) {\n    gl_FragColor = texture2D(texture, outTexCoords);\n}\n\n"
@@ -906,7 +881,7 @@
 
     move-result v20
 
-    .line 532
+    .line 496
     .local v20, program:I
     const-string v7, "position"
 
@@ -916,7 +891,7 @@
 
     move-result v6
 
-    .line 533
+    .line 497
     .local v6, attribPosition:I
     const-string v7, "texCoords"
 
@@ -926,7 +901,7 @@
 
     move-result v12
 
-    .line 534
+    .line 498
     .local v12, attribTexCoords:I
     const-string v7, "texture"
 
@@ -934,23 +909,23 @@
 
     invoke-static {v0, v7}, Landroid/opengl/GLES20;->glGetUniformLocation(ILjava/lang/String;)I
 
-    move-result v24
+    move-result v25
 
-    .line 535
-    .local v24, uniformTexture:I
+    .line 499
+    .local v25, uniformTexture:I
     const-string v7, "projection"
 
     move/from16 v0, v20
 
     invoke-static {v0, v7}, Landroid/opengl/GLES20;->glGetUniformLocation(ILjava/lang/String;)I
 
-    move-result v23
+    move-result v24
 
-    .line 537
-    .local v23, uniformProjection:I
+    .line 501
+    .local v24, uniformProjection:I
     invoke-direct/range {p0 .. p0}, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->checkGlError()V
 
-    .line 539
+    .line 503
     const/4 v7, 0x0
 
     const/4 v8, 0x0
@@ -965,30 +940,30 @@
 
     invoke-static {v7, v8, v9, v10}, Landroid/opengl/GLES20;->glViewport(IIII)V
 
-    .line 540
+    .line 504
     const/16 v7, 0xde1
 
-    move/from16 v0, v22
+    move/from16 v0, v23
 
     invoke-static {v7, v0}, Landroid/opengl/GLES20;->glBindTexture(II)V
 
-    .line 542
+    .line 506
     invoke-static/range {v20 .. v20}, Landroid/opengl/GLES20;->glUseProgram(I)V
 
-    .line 543
+    .line 507
     invoke-static {v6}, Landroid/opengl/GLES20;->glEnableVertexAttribArray(I)V
 
-    .line 544
+    .line 508
     invoke-static {v12}, Landroid/opengl/GLES20;->glEnableVertexAttribArray(I)V
 
-    .line 545
+    .line 509
     const/4 v7, 0x0
 
-    move/from16 v0, v24
+    move/from16 v0, v25
 
     invoke-static {v0, v7}, Landroid/opengl/GLES20;->glUniform1i(II)V
 
-    .line 546
+    .line 510
     const/4 v7, 0x1
 
     const/4 v8, 0x0
@@ -999,19 +974,19 @@
 
     const/4 v10, 0x0
 
-    move/from16 v0, v23
+    move/from16 v0, v24
 
     invoke-static {v0, v7, v8, v9, v10}, Landroid/opengl/GLES20;->glUniformMatrix4fv(IIZ[FI)V
 
-    .line 548
+    .line 512
     invoke-direct/range {p0 .. p0}, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->checkGlError()V
 
-    .line 550
+    .line 514
     if-ltz p2, :cond_1
 
     if-gez p3, :cond_2
 
-    .line 551
+    .line 515
     :cond_1
     const/4 v7, 0x0
 
@@ -1023,18 +998,18 @@
 
     invoke-static {v7, v8, v9, v10}, Landroid/opengl/GLES20;->glClearColor(FFFF)V
 
-    .line 552
+    .line 516
     const/16 v7, 0x4000
 
     invoke-static {v7}, Landroid/opengl/GLES20;->glClear(I)V
 
-    .line 556
+    .line 520
     :cond_2
     const/4 v7, 0x0
 
-    invoke-virtual {v11, v7}, Ljava/nio/FloatBuffer;->position(I)Ljava/nio/Buffer;
+    invoke-virtual {v11, v7}, Ljava/nio/Buffer;->position(I)Ljava/nio/Buffer;
 
-    .line 557
+    .line 521
     const/4 v7, 0x3
 
     const/16 v8, 0x1406
@@ -1045,12 +1020,12 @@
 
     invoke-static/range {v6 .. v11}, Landroid/opengl/GLES20;->glVertexAttribPointer(IIIZILjava/nio/Buffer;)V
 
-    .line 560
+    .line 524
     const/4 v7, 0x3
 
-    invoke-virtual {v11, v7}, Ljava/nio/FloatBuffer;->position(I)Ljava/nio/Buffer;
+    invoke-virtual {v11, v7}, Ljava/nio/Buffer;->position(I)Ljava/nio/Buffer;
 
-    .line 561
+    .line 525
     const/4 v13, 0x3
 
     const/16 v14, 0x1406
@@ -1063,7 +1038,7 @@
 
     invoke-static/range {v12 .. v17}, Landroid/opengl/GLES20;->glVertexAttribPointer(IIIZILjava/nio/Buffer;)V
 
-    .line 564
+    .line 528
     const/4 v7, 0x5
 
     const/4 v8, 0x0
@@ -1072,7 +1047,7 @@
 
     invoke-static {v7, v8, v9}, Landroid/opengl/GLES20;->glDrawArrays(III)V
 
-    .line 566
+    .line 530
     move-object/from16 v0, p0
 
     iget-object v7, v0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mEgl:Ljavax/microedition/khronos/egl/EGL10;
@@ -1087,28 +1062,14 @@
 
     invoke-interface {v7, v8, v9}, Ljavax/microedition/khronos/egl/EGL10;->eglSwapBuffers(Ljavax/microedition/khronos/egl/EGLDisplay;Ljavax/microedition/khronos/egl/EGLSurface;)Z
 
-    move-result v7
+    move-result v22
 
-    if-nez v7, :cond_3
-
-    .line 567
-    new-instance v7, Ljava/lang/RuntimeException;
-
-    const-string v8, "Cannot swap buffers"
-
-    invoke-direct {v7, v8}, Ljava/lang/RuntimeException;-><init>(Ljava/lang/String;)V
-
-    throw v7
-
-    .line 569
-    :cond_3
+    .line 531
+    .local v22, status:Z
     invoke-direct/range {p0 .. p0}, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->checkEglError()V
 
-    .line 571
+    .line 533
     invoke-direct/range {p0 .. p0}, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->finishGL()V
-
-    .line 573
-    const/4 v7, 0x1
 
     goto/16 :goto_0
 .end method
@@ -1117,7 +1078,7 @@
     .locals 5
 
     .prologue
-    .line 682
+    .line 644
     iget-object v0, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mEgl:Ljavax/microedition/khronos/egl/EGL10;
 
     iget-object v1, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mEglDisplay:Ljavax/microedition/khronos/egl/EGLDisplay;
@@ -1130,7 +1091,7 @@
 
     invoke-interface {v0, v1, v2, v3, v4}, Ljavax/microedition/khronos/egl/EGL10;->eglMakeCurrent(Ljavax/microedition/khronos/egl/EGLDisplay;Ljavax/microedition/khronos/egl/EGLSurface;Ljavax/microedition/khronos/egl/EGLSurface;Ljavax/microedition/khronos/egl/EGLContext;)Z
 
-    .line 683
+    .line 645
     iget-object v0, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mEgl:Ljavax/microedition/khronos/egl/EGL10;
 
     iget-object v1, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mEglDisplay:Ljavax/microedition/khronos/egl/EGLDisplay;
@@ -1139,7 +1100,7 @@
 
     invoke-interface {v0, v1, v2}, Ljavax/microedition/khronos/egl/EGL10;->eglDestroySurface(Ljavax/microedition/khronos/egl/EGLDisplay;Ljavax/microedition/khronos/egl/EGLSurface;)Z
 
-    .line 684
+    .line 646
     iget-object v0, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mEgl:Ljavax/microedition/khronos/egl/EGL10;
 
     iget-object v1, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mEglDisplay:Ljavax/microedition/khronos/egl/EGLDisplay;
@@ -1148,7 +1109,14 @@
 
     invoke-interface {v0, v1, v2}, Ljavax/microedition/khronos/egl/EGL10;->eglDestroyContext(Ljavax/microedition/khronos/egl/EGLDisplay;Ljavax/microedition/khronos/egl/EGLContext;)Z
 
-    .line 685
+    .line 647
+    iget-object v0, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mEgl:Ljavax/microedition/khronos/egl/EGL10;
+
+    iget-object v1, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mEglDisplay:Ljavax/microedition/khronos/egl/EGLDisplay;
+
+    invoke-interface {v0, v1}, Ljavax/microedition/khronos/egl/EGL10;->eglTerminate(Ljavax/microedition/khronos/egl/EGLDisplay;)Z
+
+    .line 648
     return-void
 .end method
 
@@ -1156,7 +1124,7 @@
     .locals 1
 
     .prologue
-    .line 751
+    .line 740
     const/16 v0, 0x11
 
     new-array v0, v0, [I
@@ -1188,315 +1156,560 @@
 .end method
 
 .method private initGL(Landroid/view/SurfaceHolder;)Z
-    .locals 7
+    .locals 13
     .parameter "surfaceHolder"
 
     .prologue
-    .line 688
+    const/4 v7, 0x1
+
+    const/4 v8, 0x0
+
+    .line 651
     invoke-static {}, Ljavax/microedition/khronos/egl/EGLContext;->getEGL()Ljavax/microedition/khronos/egl/EGL;
 
-    move-result-object v2
+    move-result-object v6
 
-    check-cast v2, Ljavax/microedition/khronos/egl/EGL10;
+    check-cast v6, Ljavax/microedition/khronos/egl/EGL10;
 
-    iput-object v2, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mEgl:Ljavax/microedition/khronos/egl/EGL10;
+    iput-object v6, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mEgl:Ljavax/microedition/khronos/egl/EGL10;
 
-    .line 690
-    iget-object v2, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mEgl:Ljavax/microedition/khronos/egl/EGL10;
+    .line 653
+    iget-object v6, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mEgl:Ljavax/microedition/khronos/egl/EGL10;
 
-    sget-object v3, Ljavax/microedition/khronos/egl/EGL10;->EGL_DEFAULT_DISPLAY:Ljava/lang/Object;
+    sget-object v9, Ljavax/microedition/khronos/egl/EGL10;->EGL_DEFAULT_DISPLAY:Ljava/lang/Object;
 
-    invoke-interface {v2, v3}, Ljavax/microedition/khronos/egl/EGL10;->eglGetDisplay(Ljava/lang/Object;)Ljavax/microedition/khronos/egl/EGLDisplay;
+    invoke-interface {v6, v9}, Ljavax/microedition/khronos/egl/EGL10;->eglGetDisplay(Ljava/lang/Object;)Ljavax/microedition/khronos/egl/EGLDisplay;
 
-    move-result-object v2
+    move-result-object v6
 
-    iput-object v2, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mEglDisplay:Ljavax/microedition/khronos/egl/EGLDisplay;
+    iput-object v6, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mEglDisplay:Ljavax/microedition/khronos/egl/EGLDisplay;
 
-    .line 691
-    iget-object v2, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mEglDisplay:Ljavax/microedition/khronos/egl/EGLDisplay;
+    .line 654
+    iget-object v6, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mEglDisplay:Ljavax/microedition/khronos/egl/EGLDisplay;
 
-    sget-object v3, Ljavax/microedition/khronos/egl/EGL10;->EGL_NO_DISPLAY:Ljavax/microedition/khronos/egl/EGLDisplay;
+    sget-object v9, Ljavax/microedition/khronos/egl/EGL10;->EGL_NO_DISPLAY:Ljavax/microedition/khronos/egl/EGLDisplay;
 
-    if-ne v2, v3, :cond_0
+    if-ne v6, v9, :cond_0
 
-    .line 692
-    new-instance v2, Ljava/lang/RuntimeException;
+    .line 655
+    new-instance v6, Ljava/lang/RuntimeException;
 
-    new-instance v3, Ljava/lang/StringBuilder;
+    new-instance v7, Ljava/lang/StringBuilder;
 
-    invoke-direct {v3}, Ljava/lang/StringBuilder;-><init>()V
+    invoke-direct {v7}, Ljava/lang/StringBuilder;-><init>()V
 
-    const-string v4, "eglGetDisplay failed "
+    const-string v8, "eglGetDisplay failed "
 
-    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v7, v8}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    move-result-object v3
+    move-result-object v7
 
-    iget-object v4, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mEgl:Ljavax/microedition/khronos/egl/EGL10;
+    iget-object v8, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mEgl:Ljavax/microedition/khronos/egl/EGL10;
 
-    invoke-interface {v4}, Ljavax/microedition/khronos/egl/EGL10;->eglGetError()I
+    invoke-interface {v8}, Ljavax/microedition/khronos/egl/EGL10;->eglGetError()I
 
-    move-result v4
+    move-result v8
 
-    invoke-static {v4}, Landroid/opengl/GLUtils;->getEGLErrorString(I)Ljava/lang/String;
+    invoke-static {v8}, Landroid/opengl/GLUtils;->getEGLErrorString(I)Ljava/lang/String;
 
-    move-result-object v4
+    move-result-object v8
 
-    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v7, v8}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    move-result-object v3
+    move-result-object v7
 
-    invoke-virtual {v3}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+    invoke-virtual {v7}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
 
-    move-result-object v3
+    move-result-object v7
 
-    invoke-direct {v2, v3}, Ljava/lang/RuntimeException;-><init>(Ljava/lang/String;)V
+    invoke-direct {v6, v7}, Ljava/lang/RuntimeException;-><init>(Ljava/lang/String;)V
 
-    throw v2
+    throw v6
 
-    .line 696
+    .line 659
     :cond_0
-    const/4 v2, 0x2
+    const/4 v6, 0x2
 
-    new-array v1, v2, [I
+    new-array v5, v6, [I
 
-    .line 697
-    .local v1, version:[I
-    iget-object v2, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mEgl:Ljavax/microedition/khronos/egl/EGL10;
+    .line 660
+    .local v5, version:[I
+    iget-object v6, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mEgl:Ljavax/microedition/khronos/egl/EGL10;
 
-    iget-object v3, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mEglDisplay:Ljavax/microedition/khronos/egl/EGLDisplay;
+    iget-object v9, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mEglDisplay:Ljavax/microedition/khronos/egl/EGLDisplay;
 
-    invoke-interface {v2, v3, v1}, Ljavax/microedition/khronos/egl/EGL10;->eglInitialize(Ljavax/microedition/khronos/egl/EGLDisplay;[I)Z
+    invoke-interface {v6, v9, v5}, Ljavax/microedition/khronos/egl/EGL10;->eglInitialize(Ljavax/microedition/khronos/egl/EGLDisplay;[I)Z
 
-    move-result v2
+    move-result v6
 
-    if-nez v2, :cond_1
+    if-nez v6, :cond_1
 
-    .line 698
-    new-instance v2, Ljava/lang/RuntimeException;
+    .line 661
+    new-instance v6, Ljava/lang/RuntimeException;
 
-    new-instance v3, Ljava/lang/StringBuilder;
+    new-instance v7, Ljava/lang/StringBuilder;
 
-    invoke-direct {v3}, Ljava/lang/StringBuilder;-><init>()V
+    invoke-direct {v7}, Ljava/lang/StringBuilder;-><init>()V
 
-    const-string v4, "eglInitialize failed "
+    const-string v8, "eglInitialize failed "
 
-    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v7, v8}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    move-result-object v3
+    move-result-object v7
 
-    iget-object v4, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mEgl:Ljavax/microedition/khronos/egl/EGL10;
+    iget-object v8, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mEgl:Ljavax/microedition/khronos/egl/EGL10;
 
-    invoke-interface {v4}, Ljavax/microedition/khronos/egl/EGL10;->eglGetError()I
+    invoke-interface {v8}, Ljavax/microedition/khronos/egl/EGL10;->eglGetError()I
 
-    move-result v4
+    move-result v8
 
-    invoke-static {v4}, Landroid/opengl/GLUtils;->getEGLErrorString(I)Ljava/lang/String;
+    invoke-static {v8}, Landroid/opengl/GLUtils;->getEGLErrorString(I)Ljava/lang/String;
 
-    move-result-object v4
+    move-result-object v8
 
-    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v7, v8}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    move-result-object v3
+    move-result-object v7
 
-    invoke-virtual {v3}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+    invoke-virtual {v7}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
 
-    move-result-object v3
+    move-result-object v7
 
-    invoke-direct {v2, v3}, Ljava/lang/RuntimeException;-><init>(Ljava/lang/String;)V
+    invoke-direct {v6, v7}, Ljava/lang/RuntimeException;-><init>(Ljava/lang/String;)V
 
-    throw v2
+    throw v6
 
-    .line 702
+    .line 665
     :cond_1
     invoke-direct {p0}, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->chooseEglConfig()Ljavax/microedition/khronos/egl/EGLConfig;
 
-    move-result-object v2
+    move-result-object v6
 
-    iput-object v2, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mEglConfig:Ljavax/microedition/khronos/egl/EGLConfig;
+    iput-object v6, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mEglConfig:Ljavax/microedition/khronos/egl/EGLConfig;
 
-    .line 703
-    iget-object v2, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mEglConfig:Ljavax/microedition/khronos/egl/EGLConfig;
+    .line 666
+    iget-object v6, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mEglConfig:Ljavax/microedition/khronos/egl/EGLConfig;
 
-    if-nez v2, :cond_2
+    if-nez v6, :cond_2
 
-    .line 704
-    new-instance v2, Ljava/lang/RuntimeException;
+    .line 667
+    new-instance v6, Ljava/lang/RuntimeException;
 
-    const-string v3, "eglConfig not initialized"
+    const-string v7, "eglConfig not initialized"
 
-    invoke-direct {v2, v3}, Ljava/lang/RuntimeException;-><init>(Ljava/lang/String;)V
+    invoke-direct {v6, v7}, Ljava/lang/RuntimeException;-><init>(Ljava/lang/String;)V
 
-    throw v2
+    throw v6
 
-    .line 707
+    .line 670
     :cond_2
-    iget-object v2, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mEgl:Ljavax/microedition/khronos/egl/EGL10;
+    iget-object v6, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mEgl:Ljavax/microedition/khronos/egl/EGL10;
 
-    iget-object v3, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mEglDisplay:Ljavax/microedition/khronos/egl/EGLDisplay;
+    iget-object v9, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mEglDisplay:Ljavax/microedition/khronos/egl/EGLDisplay;
 
-    iget-object v4, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mEglConfig:Ljavax/microedition/khronos/egl/EGLConfig;
+    iget-object v10, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mEglConfig:Ljavax/microedition/khronos/egl/EGLConfig;
 
-    invoke-virtual {p0, v2, v3, v4}, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->createContext(Ljavax/microedition/khronos/egl/EGL10;Ljavax/microedition/khronos/egl/EGLDisplay;Ljavax/microedition/khronos/egl/EGLConfig;)Ljavax/microedition/khronos/egl/EGLContext;
+    invoke-virtual {p0, v6, v9, v10}, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->createContext(Ljavax/microedition/khronos/egl/EGL10;Ljavax/microedition/khronos/egl/EGLDisplay;Ljavax/microedition/khronos/egl/EGLConfig;)Ljavax/microedition/khronos/egl/EGLContext;
 
-    move-result-object v2
+    move-result-object v6
 
-    iput-object v2, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mEglContext:Ljavax/microedition/khronos/egl/EGLContext;
+    iput-object v6, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mEglContext:Ljavax/microedition/khronos/egl/EGLContext;
 
-    .line 709
-    iget-object v2, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mEgl:Ljavax/microedition/khronos/egl/EGL10;
-
-    iget-object v3, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mEglDisplay:Ljavax/microedition/khronos/egl/EGLDisplay;
-
-    iget-object v4, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mEglConfig:Ljavax/microedition/khronos/egl/EGLConfig;
-
-    const/4 v5, 0x0
-
-    invoke-interface {v2, v3, v4, p1, v5}, Ljavax/microedition/khronos/egl/EGL10;->eglCreateWindowSurface(Ljavax/microedition/khronos/egl/EGLDisplay;Ljavax/microedition/khronos/egl/EGLConfig;Ljava/lang/Object;[I)Ljavax/microedition/khronos/egl/EGLSurface;
-
-    move-result-object v2
-
-    iput-object v2, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mEglSurface:Ljavax/microedition/khronos/egl/EGLSurface;
-
-    .line 711
-    iget-object v2, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mEglSurface:Ljavax/microedition/khronos/egl/EGLSurface;
-
-    if-eqz v2, :cond_3
-
-    iget-object v2, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mEglSurface:Ljavax/microedition/khronos/egl/EGLSurface;
-
-    sget-object v3, Ljavax/microedition/khronos/egl/EGL10;->EGL_NO_SURFACE:Ljavax/microedition/khronos/egl/EGLSurface;
-
-    if-ne v2, v3, :cond_5
-
-    .line 712
-    :cond_3
-    iget-object v2, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mEgl:Ljavax/microedition/khronos/egl/EGL10;
-
-    invoke-interface {v2}, Ljavax/microedition/khronos/egl/EGL10;->eglGetError()I
-
-    move-result v0
-
-    .line 713
-    .local v0, error:I
-    const/16 v2, 0x300b
-
-    if-ne v0, v2, :cond_4
-
-    .line 714
-    const-string v2, "ImageWallpaperGL"
-
-    const-string v3, "createWindowSurface returned EGL_BAD_NATIVE_WINDOW."
-
-    invoke-static {v2, v3}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I
-
-    .line 715
-    const/4 v2, 0x0
-
-    .line 728
-    .end local v0           #error:I
-    :goto_0
-    return v2
-
-    .line 717
-    .restart local v0       #error:I
-    :cond_4
-    new-instance v2, Ljava/lang/RuntimeException;
-
-    new-instance v3, Ljava/lang/StringBuilder;
-
-    invoke-direct {v3}, Ljava/lang/StringBuilder;-><init>()V
-
-    const-string v4, "createWindowSurface failed "
-
-    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v3
-
-    invoke-static {v0}, Landroid/opengl/GLUtils;->getEGLErrorString(I)Ljava/lang/String;
-
-    move-result-object v4
-
-    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v3
-
-    invoke-virtual {v3}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v3
-
-    invoke-direct {v2, v3}, Ljava/lang/RuntimeException;-><init>(Ljava/lang/String;)V
-
-    throw v2
-
-    .line 721
-    .end local v0           #error:I
-    :cond_5
-    iget-object v2, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mEgl:Ljavax/microedition/khronos/egl/EGL10;
-
-    iget-object v3, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mEglDisplay:Ljavax/microedition/khronos/egl/EGLDisplay;
-
-    iget-object v4, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mEglSurface:Ljavax/microedition/khronos/egl/EGLSurface;
-
-    iget-object v5, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mEglSurface:Ljavax/microedition/khronos/egl/EGLSurface;
-
+    .line 671
     iget-object v6, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mEglContext:Ljavax/microedition/khronos/egl/EGLContext;
 
-    invoke-interface {v2, v3, v4, v5, v6}, Ljavax/microedition/khronos/egl/EGL10;->eglMakeCurrent(Ljavax/microedition/khronos/egl/EGLDisplay;Ljavax/microedition/khronos/egl/EGLSurface;Ljavax/microedition/khronos/egl/EGLSurface;Ljavax/microedition/khronos/egl/EGLContext;)Z
+    sget-object v9, Ljavax/microedition/khronos/egl/EGL10;->EGL_NO_CONTEXT:Ljavax/microedition/khronos/egl/EGLContext;
 
-    move-result v2
+    if-ne v6, v9, :cond_3
 
-    if-nez v2, :cond_6
+    .line 672
+    new-instance v6, Ljava/lang/RuntimeException;
 
-    .line 722
-    new-instance v2, Ljava/lang/RuntimeException;
+    new-instance v7, Ljava/lang/StringBuilder;
 
-    new-instance v3, Ljava/lang/StringBuilder;
+    invoke-direct {v7}, Ljava/lang/StringBuilder;-><init>()V
 
-    invoke-direct {v3}, Ljava/lang/StringBuilder;-><init>()V
+    const-string v8, "createContext failed "
 
-    const-string v4, "eglMakeCurrent failed "
+    invoke-virtual {v7, v8}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    move-result-object v7
 
-    move-result-object v3
+    iget-object v8, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mEgl:Ljavax/microedition/khronos/egl/EGL10;
 
-    iget-object v4, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mEgl:Ljavax/microedition/khronos/egl/EGL10;
+    invoke-interface {v8}, Ljavax/microedition/khronos/egl/EGL10;->eglGetError()I
 
-    invoke-interface {v4}, Ljavax/microedition/khronos/egl/EGL10;->eglGetError()I
+    move-result v8
 
-    move-result v4
+    invoke-static {v8}, Landroid/opengl/GLUtils;->getEGLErrorString(I)Ljava/lang/String;
 
-    invoke-static {v4}, Landroid/opengl/GLUtils;->getEGLErrorString(I)Ljava/lang/String;
+    move-result-object v8
+
+    invoke-virtual {v7, v8}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v7
+
+    invoke-virtual {v7}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v7
+
+    invoke-direct {v6, v7}, Ljava/lang/RuntimeException;-><init>(Ljava/lang/String;)V
+
+    throw v6
+
+    .line 676
+    :cond_3
+    const/4 v6, 0x5
+
+    new-array v0, v6, [I
+
+    fill-array-data v0, :array_0
+
+    .line 681
+    .local v0, attribs:[I
+    iget-object v6, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mEgl:Ljavax/microedition/khronos/egl/EGL10;
+
+    iget-object v9, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mEglDisplay:Ljavax/microedition/khronos/egl/EGLDisplay;
+
+    iget-object v10, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mEglConfig:Ljavax/microedition/khronos/egl/EGLConfig;
+
+    invoke-interface {v6, v9, v10, v0}, Ljavax/microedition/khronos/egl/EGL10;->eglCreatePbufferSurface(Ljavax/microedition/khronos/egl/EGLDisplay;Ljavax/microedition/khronos/egl/EGLConfig;[I)Ljavax/microedition/khronos/egl/EGLSurface;
 
     move-result-object v4
 
-    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    .line 682
+    .local v4, tmpSurface:Ljavax/microedition/khronos/egl/EGLSurface;
+    iget-object v6, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mEgl:Ljavax/microedition/khronos/egl/EGL10;
 
-    move-result-object v3
+    iget-object v9, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mEglDisplay:Ljavax/microedition/khronos/egl/EGLDisplay;
 
-    invoke-virtual {v3}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+    iget-object v10, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mEglContext:Ljavax/microedition/khronos/egl/EGLContext;
 
-    move-result-object v3
+    invoke-interface {v6, v9, v4, v4, v10}, Ljavax/microedition/khronos/egl/EGL10;->eglMakeCurrent(Ljavax/microedition/khronos/egl/EGLDisplay;Ljavax/microedition/khronos/egl/EGLSurface;Ljavax/microedition/khronos/egl/EGLSurface;Ljavax/microedition/khronos/egl/EGLContext;)Z
 
-    invoke-direct {v2, v3}, Ljava/lang/RuntimeException;-><init>(Ljava/lang/String;)V
+    .line 684
+    new-array v3, v7, [I
 
-    throw v2
-
-    .line 726
-    :cond_6
-    iget-object v2, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mEglContext:Ljavax/microedition/khronos/egl/EGLContext;
-
-    invoke-virtual {v2}, Ljavax/microedition/khronos/egl/EGLContext;->getGL()Ljavax/microedition/khronos/opengles/GL;
+    .line 685
+    .local v3, maxSize:[I
+    invoke-interface {p1}, Landroid/view/SurfaceHolder;->getSurfaceFrame()Landroid/graphics/Rect;
 
     move-result-object v2
 
-    iput-object v2, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mGL:Ljavax/microedition/khronos/opengles/GL;
+    .line 686
+    .local v2, frame:Landroid/graphics/Rect;
+    const/16 v6, 0xd33
 
-    .line 728
-    const/4 v2, 0x1
+    invoke-static {v6, v3, v8}, Landroid/opengl/GLES20;->glGetIntegerv(I[II)V
 
+    .line 688
+    iget-object v6, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mEgl:Ljavax/microedition/khronos/egl/EGL10;
+
+    iget-object v9, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mEglDisplay:Ljavax/microedition/khronos/egl/EGLDisplay;
+
+    sget-object v10, Ljavax/microedition/khronos/egl/EGL10;->EGL_NO_SURFACE:Ljavax/microedition/khronos/egl/EGLSurface;
+
+    sget-object v11, Ljavax/microedition/khronos/egl/EGL10;->EGL_NO_SURFACE:Ljavax/microedition/khronos/egl/EGLSurface;
+
+    sget-object v12, Ljavax/microedition/khronos/egl/EGL10;->EGL_NO_CONTEXT:Ljavax/microedition/khronos/egl/EGLContext;
+
+    invoke-interface {v6, v9, v10, v11, v12}, Ljavax/microedition/khronos/egl/EGL10;->eglMakeCurrent(Ljavax/microedition/khronos/egl/EGLDisplay;Ljavax/microedition/khronos/egl/EGLSurface;Ljavax/microedition/khronos/egl/EGLSurface;Ljavax/microedition/khronos/egl/EGLContext;)Z
+
+    .line 689
+    iget-object v6, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mEgl:Ljavax/microedition/khronos/egl/EGL10;
+
+    iget-object v9, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mEglDisplay:Ljavax/microedition/khronos/egl/EGLDisplay;
+
+    invoke-interface {v6, v9, v4}, Ljavax/microedition/khronos/egl/EGL10;->eglDestroySurface(Ljavax/microedition/khronos/egl/EGLDisplay;Ljavax/microedition/khronos/egl/EGLSurface;)Z
+
+    .line 691
+    invoke-virtual {v2}, Landroid/graphics/Rect;->width()I
+
+    move-result v6
+
+    aget v9, v3, v8
+
+    if-gt v6, v9, :cond_4
+
+    invoke-virtual {v2}, Landroid/graphics/Rect;->height()I
+
+    move-result v6
+
+    aget v9, v3, v8
+
+    if-le v6, v9, :cond_5
+
+    .line 692
+    :cond_4
+    iget-object v6, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mEgl:Ljavax/microedition/khronos/egl/EGL10;
+
+    iget-object v7, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mEglDisplay:Ljavax/microedition/khronos/egl/EGLDisplay;
+
+    iget-object v9, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mEglContext:Ljavax/microedition/khronos/egl/EGLContext;
+
+    invoke-interface {v6, v7, v9}, Ljavax/microedition/khronos/egl/EGL10;->eglDestroyContext(Ljavax/microedition/khronos/egl/EGLDisplay;Ljavax/microedition/khronos/egl/EGLContext;)Z
+
+    .line 693
+    iget-object v6, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mEgl:Ljavax/microedition/khronos/egl/EGL10;
+
+    iget-object v7, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mEglDisplay:Ljavax/microedition/khronos/egl/EGLDisplay;
+
+    invoke-interface {v6, v7}, Ljavax/microedition/khronos/egl/EGL10;->eglTerminate(Ljavax/microedition/khronos/egl/EGLDisplay;)Z
+
+    .line 694
+    const-string v6, "ImageWallpaperGL"
+
+    new-instance v7, Ljava/lang/StringBuilder;
+
+    invoke-direct {v7}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v9, "requested  texture size "
+
+    invoke-virtual {v7, v9}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v7
+
+    invoke-virtual {v2}, Landroid/graphics/Rect;->width()I
+
+    move-result v9
+
+    invoke-virtual {v7, v9}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    move-result-object v7
+
+    const-string v9, "x"
+
+    invoke-virtual {v7, v9}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v7
+
+    invoke-virtual {v2}, Landroid/graphics/Rect;->height()I
+
+    move-result v9
+
+    invoke-virtual {v7, v9}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    move-result-object v7
+
+    const-string v9, " exceeds the support maximum of "
+
+    invoke-virtual {v7, v9}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v7
+
+    aget v9, v3, v8
+
+    invoke-virtual {v7, v9}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    move-result-object v7
+
+    const-string v9, "x"
+
+    invoke-virtual {v7, v9}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v7
+
+    aget v9, v3, v8
+
+    invoke-virtual {v7, v9}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    move-result-object v7
+
+    invoke-virtual {v7}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v7
+
+    invoke-static {v6, v7}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I
+
+    move v6, v8
+
+    .line 717
+    :goto_0
+    return v6
+
+    .line 700
+    :cond_5
+    iget-object v6, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mEgl:Ljavax/microedition/khronos/egl/EGL10;
+
+    iget-object v9, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mEglDisplay:Ljavax/microedition/khronos/egl/EGLDisplay;
+
+    iget-object v10, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mEglConfig:Ljavax/microedition/khronos/egl/EGLConfig;
+
+    const/4 v11, 0x0
+
+    invoke-interface {v6, v9, v10, p1, v11}, Ljavax/microedition/khronos/egl/EGL10;->eglCreateWindowSurface(Ljavax/microedition/khronos/egl/EGLDisplay;Ljavax/microedition/khronos/egl/EGLConfig;Ljava/lang/Object;[I)Ljavax/microedition/khronos/egl/EGLSurface;
+
+    move-result-object v6
+
+    iput-object v6, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mEglSurface:Ljavax/microedition/khronos/egl/EGLSurface;
+
+    .line 701
+    iget-object v6, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mEglSurface:Ljavax/microedition/khronos/egl/EGLSurface;
+
+    if-eqz v6, :cond_6
+
+    iget-object v6, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mEglSurface:Ljavax/microedition/khronos/egl/EGLSurface;
+
+    sget-object v9, Ljavax/microedition/khronos/egl/EGL10;->EGL_NO_SURFACE:Ljavax/microedition/khronos/egl/EGLSurface;
+
+    if-ne v6, v9, :cond_9
+
+    .line 702
+    :cond_6
+    iget-object v6, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mEgl:Ljavax/microedition/khronos/egl/EGL10;
+
+    invoke-interface {v6}, Ljavax/microedition/khronos/egl/EGL10;->eglGetError()I
+
+    move-result v1
+
+    .line 703
+    .local v1, error:I
+    const/16 v6, 0x300b
+
+    if-eq v1, v6, :cond_7
+
+    const/16 v6, 0x3003
+
+    if-ne v1, v6, :cond_8
+
+    .line 704
+    :cond_7
+    const-string v6, "ImageWallpaperGL"
+
+    new-instance v7, Ljava/lang/StringBuilder;
+
+    invoke-direct {v7}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v9, "createWindowSurface returned "
+
+    invoke-virtual {v7, v9}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v7
+
+    invoke-static {v1}, Landroid/opengl/GLUtils;->getEGLErrorString(I)Ljava/lang/String;
+
+    move-result-object v9
+
+    invoke-virtual {v7, v9}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v7
+
+    const-string v9, "."
+
+    invoke-virtual {v7, v9}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v7
+
+    invoke-virtual {v7}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v7
+
+    invoke-static {v6, v7}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I
+
+    move v6, v8
+
+    .line 706
     goto :goto_0
+
+    .line 708
+    :cond_8
+    new-instance v6, Ljava/lang/RuntimeException;
+
+    new-instance v7, Ljava/lang/StringBuilder;
+
+    invoke-direct {v7}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v8, "createWindowSurface failed "
+
+    invoke-virtual {v7, v8}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v7
+
+    invoke-static {v1}, Landroid/opengl/GLUtils;->getEGLErrorString(I)Ljava/lang/String;
+
+    move-result-object v8
+
+    invoke-virtual {v7, v8}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v7
+
+    invoke-virtual {v7}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v7
+
+    invoke-direct {v6, v7}, Ljava/lang/RuntimeException;-><init>(Ljava/lang/String;)V
+
+    throw v6
+
+    .line 712
+    .end local v1           #error:I
+    :cond_9
+    iget-object v6, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mEgl:Ljavax/microedition/khronos/egl/EGL10;
+
+    iget-object v8, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mEglDisplay:Ljavax/microedition/khronos/egl/EGLDisplay;
+
+    iget-object v9, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mEglSurface:Ljavax/microedition/khronos/egl/EGLSurface;
+
+    iget-object v10, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mEglSurface:Ljavax/microedition/khronos/egl/EGLSurface;
+
+    iget-object v11, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mEglContext:Ljavax/microedition/khronos/egl/EGLContext;
+
+    invoke-interface {v6, v8, v9, v10, v11}, Ljavax/microedition/khronos/egl/EGL10;->eglMakeCurrent(Ljavax/microedition/khronos/egl/EGLDisplay;Ljavax/microedition/khronos/egl/EGLSurface;Ljavax/microedition/khronos/egl/EGLSurface;Ljavax/microedition/khronos/egl/EGLContext;)Z
+
+    move-result v6
+
+    if-nez v6, :cond_a
+
+    .line 713
+    new-instance v6, Ljava/lang/RuntimeException;
+
+    new-instance v7, Ljava/lang/StringBuilder;
+
+    invoke-direct {v7}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v8, "eglMakeCurrent failed "
+
+    invoke-virtual {v7, v8}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v7
+
+    iget-object v8, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mEgl:Ljavax/microedition/khronos/egl/EGL10;
+
+    invoke-interface {v8}, Ljavax/microedition/khronos/egl/EGL10;->eglGetError()I
+
+    move-result v8
+
+    invoke-static {v8}, Landroid/opengl/GLUtils;->getEGLErrorString(I)Ljava/lang/String;
+
+    move-result-object v8
+
+    invoke-virtual {v7, v8}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v7
+
+    invoke-virtual {v7}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v7
+
+    invoke-direct {v6, v7}, Ljava/lang/RuntimeException;-><init>(Ljava/lang/String;)V
+
+    throw v6
+
+    :cond_a
+    move v6, v7
+
+    .line 717
+    goto/16 :goto_0
+
+    .line 676
+    :array_0
+    .array-data 0x4
+        0x57t 0x30t 0x0t 0x0t
+        0x1t 0x0t 0x0t 0x0t
+        0x56t 0x30t 0x0t 0x0t
+        0x1t 0x0t 0x0t 0x0t
+        0x38t 0x30t 0x0t 0x0t
+    .end array-data
 .end method
 
 .method private loadTexture(Landroid/graphics/Bitmap;)I
@@ -1514,52 +1727,52 @@
 
     const/16 v0, 0xde1
 
-    .line 593
+    .line 555
     new-array v7, v3, [I
 
-    .line 595
+    .line 557
     .local v7, textures:[I
     const v2, 0x84c0
 
     invoke-static {v2}, Landroid/opengl/GLES20;->glActiveTexture(I)V
 
-    .line 596
+    .line 558
     invoke-static {v3, v7, v1}, Landroid/opengl/GLES20;->glGenTextures(I[II)V
 
-    .line 597
+    .line 559
     invoke-direct {p0}, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->checkGlError()V
 
-    .line 599
+    .line 561
     aget v6, v7, v1
 
-    .line 600
+    .line 562
     .local v6, texture:I
     invoke-static {v0, v6}, Landroid/opengl/GLES20;->glBindTexture(II)V
 
-    .line 601
+    .line 563
     invoke-direct {p0}, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->checkGlError()V
 
-    .line 603
+    .line 565
     const/16 v2, 0x2801
 
     invoke-static {v0, v2, v4}, Landroid/opengl/GLES20;->glTexParameteri(III)V
 
-    .line 604
+    .line 566
     const/16 v2, 0x2800
 
     invoke-static {v0, v2, v4}, Landroid/opengl/GLES20;->glTexParameteri(III)V
 
-    .line 606
+    .line 568
     const/16 v2, 0x2802
 
     invoke-static {v0, v2, v5}, Landroid/opengl/GLES20;->glTexParameteri(III)V
 
-    .line 607
+    .line 569
     const/16 v2, 0x2803
 
     invoke-static {v0, v2, v5}, Landroid/opengl/GLES20;->glTexParameteri(III)V
 
-    .line 609
+    .line 571
     const/16 v2, 0x1908
 
     const/16 v4, 0x1401
@@ -1570,10 +1783,10 @@
 
     invoke-static/range {v0 .. v5}, Landroid/opengl/GLUtils;->texImage2D(IIILandroid/graphics/Bitmap;II)V
 
-    .line 610
+    .line 572
     invoke-direct {p0}, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->checkGlError()V
 
-    .line 612
+    .line 574
     return v6
 .end method
 
@@ -1583,24 +1796,17 @@
     .prologue
     const/4 v4, 0x0
 
-    .line 466
+    .line 431
     const/4 v2, 0x0
 
-    .line 468
+    .line 433
     .local v2, exception:Ljava/lang/Throwable;
-    :try_start_0
-    iget-object v3, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->this$0:Lcom/android/systemui/ImageWallpaper;
-
-    iget-object v3, v3, Lcom/android/systemui/ImageWallpaper;->mWallpaperManager:Landroid/app/WallpaperManager;
-
-    invoke-virtual {v3}, Landroid/app/WallpaperManager;->forgetLoadedWallpaper()V
-
-    .line 469
     const/4 v3, 0x0
 
+    :try_start_0
     iput-object v3, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mBackground:Landroid/graphics/Bitmap;
 
-    .line 470
+    .line 434
     iget-object v3, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->this$0:Lcom/android/systemui/ImageWallpaper;
 
     iget-object v3, v3, Lcom/android/systemui/ImageWallpaper;->mWallpaperManager:Landroid/app/WallpaperManager;
@@ -1614,21 +1820,21 @@
     .catch Ljava/lang/RuntimeException; {:try_start_0 .. :try_end_0} :catch_0
     .catch Ljava/lang/OutOfMemoryError; {:try_start_0 .. :try_end_0} :catch_1
 
-    .line 477
+    .line 441
     :goto_0
     if-eqz v2, :cond_0
 
-    .line 478
+    .line 442
     iput-object v4, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mBackground:Landroid/graphics/Bitmap;
 
-    .line 482
+    .line 446
     const-string v3, "ImageWallpaper"
 
     const-string v4, "Unable to load wallpaper!"
 
     invoke-static {v3, v4, v2}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)I
 
-    .line 484
+    .line 448
     :try_start_1
     iget-object v3, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->this$0:Lcom/android/systemui/ImageWallpaper;
 
@@ -1638,39 +1844,39 @@
     :try_end_1
     .catch Ljava/io/IOException; {:try_start_1 .. :try_end_1} :catch_2
 
-    .line 490
+    .line 454
     :cond_0
     :goto_1
     return-void
 
-    .line 471
+    .line 435
     :catch_0
     move-exception v0
 
-    .line 472
+    .line 436
     .local v0, e:Ljava/lang/RuntimeException;
     move-object v2, v0
 
-    .line 475
+    .line 439
     goto :goto_0
 
-    .line 473
+    .line 437
     .end local v0           #e:Ljava/lang/RuntimeException;
     :catch_1
     move-exception v0
 
-    .line 474
+    .line 438
     .local v0, e:Ljava/lang/OutOfMemoryError;
     move-object v2, v0
 
     goto :goto_0
 
-    .line 485
+    .line 449
     .end local v0           #e:Ljava/lang/OutOfMemoryError;
     :catch_2
     move-exception v1
 
-    .line 487
+    .line 451
     .local v1, ex:Ljava/io/IOException;
     const-string v3, "ImageWallpaper"
 
@@ -1690,14 +1896,14 @@
     .parameter "eglConfig"
 
     .prologue
-    .line 733
+    .line 722
     const/4 v1, 0x3
 
     new-array v0, v1, [I
 
     fill-array-data v0, :array_0
 
-    .line 734
+    .line 723
     .local v0, attrib_list:[I
     sget-object v1, Ljavax/microedition/khronos/egl/EGL10;->EGL_NO_CONTEXT:Ljavax/microedition/khronos/egl/EGLContext;
 
@@ -1707,7 +1913,7 @@
 
     return-object v1
 
-    .line 733
+    .line 722
     nop
 
     :array_0
@@ -1718,230 +1924,199 @@
     .end array-data
 .end method
 
-.method drawFrameLocked()V
-    .locals 15
+.method drawFrame()V
+    .locals 14
 
     .prologue
-    const/4 v10, 0x1
+    const/high16 v13, 0x3f00
 
-    const/high16 v14, 0x3f00
+    const/4 v0, 0x0
 
-    const/4 v12, 0x0
+    .line 308
+    iget-boolean v11, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mRedrawNeeded:Z
 
-    .line 341
-    iget-boolean v0, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mRedrawNeeded:Z
+    if-nez v11, :cond_1
 
-    if-nez v0, :cond_1
+    iget-boolean v11, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mOffsetsChanged:Z
 
-    iget-boolean v0, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mOffsetsChanged:Z
+    if-nez v11, :cond_1
 
-    if-nez v0, :cond_1
+    iget-boolean v11, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mVisible:Z
 
-    iget-boolean v0, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mVisible:Z
+    if-nez v11, :cond_1
 
-    if-nez v0, :cond_1
-
-    .line 463
+    .line 428
     :cond_0
     :goto_0
     return-void
 
-    .line 371
+    .line 338
     :cond_1
-    iget-boolean v0, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mVisible:Z
+    iget-boolean v11, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mVisible:Z
 
-    if-eqz v0, :cond_0
+    if-eqz v11, :cond_0
 
-    .line 379
-    invoke-virtual {p0}, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->getSurfaceHolder()Landroid/view/SurfaceHolder;
+    .line 345
+    invoke-virtual {p0}, Landroid/service/wallpaper/WallpaperService$Engine;->getSurfaceHolder()Landroid/view/SurfaceHolder;
 
     move-result-object v1
 
-    .line 380
+    .line 346
     .local v1, sh:Landroid/view/SurfaceHolder;
     invoke-interface {v1}, Landroid/view/SurfaceHolder;->getSurfaceFrame()Landroid/graphics/Rect;
 
     move-result-object v8
 
-    .line 381
+    .line 347
     .local v8, frame:Landroid/graphics/Rect;
     invoke-virtual {v8}, Landroid/graphics/Rect;->width()I
 
     move-result v7
 
-    .line 382
+    .line 348
     .local v7, dw:I
     invoke-virtual {v8}, Landroid/graphics/Rect;->height()I
 
     move-result v6
 
-    .line 383
+    .line 350
     .local v6, dh:I
-    iget-object v0, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->this$0:Lcom/android/systemui/ImageWallpaper;
+    iget v11, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mLastSurfaceWidth:I
 
-    const-string v13, "window"
+    if-ne v7, v11, :cond_2
 
-    invoke-virtual {v0, v13}, Lcom/android/systemui/ImageWallpaper;->getSystemService(Ljava/lang/String;)Ljava/lang/Object;
+    iget v11, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mLastSurfaceHeight:I
 
-    move-result-object v0
-
-    check-cast v0, Landroid/view/WindowManager;
-
-    invoke-interface {v0}, Landroid/view/WindowManager;->getDefaultDisplay()Landroid/view/Display;
-
-    move-result-object v0
-
-    invoke-virtual {v0}, Landroid/view/Display;->getRotation()I
-
-    move-result v9
-
-    .line 385
-    .local v9, newRotation:I
-    iget v0, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mLastSurfaceWidth:I
-
-    if-ne v7, v0, :cond_2
-
-    iget v0, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mLastSurfaceHeight:I
-
-    if-eq v6, v0, :cond_9
+    if-eq v6, v11, :cond_8
 
     :cond_2
-    move v11, v10
+    const/4 v10, 0x1
 
-    .line 387
-    .local v11, surfaceDimensionsChanged:Z
+    .line 352
+    .local v10, surfaceDimensionsChanged:Z
     :goto_1
-    if-nez v11, :cond_3
+    move v9, v10
 
-    iget v0, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mLastRotation:I
+    .line 353
+    .local v9, redrawNeeded:Z
+    if-nez v9, :cond_3
 
-    if-eq v9, v0, :cond_a
+    iget-boolean v11, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mOffsetsChanged:Z
 
-    .line 388
-    .local v10, redrawNeeded:Z
+    if-eqz v11, :cond_0
+
+    .line 362
     :cond_3
-    :goto_2
-    if-nez v10, :cond_4
+    iget-object v11, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mBackground:Landroid/graphics/Bitmap;
 
-    iget-boolean v0, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mOffsetsChanged:Z
+    if-eqz v11, :cond_4
 
-    if-eqz v0, :cond_0
+    if-eqz v10, :cond_5
 
-    .line 395
+    .line 370
     :cond_4
-    iput v9, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mLastRotation:I
-
-    .line 398
-    iget-object v0, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mBackground:Landroid/graphics/Bitmap;
-
-    if-eqz v0, :cond_5
-
-    if-eqz v11, :cond_6
-
-    .line 406
-    :cond_5
     invoke-direct {p0}, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->updateWallpaperLocked()V
 
-    .line 407
-    iget-object v0, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mBackground:Landroid/graphics/Bitmap;
+    .line 371
+    iget-object v11, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mBackground:Landroid/graphics/Bitmap;
 
-    if-eqz v0, :cond_0
+    if-eqz v11, :cond_0
 
-    .line 422
-    :cond_6
-    iget-object v0, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mBackground:Landroid/graphics/Bitmap;
+    .line 386
+    :cond_5
+    iget-object v11, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mBackground:Landroid/graphics/Bitmap;
 
-    invoke-virtual {v0}, Landroid/graphics/Bitmap;->getWidth()I
+    invoke-virtual {v11}, Landroid/graphics/Bitmap;->getWidth()I
 
-    move-result v0
+    move-result v11
 
-    sub-int v2, v7, v0
+    sub-int v2, v7, v11
 
-    .line 423
+    .line 387
     .local v2, availw:I
-    iget-object v0, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mBackground:Landroid/graphics/Bitmap;
+    iget-object v11, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mBackground:Landroid/graphics/Bitmap;
 
-    invoke-virtual {v0}, Landroid/graphics/Bitmap;->getHeight()I
+    invoke-virtual {v11}, Landroid/graphics/Bitmap;->getHeight()I
 
-    move-result v0
+    move-result v11
 
-    sub-int v3, v6, v0
+    sub-int v3, v6, v11
 
-    .line 424
+    .line 388
     .local v3, availh:I
-    if-gez v2, :cond_b
+    if-gez v2, :cond_9
 
-    int-to-float v0, v2
+    int-to-float v11, v2
 
-    iget v13, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mXOffset:F
+    iget v12, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mXOffset:F
 
-    mul-float/2addr v0, v13
+    mul-float/2addr v11, v12
 
-    add-float/2addr v0, v14
+    add-float/2addr v11, v13
 
-    float-to-int v4, v0
+    float-to-int v4, v11
 
-    .line 425
+    .line 389
     .local v4, xPixels:I
-    :goto_3
-    if-gez v3, :cond_c
+    :goto_2
+    if-gez v3, :cond_a
 
-    int-to-float v0, v3
+    int-to-float v11, v3
 
-    iget v13, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mYOffset:F
+    iget v12, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mYOffset:F
 
-    mul-float/2addr v0, v13
+    mul-float/2addr v11, v12
 
-    add-float/2addr v0, v14
+    add-float/2addr v11, v13
 
-    float-to-int v5, v0
+    float-to-int v5, v11
 
-    .line 427
+    .line 391
     .local v5, yPixels:I
-    :goto_4
-    iput-boolean v12, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mOffsetsChanged:Z
+    :goto_3
+    iput-boolean v0, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mOffsetsChanged:Z
 
-    .line 428
-    iput-boolean v12, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mRedrawNeeded:Z
+    .line 392
+    iput-boolean v0, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mRedrawNeeded:Z
 
-    .line 429
-    if-eqz v11, :cond_7
+    .line 393
+    if-eqz v10, :cond_6
 
-    .line 430
+    .line 394
     iput v7, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mLastSurfaceWidth:I
 
-    .line 431
+    .line 395
     iput v6, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mLastSurfaceHeight:I
 
-    .line 433
-    :cond_7
+    .line 397
+    :cond_6
     iput v4, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mLastXTranslation:I
 
-    .line 434
+    .line 398
     iput v5, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mLastYTranslation:I
 
-    .line 435
-    if-nez v10, :cond_8
+    .line 399
+    if-nez v9, :cond_7
 
     iget v0, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mLastXTranslation:I
 
-    if-ne v4, v0, :cond_8
+    if-ne v4, v0, :cond_7
 
     iget v0, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mLastYTranslation:I
 
     if-eq v5, v0, :cond_0
 
-    .line 446
-    :cond_8
+    .line 411
+    :cond_7
     iget-object v0, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->this$0:Lcom/android/systemui/ImageWallpaper;
 
     iget-boolean v0, v0, Lcom/android/systemui/ImageWallpaper;->mIsHwAccelerated:Z
 
-    if-eqz v0, :cond_d
+    if-eqz v0, :cond_b
 
     move-object v0, p0
 
-    .line 447
+    .line 412
     invoke-direct/range {v0 .. v5}, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->drawWallpaperWithOpenGL(Landroid/view/SurfaceHolder;IIII)Z
 
     move-result v0
@@ -1950,59 +2125,53 @@
 
     move-object v0, p0
 
-    .line 448
+    .line 413
     invoke-direct/range {v0 .. v5}, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->drawWallpaperWithCanvas(Landroid/view/SurfaceHolder;IIII)V
 
-    goto/16 :goto_0
+    goto :goto_0
 
     .end local v2           #availw:I
     .end local v3           #availh:I
     .end local v4           #xPixels:I
     .end local v5           #yPixels:I
-    .end local v10           #redrawNeeded:Z
-    .end local v11           #surfaceDimensionsChanged:Z
-    :cond_9
-    move v11, v12
+    .end local v9           #redrawNeeded:Z
+    .end local v10           #surfaceDimensionsChanged:Z
+    :cond_8
+    move v10, v0
 
-    .line 385
+    .line 350
     goto :goto_1
 
-    .restart local v11       #surfaceDimensionsChanged:Z
-    :cond_a
-    move v10, v12
-
-    .line 387
-    goto :goto_2
-
-    .line 424
+    .line 388
     .restart local v2       #availw:I
     .restart local v3       #availh:I
-    .restart local v10       #redrawNeeded:Z
-    :cond_b
+    .restart local v9       #redrawNeeded:Z
+    .restart local v10       #surfaceDimensionsChanged:Z
+    :cond_9
     div-int/lit8 v4, v2, 0x2
+
+    goto :goto_2
+
+    .line 389
+    .restart local v4       #xPixels:I
+    :cond_a
+    div-int/lit8 v5, v3, 0x2
 
     goto :goto_3
 
-    .line 425
-    .restart local v4       #xPixels:I
-    :cond_c
-    div-int/lit8 v5, v3, 0x2
-
-    goto :goto_4
-
     .restart local v5       #yPixels:I
-    :cond_d
+    :cond_b
     move-object v0, p0
 
-    .line 451
+    .line 416
     invoke-direct/range {v0 .. v5}, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->drawWallpaperWithCanvas(Landroid/view/SurfaceHolder;IIII)V
 
-    .line 458
+    .line 423
     const/4 v0, 0x0
 
     iput-object v0, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mBackground:Landroid/graphics/Bitmap;
 
-    .line 459
+    .line 424
     iget-object v0, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->this$0:Lcom/android/systemui/ImageWallpaper;
 
     iget-object v0, v0, Lcom/android/systemui/ImageWallpaper;->mWallpaperManager:Landroid/app/WallpaperManager;
@@ -2013,47 +2182,22 @@
 .end method
 
 .method public onCreate(Landroid/view/SurfaceHolder;)V
-    .locals 3
+    .locals 1
     .parameter "surfaceHolder"
 
     .prologue
-    .line 206
+    .line 191
     invoke-super {p0, p1}, Landroid/service/wallpaper/WallpaperService$Engine;->onCreate(Landroid/view/SurfaceHolder;)V
 
-    .line 214
-    new-instance v0, Landroid/content/IntentFilter;
-
-    invoke-direct {v0}, Landroid/content/IntentFilter;-><init>()V
-
-    .line 215
-    .local v0, filter:Landroid/content/IntentFilter;
-    const-string v1, "android.intent.action.ACTION_SIM2_ONLY"
-
-    invoke-virtual {v0, v1}, Landroid/content/IntentFilter;->addAction(Ljava/lang/String;)V
-
-    .line 216
-    new-instance v1, Lcom/android/systemui/ImageWallpaper$DrawableEngine$WallpaperSimObserver;
-
-    invoke-direct {v1, p0}, Lcom/android/systemui/ImageWallpaper$DrawableEngine$WallpaperSimObserver;-><init>(Lcom/android/systemui/ImageWallpaper$DrawableEngine;)V
-
-    iput-object v1, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mSimReceiver:Lcom/android/systemui/ImageWallpaper$DrawableEngine$WallpaperSimObserver;
-
-    .line 217
-    iget-object v1, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->this$0:Lcom/android/systemui/ImageWallpaper;
-
-    iget-object v2, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mSimReceiver:Lcom/android/systemui/ImageWallpaper$DrawableEngine$WallpaperSimObserver;
-
-    invoke-virtual {v1, v2, v0}, Lcom/android/systemui/ImageWallpaper;->registerReceiver(Landroid/content/BroadcastReceiver;Landroid/content/IntentFilter;)Landroid/content/Intent;
-
-    .line 219
+    .line 199
     invoke-virtual {p0, p1}, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->updateSurfaceSize(Landroid/view/SurfaceHolder;)V
 
-    .line 221
-    const/4 v1, 0x0
+    .line 201
+    const/4 v0, 0x0
 
-    invoke-virtual {p0, v1}, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->setOffsetNotificationsEnabled(Z)V
+    invoke-virtual {p0, v0}, Landroid/service/wallpaper/WallpaperService$Engine;->setOffsetNotificationsEnabled(Z)V
 
-    .line 222
+    .line 202
     return-void
 .end method
 
@@ -2063,22 +2207,22 @@
     .parameter "desiredHeight"
 
     .prologue
-    .line 238
+    .line 214
     invoke-super {p0, p1, p2}, Landroid/service/wallpaper/WallpaperService$Engine;->onDesiredSizeChanged(II)V
 
-    .line 239
-    invoke-virtual {p0}, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->getSurfaceHolder()Landroid/view/SurfaceHolder;
+    .line 215
+    invoke-virtual {p0}, Landroid/service/wallpaper/WallpaperService$Engine;->getSurfaceHolder()Landroid/view/SurfaceHolder;
 
     move-result-object v0
 
-    .line 240
+    .line 216
     .local v0, surfaceHolder:Landroid/view/SurfaceHolder;
     if-eqz v0, :cond_0
 
-    .line 241
+    .line 217
     invoke-virtual {p0, v0}, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->updateSurfaceSize(Landroid/view/SurfaceHolder;)V
 
-    .line 243
+    .line 219
     :cond_0
     return-void
 .end method
@@ -2087,41 +2231,28 @@
     .locals 2
 
     .prologue
-    .line 226
+    .line 206
     invoke-super {p0}, Landroid/service/wallpaper/WallpaperService$Engine;->onDestroy()V
 
-    .line 227
+    .line 207
     iget-object v0, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mReceiver:Lcom/android/systemui/ImageWallpaper$DrawableEngine$WallpaperObserver;
 
     if-eqz v0, :cond_0
 
-    .line 228
+    .line 208
     iget-object v0, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->this$0:Lcom/android/systemui/ImageWallpaper;
 
     iget-object v1, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mReceiver:Lcom/android/systemui/ImageWallpaper$DrawableEngine$WallpaperObserver;
 
-    invoke-virtual {v0, v1}, Lcom/android/systemui/ImageWallpaper;->unregisterReceiver(Landroid/content/BroadcastReceiver;)V
+    invoke-virtual {v0, v1}, Landroid/content/ContextWrapper;->unregisterReceiver(Landroid/content/BroadcastReceiver;)V
 
-    .line 231
+    .line 210
     :cond_0
-    iget-object v0, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mSimReceiver:Lcom/android/systemui/ImageWallpaper$DrawableEngine$WallpaperSimObserver;
-
-    if-eqz v0, :cond_1
-
-    .line 232
-    iget-object v0, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->this$0:Lcom/android/systemui/ImageWallpaper;
-
-    iget-object v1, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mSimReceiver:Lcom/android/systemui/ImageWallpaper$DrawableEngine$WallpaperSimObserver;
-
-    invoke-virtual {v0, v1}, Lcom/android/systemui/ImageWallpaper;->unregisterReceiver(Landroid/content/BroadcastReceiver;)V
-
-    .line 234
-    :cond_1
     return-void
 .end method
 
 .method public onOffsetsChanged(FFFFII)V
-    .locals 2
+    .locals 1
     .parameter "xOffset"
     .parameter "yOffset"
     .parameter "xOffsetStep"
@@ -2130,13 +2261,7 @@
     .parameter "yPixels"
 
     .prologue
-    .line 288
-    iget-object v1, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mLock:Ljava/lang/Object;
-
-    monitor-enter v1
-
-    .line 289
-    :try_start_0
+    .line 262
     iget v0, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mXOffset:F
 
     cmpl-float v0, v0, p1
@@ -2149,74 +2274,42 @@
 
     if-eqz v0, :cond_1
 
-    .line 293
+    .line 266
     :cond_0
     iput p1, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mXOffset:F
 
-    .line 294
+    .line 267
     iput p2, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mYOffset:F
 
-    .line 295
+    .line 268
     const/4 v0, 0x1
 
     iput-boolean v0, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mOffsetsChanged:Z
 
-    .line 297
+    .line 270
     :cond_1
-    invoke-virtual {p0}, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->drawFrameLocked()V
+    invoke-virtual {p0}, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->drawFrame()V
 
-    .line 298
-    monitor-exit v1
-
-    .line 299
+    .line 271
     return-void
-
-    .line 298
-    :catchall_0
-    move-exception v0
-
-    monitor-exit v1
-    :try_end_0
-    .catchall {:try_start_0 .. :try_end_0} :catchall_0
-
-    throw v0
 .end method
 
 .method public onSurfaceChanged(Landroid/view/SurfaceHolder;III)V
-    .locals 2
+    .locals 0
     .parameter "holder"
     .parameter "format"
     .parameter "width"
     .parameter "height"
 
     .prologue
-    .line 307
+    .line 279
     invoke-super {p0, p1, p2, p3, p4}, Landroid/service/wallpaper/WallpaperService$Engine;->onSurfaceChanged(Landroid/view/SurfaceHolder;III)V
 
-    .line 309
-    iget-object v1, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mLock:Ljava/lang/Object;
+    .line 281
+    invoke-virtual {p0}, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->drawFrame()V
 
-    monitor-enter v1
-
-    .line 310
-    :try_start_0
-    invoke-virtual {p0}, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->drawFrameLocked()V
-
-    .line 311
-    monitor-exit v1
-
-    .line 312
+    .line 282
     return-void
-
-    .line 311
-    :catchall_0
-    move-exception v0
-
-    monitor-exit v1
-    :try_end_0
-    .catchall {:try_start_0 .. :try_end_0} :catchall_0
-
-    throw v0
 .end method
 
 .method public onSurfaceCreated(Landroid/view/SurfaceHolder;)V
@@ -2224,17 +2317,17 @@
     .parameter "holder"
 
     .prologue
-    .line 322
+    .line 292
     invoke-super {p0, p1}, Landroid/service/wallpaper/WallpaperService$Engine;->onSurfaceCreated(Landroid/view/SurfaceHolder;)V
 
-    .line 323
+    .line 293
     const/4 v0, -0x1
 
     iput v0, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mLastSurfaceHeight:I
 
     iput v0, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mLastSurfaceWidth:I
 
-    .line 324
+    .line 294
     return-void
 .end method
 
@@ -2243,52 +2336,33 @@
     .parameter "holder"
 
     .prologue
-    .line 316
+    .line 286
     invoke-super {p0, p1}, Landroid/service/wallpaper/WallpaperService$Engine;->onSurfaceDestroyed(Landroid/view/SurfaceHolder;)V
 
-    .line 317
+    .line 287
     const/4 v0, -0x1
 
     iput v0, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mLastSurfaceHeight:I
 
     iput v0, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mLastSurfaceWidth:I
 
-    .line 318
+    .line 288
     return-void
 .end method
 
 .method public onSurfaceRedrawNeeded(Landroid/view/SurfaceHolder;)V
-    .locals 2
+    .locals 0
     .parameter "holder"
 
     .prologue
-    .line 331
+    .line 301
     invoke-super {p0, p1}, Landroid/service/wallpaper/WallpaperService$Engine;->onSurfaceRedrawNeeded(Landroid/view/SurfaceHolder;)V
 
-    .line 333
-    iget-object v1, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mLock:Ljava/lang/Object;
+    .line 303
+    invoke-virtual {p0}, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->drawFrame()V
 
-    monitor-enter v1
-
-    .line 334
-    :try_start_0
-    invoke-virtual {p0}, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->drawFrameLocked()V
-
-    .line 335
-    monitor-exit v1
-
-    .line 336
+    .line 304
     return-void
-
-    .line 335
-    :catchall_0
-    move-exception v0
-
-    monitor-exit v1
-    :try_end_0
-    .catchall {:try_start_0 .. :try_end_0} :catchall_0
-
-    throw v0
 .end method
 
 .method public onTouchEvent(Landroid/view/MotionEvent;)V
@@ -2296,51 +2370,32 @@
     .parameter "event"
 
     .prologue
-    .line 275
+    .line 249
     invoke-super {p0, p1}, Landroid/service/wallpaper/WallpaperService$Engine;->onTouchEvent(Landroid/view/MotionEvent;)V
 
-    .line 276
+    .line 250
     return-void
 .end method
 
 .method public onVisibilityChanged(Z)V
-    .locals 2
+    .locals 1
     .parameter "visible"
 
     .prologue
-    .line 262
-    iget-object v1, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mLock:Ljava/lang/Object;
-
-    monitor-enter v1
-
-    .line 263
-    :try_start_0
+    .line 238
     iget-boolean v0, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mVisible:Z
 
     if-eq v0, p1, :cond_0
 
-    .line 267
+    .line 242
     iput-boolean p1, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mVisible:Z
 
-    .line 268
-    invoke-virtual {p0}, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->drawFrameLocked()V
+    .line 243
+    invoke-virtual {p0}, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->drawFrame()V
 
-    .line 270
+    .line 245
     :cond_0
-    monitor-exit v1
-
-    .line 271
     return-void
-
-    .line 270
-    :catchall_0
-    move-exception v0
-
-    monitor-exit v1
-    :try_end_0
-    .catchall {:try_start_0 .. :try_end_0} :catchall_0
-
-    throw v0
 .end method
 
 .method public trimMemory(I)V
@@ -2348,7 +2403,7 @@
     .parameter "level"
 
     .prologue
-    .line 189
+    .line 174
     const/16 v0, 0xa
 
     if-lt p1, v0, :cond_0
@@ -2363,24 +2418,24 @@
 
     if-eqz v0, :cond_0
 
-    .line 194
+    .line 179
     iget-object v0, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mBackground:Landroid/graphics/Bitmap;
 
     invoke-virtual {v0}, Landroid/graphics/Bitmap;->recycle()V
 
-    .line 195
+    .line 180
     const/4 v0, 0x0
 
     iput-object v0, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->mBackground:Landroid/graphics/Bitmap;
 
-    .line 196
+    .line 181
     iget-object v0, p0, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->this$0:Lcom/android/systemui/ImageWallpaper;
 
     iget-object v0, v0, Lcom/android/systemui/ImageWallpaper;->mWallpaperManager:Landroid/app/WallpaperManager;
 
     invoke-virtual {v0}, Landroid/app/WallpaperManager;->forgetLoadedWallpaper()V
 
-    .line 198
+    .line 183
     :cond_0
     return-void
 .end method
@@ -2390,17 +2445,17 @@
     .parameter "surfaceHolder"
 
     .prologue
-    .line 250
-    invoke-virtual {p0}, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->getDesiredMinimumWidth()I
+    .line 226
+    invoke-virtual {p0}, Landroid/service/wallpaper/WallpaperService$Engine;->getDesiredMinimumWidth()I
 
     move-result v0
 
-    invoke-virtual {p0}, Lcom/android/systemui/ImageWallpaper$DrawableEngine;->getDesiredMinimumHeight()I
+    invoke-virtual {p0}, Landroid/service/wallpaper/WallpaperService$Engine;->getDesiredMinimumHeight()I
 
     move-result v1
 
     invoke-interface {p1, v0, v1}, Landroid/view/SurfaceHolder;->setFixedSize(II)V
 
-    .line 254
+    .line 230
     return-void
 .end method

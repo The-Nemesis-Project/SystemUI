@@ -59,7 +59,7 @@
     .locals 0
 
     .prologue
-    .line 147
+    .line 145
     return-void
 .end method
 
@@ -84,13 +84,13 @@
     .locals 1
 
     .prologue
-    .line 133
+    .line 127
     const/4 v0, 0x0
 
     return v0
 .end method
 
-.method protected getRecentsLayoutParams(Landroid/view/ViewGroup$LayoutParams;)Landroid/view/WindowManager$LayoutParams;
+.method protected getSearchLayoutParams(Landroid/view/ViewGroup$LayoutParams;)Landroid/view/WindowManager$LayoutParams;
     .locals 1
     .parameter "layoutParams"
 
@@ -101,22 +101,11 @@
     return-object v0
 .end method
 
-.method protected getSearchLayoutParams(Landroid/view/ViewGroup$LayoutParams;)Landroid/view/WindowManager$LayoutParams;
-    .locals 1
-    .parameter "layoutParams"
-
-    .prologue
-    .line 108
-    const/4 v0, 0x0
-
-    return-object v0
-.end method
-
 .method public getStatusBarView()Landroid/view/View;
     .locals 1
 
     .prologue
-    .line 142
+    .line 136
     const/4 v0, 0x0
 
     return-object v0
@@ -126,7 +115,7 @@
     .locals 0
 
     .prologue
-    .line 113
+    .line 107
     return-void
 .end method
 
@@ -135,7 +124,7 @@
     .parameter "layoutDirection"
 
     .prologue
-    .line 151
+    .line 149
     return-void
 .end method
 
@@ -159,11 +148,19 @@
     return-void
 .end method
 
+.method public resetHeadsUpDecayTimer()V
+    .locals 0
+
+    .prologue
+    .line 141
+    return-void
+.end method
+
 .method protected setAreThereNotifications()V
     .locals 0
 
     .prologue
-    .line 117
+    .line 111
     return-void
 .end method
 
@@ -188,15 +185,6 @@
     return-void
 .end method
 
-.method public setNavigationIconHints(I)V
-    .locals 0
-    .parameter "hints"
-
-    .prologue
-    .line 93
-    return-void
-.end method
-
 .method public setSystemUiVisibility(II)V
     .locals 0
     .parameter "vis"
@@ -207,11 +195,21 @@
     return-void
 .end method
 
+.method public setWindowState(II)V
+    .locals 0
+    .parameter "window"
+    .parameter "state"
+
+    .prologue
+    .line 93
+    return-void
+.end method
+
 .method protected shouldDisableNavbarGestures()Z
     .locals 1
 
     .prologue
-    .line 138
+    .line 132
     const/4 v0, 0x1
 
     return v0
@@ -224,7 +222,7 @@
     .parameter "firstTime"
 
     .prologue
-    .line 125
+    .line 119
     return-void
 .end method
 
@@ -245,21 +243,12 @@
     return-void
 .end method
 
-.method public transparentizeStatusBar(I)V
-    .locals 0
-    .parameter "transparent"
-
-    .prologue
-    .line 154
-    return-void
-.end method
-
 .method protected updateExpandedViewPos(I)V
     .locals 0
     .parameter "expandedPosition"
 
     .prologue
-    .line 129
+    .line 123
     return-void
 .end method
 
@@ -290,6 +279,6 @@
     .locals 0
 
     .prologue
-    .line 121
+    .line 115
     return-void
 .end method

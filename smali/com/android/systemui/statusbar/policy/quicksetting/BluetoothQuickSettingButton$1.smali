@@ -24,7 +24,7 @@
     .parameter
 
     .prologue
-    .line 58
+    .line 59
     iput-object p1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/BluetoothQuickSettingButton$1;->this$0:Lcom/android/systemui/statusbar/policy/quicksetting/BluetoothQuickSettingButton;
 
     invoke-direct {p0}, Landroid/content/BroadcastReceiver;-><init>()V
@@ -40,7 +40,7 @@
     .parameter "intent"
 
     .prologue
-    .line 61
+    .line 62
     const-string v1, "STATUSBAR-BluetoothQuickSettingButton"
 
     new-instance v2, Ljava/lang/StringBuilder;
@@ -67,7 +67,7 @@
 
     invoke-static {v1, v2}, Landroid/util/secutil/Log;->secD(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 62
+    .line 63
     const-string v1, "android.bluetooth.adapter.extra.STATE"
 
     const/high16 v2, -0x8000
@@ -76,7 +76,7 @@
 
     move-result v0
 
-    .line 63
+    .line 64
     .local v0, state:I
     iget-object v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/BluetoothQuickSettingButton$1;->this$0:Lcom/android/systemui/statusbar/policy/quicksetting/BluetoothQuickSettingButton;
 
@@ -87,15 +87,15 @@
 
     move-result v2
 
-    invoke-virtual {v1, v2}, Lcom/android/systemui/statusbar/policy/quicksetting/BluetoothQuickSettingButton;->setActivateStatus(I)V
+    invoke-virtual {v1, v2}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->setActivateStatus(I)V
 
-    .line 66
+    .line 67
     iget-object v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/BluetoothQuickSettingButton$1;->this$0:Lcom/android/systemui/statusbar/policy/quicksetting/BluetoothQuickSettingButton;
 
     const/4 v2, 0x0
 
     iput-boolean v2, v1, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->mIsProcessing:Z
 
-    .line 67
+    .line 68
     return-void
 .end method

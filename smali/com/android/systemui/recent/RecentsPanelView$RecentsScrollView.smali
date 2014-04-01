@@ -15,10 +15,16 @@
 
 
 # virtual methods
+.method public abstract drawFadedEdges(Landroid/graphics/Canvas;IIII)V
+.end method
+
 .method public abstract findViewForTask(I)Landroid/view/View;
 .end method
 
 .method public abstract numItemsInOneScreenful()I
+.end method
+
+.method public abstract removeAllViewsInLayout()V
 .end method
 
 .method public abstract setAdapter(Lcom/android/systemui/recent/RecentsPanelView$TaskDescriptionAdapter;)V
@@ -28,4 +34,7 @@
 .end method
 
 .method public abstract setMinSwipeAlpha(F)V
+.end method
+
+.method public abstract setOnScrollListener(Ljava/lang/Runnable;)V
 .end method

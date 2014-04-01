@@ -91,7 +91,7 @@
 
     invoke-direct {v2, p0}, Lcom/android/systemui/settings/SettingsUI$1$1;-><init>(Lcom/android/systemui/settings/SettingsUI$1;)V
 
-    invoke-virtual {v1, v2}, Lcom/android/systemui/settings/BrightnessDialog;->setOnDismissListener(Landroid/content/DialogInterface$OnDismissListener;)V
+    invoke-virtual {v1, v2}, Landroid/app/Dialog;->setOnDismissListener(Landroid/content/DialogInterface$OnDismissListener;)V
 
     .line 57
     :cond_0
@@ -102,7 +102,7 @@
 
     move-result-object v1
 
-    invoke-virtual {v1}, Lcom/android/systemui/settings/BrightnessDialog;->isShowing()Z
+    invoke-virtual {v1}, Landroid/app/Dialog;->isShowing()Z
 
     move-result v1
 
@@ -116,7 +116,7 @@
 
     move-result-object v1
 
-    invoke-virtual {v1}, Lcom/android/systemui/settings/BrightnessDialog;->show()V
+    invoke-virtual {v1}, Landroid/app/Dialog;->show()V
 
     .line 64
     :cond_1
@@ -145,7 +145,7 @@
 
     move-result-object v2
 
-    invoke-static {v1, v2}, Landroid/util/Slog;->w(Ljava/lang/String;Ljava/lang/String;)I
+    invoke-static {v1, v2}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I
 
     goto :goto_0
 .end method

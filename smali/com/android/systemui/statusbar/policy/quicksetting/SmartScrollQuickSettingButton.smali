@@ -40,53 +40,88 @@
 
 # direct methods
 .method public constructor <init>(Landroid/content/Context;)V
-    .locals 9
+    .locals 7
     .parameter "context"
 
     .prologue
-    const/4 v8, 0x0
+    const v1, 0x7f0a00eb
 
-    .line 72
+    const/4 v6, 0x0
+
+    .line 73
     const/4 v2, 0x0
 
-    const v3, 0x7f0c00e2
+    sget-boolean v0, Lcom/android/systemui/statusbar/Feature;->mUseJellyBeanGUI:Z
 
-    const v4, 0x7f0201e7
+    if-nez v0, :cond_0
 
-    const v5, 0x7f0201e6
+    const/4 v0, 0x1
 
-    const v6, 0x7f0201e4
+    :goto_0
+    invoke-direct {p0, p1, v2, v0}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;-><init>(Landroid/content/Context;Landroid/util/AttributeSet;Z)V
 
-    const v7, 0x7f0201e5
+    .line 65
+    iput v6, p0, Lcom/android/systemui/statusbar/policy/quicksetting/SmartScrollQuickSettingButton;->mButtonStatus:I
+
+    .line 75
+    sget-boolean v0, Lcom/android/systemui/statusbar/Feature;->mUseJellyBeanGUI:Z
+
+    if-eqz v0, :cond_1
+
+    .line 76
+    const v2, 0x7f02020d
+
+    const v3, 0x7f02020c
+
+    const v4, 0x7f020206
+
+    const v5, 0x7f020207
 
     move-object v0, p0
 
-    move-object v1, p1
+    invoke-virtual/range {v0 .. v6}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->initLayout(IIIIII)V
 
-    invoke-direct/range {v0 .. v8}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;-><init>(Landroid/content/Context;Landroid/util/AttributeSet;IIIIII)V
-
-    .line 64
-    iput v8, p0, Lcom/android/systemui/statusbar/policy/quicksetting/SmartScrollQuickSettingButton;->mButtonStatus:I
-
-    .line 79
+    .line 88
+    :goto_1
     invoke-virtual {p1}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
 
     move-result-object v0
 
     iput-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/SmartScrollQuickSettingButton;->mContentResolver:Landroid/content/ContentResolver;
 
-    .line 80
+    .line 89
     new-instance v0, Lcom/android/systemui/statusbar/policy/quicksetting/SmartScrollQuickSettingButton$SmartScrollObserver;
 
     invoke-direct {v0, p0}, Lcom/android/systemui/statusbar/policy/quicksetting/SmartScrollQuickSettingButton$SmartScrollObserver;-><init>(Lcom/android/systemui/statusbar/policy/quicksetting/SmartScrollQuickSettingButton;)V
 
     iput-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/SmartScrollQuickSettingButton;->mSmartScrollObserver:Lcom/android/systemui/statusbar/policy/quicksetting/SmartScrollQuickSettingButton$SmartScrollObserver;
 
-    .line 81
-    invoke-virtual {p0, p0}, Lcom/android/systemui/statusbar/policy/quicksetting/SmartScrollQuickSettingButton;->setListener(Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton$Listener;)V
+    .line 90
+    invoke-virtual {p0, p0}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->setListener(Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton$Listener;)V
 
-    .line 82
+    .line 91
     return-void
+
+    :cond_0
+    move v0, v6
+
+    .line 73
+    goto :goto_0
+
+    .line 83
+    :cond_1
+    const v0, 0x7f02020f
+
+    invoke-virtual {p0, v1, v0}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->initLayout(II)V
+
+    .line 85
+    const v0, 0x7f02020b
+
+    const v1, 0x7f02020e
+
+    invoke-virtual {p0, v0, v1}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->setAltIcon(II)V
+
+    goto :goto_1
 .end method
 
 .method static synthetic access$000(Lcom/android/systemui/statusbar/policy/quicksetting/SmartScrollQuickSettingButton;)Z
@@ -94,7 +129,7 @@
     .parameter "x0"
 
     .prologue
-    .line 53
+    .line 54
     iget-boolean v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/SmartScrollQuickSettingButton;->mSmartState:Z
 
     return v0
@@ -106,7 +141,7 @@
     .parameter "x1"
 
     .prologue
-    .line 53
+    .line 54
     iput-boolean p1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/SmartScrollQuickSettingButton;->mSmartState:Z
 
     return p1
@@ -117,7 +152,7 @@
     .parameter "x0"
 
     .prologue
-    .line 53
+    .line 54
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/SmartScrollQuickSettingButton;->mContentResolver:Landroid/content/ContentResolver;
 
     return-object v0
@@ -128,7 +163,7 @@
     .parameter "x0"
 
     .prologue
-    .line 53
+    .line 54
     iget-boolean v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/SmartScrollQuickSettingButton;->mFaceState:Z
 
     return v0
@@ -140,7 +175,7 @@
     .parameter "x1"
 
     .prologue
-    .line 53
+    .line 54
     iput-boolean p1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/SmartScrollQuickSettingButton;->mFaceState:Z
 
     return p1
@@ -152,7 +187,7 @@
     .parameter "x1"
 
     .prologue
-    .line 53
+    .line 54
     iput p1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/SmartScrollQuickSettingButton;->mButtonStatus:I
 
     return p1
@@ -168,15 +203,15 @@
 
     const/4 v4, -0x2
 
-    .line 151
+    .line 160
     iput-boolean v5, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->mIsProcessing:Z
 
-    .line 152
+    .line 161
     const/4 v1, 0x3
 
-    invoke-virtual {p0, v1}, Lcom/android/systemui/statusbar/policy/quicksetting/SmartScrollQuickSettingButton;->setActivateStatus(I)V
+    invoke-virtual {p0, v1}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->setActivateStatus(I)V
 
-    .line 153
+    .line 162
     const-string v1, "STATUSBAR-SmartScroll"
 
     new-instance v2, Ljava/lang/StringBuilder;
@@ -201,26 +236,26 @@
 
     invoke-static {v1, v2}, Landroid/util/Slog;->d(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 155
+    .line 164
     iget v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/SmartScrollQuickSettingButton;->mButtonStatus:I
 
     if-ne v1, v5, :cond_1
 
-    .line 156
+    .line 165
     iget-object v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/SmartScrollQuickSettingButton;->mContentResolver:Landroid/content/ContentResolver;
 
     const-string v2, "smart_scroll"
 
     invoke-static {v1, v2, v5, v4}, Landroid/provider/Settings$System;->putIntForUser(Landroid/content/ContentResolver;Ljava/lang/String;II)Z
 
-    .line 157
+    .line 166
     iget-object v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/SmartScrollQuickSettingButton;->mContentResolver:Landroid/content/ContentResolver;
 
     const-string v2, "face_smart_scroll"
 
     invoke-static {v1, v2, v5, v4}, Landroid/provider/Settings$System;->putIntForUser(Landroid/content/ContentResolver;Ljava/lang/String;II)Z
 
-    .line 164
+    .line 173
     :cond_0
     :goto_0
     new-instance v0, Landroid/content/Intent;
@@ -229,30 +264,30 @@
 
     invoke-direct {v0, v1}, Landroid/content/Intent;-><init>(Ljava/lang/String;)V
 
-    .line 165
+    .line 174
     .local v0, smart_scroll_changed:Landroid/content/Intent;
     const-string v1, "isEnable"
 
     invoke-virtual {v0, v1, v6}, Landroid/content/Intent;->putExtra(Ljava/lang/String;Z)Landroid/content/Intent;
 
-    .line 166
-    iget-object v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->mContext:Landroid/content/Context;
+    .line 175
+    iget-object v1, p0, Landroid/view/View;->mContext:Landroid/content/Context;
 
     sget-object v2, Landroid/os/UserHandle;->CURRENT:Landroid/os/UserHandle;
 
     invoke-virtual {v1, v0, v2}, Landroid/content/Context;->sendBroadcastAsUser(Landroid/content/Intent;Landroid/os/UserHandle;)V
 
-    .line 167
+    .line 176
     return-void
 
-    .line 158
+    .line 167
     .end local v0           #smart_scroll_changed:Landroid/content/Intent;
     :cond_1
     iget v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/SmartScrollQuickSettingButton;->mButtonStatus:I
 
     if-nez v1, :cond_2
 
-    .line 159
+    .line 168
     iget-object v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/SmartScrollQuickSettingButton;->mContentResolver:Landroid/content/ContentResolver;
 
     const-string v2, "smart_scroll"
@@ -261,7 +296,7 @@
 
     goto :goto_0
 
-    .line 160
+    .line 169
     :cond_2
     iget v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/SmartScrollQuickSettingButton;->mButtonStatus:I
 
@@ -269,7 +304,7 @@
 
     if-ne v1, v2, :cond_0
 
-    .line 161
+    .line 170
     iget-object v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/SmartScrollQuickSettingButton;->mContentResolver:Landroid/content/ContentResolver;
 
     const-string v2, "face_smart_scroll"
@@ -285,14 +320,14 @@
     .locals 2
 
     .prologue
-    .line 110
+    .line 119
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/SmartScrollQuickSettingButton;->mContentResolver:Landroid/content/ContentResolver;
 
     iget-object v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/SmartScrollQuickSettingButton;->mSmartScrollObserver:Lcom/android/systemui/statusbar/policy/quicksetting/SmartScrollQuickSettingButton$SmartScrollObserver;
 
     invoke-virtual {v0, v1}, Landroid/content/ContentResolver;->unregisterContentObserver(Landroid/database/ContentObserver;)V
 
-    .line 111
+    .line 120
     return-void
 .end method
 
@@ -300,18 +335,18 @@
     .locals 1
 
     .prologue
-    .line 213
-    invoke-virtual {p0}, Lcom/android/systemui/statusbar/policy/quicksetting/SmartScrollQuickSettingButton;->removeEnabledScreenReaderValue()V
+    .line 222
+    invoke-virtual {p0}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->removeEnabledScreenReaderValue()V
 
-    .line 214
+    .line 223
     const/4 v0, 0x1
 
     iput v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/SmartScrollQuickSettingButton;->mButtonStatus:I
 
-    .line 215
+    .line 224
     invoke-direct {p0}, Lcom/android/systemui/statusbar/policy/quicksetting/SmartScrollQuickSettingButton;->updateStatus()V
 
-    .line 216
+    .line 225
     return-void
 .end method
 
@@ -319,7 +354,7 @@
     .locals 0
 
     .prologue
-    .line 219
+    .line 228
     return-void
 .end method
 
@@ -335,7 +370,7 @@
 
     const/4 v2, 0x0
 
-    .line 85
+    .line 94
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/SmartScrollQuickSettingButton;->mContentResolver:Landroid/content/ContentResolver;
 
     const-string v3, "smart_scroll"
@@ -348,7 +383,7 @@
 
     invoke-virtual {v0, v3, v2, v4, v5}, Landroid/content/ContentResolver;->registerContentObserver(Landroid/net/Uri;ZLandroid/database/ContentObserver;I)V
 
-    .line 87
+    .line 96
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/SmartScrollQuickSettingButton;->mContentResolver:Landroid/content/ContentResolver;
 
     const-string v3, "face_smart_scroll"
@@ -361,7 +396,7 @@
 
     invoke-virtual {v0, v3, v2, v4, v5}, Landroid/content/ContentResolver;->registerContentObserver(Landroid/net/Uri;ZLandroid/database/ContentObserver;I)V
 
-    .line 90
+    .line 99
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/SmartScrollQuickSettingButton;->mContentResolver:Landroid/content/ContentResolver;
 
     const-string v3, "smart_scroll"
@@ -377,7 +412,7 @@
     :goto_0
     iput-boolean v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/SmartScrollQuickSettingButton;->mSmartState:Z
 
-    .line 91
+    .line 100
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/SmartScrollQuickSettingButton;->mContentResolver:Landroid/content/ContentResolver;
 
     const-string v3, "face_smart_scroll"
@@ -393,55 +428,55 @@
     :goto_1
     iput-boolean v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/SmartScrollQuickSettingButton;->mFaceState:Z
 
-    .line 93
+    .line 102
     iget-boolean v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/SmartScrollQuickSettingButton;->mSmartState:Z
 
     if-eqz v0, :cond_3
 
-    .line 94
+    .line 103
     iget-boolean v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/SmartScrollQuickSettingButton;->mFaceState:Z
 
     if-eqz v0, :cond_2
 
-    .line 95
+    .line 104
     iput v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/SmartScrollQuickSettingButton;->mButtonStatus:I
 
-    .line 96
-    invoke-virtual {p0, v1}, Lcom/android/systemui/statusbar/policy/quicksetting/SmartScrollQuickSettingButton;->setActivateStatus(I)V
+    .line 105
+    invoke-virtual {p0, v1}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->setActivateStatus(I)V
 
-    .line 107
+    .line 116
     :goto_2
     return-void
 
     :cond_0
     move v0, v2
 
-    .line 90
+    .line 99
     goto :goto_0
 
     :cond_1
     move v0, v2
 
-    .line 91
+    .line 100
     goto :goto_1
 
-    .line 98
+    .line 107
     :cond_2
     iput v6, p0, Lcom/android/systemui/statusbar/policy/quicksetting/SmartScrollQuickSettingButton;->mButtonStatus:I
 
-    .line 99
+    .line 108
     const/4 v0, 0x4
 
-    invoke-virtual {p0, v0}, Lcom/android/systemui/statusbar/policy/quicksetting/SmartScrollQuickSettingButton;->setActivateStatus(I)V
+    invoke-virtual {p0, v0}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->setActivateStatus(I)V
 
     goto :goto_2
 
-    .line 102
+    .line 111
     :cond_3
     iput v2, p0, Lcom/android/systemui/statusbar/policy/quicksetting/SmartScrollQuickSettingButton;->mButtonStatus:I
 
-    .line 103
-    invoke-virtual {p0, v6}, Lcom/android/systemui/statusbar/policy/quicksetting/SmartScrollQuickSettingButton;->setActivateStatus(I)V
+    .line 112
+    invoke-virtual {p0, v6}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->setActivateStatus(I)V
 
     goto :goto_2
 .end method
@@ -457,25 +492,25 @@
 
     const/4 v2, 0x0
 
-    .line 116
+    .line 125
     iget-boolean v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->mIsProcessing:Z
 
     if-eqz v0, :cond_0
 
-    .line 117
+    .line 126
     const-string v0, "STATUSBAR-SmartScroll"
 
     const-string v1, "Processing... return"
 
     invoke-static {v0, v1}, Landroid/util/Slog;->d(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 147
+    .line 156
     :goto_0
     return-void
 
-    .line 123
+    .line 132
     :cond_0
-    iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->mContext:Landroid/content/Context;
+    iget-object v0, p0, Landroid/view/View;->mContext:Landroid/content/Context;
 
     const-string v1, "enterprise_policy"
 
@@ -487,7 +522,7 @@
 
     iput-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/SmartScrollQuickSettingButton;->mEDM:Landroid/app/enterprise/EnterpriseDeviceManager;
 
-    .line 124
+    .line 133
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/SmartScrollQuickSettingButton;->mEDM:Landroid/app/enterprise/EnterpriseDeviceManager;
 
     invoke-virtual {v0}, Landroid/app/enterprise/EnterpriseDeviceManager;->getRestrictionPolicy()Landroid/app/enterprise/RestrictionPolicy;
@@ -496,7 +531,7 @@
 
     iput-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/SmartScrollQuickSettingButton;->mRestrictionPolicy:Landroid/app/enterprise/RestrictionPolicy;
 
-    .line 125
+    .line 134
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/SmartScrollQuickSettingButton;->mRestrictionPolicy:Landroid/app/enterprise/RestrictionPolicy;
 
     invoke-virtual {v0, v2}, Landroid/app/enterprise/RestrictionPolicy;->isSettingsChangesAllowed(Z)Z
@@ -505,7 +540,7 @@
 
     if-nez v0, :cond_1
 
-    .line 126
+    .line 135
     const-string v0, "STATUSBAR-SmartScroll"
 
     const-string v1, "onClick(): SmartScrollQuickSetting mode change is not allowed"
@@ -514,57 +549,57 @@
 
     goto :goto_0
 
-    .line 132
+    .line 141
     :cond_1
     iget v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/SmartScrollQuickSettingButton;->mButtonStatus:I
 
     if-ne v0, v3, :cond_3
 
-    .line 133
+    .line 142
     iput v4, p0, Lcom/android/systemui/statusbar/policy/quicksetting/SmartScrollQuickSettingButton;->mButtonStatus:I
 
-    .line 146
+    .line 155
     :cond_2
     :goto_1
     invoke-direct {p0}, Lcom/android/systemui/statusbar/policy/quicksetting/SmartScrollQuickSettingButton;->updateStatus()V
 
     goto :goto_0
 
-    .line 134
+    .line 143
     :cond_3
     iget v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/SmartScrollQuickSettingButton;->mButtonStatus:I
 
     if-nez v0, :cond_5
 
-    .line 136
-    invoke-virtual {p0}, Lcom/android/systemui/statusbar/policy/quicksetting/SmartScrollQuickSettingButton;->isEnabledScreenReaderService()Z
+    .line 145
+    invoke-virtual {p0}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->isEnabledScreenReaderService()Z
 
     move-result v0
 
     if-eqz v0, :cond_4
 
-    .line 137
-    const v0, 0x7f0c00f7
+    .line 146
+    const v0, 0x7f0a0100
 
-    const v1, 0x7f0c00f8
+    const v1, 0x7f0a0101
 
-    invoke-virtual {p0, v0, v1}, Lcom/android/systemui/statusbar/policy/quicksetting/SmartScrollQuickSettingButton;->showTalkBackDisablePopup(II)V
+    invoke-virtual {p0, v0, v1}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->showTalkBackDisablePopup(II)V
 
     goto :goto_0
 
-    .line 142
+    .line 151
     :cond_4
     iput v3, p0, Lcom/android/systemui/statusbar/policy/quicksetting/SmartScrollQuickSettingButton;->mButtonStatus:I
 
     goto :goto_1
 
-    .line 143
+    .line 152
     :cond_5
     iget v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/SmartScrollQuickSettingButton;->mButtonStatus:I
 
     if-ne v0, v4, :cond_2
 
-    .line 144
+    .line 153
     iput v2, p0, Lcom/android/systemui/statusbar/policy/quicksetting/SmartScrollQuickSettingButton;->mButtonStatus:I
 
     goto :goto_1
@@ -574,14 +609,14 @@
     .locals 2
 
     .prologue
-    .line 207
+    .line 216
     const-string v0, "com.android.settings"
 
     const-string v1, "com.android.settings.Settings$SmartScrollAdvancedSettingsActivity"
 
-    invoke-virtual {p0, v0, v1}, Lcom/android/systemui/statusbar/policy/quicksetting/SmartScrollQuickSettingButton;->callActivity(Ljava/lang/String;Ljava/lang/String;)V
+    invoke-virtual {p0, v0, v1}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->callActivity(Ljava/lang/String;Ljava/lang/String;)V
 
-    .line 209
+    .line 218
     return-void
 .end method
 
@@ -589,13 +624,13 @@
     .locals 2
 
     .prologue
-    .line 225
+    .line 234
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/SmartScrollQuickSettingButton;->mSmartScrollObserver:Lcom/android/systemui/statusbar/policy/quicksetting/SmartScrollQuickSettingButton$SmartScrollObserver;
 
     const/4 v1, 0x0
 
     invoke-virtual {v0, v1}, Lcom/android/systemui/statusbar/policy/quicksetting/SmartScrollQuickSettingButton$SmartScrollObserver;->onChange(Z)V
 
-    .line 226
+    .line 235
     return-void
 .end method

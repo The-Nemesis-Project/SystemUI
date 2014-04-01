@@ -27,10 +27,10 @@
     .parameter
 
     .prologue
-    .line 491
+    .line 534
     iput-object p1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton$2;->this$0:Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;
 
-    invoke-direct/range {p0 .. p0}, Ljava/lang/Object;-><init>()V
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
     return-void
 .end method
@@ -43,11 +43,11 @@
     .parameter "which"
 
     .prologue
-    .line 493
+    .line 536
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton$2;->this$0:Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;
 
     invoke-virtual {v0}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->doPrevious()V
 
-    .line 494
+    .line 537
     return-void
 .end method

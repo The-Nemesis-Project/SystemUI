@@ -3,8 +3,8 @@
 .source "ExpandHelper.java"
 
 # interfaces
-.implements Lcom/android/systemui/Gefingerpoken;
 .implements Landroid/view/View$OnClickListener;
+.implements Lcom/android/systemui/Gefingerpoken;
 
 
 # annotations
@@ -216,7 +216,7 @@
 
     move-result-object v2
 
-    const v3, 0x7f0e0042
+    const v3, 0x7f0c0052
 
     invoke-virtual {v2, v3}, Landroid/content/res/Resources;->getDimension(I)F
 
@@ -231,7 +231,7 @@
 
     move-result-object v2
 
-    const v3, 0x7f0d000d
+    const v3, 0x7f0b000d
 
     invoke-virtual {v2, v3}, Landroid/content/res/Resources;->getInteger(I)I
 
@@ -246,7 +246,7 @@
 
     move-result-object v2
 
-    const v3, 0x7f0e0043
+    const v3, 0x7f0c0053
 
     invoke-virtual {v2, v3}, Landroid/content/res/Resources;->getDimension(I)F
 
@@ -711,7 +711,7 @@
     move v4, v5
 
     :goto_3
-    invoke-interface {v7, v8, v4}, Lcom/android/systemui/ExpandHelper$Callback;->setUserExpandedChild(Landroid/view/View;Z)Z
+    invoke-interface {v7, v8, v4}, Lcom/android/systemui/ExpandHelper$Callback;->setUserExpandedChild(Landroid/view/View;Z)V
 
     .line 633
     cmpl-float v4, v2, v0
@@ -752,7 +752,7 @@
 
     iget-object v5, p0, Lcom/android/systemui/ExpandHelper;->mCurrView:Landroid/view/View;
 
-    invoke-interface {v4, v5, v6}, Lcom/android/systemui/ExpandHelper$Callback;->setUserExpandedChild(Landroid/view/View;Z)Z
+    invoke-interface {v4, v5, v6}, Lcom/android/systemui/ExpandHelper$Callback;->setUserExpandedChild(Landroid/view/View;Z)V
 
     .line 645
     :cond_4
@@ -761,7 +761,7 @@
 
     iget-object v5, p0, Lcom/android/systemui/ExpandHelper;->mCurrView:Landroid/view/View;
 
-    invoke-interface {v4, v5, v6}, Lcom/android/systemui/ExpandHelper$Callback;->setUserLockedChild(Landroid/view/View;Z)Z
+    invoke-interface {v4, v5, v6}, Lcom/android/systemui/ExpandHelper$Callback;->setUserLockedChild(Landroid/view/View;Z)V
 
     .line 647
     iput-boolean v6, p0, Lcom/android/systemui/ExpandHelper;->mExpanding:Z
@@ -829,7 +829,7 @@
 
     iget-object v7, p0, Lcom/android/systemui/ExpandHelper;->mCurrView:Landroid/view/View;
 
-    invoke-interface {v4, v7, v5}, Lcom/android/systemui/ExpandHelper$Callback;->setUserExpandedChild(Landroid/view/View;Z)Z
+    invoke-interface {v4, v7, v5}, Lcom/android/systemui/ExpandHelper$Callback;->setUserExpandedChild(Landroid/view/View;Z)V
 
     goto :goto_4
 .end method
@@ -1144,7 +1144,7 @@
 
     .line 667
     .local v0, g:Landroid/view/ViewGroup;
-    const v1, 0x7f0900a1
+    const v1, 0x7f070098
 
     invoke-virtual {v0, v1}, Landroid/view/ViewGroup;->findViewById(I)Landroid/view/View;
 
@@ -1153,7 +1153,7 @@
     iput-object v1, p0, Lcom/android/systemui/ExpandHelper;->mCurrViewTopGlow:Landroid/view/View;
 
     .line 668
-    const v1, 0x7f0900a5
+    const v1, 0x7f07009c
 
     invoke-virtual {v0, v1}, Landroid/view/ViewGroup;->findViewById(I)Landroid/view/View;
 
@@ -1198,7 +1198,7 @@
     .line 597
     iget-object v0, p0, Lcom/android/systemui/ExpandHelper;->mCallback:Lcom/android/systemui/ExpandHelper$Callback;
 
-    invoke-interface {v0, p1, v2}, Lcom/android/systemui/ExpandHelper$Callback;->setUserLockedChild(Landroid/view/View;Z)Z
+    invoke-interface {v0, p1, v2}, Lcom/android/systemui/ExpandHelper$Callback;->setUserLockedChild(Landroid/view/View;Z)V
 
     .line 598
     invoke-direct {p0, p1}, Lcom/android/systemui/ExpandHelper;->setView(Landroid/view/View;)V

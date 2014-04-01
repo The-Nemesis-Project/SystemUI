@@ -27,10 +27,10 @@
     .parameter
 
     .prologue
-    .line 149
+    .line 156
     iput-object p1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/SmartNetworkQuickSettingButton$3;->this$0:Lcom/android/systemui/statusbar/policy/quicksetting/SmartNetworkQuickSettingButton;
 
-    invoke-direct/range {p0 .. p0}, Ljava/lang/Object;-><init>()V
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
     return-void
 .end method
@@ -43,9 +43,9 @@
     .parameter "id"
 
     .prologue
-    .line 153
+    .line 160
     invoke-interface {p1}, Landroid/content/DialogInterface;->cancel()V
 
-    .line 154
+    .line 161
     return-void
 .end method

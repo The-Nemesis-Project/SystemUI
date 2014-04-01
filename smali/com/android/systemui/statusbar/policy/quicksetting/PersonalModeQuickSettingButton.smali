@@ -30,40 +30,54 @@
 
 # direct methods
 .method public constructor <init>(Landroid/content/Context;)V
-    .locals 9
+    .locals 7
     .parameter "context"
 
     .prologue
-    const/4 v7, 0x0
+    const v1, 0x7f0a00f6
 
-    .line 86
+    const/4 v5, 0x0
+
+    .line 88
     const/4 v2, 0x0
 
-    const v3, 0x7f0c00ed
+    sget-boolean v0, Lcom/android/systemui/statusbar/Feature;->mUseJellyBeanGUI:Z
 
-    const v4, 0x7f0201ce
+    if-nez v0, :cond_0
 
-    const v5, 0x7f0201cd
+    const/4 v0, 0x1
 
-    const v6, 0x7f0201cc
+    :goto_0
+    invoke-direct {p0, p1, v2, v0}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;-><init>(Landroid/content/Context;Landroid/util/AttributeSet;Z)V
 
-    move-object v0, p0
-
-    move-object v1, p1
-
-    move v8, v7
-
-    invoke-direct/range {v0 .. v8}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;-><init>(Landroid/content/Context;Landroid/util/AttributeSet;IIIIII)V
-
-    .line 68
+    .line 69
     new-instance v0, Lcom/android/systemui/statusbar/policy/quicksetting/PersonalModeQuickSettingButton$1;
 
     invoke-direct {v0, p0}, Lcom/android/systemui/statusbar/policy/quicksetting/PersonalModeQuickSettingButton$1;-><init>(Lcom/android/systemui/statusbar/policy/quicksetting/PersonalModeQuickSettingButton;)V
 
     iput-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/PersonalModeQuickSettingButton;->mIntentReceiver:Landroid/content/BroadcastReceiver;
 
-    .line 93
-    iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->mContext:Landroid/content/Context;
+    .line 90
+    sget-boolean v0, Lcom/android/systemui/statusbar/Feature;->mUseJellyBeanGUI:Z
+
+    if-eqz v0, :cond_1
+
+    .line 91
+    const v2, 0x7f0201e4
+
+    const v3, 0x7f0201e3
+
+    const v4, 0x7f0201e2
+
+    move-object v0, p0
+
+    move v6, v5
+
+    invoke-virtual/range {v0 .. v6}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->initLayout(IIIIII)V
+
+    .line 101
+    :goto_1
+    iget-object v0, p0, Landroid/view/View;->mContext:Landroid/content/Context;
 
     invoke-virtual {v0}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
 
@@ -71,14 +85,28 @@
 
     iput-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/PersonalModeQuickSettingButton;->mContentResolver:Landroid/content/ContentResolver;
 
-    .line 94
-    invoke-virtual {p0, p0}, Lcom/android/systemui/statusbar/policy/quicksetting/PersonalModeQuickSettingButton;->setListener(Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton$Listener;)V
+    .line 102
+    invoke-virtual {p0, p0}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->setListener(Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton$Listener;)V
 
-    .line 95
+    .line 103
     invoke-direct {p0}, Lcom/android/systemui/statusbar/policy/quicksetting/PersonalModeQuickSettingButton;->updateState()V
 
-    .line 96
+    .line 104
     return-void
+
+    :cond_0
+    move v0, v5
+
+    .line 88
+    goto :goto_0
+
+    .line 98
+    :cond_1
+    const v0, 0x7f0201bd
+
+    invoke-virtual {p0, v1, v0}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->initLayout(II)V
+
+    goto :goto_1
 .end method
 
 .method static synthetic access$000(Lcom/android/systemui/statusbar/policy/quicksetting/PersonalModeQuickSettingButton;)Landroid/app/AlertDialog;
@@ -86,7 +114,7 @@
     .parameter "x0"
 
     .prologue
-    .line 54
+    .line 55
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/PersonalModeQuickSettingButton;->mAlertDialog:Landroid/app/AlertDialog;
 
     return-object v0
@@ -98,7 +126,7 @@
     .parameter "x1"
 
     .prologue
-    .line 54
+    .line 55
     invoke-direct {p0, p1}, Lcom/android/systemui/statusbar/policy/quicksetting/PersonalModeQuickSettingButton;->setMode(I)V
 
     return-void
@@ -109,7 +137,7 @@
     .parameter "x0"
 
     .prologue
-    .line 54
+    .line 55
     invoke-direct {p0}, Lcom/android/systemui/statusbar/policy/quicksetting/PersonalModeQuickSettingButton;->updateState()V
 
     return-void
@@ -119,7 +147,7 @@
     .locals 4
 
     .prologue
-    .line 148
+    .line 156
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/PersonalModeQuickSettingButton;->mContentResolver:Landroid/content/ContentResolver;
 
     const-string v1, "personal_mode_enabled"
@@ -142,7 +170,7 @@
     .prologue
     const/4 v1, 0x1
 
-    .line 141
+    .line 149
     if-ne p1, v1, :cond_0
 
     move v0, v1
@@ -150,15 +178,15 @@
     :goto_0
     iput-boolean v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/PersonalModeQuickSettingButton;->mState:Z
 
-    .line 142
+    .line 150
     iget-boolean v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/PersonalModeQuickSettingButton;->mState:Z
 
     if-eqz v0, :cond_1
 
     :goto_1
-    invoke-virtual {p0, v1}, Lcom/android/systemui/statusbar/policy/quicksetting/PersonalModeQuickSettingButton;->setActivateStatus(I)V
+    invoke-virtual {p0, v1}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->setActivateStatus(I)V
 
-    .line 143
+    .line 151
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/PersonalModeQuickSettingButton;->mContentResolver:Landroid/content/ContentResolver;
 
     const-string v1, "personal_mode_enabled"
@@ -167,16 +195,16 @@
 
     invoke-static {v0, v1, p1, v2}, Landroid/provider/Settings$System;->putIntForUser(Landroid/content/ContentResolver;Ljava/lang/String;II)Z
 
-    .line 145
+    .line 153
     return-void
 
-    .line 141
+    .line 149
     :cond_0
     const/4 v0, 0x0
 
     goto :goto_0
 
-    .line 142
+    .line 150
     :cond_1
     const/4 v1, 0x2
 
@@ -189,7 +217,7 @@
     .prologue
     const/4 v1, 0x1
 
-    .line 137
+    .line 145
     invoke-direct {p0}, Lcom/android/systemui/statusbar/policy/quicksetting/PersonalModeQuickSettingButton;->getMode()I
 
     move-result v0
@@ -201,24 +229,24 @@
     :goto_0
     iput-boolean v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/PersonalModeQuickSettingButton;->mState:Z
 
-    .line 138
+    .line 146
     iget-boolean v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/PersonalModeQuickSettingButton;->mState:Z
 
     if-eqz v0, :cond_1
 
     :goto_1
-    invoke-virtual {p0, v1}, Lcom/android/systemui/statusbar/policy/quicksetting/PersonalModeQuickSettingButton;->setActivateStatus(I)V
+    invoke-virtual {p0, v1}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->setActivateStatus(I)V
 
-    .line 139
+    .line 147
     return-void
 
-    .line 137
+    .line 145
     :cond_0
     const/4 v0, 0x0
 
     goto :goto_0
 
-    .line 138
+    .line 146
     :cond_1
     const/4 v1, 0x2
 
@@ -231,14 +259,14 @@
     .locals 2
 
     .prologue
-    .line 108
-    iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->mContext:Landroid/content/Context;
+    .line 116
+    iget-object v0, p0, Landroid/view/View;->mContext:Landroid/content/Context;
 
     iget-object v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/PersonalModeQuickSettingButton;->mIntentReceiver:Landroid/content/BroadcastReceiver;
 
     invoke-virtual {v0, v1}, Landroid/content/Context;->unregisterReceiver(Landroid/content/BroadcastReceiver;)V
 
-    .line 109
+    .line 117
     return-void
 .end method
 
@@ -246,43 +274,43 @@
     .locals 3
 
     .prologue
-    .line 98
+    .line 106
     new-instance v0, Landroid/content/IntentFilter;
 
     invoke-direct {v0}, Landroid/content/IntentFilter;-><init>()V
 
-    .line 99
+    .line 107
     .local v0, filter:Landroid/content/IntentFilter;
     const-string v1, "android.intent.action.CLOSE_SYSTEM_DIALOGS"
 
     invoke-virtual {v0, v1}, Landroid/content/IntentFilter;->addAction(Ljava/lang/String;)V
 
-    .line 100
+    .line 108
     const-string v1, "com.samsung.android.intent.action.SECRET_MODE_ON"
 
     invoke-virtual {v0, v1}, Landroid/content/IntentFilter;->addAction(Ljava/lang/String;)V
 
-    .line 101
+    .line 109
     const-string v1, "com.samsung.android.intent.action.SECRET_MODE_OFF"
 
     invoke-virtual {v0, v1}, Landroid/content/IntentFilter;->addAction(Ljava/lang/String;)V
 
-    .line 102
+    .line 110
     const-string v1, "android.intent.action.USER_SWITCHED"
 
     invoke-virtual {v0, v1}, Landroid/content/IntentFilter;->addAction(Ljava/lang/String;)V
 
-    .line 103
-    iget-object v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->mContext:Landroid/content/Context;
+    .line 111
+    iget-object v1, p0, Landroid/view/View;->mContext:Landroid/content/Context;
 
     iget-object v2, p0, Lcom/android/systemui/statusbar/policy/quicksetting/PersonalModeQuickSettingButton;->mIntentReceiver:Landroid/content/BroadcastReceiver;
 
     invoke-virtual {v1, v2, v0}, Landroid/content/Context;->registerReceiver(Landroid/content/BroadcastReceiver;Landroid/content/IntentFilter;)Landroid/content/Intent;
 
-    .line 105
+    .line 113
     invoke-direct {p0}, Lcom/android/systemui/statusbar/policy/quicksetting/PersonalModeQuickSettingButton;->updateState()V
 
-    .line 106
+    .line 114
     return-void
 .end method
 
@@ -291,7 +319,7 @@
     .parameter "state"
 
     .prologue
-    .line 112
+    .line 120
     const-string v1, "STATUSBAR-PersonalmodeSettingButton"
 
     new-instance v2, Ljava/lang/StringBuilder;
@@ -320,8 +348,8 @@
 
     invoke-static {v1, v2}, Landroid/util/secutil/Log;->secD(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 115
-    iget-object v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->mContext:Landroid/content/Context;
+    .line 123
+    iget-object v1, p0, Landroid/view/View;->mContext:Landroid/content/Context;
 
     const-string v2, "enterprise_policy"
 
@@ -333,7 +361,7 @@
 
     iput-object v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/PersonalModeQuickSettingButton;->mEDM:Landroid/app/enterprise/EnterpriseDeviceManager;
 
-    .line 116
+    .line 124
     iget-object v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/PersonalModeQuickSettingButton;->mEDM:Landroid/app/enterprise/EnterpriseDeviceManager;
 
     invoke-virtual {v1}, Landroid/app/enterprise/EnterpriseDeviceManager;->getRestrictionPolicy()Landroid/app/enterprise/RestrictionPolicy;
@@ -342,7 +370,7 @@
 
     iput-object v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/PersonalModeQuickSettingButton;->mRestrictionPolicy:Landroid/app/enterprise/RestrictionPolicy;
 
-    .line 117
+    .line 125
     iget-object v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/PersonalModeQuickSettingButton;->mRestrictionPolicy:Landroid/app/enterprise/RestrictionPolicy;
 
     const/4 v2, 0x0
@@ -353,32 +381,32 @@
 
     if-nez v1, :cond_1
 
-    .line 118
+    .line 126
     const-string v1, "STATUSBAR-PersonalmodeSettingButton"
 
     const-string v2, "onClick(): Personal mode state change is not allowed"
 
     invoke-static {v1, v2}, Landroid/util/secutil/Log;->secW(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 128
+    .line 136
     :cond_0
     :goto_0
     return-void
 
-    .line 123
+    .line 131
     :cond_1
     iget-boolean v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/PersonalModeQuickSettingButton;->mState:Z
 
     if-eq v1, p1, :cond_0
 
-    .line 124
+    .line 132
     new-instance v0, Landroid/content/Intent;
 
     const-string v1, "com.samsung.android.secretmode.action.ACTION_SHOW_DISCLAIMER"
 
     invoke-direct {v0, v1}, Landroid/content/Intent;-><init>(Ljava/lang/String;)V
 
-    .line 125
+    .line 133
     .local v0, intent:Landroid/content/Intent;
     const-string v1, "com.samsung.android.secretmode.service"
 
@@ -386,8 +414,8 @@
 
     invoke-virtual {v0, v1, v2}, Landroid/content/Intent;->setClassName(Ljava/lang/String;Ljava/lang/String;)Landroid/content/Intent;
 
-    .line 126
-    iget-object v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->mContext:Landroid/content/Context;
+    .line 134
+    iget-object v1, p0, Landroid/view/View;->mContext:Landroid/content/Context;
 
     invoke-virtual {v1, v0}, Landroid/content/Context;->startService(Landroid/content/Intent;)Landroid/content/ComponentName;
 
@@ -398,22 +426,22 @@
     .locals 2
 
     .prologue
-    .line 131
-    invoke-virtual {p0}, Lcom/android/systemui/statusbar/policy/quicksetting/PersonalModeQuickSettingButton;->statusBarCollapse()V
+    .line 139
+    invoke-virtual {p0}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->statusBarCollapse()V
 
-    .line 132
+    .line 140
     new-instance v0, Landroid/content/Intent;
 
     const-string v1, "android.settings.PERSONALPAGE_ACTIVITY_LAUNCH"
 
     invoke-direct {v0, v1}, Landroid/content/Intent;-><init>(Ljava/lang/String;)V
 
-    .line 133
+    .line 141
     .local v0, intent:Landroid/content/Intent;
-    iget-object v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->mContext:Landroid/content/Context;
+    iget-object v1, p0, Landroid/view/View;->mContext:Landroid/content/Context;
 
     invoke-virtual {v1, v0}, Landroid/content/Context;->sendBroadcast(Landroid/content/Intent;)V
 
-    .line 134
+    .line 142
     return-void
 .end method

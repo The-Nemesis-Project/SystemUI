@@ -27,7 +27,7 @@
     .parameter
 
     .prologue
-    .line 160
+    .line 165
     iput-object p1, p0, Lcom/android/systemui/statusbar/policy/ToggleSlider$1;->this$0:Lcom/android/systemui/statusbar/policy/ToggleSlider;
 
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
@@ -45,20 +45,20 @@
     .prologue
     const/4 v3, 0x0
 
-    .line 163
+    .line 168
     invoke-virtual {p2}, Landroid/view/MotionEvent;->getAction()I
 
     move-result v0
 
-    .line 164
+    .line 169
     .local v0, action:I
     packed-switch v0, :pswitch_data_0
 
-    .line 172
+    .line 177
     :goto_0
     return v3
 
-    .line 166
+    .line 171
     :pswitch_0
     iget-object v1, p0, Lcom/android/systemui/statusbar/policy/ToggleSlider$1;->this$0:Lcom/android/systemui/statusbar/policy/ToggleSlider;
 
@@ -69,20 +69,20 @@
 
     goto :goto_0
 
-    .line 169
+    .line 174
     :pswitch_1
     iget-object v1, p0, Lcom/android/systemui/statusbar/policy/ToggleSlider$1;->this$0:Lcom/android/systemui/statusbar/policy/ToggleSlider;
 
-    #getter for: Lcom/android/systemui/statusbar/policy/ToggleSlider;->mToggle:Landroid/widget/CompoundButton;
-    invoke-static {v1}, Lcom/android/systemui/statusbar/policy/ToggleSlider;->access$100(Lcom/android/systemui/statusbar/policy/ToggleSlider;)Landroid/widget/CompoundButton;
+    #getter for: Lcom/android/systemui/statusbar/policy/ToggleSlider;->mToggle:Lcom/sec/android/touchwiz/widget/TwCheckBox;
+    invoke-static {v1}, Lcom/android/systemui/statusbar/policy/ToggleSlider;->access$100(Lcom/android/systemui/statusbar/policy/ToggleSlider;)Lcom/sec/android/touchwiz/widget/TwCheckBox;
 
     move-result-object v1
 
-    invoke-virtual {v1, v3}, Landroid/widget/CompoundButton;->playSoundEffect(I)V
+    invoke-virtual {v1, v3}, Lcom/sec/android/touchwiz/widget/TwCheckBox;->playSoundEffect(I)V
 
     goto :goto_0
 
-    .line 164
+    .line 169
     :pswitch_data_0
     .packed-switch 0x0
         :pswitch_0

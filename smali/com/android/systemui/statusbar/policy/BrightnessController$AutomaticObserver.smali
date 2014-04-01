@@ -24,17 +24,17 @@
     .parameter
 
     .prologue
-    .line 330
+    .line 352
     iput-object p1, p0, Lcom/android/systemui/statusbar/policy/BrightnessController$AutomaticObserver;->this$0:Lcom/android/systemui/statusbar/policy/BrightnessController;
 
-    .line 331
+    .line 353
     new-instance v0, Landroid/os/Handler;
 
     invoke-direct {v0}, Landroid/os/Handler;-><init>()V
 
     invoke-direct {p0, v0}, Landroid/database/ContentObserver;-><init>(Landroid/os/Handler;)V
 
-    .line 332
+    .line 354
     return-void
 .end method
 
@@ -45,10 +45,10 @@
     .parameter "selfChange"
 
     .prologue
-    .line 336
+    .line 358
     invoke-super {p0, p1}, Landroid/database/ContentObserver;->onChange(Z)V
 
-    .line 339
+    .line 361
     :try_start_0
     iget-object v2, p0, Lcom/android/systemui/statusbar/policy/BrightnessController$AutomaticObserver;->this$0:Lcom/android/systemui/statusbar/policy/BrightnessController;
 
@@ -78,7 +78,7 @@
 
     const/4 v0, 0x1
 
-    .line 341
+    .line 363
     .local v0, automatic:Z
     :goto_0
     iget-object v2, p0, Lcom/android/systemui/statusbar/policy/BrightnessController$AutomaticObserver;->this$0:Lcom/android/systemui/statusbar/policy/BrightnessController;
@@ -89,48 +89,25 @@
     move-result-object v2
 
     invoke-virtual {v2, v0}, Lcom/android/systemui/statusbar/policy/ToggleSlider;->setChecked(Z)V
-
-    .line 342
-    const-string v2, "StatusBar.BrightnessController"
-
-    new-instance v3, Ljava/lang/StringBuilder;
-
-    invoke-direct {v3}, Ljava/lang/StringBuilder;-><init>()V
-
-    const-string v4, "AutomaticObserver onChange() - automatic : "
-
-    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v3
-
-    invoke-virtual {v3, v0}, Ljava/lang/StringBuilder;->append(Z)Ljava/lang/StringBuilder;
-
-    move-result-object v3
-
-    invoke-virtual {v3}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v3
-
-    invoke-static {v2, v3}, Landroid/util/secutil/Log;->secD(Ljava/lang/String;Ljava/lang/String;)I
     :try_end_0
     .catch Landroid/provider/Settings$SettingNotFoundException; {:try_start_0 .. :try_end_0} :catch_0
 
-    .line 346
+    .line 368
     .end local v0           #automatic:Z
     :goto_1
     return-void
 
-    .line 339
+    .line 361
     :cond_0
     const/4 v0, 0x0
 
     goto :goto_0
 
-    .line 343
+    .line 365
     :catch_0
     move-exception v1
 
-    .line 344
+    .line 366
     .local v1, e:Landroid/provider/Settings$SettingNotFoundException;
     const-string v2, "StatusBar.BrightnessController"
 

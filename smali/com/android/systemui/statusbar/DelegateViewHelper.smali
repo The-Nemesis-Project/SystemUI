@@ -8,6 +8,8 @@
 
 .field private mDelegateView:Landroid/view/View;
 
+.field private mDisabled:Z
+
 .field private mDownPoint:[F
 
 .field mInitialTouch:Landroid/graphics/RectF;
@@ -33,181 +35,281 @@
     .prologue
     const/4 v1, 0x2
 
-    .line 38
-    invoke-direct/range {p0 .. p0}, Ljava/lang/Object;-><init>()V
+    .line 40
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 29
+    .line 30
     new-array v0, v1, [I
 
     iput-object v0, p0, Lcom/android/systemui/statusbar/DelegateViewHelper;->mTempPoint:[I
 
-    .line 30
+    .line 31
     new-array v0, v1, [F
 
     iput-object v0, p0, Lcom/android/systemui/statusbar/DelegateViewHelper;->mDownPoint:[F
 
-    .line 34
+    .line 35
     new-instance v0, Landroid/graphics/RectF;
 
     invoke-direct {v0}, Landroid/graphics/RectF;-><init>()V
 
     iput-object v0, p0, Lcom/android/systemui/statusbar/DelegateViewHelper;->mInitialTouch:Landroid/graphics/RectF;
 
-    .line 36
+    .line 37
     const/4 v0, 0x0
 
     iput-boolean v0, p0, Lcom/android/systemui/statusbar/DelegateViewHelper;->mSwapXY:Z
 
-    .line 39
+    .line 41
     invoke-virtual {p0, p1}, Lcom/android/systemui/statusbar/DelegateViewHelper;->setSourceView(Landroid/view/View;)V
 
-    .line 40
+    .line 42
     return-void
 .end method
 
 
 # virtual methods
 .method public onInterceptTouchEvent(Landroid/view/MotionEvent;)Z
-    .locals 16
+    .locals 17
     .parameter "event"
 
     .prologue
-    .line 51
-    move-object/from16 v0, p0
-
-    iget-object v12, v0, Lcom/android/systemui/statusbar/DelegateViewHelper;->mSourceView:Landroid/view/View;
-
-    if-eqz v12, :cond_0
-
-    move-object/from16 v0, p0
-
-    iget-object v12, v0, Lcom/android/systemui/statusbar/DelegateViewHelper;->mDelegateView:Landroid/view/View;
-
-    if-eqz v12, :cond_0
-
-    move-object/from16 v0, p0
-
-    iget-object v12, v0, Lcom/android/systemui/statusbar/DelegateViewHelper;->mBar:Lcom/android/systemui/statusbar/BaseStatusBar;
-
-    invoke-virtual {v12}, Lcom/android/systemui/statusbar/BaseStatusBar;->shouldDisableNavbarGestures()Z
-
-    move-result v12
-
-    if-eqz v12, :cond_1
-
     .line 53
+    move-object/from16 v0, p0
+
+    iget-object v13, v0, Lcom/android/systemui/statusbar/DelegateViewHelper;->mSourceView:Landroid/view/View;
+
+    if-eqz v13, :cond_0
+
+    move-object/from16 v0, p0
+
+    iget-object v13, v0, Lcom/android/systemui/statusbar/DelegateViewHelper;->mDelegateView:Landroid/view/View;
+
+    if-eqz v13, :cond_0
+
+    move-object/from16 v0, p0
+
+    iget-object v13, v0, Lcom/android/systemui/statusbar/DelegateViewHelper;->mBar:Lcom/android/systemui/statusbar/BaseStatusBar;
+
+    invoke-virtual {v13}, Lcom/android/systemui/statusbar/BaseStatusBar;->shouldDisableNavbarGestures()Z
+
+    move-result v13
+
+    if-eqz v13, :cond_1
+
+    .line 54
     :cond_0
-    const/4 v12, 0x0
+    const/4 v13, 0x0
 
-    .line 97
+    .line 104
     :goto_0
-    return v12
+    return v13
 
-    .line 56
+    .line 57
     :cond_1
     move-object/from16 v0, p0
 
-    iget-object v12, v0, Lcom/android/systemui/statusbar/DelegateViewHelper;->mSourceView:Landroid/view/View;
+    iget-object v13, v0, Lcom/android/systemui/statusbar/DelegateViewHelper;->mSourceView:Landroid/view/View;
 
+    move-object/from16 v0, p0
+
+    iget-object v14, v0, Lcom/android/systemui/statusbar/DelegateViewHelper;->mTempPoint:[I
+
+    invoke-virtual {v13, v14}, Landroid/view/View;->getLocationOnScreen([I)V
+
+    .line 58
     move-object/from16 v0, p0
 
     iget-object v13, v0, Lcom/android/systemui/statusbar/DelegateViewHelper;->mTempPoint:[I
 
-    invoke-virtual {v12, v13}, Landroid/view/View;->getLocationOnScreen([I)V
+    const/4 v14, 0x0
 
-    .line 57
+    aget v13, v13, v14
+
+    int-to-float v9, v13
+
+    .line 59
+    .local v9, sourceX:F
     move-object/from16 v0, p0
 
-    iget-object v12, v0, Lcom/android/systemui/statusbar/DelegateViewHelper;->mTempPoint:[I
+    iget-object v13, v0, Lcom/android/systemui/statusbar/DelegateViewHelper;->mTempPoint:[I
 
-    const/4 v13, 0x0
+    const/4 v14, 0x1
 
-    aget v12, v12, v13
+    aget v13, v13, v14
 
-    int-to-float v8, v12
-
-    .line 58
-    .local v8, sourceX:F
-    move-object/from16 v0, p0
-
-    iget-object v12, v0, Lcom/android/systemui/statusbar/DelegateViewHelper;->mTempPoint:[I
-
-    const/4 v13, 0x1
-
-    aget v12, v12, v13
-
-    int-to-float v9, v12
+    int-to-float v10, v13
 
     .line 61
-    .local v9, sourceY:F
+    .local v10, sourceY:F
     invoke-virtual/range {p1 .. p1}, Landroid/view/MotionEvent;->getAction()I
 
-    move-result v12
+    move-result v1
 
-    packed-switch v12, :pswitch_data_0
+    .line 62
+    .local v1, action:I
+    packed-switch v1, :pswitch_data_0
 
-    .line 70
+    .line 71
     :goto_1
     move-object/from16 v0, p0
 
-    iget-boolean v12, v0, Lcom/android/systemui/statusbar/DelegateViewHelper;->mStarted:Z
+    iget-boolean v13, v0, Lcom/android/systemui/statusbar/DelegateViewHelper;->mStarted:Z
 
-    if-nez v12, :cond_3
+    if-nez v13, :cond_3
 
-    .line 71
-    const/4 v12, 0x0
+    .line 72
+    const/4 v13, 0x0
 
     goto :goto_0
 
-    .line 63
+    .line 64
     :pswitch_0
     move-object/from16 v0, p0
 
-    iget-object v12, v0, Lcom/android/systemui/statusbar/DelegateViewHelper;->mDelegateView:Landroid/view/View;
+    iget-object v13, v0, Lcom/android/systemui/statusbar/DelegateViewHelper;->mDelegateView:Landroid/view/View;
 
-    invoke-virtual {v12}, Landroid/view/View;->getVisibility()I
+    invoke-virtual {v13}, Landroid/view/View;->getVisibility()I
 
-    move-result v12
+    move-result v13
 
-    if-nez v12, :cond_2
+    if-nez v13, :cond_2
 
-    const/4 v12, 0x1
+    const/4 v13, 0x1
 
     :goto_2
     move-object/from16 v0, p0
 
-    iput-boolean v12, v0, Lcom/android/systemui/statusbar/DelegateViewHelper;->mPanelShowing:Z
-
-    .line 64
-    move-object/from16 v0, p0
-
-    iget-object v12, v0, Lcom/android/systemui/statusbar/DelegateViewHelper;->mDownPoint:[F
-
-    const/4 v13, 0x0
-
-    invoke-virtual/range {p1 .. p1}, Landroid/view/MotionEvent;->getX()F
-
-    move-result v14
-
-    aput v14, v12, v13
+    iput-boolean v13, v0, Lcom/android/systemui/statusbar/DelegateViewHelper;->mPanelShowing:Z
 
     .line 65
     move-object/from16 v0, p0
 
-    iget-object v12, v0, Lcom/android/systemui/statusbar/DelegateViewHelper;->mDownPoint:[F
+    iget-object v13, v0, Lcom/android/systemui/statusbar/DelegateViewHelper;->mDownPoint:[F
 
-    const/4 v13, 0x1
+    const/4 v14, 0x0
 
-    invoke-virtual/range {p1 .. p1}, Landroid/view/MotionEvent;->getY()F
+    invoke-virtual/range {p1 .. p1}, Landroid/view/MotionEvent;->getX()F
 
-    move-result v14
+    move-result v15
 
-    aput v14, v12, v13
+    aput v15, v13, v14
 
     .line 66
     move-object/from16 v0, p0
 
-    iget-object v12, v0, Lcom/android/systemui/statusbar/DelegateViewHelper;->mInitialTouch:Landroid/graphics/RectF;
+    iget-object v13, v0, Lcom/android/systemui/statusbar/DelegateViewHelper;->mDownPoint:[F
+
+    const/4 v14, 0x1
+
+    invoke-virtual/range {p1 .. p1}, Landroid/view/MotionEvent;->getY()F
+
+    move-result v15
+
+    aput v15, v13, v14
+
+    .line 67
+    move-object/from16 v0, p0
+
+    iget-object v13, v0, Lcom/android/systemui/statusbar/DelegateViewHelper;->mInitialTouch:Landroid/graphics/RectF;
+
+    move-object/from16 v0, p0
+
+    iget-object v14, v0, Lcom/android/systemui/statusbar/DelegateViewHelper;->mDownPoint:[F
+
+    const/4 v15, 0x0
+
+    aget v14, v14, v15
+
+    add-float/2addr v14, v9
+
+    move-object/from16 v0, p0
+
+    iget-object v15, v0, Lcom/android/systemui/statusbar/DelegateViewHelper;->mDownPoint:[F
+
+    const/16 v16, 0x1
+
+    aget v15, v15, v16
+
+    add-float/2addr v15, v10
+
+    invoke-virtual {v13, v14, v15}, Landroid/graphics/RectF;->contains(FF)Z
+
+    move-result v13
+
+    move-object/from16 v0, p0
+
+    iput-boolean v13, v0, Lcom/android/systemui/statusbar/DelegateViewHelper;->mStarted:Z
+
+    goto :goto_1
+
+    .line 64
+    :cond_2
+    const/4 v13, 0x0
+
+    goto :goto_2
+
+    .line 75
+    :cond_3
+    move-object/from16 v0, p0
+
+    iget-boolean v13, v0, Lcom/android/systemui/statusbar/DelegateViewHelper;->mDisabled:Z
+
+    if-nez v13, :cond_4
+
+    move-object/from16 v0, p0
+
+    iget-boolean v13, v0, Lcom/android/systemui/statusbar/DelegateViewHelper;->mPanelShowing:Z
+
+    if-nez v13, :cond_4
+
+    const/4 v13, 0x2
+
+    if-ne v1, v13, :cond_4
+
+    .line 76
+    invoke-virtual/range {p1 .. p1}, Landroid/view/MotionEvent;->getHistorySize()I
+
+    move-result v7
+
+    .line 77
+    .local v7, historySize:I
+    const/4 v8, 0x0
+
+    .local v8, k:I
+    :goto_3
+    add-int/lit8 v13, v7, 0x1
+
+    if-ge v8, v13, :cond_4
+
+    .line 78
+    if-ge v8, v7, :cond_6
+
+    move-object/from16 v0, p1
+
+    invoke-virtual {v0, v8}, Landroid/view/MotionEvent;->getHistoricalX(I)F
+
+    move-result v11
+
+    .line 79
+    .local v11, x:F
+    :goto_4
+    if-ge v8, v7, :cond_7
+
+    move-object/from16 v0, p1
+
+    invoke-virtual {v0, v8}, Landroid/view/MotionEvent;->getHistoricalY(I)F
+
+    move-result v12
+
+    .line 80
+    .local v12, y:F
+    :goto_5
+    move-object/from16 v0, p0
+
+    iget-boolean v13, v0, Lcom/android/systemui/statusbar/DelegateViewHelper;->mSwapXY:Z
+
+    if-eqz v13, :cond_8
 
     move-object/from16 v0, p0
 
@@ -217,254 +319,203 @@
 
     aget v13, v13, v14
 
-    add-float/2addr v13, v8
+    sub-float v6, v13, v11
 
-    move-object/from16 v0, p0
-
-    iget-object v14, v0, Lcom/android/systemui/statusbar/DelegateViewHelper;->mDownPoint:[F
-
-    const/4 v15, 0x1
-
-    aget v14, v14, v15
-
-    add-float/2addr v14, v9
-
-    invoke-virtual {v12, v13, v14}, Landroid/graphics/RectF;->contains(FF)Z
-
-    move-result v12
-
-    move-object/from16 v0, p0
-
-    iput-boolean v12, v0, Lcom/android/systemui/statusbar/DelegateViewHelper;->mStarted:Z
-
-    goto :goto_1
-
-    .line 63
-    :cond_2
-    const/4 v12, 0x0
-
-    goto :goto_2
-
-    .line 74
-    :cond_3
-    move-object/from16 v0, p0
-
-    iget-boolean v12, v0, Lcom/android/systemui/statusbar/DelegateViewHelper;->mPanelShowing:Z
-
-    if-nez v12, :cond_4
-
-    invoke-virtual/range {p1 .. p1}, Landroid/view/MotionEvent;->getAction()I
-
-    move-result v12
-
-    const/4 v13, 0x2
-
-    if-ne v12, v13, :cond_4
-
-    .line 75
-    invoke-virtual/range {p1 .. p1}, Landroid/view/MotionEvent;->getHistorySize()I
-
-    move-result v6
-
-    .line 76
-    .local v6, historySize:I
-    const/4 v7, 0x0
-
-    .local v7, k:I
-    :goto_3
-    add-int/lit8 v12, v6, 0x1
-
-    if-ge v7, v12, :cond_4
-
-    .line 77
-    if-ge v7, v6, :cond_5
-
-    move-object/from16 v0, p1
-
-    invoke-virtual {v0, v7}, Landroid/view/MotionEvent;->getHistoricalX(I)F
-
-    move-result v10
-
-    .line 78
-    .local v10, x:F
-    :goto_4
-    if-ge v7, v6, :cond_6
-
-    move-object/from16 v0, p1
-
-    invoke-virtual {v0, v7}, Landroid/view/MotionEvent;->getHistoricalY(I)F
-
-    move-result v11
-
-    .line 79
-    .local v11, y:F
-    :goto_5
-    move-object/from16 v0, p0
-
-    iget-boolean v12, v0, Lcom/android/systemui/statusbar/DelegateViewHelper;->mSwapXY:Z
-
-    if-eqz v12, :cond_7
-
-    move-object/from16 v0, p0
-
-    iget-object v12, v0, Lcom/android/systemui/statusbar/DelegateViewHelper;->mDownPoint:[F
-
-    const/4 v13, 0x0
-
-    aget v12, v12, v13
-
-    sub-float v5, v12, v10
-
-    .line 80
-    .local v5, distance:F
+    .line 81
+    .local v6, distance:F
     :goto_6
     move-object/from16 v0, p0
 
-    iget v12, v0, Lcom/android/systemui/statusbar/DelegateViewHelper;->mTriggerThreshhold:F
+    iget v13, v0, Lcom/android/systemui/statusbar/DelegateViewHelper;->mTriggerThreshhold:F
 
-    cmpl-float v12, v5, v12
+    cmpl-float v13, v6, v13
 
-    if-lez v12, :cond_8
-
-    .line 81
-    move-object/from16 v0, p0
-
-    iget-object v12, v0, Lcom/android/systemui/statusbar/DelegateViewHelper;->mBar:Lcom/android/systemui/statusbar/BaseStatusBar;
-
-    invoke-virtual {v12}, Lcom/android/systemui/statusbar/BaseStatusBar;->showSearchPanel()V
+    if-lez v13, :cond_9
 
     .line 82
-    const/4 v12, 0x1
+    move-object/from16 v0, p0
+
+    iget-object v13, v0, Lcom/android/systemui/statusbar/DelegateViewHelper;->mBar:Lcom/android/systemui/statusbar/BaseStatusBar;
+
+    invoke-virtual {v13}, Lcom/android/systemui/statusbar/BaseStatusBar;->showSearchPanel()V
+
+    .line 83
+    const/4 v13, 0x1
 
     move-object/from16 v0, p0
 
-    iput-boolean v12, v0, Lcom/android/systemui/statusbar/DelegateViewHelper;->mPanelShowing:Z
+    iput-boolean v13, v0, Lcom/android/systemui/statusbar/DelegateViewHelper;->mPanelShowing:Z
 
-    .line 88
-    .end local v5           #distance:F
-    .end local v6           #historySize:I
-    .end local v7           #k:I
-    .end local v10           #x:F
-    .end local v11           #y:F
+    .line 89
+    .end local v6           #distance:F
+    .end local v7           #historySize:I
+    .end local v8           #k:I
+    .end local v11           #x:F
+    .end local v12           #y:F
     :cond_4
+    if-nez v1, :cond_a
+
+    .line 90
     move-object/from16 v0, p0
 
-    iget-object v12, v0, Lcom/android/systemui/statusbar/DelegateViewHelper;->mDelegateView:Landroid/view/View;
+    iget-object v13, v0, Lcom/android/systemui/statusbar/DelegateViewHelper;->mBar:Lcom/android/systemui/statusbar/BaseStatusBar;
 
+    const/4 v14, 0x2
+
+    const/4 v15, 0x1
+
+    invoke-virtual {v13, v14, v15}, Lcom/android/systemui/statusbar/BaseStatusBar;->setInteracting(IZ)V
+
+    .line 95
+    :cond_5
+    :goto_7
+    move-object/from16 v0, p0
+
+    iget-object v13, v0, Lcom/android/systemui/statusbar/DelegateViewHelper;->mDelegateView:Landroid/view/View;
+
+    move-object/from16 v0, p0
+
+    iget-object v14, v0, Lcom/android/systemui/statusbar/DelegateViewHelper;->mTempPoint:[I
+
+    invoke-virtual {v13, v14}, Landroid/view/View;->getLocationOnScreen([I)V
+
+    .line 96
     move-object/from16 v0, p0
 
     iget-object v13, v0, Lcom/android/systemui/statusbar/DelegateViewHelper;->mTempPoint:[I
 
-    invoke-virtual {v12, v13}, Landroid/view/View;->getLocationOnScreen([I)V
+    const/4 v14, 0x0
 
-    .line 89
-    move-object/from16 v0, p0
+    aget v13, v13, v14
 
-    iget-object v12, v0, Lcom/android/systemui/statusbar/DelegateViewHelper;->mTempPoint:[I
-
-    const/4 v13, 0x0
-
-    aget v12, v12, v13
-
-    int-to-float v1, v12
-
-    .line 90
-    .local v1, delegateX:F
-    move-object/from16 v0, p0
-
-    iget-object v12, v0, Lcom/android/systemui/statusbar/DelegateViewHelper;->mTempPoint:[I
-
-    const/4 v13, 0x1
-
-    aget v12, v12, v13
-
-    int-to-float v2, v12
-
-    .line 92
-    .local v2, delegateY:F
-    sub-float v3, v8, v1
-
-    .line 93
-    .local v3, deltaX:F
-    sub-float v4, v9, v2
-
-    .line 94
-    .local v4, deltaY:F
-    move-object/from16 v0, p1
-
-    invoke-virtual {v0, v3, v4}, Landroid/view/MotionEvent;->offsetLocation(FF)V
-
-    .line 95
-    move-object/from16 v0, p0
-
-    iget-object v12, v0, Lcom/android/systemui/statusbar/DelegateViewHelper;->mDelegateView:Landroid/view/View;
-
-    move-object/from16 v0, p1
-
-    invoke-virtual {v12, v0}, Landroid/view/View;->dispatchTouchEvent(Landroid/view/MotionEvent;)Z
-
-    .line 96
-    neg-float v12, v3
-
-    neg-float v13, v4
-
-    move-object/from16 v0, p1
-
-    invoke-virtual {v0, v12, v13}, Landroid/view/MotionEvent;->offsetLocation(FF)V
+    int-to-float v2, v13
 
     .line 97
+    .local v2, delegateX:F
     move-object/from16 v0, p0
 
-    iget-boolean v12, v0, Lcom/android/systemui/statusbar/DelegateViewHelper;->mPanelShowing:Z
+    iget-object v13, v0, Lcom/android/systemui/statusbar/DelegateViewHelper;->mTempPoint:[I
+
+    const/4 v14, 0x1
+
+    aget v13, v13, v14
+
+    int-to-float v3, v13
+
+    .line 99
+    .local v3, delegateY:F
+    sub-float v4, v9, v2
+
+    .line 100
+    .local v4, deltaX:F
+    sub-float v5, v10, v3
+
+    .line 101
+    .local v5, deltaY:F
+    move-object/from16 v0, p1
+
+    invoke-virtual {v0, v4, v5}, Landroid/view/MotionEvent;->offsetLocation(FF)V
+
+    .line 102
+    move-object/from16 v0, p0
+
+    iget-object v13, v0, Lcom/android/systemui/statusbar/DelegateViewHelper;->mDelegateView:Landroid/view/View;
+
+    move-object/from16 v0, p1
+
+    invoke-virtual {v13, v0}, Landroid/view/View;->dispatchTouchEvent(Landroid/view/MotionEvent;)Z
+
+    .line 103
+    neg-float v13, v4
+
+    neg-float v14, v5
+
+    move-object/from16 v0, p1
+
+    invoke-virtual {v0, v13, v14}, Landroid/view/MotionEvent;->offsetLocation(FF)V
+
+    .line 104
+    move-object/from16 v0, p0
+
+    iget-boolean v13, v0, Lcom/android/systemui/statusbar/DelegateViewHelper;->mPanelShowing:Z
 
     goto/16 :goto_0
 
-    .line 77
-    .end local v1           #delegateX:F
-    .end local v2           #delegateY:F
-    .end local v3           #deltaX:F
-    .end local v4           #deltaY:F
-    .restart local v6       #historySize:I
-    .restart local v7       #k:I
-    :cond_5
-    invoke-virtual/range {p1 .. p1}, Landroid/view/MotionEvent;->getX()F
-
-    move-result v10
-
-    goto :goto_4
-
     .line 78
-    .restart local v10       #x:F
+    .end local v2           #delegateX:F
+    .end local v3           #delegateY:F
+    .end local v4           #deltaX:F
+    .end local v5           #deltaY:F
+    .restart local v7       #historySize:I
+    .restart local v8       #k:I
     :cond_6
-    invoke-virtual/range {p1 .. p1}, Landroid/view/MotionEvent;->getY()F
+    invoke-virtual/range {p1 .. p1}, Landroid/view/MotionEvent;->getX()F
 
     move-result v11
 
-    goto :goto_5
+    goto :goto_4
 
     .line 79
-    .restart local v11       #y:F
+    .restart local v11       #x:F
     :cond_7
+    invoke-virtual/range {p1 .. p1}, Landroid/view/MotionEvent;->getY()F
+
+    move-result v12
+
+    goto :goto_5
+
+    .line 80
+    .restart local v12       #y:F
+    :cond_8
     move-object/from16 v0, p0
 
-    iget-object v12, v0, Lcom/android/systemui/statusbar/DelegateViewHelper;->mDownPoint:[F
+    iget-object v13, v0, Lcom/android/systemui/statusbar/DelegateViewHelper;->mDownPoint:[F
 
-    const/4 v13, 0x1
+    const/4 v14, 0x1
 
-    aget v12, v12, v13
+    aget v13, v13, v14
 
-    sub-float v5, v12, v11
+    sub-float v6, v13, v12
 
     goto :goto_6
 
-    .line 76
-    .restart local v5       #distance:F
-    :cond_8
-    add-int/lit8 v7, v7, 0x1
+    .line 77
+    .restart local v6       #distance:F
+    :cond_9
+    add-int/lit8 v8, v8, 0x1
 
     goto/16 :goto_3
 
-    .line 61
+    .line 91
+    .end local v6           #distance:F
+    .end local v7           #historySize:I
+    .end local v8           #k:I
+    .end local v11           #x:F
+    .end local v12           #y:F
+    :cond_a
+    const/4 v13, 0x1
+
+    if-eq v1, v13, :cond_b
+
+    const/4 v13, 0x3
+
+    if-ne v1, v13, :cond_5
+
+    .line 92
+    :cond_b
+    move-object/from16 v0, p0
+
+    iget-object v13, v0, Lcom/android/systemui/statusbar/DelegateViewHelper;->mBar:Lcom/android/systemui/statusbar/BaseStatusBar;
+
+    const/4 v14, 0x2
+
+    const/4 v15, 0x0
+
+    invoke-virtual {v13, v14, v15}, Lcom/android/systemui/statusbar/BaseStatusBar;->setInteracting(IZ)V
+
+    goto :goto_7
+
+    .line 62
     nop
 
     :pswitch_data_0
@@ -478,10 +529,10 @@
     .parameter "phoneStatusBar"
 
     .prologue
-    .line 47
+    .line 49
     iput-object p1, p0, Lcom/android/systemui/statusbar/DelegateViewHelper;->mBar:Lcom/android/systemui/statusbar/BaseStatusBar;
 
-    .line 48
+    .line 50
     return-void
 .end method
 
@@ -490,10 +541,22 @@
     .parameter "view"
 
     .prologue
-    .line 43
+    .line 45
     iput-object p1, p0, Lcom/android/systemui/statusbar/DelegateViewHelper;->mDelegateView:Landroid/view/View;
 
-    .line 44
+    .line 46
+    return-void
+.end method
+
+.method public setDisabled(Z)V
+    .locals 0
+    .parameter "disabled"
+
+    .prologue
+    .line 147
+    iput-boolean p1, p0, Lcom/android/systemui/statusbar/DelegateViewHelper;->mDisabled:Z
+
+    .line 148
     return-void
 .end method
 
@@ -506,18 +569,18 @@
 
     const/4 v9, 0x0
 
-    .line 116
+    .line 123
     new-instance v0, Landroid/graphics/RectF;
 
     invoke-direct {v0}, Landroid/graphics/RectF;-><init>()V
 
-    .line 117
+    .line 124
     .local v0, bounds:Landroid/graphics/RectF;
     const/4 v4, 0x2
 
     new-array v2, v4, [I
 
-    .line 118
+    .line 125
     .local v2, p:[I
     const/4 v1, 0x0
 
@@ -527,27 +590,27 @@
 
     if-ge v1, v4, :cond_2
 
-    .line 119
+    .line 126
     aget-object v3, p1, v1
 
-    .line 120
+    .line 127
     .local v3, view:Landroid/view/View;
     if-nez v3, :cond_0
 
-    .line 118
+    .line 125
     :goto_1
     add-int/lit8 v1, v1, 0x1
 
     goto :goto_0
 
-    .line 121
+    .line 128
     :cond_0
     invoke-virtual {v3, v2}, Landroid/view/View;->getLocationOnScreen([I)V
 
-    .line 122
+    .line 129
     if-nez v1, :cond_1
 
-    .line 123
+    .line 130
     aget v4, v2, v9
 
     int-to-float v4, v4
@@ -580,7 +643,7 @@
 
     goto :goto_1
 
-    .line 125
+    .line 132
     :cond_1
     aget v4, v2, v9
 
@@ -614,14 +677,14 @@
 
     goto :goto_1
 
-    .line 128
+    .line 135
     .end local v3           #view:Landroid/view/View;
     :cond_2
     iget-object v4, p0, Lcom/android/systemui/statusbar/DelegateViewHelper;->mInitialTouch:Landroid/graphics/RectF;
 
     invoke-virtual {v4, v0}, Landroid/graphics/RectF;->set(Landroid/graphics/RectF;)V
 
-    .line 129
+    .line 136
     return-void
 .end method
 
@@ -630,15 +693,15 @@
     .parameter "view"
 
     .prologue
-    .line 101
+    .line 108
     iput-object p1, p0, Lcom/android/systemui/statusbar/DelegateViewHelper;->mSourceView:Landroid/view/View;
 
-    .line 102
+    .line 109
     iget-object v0, p0, Lcom/android/systemui/statusbar/DelegateViewHelper;->mSourceView:Landroid/view/View;
 
     if-eqz v0, :cond_0
 
-    .line 103
+    .line 110
     iget-object v0, p0, Lcom/android/systemui/statusbar/DelegateViewHelper;->mSourceView:Landroid/view/View;
 
     invoke-virtual {v0}, Landroid/view/View;->getContext()Landroid/content/Context;
@@ -649,7 +712,7 @@
 
     move-result-object v0
 
-    const v1, 0x7f0e0031
+    const v1, 0x7f0c003e
 
     invoke-virtual {v0, v1}, Landroid/content/res/Resources;->getDimension(I)F
 
@@ -657,7 +720,7 @@
 
     iput v0, p0, Lcom/android/systemui/statusbar/DelegateViewHelper;->mTriggerThreshhold:F
 
-    .line 106
+    .line 113
     :cond_0
     return-void
 .end method
@@ -667,9 +730,9 @@
     .parameter "swap"
 
     .prologue
-    .line 136
+    .line 143
     iput-boolean p1, p0, Lcom/android/systemui/statusbar/DelegateViewHelper;->mSwapXY:Z
 
-    .line 137
+    .line 144
     return-void
 .end method

@@ -15,9 +15,9 @@
 
 
 # static fields
-.field public static final notification_popup_menu:I = 0x7f110000
+.field public static final notification_popup_menu:I = 0x7f0f0000
 
-.field public static final recent_popup_menu:I = 0x7f110001
+.field public static final recent_popup_menu:I = 0x7f0f0001
 
 
 # direct methods
@@ -25,8 +25,8 @@
     .locals 0
 
     .prologue
-    .line 1754
-    invoke-direct/range {p0 .. p0}, Ljava/lang/Object;-><init>()V
+    .line 1596
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
     return-void
 .end method

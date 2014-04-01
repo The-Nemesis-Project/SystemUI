@@ -49,15 +49,15 @@
     iput v0, p0, Lcom/android/systemui/screenshot/CaptureEffectView$CaptureAnimation;->mMode:I
 
     .line 161
-    invoke-virtual {p0, v2}, Lcom/android/systemui/screenshot/CaptureEffectView$CaptureAnimation;->setFillAfter(Z)V
+    invoke-virtual {p0, v2}, Landroid/view/animation/Animation;->setFillAfter(Z)V
 
     .line 162
     const-wide/16 v0, 0x1f4
 
-    invoke-virtual {p0, v0, v1}, Lcom/android/systemui/screenshot/CaptureEffectView$CaptureAnimation;->setDuration(J)V
+    invoke-virtual {p0, v0, v1}, Landroid/view/animation/Animation;->setDuration(J)V
 
     .line 163
-    invoke-virtual {p0, v2}, Lcom/android/systemui/screenshot/CaptureEffectView$CaptureAnimation;->setRepeatCount(I)V
+    invoke-virtual {p0, v2}, Landroid/view/animation/Animation;->setRepeatCount(I)V
 
     .line 165
     return-void
@@ -102,7 +102,7 @@
 
     .line 189
     :cond_0
-    invoke-virtual {p0}, Lcom/android/systemui/screenshot/CaptureEffectView$CaptureAnimation;->hasEnded()Z
+    invoke-virtual {p0}, Landroid/view/animation/Animation;->hasEnded()Z
 
     move-result v0
 

@@ -25,7 +25,7 @@
     .parameter "x0"
 
     .prologue
-    .line 468
+    .line 364
     iput-object p1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$2;->this$0:Lcom/android/systemui/statusbar/phone/PhoneStatusBar;
 
     invoke-direct {p0, p2}, Landroid/database/ContentObserver;-><init>(Landroid/os/Handler;)V
@@ -42,7 +42,7 @@
     .prologue
     const/4 v1, 0x0
 
-    .line 471
+    .line 367
     iget-object v2, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$2;->this$0:Lcom/android/systemui/statusbar/phone/PhoneStatusBar;
 
     iget-object v2, v2, Lcom/android/systemui/SystemUI;->mContext:Landroid/content/Context;
@@ -68,7 +68,7 @@
 
     const/4 v0, 0x1
 
-    .line 479
+    .line 375
     .local v0, userSetup:Z
     :goto_0
     iget-object v2, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$2;->this$0:Lcom/android/systemui/statusbar/phone/PhoneStatusBar;
@@ -83,7 +83,7 @@
 
     if-nez v2, :cond_0
 
-    .line 480
+    .line 376
     iget-object v2, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$2;->this$0:Lcom/android/systemui/statusbar/phone/PhoneStatusBar;
 
     iget-object v2, v2, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSettingsButton:Landroid/widget/ImageView;
@@ -93,15 +93,15 @@
     :goto_1
     invoke-virtual {v2, v1}, Landroid/widget/ImageView;->setVisibility(I)V
 
-    .line 482
+    .line 378
     :cond_0
     iget-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$2;->this$0:Lcom/android/systemui/statusbar/phone/PhoneStatusBar;
 
-    iget-object v1, v1, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSettingsPanel:Lcom/android/systemui/statusbar/phone/SettingsPanelView;
+    iget-object v1, v1, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSettingsPanel:Lcom/android/systemui/statusbar/phone/PanelView;
 
     if-eqz v1, :cond_1
 
-    .line 486
+    .line 382
     :cond_1
     iget-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$2;->this$0:Lcom/android/systemui/statusbar/phone/PhoneStatusBar;
 
@@ -112,13 +112,13 @@
 
     if-eq v0, v1, :cond_2
 
-    .line 487
+    .line 383
     iget-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$2;->this$0:Lcom/android/systemui/statusbar/phone/PhoneStatusBar;
 
     #setter for: Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mUserSetup:Z
     invoke-static {v1, v0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->access$102(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;Z)Z
 
-    .line 488
+    .line 384
     iget-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$2;->this$0:Lcom/android/systemui/statusbar/phone/PhoneStatusBar;
 
     #getter for: Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mUserSetup:Z
@@ -134,12 +134,12 @@
 
     if-eqz v1, :cond_2
 
-    .line 489
+    .line 385
     iget-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$2;->this$0:Lcom/android/systemui/statusbar/phone/PhoneStatusBar;
 
     invoke-virtual {v1}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->animateCollapseQuickSettings()V
 
-    .line 491
+    .line 387
     :cond_2
     return-void
 
@@ -147,10 +147,10 @@
     :cond_3
     move v0, v1
 
-    .line 471
+    .line 367
     goto :goto_0
 
-    .line 480
+    .line 376
     .restart local v0       #userSetup:Z
     :cond_4
     const/4 v1, 0x4

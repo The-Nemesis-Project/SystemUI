@@ -63,10 +63,10 @@
 .method public abstract setMaxBrightness(I)V
 .end method
 
-.method public abstract setNavigationIconHints(I)V
+.method public abstract setSystemUiVisibility(II)V
 .end method
 
-.method public abstract setSystemUiVisibility(II)V
+.method public abstract setWindowState(II)V
 .end method
 
 .method public abstract showCallOnGoingView()V
@@ -82,9 +82,6 @@
 .end method
 
 .method public abstract topAppWindowChanged(Z)V
-.end method
-
-.method public abstract transparentizeStatusBar(I)V
 .end method
 
 .method public abstract updateIcon(Ljava/lang/String;IILcom/android/internal/statusbar/StatusBarIcon;Lcom/android/internal/statusbar/StatusBarIcon;)V

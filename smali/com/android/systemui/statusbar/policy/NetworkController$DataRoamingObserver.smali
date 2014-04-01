@@ -24,17 +24,17 @@
     .parameter
 
     .prologue
-    .line 4849
+    .line 3996
     iput-object p1, p0, Lcom/android/systemui/statusbar/policy/NetworkController$DataRoamingObserver;->this$0:Lcom/android/systemui/statusbar/policy/NetworkController;
 
-    .line 4850
+    .line 3997
     new-instance v0, Landroid/os/Handler;
 
     invoke-direct {v0}, Landroid/os/Handler;-><init>()V
 
     invoke-direct {p0, v0}, Landroid/database/ContentObserver;-><init>(Landroid/os/Handler;)V
 
-    .line 4851
+    .line 3998
     return-void
 .end method
 
@@ -47,7 +47,7 @@
     .prologue
     const/4 v0, 0x1
 
-    .line 4854
+    .line 4001
     iget-object v1, p0, Lcom/android/systemui/statusbar/policy/NetworkController$DataRoamingObserver;->this$0:Lcom/android/systemui/statusbar/policy/NetworkController;
 
     iget-object v2, p0, Lcom/android/systemui/statusbar/policy/NetworkController$DataRoamingObserver;->this$0:Lcom/android/systemui/statusbar/policy/NetworkController;
@@ -70,7 +70,7 @@
     #setter for: Lcom/android/systemui/statusbar/policy/NetworkController;->mDataRoamingSetting:Z
     invoke-static {v1, v0}, Lcom/android/systemui/statusbar/policy/NetworkController;->access$2502(Lcom/android/systemui/statusbar/policy/NetworkController;Z)Z
 
-    .line 4856
+    .line 4003
     const-string v0, "STATUSBAR-NetworkController"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -100,22 +100,22 @@
 
     invoke-static {v0, v1}, Landroid/util/Slog;->d(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 4857
+    .line 4004
     sget-boolean v0, Lcom/android/systemui/statusbar/Feature;->mRoamingOngoingForVZW:Z
 
     if-eqz v0, :cond_0
 
-    .line 4858
+    .line 4005
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/NetworkController$DataRoamingObserver;->this$0:Lcom/android/systemui/statusbar/policy/NetworkController;
 
-    #calls: Lcom/android/systemui/statusbar/policy/NetworkController;->updateRomaingNotification()V
+    #calls: Lcom/android/systemui/statusbar/policy/NetworkController;->updateRoamingNotification()V
     invoke-static {v0}, Lcom/android/systemui/statusbar/policy/NetworkController;->access$2600(Lcom/android/systemui/statusbar/policy/NetworkController;)V
 
-    .line 4860
+    .line 4007
     :cond_0
     return-void
 
-    .line 4854
+    .line 4001
     :cond_1
     const/4 v0, 0x0
 

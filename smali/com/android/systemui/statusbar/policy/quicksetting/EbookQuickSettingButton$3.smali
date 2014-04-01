@@ -27,10 +27,10 @@
     .parameter
 
     .prologue
-    .line 159
+    .line 168
     iput-object p1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/EbookQuickSettingButton$3;->this$0:Lcom/android/systemui/statusbar/policy/quicksetting/EbookQuickSettingButton;
 
-    invoke-direct/range {p0 .. p0}, Ljava/lang/Object;-><init>()V
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
     return-void
 .end method
@@ -43,10 +43,10 @@
     .parameter "id"
 
     .prologue
-    .line 161
+    .line 170
     invoke-interface {p1}, Landroid/content/DialogInterface;->cancel()V
 
-    .line 162
+    .line 171
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/EbookQuickSettingButton$3;->this$0:Lcom/android/systemui/statusbar/policy/quicksetting/EbookQuickSettingButton;
 
     const/4 v1, 0x1
@@ -54,6 +54,6 @@
     #calls: Lcom/android/systemui/statusbar/policy/quicksetting/EbookQuickSettingButton;->setMode(I)V
     invoke-static {v0, v1}, Lcom/android/systemui/statusbar/policy/quicksetting/EbookQuickSettingButton;->access$500(Lcom/android/systemui/statusbar/policy/quicksetting/EbookQuickSettingButton;I)V
 
-    .line 163
+    .line 172
     return-void
 .end method

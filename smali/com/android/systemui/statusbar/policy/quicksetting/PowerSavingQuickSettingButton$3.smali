@@ -27,10 +27,10 @@
     .parameter
 
     .prologue
-    .line 156
+    .line 163
     iput-object p1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/PowerSavingQuickSettingButton$3;->this$0:Lcom/android/systemui/statusbar/policy/quicksetting/PowerSavingQuickSettingButton;
 
-    invoke-direct/range {p0 .. p0}, Ljava/lang/Object;-><init>()V
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
     return-void
 .end method
@@ -43,22 +43,22 @@
     .parameter "which"
 
     .prologue
-    .line 159
+    .line 166
     const-string v0, "STATUSBAR-PowerSavingController"
 
     const-string v1, "showConfirmPopup() - Positive onClick mode: ok"
 
     invoke-static {v0, v1}, Landroid/util/secutil/Log;->secW(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 160
+    .line 167
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/PowerSavingQuickSettingButton$3;->this$0:Lcom/android/systemui/statusbar/policy/quicksetting/PowerSavingQuickSettingButton;
 
     const-string v1, "com.android.settings"
 
     const-string v2, "com.android.settings.Settings$PowerSavingModeSettingsActivity"
 
-    invoke-virtual {v0, v1, v2}, Lcom/android/systemui/statusbar/policy/quicksetting/PowerSavingQuickSettingButton;->callActivity(Ljava/lang/String;Ljava/lang/String;)V
+    invoke-virtual {v0, v1, v2}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->callActivity(Ljava/lang/String;Ljava/lang/String;)V
 
-    .line 162
+    .line 169
     return-void
 .end method

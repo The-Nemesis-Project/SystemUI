@@ -27,10 +27,10 @@
     .parameter
 
     .prologue
-    .line 453
+    .line 468
     iput-object p1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/AirViewQuickSettingButton$4;->this$0:Lcom/android/systemui/statusbar/policy/quicksetting/AirViewQuickSettingButton;
 
-    invoke-direct/range {p0 .. p0}, Ljava/lang/Object;-><init>()V
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
     return-void
 .end method
@@ -42,11 +42,11 @@
     .parameter "dialog"
 
     .prologue
-    .line 456
+    .line 471
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/AirViewQuickSettingButton$4;->this$0:Lcom/android/systemui/statusbar/policy/quicksetting/AirViewQuickSettingButton;
 
     invoke-virtual {v0}, Lcom/android/systemui/statusbar/policy/quicksetting/AirViewQuickSettingButton;->doPrevious()V
 
-    .line 457
+    .line 472
     return-void
 .end method

@@ -30,12 +30,12 @@
     .parameter
 
     .prologue
-    .line 46
+    .line 43
     iput-object p1, p0, Lcom/android/systemui/screenshot/TakeScreenshotService$1$1;->this$1:Lcom/android/systemui/screenshot/TakeScreenshotService$1;
 
     iput-object p2, p0, Lcom/android/systemui/screenshot/TakeScreenshotService$1$1;->val$callback:Landroid/os/Messenger;
 
-    invoke-direct/range {p0 .. p0}, Ljava/lang/Object;-><init>()V
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
     return-void
 .end method
@@ -46,7 +46,7 @@
     .locals 3
 
     .prologue
-    .line 49
+    .line 46
     const/4 v1, 0x0
 
     const/4 v2, 0x1
@@ -55,7 +55,7 @@
 
     move-result-object v0
 
-    .line 51
+    .line 48
     .local v0, reply:Landroid/os/Message;
     :try_start_0
     iget-object v1, p0, Lcom/android/systemui/screenshot/TakeScreenshotService$1$1;->val$callback:Landroid/os/Messenger;
@@ -64,11 +64,11 @@
     :try_end_0
     .catch Landroid/os/RemoteException; {:try_start_0 .. :try_end_0} :catch_0
 
-    .line 54
+    .line 51
     :goto_0
     return-void
 
-    .line 52
+    .line 49
     :catch_0
     move-exception v1
 

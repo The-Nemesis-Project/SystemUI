@@ -3,61 +3,51 @@
 .source "PhoneStatusBar.java"
 
 # interfaces
-.implements Landroid/view/View$OnHoverListener;
+.implements Lcom/android/systemui/DemoMode;
 
 
 # annotations
 .annotation system Ldalvik/annotation/MemberClasses;
     value = {
+        Lcom/android/systemui/statusbar/phone/PhoneStatusBar$PmsBrightnessEnableObserver;,
         Lcom/android/systemui/statusbar/phone/PhoneStatusBar$BrightnessEnableObserver;,
         Lcom/android/systemui/statusbar/phone/PhoneStatusBar$BatteryTextObserver;,
-        Lcom/android/systemui/statusbar/phone/PhoneStatusBar$KidsModeObserver;,
         Lcom/android/systemui/statusbar/phone/PhoneStatusBar$FastColorDrawable;,
         Lcom/android/systemui/statusbar/phone/PhoneStatusBar$MyTicker;,
         Lcom/android/systemui/statusbar/phone/PhoneStatusBar$H;,
-        Lcom/android/systemui/statusbar/phone/PhoneStatusBar$LongLifeModeObserver;,
-        Lcom/android/systemui/statusbar/phone/PhoneStatusBar$TSMNetContObserver;,
-        Lcom/android/systemui/statusbar/phone/PhoneStatusBar$TSMObserver;
+        Lcom/android/systemui/statusbar/phone/PhoneStatusBar$EmergencyModeObserver;
     }
 .end annotation
 
 
 # static fields
-.field public static final ACTION_KNOX_MODE_CHANGED:Ljava/lang/String; = "com.sec.android.enterprisenotificationcenter.ENTERPRISE_MODE_CHANGE"
-
 .field public static final ACTION_STATUSBAR_START:Ljava/lang/String; = "com.android.internal.policy.statusbar.START"
+
+.field private static final AUTOHIDE_TIMEOUT_MS:J = 0xbb8L
 
 .field public static final CHATTY:Z = false
 
 .field private static final CLOSE_PANEL_WHEN_EMPTIED:Z = false
 
+.field private static final DB_AIRPLANEMODE_ON_REASON_USB3:Ljava/lang/String; = "airplane_mode_on_reason_usb3"
+
 .field private static final DB_BRIGHTNESS_ENABLE:Ljava/lang/String; = "notification_panel_brightness_adjustment"
 
 .field public static final DB_DISPLAY_BATTERY_PERCENTAGE:Ljava/lang/String; = "display_battery_percentage"
 
-.field private static final DB_KIDS_MODE:Ljava/lang/String; = "kids_mode_enabled"
-
 .field public static final DEBUG:Z = false
-
-.field public static final DEBUG_CLINGS:Z = false
 
 .field public static final DEBUG_GESTURES:Z = false
 
-.field public static final DUMPTRUCK:Z = true
+.field public static final DEBUG_WINDOW_STATE:Z = true
 
-.field public static final ENABLE_NOTIFICATION_PANEL_CLING:Z = false
+.field public static final DUMPTRUCK:Z = true
 
 .field private static final HIDE_ICONS_BELOW_SCORE:I = -0xa
 
-.field private static final INTRUDER_ALERT_DECAY_MS:I = 0x0
-
 .field private static final LOW_BATTERY_THRESHOLD:I = 0x5
 
-.field public static final MSG_CLOSE_MINI_MODE_APPS_PANEL:I = 0x425
-
 .field private static final MSG_CLOSE_PANELS:I = 0x3e9
-
-.field public static final MSG_OPEN_MINI_MODE_APPS_PANEL:I = 0x424
 
 .field private static final MSG_OPEN_NOTIFICATION_PANEL:I = 0x3e8
 
@@ -65,15 +55,13 @@
 
 .field private static final NOTIFICATION_PRIORITY_MULTIPLIER:I = 0xa
 
-.field private static final NUM_TRAYOPEN_SOUND_CHANNELS:I = 0x1
-
-.field private static final SECRET_MODE_OFF:Ljava/lang/String; = "com.samsung.android.intent.action.SECRET_MODE_OFF"
-
-.field private static final SECRET_MODE_ON:Ljava/lang/String; = "com.samsung.android.intent.action.SECRET_MODE_ON"
+.field private static final PMS_DB_BRIGHTNESS_ENABLE:Ljava/lang/String; = "pms_notification_panel_brightness_adjustment"
 
 .field public static final SETTINGS_DRAG_SHORTCUT:Z = true
 
 .field public static final SPEW:Z = false
+
+.field private static final STATUS_OR_NAV_TRANSIENT:I = 0xc000000
 
 .field static final TAG:Ljava/lang/String; = "PhoneStatusBar"
 
@@ -83,27 +71,13 @@
 
 .field public static isSweepedNotification:Z
 
-.field public static mDataTypeBrand:Ljava/lang/String;
-
 
 # instance fields
-.field final ACTION_SET_MOUSE_POS:Ljava/lang/String;
-
 .field final FLIP_DURATION:I
 
 .field final FLIP_DURATION_IN:I
 
 .field final FLIP_DURATION_OUT:I
-
-.field final MOUSE_EVENT:Ljava/lang/String;
-
-.field final MOUSE_X:Ljava/lang/String;
-
-.field final MOUSE_Y:Ljava/lang/String;
-
-.field final REL_POS_FLAG:Ljava/lang/String;
-
-.field final WAIT_TIME:Ljava/lang/String;
 
 .field private lp:Landroid/view/WindowManager$LayoutParams;
 
@@ -111,27 +85,11 @@
 
 .field final mAccelerateInterpolator:Landroid/animation/TimeInterpolator;
 
-.field mAnimAccel:F
-
-.field mAnimLastTimeNanos:J
-
-.field mAnimVel:F
-
-.field mAnimY:F
-
-.field mAnimating:Z
-
-.field mAnimatingReveal:Z
-
 .field mAttCarrierLabel:Landroid/widget/TextView;
 
-.field private mAudioManager:Landroid/media/AudioManager;
+.field private final mAutohide:Ljava/lang/Runnable;
 
-.field private mBaseAlpha:F
-
-.field mBasicSetting:Landroid/view/View;
-
-.field mBasicSettingDivider:Landroid/view/View;
+.field private mAutohideSuspended:Z
 
 .field mBasicSettingsButton:Landroid/widget/ImageView;
 
@@ -139,11 +97,7 @@
 
 .field private mBasicSettingsButtonListener:Landroid/view/View$OnClickListener;
 
-.field mBasicSettingsButtonTablet:Landroid/widget/ImageView;
-
 .field mBatteryController:Lcom/android/systemui/statusbar/policy/BatteryController;
-
-.field private mBatteryIcon:Landroid/widget/ImageView;
 
 .field private mBatteryText:Landroid/widget/TextView;
 
@@ -165,8 +119,6 @@
 
 .field private mBroadcastReceiver:Landroid/content/BroadcastReceiver;
 
-.field private mCallOnGoingView:Landroid/view/View;
-
 .field private mCarrierLabel:Landroid/widget/TextView;
 
 .field private mCarrierLabelHeight:I
@@ -175,37 +127,23 @@
 
 .field private mCarrierLabelVisible:Z
 
+.field private final mCheckBarModes:Ljava/lang/Runnable;
+
 .field mClearButton:Landroid/view/View;
+
+.field mClearButtonAnim:Landroid/animation/Animator;
 
 .field mClearButtonFocusChangeListener:Landroid/view/View$OnFocusChangeListener;
 
 .field private mClearButtonListener:Landroid/view/View$OnClickListener;
 
-.field private mCling:Landroid/view/ViewGroup;
-
-.field private mClingShown:Z
-
-.field private mClock:Landroid/view/View;
-
-.field mClockCenter:Landroid/view/View;
-
 .field private mClockClickListener:Landroid/view/View$OnClickListener;
 
-.field private mClockLeft:Landroid/view/View;
-
 .field private mClockVisibility:Z
-
-.field mCloseMiniAppsPanel:Ljava/lang/reflect/Method;
-
-.field mClosing:Z
 
 .field private mCollapseAccelPx:F
 
 .field private mCollapseMinDisplayFraction:F
-
-.field private mCoverOpen:Z
-
-.field mCues:[Landroid/view/View;
 
 .field mCurrentDisplaySize:Landroid/graphics/Point;
 
@@ -215,6 +153,12 @@
 
 .field final mDecelerateInterpolator:Landroid/animation/TimeInterpolator;
 
+.field private mDemoMode:Z
+
+.field private mDemoModeAllowed:Z
+
+.field private mDemoStatusIcons:Lcom/android/systemui/statusbar/phone/DemoStatusIcons;
+
 .field mDisabled:I
 
 .field mDisplay:Landroid/view/Display;
@@ -223,13 +167,15 @@
 
 .field mDoNotDisturb:Lcom/android/systemui/statusbar/DoNotDisturb;
 
-.field mDreamManager:Landroid/service/dreams/IDreamManager;
-
 .field mEdgeBorder:I
 
 .field mEditButtonAnim:Landroid/animation/Animator;
 
 .field private mEmergencyCallLabel:Landroid/widget/TextView;
+
+.field private mEmergencyModeActivated:Z
+
+.field private mEmergencyeModeObserver:Lcom/android/systemui/statusbar/phone/PhoneStatusBar$EmergencyModeObserver;
 
 .field private mExpandAccelPx:F
 
@@ -247,10 +193,6 @@
 
 .field private mFlingGestureMaxXVelocityPx:F
 
-.field mFlingVelocity:F
-
-.field mFlingY:I
-
 .field mFlipSettingsView:Landroid/view/View;
 
 .field mFlipSettingsViewAnim:Landroid/animation/Animator;
@@ -265,6 +207,14 @@
 
 .field mHasSettingsPanel:Z
 
+.field private mHeadsUpNotificationDecay:I
+
+.field private mHeadsUpNotificationView:Lcom/android/systemui/statusbar/policy/HeadsUpNotificationView;
+
+.field private final mHeadsUpObserver:Landroid/database/ContentObserver;
+
+.field private mHeadsUpVerticalOffset:F
+
 .field mHomeSearchActionListener:Landroid/view/View$OnTouchListener;
 
 .field mIconHPadding:I
@@ -273,57 +223,25 @@
 
 .field mIconSize:I
 
-.field private mIntruderAlertView:Lcom/android/systemui/statusbar/policy/IntruderAlertView;
+.field private mInteractingWindows:I
 
 .field mIsDisplaySearchPanel:Z
 
-.field private mIsKnoxStatusBar:Z
-
-.field mIsMiniAppPanelLoadedProperly:Z
-
-.field private mIsTransparentStatusBar:Z
-
-.field private mKidsModeActivated:Z
-
-.field private mKidsModeObserver:Lcom/android/systemui/statusbar/phone/PhoneStatusBar$KidsModeObserver;
-
-.field private mLightsOnAnimation:Landroid/animation/Animator;
-
-.field private mLightsOutAnimation:Landroid/animation/Animator;
-
 .field mLocationController:Lcom/android/systemui/statusbar/policy/LocationController;
 
-.field private mLongLifeModeObserver:Lcom/android/systemui/statusbar/phone/PhoneStatusBar$LongLifeModeObserver;
-
 .field private final mMakeIconsInvisible:Landroid/animation/Animator$AnimatorListener;
-
-.field private mMiniModeAppsPanel:Landroid/view/ViewGroup;
-
-.field private mMiniModeAppsPanelInAnim:Landroid/view/animation/Animation;
-
-.field private mMiniModeAppsPanelOutAnim:Landroid/view/animation/Animation;
-
-.field mMiniModeTrayClass:Ljava/lang/Class;
-
-.field mMiniModeTrayEnabled:Z
-
-.field private mMiniModeTrayView:Landroid/view/View;
 
 .field mMoreIcon:Landroid/view/View;
 
 .field mNaturalBarHeight:I
 
-.field private mNavigationBarContainerView:Landroid/view/View;
-
-.field private mNavigationBarInAnim:Landroid/view/animation/Animation;
-
-.field private mNavigationBarOutAnim:Landroid/view/animation/Animation;
+.field private mNavigationBarMode:I
 
 .field private mNavigationBarView:Lcom/android/systemui/statusbar/phone/NavigationBarView;
 
-.field private mNavigationIconHints:I
+.field private mNavigationBarWindowState:I
 
-.field private mNetContObserver:Lcom/android/systemui/statusbar/phone/PhoneStatusBar$TSMNetContObserver;
+.field private mNavigationIconHints:I
 
 .field mNetworkController:Lcom/android/systemui/statusbar/policy/NetworkController;
 
@@ -349,27 +267,37 @@
 
 .field mNotificationPanelMarginBottomPx:I
 
-.field mNotificationPanelMarginPx:I
+.field mNotificationPanelMarginLeftPx:I
+
+.field mNotificationPanelMarginRightPx:I
 
 .field mNotificationPanelMinHeightFrac:F
 
-.field mOpenMiniAppsPanel:Ljava/lang/reflect/Method;
-
 .field mOrientation:I
 
+.field private mPilePosition:[I
+
 .field mPixelFormat:I
+
+.field private mPmsBrightnessEnableObserver:Lcom/android/systemui/statusbar/phone/PhoneStatusBar$PmsBrightnessEnableObserver;
+
+.field private mPmsBrightnessEnablebySettings:Z
 
 .field mPositionTmp:[I
 
 .field mPostCollapseCleanup:Ljava/lang/Runnable;
-
-.field mQS:Lcom/android/systemui/statusbar/phone/QuickSettings;
 
 .field mQSPanel:Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingPanel;
 
 .field mQueueLock:Ljava/lang/Object;
 
 .field private mRecentsClickListener:Landroid/view/View$OnClickListener;
+
+.field mRotationLockController:Lcom/android/systemui/statusbar/policy/RotationLockController;
+
+.field private mSFinderButtonListener:Landroid/view/View$OnClickListener;
+
+.field private mScreenOn:Ljava/lang/Boolean;
 
 .field mScrollView:Landroid/widget/ScrollView;
 
@@ -379,10 +307,6 @@
 
 .field private mSelfExpandVelocityPx:F
 
-.field mSettingButton:Landroid/view/View;
-
-.field mSettingButtonDivider:Landroid/view/View;
-
 .field mSettingButtonFocusChangeListener:Landroid/view/View$OnFocusChangeListener;
 
 .field mSettingsButton:Landroid/widget/ImageView;
@@ -391,25 +315,13 @@
 
 .field private mSettingsButtonListener:Landroid/view/View$OnClickListener;
 
-.field mSettingsContainer:Lcom/android/systemui/statusbar/phone/QuickSettingsContainerView;
-
 .field mSettingsEditButton:Landroid/widget/ImageView;
 
 .field private mSettingsEditButtonListener:Landroid/view/View$OnClickListener;
 
-.field mSettingsEditButtonTablet:Landroid/widget/ImageView;
-
-.field mSettingsPanel:Lcom/android/systemui/statusbar/phone/SettingsPanelView;
+.field mSettingsPanel:Lcom/android/systemui/statusbar/phone/PanelView;
 
 .field mSettingsPanelGravity:I
-
-.field private mShadow:Landroid/view/View;
-
-.field private mShouldShowLatest:Z
-
-.field private mShouldShowNoNoti:Z
-
-.field private mShouldShowOngoing:Z
 
 .field private mShowCarrierInPanel:Z
 
@@ -421,29 +333,27 @@
 
 .field private mShowSearchPanel:Ljava/lang/Runnable;
 
-.field private mSoundPool:Landroid/media/SoundPool;
-
-.field private mSoundPoolId:[I
+.field mSmartBondingController:Lcom/android/systemui/statusbar/policy/SmartBondingController;
 
 .field mStartTracing:Ljava/lang/Runnable;
 
 .field mStatusBarContents:Landroid/widget/LinearLayout;
 
+.field private mStatusBarMode:I
+
 .field mStatusBarView:Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;
 
 .field mStatusBarWindow:Lcom/android/systemui/statusbar/phone/StatusBarWindowView;
+
+.field private mStatusBarWindowState:I
 
 .field mStatusIcons:Landroid/widget/LinearLayout;
 
 .field mStopTracing:Ljava/lang/Runnable;
 
-.field private mSuppressStatusBarDrags:Z
-
 .field mSystemIconArea:Landroid/widget/LinearLayout;
 
 .field mSystemUiVisibility:I
-
-.field private mTSMObserver:Lcom/android/systemui/statusbar/phone/PhoneStatusBar$TSMObserver;
 
 .field private mTicker:Lcom/android/systemui/statusbar/phone/Ticker;
 
@@ -467,11 +377,11 @@
 
 .field mVelocityTracker:Landroid/view/VelocityTracker;
 
-.field private mVibrator:Landroid/os/Vibrator;
-
-.field mViewDelta:I
+.field private mVolumePanel:Lcom/android/systemui/statusbar/policy/VolumePanel;
 
 .field operatorLogoIcon:Landroid/view/View;
+
+.field sFinderButton:Landroid/widget/ImageView;
 
 
 # direct methods
@@ -479,7 +389,7 @@
     .locals 1
 
     .prologue
-    .line 183
+    .line 156
     const/4 v0, 0x0
 
     sput-boolean v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->isSweepedNotification:Z
@@ -491,401 +401,334 @@
     .locals 5
 
     .prologue
-    const/4 v4, 0x2
+    const/16 v4, 0xc8
+
+    const/4 v1, 0x2
 
     const/4 v0, -0x1
 
-    const/4 v2, 0x1
+    const/4 v3, 0x1
 
-    const/4 v1, 0x0
+    const/4 v2, 0x0
 
-    const/4 v3, 0x0
-
-    .line 169
+    .line 144
     invoke-direct {p0}, Lcom/android/systemui/statusbar/BaseStatusBar;-><init>()V
 
-    .line 244
+    .line 210
     iput v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNaturalBarHeight:I
 
-    .line 245
+    .line 211
     iput v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mIconSize:I
 
-    .line 246
+    .line 212
     iput v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mIconHPadding:I
 
-    iput-boolean v2, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mShouldShowLatest:Z
-
-    iput-boolean v2, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mShouldShowNoNoti:Z
-
-    iput-boolean v2, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mShouldShowOngoing:Z
-
-    iput-boolean v2, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mCoverOpen:Z
-
-    .line 248
+    .line 214
     new-instance v0, Landroid/graphics/Point;
 
     invoke-direct {v0}, Landroid/graphics/Point;-><init>()V
 
     iput-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mCurrentDisplaySize:Landroid/graphics/Point;
 
-    .line 256
+    .line 216
+    new-array v0, v1, [I
+
+    iput-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mPilePosition:[I
+
+    .line 220
+    iput v2, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarWindowState:I
+
+    .line 223
     new-instance v0, Ljava/lang/Object;
 
     invoke-direct {v0}, Ljava/lang/Object;-><init>()V
 
     iput-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mQueueLock:Ljava/lang/Object;
 
-    .line 302
-    iput-boolean v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mCarrierLabelVisible:Z
+    .line 269
+    iput-boolean v2, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mCarrierLabelVisible:Z
 
-    .line 308
-    iput-boolean v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mShowCarrierInPanel:Z
+    .line 275
+    iput-boolean v2, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mShowCarrierInPanel:Z
 
-    .line 309
-    iput-boolean v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mShowCarrierInSettingPanel:Z
+    .line 276
+    iput-boolean v2, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mShowCarrierInSettingPanel:Z
 
-    .line 324
-    new-array v0, v4, [I
+    .line 289
+    new-array v0, v1, [I
 
     iput-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mPositionTmp:[I
 
-    .line 340
-    iput-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNavigationBarView:Lcom/android/systemui/statusbar/phone/NavigationBarView;
+    .line 300
+    const/4 v0, 0x0
 
-    .line 366
-    iput-boolean v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mAnimatingReveal:Z
+    iput-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNavigationBarView:Lcom/android/systemui/statusbar/phone/NavigationBarView;
 
-    .line 370
-    new-array v0, v4, [I
+    .line 301
+    iput v2, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNavigationBarWindowState:I
+
+    .line 316
+    new-array v0, v1, [I
 
     iput-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mAbsPos:[I
 
-    .line 371
-    iput-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mPostCollapseCleanup:Ljava/lang/Runnable;
+    .line 317
+    const/4 v0, 0x0
 
-    .line 381
-    iput-boolean v2, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mBrightnessEnablebyDisableFlag:Z
+    iput-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mPostCollapseCleanup:Ljava/lang/Runnable;
 
-    .line 382
-    iput-boolean v2, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mBrightnessEnablebyLongLifeMode:Z
+    .line 325
+    iput-boolean v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mPmsBrightnessEnablebySettings:Z
 
-    .line 388
-    iput-boolean v2, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mShowClockByClearCover:Z
+    .line 326
+    iput-boolean v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mBrightnessEnablebyBattery:Z
 
-    .line 389
-    iput-boolean v2, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mClockVisibility:Z
+    .line 327
+    iput-boolean v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mBrightnessEnablebyDisableFlag:Z
 
-    .line 393
-    iput v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mDisabled:I
+    .line 328
+    iput-boolean v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mBrightnessEnablebyLongLifeMode:Z
 
-    .line 396
-    iput v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSystemUiVisibility:I
+    .line 333
+    iput v2, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mDisabled:I
 
-    .line 399
-    iput v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mOrientation:I
+    .line 336
+    iput v2, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSystemUiVisibility:I
 
-    .line 401
+    .line 338
     new-instance v0, Landroid/util/DisplayMetrics;
 
     invoke-direct {v0}, Landroid/util/DisplayMetrics;-><init>()V
 
     iput-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mDisplayMetrics:Landroid/util/DisplayMetrics;
 
-    .line 404
-    iput-boolean v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mMiniModeTrayEnabled:Z
+    .line 341
+    const/4 v0, 0x0
 
-    .line 405
-    iput-boolean v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mIsMiniAppPanelLoadedProperly:Z
-
-    .line 406
-    iput-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mMiniModeTrayClass:Ljava/lang/Class;
-
-    .line 407
-    iput-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mOpenMiniAppsPanel:Ljava/lang/reflect/Method;
-
-    .line 408
-    iput-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mCloseMiniAppsPanel:Ljava/lang/reflect/Method;
-
-    .line 410
-    iput-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mMiniModeAppsPanel:Landroid/view/ViewGroup;
-
-    .line 423
-    new-array v0, v4, [I
-
-    iput-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSoundPoolId:[I
-
-    .line 425
-    iput-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mShadow:Landroid/view/View;
-
-    .line 427
-    const/4 v0, 0x4
-
-    new-array v0, v0, [Landroid/view/View;
-
-    iput-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mCues:[Landroid/view/View;
-
-    move-object v0, v1
-
-    .line 431
     check-cast v0, Lcom/android/systemui/statusbar/GestureRecorder;
 
     iput-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mGestureRec:Lcom/android/systemui/statusbar/GestureRecorder;
 
-    .line 436
-    iput-boolean v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mTrackingViewAttached:Z
+    .line 346
+    iput-boolean v2, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mTrackingViewAttached:Z
 
-    .line 443
-    const-string v0, "com.sec.android.spc.eventcontrol.ACTION_SET_MOUSE_POS"
+    .line 350
+    iput v2, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNavigationIconHints:I
 
-    iput-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->ACTION_SET_MOUSE_POS:Ljava/lang/String;
-
-    .line 444
-    const-string v0, "event"
-
-    iput-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->MOUSE_EVENT:Ljava/lang/String;
-
-    .line 445
-    const-string v0, "x"
-
-    iput-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->MOUSE_X:Ljava/lang/String;
-
-    .line 446
-    const-string v0, "y"
-
-    iput-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->MOUSE_Y:Ljava/lang/String;
-
-    .line 447
-    const-string v0, "rel_pos_flag"
-
-    iput-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->REL_POS_FLAG:Ljava/lang/String;
-
-    .line 448
-    const-string v0, "wait_time"
-
-    iput-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->WAIT_TIME:Ljava/lang/String;
-
-    .line 451
-    iput-boolean v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mIsKnoxStatusBar:Z
-
-    .line 452
-    iput-boolean v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mIsTransparentStatusBar:Z
-
-    .line 454
-    iput v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNavigationIconHints:I
-
-    .line 455
+    .line 351
     new-instance v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$1;
 
     invoke-direct {v0, p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$1;-><init>(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)V
 
     iput-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mMakeIconsInvisible:Landroid/animation/Animator$AnimatorListener;
 
-    .line 467
-    iput-boolean v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mUserSetup:Z
+    .line 363
+    iput-boolean v2, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mUserSetup:Z
 
-    .line 468
+    .line 364
     new-instance v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$2;
 
-    new-instance v2, Landroid/os/Handler;
+    new-instance v1, Landroid/os/Handler;
 
-    invoke-direct {v2}, Landroid/os/Handler;-><init>()V
+    invoke-direct {v1}, Landroid/os/Handler;-><init>()V
 
-    invoke-direct {v0, p0, v2}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$2;-><init>(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;Landroid/os/Handler;)V
+    invoke-direct {v0, p0, v1}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$2;-><init>(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;Landroid/os/Handler;)V
 
     iput-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mUserSetupObserver:Landroid/database/ContentObserver;
 
-    .line 1088
-    new-instance v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$LongLifeModeObserver;
+    .line 390
+    new-instance v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$3;
 
-    invoke-direct {v0, p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$LongLifeModeObserver;-><init>(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)V
+    iget-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mHandler:Lcom/android/systemui/statusbar/BaseStatusBar$H;
 
-    iput-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mLongLifeModeObserver:Lcom/android/systemui/statusbar/phone/PhoneStatusBar$LongLifeModeObserver;
+    invoke-direct {v0, p0, v1}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$3;-><init>(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;Landroid/os/Handler;)V
 
-    .line 1238
-    new-instance v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$7;
+    iput-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mHeadsUpObserver:Landroid/database/ContentObserver;
 
-    invoke-direct {v0, p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$7;-><init>(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)V
+    .line 415
+    new-instance v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$4;
 
-    iput-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mRecentsClickListener:Landroid/view/View$OnClickListener;
+    invoke-direct {v0, p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$4;-><init>(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)V
 
-    .line 1245
-    iput v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mShowSearchHoldoff:I
+    iput-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mAutohide:Ljava/lang/Runnable;
 
-    .line 1246
-    new-instance v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$8;
+    .line 1024
+    new-instance v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$EmergencyModeObserver;
 
-    invoke-direct {v0, p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$8;-><init>(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)V
+    invoke-direct {v0, p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$EmergencyModeObserver;-><init>(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)V
 
-    iput-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mShowSearchPanel:Ljava/lang/Runnable;
+    iput-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mEmergencyeModeObserver:Lcom/android/systemui/statusbar/phone/PhoneStatusBar$EmergencyModeObserver;
 
-    .line 1253
+    .line 1025
+    iput-boolean v2, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mEmergencyModeActivated:Z
+
+    .line 1192
     new-instance v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$9;
 
     invoke-direct {v0, p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$9;-><init>(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)V
 
+    iput-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mRecentsClickListener:Landroid/view/View$OnClickListener;
+
+    .line 1199
+    iput v2, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mShowSearchHoldoff:I
+
+    .line 1200
+    new-instance v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$10;
+
+    invoke-direct {v0, p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$10;-><init>(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)V
+
+    iput-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mShowSearchPanel:Ljava/lang/Runnable;
+
+    .line 1207
+    new-instance v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$11;
+
+    invoke-direct {v0, p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$11;-><init>(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)V
+
     iput-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mHomeSearchActionListener:Landroid/view/View$OnTouchListener;
 
-    .line 2181
-    new-instance v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$12;
+    .line 1777
+    iput-boolean v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mShowClockByClearCover:Z
 
-    invoke-direct {v0, p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$12;-><init>(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)V
+    .line 1778
+    iput-boolean v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mClockVisibility:Z
 
-    iput-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mFocusChangeListener:Landroid/view/View$OnFocusChangeListener;
-
-    .line 2190
-    new-instance v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$13;
-
-    invoke-direct {v0, p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$13;-><init>(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)V
-
-    iput-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mClearButtonFocusChangeListener:Landroid/view/View$OnFocusChangeListener;
-
-    .line 2200
+    .line 1974
     new-instance v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$14;
 
     invoke-direct {v0, p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$14;-><init>(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)V
 
+    iput-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mFocusChangeListener:Landroid/view/View$OnFocusChangeListener;
+
+    .line 1986
+    new-instance v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$15;
+
+    invoke-direct {v0, p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$15;-><init>(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)V
+
+    iput-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mClearButtonFocusChangeListener:Landroid/view/View$OnFocusChangeListener;
+
+    .line 1996
+    new-instance v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$16;
+
+    invoke-direct {v0, p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$16;-><init>(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)V
+
     iput-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSettingButtonFocusChangeListener:Landroid/view/View$OnFocusChangeListener;
 
-    .line 2360
+    .line 2164
     new-instance v0, Landroid/view/animation/AccelerateInterpolator;
 
     invoke-direct {v0}, Landroid/view/animation/AccelerateInterpolator;-><init>()V
 
     iput-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mAccelerateInterpolator:Landroid/animation/TimeInterpolator;
 
-    .line 2361
+    .line 2165
     new-instance v0, Landroid/view/animation/DecelerateInterpolator;
 
     invoke-direct {v0}, Landroid/view/animation/DecelerateInterpolator;-><init>()V
 
     iput-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mDecelerateInterpolator:Landroid/animation/TimeInterpolator;
 
-    .line 2363
-    const/16 v0, 0xc8
+    .line 2167
+    iput v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->FLIP_DURATION_OUT:I
 
-    iput v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->FLIP_DURATION_OUT:I
+    .line 2168
+    iput v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->FLIP_DURATION_IN:I
 
-    .line 2364
-    const/16 v0, 0xc8
+    .line 2169
+    iput v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->FLIP_DURATION:I
 
-    iput v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->FLIP_DURATION_IN:I
+    .line 2877
+    new-instance v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$21;
 
-    .line 2365
-    const/16 v0, 0xc8
+    invoke-direct {v0, p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$21;-><init>(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)V
 
-    iput v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->FLIP_DURATION:I
+    iput-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mCheckBarModes:Ljava/lang/Runnable;
 
-    .line 3070
-    new-instance v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$20;
-
-    invoke-direct {v0, p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$20;-><init>(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)V
-
-    iput-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mTickingDoneListener:Landroid/view/animation/Animation$AnimationListener;
-
-    .line 3290
+    .line 3067
     new-instance v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$22;
 
     invoke-direct {v0, p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$22;-><init>(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)V
 
-    iput-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mClearButtonListener:Landroid/view/View$OnClickListener;
+    iput-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mTickingDoneListener:Landroid/view/animation/Animation$AnimationListener;
 
-    .line 3415
-    new-instance v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$23;
-
-    invoke-direct {v0, p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$23;-><init>(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)V
-
-    iput-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mBasicSettingsButtonListener:Landroid/view/View$OnClickListener;
-
-    .line 3478
+    .line 3298
     new-instance v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$24;
 
     invoke-direct {v0, p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$24;-><init>(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)V
 
-    iput-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSettingsEditButtonListener:Landroid/view/View$OnClickListener;
+    iput-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mClearButtonListener:Landroid/view/View$OnClickListener;
 
-    .line 3511
+    .line 3423
     new-instance v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$25;
 
     invoke-direct {v0, p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$25;-><init>(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)V
 
-    iput-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSettingsButtonListener:Landroid/view/View$OnClickListener;
+    iput-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mBasicSettingsButtonListener:Landroid/view/View$OnClickListener;
 
-    .line 3528
+    .line 3487
     new-instance v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$26;
 
     invoke-direct {v0, p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$26;-><init>(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)V
 
-    iput-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mClockClickListener:Landroid/view/View$OnClickListener;
+    iput-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSettingsEditButtonListener:Landroid/view/View$OnClickListener;
 
-    .line 3553
+    .line 3522
     new-instance v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$27;
 
     invoke-direct {v0, p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$27;-><init>(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)V
 
-    iput-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationButtonListener:Landroid/view/View$OnClickListener;
+    iput-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSettingsButtonListener:Landroid/view/View$OnClickListener;
 
-    .line 3559
+    .line 3539
     new-instance v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$28;
 
     invoke-direct {v0, p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$28;-><init>(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)V
 
-    iput-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mBroadcastReceiver:Landroid/content/BroadcastReceiver;
+    iput-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mClockClickListener:Landroid/view/View$OnClickListener;
 
-    .line 3834
+    .line 3564
+    new-instance v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$29;
+
+    invoke-direct {v0, p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$29;-><init>(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)V
+
+    iput-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationButtonListener:Landroid/view/View$OnClickListener;
+
+    .line 3570
     new-instance v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$30;
 
     invoke-direct {v0, p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$30;-><init>(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)V
 
+    iput-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mBroadcastReceiver:Landroid/content/BroadcastReceiver;
+
+    .line 3661
+    iput v2, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mOrientation:I
+
+    .line 3915
+    new-instance v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$32;
+
+    invoke-direct {v0, p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$32;-><init>(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)V
+
     iput-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStartTracing:Ljava/lang/Runnable;
 
-    .line 3844
-    new-instance v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$31;
+    .line 3925
+    new-instance v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$33;
 
-    invoke-direct {v0, p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$31;-><init>(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)V
+    invoke-direct {v0, p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$33;-><init>(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)V
 
     iput-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStopTracing:Ljava/lang/Runnable;
 
-    .line 3977
-    new-instance v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$KidsModeObserver;
-
-    invoke-direct {v0, p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$KidsModeObserver;-><init>(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)V
-
-    iput-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mKidsModeObserver:Lcom/android/systemui/statusbar/phone/PhoneStatusBar$KidsModeObserver;
-
-    .line 3978
-    iput-boolean v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mKidsModeActivated:Z
-
-    .line 3979
-    iput-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mBasicSettingDivider:Landroid/view/View;
-
-    .line 3980
-    iput-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mBasicSetting:Landroid/view/View;
-
-    .line 3981
-    iput-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSettingButtonDivider:Landroid/view/View;
-
-    .line 3982
-    iput-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSettingButton:Landroid/view/View;
-
-    .line 4031
+    .line 4095
     new-instance v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$BatteryTextObserver;
 
     invoke-direct {v0, p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$BatteryTextObserver;-><init>(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)V
 
     iput-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mBatteryTextObserver:Lcom/android/systemui/statusbar/phone/PhoneStatusBar$BatteryTextObserver;
 
-    .line 4067
-    new-instance v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$TSMNetContObserver;
+    .line 4215
+    new-instance v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$34;
 
-    invoke-direct {v0, p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$TSMNetContObserver;-><init>(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)V
+    invoke-direct {v0, p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$34;-><init>(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)V
 
-    iput-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNetContObserver:Lcom/android/systemui/statusbar/phone/PhoneStatusBar$TSMNetContObserver;
-
-    new-instance v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$TSMObserver;
-
-    invoke-direct {v0, p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$TSMObserver;-><init>(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)V
-
-    iput-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mTSMObserver:Lcom/android/systemui/statusbar/phone/PhoneStatusBar$TSMObserver;
+    iput-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSFinderButtonListener:Landroid/view/View$OnClickListener;
 
     return-void
 .end method
@@ -895,32 +738,8 @@
     .parameter "x0"
 
     .prologue
-    .line 169
+    .line 144
     iget v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mCurrentUserId:I
-
-    return v0
-.end method
-
-.method static synthetic access$001(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)Landroid/view/View;
-    .locals 1
-    .parameter "x0"
-
-    .prologue
-    .line 125
-    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mClockCenter:Landroid/view/View;
-
-    return-object v0
-.end method
-
-.method static synthetic access$002(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)Z
-    .locals 1
-    .parameter "x0"
-
-    .prologue
-    .line 169
-    invoke-direct {p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->checkCenterClock()Z
-
-    move-result v0
 
     return v0
 .end method
@@ -930,21 +749,22 @@
     .parameter "x0"
 
     .prologue
-    .line 169
+    .line 144
     iget-boolean v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mUserSetup:Z
 
     return v0
 .end method
 
-.method static synthetic access$1000(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)Lcom/android/systemui/statusbar/BaseStatusBar$H;
-    .locals 1
+.method static synthetic access$1000(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;I)V
+    .locals 0
     .parameter "x0"
+    .parameter "x1"
 
     .prologue
-    .line 169
-    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mHandler:Lcom/android/systemui/statusbar/BaseStatusBar$H;
+    .line 144
+    invoke-direct {p0, p1}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->notifyUiVisibilityChanged(I)V
 
-    return-object v0
+    return-void
 .end method
 
 .method static synthetic access$102(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;Z)Z
@@ -953,78 +773,89 @@
     .parameter "x1"
 
     .prologue
-    .line 169
+    .line 144
     iput-boolean p1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mUserSetup:Z
 
     return p1
 .end method
 
-.method static synthetic access$1100(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)Z
-    .locals 1
-    .parameter "x0"
-
-    .prologue
-    .line 169
-    iget-boolean v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mCarrierLabelVisible:Z
-
-    return v0
-.end method
-
-.method static synthetic access$1200(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)Landroid/widget/TextView;
-    .locals 1
-    .parameter "x0"
-
-    .prologue
-    .line 169
-    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mCarrierLabel:Landroid/widget/TextView;
-
-    return-object v0
-.end method
-
-.method static synthetic access$1400(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;Z)V
+.method static synthetic access$1100(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;Landroid/view/View;Landroid/view/MotionEvent;)V
     .locals 0
     .parameter "x0"
     .parameter "x1"
+    .parameter "x2"
 
     .prologue
-    .line 169
-    invoke-direct {p0, p1}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->setIntruderAlertVisibility(Z)V
+    .line 144
+    invoke-direct {p0, p1, p2}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->checkUserAutohide(Landroid/view/View;Landroid/view/MotionEvent;)V
 
     return-void
 .end method
 
-.method static synthetic access$1502(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;Landroid/service/notification/StatusBarNotification;)Landroid/service/notification/StatusBarNotification;
+.method static synthetic access$1200(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)I
+    .locals 1
+    .parameter "x0"
+
+    .prologue
+    .line 144
+    iget v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mCurrentUserId:I
+
+    return v0
+.end method
+
+.method static synthetic access$1302(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;Z)Z
     .locals 0
     .parameter "x0"
     .parameter "x1"
 
     .prologue
-    .line 169
-    iput-object p1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mCurrentlyIntrudingNotification:Landroid/service/notification/StatusBarNotification;
+    .line 144
+    iput-boolean p1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mEmergencyModeActivated:Z
 
-    return-object p1
+    return p1
 .end method
 
-.method static synthetic access$1600(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)Z
+.method static synthetic access$1402(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;Z)Z
+    .locals 0
+    .parameter "x0"
+    .parameter "x1"
+
+    .prologue
+    .line 144
+    iput-boolean p1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mBrightnessEnablebyLongLifeMode:Z
+
+    return p1
+.end method
+
+.method static synthetic access$1500(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)V
+    .locals 0
+    .parameter "x0"
+
+    .prologue
+    .line 144
+    invoke-direct {p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->setBrightnessControllerVisivility()V
+
+    return-void
+.end method
+
+.method static synthetic access$1600(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)V
+    .locals 0
+    .parameter "x0"
+
+    .prologue
+    .line 144
+    invoke-direct {p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->awakenDreams()V
+
+    return-void
+.end method
+
+.method static synthetic access$1700(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)Ljava/lang/Runnable;
     .locals 1
     .parameter "x0"
 
     .prologue
-    .line 169
-    invoke-direct {p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->isPwdChangeEnforced()Z
-
-    move-result v0
-
-    return v0
-.end method
-
-.method static synthetic access$1700(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)Landroid/view/ViewGroup;
-    .locals 1
-    .parameter "x0"
-
-    .prologue
-    .line 169
-    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mMiniModeAppsPanel:Landroid/view/ViewGroup;
+    .line 144
+    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mShowSearchPanel:Ljava/lang/Runnable;
 
     return-object v0
 .end method
@@ -1034,144 +865,121 @@
     .parameter "x0"
 
     .prologue
-    .line 169
+    .line 144
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mHandler:Lcom/android/systemui/statusbar/BaseStatusBar$H;
 
     return-object v0
 .end method
 
-.method static synthetic access$1900(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)Landroid/view/animation/Animation;
+.method static synthetic access$1900(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)I
     .locals 1
     .parameter "x0"
 
     .prologue
-    .line 169
-    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mMiniModeAppsPanelInAnim:Landroid/view/animation/Animation;
-
-    return-object v0
-.end method
-
-.method static synthetic access$200(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)I
-    .locals 1
-    .parameter "x0"
-
-    .prologue
-    .line 169
-    iget v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mCurrentUserId:I
+    .line 144
+    iget v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mShowSearchHoldoff:I
 
     return v0
 .end method
 
-.method static synthetic access$2000(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)Lcom/android/systemui/statusbar/phone/NavigationBarView;
+.method static synthetic access$200(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)Z
     .locals 1
     .parameter "x0"
 
     .prologue
-    .line 169
-    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNavigationBarView:Lcom/android/systemui/statusbar/phone/NavigationBarView;
+    .line 144
+    iget-boolean v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mUseHeadsUp:Z
 
-    return-object v0
+    return v0
 .end method
 
-.method static synthetic access$2100(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)Landroid/view/animation/Animation;
+.method static synthetic access$2000(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)Lcom/android/systemui/statusbar/BaseStatusBar$H;
     .locals 1
     .parameter "x0"
 
     .prologue
-    .line 169
-    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNavigationBarOutAnim:Landroid/view/animation/Animation;
+    .line 144
+    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mHandler:Lcom/android/systemui/statusbar/BaseStatusBar$H;
 
     return-object v0
 .end method
 
-.method static synthetic access$2200(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)Landroid/view/View;
+.method static synthetic access$2100(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)Lcom/android/systemui/statusbar/BaseStatusBar$H;
     .locals 1
     .parameter "x0"
 
     .prologue
-    .line 169
-    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNavigationBarContainerView:Landroid/view/View;
+    .line 144
+    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mHandler:Lcom/android/systemui/statusbar/BaseStatusBar$H;
 
     return-object v0
 .end method
 
-.method static synthetic access$2300(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)Landroid/view/View;
+.method static synthetic access$2200(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)Z
     .locals 1
     .parameter "x0"
 
     .prologue
-    .line 169
-    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mMiniModeTrayView:Landroid/view/View;
+    .line 144
+    iget-boolean v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mCarrierLabelVisible:Z
 
-    return-object v0
+    return v0
 .end method
 
-.method static synthetic access$2400(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)Landroid/view/animation/Animation;
+.method static synthetic access$2300(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)Landroid/widget/TextView;
     .locals 1
     .parameter "x0"
 
     .prologue
-    .line 169
-    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mMiniModeAppsPanelOutAnim:Landroid/view/animation/Animation;
+    .line 144
+    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mCarrierLabel:Landroid/widget/TextView;
 
     return-object v0
 .end method
 
-.method static synthetic access$2500(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)Landroid/view/animation/Animation;
-    .locals 1
-    .parameter "x0"
-
-    .prologue
-    .line 169
-    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNavigationBarInAnim:Landroid/view/animation/Animation;
-
-    return-object v0
-.end method
-
-.method static synthetic access$2600(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)Landroid/widget/LinearLayout;
-    .locals 1
-    .parameter "x0"
-
-    .prologue
-    .line 169
-    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mLatestNotificationTitle:Landroid/widget/LinearLayout;
-
-    return-object v0
-.end method
-
-.method static synthetic access$2700(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)Landroid/view/ViewGroup;
-    .locals 1
-    .parameter "x0"
-
-    .prologue
-    .line 169
-    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mCling:Landroid/view/ViewGroup;
-
-    return-object v0
-.end method
-
-.method static synthetic access$2702(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;Landroid/view/ViewGroup;)Landroid/view/ViewGroup;
+.method static synthetic access$2500(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;Z)V
     .locals 0
     .parameter "x0"
     .parameter "x1"
 
     .prologue
-    .line 169
-    iput-object p1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mCling:Landroid/view/ViewGroup;
+    .line 144
+    invoke-direct {p0, p1}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->setHeadsUpVisibility(Z)V
 
-    return-object p1
+    return-void
 .end method
 
-.method static synthetic access$2802(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;Z)Z
+.method static synthetic access$2600(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)V
     .locals 0
     .parameter "x0"
-    .parameter "x1"
 
     .prologue
-    .line 169
-    iput-boolean p1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mClingShown:Z
+    .line 144
+    invoke-direct {p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->escalateHeadsUp()V
 
-    return p1
+    return-void
+.end method
+
+.method static synthetic access$2700(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)Landroid/widget/LinearLayout;
+    .locals 1
+    .parameter "x0"
+
+    .prologue
+    .line 144
+    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mPileTitle:Landroid/widget/LinearLayout;
+
+    return-object v0
+.end method
+
+.method static synthetic access$2800(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)V
+    .locals 0
+    .parameter "x0"
+
+    .prologue
+    .line 144
+    invoke-direct {p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->checkBarModes()V
+
+    return-void
 .end method
 
 .method static synthetic access$2902(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;Z)Z
@@ -1180,22 +988,21 @@
     .parameter "x1"
 
     .prologue
-    .line 169
-    iput-boolean p1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSuppressStatusBarDrags:Z
+    .line 144
+    iput-boolean p1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mTicking:Z
 
     return p1
 .end method
 
-.method static synthetic access$3002(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;Z)Z
-    .locals 0
+.method static synthetic access$3000(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)Landroid/view/View;
+    .locals 1
     .parameter "x0"
-    .parameter "x1"
 
     .prologue
-    .line 169
-    iput-boolean p1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mTicking:Z
+    .line 144
+    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mTickerView:Landroid/view/View;
 
-    return p1
+    return-object v0
 .end method
 
 .method static synthetic access$302(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;Z)Z
@@ -1204,31 +1011,20 @@
     .parameter "x1"
 
     .prologue
-    .line 169
-    iput-boolean p1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mBrightnessEnablebyLongLifeMode:Z
+    .line 144
+    iput-boolean p1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mUseHeadsUp:Z
 
     return p1
 .end method
 
-.method static synthetic access$3100(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)Landroid/view/View;
-    .locals 1
-    .parameter "x0"
-
-    .prologue
-    .line 169
-    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mTickerView:Landroid/view/View;
-
-    return-object v0
-.end method
-
-.method static synthetic access$3200(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;ILandroid/view/animation/Animation$AnimationListener;)Landroid/view/animation/Animation;
+.method static synthetic access$3100(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;ILandroid/view/animation/Animation$AnimationListener;)Landroid/view/animation/Animation;
     .locals 1
     .parameter "x0"
     .parameter "x1"
     .parameter "x2"
 
     .prologue
-    .line 169
+    .line 144
     invoke-direct {p0, p1, p2}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->loadAnim(ILandroid/view/animation/Animation$AnimationListener;)Landroid/view/animation/Animation;
 
     move-result-object v0
@@ -1236,13 +1032,24 @@
     return-object v0
 .end method
 
-.method static synthetic access$3300(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)Lcom/android/systemui/statusbar/NotificationData;
+.method static synthetic access$3200(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)Z
     .locals 1
     .parameter "x0"
 
     .prologue
-    .line 169
-    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationData:Lcom/android/systemui/statusbar/NotificationData;
+    .line 144
+    iget-boolean v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mAutohideSuspended:Z
+
+    return v0
+.end method
+
+.method static synthetic access$3300(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)Ljava/lang/Runnable;
+    .locals 1
+    .parameter "x0"
+
+    .prologue
+    .line 144
+    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mAutohide:Ljava/lang/Runnable;
 
     return-object v0
 .end method
@@ -1252,7 +1059,7 @@
     .parameter "x0"
 
     .prologue
-    .line 169
+    .line 144
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationData:Lcom/android/systemui/statusbar/NotificationData;
 
     return-object v0
@@ -1263,7 +1070,7 @@
     .parameter "x0"
 
     .prologue
-    .line 169
+    .line 144
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationData:Lcom/android/systemui/statusbar/NotificationData;
 
     return-object v0
@@ -1274,7 +1081,7 @@
     .parameter "x0"
 
     .prologue
-    .line 169
+    .line 144
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationData:Lcom/android/systemui/statusbar/NotificationData;
 
     return-object v0
@@ -1285,7 +1092,7 @@
     .parameter "x0"
 
     .prologue
-    .line 169
+    .line 144
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationData:Lcom/android/systemui/statusbar/NotificationData;
 
     return-object v0
@@ -1296,7 +1103,7 @@
     .parameter "x0"
 
     .prologue
-    .line 169
+    .line 144
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationData:Lcom/android/systemui/statusbar/NotificationData;
 
     return-object v0
@@ -1307,41 +1114,41 @@
     .parameter "x0"
 
     .prologue
-    .line 169
+    .line 144
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationData:Lcom/android/systemui/statusbar/NotificationData;
 
     return-object v0
 .end method
 
-.method static synthetic access$400(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)V
-    .locals 0
-    .parameter "x0"
-
-    .prologue
-    .line 169
-    invoke-direct {p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->setBrightnessControllerVisivility()V
-
-    return-void
-.end method
-
-.method static synthetic access$4000(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)Lcom/android/systemui/statusbar/policy/NotificationRowLayout;
+.method static synthetic access$400(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)Z
     .locals 1
     .parameter "x0"
 
     .prologue
-    .line 169
-    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mLatestNotifications:Lcom/android/systemui/statusbar/policy/NotificationRowLayout;
+    .line 144
+    iget-boolean v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mUseHeadsUp:Z
+
+    return v0
+.end method
+
+.method static synthetic access$4000(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)Lcom/android/systemui/statusbar/NotificationData;
+    .locals 1
+    .parameter "x0"
+
+    .prologue
+    .line 144
+    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationData:Lcom/android/systemui/statusbar/NotificationData;
 
     return-object v0
 .end method
 
-.method static synthetic access$4100(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)Landroid/widget/LinearLayout;
+.method static synthetic access$4100(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)Lcom/android/systemui/statusbar/policy/NotificationRowLayout;
     .locals 1
     .parameter "x0"
 
     .prologue
-    .line 169
-    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mMiniConPile:Landroid/widget/LinearLayout;
+    .line 144
+    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mPile:Lcom/android/systemui/statusbar/policy/NotificationRowLayout;
 
     return-object v0
 .end method
@@ -1351,7 +1158,7 @@
     .parameter "x0"
 
     .prologue
-    .line 169
+    .line 144
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mMiniConPile:Landroid/widget/LinearLayout;
 
     return-object v0
@@ -1362,19 +1169,19 @@
     .parameter "x0"
 
     .prologue
-    .line 169
+    .line 144
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mMiniConPile:Landroid/widget/LinearLayout;
 
     return-object v0
 .end method
 
-.method static synthetic access$4400(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)Lcom/android/systemui/statusbar/policy/NotificationRowLayout;
+.method static synthetic access$4400(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)Landroid/widget/LinearLayout;
     .locals 1
     .parameter "x0"
 
     .prologue
-    .line 169
-    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mOngoingNotifications:Lcom/android/systemui/statusbar/policy/NotificationRowLayout;
+    .line 144
+    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mMiniConPile:Landroid/widget/LinearLayout;
 
     return-object v0
 .end method
@@ -1384,8 +1191,8 @@
     .parameter "x0"
 
     .prologue
-    .line 169
-    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mOngoingNotifications:Lcom/android/systemui/statusbar/policy/NotificationRowLayout;
+    .line 144
+    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mPile:Lcom/android/systemui/statusbar/policy/NotificationRowLayout;
 
     return-object v0
 .end method
@@ -1395,30 +1202,30 @@
     .parameter "x0"
 
     .prologue
-    .line 169
-    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mOngoingNotifications:Lcom/android/systemui/statusbar/policy/NotificationRowLayout;
+    .line 144
+    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mPile:Lcom/android/systemui/statusbar/policy/NotificationRowLayout;
 
     return-object v0
 .end method
 
-.method static synthetic access$4700(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)Landroid/widget/LinearLayout;
+.method static synthetic access$4700(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)Lcom/android/systemui/statusbar/policy/NotificationRowLayout;
     .locals 1
     .parameter "x0"
 
     .prologue
-    .line 169
-    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mOngoingNotificationTitle:Landroid/widget/LinearLayout;
+    .line 144
+    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mPile:Lcom/android/systemui/statusbar/policy/NotificationRowLayout;
 
     return-object v0
 .end method
 
-.method static synthetic access$4800(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)Landroid/widget/LinearLayout;
+.method static synthetic access$4800(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)Lcom/android/systemui/statusbar/policy/NotificationRowLayout;
     .locals 1
     .parameter "x0"
 
     .prologue
-    .line 169
-    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mLatestNotificationTitle:Landroid/widget/LinearLayout;
+    .line 144
+    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mPile:Lcom/android/systemui/statusbar/policy/NotificationRowLayout;
 
     return-object v0
 .end method
@@ -1428,30 +1235,30 @@
     .parameter "x0"
 
     .prologue
-    .line 169
-    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mLatestNotifications:Lcom/android/systemui/statusbar/policy/NotificationRowLayout;
+    .line 144
+    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mPile:Lcom/android/systemui/statusbar/policy/NotificationRowLayout;
 
     return-object v0
 .end method
 
-.method static synthetic access$500(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)V
-    .locals 0
-    .parameter "x0"
-
-    .prologue
-    .line 169
-    invoke-direct {p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->awakenDreams()V
-
-    return-void
-.end method
-
-.method static synthetic access$5000(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)Lcom/android/systemui/statusbar/policy/NotificationRowLayout;
+.method static synthetic access$500(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)Z
     .locals 1
     .parameter "x0"
 
     .prologue
-    .line 169
-    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mLatestNotifications:Lcom/android/systemui/statusbar/policy/NotificationRowLayout;
+    .line 144
+    iget-boolean v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mUseHeadsUp:Z
+
+    return v0
+.end method
+
+.method static synthetic access$5000(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)Lcom/android/internal/statusbar/IStatusBarService;
+    .locals 1
+    .parameter "x0"
+
+    .prologue
+    .line 144
+    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mBarService:Lcom/android/internal/statusbar/IStatusBarService;
 
     return-object v0
 .end method
@@ -1461,75 +1268,77 @@
     .parameter "x0"
 
     .prologue
-    .line 169
-    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mLatestNotifications:Lcom/android/systemui/statusbar/policy/NotificationRowLayout;
+    .line 144
+    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mPile:Lcom/android/systemui/statusbar/policy/NotificationRowLayout;
 
     return-object v0
 .end method
 
-.method static synthetic access$5200(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)Lcom/android/systemui/statusbar/policy/NotificationRowLayout;
+.method static synthetic access$5200(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)Lcom/android/systemui/statusbar/BaseStatusBar$H;
     .locals 1
     .parameter "x0"
 
     .prologue
-    .line 169
-    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mLatestNotifications:Lcom/android/systemui/statusbar/policy/NotificationRowLayout;
-
-    return-object v0
-.end method
-
-.method static synthetic access$5300(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)Lcom/android/internal/statusbar/IStatusBarService;
-    .locals 1
-    .parameter "x0"
-
-    .prologue
-    .line 169
-    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mBarService:Lcom/android/internal/statusbar/IStatusBarService;
-
-    return-object v0
-.end method
-
-.method static synthetic access$5400(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)Lcom/android/systemui/statusbar/policy/NotificationRowLayout;
-    .locals 1
-    .parameter "x0"
-
-    .prologue
-    .line 169
-    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mLatestNotifications:Lcom/android/systemui/statusbar/policy/NotificationRowLayout;
-
-    return-object v0
-.end method
-
-.method static synthetic access$5500(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)Lcom/android/systemui/statusbar/BaseStatusBar$H;
-    .locals 1
-    .parameter "x0"
-
-    .prologue
-    .line 169
+    .line 144
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mHandler:Lcom/android/systemui/statusbar/BaseStatusBar$H;
 
     return-object v0
 .end method
 
-.method static synthetic access$5600(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)Lcom/android/systemui/statusbar/BaseStatusBar$H;
+.method static synthetic access$5300(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)Lcom/android/systemui/statusbar/BaseStatusBar$H;
     .locals 1
     .parameter "x0"
 
     .prologue
-    .line 169
+    .line 144
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mHandler:Lcom/android/systemui/statusbar/BaseStatusBar$H;
 
     return-object v0
 .end method
 
-.method static synthetic access$5700(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;Z)V
+.method static synthetic access$5402(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;Ljava/lang/Boolean;)Ljava/lang/Boolean;
     .locals 0
     .parameter "x0"
     .parameter "x1"
 
     .prologue
-    .line 169
+    .line 144
+    iput-object p1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mScreenOn:Ljava/lang/Boolean;
+
+    return-object p1
+.end method
+
+.method static synthetic access$5500(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;Z)V
+    .locals 0
+    .parameter "x0"
+    .parameter "x1"
+
+    .prologue
+    .line 144
     invoke-direct {p0, p1}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->notifyNavigationBarScreenOn(Z)V
+
+    return-void
+.end method
+
+.method static synthetic access$5600(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;Z)V
+    .locals 0
+    .parameter "x0"
+    .parameter "x1"
+
+    .prologue
+    .line 144
+    invoke-virtual {p0, p1}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->notifyHeadsUpScreenOn(Z)V
+
+    return-void
+.end method
+
+.method static synthetic access$5700(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)V
+    .locals 0
+    .parameter "x0"
+
+    .prologue
+    .line 144
+    invoke-direct {p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->finishBarAnimations()V
 
     return-void
 .end method
@@ -1539,67 +1348,32 @@
     .parameter "x0"
 
     .prologue
-    .line 169
+    .line 144
     invoke-direct {p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->repositionNavigationBar()V
 
     return-void
 .end method
 
-.method static synthetic access$5900(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)V
-    .locals 0
-    .parameter "x0"
-
-    .prologue
-    .line 169
-    invoke-direct {p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->updateShowSearchHoldoff()V
-
-    return-void
-.end method
-
-.method static synthetic access$5910(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)I
+.method static synthetic access$5900(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)Landroid/widget/TextView;
     .locals 1
     .parameter "x0"
 
     .prologue
-    .line 125
-    invoke-direct {p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->updateBatteryColor()I
+    .line 144
+    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mBatteryText:Landroid/widget/TextView;
 
-    move-result v0
+    return-object v0
+.end method
+
+.method static synthetic access$600(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)Z
+    .locals 1
+    .parameter "x0"
+
+    .prologue
+    .line 144
+    iget-boolean v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mUseHeadsUp:Z
 
     return v0
-.end method
-
-.method static synthetic access$5915(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)V
-    .locals 1
-    .parameter "x0"
-
-    .prologue
-    .line 125
-    invoke-direct {p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->updateBatteryImage()V
-
-    return-void
-.end method
-
-.method static synthetic access$5920(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)Landroid/widget/ImageView;
-    .locals 1
-    .parameter "x0"
-
-    .prologue
-    .line 125
-    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mBatteryIcon:Landroid/widget/ImageView;
-
-    return-object v0
-.end method
-
-.method static synthetic access$600(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)Ljava/lang/Runnable;
-    .locals 1
-    .parameter "x0"
-
-    .prologue
-    .line 169
-    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mShowSearchPanel:Ljava/lang/Runnable;
-
-    return-object v0
 .end method
 
 .method static synthetic access$6002(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;Z)Z
@@ -1608,112 +1382,100 @@
     .parameter "x1"
 
     .prologue
-    .line 169
+    .line 144
     iput-boolean p1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mBrightnessEnablebyBattery:Z
 
     return p1
 .end method
 
-.method static synthetic access$6102(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;Z)Z
-    .locals 0
-    .parameter "x0"
-    .parameter "x1"
-
-    .prologue
-    .line 169
-    iput-boolean p1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mIsKnoxStatusBar:Z
-
-    return p1
-.end method
-
-.method static synthetic access$6200(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)Z
+.method static synthetic access$6100(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)Lcom/android/systemui/statusbar/BaseStatusBar$H;
     .locals 1
     .parameter "x0"
 
     .prologue
-    .line 169
-    iget-boolean v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mIsTransparentStatusBar:Z
-
-    return v0
-.end method
-
-.method static synthetic access$6300(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;Z)V
-    .locals 0
-    .parameter "x0"
-    .parameter "x1"
-
-    .prologue
-    .line 169
-    invoke-direct {p0, p1}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->doMarquee(Z)V
-
-    return-void
-.end method
-
-.method static synthetic access$6400(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)Lcom/android/systemui/statusbar/BaseStatusBar$H;
-    .locals 1
-    .parameter "x0"
-
-    .prologue
-    .line 169
+    .line 144
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mHandler:Lcom/android/systemui/statusbar/BaseStatusBar$H;
 
     return-object v0
 .end method
 
-.method static synthetic access$6500(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)Lcom/android/systemui/statusbar/BaseStatusBar$H;
+.method static synthetic access$6200(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)I
     .locals 1
     .parameter "x0"
 
     .prologue
-    .line 169
-    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mHandler:Lcom/android/systemui/statusbar/BaseStatusBar$H;
-
-    return-object v0
-.end method
-
-.method static synthetic access$6600(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)Lcom/android/systemui/statusbar/BaseStatusBar$H;
-    .locals 1
-    .parameter "x0"
-
-    .prologue
-    .line 169
-    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mHandler:Lcom/android/systemui/statusbar/BaseStatusBar$H;
-
-    return-object v0
-.end method
-
-.method static synthetic access$6702(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;Z)Z
-    .locals 0
-    .parameter "x0"
-    .parameter "x1"
-
-    .prologue
-    .line 169
-    iput-boolean p1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mKidsModeActivated:Z
-
-    return p1
-.end method
-
-.method static synthetic access$6800(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)I
-    .locals 1
-    .parameter "x0"
-
-    .prologue
-    .line 169
+    .line 144
     iget v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mCurrentUserId:I
 
     return v0
 .end method
 
-.method static synthetic access$6900(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)Landroid/widget/TextView;
+.method static synthetic access$6300(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)Z
     .locals 1
     .parameter "x0"
 
     .prologue
-    .line 169
-    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mBatteryText:Landroid/widget/TextView;
+    .line 144
+    iget-boolean v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mBrightnessEnablebySettings:Z
 
-    return-object v0
+    return v0
+.end method
+
+.method static synthetic access$6302(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;Z)Z
+    .locals 0
+    .parameter "x0"
+    .parameter "x1"
+
+    .prologue
+    .line 144
+    iput-boolean p1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mBrightnessEnablebySettings:Z
+
+    return p1
+.end method
+
+.method static synthetic access$6400(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)I
+    .locals 1
+    .parameter "x0"
+
+    .prologue
+    .line 144
+    iget v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mCurrentUserId:I
+
+    return v0
+.end method
+
+.method static synthetic access$6500(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)Z
+    .locals 1
+    .parameter "x0"
+
+    .prologue
+    .line 144
+    iget-boolean v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mPmsBrightnessEnablebySettings:Z
+
+    return v0
+.end method
+
+.method static synthetic access$6502(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;Z)Z
+    .locals 0
+    .parameter "x0"
+    .parameter "x1"
+
+    .prologue
+    .line 144
+    iput-boolean p1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mPmsBrightnessEnablebySettings:Z
+
+    return p1
+.end method
+
+.method static synthetic access$6600(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)I
+    .locals 1
+    .parameter "x0"
+
+    .prologue
+    .line 144
+    iget v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mCurrentUserId:I
+
+    return v0
 .end method
 
 .method static synthetic access$700(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)Lcom/android/systemui/statusbar/BaseStatusBar$H;
@@ -1721,150 +1483,39 @@
     .parameter "x0"
 
     .prologue
-    .line 169
+    .line 144
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mHandler:Lcom/android/systemui/statusbar/BaseStatusBar$H;
 
     return-object v0
 .end method
 
-.method static synthetic access$7000(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)Z
-    .locals 1
-    .parameter "x0"
-
-    .prologue
-    .line 169
-    iget-boolean v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mBrightnessEnablebySettings:Z
-
-    return v0
-.end method
-
-.method static synthetic access$7002(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;Z)Z
-    .locals 0
-    .parameter "x0"
-    .parameter "x1"
-
-    .prologue
-    .line 169
-    iput-boolean p1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mBrightnessEnablebySettings:Z
-
-    return p1
-.end method
-
-.method static synthetic access$7100(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)I
-    .locals 1
-    .parameter "x0"
-
-    .prologue
-    .line 169
-    iget v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mCurrentUserId:I
-
-    return v0
-.end method
-
-.method static synthetic access$7200(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)V
+.method static synthetic access$800(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)V
     .locals 0
     .parameter "x0"
 
     .prologue
-    .line 169
-    invoke-direct {p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->playTraySound()V
+    .line 144
+    invoke-direct {p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->removeHeadsUpView()V
 
     return-void
 .end method
 
-.method static synthetic access$7300(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)Lcom/android/systemui/statusbar/BaseStatusBar$H;
-    .locals 1
-    .parameter "x0"
-
-    .prologue
-    .line 169
-    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mHandler:Lcom/android/systemui/statusbar/BaseStatusBar$H;
-
-    return-object v0
-.end method
-
-.method static synthetic access$7400(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)Lcom/android/systemui/statusbar/BaseStatusBar$H;
-    .locals 1
-    .parameter "x0"
-
-    .prologue
-    .line 169
-    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mHandler:Lcom/android/systemui/statusbar/BaseStatusBar$H;
-
-    return-object v0
-.end method
-
-.method static synthetic access$7500(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)Lcom/android/systemui/statusbar/BaseStatusBar$H;
-    .locals 1
-    .parameter "x0"
-
-    .prologue
-    .line 169
-    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mHandler:Lcom/android/systemui/statusbar/BaseStatusBar$H;
-
-    return-object v0
-.end method
-
-.method static synthetic access$7600(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)Lcom/android/systemui/statusbar/BaseStatusBar$H;
-    .locals 1
-    .parameter "x0"
-
-    .prologue
-    .line 169
-    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mHandler:Lcom/android/systemui/statusbar/BaseStatusBar$H;
-
-    return-object v0
-.end method
-
-.method static synthetic access$800(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)I
-    .locals 1
-    .parameter "x0"
-
-    .prologue
-    .line 169
-    iget v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mShowSearchHoldoff:I
-
-    return v0
-.end method
-
-.method static synthetic access$900(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)Lcom/android/systemui/statusbar/BaseStatusBar$H;
-    .locals 1
-    .parameter "x0"
-
-    .prologue
-    .line 169
-    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mHandler:Lcom/android/systemui/statusbar/BaseStatusBar$H;
-
-    return-object v0
-.end method
-
-.method static synthetic access$910(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)V
+.method static synthetic access$900(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)V
     .locals 0
     .parameter "x0"
 
     .prologue
-    .line 125
-    invoke-direct {p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->updateNetContSettings()V
+    .line 144
+    invoke-direct {p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->addHeadsUpView()V
 
     return-void
 .end method
 
-.method static synthetic access$920(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)V
-    .locals 0
-    .parameter "x0"
-
-    .prologue
-    .line 125
-    invoke-direct {p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->updateTSMSettings()V
-
-    return-void
-.end method
-
-.method private addIntruderView()V
+.method private addHeadsUpView()V
     .locals 6
 
     .prologue
-    .line 1354
+    .line 1298
     new-instance v0, Landroid/view/WindowManager$LayoutParams;
 
     const/4 v1, -0x1
@@ -1879,18 +1530,34 @@
 
     invoke-direct/range {v0 .. v5}, Landroid/view/WindowManager$LayoutParams;-><init>(IIIII)V
 
-    .line 1365
+    .line 1308
     .local v0, lp:Landroid/view/WindowManager$LayoutParams;
-    const/16 v1, 0x37
+    iget v1, v0, Landroid/view/WindowManager$LayoutParams;->flags:I
+
+    const/high16 v2, 0x100
+
+    or-int/2addr v1, v2
+
+    iput v1, v0, Landroid/view/WindowManager$LayoutParams;->flags:I
+
+    .line 1309
+    const/16 v1, 0x30
 
     iput v1, v0, Landroid/view/WindowManager$LayoutParams;->gravity:I
 
-    .line 1367
-    const-string v1, "IntruderAlert"
+    .line 1310
+    invoke-virtual {p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->getStatusBarHeight()I
+
+    move-result v1
+
+    iput v1, v0, Landroid/view/WindowManager$LayoutParams;->y:I
+
+    .line 1311
+    const-string v1, "Heads Up"
 
     invoke-virtual {v0, v1}, Landroid/view/WindowManager$LayoutParams;->setTitle(Ljava/lang/CharSequence;)V
 
-    .line 1368
+    .line 1312
     iget-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mContext:Landroid/content/Context;
 
     invoke-virtual {v1}, Landroid/content/Context;->getPackageName()Ljava/lang/String;
@@ -1899,19 +1566,19 @@
 
     iput-object v1, v0, Landroid/view/WindowManager$LayoutParams;->packageName:Ljava/lang/String;
 
-    .line 1369
-    const v1, 0x7f100018
+    .line 1313
+    const v1, 0x7f0e001a
 
     iput v1, v0, Landroid/view/WindowManager$LayoutParams;->windowAnimations:I
 
-    .line 1371
+    .line 1315
     iget-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mWindowManager:Landroid/view/WindowManager;
 
-    iget-object v2, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mIntruderAlertView:Lcom/android/systemui/statusbar/policy/IntruderAlertView;
+    iget-object v2, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mHeadsUpNotificationView:Lcom/android/systemui/statusbar/policy/HeadsUpNotificationView;
 
     invoke-interface {v1, v2, v0}, Landroid/view/WindowManager;->addView(Landroid/view/View;Landroid/view/ViewGroup$LayoutParams;)V
 
-    .line 1372
+    .line 1316
     return-void
 .end method
 
@@ -1919,26 +1586,26 @@
     .locals 3
 
     .prologue
-    .line 1306
+    .line 1250
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNavigationBarView:Lcom/android/systemui/statusbar/phone/NavigationBarView;
 
     if-nez v0, :cond_1
 
-    .line 1314
+    .line 1258
     :cond_0
     :goto_0
     return-void
 
-    .line 1308
+    .line 1252
     :cond_1
     invoke-direct {p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->prepareNavigationBarView()V
 
-    .line 1310
+    .line 1254
     iget-boolean v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mIsNavigationBarHidden:Z
 
     if-nez v0, :cond_0
 
-    .line 1311
+    .line 1255
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mWindowManager:Landroid/view/WindowManager;
 
     iget-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNavigationBarView:Lcom/android/systemui/statusbar/phone/NavigationBarView;
@@ -1956,12 +1623,12 @@
     .locals 6
 
     .prologue
-    .line 3197
+    .line 3195
     invoke-virtual {p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->getStatusBarHeight()I
 
     move-result v2
 
-    .line 3204
+    .line 3202
     .local v2, height:I
     new-instance v0, Landroid/view/WindowManager$LayoutParams;
 
@@ -1969,7 +1636,7 @@
 
     const/16 v3, 0x7d0
 
-    const v4, 0x800048
+    const v4, 0x840048
 
     const/4 v5, -0x3
 
@@ -1977,7 +1644,7 @@
 
     iput-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->lp:Landroid/view/WindowManager$LayoutParams;
 
-    .line 3214
+    .line 3213
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->lp:Landroid/view/WindowManager$LayoutParams;
 
     iget v1, v0, Landroid/view/WindowManager$LayoutParams;->flags:I
@@ -1988,7 +1655,7 @@
 
     iput v1, v0, Landroid/view/WindowManager$LayoutParams;->flags:I
 
-    .line 3216
+    .line 3215
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->lp:Landroid/view/WindowManager$LayoutParams;
 
     invoke-virtual {p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->getStatusBarGravity()I
@@ -1997,14 +1664,14 @@
 
     iput v1, v0, Landroid/view/WindowManager$LayoutParams;->gravity:I
 
-    .line 3217
+    .line 3216
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->lp:Landroid/view/WindowManager$LayoutParams;
 
     const-string v1, "StatusBar"
 
     invoke-virtual {v0, v1}, Landroid/view/WindowManager$LayoutParams;->setTitle(Ljava/lang/CharSequence;)V
 
-    .line 3218
+    .line 3217
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->lp:Landroid/view/WindowManager$LayoutParams;
 
     iget-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mContext:Landroid/content/Context;
@@ -2015,15 +1682,15 @@
 
     iput-object v1, v0, Landroid/view/WindowManager$LayoutParams;->packageName:Ljava/lang/String;
 
-    .line 3220
+    .line 3219
     invoke-virtual {p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->makeStatusBarView()Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;
 
-    .line 3222
+    .line 3221
     iget-boolean v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mIsStatusBarHidden:Z
 
     if-nez v0, :cond_0
 
-    .line 3223
+    .line 3222
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mWindowManager:Landroid/view/WindowManager;
 
     iget-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarWindow:Lcom/android/systemui/statusbar/phone/StatusBarWindowView;
@@ -2032,7 +1699,7 @@
 
     invoke-interface {v0, v1, v3}, Landroid/view/WindowManager;->addView(Landroid/view/View;Landroid/view/ViewGroup$LayoutParams;)V
 
-    .line 3226
+    .line 3225
     :cond_0
     return-void
 .end method
@@ -2041,7 +1708,7 @@
     .locals 1
 
     .prologue
-    .line 2948
+    .line 2936
     iget v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSystemUiVisibility:I
 
     and-int/lit8 v0, v0, 0x1
@@ -2063,12 +1730,12 @@
     .locals 1
 
     .prologue
-    .line 1274
+    .line 1228
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mDreamManager:Landroid/service/dreams/IDreamManager;
 
     if-eqz v0, :cond_0
 
-    .line 1276
+    .line 1230
     :try_start_0
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mDreamManager:Landroid/service/dreams/IDreamManager;
 
@@ -2076,116 +1743,425 @@
     :try_end_0
     .catch Landroid/os/RemoteException; {:try_start_0 .. :try_end_0} :catch_0
 
-    .line 1281
+    .line 1235
     :cond_0
     :goto_0
     return-void
 
-    .line 1277
+    .line 1231
     :catch_0
     move-exception v0
 
     goto :goto_0
 .end method
 
-.method private checkCenterClock()Z
-    .locals 3
+.method private barMode(III)I
+    .locals 1
+    .parameter "vis"
+    .parameter "transientFlag"
+    .parameter "translucentFlag"
 
     .prologue
-    .line 1402
-    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mContext:Landroid/content/Context;
+    .line 2845
+    and-int v0, p1, p2
 
-    invoke-virtual {v0}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
-
-    move-result-object v0
-
-    const-string v1, "statusbar_clock_style"
-
-    const/4 v2, 0x0
-
-    invoke-static {v0, v1, v2}, Landroid/provider/Settings$Global;->getInt(Landroid/content/ContentResolver;Ljava/lang/String;I)I
-
-    move-result v1
-
-    const/4 v2, 0x3
-
-    if-eq v1, v2, :cond_0
-
-    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mContext:Landroid/content/Context;
-
-    invoke-virtual {v0}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
-
-    move-result-object v0
-
-    const-string v1, "statusbar_clock_position"
-
-    const/4 v2, 0x0
-
-    invoke-static {v0, v1, v2}, Landroid/provider/Settings$Global;->getInt(Landroid/content/ContentResolver;Ljava/lang/String;I)I
-
-    move-result v1
-
-    const/4 v2, 0x1
-
-    if-ne v1, v2, :cond_0
+    if-eqz v0, :cond_0
 
     const/4 v0, 0x1
 
-    goto :goto_0
-
-    :cond_0
-    const/4 v0, 0x0
-
     :goto_0
     return v0
+
+    :cond_0
+    and-int v0, p1, p3
+
+    if-eqz v0, :cond_1
+
+    const/4 v0, 0x2
+
+    goto :goto_0
+
+    :cond_1
+    and-int/lit8 v0, p1, 0x1
+
+    if-eqz v0, :cond_2
+
+    const/4 v0, 0x3
+
+    goto :goto_0
+
+    :cond_2
+    const/4 v0, 0x0
+
+    goto :goto_0
 .end method
 
-.method private doMarquee(Z)V
-    .locals 3
-    .parameter "b"
+.method private cancelAutohide()V
+    .locals 2
 
     .prologue
-    .line 3647
-    const-string v1, "STATUSBAR-PhoneStatusBar"
+    .line 2910
+    const/4 v0, 0x0
 
-    new-instance v0, Ljava/lang/StringBuilder;
+    iput-boolean v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mAutohideSuspended:Z
 
-    invoke-direct {v0}, Ljava/lang/StringBuilder;-><init>()V
+    .line 2911
+    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mHandler:Lcom/android/systemui/statusbar/BaseStatusBar$H;
 
-    const-string v2, " DateView marqueed : "
+    iget-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mAutohide:Ljava/lang/Runnable;
 
-    invoke-virtual {v0, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v0, v1}, Lcom/android/systemui/statusbar/BaseStatusBar$H;->removeCallbacks(Ljava/lang/Runnable;)V
+
+    .line 2912
+    return-void
+.end method
+
+.method private checkBarMode(IILcom/android/systemui/statusbar/phone/BarTransitions;)V
+    .locals 2
+    .parameter "mode"
+    .parameter "windowState"
+    .parameter "transitions"
+
+    .prologue
+    .line 2866
+    iget-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mScreenOn:Ljava/lang/Boolean;
+
+    if-eqz v1, :cond_0
+
+    iget-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mScreenOn:Ljava/lang/Boolean;
+
+    invoke-virtual {v1}, Ljava/lang/Boolean;->booleanValue()Z
+
+    move-result v1
+
+    if-eqz v1, :cond_1
+
+    :cond_0
+    const/4 v1, 0x2
+
+    if-eq p2, v1, :cond_1
+
+    const/4 v0, 0x1
+
+    .line 2867
+    .local v0, anim:Z
+    :goto_0
+    invoke-virtual {p3, p1, v0}, Lcom/android/systemui/statusbar/phone/BarTransitions;->transitionTo(IZ)V
+
+    .line 2868
+    return-void
+
+    .line 2866
+    .end local v0           #anim:Z
+    :cond_1
+    const/4 v0, 0x0
+
+    goto :goto_0
+.end method
+
+.method private checkBarModes()V
+    .locals 4
+
+    .prologue
+    .line 2852
+    iget-boolean v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mDemoMode:Z
+
+    if-eqz v1, :cond_1
+
+    .line 2863
+    :cond_0
+    :goto_0
+    return-void
+
+    .line 2853
+    :cond_1
+    iget v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarMode:I
+
+    .line 2854
+    .local v0, sbMode:I
+    invoke-virtual {p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->panelsEnabled()Z
+
+    move-result v1
+
+    if-eqz v1, :cond_2
+
+    iget v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mInteractingWindows:I
+
+    and-int/lit8 v1, v1, 0x1
+
+    if-eqz v1, :cond_2
+
+    .line 2856
+    const/4 v0, 0x0
+
+    .line 2858
+    :cond_2
+    iget v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarWindowState:I
+
+    iget-object v2, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarView:Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;
+
+    invoke-virtual {v2}, Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;->getBarTransitions()Lcom/android/systemui/statusbar/phone/BarTransitions;
 
     move-result-object v2
 
-    if-eqz p1, :cond_0
+    invoke-direct {p0, v0, v1, v2}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->checkBarMode(IILcom/android/systemui/statusbar/phone/BarTransitions;)V
 
-    const-string v0, "true"
+    .line 2859
+    iget-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNavigationBarView:Lcom/android/systemui/statusbar/phone/NavigationBarView;
 
-    :goto_0
-    invoke-virtual {v2, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    if-eqz v1, :cond_0
 
-    move-result-object v0
+    .line 2860
+    iget v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNavigationBarMode:I
 
-    invoke-virtual {v0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+    iget v2, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNavigationBarWindowState:I
 
-    move-result-object v0
+    iget-object v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNavigationBarView:Lcom/android/systemui/statusbar/phone/NavigationBarView;
 
-    invoke-static {v1, v0}, Landroid/util/Slog;->d(Ljava/lang/String;Ljava/lang/String;)I
+    invoke-virtual {v3}, Lcom/android/systemui/statusbar/phone/NavigationBarView;->getBarTransitions()Lcom/android/systemui/statusbar/phone/BarTransitions;
 
-    .line 3648
-    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mDateView:Lcom/android/systemui/statusbar/policy/DateView;
+    move-result-object v3
 
-    invoke-virtual {v0, p1}, Lcom/android/systemui/statusbar/policy/DateView;->setSelected(Z)V
-
-    .line 3649
-    return-void
-
-    .line 3647
-    :cond_0
-    const-string v0, "false"
+    invoke-direct {p0, v1, v2, v3}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->checkBarMode(IILcom/android/systemui/statusbar/phone/BarTransitions;)V
 
     goto :goto_0
+.end method
+
+.method private checkUserAutohide(Landroid/view/View;Landroid/view/MotionEvent;)V
+    .locals 3
+    .parameter "v"
+    .parameter "event"
+
+    .prologue
+    const/4 v2, 0x0
+
+    .line 2922
+    iget v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSystemUiVisibility:I
+
+    const/high16 v1, 0xc00
+
+    and-int/2addr v0, v1
+
+    if-eqz v0, :cond_0
+
+    invoke-virtual {p2}, Landroid/view/MotionEvent;->getAction()I
+
+    move-result v0
+
+    const/4 v1, 0x4
+
+    if-ne v0, v1, :cond_0
+
+    invoke-virtual {p2}, Landroid/view/MotionEvent;->getX()F
+
+    move-result v0
+
+    cmpl-float v0, v0, v2
+
+    if-nez v0, :cond_0
+
+    invoke-virtual {p2}, Landroid/view/MotionEvent;->getY()F
+
+    move-result v0
+
+    cmpl-float v0, v0, v2
+
+    if-nez v0, :cond_0
+
+    .line 2926
+    invoke-direct {p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->userAutohide()V
+
+    .line 2928
+    :cond_0
+    return-void
+.end method
+
+.method private computeBarMode(IILcom/android/systemui/statusbar/phone/BarTransitions;II)I
+    .locals 2
+    .parameter "oldVis"
+    .parameter "newVis"
+    .parameter "transitions"
+    .parameter "transientFlag"
+    .parameter "translucentFlag"
+
+    .prologue
+    .line 2836
+    invoke-direct {p0, p1, p4, p5}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->barMode(III)I
+
+    move-result v1
+
+    .line 2837
+    .local v1, oldMode:I
+    invoke-direct {p0, p2, p4, p5}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->barMode(III)I
+
+    move-result v0
+
+    .line 2838
+    .local v0, newMode:I
+    if-ne v1, v0, :cond_0
+
+    .line 2839
+    const/4 v0, -0x1
+
+    .line 2841
+    .end local v0           #newMode:I
+    :cond_0
+    return v0
+.end method
+
+.method private dispatchDemoCommandToView(Ljava/lang/String;Landroid/os/Bundle;I)V
+    .locals 2
+    .parameter "command"
+    .parameter "args"
+    .parameter "id"
+
+    .prologue
+    .line 4048
+    iget-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarView:Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;
+
+    if-nez v1, :cond_1
+
+    .line 4053
+    :cond_0
+    :goto_0
+    return-void
+
+    .line 4049
+    :cond_1
+    iget-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarView:Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;
+
+    invoke-virtual {v1, p3}, Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;->findViewById(I)Landroid/view/View;
+
+    move-result-object v0
+
+    .line 4050
+    .local v0, v:Landroid/view/View;
+    instance-of v1, v0, Lcom/android/systemui/DemoMode;
+
+    if-eqz v1, :cond_0
+
+    .line 4051
+    check-cast v0, Lcom/android/systemui/DemoMode;
+
+    .end local v0           #v:Landroid/view/View;
+    invoke-interface {v0, p1, p2}, Lcom/android/systemui/DemoMode;->dispatchDemoCommand(Ljava/lang/String;Landroid/os/Bundle;)V
+
+    goto :goto_0
+.end method
+
+.method private static dumpBarTransitions(Ljava/io/PrintWriter;Ljava/lang/String;Lcom/android/systemui/statusbar/phone/BarTransitions;)V
+    .locals 1
+    .parameter "pw"
+    .parameter "var"
+    .parameter "transitions"
+
+    .prologue
+    .line 3184
+    const-string v0, "  "
+
+    invoke-virtual {p0, v0}, Ljava/io/PrintWriter;->print(Ljava/lang/String;)V
+
+    invoke-virtual {p0, p1}, Ljava/io/PrintWriter;->print(Ljava/lang/String;)V
+
+    const-string v0, ".BarTransitions.mMode="
+
+    invoke-virtual {p0, v0}, Ljava/io/PrintWriter;->print(Ljava/lang/String;)V
+
+    .line 3185
+    invoke-virtual {p2}, Lcom/android/systemui/statusbar/phone/BarTransitions;->getMode()I
+
+    move-result v0
+
+    invoke-static {v0}, Lcom/android/systemui/statusbar/phone/BarTransitions;->modeToString(I)Ljava/lang/String;
+
+    move-result-object v0
+
+    invoke-virtual {p0, v0}, Ljava/io/PrintWriter;->println(Ljava/lang/String;)V
+
+    .line 3186
+    return-void
+.end method
+
+.method private escalateHeadsUp()V
+    .locals 3
+
+    .prologue
+    .line 1956
+    iget-object v2, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mInterruptingNotificationEntry:Lcom/android/systemui/statusbar/NotificationData$Entry;
+
+    if-eqz v2, :cond_0
+
+    .line 1957
+    iget-object v2, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mInterruptingNotificationEntry:Lcom/android/systemui/statusbar/NotificationData$Entry;
+
+    iget-object v1, v2, Lcom/android/systemui/statusbar/NotificationData$Entry;->notification:Landroid/service/notification/StatusBarNotification;
+
+    .line 1958
+    .local v1, sbn:Landroid/service/notification/StatusBarNotification;
+    invoke-virtual {v1}, Landroid/service/notification/StatusBarNotification;->getNotification()Landroid/app/Notification;
+
+    move-result-object v0
+
+    .line 1959
+    .local v0, notification:Landroid/app/Notification;
+    iget-object v2, v0, Landroid/app/Notification;->fullScreenIntent:Landroid/app/PendingIntent;
+
+    if-eqz v2, :cond_0
+
+    .line 1963
+    :try_start_0
+    iget-object v2, v0, Landroid/app/Notification;->fullScreenIntent:Landroid/app/PendingIntent;
+
+    invoke-virtual {v2}, Landroid/app/PendingIntent;->send()V
+    :try_end_0
+    .catch Landroid/app/PendingIntent$CanceledException; {:try_start_0 .. :try_end_0} :catch_0
+
+    .line 1968
+    .end local v0           #notification:Landroid/app/Notification;
+    .end local v1           #sbn:Landroid/service/notification/StatusBarNotification;
+    :cond_0
+    :goto_0
+    return-void
+
+    .line 1964
+    .restart local v0       #notification:Landroid/app/Notification;
+    .restart local v1       #sbn:Landroid/service/notification/StatusBarNotification;
+    :catch_0
+    move-exception v2
+
+    goto :goto_0
+.end method
+
+.method private finishBarAnimations()V
+    .locals 1
+
+    .prologue
+    .line 2871
+    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarView:Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;
+
+    invoke-virtual {v0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;->getBarTransitions()Lcom/android/systemui/statusbar/phone/BarTransitions;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Lcom/android/systemui/statusbar/phone/BarTransitions;->finishAnimations()V
+
+    .line 2872
+    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNavigationBarView:Lcom/android/systemui/statusbar/phone/NavigationBarView;
+
+    if-eqz v0, :cond_0
+
+    .line 2873
+    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNavigationBarView:Lcom/android/systemui/statusbar/phone/NavigationBarView;
+
+    invoke-virtual {v0}, Lcom/android/systemui/statusbar/phone/NavigationBarView;->getBarTransitions()Lcom/android/systemui/statusbar/phone/BarTransitions;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Lcom/android/systemui/statusbar/phone/BarTransitions;->finishAnimations()V
+
+    .line 2875
+    :cond_0
+    return-void
 .end method
 
 .method private getNavigationBarLayoutParams()Landroid/view/WindowManager$LayoutParams;
@@ -2194,20 +2170,20 @@
     .prologue
     const/4 v1, -0x1
 
-    .line 1333
+    .line 1277
     new-instance v0, Landroid/view/WindowManager$LayoutParams;
 
     const/16 v3, 0x7e3
 
     const v4, 0x840068
 
-    move v2, v1
+    const/4 v5, -0x3
 
-    move v5, v1
+    move v2, v1
 
     invoke-direct/range {v0 .. v5}, Landroid/view/WindowManager$LayoutParams;-><init>(IIIII)V
 
-    .line 1344
+    .line 1288
     .local v0, lp:Landroid/view/WindowManager$LayoutParams;
     invoke-static {}, Landroid/app/ActivityManager;->isHighEndGfx()Z
 
@@ -2215,7 +2191,7 @@
 
     if-eqz v1, :cond_0
 
-    .line 1345
+    .line 1289
     iget v1, v0, Landroid/view/WindowManager$LayoutParams;->flags:I
 
     const/high16 v2, 0x100
@@ -2224,71 +2200,26 @@
 
     iput v1, v0, Landroid/view/WindowManager$LayoutParams;->flags:I
 
-    .line 1348
+    .line 1292
     :cond_0
     const-string v1, "NavigationBar"
 
     invoke-virtual {v0, v1}, Landroid/view/WindowManager$LayoutParams;->setTitle(Ljava/lang/CharSequence;)V
 
-    .line 1349
+    .line 1293
     const/4 v1, 0x0
 
     iput v1, v0, Landroid/view/WindowManager$LayoutParams;->windowAnimations:I
 
-    .line 1350
+    .line 1294
     return-object v0
-.end method
-
-.method private initTraySound()V
-    .locals 3
-
-    .prologue
-    const/4 v2, 0x1
-
-    .line 4156
-    new-instance v0, Landroid/media/SoundPool;
-
-    const/4 v1, 0x0
-
-    invoke-direct {v0, v2, v2, v1}, Landroid/media/SoundPool;-><init>(III)V
-
-    iput-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSoundPool:Landroid/media/SoundPool;
-
-    .line 4159
-    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mContext:Landroid/content/Context;
-
-    const-string v1, "audio"
-
-    invoke-virtual {v0, v1}, Landroid/content/Context;->getSystemService(Ljava/lang/String;)Ljava/lang/Object;
-
-    move-result-object v0
-
-    check-cast v0, Landroid/media/AudioManager;
-
-    iput-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mAudioManager:Landroid/media/AudioManager;
-
-    .line 4160
-    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mContext:Landroid/content/Context;
-
-    const-string v1, "vibrator"
-
-    invoke-virtual {v0, v1}, Landroid/content/Context;->getSystemService(Ljava/lang/String;)Ljava/lang/Object;
-
-    move-result-object v0
-
-    check-cast v0, Landroid/os/Vibrator;
-
-    iput-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mVibrator:Landroid/os/Vibrator;
-
-    .line 4161
-    return-void
 .end method
 
 .method private isPwdChangeEnforced()Z
     .locals 3
 
     .prologue
-    .line 2069
+    .line 1910
     iget-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mContext:Landroid/content/Context;
 
     const-string v2, "enterprise_policy"
@@ -2299,7 +2230,7 @@
 
     check-cast v0, Landroid/app/enterprise/EnterpriseDeviceManager;
 
-    .line 2071
+    .line 1912
     .local v0, edm:Landroid/app/enterprise/EnterpriseDeviceManager;
     if-eqz v0, :cond_0
 
@@ -2313,10 +2244,10 @@
 
     if-lez v1, :cond_0
 
-    .line 2072
+    .line 1913
     const/4 v1, 0x1
 
-    .line 2074
+    .line 1915
     :goto_0
     return v1
 
@@ -2332,645 +2263,604 @@
     .parameter "listener"
 
     .prologue
-    .line 3081
+    .line 3078
     iget-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mContext:Landroid/content/Context;
 
     invoke-static {v1, p1}, Landroid/view/animation/AnimationUtils;->loadAnimation(Landroid/content/Context;I)Landroid/view/animation/Animation;
 
     move-result-object v0
 
-    .line 3082
+    .line 3079
     .local v0, anim:Landroid/view/animation/Animation;
     if-eqz p2, :cond_0
 
-    .line 3083
+    .line 3080
     invoke-virtual {v0, p2}, Landroid/view/animation/Animation;->setAnimationListener(Landroid/view/animation/Animation$AnimationListener;)V
 
-    .line 3085
+    .line 3082
     :cond_0
     return-object v0
 .end method
 
 .method private loadNotificationShade()V
-    .locals 21
+    .locals 19
 
     .prologue
-    .line 1626
+    .line 1513
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mPile:Lcom/android/systemui/statusbar/policy/NotificationRowLayout;
+
+    move-object/from16 v17, v0
+
+    if-nez v17, :cond_0
+
+    .line 1604
+    :goto_0
+    return-void
+
+    .line 1515
+    :cond_0
     move-object/from16 v0, p0
 
     iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationData:Lcom/android/systemui/statusbar/NotificationData;
 
-    move-object/from16 v19, v0
+    move-object/from16 v17, v0
 
-    invoke-virtual/range {v19 .. v19}, Lcom/android/systemui/statusbar/NotificationData;->size()I
+    invoke-virtual/range {v17 .. v17}, Lcom/android/systemui/statusbar/NotificationData;->size()I
 
     move-result v2
 
-    .line 1628
+    .line 1517
     .local v2, N:I
-    new-instance v17, Ljava/util/ArrayList;
-
-    invoke-direct/range {v17 .. v17}, Ljava/util/ArrayList;-><init>()V
-
-    .line 1629
-    .local v17, toShowOngoing:Ljava/util/ArrayList;,"Ljava/util/ArrayList<Landroid/view/View;>;"
-    new-instance v12, Ljava/util/ArrayList;
-
-    invoke-direct {v12}, Ljava/util/ArrayList;-><init>()V
-
-    .line 1630
-    .local v12, toShowLatest:Ljava/util/ArrayList;,"Ljava/util/ArrayList<Landroid/view/View;>;"
-    new-instance v13, Ljava/util/ArrayList;
-
-    invoke-direct {v13}, Ljava/util/ArrayList;-><init>()V
-
-    .line 1632
-    .local v13, toShowMiniCon:Ljava/util/ArrayList;,"Ljava/util/ArrayList<Landroid/view/View;>;"
-    new-instance v14, Ljava/util/ArrayList;
-
-    invoke-direct {v14}, Ljava/util/ArrayList;-><init>()V
-
-    .line 1633
-    .local v14, toShowMiniConContextAware:Ljava/util/ArrayList;,"Ljava/util/ArrayList<Landroid/view/View;>;"
-    new-instance v16, Ljava/util/ArrayList;
-
-    invoke-direct/range {v16 .. v16}, Ljava/util/ArrayList;-><init>()V
-
-    .line 1634
-    .local v16, toShowMiniConKnoxMode:Ljava/util/ArrayList;,"Ljava/util/ArrayList<Landroid/view/View;>;"
-    new-instance v15, Ljava/util/ArrayList;
-
-    invoke-direct {v15}, Ljava/util/ArrayList;-><init>()V
-
-    .line 1636
-    .local v15, toShowMiniConKidsMode:Ljava/util/ArrayList;,"Ljava/util/ArrayList<Landroid/view/View;>;"
-    invoke-virtual/range {p0 .. p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->isDeviceProvisioned()Z
-
-    move-result v7
-
-    .line 1637
-    .local v7, provisioned:Z
-    const/4 v5, 0x0
-
-    .local v5, i:I
-    :goto_0
-    if-ge v5, v2, :cond_7
-
-    .line 1638
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationData:Lcom/android/systemui/statusbar/NotificationData;
-
-    move-object/from16 v19, v0
-
-    sub-int v20, v2, v5
-
-    add-int/lit8 v20, v20, -0x1
-
-    invoke-virtual/range {v19 .. v20}, Lcom/android/systemui/statusbar/NotificationData;->get(I)Lcom/android/systemui/statusbar/NotificationData$Entry;
-
-    move-result-object v4
-
-    .line 1639
-    .local v4, ent:Lcom/android/systemui/statusbar/NotificationData$Entry;
-    if-nez v7, :cond_1
-
-    iget-object v0, v4, Lcom/android/systemui/statusbar/NotificationData$Entry;->notification:Landroid/service/notification/StatusBarNotification;
-
-    move-object/from16 v19, v0
-
-    move-object/from16 v0, p0
-
-    move-object/from16 v1, v19
-
-    invoke-virtual {v0, v1}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->showNotificationEvenIfUnprovisioned(Landroid/service/notification/StatusBarNotification;)Z
-
-    move-result v19
-
-    if-nez v19, :cond_1
-
-    .line 1637
-    :cond_0
-    :goto_1
-    add-int/lit8 v5, v5, 0x1
-
-    goto :goto_0
-
-    .line 1640
-    :cond_1
-    iget-object v0, v4, Lcom/android/systemui/statusbar/NotificationData$Entry;->notification:Landroid/service/notification/StatusBarNotification;
-
-    move-object/from16 v19, v0
-
-    move-object/from16 v0, p0
-
-    move-object/from16 v1, v19
-
-    invoke-virtual {v0, v1}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->notificationIsForCurrentUser(Landroid/service/notification/StatusBarNotification;)Z
-
-    move-result v19
-
-    if-eqz v19, :cond_0
-
-    .line 1642
-    iget-object v0, v4, Lcom/android/systemui/statusbar/NotificationData$Entry;->notification:Landroid/service/notification/StatusBarNotification;
-
-    move-object/from16 v19, v0
-
-    invoke-virtual/range {v19 .. v19}, Landroid/service/notification/StatusBarNotification;->isMiniCon()Z
-
-    move-result v19
-
-    if-eqz v19, :cond_5
-
-    .line 1645
-    iget-object v0, v4, Lcom/android/systemui/statusbar/NotificationData$Entry;->notification:Landroid/service/notification/StatusBarNotification;
-
-    move-object/from16 v19, v0
-
-    invoke-virtual/range {v19 .. v19}, Landroid/service/notification/StatusBarNotification;->getNotification()Landroid/app/Notification;
-
-    move-result-object v19
-
-    move-object/from16 v0, v19
-
-    iget v0, v0, Landroid/app/Notification;->twQuickPanelEvent:I
-
-    move/from16 v19, v0
-
-    const/16 v20, 0x10
-
-    move/from16 v0, v19
-
-    move/from16 v1, v20
-
-    if-ne v0, v1, :cond_2
-
-    .line 1646
-    iget-object v0, v4, Lcom/android/systemui/statusbar/NotificationData$Entry;->expanded:Landroid/view/View;
-
-    move-object/from16 v19, v0
-
-    move-object/from16 v0, v19
-
-    invoke-virtual {v14, v0}, Ljava/util/ArrayList;->add(Ljava/lang/Object;)Z
-
-    goto :goto_1
-
-    .line 1647
-    :cond_2
-    iget-object v0, v4, Lcom/android/systemui/statusbar/NotificationData$Entry;->notification:Landroid/service/notification/StatusBarNotification;
-
-    move-object/from16 v19, v0
-
-    invoke-virtual/range {v19 .. v19}, Landroid/service/notification/StatusBarNotification;->getNotification()Landroid/app/Notification;
-
-    move-result-object v19
-
-    move-object/from16 v0, v19
-
-    iget v0, v0, Landroid/app/Notification;->twQuickPanelEvent:I
-
-    move/from16 v19, v0
-
-    const/16 v20, 0x80
-
-    move/from16 v0, v19
-
-    move/from16 v1, v20
-
-    if-ne v0, v1, :cond_3
-
-    .line 1648
-    iget-object v0, v4, Lcom/android/systemui/statusbar/NotificationData$Entry;->expanded:Landroid/view/View;
-
-    move-object/from16 v19, v0
-
-    move-object/from16 v0, v16
-
-    move-object/from16 v1, v19
-
-    invoke-virtual {v0, v1}, Ljava/util/ArrayList;->add(Ljava/lang/Object;)Z
-
-    goto :goto_1
-
-    .line 1649
-    :cond_3
-    iget-object v0, v4, Lcom/android/systemui/statusbar/NotificationData$Entry;->notification:Landroid/service/notification/StatusBarNotification;
-
-    move-object/from16 v19, v0
-
-    invoke-virtual/range {v19 .. v19}, Landroid/service/notification/StatusBarNotification;->getNotification()Landroid/app/Notification;
-
-    move-result-object v19
-
-    move-object/from16 v0, v19
-
-    iget v0, v0, Landroid/app/Notification;->twQuickPanelEvent:I
-
-    move/from16 v19, v0
-
-    const/16 v20, 0x100
-
-    move/from16 v0, v19
-
-    move/from16 v1, v20
-
-    if-ne v0, v1, :cond_4
-
-    .line 1650
-    iget-object v0, v4, Lcom/android/systemui/statusbar/NotificationData$Entry;->expanded:Landroid/view/View;
-
-    move-object/from16 v19, v0
-
-    move-object/from16 v0, v19
-
-    invoke-virtual {v15, v0}, Ljava/util/ArrayList;->add(Ljava/lang/Object;)Z
-
-    goto :goto_1
-
-    .line 1652
-    :cond_4
-    iget-object v0, v4, Lcom/android/systemui/statusbar/NotificationData$Entry;->expanded:Landroid/view/View;
-
-    move-object/from16 v19, v0
-
-    move-object/from16 v0, v19
-
-    invoke-virtual {v13, v0}, Ljava/util/ArrayList;->add(Ljava/lang/Object;)Z
-
-    goto/16 :goto_1
-
-    .line 1655
-    :cond_5
-    iget-object v0, v4, Lcom/android/systemui/statusbar/NotificationData$Entry;->notification:Landroid/service/notification/StatusBarNotification;
-
-    move-object/from16 v19, v0
-
-    invoke-virtual/range {v19 .. v19}, Landroid/service/notification/StatusBarNotification;->isOngoing()Z
-
-    move-result v19
-
-    if-eqz v19, :cond_6
-
-    .line 1656
-    iget-object v0, v4, Lcom/android/systemui/statusbar/NotificationData$Entry;->row:Landroid/view/View;
-
-    move-object/from16 v19, v0
-
-    move-object/from16 v0, v17
-
-    move-object/from16 v1, v19
-
-    invoke-virtual {v0, v1}, Ljava/util/ArrayList;->add(Ljava/lang/Object;)Z
-
-    goto/16 :goto_1
-
-    .line 1658
-    :cond_6
-    iget-object v0, v4, Lcom/android/systemui/statusbar/NotificationData$Entry;->row:Landroid/view/View;
-
-    move-object/from16 v19, v0
-
-    move-object/from16 v0, v19
-
-    invoke-virtual {v12, v0}, Ljava/util/ArrayList;->add(Ljava/lang/Object;)Z
-
-    goto/16 :goto_1
-
-    .line 1663
-    .end local v4           #ent:Lcom/android/systemui/statusbar/NotificationData$Entry;
-    :cond_7
-    const/4 v5, 0x0
-
-    :goto_2
-    invoke-virtual {v15}, Ljava/util/ArrayList;->size()I
-
-    move-result v19
-
-    move/from16 v0, v19
-
-    if-ge v5, v0, :cond_8
-
-    .line 1664
-    const/16 v19, 0x0
-
-    invoke-virtual {v15, v5}, Ljava/util/ArrayList;->get(I)Ljava/lang/Object;
-
-    move-result-object v20
-
-    move/from16 v0, v19
-
-    move-object/from16 v1, v20
-
-    invoke-virtual {v13, v0, v1}, Ljava/util/ArrayList;->add(ILjava/lang/Object;)V
-
-    .line 1663
-    add-int/lit8 v5, v5, 0x1
-
-    goto :goto_2
-
-    .line 1666
-    :cond_8
-    const/4 v5, 0x0
-
-    :goto_3
-    invoke-virtual/range {v16 .. v16}, Ljava/util/ArrayList;->size()I
-
-    move-result v19
-
-    move/from16 v0, v19
-
-    if-ge v5, v0, :cond_9
-
-    .line 1667
-    const/16 v19, 0x0
-
-    move-object/from16 v0, v16
-
-    invoke-virtual {v0, v5}, Ljava/util/ArrayList;->get(I)Ljava/lang/Object;
-
-    move-result-object v20
-
-    move/from16 v0, v19
-
-    move-object/from16 v1, v20
-
-    invoke-virtual {v13, v0, v1}, Ljava/util/ArrayList;->add(ILjava/lang/Object;)V
-
-    .line 1666
-    add-int/lit8 v5, v5, 0x1
-
-    goto :goto_3
-
-    .line 1669
-    :cond_9
-    const/4 v5, 0x0
-
-    :goto_4
-    invoke-virtual {v14}, Ljava/util/ArrayList;->size()I
-
-    move-result v19
-
-    move/from16 v0, v19
-
-    if-ge v5, v0, :cond_a
-
-    .line 1670
-    invoke-virtual {v14, v5}, Ljava/util/ArrayList;->get(I)Ljava/lang/Object;
-
-    move-result-object v19
-
-    move-object/from16 v0, v19
-
-    invoke-virtual {v13, v0}, Ljava/util/ArrayList;->add(Ljava/lang/Object;)Z
-
-    .line 1669
-    add-int/lit8 v5, v5, 0x1
-
-    goto :goto_4
-
-    .line 1675
-    :cond_a
     new-instance v11, Ljava/util/ArrayList;
 
     invoke-direct {v11}, Ljava/util/ArrayList;-><init>()V
 
-    .line 1677
-    .local v11, toRemoveOngoing:Ljava/util/ArrayList;,"Ljava/util/ArrayList<Landroid/view/View;>;"
+    .line 1518
+    .local v11, toShow:Ljava/util/ArrayList;,"Ljava/util/ArrayList<Landroid/view/View;>;"
+    new-instance v12, Ljava/util/ArrayList;
+
+    invoke-direct {v12}, Ljava/util/ArrayList;-><init>()V
+
+    .line 1519
+    .local v12, toShowMiniCon:Ljava/util/ArrayList;,"Ljava/util/ArrayList<Landroid/view/View;>;"
+    new-instance v13, Ljava/util/ArrayList;
+
+    invoke-direct {v13}, Ljava/util/ArrayList;-><init>()V
+
+    .line 1520
+    .local v13, toShowMiniConContextAware:Ljava/util/ArrayList;,"Ljava/util/ArrayList<Landroid/view/View;>;"
+    new-instance v14, Ljava/util/ArrayList;
+
+    invoke-direct {v14}, Ljava/util/ArrayList;-><init>()V
+
+    .line 1521
+    .local v14, toShowMiniConKnoxMode:Ljava/util/ArrayList;,"Ljava/util/ArrayList<Landroid/view/View;>;"
+    new-instance v15, Ljava/util/ArrayList;
+
+    invoke-direct {v15}, Ljava/util/ArrayList;-><init>()V
+
+    .line 1523
+    .local v15, toShowMiniConToolbox:Ljava/util/ArrayList;,"Ljava/util/ArrayList<Landroid/view/View;>;"
+    invoke-virtual/range {p0 .. p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->isDeviceProvisioned()Z
+
+    move-result v7
+
+    .line 1525
+    .local v7, provisioned:Z
+    const/4 v5, 0x0
+
+    .local v5, i:I
+    :goto_1
+    if-ge v5, v2, :cond_7
+
+    .line 1526
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationData:Lcom/android/systemui/statusbar/NotificationData;
+
+    move-object/from16 v17, v0
+
+    sub-int v18, v2, v5
+
+    add-int/lit8 v18, v18, -0x1
+
+    invoke-virtual/range {v17 .. v18}, Lcom/android/systemui/statusbar/NotificationData;->get(I)Lcom/android/systemui/statusbar/NotificationData$Entry;
+
+    move-result-object v4
+
+    .line 1527
+    .local v4, ent:Lcom/android/systemui/statusbar/NotificationData$Entry;
+    if-nez v7, :cond_2
+
+    iget-object v0, v4, Lcom/android/systemui/statusbar/NotificationData$Entry;->notification:Landroid/service/notification/StatusBarNotification;
+
+    move-object/from16 v17, v0
+
+    move-object/from16 v0, p0
+
+    move-object/from16 v1, v17
+
+    invoke-virtual {v0, v1}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->showNotificationEvenIfUnprovisioned(Landroid/service/notification/StatusBarNotification;)Z
+
+    move-result v17
+
+    if-nez v17, :cond_2
+
+    .line 1525
+    :cond_1
+    :goto_2
+    add-int/lit8 v5, v5, 0x1
+
+    goto :goto_1
+
+    .line 1528
+    :cond_2
+    iget-object v0, v4, Lcom/android/systemui/statusbar/NotificationData$Entry;->notification:Landroid/service/notification/StatusBarNotification;
+
+    move-object/from16 v17, v0
+
+    move-object/from16 v0, p0
+
+    move-object/from16 v1, v17
+
+    invoke-virtual {v0, v1}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->notificationIsForCurrentUser(Landroid/service/notification/StatusBarNotification;)Z
+
+    move-result v17
+
+    if-eqz v17, :cond_1
+
+    .line 1530
+    iget-object v0, v4, Lcom/android/systemui/statusbar/NotificationData$Entry;->notification:Landroid/service/notification/StatusBarNotification;
+
+    move-object/from16 v17, v0
+
+    invoke-virtual/range {v17 .. v17}, Landroid/service/notification/StatusBarNotification;->isMiniCon()Z
+
+    move-result v17
+
+    if-eqz v17, :cond_6
+
+    .line 1531
+    iget-object v0, v4, Lcom/android/systemui/statusbar/NotificationData$Entry;->notification:Landroid/service/notification/StatusBarNotification;
+
+    move-object/from16 v17, v0
+
+    invoke-virtual/range {v17 .. v17}, Landroid/service/notification/StatusBarNotification;->getNotification()Landroid/app/Notification;
+
+    move-result-object v17
+
+    move-object/from16 v0, v17
+
+    iget v0, v0, Landroid/app/Notification;->twQuickPanelEvent:I
+
+    move/from16 v17, v0
+
+    const/16 v18, 0x10
+
+    move/from16 v0, v17
+
+    move/from16 v1, v18
+
+    if-ne v0, v1, :cond_3
+
+    .line 1532
+    iget-object v0, v4, Lcom/android/systemui/statusbar/NotificationData$Entry;->expanded:Landroid/view/View;
+
+    move-object/from16 v17, v0
+
+    move-object/from16 v0, v17
+
+    invoke-virtual {v13, v0}, Ljava/util/ArrayList;->add(Ljava/lang/Object;)Z
+
+    goto :goto_2
+
+    .line 1533
+    :cond_3
+    iget-object v0, v4, Lcom/android/systemui/statusbar/NotificationData$Entry;->notification:Landroid/service/notification/StatusBarNotification;
+
+    move-object/from16 v17, v0
+
+    invoke-virtual/range {v17 .. v17}, Landroid/service/notification/StatusBarNotification;->getNotification()Landroid/app/Notification;
+
+    move-result-object v17
+
+    move-object/from16 v0, v17
+
+    iget v0, v0, Landroid/app/Notification;->twQuickPanelEvent:I
+
+    move/from16 v17, v0
+
+    const/16 v18, 0x80
+
+    move/from16 v0, v17
+
+    move/from16 v1, v18
+
+    if-ne v0, v1, :cond_4
+
+    .line 1534
+    iget-object v0, v4, Lcom/android/systemui/statusbar/NotificationData$Entry;->expanded:Landroid/view/View;
+
+    move-object/from16 v17, v0
+
+    move-object/from16 v0, v17
+
+    invoke-virtual {v14, v0}, Ljava/util/ArrayList;->add(Ljava/lang/Object;)Z
+
+    goto :goto_2
+
+    .line 1535
+    :cond_4
+    iget-object v0, v4, Lcom/android/systemui/statusbar/NotificationData$Entry;->notification:Landroid/service/notification/StatusBarNotification;
+
+    move-object/from16 v17, v0
+
+    invoke-virtual/range {v17 .. v17}, Landroid/service/notification/StatusBarNotification;->getNotification()Landroid/app/Notification;
+
+    move-result-object v17
+
+    move-object/from16 v0, v17
+
+    iget v0, v0, Landroid/app/Notification;->twQuickPanelEvent:I
+
+    move/from16 v17, v0
+
+    const/16 v18, 0x104
+
+    move/from16 v0, v17
+
+    move/from16 v1, v18
+
+    if-ne v0, v1, :cond_5
+
+    .line 1536
+    iget-object v0, v4, Lcom/android/systemui/statusbar/NotificationData$Entry;->expanded:Landroid/view/View;
+
+    move-object/from16 v17, v0
+
+    move-object/from16 v0, v17
+
+    invoke-virtual {v15, v0}, Ljava/util/ArrayList;->add(Ljava/lang/Object;)Z
+
+    goto :goto_2
+
+    .line 1538
+    :cond_5
+    iget-object v0, v4, Lcom/android/systemui/statusbar/NotificationData$Entry;->expanded:Landroid/view/View;
+
+    move-object/from16 v17, v0
+
+    move-object/from16 v0, v17
+
+    invoke-virtual {v12, v0}, Ljava/util/ArrayList;->add(Ljava/lang/Object;)Z
+
+    goto/16 :goto_2
+
+    .line 1541
+    :cond_6
+    iget-object v0, v4, Lcom/android/systemui/statusbar/NotificationData$Entry;->row:Lcom/android/systemui/statusbar/ExpandableNotificationRow;
+
+    move-object/from16 v17, v0
+
+    move-object/from16 v0, v17
+
+    invoke-virtual {v11, v0}, Ljava/util/ArrayList;->add(Ljava/lang/Object;)Z
+
+    goto/16 :goto_2
+
+    .line 1544
+    .end local v4           #ent:Lcom/android/systemui/statusbar/NotificationData$Entry;
+    :cond_7
+    const/4 v5, 0x0
+
+    :goto_3
+    invoke-virtual {v14}, Ljava/util/ArrayList;->size()I
+
+    move-result v17
+
+    move/from16 v0, v17
+
+    if-ge v5, v0, :cond_8
+
+    .line 1545
+    const/16 v17, 0x0
+
+    invoke-virtual {v14, v5}, Ljava/util/ArrayList;->get(I)Ljava/lang/Object;
+
+    move-result-object v18
+
+    move/from16 v0, v17
+
+    move-object/from16 v1, v18
+
+    invoke-virtual {v12, v0, v1}, Ljava/util/ArrayList;->add(ILjava/lang/Object;)V
+
+    .line 1544
+    add-int/lit8 v5, v5, 0x1
+
+    goto :goto_3
+
+    .line 1547
+    :cond_8
+    const/4 v5, 0x0
+
+    :goto_4
+    invoke-virtual {v13}, Ljava/util/ArrayList;->size()I
+
+    move-result v17
+
+    move/from16 v0, v17
+
+    if-ge v5, v0, :cond_9
+
+    .line 1548
+    invoke-virtual {v13, v5}, Ljava/util/ArrayList;->get(I)Ljava/lang/Object;
+
+    move-result-object v17
+
+    move-object/from16 v0, v17
+
+    invoke-virtual {v12, v0}, Ljava/util/ArrayList;->add(Ljava/lang/Object;)Z
+
+    .line 1547
+    add-int/lit8 v5, v5, 0x1
+
+    goto :goto_4
+
+    .line 1550
+    :cond_9
     const/4 v5, 0x0
 
     :goto_5
-    move-object/from16 v0, p0
+    invoke-virtual {v15}, Ljava/util/ArrayList;->size()I
 
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mOngoingNotifications:Lcom/android/systemui/statusbar/policy/NotificationRowLayout;
+    move-result v17
 
-    move-object/from16 v19, v0
+    move/from16 v0, v17
 
-    invoke-virtual/range {v19 .. v19}, Lcom/android/systemui/statusbar/policy/NotificationRowLayout;->getChildCount()I
+    if-ge v5, v0, :cond_a
 
-    move-result v19
+    .line 1551
+    invoke-virtual {v15, v5}, Ljava/util/ArrayList;->get(I)Ljava/lang/Object;
 
-    move/from16 v0, v19
+    move-result-object v17
 
-    if-ge v5, v0, :cond_c
-
-    .line 1678
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mOngoingNotifications:Lcom/android/systemui/statusbar/policy/NotificationRowLayout;
-
-    move-object/from16 v19, v0
-
-    move-object/from16 v0, v19
-
-    invoke-virtual {v0, v5}, Lcom/android/systemui/statusbar/policy/NotificationRowLayout;->getChildAt(I)Landroid/view/View;
-
-    move-result-object v3
-
-    .line 1679
-    .local v3, child:Landroid/view/View;
     move-object/from16 v0, v17
 
-    invoke-virtual {v0, v3}, Ljava/util/ArrayList;->contains(Ljava/lang/Object;)Z
+    invoke-virtual {v12, v0}, Ljava/util/ArrayList;->add(Ljava/lang/Object;)Z
 
-    move-result v19
-
-    if-nez v19, :cond_b
-
-    .line 1680
-    invoke-virtual {v11, v3}, Ljava/util/ArrayList;->add(Ljava/lang/Object;)Z
-
-    .line 1677
-    :cond_b
+    .line 1550
     add-int/lit8 v5, v5, 0x1
 
     goto :goto_5
 
-    .line 1684
-    .end local v3           #child:Landroid/view/View;
-    :cond_c
+    .line 1554
+    :cond_a
     new-instance v9, Ljava/util/ArrayList;
 
     invoke-direct {v9}, Ljava/util/ArrayList;-><init>()V
 
-    .line 1686
-    .local v9, toRemoveLatest:Ljava/util/ArrayList;,"Ljava/util/ArrayList<Landroid/view/View;>;"
+    .line 1555
+    .local v9, toRemove:Ljava/util/ArrayList;,"Ljava/util/ArrayList<Landroid/view/View;>;"
     const/4 v5, 0x0
 
     :goto_6
     move-object/from16 v0, p0
 
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mLatestNotifications:Lcom/android/systemui/statusbar/policy/NotificationRowLayout;
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mPile:Lcom/android/systemui/statusbar/policy/NotificationRowLayout;
 
-    move-object/from16 v19, v0
+    move-object/from16 v17, v0
 
-    invoke-virtual/range {v19 .. v19}, Lcom/android/systemui/statusbar/policy/NotificationRowLayout;->getChildCount()I
+    invoke-virtual/range {v17 .. v17}, Lcom/android/systemui/statusbar/policy/NotificationRowLayout;->getChildCount()I
 
-    move-result v19
+    move-result v17
 
-    move/from16 v0, v19
+    move/from16 v0, v17
 
-    if-ge v5, v0, :cond_e
+    if-ge v5, v0, :cond_c
 
-    .line 1687
+    .line 1556
     move-object/from16 v0, p0
 
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mLatestNotifications:Lcom/android/systemui/statusbar/policy/NotificationRowLayout;
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mPile:Lcom/android/systemui/statusbar/policy/NotificationRowLayout;
 
-    move-object/from16 v19, v0
+    move-object/from16 v17, v0
 
-    move-object/from16 v0, v19
+    move-object/from16 v0, v17
 
     invoke-virtual {v0, v5}, Lcom/android/systemui/statusbar/policy/NotificationRowLayout;->getChildAt(I)Landroid/view/View;
 
     move-result-object v3
 
-    .line 1688
-    .restart local v3       #child:Landroid/view/View;
-    invoke-virtual {v12, v3}, Ljava/util/ArrayList;->contains(Ljava/lang/Object;)Z
+    .line 1557
+    .local v3, child:Landroid/view/View;
+    invoke-virtual {v11, v3}, Ljava/util/ArrayList;->contains(Ljava/lang/Object;)Z
 
-    move-result v19
+    move-result v17
 
-    if-nez v19, :cond_d
+    if-nez v17, :cond_b
 
-    .line 1689
+    .line 1558
     invoke-virtual {v9, v3}, Ljava/util/ArrayList;->add(Ljava/lang/Object;)Z
 
-    .line 1686
-    :cond_d
+    .line 1555
+    :cond_b
     add-int/lit8 v5, v5, 0x1
 
     goto :goto_6
 
-    .line 1693
+    .line 1561
     .end local v3           #child:Landroid/view/View;
+    :cond_c
+    invoke-virtual {v9}, Ljava/util/ArrayList;->iterator()Ljava/util/Iterator;
+
+    move-result-object v6
+
+    .local v6, i$:Ljava/util/Iterator;
+    :goto_7
+    invoke-interface {v6}, Ljava/util/Iterator;->hasNext()Z
+
+    move-result v17
+
+    if-eqz v17, :cond_d
+
+    invoke-interface {v6}, Ljava/util/Iterator;->next()Ljava/lang/Object;
+
+    move-result-object v8
+
+    check-cast v8, Landroid/view/View;
+
+    .line 1562
+    .local v8, remove:Landroid/view/View;
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mPile:Lcom/android/systemui/statusbar/policy/NotificationRowLayout;
+
+    move-object/from16 v17, v0
+
+    move-object/from16 v0, v17
+
+    invoke-virtual {v0, v8}, Lcom/android/systemui/statusbar/policy/NotificationRowLayout;->removeView(Landroid/view/View;)V
+
+    goto :goto_7
+
+    .line 1564
+    .end local v8           #remove:Landroid/view/View;
+    :cond_d
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mPile:Lcom/android/systemui/statusbar/policy/NotificationRowLayout;
+
+    move-object/from16 v18, v0
+
+    monitor-enter v18
+
+    .line 1565
+    const/4 v5, 0x0
+
+    :goto_8
+    :try_start_0
+    invoke-virtual {v11}, Ljava/util/ArrayList;->size()I
+
+    move-result v17
+
+    move/from16 v0, v17
+
+    if-ge v5, v0, :cond_f
+
+    .line 1566
+    invoke-virtual {v11, v5}, Ljava/util/ArrayList;->get(I)Ljava/lang/Object;
+
+    move-result-object v16
+
+    check-cast v16, Landroid/view/View;
+
+    .line 1567
+    .local v16, v:Landroid/view/View;
+    invoke-virtual/range {v16 .. v16}, Landroid/view/View;->getParent()Landroid/view/ViewParent;
+
+    move-result-object v17
+
+    if-nez v17, :cond_e
+
+    .line 1568
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mPile:Lcom/android/systemui/statusbar/policy/NotificationRowLayout;
+
+    move-object/from16 v17, v0
+
+    move-object/from16 v0, v17
+
+    move-object/from16 v1, v16
+
+    invoke-virtual {v0, v1, v5}, Lcom/android/systemui/statusbar/policy/NotificationRowLayout;->addView(Landroid/view/View;I)V
+
+    .line 1565
     :cond_e
+    add-int/lit8 v5, v5, 0x1
+
+    goto :goto_8
+
+    .line 1571
+    .end local v16           #v:Landroid/view/View;
+    :cond_f
+    monitor-exit v18
+    :try_end_0
+    .catchall {:try_start_0 .. :try_end_0} :catchall_0
+
+    .line 1573
     new-instance v10, Ljava/util/ArrayList;
 
     invoke-direct {v10}, Ljava/util/ArrayList;-><init>()V
 
-    .line 1695
+    .line 1574
     .local v10, toRemoveMiniCon:Ljava/util/ArrayList;,"Ljava/util/ArrayList<Landroid/view/View;>;"
     const/4 v5, 0x0
 
-    :goto_7
+    :goto_9
     move-object/from16 v0, p0
 
     iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mMiniConPile:Landroid/widget/LinearLayout;
 
-    move-object/from16 v19, v0
+    move-object/from16 v17, v0
 
-    invoke-virtual/range {v19 .. v19}, Landroid/widget/LinearLayout;->getChildCount()I
+    invoke-virtual/range {v17 .. v17}, Landroid/widget/LinearLayout;->getChildCount()I
 
-    move-result v19
+    move-result v17
 
-    move/from16 v0, v19
+    move/from16 v0, v17
 
-    if-ge v5, v0, :cond_10
+    if-ge v5, v0, :cond_11
 
-    .line 1696
+    .line 1575
     move-object/from16 v0, p0
 
     iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mMiniConPile:Landroid/widget/LinearLayout;
 
-    move-object/from16 v19, v0
+    move-object/from16 v17, v0
 
-    move-object/from16 v0, v19
+    move-object/from16 v0, v17
 
     invoke-virtual {v0, v5}, Landroid/widget/LinearLayout;->getChildAt(I)Landroid/view/View;
 
     move-result-object v3
 
-    .line 1697
+    .line 1576
     .restart local v3       #child:Landroid/view/View;
-    invoke-virtual {v13, v3}, Ljava/util/ArrayList;->contains(Ljava/lang/Object;)Z
+    invoke-virtual {v12, v3}, Ljava/util/ArrayList;->contains(Ljava/lang/Object;)Z
 
-    move-result v19
+    move-result v17
 
-    if-nez v19, :cond_f
+    if-nez v17, :cond_10
 
-    .line 1698
+    .line 1577
     invoke-virtual {v10, v3}, Ljava/util/ArrayList;->add(Ljava/lang/Object;)Z
 
-    .line 1695
-    :cond_f
-    add-int/lit8 v5, v5, 0x1
-
-    goto :goto_7
-
-    .line 1702
-    .end local v3           #child:Landroid/view/View;
+    .line 1574
     :cond_10
-    invoke-virtual {v11}, Ljava/util/ArrayList;->iterator()Ljava/util/Iterator;
-
-    move-result-object v6
-
-    .local v6, i$:Ljava/util/Iterator;
-    :goto_8
-    invoke-interface {v6}, Ljava/util/Iterator;->hasNext()Z
-
-    move-result v19
-
-    if-eqz v19, :cond_11
-
-    invoke-interface {v6}, Ljava/util/Iterator;->next()Ljava/lang/Object;
-
-    move-result-object v8
-
-    check-cast v8, Landroid/view/View;
-
-    .line 1703
-    .local v8, remove:Landroid/view/View;
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mOngoingNotifications:Lcom/android/systemui/statusbar/policy/NotificationRowLayout;
-
-    move-object/from16 v19, v0
-
-    move-object/from16 v0, v19
-
-    invoke-virtual {v0, v8}, Lcom/android/systemui/statusbar/policy/NotificationRowLayout;->removeView(Landroid/view/View;)V
-
-    goto :goto_8
-
-    .line 1706
-    .end local v8           #remove:Landroid/view/View;
-    :cond_11
-    invoke-virtual {v9}, Ljava/util/ArrayList;->iterator()Ljava/util/Iterator;
-
-    move-result-object v6
-
-    :goto_9
-    invoke-interface {v6}, Ljava/util/Iterator;->hasNext()Z
-
-    move-result v19
-
-    if-eqz v19, :cond_12
-
-    invoke-interface {v6}, Ljava/util/Iterator;->next()Ljava/lang/Object;
-
-    move-result-object v8
-
-    check-cast v8, Landroid/view/View;
-
-    .line 1707
-    .restart local v8       #remove:Landroid/view/View;
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mLatestNotifications:Lcom/android/systemui/statusbar/policy/NotificationRowLayout;
-
-    move-object/from16 v19, v0
-
-    move-object/from16 v0, v19
-
-    invoke-virtual {v0, v8}, Lcom/android/systemui/statusbar/policy/NotificationRowLayout;->removeView(Landroid/view/View;)V
+    add-int/lit8 v5, v5, 0x1
 
     goto :goto_9
 
-    .line 1710
-    .end local v8           #remove:Landroid/view/View;
-    :cond_12
+    .line 1571
+    .end local v3           #child:Landroid/view/View;
+    .end local v10           #toRemoveMiniCon:Ljava/util/ArrayList;,"Ljava/util/ArrayList<Landroid/view/View;>;"
+    :catchall_0
+    move-exception v17
+
+    :try_start_1
+    monitor-exit v18
+    :try_end_1
+    .catchall {:try_start_1 .. :try_end_1} :catchall_0
+
+    throw v17
+
+    .line 1580
+    .restart local v10       #toRemoveMiniCon:Ljava/util/ArrayList;,"Ljava/util/ArrayList<Landroid/view/View;>;"
+    :cond_11
     invoke-virtual {v10}, Ljava/util/ArrayList;->iterator()Ljava/util/Iterator;
 
     move-result-object v6
@@ -2978,9 +2868,9 @@
     :goto_a
     invoke-interface {v6}, Ljava/util/Iterator;->hasNext()Z
 
-    move-result v19
+    move-result v17
 
-    if-eqz v19, :cond_13
+    if-eqz v17, :cond_12
 
     invoke-interface {v6}, Ljava/util/Iterator;->next()Ljava/lang/Object;
 
@@ -2988,399 +2878,174 @@
 
     check-cast v8, Landroid/view/View;
 
-    .line 1711
+    .line 1581
     .restart local v8       #remove:Landroid/view/View;
     move-object/from16 v0, p0
 
     iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mMiniConPile:Landroid/widget/LinearLayout;
 
-    move-object/from16 v19, v0
+    move-object/from16 v17, v0
 
-    move-object/from16 v0, v19
+    move-object/from16 v0, v17
 
     invoke-virtual {v0, v8}, Landroid/widget/LinearLayout;->removeView(Landroid/view/View;)V
 
     goto :goto_a
 
-    .line 1715
+    .line 1583
     .end local v8           #remove:Landroid/view/View;
-    :cond_13
+    :cond_12
     move-object/from16 v0, p0
 
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mOngoingNotifications:Lcom/android/systemui/statusbar/policy/NotificationRowLayout;
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mMiniConPile:Landroid/widget/LinearLayout;
 
-    move-object/from16 v20, v0
+    move-object/from16 v18, v0
 
-    monitor-enter v20
+    monitor-enter v18
 
-    .line 1716
+    .line 1584
     const/4 v5, 0x0
 
     :goto_b
-    :try_start_0
-    invoke-virtual/range {v17 .. v17}, Ljava/util/ArrayList;->size()I
+    :try_start_2
+    invoke-virtual {v12}, Ljava/util/ArrayList;->size()I
 
-    move-result v19
+    move-result v17
 
-    move/from16 v0, v19
+    move/from16 v0, v17
 
-    if-ge v5, v0, :cond_15
+    if-ge v5, v0, :cond_14
 
-    .line 1717
-    move-object/from16 v0, v17
+    .line 1585
+    invoke-virtual {v12, v5}, Ljava/util/ArrayList;->get(I)Ljava/lang/Object;
 
-    invoke-virtual {v0, v5}, Ljava/util/ArrayList;->get(I)Ljava/lang/Object;
+    move-result-object v16
 
-    move-result-object v18
+    check-cast v16, Landroid/view/View;
 
-    check-cast v18, Landroid/view/View;
+    .line 1586
+    .restart local v16       #v:Landroid/view/View;
+    invoke-virtual/range {v16 .. v16}, Landroid/view/View;->getParent()Landroid/view/ViewParent;
 
-    .line 1718
-    .local v18, v:Landroid/view/View;
-    invoke-virtual/range {v18 .. v18}, Landroid/view/View;->getParent()Landroid/view/ViewParent;
+    move-result-object v17
 
-    move-result-object v19
+    if-nez v17, :cond_13
 
-    if-nez v19, :cond_14
-
-    .line 1721
+    .line 1587
     move-object/from16 v0, p0
 
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mOngoingNotifications:Lcom/android/systemui/statusbar/policy/NotificationRowLayout;
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mMiniConPile:Landroid/widget/LinearLayout;
 
-    move-object/from16 v19, v0
+    move-object/from16 v17, v0
 
-    move-object/from16 v0, v19
+    move-object/from16 v0, v17
 
-    move-object/from16 v1, v18
+    move-object/from16 v1, v16
 
-    invoke-virtual {v0, v1, v5}, Lcom/android/systemui/statusbar/policy/NotificationRowLayout;->addView(Landroid/view/View;I)V
+    invoke-virtual {v0, v1, v5}, Landroid/widget/LinearLayout;->addView(Landroid/view/View;I)V
 
-    .line 1716
-    :cond_14
+    .line 1584
+    :cond_13
     add-int/lit8 v5, v5, 0x1
 
     goto :goto_b
 
-    .line 1724
-    .end local v18           #v:Landroid/view/View;
-    :cond_15
-    monitor-exit v20
-    :try_end_0
-    .catchall {:try_start_0 .. :try_end_0} :catchall_0
-
-    .line 1726
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mLatestNotifications:Lcom/android/systemui/statusbar/policy/NotificationRowLayout;
-
-    move-object/from16 v20, v0
-
-    monitor-enter v20
-
-    .line 1727
-    const/4 v5, 0x0
-
-    :goto_c
-    :try_start_1
-    invoke-virtual {v12}, Ljava/util/ArrayList;->size()I
-
-    move-result v19
-
-    move/from16 v0, v19
-
-    if-ge v5, v0, :cond_17
-
-    .line 1728
-    invoke-virtual {v12, v5}, Ljava/util/ArrayList;->get(I)Ljava/lang/Object;
-
-    move-result-object v18
-
-    check-cast v18, Landroid/view/View;
-
-    .line 1729
-    .restart local v18       #v:Landroid/view/View;
-    invoke-virtual/range {v18 .. v18}, Landroid/view/View;->getParent()Landroid/view/ViewParent;
-
-    move-result-object v19
-
-    if-nez v19, :cond_16
-
-    .line 1732
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mLatestNotifications:Lcom/android/systemui/statusbar/policy/NotificationRowLayout;
-
-    move-object/from16 v19, v0
-
-    move-object/from16 v0, v19
-
-    move-object/from16 v1, v18
-
-    invoke-virtual {v0, v1, v5}, Lcom/android/systemui/statusbar/policy/NotificationRowLayout;->addView(Landroid/view/View;I)V
-    :try_end_1
-    .catchall {:try_start_1 .. :try_end_1} :catchall_1
-
-    .line 1727
-    :cond_16
-    add-int/lit8 v5, v5, 0x1
-
-    goto :goto_c
-
-    .line 1724
-    .end local v18           #v:Landroid/view/View;
-    :catchall_0
-    move-exception v19
-
-    :try_start_2
-    monitor-exit v20
+    .line 1590
+    .end local v16           #v:Landroid/view/View;
+    :cond_14
+    monitor-exit v18
     :try_end_2
-    .catchall {:try_start_2 .. :try_end_2} :catchall_0
+    .catchall {:try_start_2 .. :try_end_2} :catchall_1
 
-    throw v19
-
-    .line 1735
-    :cond_17
-    :try_start_3
-    monitor-exit v20
-    :try_end_3
-    .catchall {:try_start_3 .. :try_end_3} :catchall_1
-
-    .line 1737
+    .line 1592
     move-object/from16 v0, p0
 
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mMiniConPile:Landroid/widget/LinearLayout;
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSettingsButton:Landroid/widget/ImageView;
 
-    move-object/from16 v20, v0
+    move-object/from16 v17, v0
 
-    monitor-enter v20
+    if-eqz v17, :cond_15
 
-    .line 1738
-    const/4 v5, 0x0
-
-    :goto_d
-    :try_start_4
-    invoke-virtual {v13}, Ljava/util/ArrayList;->size()I
-
-    move-result v19
-
-    move/from16 v0, v19
-
-    if-ge v5, v0, :cond_19
-
-    .line 1739
-    invoke-virtual {v13, v5}, Ljava/util/ArrayList;->get(I)Ljava/lang/Object;
-
-    move-result-object v18
-
-    check-cast v18, Landroid/view/View;
-
-    .line 1740
-    .restart local v18       #v:Landroid/view/View;
-    invoke-virtual/range {v18 .. v18}, Landroid/view/View;->getParent()Landroid/view/ViewParent;
-
-    move-result-object v19
-
-    if-nez v19, :cond_18
-
-    .line 1741
+    .line 1593
     move-object/from16 v0, p0
 
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mMiniConPile:Landroid/widget/LinearLayout;
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSettingsButton:Landroid/widget/ImageView;
 
-    move-object/from16 v19, v0
+    move-object/from16 v17, v0
 
-    move-object/from16 v0, v19
+    invoke-virtual/range {p0 .. p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->isDeviceProvisioned()Z
 
-    move-object/from16 v1, v18
+    move-result v18
 
-    invoke-virtual {v0, v1, v5}, Landroid/widget/LinearLayout;->addView(Landroid/view/View;I)V
-    :try_end_4
-    .catchall {:try_start_4 .. :try_end_4} :catchall_2
+    invoke-virtual/range {v17 .. v18}, Landroid/widget/ImageView;->setEnabled(Z)V
 
-    .line 1738
-    :cond_18
-    add-int/lit8 v5, v5, 0x1
+    .line 1596
+    :cond_15
+    invoke-virtual {v11}, Ljava/util/ArrayList;->size()I
 
-    goto :goto_d
+    move-result v17
 
-    .line 1735
-    .end local v18           #v:Landroid/view/View;
-    :catchall_1
-    move-exception v19
+    if-eqz v17, :cond_16
 
-    :try_start_5
-    monitor-exit v20
-    :try_end_5
-    .catchall {:try_start_5 .. :try_end_5} :catchall_1
-
-    throw v19
-
-    .line 1744
-    :cond_19
-    :try_start_6
-    monitor-exit v20
-    :try_end_6
-    .catchall {:try_start_6 .. :try_end_6} :catchall_2
-
-    .line 1747
-    invoke-virtual/range {v17 .. v17}, Ljava/util/ArrayList;->size()I
-
-    move-result v19
-
-    if-eqz v19, :cond_1a
-
-    .line 1748
+    .line 1597
     move-object/from16 v0, p0
 
-    const/4 v1, 0x1
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mPileTitle:Landroid/widget/LinearLayout;
 
-    iput-boolean v1, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mShouldShowOngoing:Z
+    move-object/from16 v17, v0
 
-    move-object/from16 v0, p0
+    const/16 v18, 0x0
 
-    invoke-direct {v0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->updateOngoingNoti()V
+    invoke-virtual/range {v17 .. v18}, Landroid/widget/LinearLayout;->setVisibility(I)V
 
-    .line 1753
-    :goto_e
-    invoke-virtual {v12}, Ljava/util/ArrayList;->size()I
-
-    move-result v19
-
-    if-eqz v19, :cond_1b
-
-    .line 1754
-    move-object/from16 v0, p0
-
-    const/4 v1, 0x1
-
-    iput-boolean v1, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mShouldShowLatest:Z
-
-    move-object/from16 v0, p0
-
-    invoke-direct {v0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->updateLatestNoti()V
-
-    .line 1759
-    :goto_f
-    invoke-virtual/range {v17 .. v17}, Ljava/util/ArrayList;->size()I
-
-    move-result v19
-
-    if-nez v19, :cond_1c
-
-    invoke-virtual {v12}, Ljava/util/ArrayList;->size()I
-
-    move-result v19
-
-    if-nez v19, :cond_1c
-
-    .line 1760
-    move-object/from16 v0, p0
-
-    const/4 v1, 0x1
-
-    iput-boolean v1, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mShouldShowNoNoti:Z
-
-    move-object/from16 v0, p0
-
-    invoke-direct {v0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->updateNoNoti()V
-
-    .line 1764
-    :goto_10
-    return-void
-
-    .line 1744
-    :catchall_2
-    move-exception v19
-
-    :try_start_7
-    monitor-exit v20
-    :try_end_7
-    .catchall {:try_start_7 .. :try_end_7} :catchall_2
-
-    throw v19
-
-    .line 1750
-    :cond_1a
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mOngoingNotificationTitle:Landroid/widget/LinearLayout;
-
-    move-object/from16 v19, v0
-
-    const/16 v20, 0x8
-
-    invoke-virtual/range {v19 .. v20}, Landroid/widget/LinearLayout;->setVisibility(I)V
-
-    move-object/from16 v0, p0
-
-    const/4 v1, 0x0
-
-    iput-boolean v1, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mShouldShowOngoing:Z
-
-    goto :goto_e
-
-    .line 1756
-    :cond_1b
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mLatestNotificationTitle:Landroid/widget/LinearLayout;
-
-    move-object/from16 v19, v0
-
-    const/16 v20, 0x8
-
-    invoke-virtual/range {v19 .. v20}, Landroid/widget/LinearLayout;->setVisibility(I)V
-
-    move-object/from16 v0, p0
-
-    const/4 v1, 0x0
-
-    iput-boolean v1, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mShouldShowLatest:Z
-
-    goto :goto_f
-
-    .line 1762
-    :cond_1c
+    .line 1598
     move-object/from16 v0, p0
 
     iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNoNotificationsTitle:Landroid/widget/LinearLayout;
 
-    move-object/from16 v19, v0
+    move-object/from16 v17, v0
 
-    const/16 v20, 0x8
+    const/16 v18, 0x8
 
-    invoke-virtual/range {v19 .. v20}, Landroid/widget/LinearLayout;->setVisibility(I)V
+    invoke-virtual/range {v17 .. v18}, Landroid/widget/LinearLayout;->setVisibility(I)V
 
+    goto/16 :goto_0
+
+    .line 1590
+    :catchall_1
+    move-exception v17
+
+    :try_start_3
+    monitor-exit v18
+    :try_end_3
+    .catchall {:try_start_3 .. :try_end_3} :catchall_1
+
+    throw v17
+
+    .line 1600
+    :cond_16
     move-object/from16 v0, p0
 
-    const/4 v1, 0x0
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mPileTitle:Landroid/widget/LinearLayout;
 
-    iput-boolean v1, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mShouldShowNoNoti:Z
+    move-object/from16 v17, v0
 
-    goto :goto_10
-.end method
+    const/16 v18, 0x8
 
-.method private notiCustomColor()Z
-    .locals 3
+    invoke-virtual/range {v17 .. v18}, Landroid/widget/LinearLayout;->setVisibility(I)V
 
-    .prologue
-    .line 1400
-    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mContext:Landroid/content/Context;
+    .line 1601
+    move-object/from16 v0, p0
 
-    invoke-virtual {v0}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNoNotificationsTitle:Landroid/widget/LinearLayout;
 
-    move-result-object v0
+    move-object/from16 v17, v0
 
-    const-string v1, "notification_color_custom"
+    const/16 v18, 0x0
 
-    const v2, 0x0
+    invoke-virtual/range {v17 .. v18}, Landroid/widget/LinearLayout;->setVisibility(I)V
 
-    invoke-static {v0, v1, v2}, Landroid/provider/Settings$Global;->getInt(Landroid/content/ContentResolver;Ljava/lang/String;I)I
-
-    move-result v1
-
-    return v1
+    goto/16 :goto_0
 .end method
 
 .method private notifyNavigationBarScreenOn(Z)V
@@ -3388,16 +3053,16 @@
     .parameter "screenOn"
 
     .prologue
-    .line 1328
+    .line 1272
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNavigationBarView:Lcom/android/systemui/statusbar/phone/NavigationBarView;
 
     if-nez v0, :cond_0
 
-    .line 1330
+    .line 1274
     :goto_0
     return-void
 
-    .line 1329
+    .line 1273
     :cond_0
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNavigationBarView:Lcom/android/systemui/statusbar/phone/NavigationBarView;
 
@@ -3406,109 +3071,40 @@
     goto :goto_0
 .end method
 
-.method private notifyUiVisibilityChanged()V
-    .locals 2
+.method private notifyUiVisibilityChanged(I)V
+    .locals 1
+    .parameter "vis"
 
     .prologue
-    .line 2962
+    .line 2950
     :try_start_0
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mWindowManagerService:Landroid/view/IWindowManager;
 
-    iget v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSystemUiVisibility:I
-
-    invoke-interface {v0, v1}, Landroid/view/IWindowManager;->statusBarVisibilityChanged(I)V
+    invoke-interface {v0, p1}, Landroid/view/IWindowManager;->statusBarVisibilityChanged(I)V
     :try_end_0
     .catch Landroid/os/RemoteException; {:try_start_0 .. :try_end_0} :catch_0
 
-    .line 2965
+    .line 2953
     :goto_0
     return-void
 
-    .line 2963
+    .line 2951
     :catch_0
     move-exception v0
 
     goto :goto_0
 .end method
 
-.method private playTraySound()V
-    .locals 8
-
-    .prologue
-    const/4 v3, 0x2
-
-    const/4 v4, 0x0
-
-    .line 4165
-    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mAudioManager:Landroid/media/AudioManager;
-
-    invoke-virtual {v0}, Landroid/media/AudioManager;->getRingerMode()I
-
-    move-result v7
-
-    .line 4167
-    .local v7, mRingerMode:I
-    packed-switch v7, :pswitch_data_0
-
-    .line 4176
-    :goto_0
-    return-void
-
-    .line 4169
-    :pswitch_0
-    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mAudioManager:Landroid/media/AudioManager;
-
-    invoke-virtual {v0, v3}, Landroid/media/AudioManager;->getStreamVolume(I)I
-
-    move-result v0
-
-    int-to-float v0, v0
-
-    iget-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mAudioManager:Landroid/media/AudioManager;
-
-    invoke-virtual {v1, v3}, Landroid/media/AudioManager;->getStreamMaxVolume(I)I
-
-    move-result v1
-
-    int-to-float v1, v1
-
-    div-float v2, v0, v1
-
-    .line 4170
-    .local v2, adjustmentValue:F
-    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSoundPool:Landroid/media/SoundPool;
-
-    iget-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSoundPoolId:[I
-
-    aget v1, v1, v4
-
-    const/high16 v6, 0x3f80
-
-    move v3, v2
-
-    move v5, v4
-
-    invoke-virtual/range {v0 .. v6}, Landroid/media/SoundPool;->play(IFFIIF)I
-
-    goto :goto_0
-
-    .line 4167
-    :pswitch_data_0
-    .packed-switch 0x2
-        :pswitch_0
-    .end packed-switch
-.end method
-
 .method private prepareNavigationBarView()V
     .locals 2
 
     .prologue
-    .line 1284
+    .line 1238
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNavigationBarView:Lcom/android/systemui/statusbar/phone/NavigationBarView;
 
     invoke-virtual {v0}, Lcom/android/systemui/statusbar/phone/NavigationBarView;->reorient()V
 
-    .line 1286
+    .line 1240
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNavigationBarView:Lcom/android/systemui/statusbar/phone/NavigationBarView;
 
     invoke-virtual {v0}, Lcom/android/systemui/statusbar/phone/NavigationBarView;->getRecentsButton()Landroid/view/View;
@@ -3519,7 +3115,7 @@
 
     invoke-virtual {v0, v1}, Landroid/view/View;->setOnClickListener(Landroid/view/View$OnClickListener;)V
 
-    .line 1287
+    .line 1241
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNavigationBarView:Lcom/android/systemui/statusbar/phone/NavigationBarView;
 
     invoke-virtual {v0}, Lcom/android/systemui/statusbar/phone/NavigationBarView;->getRecentsButton()Landroid/view/View;
@@ -3530,7 +3126,7 @@
 
     invoke-virtual {v0, v1}, Landroid/view/View;->setOnTouchListener(Landroid/view/View$OnTouchListener;)V
 
-    .line 1288
+    .line 1242
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNavigationBarView:Lcom/android/systemui/statusbar/phone/NavigationBarView;
 
     invoke-virtual {v0}, Lcom/android/systemui/statusbar/phone/NavigationBarView;->getHomeButton()Landroid/view/View;
@@ -3541,7 +3137,7 @@
 
     invoke-virtual {v0, v1}, Landroid/view/View;->setOnTouchListener(Landroid/view/View$OnTouchListener;)V
 
-    .line 1289
+    .line 1243
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNavigationBarView:Lcom/android/systemui/statusbar/phone/NavigationBarView;
 
     invoke-virtual {v0}, Lcom/android/systemui/statusbar/phone/NavigationBarView;->getSearchLight()Landroid/view/View;
@@ -3552,10 +3148,10 @@
 
     invoke-virtual {v0, v1}, Landroid/view/View;->setOnTouchListener(Landroid/view/View$OnTouchListener;)V
 
-    .line 1300
+    .line 1244
     invoke-virtual {p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->updateSearchPanel()V
 
-    .line 1301
+    .line 1245
     return-void
 .end method
 
@@ -3564,12 +3160,12 @@
     .parameter "ll"
 
     .prologue
-    .line 1380
+    .line 1328
     invoke-virtual {p1}, Landroid/widget/LinearLayout;->getChildCount()I
 
     move-result v1
 
-    .line 1381
+    .line 1329
     .local v1, count:I
     const/4 v2, 0x0
 
@@ -3577,31 +3173,87 @@
     :goto_0
     if-ge v2, v1, :cond_1
 
-    .line 1382
+    .line 1330
     invoke-virtual {p1, v2}, Landroid/widget/LinearLayout;->getChildAt(I)Landroid/view/View;
 
     move-result-object v0
 
-    .line 1383
+    .line 1331
     .local v0, child:Landroid/view/View;
     instance-of v3, v0, Lcom/android/systemui/statusbar/StatusBarIconView;
 
     if-eqz v3, :cond_0
 
-    .line 1384
+    .line 1332
     check-cast v0, Lcom/android/systemui/statusbar/StatusBarIconView;
 
     .end local v0           #child:Landroid/view/View;
     invoke-virtual {v0}, Lcom/android/systemui/statusbar/StatusBarIconView;->updateDrawable()V
 
-    .line 1381
+    .line 1329
     :cond_0
     add-int/lit8 v2, v2, 0x1
 
     goto :goto_0
 
-    .line 1387
+    .line 1335
     :cond_1
+    return-void
+.end method
+
+.method private releaseFocus()V
+    .locals 3
+
+    .prologue
+    .line 2061
+    iget-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarWindow:Lcom/android/systemui/statusbar/phone/StatusBarWindowView;
+
+    invoke-virtual {v1}, Lcom/android/systemui/statusbar/phone/StatusBarWindowView;->getLayoutParams()Landroid/view/ViewGroup$LayoutParams;
+
+    move-result-object v0
+
+    check-cast v0, Landroid/view/WindowManager$LayoutParams;
+
+    .line 2063
+    .local v0, lp:Landroid/view/WindowManager$LayoutParams;
+    iget v1, v0, Landroid/view/WindowManager$LayoutParams;->flags:I
+
+    or-int/lit8 v1, v1, 0x8
+
+    iput v1, v0, Landroid/view/WindowManager$LayoutParams;->flags:I
+
+    .line 2064
+    iget v1, v0, Landroid/view/WindowManager$LayoutParams;->flags:I
+
+    const v2, -0x20001
+
+    and-int/2addr v1, v2
+
+    iput v1, v0, Landroid/view/WindowManager$LayoutParams;->flags:I
+
+    .line 2065
+    iget-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mWindowManager:Landroid/view/WindowManager;
+
+    iget-object v2, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarWindow:Lcom/android/systemui/statusbar/phone/StatusBarWindowView;
+
+    invoke-interface {v1, v2, v0}, Landroid/view/WindowManager;->updateViewLayout(Landroid/view/View;Landroid/view/ViewGroup$LayoutParams;)V
+
+    .line 2066
+    return-void
+.end method
+
+.method private removeHeadsUpView()V
+    .locals 2
+
+    .prologue
+    .line 1319
+    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mWindowManager:Landroid/view/WindowManager;
+
+    iget-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mHeadsUpNotificationView:Lcom/android/systemui/statusbar/policy/HeadsUpNotificationView;
+
+    invoke-interface {v0, v1}, Landroid/view/WindowManager;->removeView(Landroid/view/View;)V
+
+    .line 1320
     return-void
 .end method
 
@@ -3609,26 +3261,34 @@
     .locals 3
 
     .prologue
-    .line 1317
+    .line 1261
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNavigationBarView:Lcom/android/systemui/statusbar/phone/NavigationBarView;
+
+    if-eqz v0, :cond_0
+
+    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNavigationBarView:Lcom/android/systemui/statusbar/phone/NavigationBarView;
+
+    invoke-virtual {v0}, Lcom/android/systemui/statusbar/phone/NavigationBarView;->isAttachedToWindow()Z
+
+    move-result v0
 
     if-nez v0, :cond_1
 
-    .line 1325
+    .line 1269
     :cond_0
     :goto_0
     return-void
 
-    .line 1319
+    .line 1263
     :cond_1
     invoke-direct {p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->prepareNavigationBarView()V
 
-    .line 1321
+    .line 1265
     iget-boolean v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mIsNavigationBarHidden:Z
 
     if-nez v0, :cond_0
 
-    .line 1322
+    .line 1266
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mWindowManager:Landroid/view/WindowManager;
 
     iget-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNavigationBarView:Lcom/android/systemui/statusbar/phone/NavigationBarView;
@@ -3648,7 +3308,7 @@
     .prologue
     const/4 v4, 0x0
 
-    .line 4145
+    .line 4205
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mContext:Landroid/content/Context;
 
     invoke-virtual {v0}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
@@ -3659,12 +3319,12 @@
 
     invoke-virtual {v0, v1}, Landroid/content/ContentResolver;->unregisterContentObserver(Landroid/database/ContentObserver;)V
 
-    .line 4146
+    .line 4206
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mBatteryTextObserver:Lcom/android/systemui/statusbar/phone/PhoneStatusBar$BatteryTextObserver;
 
     invoke-virtual {v0, v4}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$BatteryTextObserver;->onChange(Z)V
 
-    .line 4147
+    .line 4207
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mContext:Landroid/content/Context;
 
     invoke-virtual {v0}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
@@ -3683,87 +3343,19 @@
 
     invoke-virtual {v0, v1, v4, v2, v3}, Landroid/content/ContentResolver;->registerContentObserver(Landroid/net/Uri;ZLandroid/database/ContentObserver;I)V
 
-    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mContext:Landroid/content/Context;
-
-    invoke-virtual {v0}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
-
-    move-result-object v0
-
-    const-string v1, "statusbar_acc_battery"
-
-    invoke-static {v1}, Landroid/provider/Settings$Global;->getUriFor(Ljava/lang/String;)Landroid/net/Uri;
-
-    move-result-object v1
-
-    iget-object v2, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mBatteryTextObserver:Lcom/android/systemui/statusbar/phone/PhoneStatusBar$BatteryTextObserver;
-
-    iget v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mCurrentUserId:I
-
-    invoke-virtual {v0, v1, v4, v2, v3}, Landroid/content/ContentResolver;->registerContentObserver(Landroid/net/Uri;ZLandroid/database/ContentObserver;I)V
-
-    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mContext:Landroid/content/Context;
-
-    invoke-virtual {v0}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
-
-    move-result-object v0
-
-    const-string v1, "statusbar_hide_battery"
-
-    invoke-static {v1}, Landroid/provider/Settings$Global;->getUriFor(Ljava/lang/String;)Landroid/net/Uri;
-
-    move-result-object v1
-
-    iget-object v2, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mBatteryTextObserver:Lcom/android/systemui/statusbar/phone/PhoneStatusBar$BatteryTextObserver;
-
-    iget v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mCurrentUserId:I
-
-    invoke-virtual {v0, v1, v4, v2, v3}, Landroid/content/ContentResolver;->registerContentObserver(Landroid/net/Uri;ZLandroid/database/ContentObserver;I)V
-
-    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mContext:Landroid/content/Context;
-
-    invoke-virtual {v0}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
-
-    move-result-object v0
-
-    const-string v1, "battcolorchange"
-
-    invoke-static {v1}, Landroid/provider/Settings$Global;->getUriFor(Ljava/lang/String;)Landroid/net/Uri;
-
-    move-result-object v1
-
-    iget-object v2, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mBatteryTextObserver:Lcom/android/systemui/statusbar/phone/PhoneStatusBar$BatteryTextObserver;
-
-    iget v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mCurrentUserId:I
-
-    invoke-virtual {v0, v1, v4, v2, v3}, Landroid/content/ContentResolver;->registerContentObserver(Landroid/net/Uri;ZLandroid/database/ContentObserver;I)V
-
-    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mContext:Landroid/content/Context;
-
-    invoke-virtual {v0}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
-
-    move-result-object v0
-
-    const-string v1, "battery_text_color"
-
-    invoke-static {v1}, Landroid/provider/Settings$Global;->getUriFor(Ljava/lang/String;)Landroid/net/Uri;
-
-    move-result-object v1
-
-    iget-object v2, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mBatteryTextObserver:Lcom/android/systemui/statusbar/phone/PhoneStatusBar$BatteryTextObserver;
-
-    iget v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mCurrentUserId:I
-
-    invoke-virtual {v0, v1, v4, v2, v3}, Landroid/content/ContentResolver;->registerContentObserver(Landroid/net/Uri;ZLandroid/database/ContentObserver;I)V
-
-    .line 4150
+    .line 4210
     return-void
 .end method
 
 .method private resetBrightnessEnableObserver()V
-    .locals 5
+    .locals 6
 
     .prologue
-    .line 4137
+    const/4 v5, 0x1
+
+    const/4 v4, 0x0
+
+    .line 4192
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mContext:Landroid/content/Context;
 
     invoke-virtual {v0}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
@@ -3774,14 +3366,12 @@
 
     invoke-virtual {v0, v1}, Landroid/content/ContentResolver;->unregisterContentObserver(Landroid/database/ContentObserver;)V
 
-    .line 4138
+    .line 4193
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mBrightnessEnableObserver:Lcom/android/systemui/statusbar/phone/PhoneStatusBar$BrightnessEnableObserver;
 
-    const/4 v1, 0x0
+    invoke-virtual {v0, v4}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$BrightnessEnableObserver;->onChange(Z)V
 
-    invoke-virtual {v0, v1}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$BrightnessEnableObserver;->onChange(Z)V
-
-    .line 4139
+    .line 4194
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mContext:Landroid/content/Context;
 
     invoke-virtual {v0}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
@@ -3794,352 +3384,48 @@
 
     move-result-object v1
 
-    const/4 v2, 0x1
+    iget-object v2, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mBrightnessEnableObserver:Lcom/android/systemui/statusbar/phone/PhoneStatusBar$BrightnessEnableObserver;
 
-    iget-object v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mBrightnessEnableObserver:Lcom/android/systemui/statusbar/phone/PhoneStatusBar$BrightnessEnableObserver;
+    iget v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mCurrentUserId:I
 
-    iget v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mCurrentUserId:I
+    invoke-virtual {v0, v1, v5, v2, v3}, Landroid/content/ContentResolver;->registerContentObserver(Landroid/net/Uri;ZLandroid/database/ContentObserver;I)V
 
-    invoke-virtual {v0, v1, v2, v3, v4}, Landroid/content/ContentResolver;->registerContentObserver(Landroid/net/Uri;ZLandroid/database/ContentObserver;I)V
-
-    .line 4142
-    return-void
-.end method
-
-.method private resetTSMNetContObserver()V
-    .locals 5
-
-    .prologue
-    .line 4130
+    .line 4197
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mContext:Landroid/content/Context;
 
     invoke-virtual {v0}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
 
     move-result-object v0
 
-    iget-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNetContObserver:Lcom/android/systemui/statusbar/phone/PhoneStatusBar$TSMNetContObserver;
+    iget-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mPmsBrightnessEnableObserver:Lcom/android/systemui/statusbar/phone/PhoneStatusBar$PmsBrightnessEnableObserver;
 
     invoke-virtual {v0, v1}, Landroid/content/ContentResolver;->unregisterContentObserver(Landroid/database/ContentObserver;)V
 
-    .line 4131
-    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNetContObserver:Lcom/android/systemui/statusbar/phone/PhoneStatusBar$TSMNetContObserver;
+    .line 4198
+    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mPmsBrightnessEnableObserver:Lcom/android/systemui/statusbar/phone/PhoneStatusBar$PmsBrightnessEnableObserver;
 
-    const/4 v1, 0x0
+    invoke-virtual {v0, v4}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$PmsBrightnessEnableObserver;->onChange(Z)V
 
-    invoke-virtual {v0, v1}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$TSMNetContObserver;->onChange(Z)V
-
-    .line 4132
+    .line 4199
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mContext:Landroid/content/Context;
 
     invoke-virtual {v0}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
 
     move-result-object v0
 
-    const-string v1, "statusbar_carrier_color"
+    const-string v1, "pms_notification_panel_brightness_adjustment"
 
-    invoke-static {v1}, Landroid/provider/Settings$Global;->getUriFor(Ljava/lang/String;)Landroid/net/Uri;
+    invoke-static {v1}, Landroid/provider/Settings$System;->getUriFor(Ljava/lang/String;)Landroid/net/Uri;
 
     move-result-object v1
 
-    const/4 v2, 0x1
+    iget-object v2, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mPmsBrightnessEnableObserver:Lcom/android/systemui/statusbar/phone/PhoneStatusBar$PmsBrightnessEnableObserver;
 
-    iget-object v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNetContObserver:Lcom/android/systemui/statusbar/phone/PhoneStatusBar$TSMNetContObserver;
+    iget v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mCurrentUserId:I
 
-    iget v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mCurrentUserId:I
+    invoke-virtual {v0, v1, v5, v2, v3}, Landroid/content/ContentResolver;->registerContentObserver(Landroid/net/Uri;ZLandroid/database/ContentObserver;I)V
 
-    invoke-virtual {v0, v1, v2, v3, v4}, Landroid/content/ContentResolver;->registerContentObserver(Landroid/net/Uri;ZLandroid/database/ContentObserver;I)V
-
-    .line 4133
-    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mContext:Landroid/content/Context;
-
-    invoke-virtual {v0}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
-
-    move-result-object v0
-
-    const-string v1, "statusbar_custom_carrier"
-
-    invoke-static {v1}, Landroid/provider/Settings$Global;->getUriFor(Ljava/lang/String;)Landroid/net/Uri;
-
-    move-result-object v1
-
-    const/4 v2, 0x1
-
-    iget-object v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNetContObserver:Lcom/android/systemui/statusbar/phone/PhoneStatusBar$TSMNetContObserver;
-
-    iget v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mCurrentUserId:I
-
-    invoke-virtual {v0, v1, v2, v3, v4}, Landroid/content/ContentResolver;->registerContentObserver(Landroid/net/Uri;ZLandroid/database/ContentObserver;I)V
-
-    .line 4134
-    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mContext:Landroid/content/Context;
-
-    invoke-virtual {v0}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
-
-    move-result-object v0
-
-    const-string v1, "statusbar_carrier_text"
-
-    invoke-static {v1}, Landroid/provider/Settings$Global;->getUriFor(Ljava/lang/String;)Landroid/net/Uri;
-
-    move-result-object v1
-
-    const/4 v2, 0x1
-
-    iget-object v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNetContObserver:Lcom/android/systemui/statusbar/phone/PhoneStatusBar$TSMNetContObserver;
-
-    iget v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mCurrentUserId:I
-
-    invoke-virtual {v0, v1, v2, v3, v4}, Landroid/content/ContentResolver;->registerContentObserver(Landroid/net/Uri;ZLandroid/database/ContentObserver;I)V
-
-    .line 4135
-    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mContext:Landroid/content/Context;
-
-    invoke-virtual {v0}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
-
-    move-result-object v0
-
-    const-string v1, "statusbar_data_icon"
-
-    invoke-static {v1}, Landroid/provider/Settings$Global;->getUriFor(Ljava/lang/String;)Landroid/net/Uri;
-
-    move-result-object v1
-
-    const/4 v2, 0x1
-
-    iget-object v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNetContObserver:Lcom/android/systemui/statusbar/phone/PhoneStatusBar$TSMNetContObserver;
-
-    iget v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mCurrentUserId:I
-
-    invoke-virtual {v0, v1, v2, v3, v4}, Landroid/content/ContentResolver;->registerContentObserver(Landroid/net/Uri;ZLandroid/database/ContentObserver;I)V
-
-    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mContext:Landroid/content/Context;
-
-    invoke-virtual {v0}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
-
-    move-result-object v0
-
-    const-string v1, "statusbar_att_carrier"
-
-    invoke-static {v1}, Landroid/provider/Settings$Global;->getUriFor(Ljava/lang/String;)Landroid/net/Uri;
-
-    move-result-object v1
-
-    const/4 v2, 0x1
-
-    iget-object v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNetContObserver:Lcom/android/systemui/statusbar/phone/PhoneStatusBar$TSMNetContObserver;
-
-    iget v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mCurrentUserId:I
-
-    invoke-virtual {v0, v1, v2, v3, v4}, Landroid/content/ContentResolver;->registerContentObserver(Landroid/net/Uri;ZLandroid/database/ContentObserver;I)V
-
-    .line 4136
-    return-void
-.end method
-
-.method private resetTSMObserver()V
-    .locals 5
-
-    .prologue
-    .line 4137
-    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mContext:Landroid/content/Context;
-
-    invoke-virtual {v0}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
-
-    move-result-object v0
-
-    iget-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mTSMObserver:Lcom/android/systemui/statusbar/phone/PhoneStatusBar$TSMObserver;
-
-    invoke-virtual {v0, v1}, Landroid/content/ContentResolver;->unregisterContentObserver(Landroid/database/ContentObserver;)V
-
-    .line 4138
-    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mTSMObserver:Lcom/android/systemui/statusbar/phone/PhoneStatusBar$TSMObserver;
-
-    const/4 v1, 0x0
-
-    invoke-virtual {v0, v1}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$TSMObserver;->onChange(Z)V
-
-    .line 4139
-    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mContext:Landroid/content/Context;
-
-    invoke-virtual {v0}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
-
-    move-result-object v0
-
-    const-string v1, "statusbar_aosp_clear"
-
-    invoke-static {v1}, Landroid/provider/Settings$Global;->getUriFor(Ljava/lang/String;)Landroid/net/Uri;
-
-    move-result-object v1
-
-    const/4 v2, 0x1
-
-    iget-object v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mTSMObserver:Lcom/android/systemui/statusbar/phone/PhoneStatusBar$TSMObserver;
-
-    iget v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mCurrentUserId:I
-
-    invoke-virtual {v0, v1, v2, v3, v4}, Landroid/content/ContentResolver;->registerContentObserver(Landroid/net/Uri;ZLandroid/database/ContentObserver;I)V
-
-    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mContext:Landroid/content/Context;
-
-    invoke-virtual {v0}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
-
-    move-result-object v0
-
-    const-string v1, "statusbar_toggle_type"
-
-    invoke-static {v1}, Landroid/provider/Settings$Global;->getUriFor(Ljava/lang/String;)Landroid/net/Uri;
-
-    move-result-object v1
-
-    const/4 v2, 0x1
-
-    iget-object v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mTSMObserver:Lcom/android/systemui/statusbar/phone/PhoneStatusBar$TSMObserver;
-
-    iget v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mCurrentUserId:I
-
-    invoke-virtual {v0, v1, v2, v3, v4}, Landroid/content/ContentResolver;->registerContentObserver(Landroid/net/Uri;ZLandroid/database/ContentObserver;I)V
-
-    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mContext:Landroid/content/Context;
-
-    invoke-virtual {v0}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
-
-    move-result-object v0
-
-    const-string v1, "statusbar_hide_latest"
-
-    invoke-static {v1}, Landroid/provider/Settings$Global;->getUriFor(Ljava/lang/String;)Landroid/net/Uri;
-
-    move-result-object v1
-
-    const/4 v2, 0x1
-
-    iget-object v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mTSMObserver:Lcom/android/systemui/statusbar/phone/PhoneStatusBar$TSMObserver;
-
-    iget v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mCurrentUserId:I
-
-    invoke-virtual {v0, v1, v2, v3, v4}, Landroid/content/ContentResolver;->registerContentObserver(Landroid/net/Uri;ZLandroid/database/ContentObserver;I)V
-
-    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mContext:Landroid/content/Context;
-
-    invoke-virtual {v0}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
-
-    move-result-object v0
-
-    const-string v1, "statusbar_hide_nonoti"
-
-    invoke-static {v1}, Landroid/provider/Settings$Global;->getUriFor(Ljava/lang/String;)Landroid/net/Uri;
-
-    move-result-object v1
-
-    const/4 v2, 0x1
-
-    iget-object v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mTSMObserver:Lcom/android/systemui/statusbar/phone/PhoneStatusBar$TSMObserver;
-
-    iget v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mCurrentUserId:I
-
-    invoke-virtual {v0, v1, v2, v3, v4}, Landroid/content/ContentResolver;->registerContentObserver(Landroid/net/Uri;ZLandroid/database/ContentObserver;I)V
-
-    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mContext:Landroid/content/Context;
-
-    invoke-virtual {v0}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
-
-    move-result-object v0
-
-    const-string v1, "statusbar_hide_ongoin"
-
-    invoke-static {v1}, Landroid/provider/Settings$Global;->getUriFor(Ljava/lang/String;)Landroid/net/Uri;
-
-    move-result-object v1
-
-    const/4 v2, 0x1
-
-    iget-object v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mTSMObserver:Lcom/android/systemui/statusbar/phone/PhoneStatusBar$TSMObserver;
-
-    iget v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mCurrentUserId:I
-
-    invoke-virtual {v0, v1, v2, v3, v4}, Landroid/content/ContentResolver;->registerContentObserver(Landroid/net/Uri;ZLandroid/database/ContentObserver;I)V
-
-    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mContext:Landroid/content/Context;
-
-    invoke-virtual {v0}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
-
-    move-result-object v0
-
-    const-string v1, "notification_background_color"
-
-    invoke-static {v1}, Landroid/provider/Settings$Global;->getUriFor(Ljava/lang/String;)Landroid/net/Uri;
-
-    move-result-object v1
-
-    const/4 v2, 0x1
-
-    iget-object v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mTSMObserver:Lcom/android/systemui/statusbar/phone/PhoneStatusBar$TSMObserver;
-
-    iget v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mCurrentUserId:I
-
-    invoke-virtual {v0, v1, v2, v3, v4}, Landroid/content/ContentResolver;->registerContentObserver(Landroid/net/Uri;ZLandroid/database/ContentObserver;I)V
-
-    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mContext:Landroid/content/Context;
-
-    invoke-virtual {v0}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
-
-    move-result-object v0
-
-    const-string v1, "notification_color_custom"
-
-    invoke-static {v1}, Landroid/provider/Settings$Global;->getUriFor(Ljava/lang/String;)Landroid/net/Uri;
-
-    move-result-object v1
-
-    const/4 v2, 0x1
-
-    iget-object v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mTSMObserver:Lcom/android/systemui/statusbar/phone/PhoneStatusBar$TSMObserver;
-
-    iget v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mCurrentUserId:I
-
-    invoke-virtual {v0, v1, v2, v3, v4}, Landroid/content/ContentResolver;->registerContentObserver(Landroid/net/Uri;ZLandroid/database/ContentObserver;I)V
-
-    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mContext:Landroid/content/Context;
-
-    invoke-virtual {v0}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
-
-    move-result-object v0
-
-    const-string v1, "statusbar_color_custom"
-
-    invoke-static {v1}, Landroid/provider/Settings$Global;->getUriFor(Ljava/lang/String;)Landroid/net/Uri;
-
-    move-result-object v1
-
-    const/4 v2, 0x1
-
-    iget-object v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mTSMObserver:Lcom/android/systemui/statusbar/phone/PhoneStatusBar$TSMObserver;
-
-    iget v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mCurrentUserId:I
-
-    invoke-virtual {v0, v1, v2, v3, v4}, Landroid/content/ContentResolver;->registerContentObserver(Landroid/net/Uri;ZLandroid/database/ContentObserver;I)V
-
-    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mContext:Landroid/content/Context;
-
-    invoke-virtual {v0}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
-
-    move-result-object v0
-
-    const-string v1, "statusbar_background_color"
-
-    invoke-static {v1}, Landroid/provider/Settings$Global;->getUriFor(Ljava/lang/String;)Landroid/net/Uri;
-
-    move-result-object v1
-
-    const/4 v2, 0x1
-
-    iget-object v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mTSMObserver:Lcom/android/systemui/statusbar/phone/PhoneStatusBar$TSMObserver;
-
-    iget v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mCurrentUserId:I
-
-    invoke-virtual {v0, v1, v2, v3, v4}, Landroid/content/ContentResolver;->registerContentObserver(Landroid/net/Uri;ZLandroid/database/ContentObserver;I)V
-
-    .line 4142
+    .line 4202
     return-void
 .end method
 
@@ -4147,7 +3433,7 @@
     .locals 5
 
     .prologue
-    .line 3697
+    .line 3749
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mContext:Landroid/content/Context;
 
     invoke-virtual {v0}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
@@ -4158,14 +3444,14 @@
 
     invoke-virtual {v0, v1}, Landroid/content/ContentResolver;->unregisterContentObserver(Landroid/database/ContentObserver;)V
 
-    .line 3698
+    .line 3750
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mUserSetupObserver:Landroid/database/ContentObserver;
 
     const/4 v1, 0x0
 
     invoke-virtual {v0, v1}, Landroid/database/ContentObserver;->onChange(Z)V
 
-    .line 3699
+    .line 3751
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mContext:Landroid/content/Context;
 
     invoke-virtual {v0}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
@@ -4186,7 +3472,33 @@
 
     invoke-virtual {v0, v1, v2, v3, v4}, Landroid/content/ContentResolver;->registerContentObserver(Landroid/net/Uri;ZLandroid/database/ContentObserver;I)V
 
-    .line 3703
+    .line 3755
+    return-void
+.end method
+
+.method private resumeSuspendedAutohide()V
+    .locals 4
+
+    .prologue
+    .line 2897
+    iget-boolean v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mAutohideSuspended:Z
+
+    if-eqz v0, :cond_0
+
+    .line 2898
+    invoke-direct {p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->scheduleAutohide()V
+
+    .line 2899
+    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mHandler:Lcom/android/systemui/statusbar/BaseStatusBar$H;
+
+    iget-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mCheckBarModes:Ljava/lang/Runnable;
+
+    const-wide/16 v2, 0x1f4
+
+    invoke-virtual {v0, v1, v2, v3}, Lcom/android/systemui/statusbar/BaseStatusBar$H;->postDelayed(Ljava/lang/Runnable;J)Z
+
+    .line 2901
+    :cond_0
     return-void
 .end method
 
@@ -4199,7 +3511,7 @@
 
     const/4 v0, 0x0
 
-    .line 3250
+    .line 3249
     cmpg-float v2, p0, v0
 
     if-gez v2, :cond_1
@@ -4222,139 +3534,256 @@
     goto :goto_0
 .end method
 
-.method private sbarCustomColor()Z
-    .locals 3
-
-    .prologue
-    .line 1400
-    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mContext:Landroid/content/Context;
-
-    invoke-virtual {v0}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
-
-    move-result-object v0
-
-    const-string v1, "statusbar_color_custom"
-
-    const v2, 0x0
-
-    invoke-static {v0, v1, v2}, Landroid/provider/Settings$Global;->getInt(Landroid/content/ContentResolver;Ljava/lang/String;I)I
-
-    move-result v1
-
-    return v1
-.end method
-
-.method private setBrightnessControllerVisivility()V
+.method private scheduleAutohide()V
     .locals 4
 
     .prologue
-    .line 4052
-    iget-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarWindow:Lcom/android/systemui/statusbar/phone/StatusBarWindowView;
+    .line 2915
+    invoke-direct {p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->cancelAutohide()V
 
-    const v2, 0x7f090074
+    .line 2916
+    iget-boolean v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mTicking:Z
 
-    invoke-virtual {v1, v2}, Lcom/android/systemui/statusbar/phone/StatusBarWindowView;->findViewById(I)Landroid/view/View;
+    if-nez v0, :cond_0
+
+    .line 2917
+    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mHandler:Lcom/android/systemui/statusbar/BaseStatusBar$H;
+
+    iget-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mAutohide:Ljava/lang/Runnable;
+
+    const-wide/16 v2, 0xbb8
+
+    invoke-virtual {v0, v1, v2, v3}, Lcom/android/systemui/statusbar/BaseStatusBar$H;->postDelayed(Ljava/lang/Runnable;J)Z
+
+    .line 2919
+    :cond_0
+    return-void
+.end method
+
+.method private setBrightnessControllerVisivility()V
+    .locals 8
+
+    .prologue
+    const v7, 0x7f070089
+
+    const/16 v6, 0x104
+
+    const/4 v5, 0x0
+
+    .line 4117
+    iget-object v2, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarWindow:Lcom/android/systemui/statusbar/phone/StatusBarWindowView;
+
+    const v3, 0x7f070082
+
+    invoke-virtual {v2, v3}, Lcom/android/systemui/statusbar/phone/StatusBarWindowView;->findViewById(I)Landroid/view/View;
 
     move-result-object v0
 
     check-cast v0, Landroid/widget/LinearLayout;
 
-    .line 4053
+    .line 4118
     .local v0, brightnessController:Landroid/view/View;
-    const-string v1, "STATUSBAR-PhoneStatusBar"
+    const-string v2, "STATUSBAR-PhoneStatusBar"
 
-    new-instance v2, Ljava/lang/StringBuilder;
+    new-instance v3, Ljava/lang/StringBuilder;
 
-    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
+    invoke-direct {v3}, Ljava/lang/StringBuilder;-><init>()V
 
-    const-string v3, " mBrightnessEnablebySettings = "
+    const-string v4, " mBrightnessEnablebySettings = "
 
-    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    move-result-object v2
+    move-result-object v3
 
-    iget-boolean v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mBrightnessEnablebySettings:Z
+    iget-boolean v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mBrightnessEnablebySettings:Z
 
-    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Z)Ljava/lang/StringBuilder;
+    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Z)Ljava/lang/StringBuilder;
 
-    move-result-object v2
+    move-result-object v3
 
-    const-string v3, " mBrightnessEnablebyBattery = "
+    const-string v4, " mBrightnessEnablebyBattery = "
 
-    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    move-result-object v2
+    move-result-object v3
 
-    iget-boolean v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mBrightnessEnablebyBattery:Z
+    iget-boolean v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mBrightnessEnablebyBattery:Z
 
-    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Z)Ljava/lang/StringBuilder;
+    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Z)Ljava/lang/StringBuilder;
 
-    move-result-object v2
+    move-result-object v3
 
-    const-string v3, " mBrightnessEnablebyDisableFlag = "
+    const-string v4, " mBrightnessEnablebyDisableFlag = "
 
-    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    move-result-object v2
+    move-result-object v3
 
-    iget-boolean v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mBrightnessEnablebyDisableFlag:Z
+    iget-boolean v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mBrightnessEnablebyDisableFlag:Z
 
-    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Z)Ljava/lang/StringBuilder;
+    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Z)Ljava/lang/StringBuilder;
 
-    move-result-object v2
+    move-result-object v3
 
-    invoke-virtual {v2}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+    const-string v4, " mPmsBrightnessEnablebySettings = "
 
-    move-result-object v2
+    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    invoke-static {v1, v2}, Landroid/util/Slog;->d(Ljava/lang/String;Ljava/lang/String;)I
+    move-result-object v3
 
-    .line 4057
+    iget-boolean v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mPmsBrightnessEnablebySettings:Z
+
+    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Z)Ljava/lang/StringBuilder;
+
+    move-result-object v3
+
+    invoke-virtual {v3}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v3
+
+    invoke-static {v2, v3}, Landroid/util/Slog;->d(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 4123
     if-eqz v0, :cond_0
 
-    .line 4058
-    iget-boolean v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mBrightnessEnablebySettings:Z
+    .line 4124
+    iget-boolean v2, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mBrightnessEnablebySettings:Z
 
-    if-eqz v1, :cond_1
+    if-eqz v2, :cond_1
 
-    iget-boolean v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mBrightnessEnablebyBattery:Z
+    iget-boolean v2, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mBrightnessEnablebyBattery:Z
 
-    if-eqz v1, :cond_1
+    if-eqz v2, :cond_1
 
-    iget-boolean v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mBrightnessEnablebyDisableFlag:Z
+    iget-boolean v2, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mBrightnessEnablebyDisableFlag:Z
 
-    if-eqz v1, :cond_1
+    if-eqz v2, :cond_1
 
-    iget-boolean v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mBrightnessEnablebyLongLifeMode:Z
+    iget-boolean v2, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mBrightnessEnablebyLongLifeMode:Z
 
-    if-eqz v1, :cond_1
+    if-eqz v2, :cond_1
 
-    .line 4059
-    const/4 v1, 0x0
+    iget-boolean v2, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mPmsBrightnessEnablebySettings:Z
 
-    invoke-virtual {v0, v1}, Landroid/view/View;->setVisibility(I)V
+    if-eqz v2, :cond_1
 
-    .line 4064
+    .line 4126
+    invoke-virtual {v0, v5}, Landroid/view/View;->setVisibility(I)V
+
+    .line 4127
+    iget-object v2, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mVolumePanel:Lcom/android/systemui/statusbar/policy/VolumePanel;
+
+    if-eqz v2, :cond_0
+
+    .line 4128
+    iget-object v2, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarWindow:Lcom/android/systemui/statusbar/phone/StatusBarWindowView;
+
+    invoke-virtual {v2, v7}, Lcom/android/systemui/statusbar/phone/StatusBarWindowView;->findViewById(I)Landroid/view/View;
+
+    move-result-object v1
+
+    .line 4129
+    .local v1, sliderContainer:Landroid/view/View;
+    invoke-virtual {v1, v5, v5, v5, v5}, Landroid/view/View;->setPadding(IIII)V
+
+    .line 4139
+    .end local v1           #sliderContainer:Landroid/view/View;
     :cond_0
     :goto_0
     return-void
 
-    .line 4061
+    .line 4132
     :cond_1
-    const/16 v1, 0x8
+    const/16 v2, 0x8
 
-    invoke-virtual {v0, v1}, Landroid/view/View;->setVisibility(I)V
+    invoke-virtual {v0, v2}, Landroid/view/View;->setVisibility(I)V
+
+    .line 4133
+    iget-object v2, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mVolumePanel:Lcom/android/systemui/statusbar/policy/VolumePanel;
+
+    if-eqz v2, :cond_0
+
+    .line 4134
+    iget-object v2, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarWindow:Lcom/android/systemui/statusbar/phone/StatusBarWindowView;
+
+    invoke-virtual {v2, v7}, Lcom/android/systemui/statusbar/phone/StatusBarWindowView;->findViewById(I)Landroid/view/View;
+
+    move-result-object v1
+
+    .line 4135
+    .restart local v1       #sliderContainer:Landroid/view/View;
+    invoke-virtual {v1, v6, v5, v6, v5}, Landroid/view/View;->setPadding(IIII)V
 
     goto :goto_0
 .end method
 
-.method private setIntruderAlertVisibility(Z)V
-    .locals 0
+.method private setHeadsUpVisibility(Z)V
+    .locals 2
     .parameter "vis"
 
     .prologue
-    .line 3706
+    .line 3760
+    iget-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mHeadsUpNotificationView:Lcom/android/systemui/statusbar/policy/HeadsUpNotificationView;
+
+    if-eqz p1, :cond_1
+
+    const/4 v0, 0x0
+
+    :goto_0
+    invoke-virtual {v1, v0}, Lcom/android/systemui/statusbar/policy/HeadsUpNotificationView;->setVisibility(I)V
+
+    .line 3761
+    if-nez p1, :cond_0
+
+    .line 3763
+    const/4 v0, 0x0
+
+    iput-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mInterruptingNotificationEntry:Lcom/android/systemui/statusbar/NotificationData$Entry;
+
+    .line 3765
+    :cond_0
     return-void
+
+    .line 3760
+    :cond_1
+    const/16 v0, 0x8
+
+    goto :goto_0
+.end method
+
+.method private setNavigationIconHints(I)V
+    .locals 1
+    .parameter "hints"
+
+    .prologue
+    .line 2705
+    iget v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNavigationIconHints:I
+
+    if-ne p1, v0, :cond_0
+
+    .line 2713
+    :goto_0
+    return-void
+
+    .line 2707
+    :cond_0
+    iput p1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNavigationIconHints:I
+
+    .line 2709
+    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNavigationBarView:Lcom/android/systemui/statusbar/phone/NavigationBarView;
+
+    if-eqz v0, :cond_1
+
+    .line 2710
+    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNavigationBarView:Lcom/android/systemui/statusbar/phone/NavigationBarView;
+
+    invoke-virtual {v0, p1}, Lcom/android/systemui/statusbar/phone/NavigationBarView;->setNavigationIconHints(I)V
+
+    .line 2712
+    :cond_1
+    invoke-direct {p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->checkBarModes()V
+
+    goto :goto_0
 .end method
 
 .method private setPileLayers(I)V
@@ -4362,23 +3791,23 @@
     .parameter "layerType"
 
     .prologue
-    .line 2732
-    iget-object v9, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mLatestNotifications:Lcom/android/systemui/statusbar/policy/NotificationRowLayout;
+    .line 2627
+    iget-object v9, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mPile:Lcom/android/systemui/statusbar/policy/NotificationRowLayout;
 
     invoke-virtual {v9}, Lcom/android/systemui/statusbar/policy/NotificationRowLayout;->getChildCount()I
 
     move-result v2
 
-    .line 2734
+    .line 2629
     .local v2, count:I
     packed-switch p1, :pswitch_data_0
 
-    .line 2765
+    .line 2660
     :cond_0
     :pswitch_0
     return-void
 
-    .line 2736
+    .line 2631
     :pswitch_1
     const/4 v3, 0x0
 
@@ -4386,8 +3815,8 @@
     :goto_0
     if-ge v3, v2, :cond_0
 
-    .line 2737
-    iget-object v9, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mLatestNotifications:Lcom/android/systemui/statusbar/policy/NotificationRowLayout;
+    .line 2632
+    iget-object v9, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mPile:Lcom/android/systemui/statusbar/policy/NotificationRowLayout;
 
     invoke-virtual {v9, v3}, Lcom/android/systemui/statusbar/policy/NotificationRowLayout;->getChildAt(I)Landroid/view/View;
 
@@ -4397,36 +3826,36 @@
 
     invoke-virtual {v9, p1, v10}, Landroid/view/View;->setLayerType(ILandroid/graphics/Paint;)V
 
-    .line 2736
+    .line 2631
     add-int/lit8 v3, v3, 0x1
 
     goto :goto_0
 
-    .line 2741
+    .line 2636
     .end local v3           #i:I
     :pswitch_2
     const/4 v9, 0x2
 
     new-array v5, v9, [I
 
-    .line 2742
+    .line 2637
     .local v5, location:[I
     iget-object v9, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationPanel:Lcom/android/systemui/statusbar/phone/NotificationPanelView;
 
     invoke-virtual {v9, v5}, Lcom/android/systemui/statusbar/phone/NotificationPanelView;->getLocationInWindow([I)V
 
-    .line 2744
+    .line 2639
     const/4 v9, 0x0
 
     aget v4, v5, v9
 
-    .line 2745
+    .line 2640
     .local v4, left:I
     const/4 v9, 0x1
 
     aget v7, v5, v9
 
-    .line 2746
+    .line 2641
     .local v7, top:I
     iget-object v9, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationPanel:Lcom/android/systemui/statusbar/phone/NotificationPanelView;
 
@@ -4436,7 +3865,7 @@
 
     add-int v6, v4, v9
 
-    .line 2747
+    .line 2642
     .local v6, right:I
     invoke-virtual {p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->getExpandedViewMaxHeight()I
 
@@ -4444,13 +3873,13 @@
 
     add-int v0, v7, v9
 
-    .line 2749
+    .line 2644
     .local v0, bottom:I
     new-instance v1, Landroid/graphics/Rect;
 
     invoke-direct {v1}, Landroid/graphics/Rect;-><init>()V
 
-    .line 2751
+    .line 2646
     .local v1, childBounds:Landroid/graphics/Rect;
     const/4 v3, 0x0
 
@@ -4458,18 +3887,18 @@
     :goto_1
     if-ge v3, v2, :cond_0
 
-    .line 2752
-    iget-object v9, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mLatestNotifications:Lcom/android/systemui/statusbar/policy/NotificationRowLayout;
+    .line 2647
+    iget-object v9, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mPile:Lcom/android/systemui/statusbar/policy/NotificationRowLayout;
 
     invoke-virtual {v9, v3}, Lcom/android/systemui/statusbar/policy/NotificationRowLayout;->getChildAt(I)Landroid/view/View;
 
     move-result-object v8
 
-    .line 2753
+    .line 2648
     .local v8, view:Landroid/view/View;
     invoke-virtual {v8, v5}, Landroid/view/View;->getLocationInWindow([I)V
 
-    .line 2755
+    .line 2650
     const/4 v9, 0x0
 
     aget v9, v5, v9
@@ -4500,25 +3929,25 @@
 
     invoke-virtual {v1, v9, v10, v11, v12}, Landroid/graphics/Rect;->set(IIII)V
 
-    .line 2758
+    .line 2653
     invoke-virtual {v1, v4, v7, v6, v0}, Landroid/graphics/Rect;->intersects(IIII)Z
 
     move-result v9
 
     if-eqz v9, :cond_1
 
-    .line 2759
+    .line 2654
     const/4 v9, 0x0
 
     invoke-virtual {v8, p1, v9}, Landroid/view/View;->setLayerType(ILandroid/graphics/Paint;)V
 
-    .line 2751
+    .line 2646
     :cond_1
     add-int/lit8 v3, v3, 0x1
 
     goto :goto_1
 
-    .line 2734
+    .line 2629
     nop
 
     :pswitch_data_0
@@ -4529,1116 +3958,60 @@
     .end packed-switch
 .end method
 
-.method private setStatusBarLowProfile(Z)V
-    .locals 15
-    .parameter "lightsOut"
+.method private suspendAutohide()V
+    .locals 2
 
     .prologue
     .line 2904
-    iget-object v9, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mLightsOutAnimation:Landroid/animation/Animator;
+    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mHandler:Lcom/android/systemui/statusbar/BaseStatusBar$H;
 
-    if-nez v9, :cond_0
+    iget-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mAutohide:Ljava/lang/Runnable;
+
+    invoke-virtual {v0, v1}, Lcom/android/systemui/statusbar/BaseStatusBar$H;->removeCallbacks(Ljava/lang/Runnable;)V
 
     .line 2905
-    iget-object v9, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarView:Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;
+    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mHandler:Lcom/android/systemui/statusbar/BaseStatusBar$H;
 
-    const v10, 0x7f09005e
+    iget-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mCheckBarModes:Ljava/lang/Runnable;
 
-    invoke-virtual {v9, v10}, Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;->findViewById(I)Landroid/view/View;
-
-    move-result-object v6
+    invoke-virtual {v0, v1}, Lcom/android/systemui/statusbar/BaseStatusBar$H;->removeCallbacks(Ljava/lang/Runnable;)V
 
     .line 2906
-    .local v6, notifications:Landroid/view/View;
-    iget-object v9, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarView:Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;
+    iget v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSystemUiVisibility:I
 
-    const v10, 0x7f090065
+    const/high16 v1, 0xc00
 
-    invoke-virtual {v9, v10}, Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;->findViewById(I)Landroid/view/View;
+    and-int/2addr v0, v1
 
-    move-result-object v8
-
-    .line 2907
-    .local v8, systemIcons:Landroid/view/View;
-    iget-object v9, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarView:Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;
-
-    const v10, 0x7f090067
-
-    invoke-virtual {v9, v10}, Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;->findViewById(I)Landroid/view/View;
-
-    move-result-object v7
-
-    .line 2908
-    .local v7, signal:Landroid/view/View;
-    iget-object v9, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarView:Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;
-
-    const v10, 0x7f090069
-
-    invoke-virtual {v9, v10}, Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;->findViewById(I)Landroid/view/View;
-
-    move-result-object v1
-
-    .line 2909
-    .local v1, battery:Landroid/view/View;
-    iget-object v9, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarView:Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;
-
-    const v10, 0x7f090068
-
-    invoke-virtual {v9, v10}, Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;->findViewById(I)Landroid/view/View;
-
-    move-result-object v2
-
-    .line 2910
-    .local v2, batterytext:Landroid/view/View;
-    iget-object v9, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarView:Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;
-
-    const v10, 0x7f09006a
-
-    invoke-virtual {v9, v10}, Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;->findViewById(I)Landroid/view/View;
-
-    move-result-object v3
-
-    .line 2912
-    .local v3, clock:Landroid/view/View;
-    new-instance v5, Landroid/animation/AnimatorSet;
-
-    invoke-direct {v5}, Landroid/animation/AnimatorSet;-><init>()V
-
-    .line 2913
-    .local v5, lightsOutAnim:Landroid/animation/AnimatorSet;
-    const/16 v9, 0xa
-
-    new-array v9, v9, [Landroid/animation/Animator;
-
-    const/4 v10, 0x0
-
-    sget-object v11, Landroid/view/View;->ALPHA:Landroid/util/Property;
-
-    const/4 v12, 0x1
-
-    new-array v12, v12, [F
-
-    const/4 v13, 0x0
-
-    const/4 v14, 0x0
-
-    aput v14, v12, v13
-
-    invoke-static {v6, v11, v12}, Landroid/animation/ObjectAnimator;->ofFloat(Ljava/lang/Object;Landroid/util/Property;[F)Landroid/animation/ObjectAnimator;
-
-    move-result-object v11
-
-    aput-object v11, v9, v10
-
-    const/4 v10, 0x1
-
-    sget-object v11, Landroid/view/View;->ALPHA:Landroid/util/Property;
-
-    const/4 v12, 0x1
-
-    new-array v12, v12, [F
-
-    const/4 v13, 0x0
-
-    const/4 v14, 0x0
-
-    aput v14, v12, v13
-
-    invoke-static {v8, v11, v12}, Landroid/animation/ObjectAnimator;->ofFloat(Ljava/lang/Object;Landroid/util/Property;[F)Landroid/animation/ObjectAnimator;
-
-    move-result-object v11
-
-    aput-object v11, v9, v10
-
-    const/4 v10, 0x2
-
-    sget-object v11, Landroid/view/View;->ALPHA:Landroid/util/Property;
-
-    const/4 v12, 0x1
-
-    new-array v12, v12, [F
-
-    const/4 v13, 0x0
-
-    const/4 v14, 0x0
-
-    aput v14, v12, v13
-
-    invoke-static {v7, v11, v12}, Landroid/animation/ObjectAnimator;->ofFloat(Ljava/lang/Object;Landroid/util/Property;[F)Landroid/animation/ObjectAnimator;
-
-    move-result-object v11
-
-    aput-object v11, v9, v10
-
-    const/4 v10, 0x3
-
-    sget-object v11, Landroid/view/View;->ALPHA:Landroid/util/Property;
-
-    const/4 v12, 0x1
-
-    new-array v12, v12, [F
-
-    const/4 v13, 0x0
-
-    const/4 v14, 0x0
-
-    aput v14, v12, v13
-
-    iget-object v13, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarView:Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;
-
-    const v14, 0x7f09013e
-
-    invoke-virtual {v13, v14}, Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;->findViewById(I)Landroid/view/View;
-
-    move-result-object v13
-
-    invoke-static {v13, v11, v12}, Landroid/animation/ObjectAnimator;->ofFloat(Ljava/lang/Object;Landroid/util/Property;[F)Landroid/animation/ObjectAnimator;
-
-    move-result-object v11
-
-    aput-object v11, v9, v10
-
-    const/4 v10, 0x4
-
-    sget-object v11, Landroid/view/View;->ALPHA:Landroid/util/Property;
-
-    const/4 v12, 0x1
-
-    new-array v12, v12, [F
-
-    const/4 v13, 0x0
-
-    const/high16 v14, 0x3f00
-
-    aput v14, v12, v13
-
-    invoke-static {v1, v11, v12}, Landroid/animation/ObjectAnimator;->ofFloat(Ljava/lang/Object;Landroid/util/Property;[F)Landroid/animation/ObjectAnimator;
-
-    move-result-object v11
-
-    aput-object v11, v9, v10
-
-    const/4 v10, 0x5
-
-    sget-object v11, Landroid/view/View;->ALPHA:Landroid/util/Property;
-
-    const/4 v12, 0x1
-
-    new-array v12, v12, [F
-
-    const/4 v13, 0x0
-
-    const/high16 v14, 0x3f00
-
-    aput v14, v12, v13
-
-    invoke-static {v2, v11, v12}, Landroid/animation/ObjectAnimator;->ofFloat(Ljava/lang/Object;Landroid/util/Property;[F)Landroid/animation/ObjectAnimator;
-
-    move-result-object v11
-
-    aput-object v11, v9, v10
-
-    const/4 v10, 0x6
-
-    sget-object v11, Landroid/view/View;->ALPHA:Landroid/util/Property;
-
-    const/4 v12, 0x1
-
-    new-array v12, v12, [F
-
-    const/4 v13, 0x0
-
-    const/high16 v14, 0x3f00
-
-    aput v14, v12, v13
-
-    invoke-static {v3, v11, v12}, Landroid/animation/ObjectAnimator;->ofFloat(Ljava/lang/Object;Landroid/util/Property;[F)Landroid/animation/ObjectAnimator;
-
-    move-result-object v11
-
-    aput-object v11, v9, v10
-
-    const/4 v10, 0x7
-
-    sget-object v11, Landroid/view/View;->ALPHA:Landroid/util/Property;
-
-    const/4 v12, 0x1
-
-    new-array v12, v12, [F
-
-    const/4 v13, 0x0
-
-    const/high16 v14, 0x3f00
-
-    aput v14, v12, v13
-
-    iget-object v13, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarView:Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;
-
-    const v14, 0x7f09013c
-
-    invoke-virtual {v13, v14}, Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;->findViewById(I)Landroid/view/View;
-
-    move-result-object v13
-
-    invoke-static {v13, v11, v12}, Landroid/animation/ObjectAnimator;->ofFloat(Ljava/lang/Object;Landroid/util/Property;[F)Landroid/animation/ObjectAnimator;
-
-    move-result-object v11
-
-    aput-object v11, v9, v10
-
-    const/16 v10, 0x8
-
-    sget-object v11, Landroid/view/View;->ALPHA:Landroid/util/Property;
-
-    const/4 v12, 0x1
-
-    new-array v12, v12, [F
-
-    const/4 v13, 0x0
-
-    const/high16 v14, 0x3f00
-
-    aput v14, v12, v13
-
-    iget-object v13, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarView:Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;
-
-    const v14, 0x7f09013b
-
-    invoke-virtual {v13, v14}, Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;->findViewById(I)Landroid/view/View;
-
-    move-result-object v13
-
-    invoke-static {v13, v11, v12}, Landroid/animation/ObjectAnimator;->ofFloat(Ljava/lang/Object;Landroid/util/Property;[F)Landroid/animation/ObjectAnimator;
-
-    move-result-object v11
-
-    aput-object v11, v9, v10
-
-    const/16 v10, 0x9
-
-    sget-object v11, Landroid/view/View;->ALPHA:Landroid/util/Property;
-
-    const/4 v12, 0x1
-
-    new-array v12, v12, [F
-
-    const/4 v13, 0x0
-
-    const/high16 v14, 0x3f00
-
-    aput v14, v12, v13
-
-    iget-object v13, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarView:Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;
-
-    const v14, 0x7f09013d
-
-    invoke-virtual {v13, v14}, Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;->findViewById(I)Landroid/view/View;
-
-    move-result-object v13
-
-    invoke-static {v13, v11, v12}, Landroid/animation/ObjectAnimator;->ofFloat(Ljava/lang/Object;Landroid/util/Property;[F)Landroid/animation/ObjectAnimator;
-
-    move-result-object v11
-
-    aput-object v11, v9, v10
-
-    invoke-virtual {v5, v9}, Landroid/animation/AnimatorSet;->playTogether([Landroid/animation/Animator;)V
-
-    .line 2921
-    const-wide/16 v9, 0x2ee
-
-    invoke-virtual {v5, v9, v10}, Landroid/animation/AnimatorSet;->setDuration(J)Landroid/animation/AnimatorSet;
-
-    .line 2923
-    new-instance v4, Landroid/animation/AnimatorSet;
-
-    invoke-direct {v4}, Landroid/animation/AnimatorSet;-><init>()V
-
-    .line 2924
-    .local v4, lightsOnAnim:Landroid/animation/AnimatorSet;
-    const/16 v9, 0xa
-
-    new-array v9, v9, [Landroid/animation/Animator;
-
-    const/4 v10, 0x0
-
-    sget-object v11, Landroid/view/View;->ALPHA:Landroid/util/Property;
-
-    const/4 v12, 0x1
-
-    new-array v12, v12, [F
-
-    const/4 v13, 0x0
-
-    const/high16 v14, 0x3f80
-
-    aput v14, v12, v13
-
-    invoke-static {v6, v11, v12}, Landroid/animation/ObjectAnimator;->ofFloat(Ljava/lang/Object;Landroid/util/Property;[F)Landroid/animation/ObjectAnimator;
-
-    move-result-object v11
-
-    aput-object v11, v9, v10
-
-    const/4 v10, 0x1
-
-    sget-object v11, Landroid/view/View;->ALPHA:Landroid/util/Property;
-
-    const/4 v12, 0x1
-
-    new-array v12, v12, [F
-
-    const/4 v13, 0x0
-
-    iget v14, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mBaseAlpha:F
-
-    aput v14, v12, v13
-
-    invoke-static {v8, v11, v12}, Landroid/animation/ObjectAnimator;->ofFloat(Ljava/lang/Object;Landroid/util/Property;[F)Landroid/animation/ObjectAnimator;
-
-    move-result-object v11
-
-    aput-object v11, v9, v10
-
-    const/4 v10, 0x2
-
-    sget-object v11, Landroid/view/View;->ALPHA:Landroid/util/Property;
-
-    const/4 v12, 0x1
-
-    new-array v12, v12, [F
-
-    const/4 v13, 0x0
-
-    const/high16 v14, 0x3f80
-
-    aput v14, v12, v13
-
-    invoke-static {v7, v11, v12}, Landroid/animation/ObjectAnimator;->ofFloat(Ljava/lang/Object;Landroid/util/Property;[F)Landroid/animation/ObjectAnimator;
-
-    move-result-object v11
-
-    aput-object v11, v9, v10
-
-    const/4 v10, 0x3
-
-    sget-object v11, Landroid/view/View;->ALPHA:Landroid/util/Property;
-
-    const/4 v12, 0x1
-
-    new-array v12, v12, [F
-
-    const/4 v13, 0x0
-
-    const/high16 v14, 0x3f80
-
-    aput v14, v12, v13
-
-    iget-object v13, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarView:Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;
-
-    const v14, 0x7f09013e
-
-    invoke-virtual {v13, v14}, Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;->findViewById(I)Landroid/view/View;
-
-    move-result-object v13
-
-    invoke-static {v13, v11, v12}, Landroid/animation/ObjectAnimator;->ofFloat(Ljava/lang/Object;Landroid/util/Property;[F)Landroid/animation/ObjectAnimator;
-
-    move-result-object v11
-
-    aput-object v11, v9, v10
-
-    const/4 v10, 0x4
-
-    sget-object v11, Landroid/view/View;->ALPHA:Landroid/util/Property;
-
-    const/4 v12, 0x1
-
-    new-array v12, v12, [F
-
-    const/4 v13, 0x0
-
-    iget v14, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mBaseAlpha:F
-
-    aput v14, v12, v13
-
-    invoke-static {v1, v11, v12}, Landroid/animation/ObjectAnimator;->ofFloat(Ljava/lang/Object;Landroid/util/Property;[F)Landroid/animation/ObjectAnimator;
-
-    move-result-object v11
-
-    aput-object v11, v9, v10
-
-    const/4 v10, 0x5
-
-    sget-object v11, Landroid/view/View;->ALPHA:Landroid/util/Property;
-
-    const/4 v12, 0x1
-
-    new-array v12, v12, [F
-
-    const/4 v13, 0x0
-
-    const/high16 v14, 0x3f80
-
-    aput v14, v12, v13
-
-    invoke-static {v2, v11, v12}, Landroid/animation/ObjectAnimator;->ofFloat(Ljava/lang/Object;Landroid/util/Property;[F)Landroid/animation/ObjectAnimator;
-
-    move-result-object v11
-
-    aput-object v11, v9, v10
-
-    const/4 v10, 0x6
-
-    sget-object v11, Landroid/view/View;->ALPHA:Landroid/util/Property;
-
-    const/4 v12, 0x1
-
-    new-array v12, v12, [F
-
-    const/4 v13, 0x0
-
-    const/high16 v14, 0x3f80
-
-    aput v14, v12, v13
-
-    invoke-static {v3, v11, v12}, Landroid/animation/ObjectAnimator;->ofFloat(Ljava/lang/Object;Landroid/util/Property;[F)Landroid/animation/ObjectAnimator;
-
-    move-result-object v11
-
-    aput-object v11, v9, v10
-
-    const/4 v10, 0x7
-
-    sget-object v11, Landroid/view/View;->ALPHA:Landroid/util/Property;
-
-    const/4 v12, 0x1
-
-    new-array v12, v12, [F
-
-    const/4 v13, 0x0
-
-    const/high16 v14, 0x3f80
-
-    aput v14, v12, v13
-
-    iget-object v13, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarView:Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;
-
-    const v14, 0x7f09013c
-
-    invoke-virtual {v13, v14}, Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;->findViewById(I)Landroid/view/View;
-
-    move-result-object v13
-
-    invoke-static {v13, v11, v12}, Landroid/animation/ObjectAnimator;->ofFloat(Ljava/lang/Object;Landroid/util/Property;[F)Landroid/animation/ObjectAnimator;
-
-    move-result-object v11
-
-    aput-object v11, v9, v10
-
-    const/16 v10, 0x8
-
-    sget-object v11, Landroid/view/View;->ALPHA:Landroid/util/Property;
-
-    const/4 v12, 0x1
-
-    new-array v12, v12, [F
-
-    const/4 v13, 0x0
-
-    const/high16 v14, 0x3f80
-
-    aput v14, v12, v13
-
-    iget-object v13, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarView:Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;
-
-    const v14, 0x7f09013b
-
-    invoke-virtual {v13, v14}, Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;->findViewById(I)Landroid/view/View;
-
-    move-result-object v13
-
-    invoke-static {v13, v11, v12}, Landroid/animation/ObjectAnimator;->ofFloat(Ljava/lang/Object;Landroid/util/Property;[F)Landroid/animation/ObjectAnimator;
-
-    move-result-object v11
-
-    aput-object v11, v9, v10
-
-    const/16 v10, 0x9
-
-    sget-object v11, Landroid/view/View;->ALPHA:Landroid/util/Property;
-
-    const/4 v12, 0x1
-
-    new-array v12, v12, [F
-
-    const/4 v13, 0x0
-
-    const/high16 v14, 0x3f80
-
-    aput v14, v12, v13
-
-    iget-object v13, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarView:Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;
-
-    const v14, 0x7f09013d
-
-    invoke-virtual {v13, v14}, Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;->findViewById(I)Landroid/view/View;
-
-    move-result-object v13
-
-    invoke-static {v13, v11, v12}, Landroid/animation/ObjectAnimator;->ofFloat(Ljava/lang/Object;Landroid/util/Property;[F)Landroid/animation/ObjectAnimator;
-
-    move-result-object v11
-
-    aput-object v11, v9, v10
-
-    invoke-virtual {v4, v9}, Landroid/animation/AnimatorSet;->playTogether([Landroid/animation/Animator;)V
-
-    .line 2932
-    const-wide/16 v9, 0xfa
-
-    invoke-virtual {v4, v9, v10}, Landroid/animation/AnimatorSet;->setDuration(J)Landroid/animation/AnimatorSet;
-
-    .line 2934
-    iput-object v5, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mLightsOutAnimation:Landroid/animation/Animator;
-
-    .line 2935
-    iput-object v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mLightsOnAnimation:Landroid/animation/Animator;
-
-    .line 2938
-    .end local v1           #battery:Landroid/view/View;
-    .end local v2           #batterytext:Landroid/view/View;
-    .end local v3           #clock:Landroid/view/View;
-    .end local v4           #lightsOnAnim:Landroid/animation/AnimatorSet;
-    .end local v5           #lightsOutAnim:Landroid/animation/AnimatorSet;
-    .end local v6           #notifications:Landroid/view/View;
-    .end local v7           #signal:Landroid/view/View;
-    .end local v8           #systemIcons:Landroid/view/View;
-    :cond_0
-    iget-object v9, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mLightsOutAnimation:Landroid/animation/Animator;
-
-    invoke-virtual {v9}, Landroid/animation/Animator;->cancel()V
-
-    .line 2939
-    iget-object v9, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mLightsOnAnimation:Landroid/animation/Animator;
-
-    invoke-virtual {v9}, Landroid/animation/Animator;->cancel()V
-
-    .line 2941
-    if-eqz p1, :cond_1
-
-    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mLightsOutAnimation:Landroid/animation/Animator;
-
-    .line 2942
-    .local v0, a:Landroid/animation/Animator;
-    :goto_0
-    invoke-virtual {v0}, Landroid/animation/Animator;->start()V
-
-    .line 2944
-    invoke-virtual {p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->setAreThereNotifications()V
-
-    .line 2945
-    return-void
-
-    .line 2941
-    .end local v0           #a:Landroid/animation/Animator;
-    :cond_1
-    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mLightsOnAnimation:Landroid/animation/Animator;
-
-    goto :goto_0
-.end method
-
-.method private updateBatteryColor()I
-    .locals 1
-
-    .prologue
-    .line 1400
-    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mBatteryController:Lcom/android/systemui/statusbar/policy/BatteryController;
-
-    invoke-virtual {v0}, Lcom/android/systemui/statusbar/policy/BatteryController;->getBattLevColor()I
-
-    move-result v0
-
-    return v0
-.end method
-
-.method private updateBatteryImage()V
-    .locals 1
-
-    .prologue
-    .line 1400
-    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mBatteryController:Lcom/android/systemui/statusbar/policy/BatteryController;
-
-    invoke-virtual {v0}, Lcom/android/systemui/statusbar/policy/BatteryController;->updateImage()V
-
-    return-void
-.end method
-
-.method private updateClearLoc()V
-    .locals 5
-
-    .prologue
-    .line 1400
-    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mClearButton:Landroid/view/View;
-
-    invoke-virtual {v0}, Landroid/view/ViewGroup;->getVisibility()I
-
-    move-result v4
-
-    const/16 v1, 0x8
-
-    invoke-virtual {v0, v1}, Landroid/view/ViewGroup;->setVisibility(I)V
-
-    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarWindow:Lcom/android/systemui/statusbar/phone/StatusBarWindowView;
-
-    iget-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mContext:Landroid/content/Context;
-
-    invoke-virtual {v1}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
-
-    move-result-object v1
-
-    const-string v2, "statusbar_aosp_clear"
-
-    const/4 v3, 0x0
-
-    invoke-static {v1, v2, v3}, Landroid/provider/Settings$Global;->getInt(Landroid/content/ContentResolver;Ljava/lang/String;I)I
-
-    move-result v2
-
-    if-eqz v2, :cond_0
-
-    const v1, 0x7f090138
-
-    goto :goto_0
-
-    :cond_0
-    const v1, 0x7f09007c
-
-    :goto_0
-    invoke-virtual {v0, v1}, Lcom/android/systemui/statusbar/phone/StatusBarWindowView;->findViewById(I)Landroid/view/View;
-
-    move-result-object v2
-
-    iput-object v2, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mClearButton:Landroid/view/View;
-
-    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mClearButton:Landroid/view/View;
-
-    invoke-virtual {v0, v4}, Landroid/view/ViewGroup;->setVisibility(I)V
-
-    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mClearButton:Landroid/view/View;
-
-    iget-object v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mClearButtonListener:Landroid/view/View$OnClickListener;
-
-    invoke-virtual {v0, v3}, Landroid/view/View;->setOnClickListener(Landroid/view/View$OnClickListener;)V
-
-    invoke-virtual {p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->updateTextResources()V
-
-    return-void
-.end method
-
-.method private updateLatestNoti()V
-    .locals 3
-
-    .prologue
-    .line 1400
-    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mContext:Landroid/content/Context;
-
-    invoke-virtual {v0}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
-
-    move-result-object v0
-
-    const-string v1, "statusbar_hide_latest"
-
-    const/4 v2, 0x0
-
-    invoke-static {v0, v1, v2}, Landroid/provider/Settings$Global;->getInt(Landroid/content/ContentResolver;Ljava/lang/String;I)I
-
-    move-result v1
-
-    if-eqz v1, :cond_1
-
-    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mContext:Landroid/content/Context;
-
-    invoke-virtual {v0}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
-
-    move-result-object v0
-
-    const-string v1, "statusbar_aosp_clear"
-
-    const/4 v2, 0x0
-
-    invoke-static {v0, v1, v2}, Landroid/provider/Settings$Global;->getInt(Landroid/content/ContentResolver;Ljava/lang/String;I)I
-
-    move-result v1
-
-    if-eqz v1, :cond_1
-
-    :cond_0
-    const/16 v2, 0x8
-
-    goto :goto_0
-
-    :cond_1
-    iget-boolean v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mShouldShowLatest:Z
-
-    if-eqz v1, :cond_0
-
-    const/4 v2, 0x0
-
-    :goto_0
-    iget-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mLatestNotificationTitle:Landroid/widget/LinearLayout;
-
-    invoke-virtual {v1, v2}, Landroid/widget/LinearLayout;->setVisibility(I)V
-
-    return-void
-.end method
-
-.method private updateNetContSettings()V
-    .locals 3
-
-    .prologue
-    .line 1400
-    iget-object v0, p0, Lcom/android/systemui/SystemUI;->mContext:Landroid/content/Context;
-
-    invoke-virtual {v0}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
-
-    move-result-object v0
-
-    const-string v1, "statusbar_att_carrier"
-
-    const/4 v2, 0x0
-
-    invoke-static {v0, v1, v2}, Landroid/provider/Settings$Global;->getInt(Landroid/content/ContentResolver;Ljava/lang/String;I)I
-
-    move-result v0
-
-    if-eqz v0, :cond_1
+    if-eqz v0, :cond_0
 
     const/4 v0, 0x1
 
     :goto_0
-    invoke-static {v0}, Lcom/android/systemui/statusbar/Feature;->setPLMNIconDisplay(Z)V
+    iput-boolean v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mAutohideSuspended:Z
 
-    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNetworkController:Lcom/android/systemui/statusbar/policy/NetworkController;
-
-    invoke-virtual {v0}, Lcom/android/systemui/statusbar/policy/NetworkController;->updateSettings()V
-
-    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mContext:Landroid/content/Context;
-
-    invoke-virtual {v0}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
-
-    move-result-object v0
-
-    const-string v1, "statusbar_carrier_color"
-
-    const v2, -0x1
-
-    invoke-static {v0, v1, v2}, Landroid/provider/Settings$Global;->getInt(Landroid/content/ContentResolver;Ljava/lang/String;I)I
-
-    move-result v1
-
-    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mCarrierLabel:Landroid/widget/TextView;
-
-    invoke-virtual {v0, v1}, Landroid/widget/TextView;->setTextColor(I)V
-
-    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mAttCarrierLabel:Landroid/widget/TextView;
-
-    invoke-virtual {v0, v1}, Landroid/widget/TextView;->setTextColor(I)V
-
-    sget-boolean v0, Lcom/android/systemui/statusbar/Feature;->mPLMNIconDisplay:Z
-
-    if-nez v0, :cond_0
-
-    const/4 v1, 0x0
-
-    invoke-virtual {p0, v0, v1}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->setCarrierLabelVisibility(ZI)V
-
-    goto :goto_1
-
-    :cond_0
-    invoke-virtual {p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->showPlmnString()V
-
-    :goto_1
+    .line 2907
     return-void
 
-    :cond_1
+    .line 2906
+    :cond_0
     const/4 v0, 0x0
 
     goto :goto_0
-.end method
-
-.method private updateNoNoti()V
-    .locals 3
-
-    .prologue
-    .line 1400
-    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mContext:Landroid/content/Context;
-
-    invoke-virtual {v0}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
-
-    move-result-object v0
-
-    const-string v1, "statusbar_hide_nonoti"
-
-    const/4 v2, 0x0
-
-    invoke-static {v0, v1, v2}, Landroid/provider/Settings$Global;->getInt(Landroid/content/ContentResolver;Ljava/lang/String;I)I
-
-    move-result v1
-
-    if-eqz v1, :cond_1
-
-    :cond_0
-    const/16 v2, 0x8
-
-    goto :goto_0
-
-    :cond_1
-    iget-boolean v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mShouldShowNoNoti:Z
-
-    if-eqz v1, :cond_0
-
-    const/4 v2, 0x0
-
-    :goto_0
-    iget-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNoNotificationsTitle:Landroid/widget/LinearLayout;
-
-    invoke-virtual {v1, v2}, Landroid/widget/LinearLayout;->setVisibility(I)V
-
-    return-void
-.end method
-
-.method private updateNotiColor()I
-    .locals 3
-
-    .prologue
-    .line 1400
-    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mContext:Landroid/content/Context;
-
-    invoke-virtual {v0}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
-
-    move-result-object v0
-
-    const-string v1, "notification_background_color"
-
-    const v2, -0x1000000
-
-    invoke-static {v0, v1, v2}, Landroid/provider/Settings$Global;->getInt(Landroid/content/ContentResolver;Ljava/lang/String;I)I
-
-    move-result v1
-
-    return v1
-.end method
-
-.method private updateNotiToggs(Z)V
-    .locals 3
-    .parameter "singleLineZ"
-
-    .prologue
-    .line 1400
-    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mFlipSettingsView:Landroid/view/View;
-
-    if-eqz v0, :cond_1
-
-    if-nez p1, :cond_0
-
-    const/4 v1, 0x0
-
-    goto :goto_0
-
-    :cond_0
-    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mContext:Landroid/content/Context;
-
-    invoke-virtual {v0}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
-
-    move-result-object v0
-
-    const-string v1, "statusbar_toggle_type"
-
-    const/4 v2, 0x0
-
-    invoke-static {v0, v1, v2}, Landroid/provider/Settings$Global;->getInt(Landroid/content/ContentResolver;Ljava/lang/String;I)I
-
-    move-result v2
-
-    if-nez v2, :cond_2
-
-    const/4 v1, 0x0
-
-    :goto_0
-    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mFlipSettingsView:Landroid/view/View;
-
-    invoke-virtual {v0, v1}, Landroid/view/View;->setVisibility(I)V
-
-    if-eqz v1, :cond_3
-
-    const/4 v2, 0x0
-
-    :goto_1
-    invoke-direct {p0, v2}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->updateScrollView(Z)V
-
-    :cond_1
-    return-void
-
-    :cond_2
-    const/16 v1, 0x8
-
-    goto :goto_0
-
-    :cond_3
-    const/4 v2, 0x1
-
-    goto :goto_1
-.end method
-
-.method private updateOngoingNoti()V
-    .locals 3
-
-    .prologue
-    .line 1400
-    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mContext:Landroid/content/Context;
-
-    invoke-virtual {v0}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
-
-    move-result-object v0
-
-    const-string v1, "statusbar_hide_ongoin"
-
-    const/4 v2, 0x0
-
-    invoke-static {v0, v1, v2}, Landroid/provider/Settings$Global;->getInt(Landroid/content/ContentResolver;Ljava/lang/String;I)I
-
-    move-result v1
-
-    if-eqz v1, :cond_1
-
-    :cond_0
-    const/16 v2, 0x8
-
-    goto :goto_0
-
-    :cond_1
-    iget-boolean v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mShouldShowOngoing:Z
-
-    if-eqz v1, :cond_0
-
-    const/4 v2, 0x0
-
-    :goto_0
-    iget-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mOngoingNotificationTitle:Landroid/widget/LinearLayout;
-
-    invoke-virtual {v1, v2}, Landroid/widget/LinearLayout;->setVisibility(I)V
-
-    return-void
-.end method
-
-.method private updateSBarColor()I
-    .locals 3
-
-    .prologue
-    .line 1400
-    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mContext:Landroid/content/Context;
-
-    invoke-virtual {v0}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
-
-    move-result-object v0
-
-    const-string v1, "statusbar_background_color"
-
-    const v2, -0x1000000
-
-    invoke-static {v0, v1, v2}, Landroid/provider/Settings$Global;->getInt(Landroid/content/ContentResolver;Ljava/lang/String;I)I
-
-    move-result v1
-
-    return v1
-.end method
-
-.method private updateScrollView(Z)V
-    .locals 5
-    .parameter "useStockTopMargin"
-
-    .prologue
-    const/4 v2, 0x0
-
-    .line 1405
-    if-eqz p1, :cond_0
-
-    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mContext:Landroid/content/Context;
-
-    invoke-virtual {v0}, Landroid/content/Context;->getResources()Landroid/content/res/Resources;
-
-    move-result-object v0
-
-    const v1, 0x7f0e0044
-
-    invoke-virtual {v0, v1}, Landroid/content/res/Resources;->getDimension(I)F
-
-    move-result v0
-
-    float-to-int v0, v0
-
-    iget-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mContext:Landroid/content/Context;
-
-    invoke-virtual {v1}, Landroid/content/Context;->getResources()Landroid/content/res/Resources;
-
-    move-result-object v1
-
-    const v2, 0x7f0e004c
-
-    invoke-virtual {v1, v2}, Landroid/content/res/Resources;->getDimension(I)F
-
-    move-result v1
-
-    float-to-int v1, v1
-
-    add-int v2, v0, v1
-
-    .line 1406
-    .local v2, topMargin:I
-    :cond_0
-    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mScrollView:Landroid/widget/ScrollView;
-
-    invoke-virtual {v0}, Landroid/widget/ScrollView;->getLayoutParams()Landroid/view/ViewGroup$LayoutParams;
-
-    move-result-object v0
-
-    check-cast v0, Landroid/view/ViewGroup$MarginLayoutParams;
-
-    .line 1407
-    .local v0, marginParams:Landroid/view/ViewGroup$MarginLayoutParams;
-    const/4 v1, 0x0
-
-    const/4 v3, 0x0
-
-    const/4 v4, 0x0
-
-    invoke-virtual {v0, v1, v2, v3, v4}, Landroid/view/ViewGroup$MarginLayoutParams;->setMargins(IIII)V
-
-    .line 1408
-    iget-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mScrollView:Landroid/widget/ScrollView;
-
-    invoke-virtual {v1, v0}, Landroid/widget/ScrollView;->setLayoutParams(Landroid/view/ViewGroup$LayoutParams;)V
-
-    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarWindow:Lcom/android/systemui/statusbar/phone/StatusBarWindowView;
-
-    invoke-virtual {v0, p1}, Lcom/android/systemui/statusbar/phone/StatusBarWindowView;->setExpandValues(Z)V
-
-    return-void
 .end method
 
 .method private updateShowSearchHoldoff()V
     .locals 2
 
     .prologue
-    .line 1620
+    .line 1508
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mContext:Landroid/content/Context;
 
     invoke-virtual {v0}, Landroid/content/Context;->getResources()Landroid/content/res/Resources;
 
     move-result-object v0
 
-    const v1, 0x7f0d0001
+    const v1, 0x7f0b0001
 
     invoke-virtual {v0, v1}, Landroid/content/res/Resources;->getInteger(I)I
 
@@ -5646,93 +4019,28 @@
 
     iput v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mShowSearchHoldoff:I
 
-    .line 1622
+    .line 1510
     return-void
 .end method
 
-.method private updateTSMSettings()V
-    .locals 3
+.method private userAutohide()V
+    .locals 4
 
     .prologue
-    .line 1400
-    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationPanel:Lcom/android/systemui/statusbar/phone/NotificationPanelView;
+    .line 2931
+    invoke-direct {p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->cancelAutohide()V
 
-    invoke-direct {p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->notiCustomColor()Z
+    .line 2932
+    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mHandler:Lcom/android/systemui/statusbar/BaseStatusBar$H;
 
-    move-result v1
+    iget-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mAutohide:Ljava/lang/Runnable;
 
-    if-eqz v1, :cond_1
+    const-wide/16 v2, 0x15e
 
-    invoke-direct {p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->updateNotiColor()I
+    invoke-virtual {v0, v1, v2, v3}, Lcom/android/systemui/statusbar/BaseStatusBar$H;->postDelayed(Ljava/lang/Runnable;J)Z
 
-    move-result v1
-
-    invoke-virtual {v0, v1}, Lcom/android/systemui/statusbar/phone/NotificationPanelView;->setBackgroundColor(I)V
-
-    :goto_0
-    const/4 v0, 0x1
-
-    invoke-direct {p0, v0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->updateNotiToggs(Z)V
-
-    iget-boolean v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mShouldShowNoNoti:Z
-
-    if-eqz v0, :cond_0
-
-    iget-boolean v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mShouldShowLatest:Z
-
-    if-ne v0, v1, :cond_0
-
-    iget-boolean v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mShouldShowOngoing:Z
-
-    if-ne v0, v1, :cond_0
-
-    invoke-direct {p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->loadNotificationShade()V
-
-    const/4 v0, 0x1
-
-    goto :goto_1
-
-    :cond_0
-    iget-boolean v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mIsTransparentStatusBar:Z
-
-    if-eqz v0, :cond_2
-
-    const/4 v0, 0x1
-
-    :goto_1
-    invoke-virtual {p0, v0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->transparentizeStatusBar(I)V
-
-    invoke-direct {p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->updateNoNoti()V
-
-    invoke-direct {p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->updateOngoingNoti()V
-
-    invoke-direct {p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->updateLatestNoti()V
-
-    invoke-direct {p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->updateClearLoc()V
-
+    .line 2933
     return-void
-
-    :cond_1
-    iget-object v2, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mContext:Landroid/content/Context;
-
-    invoke-virtual {v2}, Landroid/content/Context;->getResources()Landroid/content/res/Resources;
-
-    move-result-object v2
-
-    const v1, 0x7f02026d
-
-    invoke-virtual {v2, v1}, Landroid/content/res/Resources;->getDrawable(I)Landroid/graphics/drawable/Drawable;
-
-    move-result-object v1
-
-    invoke-virtual {v0, v1}, Lcom/android/systemui/statusbar/phone/NotificationPanelView;->setBackgroundDrawable(Landroid/graphics/drawable/Drawable;)V
-
-    goto :goto_0
-
-    :cond_2
-    const/4 v0, 0x0
-
-    goto :goto_1
 .end method
 
 .method public static viewInfo(Landroid/view/View;)Ljava/lang/String;
@@ -5740,7 +4048,7 @@
     .parameter "v"
 
     .prologue
-    .line 3089
+    .line 3086
     new-instance v0, Ljava/lang/StringBuilder;
 
     invoke-direct {v0}, Ljava/lang/StringBuilder;-><init>()V
@@ -5852,25 +4160,25 @@
 
     const/4 v1, 0x0
 
-    .line 4087
+    .line 4178
     iget-boolean v2, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mHasSettingsPanel:Z
 
     if-nez v2, :cond_1
 
     move v0, v1
 
-    .line 4093
+    .line 4184
     :cond_0
     :goto_0
     return v0
 
-    .line 4090
+    .line 4181
     :cond_1
     iget-boolean v2, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mHasFlipSettings:Z
 
     if-eqz v2, :cond_2
 
-    .line 4091
+    .line 4182
     iget-object v2, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationButton:Landroid/widget/ImageView;
 
     invoke-virtual {v2}, Landroid/widget/ImageView;->getVisibility()I
@@ -5883,11 +4191,11 @@
 
     goto :goto_0
 
-    .line 4093
+    .line 4184
     :cond_2
-    iget-object v2, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSettingsPanel:Lcom/android/systemui/statusbar/phone/SettingsPanelView;
+    iget-object v2, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSettingsPanel:Lcom/android/systemui/statusbar/phone/PanelView;
 
-    invoke-virtual {v2}, Lcom/android/systemui/statusbar/phone/SettingsPanelView;->getVisibility()I
+    invoke-virtual {v2}, Lcom/android/systemui/statusbar/phone/PanelView;->getVisibility()I
 
     move-result v2
 
@@ -5906,7 +4214,7 @@
     .parameter "icon"
 
     .prologue
-    .line 1392
+    .line 1340
     new-instance v0, Lcom/android/systemui/statusbar/StatusBarIconView;
 
     iget-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mContext:Landroid/content/Context;
@@ -5915,22 +4223,16 @@
 
     invoke-direct {v0, v1, p1, v2}, Lcom/android/systemui/statusbar/StatusBarIconView;-><init>(Landroid/content/Context;Ljava/lang/String;Landroid/app/Notification;)V
 
-    .line 1393
+    .line 1341
     .local v0, view:Lcom/android/systemui/statusbar/StatusBarIconView;
     invoke-virtual {v0, p4}, Lcom/android/systemui/statusbar/StatusBarIconView;->set(Lcom/android/internal/statusbar/StatusBarIcon;)Z
 
-    .line 1394
+    .line 1342
     iget-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusIcons:Landroid/widget/LinearLayout;
 
     new-instance v2, Landroid/widget/LinearLayout$LayoutParams;
 
     iget v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mIconSize:I
-
-    iget v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mIconHPadding:I
-
-    mul-int/lit8 v4, v4, 0x2
-
-    add-int/2addr v3, v4
 
     iget v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mIconSize:I
 
@@ -5938,7 +4240,7 @@
 
     invoke-virtual {v1, v0, p3, v2}, Landroid/widget/LinearLayout;->addView(Landroid/view/View;ILandroid/view/ViewGroup$LayoutParams;)V
 
-    .line 1395
+    .line 1343
     return-void
 .end method
 
@@ -5948,51 +4250,113 @@
     .parameter "notification"
 
     .prologue
-    .line 1412
-    invoke-virtual {p0, p1, p2}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->addNotificationViews(Landroid/os/IBinder;Landroid/service/notification/StatusBarNotification;)Lcom/android/systemui/statusbar/StatusBarIconView;
+    const/4 v3, 0x0
 
-    move-result-object v0
+    .line 1360
+    invoke-virtual {p0, p1, p2}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->createNotificationViews(Landroid/os/IBinder;Landroid/service/notification/StatusBarNotification;)Lcom/android/systemui/statusbar/NotificationData$Entry;
 
-    .line 1413
-    .local v0, iconView:Lcom/android/systemui/statusbar/StatusBarIconView;
-    if-nez v0, :cond_0
+    move-result-object v1
 
-    .line 1483
+    .line 1361
+    .local v1, shadeEntry:Lcom/android/systemui/statusbar/NotificationData$Entry;
+    if-nez v1, :cond_0
+
+    .line 1404
     :goto_0
     return-void
 
-    .line 1415
+    .line 1364
     :cond_0
-    const/4 v1, 0x0
+    iget-boolean v2, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mUseHeadsUp:Z
 
-    .line 1417
-    .local v1, immersive:Z
-    :try_start_0
-    invoke-static {}, Landroid/app/ActivityManagerNative;->getDefault()Landroid/app/IActivityManager;
+    if-eqz v2, :cond_2
+
+    invoke-virtual {p0, p2}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->shouldInterrupt(Landroid/service/notification/StatusBarNotification;)Z
+
+    move-result v2
+
+    if-eqz v2, :cond_2
+
+    .line 1366
+    new-instance v0, Lcom/android/systemui/statusbar/NotificationData$Entry;
+
+    invoke-direct {v0, p1, p2, v3}, Lcom/android/systemui/statusbar/NotificationData$Entry;-><init>(Landroid/os/IBinder;Landroid/service/notification/StatusBarNotification;Lcom/android/systemui/statusbar/StatusBarIconView;)V
+
+    .line 1367
+    .local v0, interruptionCandidate:Lcom/android/systemui/statusbar/NotificationData$Entry;
+    iget-object v2, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mHeadsUpNotificationView:Lcom/android/systemui/statusbar/policy/HeadsUpNotificationView;
+
+    invoke-virtual {v2}, Lcom/android/systemui/statusbar/policy/HeadsUpNotificationView;->getHolder()Landroid/view/ViewGroup;
 
     move-result-object v2
 
-    invoke-interface {v2}, Landroid/app/IActivityManager;->isTopActivityImmersive()Z
-    :try_end_0
-    .catch Landroid/os/RemoteException; {:try_start_0 .. :try_end_0} :catch_1
+    invoke-virtual {p0, v0, v2}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->inflateViews(Lcom/android/systemui/statusbar/NotificationData$Entry;Landroid/view/ViewGroup;)Z
 
-    move-result v1
+    move-result v2
 
-    .line 1460
+    if-eqz v2, :cond_1
+
+    .line 1368
+    invoke-static {}, Ljava/lang/System;->currentTimeMillis()J
+
+    move-result-wide v2
+
+    iput-wide v2, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mInterruptingNotificationTime:J
+
+    .line 1369
+    iput-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mInterruptingNotificationEntry:Lcom/android/systemui/statusbar/NotificationData$Entry;
+
+    .line 1370
+    invoke-virtual {v1}, Lcom/android/systemui/statusbar/NotificationData$Entry;->setInterruption()V
+
+    .line 1373
+    iget-object v2, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mHeadsUpNotificationView:Lcom/android/systemui/statusbar/policy/HeadsUpNotificationView;
+
+    iget-object v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mInterruptingNotificationEntry:Lcom/android/systemui/statusbar/NotificationData$Entry;
+
+    invoke-virtual {v2, v3}, Lcom/android/systemui/statusbar/policy/HeadsUpNotificationView;->setNotification(Lcom/android/systemui/statusbar/NotificationData$Entry;)Z
+
+    .line 1376
+    iget-object v2, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mHandler:Lcom/android/systemui/statusbar/BaseStatusBar$H;
+
+    const/16 v3, 0x402
+
+    invoke-virtual {v2, v3}, Lcom/android/systemui/statusbar/BaseStatusBar$H;->sendEmptyMessage(I)Z
+
+    .line 1379
+    invoke-virtual {p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->resetHeadsUpDecayTimer()V
+
+    .line 1400
+    .end local v0           #interruptionCandidate:Lcom/android/systemui/statusbar/NotificationData$Entry;
+    :cond_1
     :goto_1
+    invoke-virtual {p0, v1}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->addNotificationViews(Lcom/android/systemui/statusbar/NotificationData$Entry;)V
+
+    .line 1402
+    invoke-virtual {p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->setAreThereNotifications()V
+
+    .line 1403
+    const/16 v2, -0x2710
+
+    invoke-virtual {p0, v2}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->updateExpandedViewPos(I)V
+
+    goto :goto_0
+
+    .line 1381
+    :cond_2
     invoke-virtual {p2}, Landroid/service/notification/StatusBarNotification;->getNotification()Landroid/app/Notification;
 
     move-result-object v2
 
     iget-object v2, v2, Landroid/app/Notification;->fullScreenIntent:Landroid/app/PendingIntent;
 
-    if-eqz v2, :cond_2
+    if-eqz v2, :cond_3
 
-    .line 1463
+    .line 1384
     invoke-direct {p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->awakenDreams()V
 
-    .line 1468
-    :try_start_1
+    .line 1389
+    :try_start_0
     invoke-virtual {p2}, Landroid/service/notification/StatusBarNotification;->getNotification()Landroid/app/Notification;
 
     move-result-object v2
@@ -6000,1067 +4364,134 @@
     iget-object v2, v2, Landroid/app/Notification;->fullScreenIntent:Landroid/app/PendingIntent;
 
     invoke-virtual {v2}, Landroid/app/PendingIntent;->send()V
-    :try_end_1
-    .catch Landroid/app/PendingIntent$CanceledException; {:try_start_1 .. :try_end_1} :catch_0
+    :try_end_0
+    .catch Landroid/app/PendingIntent$CanceledException; {:try_start_0 .. :try_end_0} :catch_0
 
-    .line 1481
-    :cond_1
-    :goto_2
-    invoke-virtual {p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->setAreThereNotifications()V
+    goto :goto_1
 
-    .line 1482
-    const/16 v2, -0x2710
-
-    invoke-virtual {p0, v2}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->updateExpandedViewPos(I)V
-
-    goto :goto_0
-
-    .line 1475
-    :cond_2
-    iget-object v2, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mCurrentlyIntrudingNotification:Landroid/service/notification/StatusBarNotification;
-
-    if-nez v2, :cond_1
-
-    .line 1476
-    const/4 v2, 0x0
-
-    const/4 v3, 0x1
-
-    invoke-virtual {p0, v2, p2, v3}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->tick(Landroid/os/IBinder;Landroid/service/notification/StatusBarNotification;Z)V
-
-    goto :goto_2
-
-    .line 1469
+    .line 1390
     :catch_0
-    move-exception v2
-
-    goto :goto_2
-
-    .line 1421
-    :catch_1
     move-exception v2
 
     goto :goto_1
-.end method
 
-.method protected addPanelWindows()V
-    .locals 25
-
-    .prologue
-    .line 4179
-    move-object/from16 v0, p0
-
-    iget-object v8, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mContext:Landroid/content/Context;
-
-    .line 4181
-    .local v8, context:Landroid/content/Context;
-    move-object/from16 v0, p0
-
-    iget-boolean v3, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mMiniModeTrayEnabled:Z
-
-    if-eqz v3, :cond_6
-
-    .line 4184
-    :try_start_0
-    const-string v3, "com.android.systemui.statusbar.MiniModeAppsPanel"
-
-    invoke-static {v3}, Ljava/lang/Class;->forName(Ljava/lang/String;)Ljava/lang/Class;
-
-    move-result-object v3
-
-    move-object/from16 v0, p0
-
-    iput-object v3, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mMiniModeTrayClass:Ljava/lang/Class;
-    :try_end_0
-    .catch Ljava/lang/ClassNotFoundException; {:try_start_0 .. :try_end_0} :catch_1
-    .catch Ljava/lang/NoSuchMethodException; {:try_start_0 .. :try_end_0} :catch_3
-    .catch Ljava/lang/IllegalAccessException; {:try_start_0 .. :try_end_0} :catch_5
-    .catch Ljava/lang/reflect/InvocationTargetException; {:try_start_0 .. :try_end_0} :catch_7
-    .catch Ljava/lang/Exception; {:try_start_0 .. :try_end_0} :catch_8
-
-    .line 4185
-    const/16 v19, -0x1
-
-    .line 4187
-    .local v19, miniAppPanelId:I
-    :try_start_1
-    const-class v3, Lcom/android/systemui/R$layout;
-
-    const-string v4, "status_bar_mini_mode_apps_panel"
-
-    invoke-virtual {v3, v4}, Ljava/lang/Class;->getField(Ljava/lang/String;)Ljava/lang/reflect/Field;
-
-    move-result-object v15
-
-    .line 4188
-    .local v15, layoutField:Ljava/lang/reflect/Field;
-    if-eqz v15, :cond_0
-
-    .line 4189
-    invoke-virtual {v15, v15}, Ljava/lang/reflect/Field;->getInt(Ljava/lang/Object;)I
-    :try_end_1
-    .catch Ljava/lang/SecurityException; {:try_start_1 .. :try_end_1} :catch_0
-    .catch Ljava/lang/NoSuchFieldException; {:try_start_1 .. :try_end_1} :catch_2
-    .catch Ljava/lang/IllegalArgumentException; {:try_start_1 .. :try_end_1} :catch_4
-    .catch Ljava/lang/IllegalAccessException; {:try_start_1 .. :try_end_1} :catch_6
-    .catch Ljava/lang/ClassNotFoundException; {:try_start_1 .. :try_end_1} :catch_1
-    .catch Ljava/lang/NoSuchMethodException; {:try_start_1 .. :try_end_1} :catch_3
-    .catch Ljava/lang/reflect/InvocationTargetException; {:try_start_1 .. :try_end_1} :catch_7
-    .catch Ljava/lang/Exception; {:try_start_1 .. :try_end_1} :catch_8
-
-    move-result v19
-
-    .line 4201
-    .end local v15           #layoutField:Ljava/lang/reflect/Field;
-    :cond_0
-    :goto_0
-    if-lez v19, :cond_1
-
-    .line 4202
-    const/4 v3, 0x0
-
-    :try_start_2
-    move/from16 v0, v19
-
-    invoke-static {v8, v0, v3}, Landroid/view/View;->inflate(Landroid/content/Context;ILandroid/view/ViewGroup;)Landroid/view/View;
-
-    move-result-object v3
-
-    check-cast v3, Landroid/view/ViewGroup;
-
-    move-object/from16 v0, p0
-
-    iput-object v3, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mMiniModeAppsPanel:Landroid/view/ViewGroup;
-
-    .line 4205
-    :cond_1
-    move-object/from16 v0, p0
-
-    iget-object v3, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mMiniModeAppsPanel:Landroid/view/ViewGroup;
-
-    if-eqz v3, :cond_3
-
-    .line 4206
-    const/4 v3, 0x1
-
-    move-object/from16 v0, p0
-
-    iput-boolean v3, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mIsMiniAppPanelLoadedProperly:Z
-
-    .line 4207
-    move-object/from16 v0, p0
-
-    iget-object v3, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mMiniModeAppsPanel:Landroid/view/ViewGroup;
-
-    const/16 v4, 0x8
-
-    invoke-virtual {v3, v4}, Landroid/view/ViewGroup;->setVisibility(I)V
-
-    .line 4212
-    :goto_1
-    new-instance v2, Landroid/view/WindowManager$LayoutParams;
-
-    const/4 v3, -0x1
-
-    const/4 v4, -0x2
-
-    const/16 v5, 0x7e8
-
-    const v6, 0x800128
-
-    const/4 v7, -0x3
-
-    invoke-direct/range {v2 .. v7}, Landroid/view/WindowManager$LayoutParams;-><init>(IIIII)V
-
-    .line 4222
-    .local v2, lp:Landroid/view/WindowManager$LayoutParams;
-    const/16 v3, 0x53
-
-    iput v3, v2, Landroid/view/WindowManager$LayoutParams;->gravity:I
-
-    .line 4223
-    const-string v3, "MiniModeAppsPanel"
-
-    invoke-virtual {v2, v3}, Landroid/view/WindowManager$LayoutParams;->setTitle(Ljava/lang/CharSequence;)V
-
-    .line 4225
-    move-object/from16 v0, p0
-
-    iget-object v3, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mWindowManager:Landroid/view/WindowManager;
-
-    move-object/from16 v0, p0
-
-    iget-object v4, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mMiniModeAppsPanel:Landroid/view/ViewGroup;
-
-    invoke-interface {v3, v4, v2}, Landroid/view/WindowManager;->addView(Landroid/view/View;Landroid/view/ViewGroup$LayoutParams;)V
-
-    .line 4227
-    move-object/from16 v0, p0
-
-    iget-object v3, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mMiniModeTrayClass:Ljava/lang/Class;
-
-    const-string v4, "closeMiniAppsPanel"
-
-    const/4 v5, 0x0
-
-    new-array v5, v5, [Ljava/lang/Class;
-
-    invoke-virtual {v3, v4, v5}, Ljava/lang/Class;->getMethod(Ljava/lang/String;[Ljava/lang/Class;)Ljava/lang/reflect/Method;
-
-    move-result-object v3
-
-    move-object/from16 v0, p0
-
-    iput-object v3, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mCloseMiniAppsPanel:Ljava/lang/reflect/Method;
-
-    .line 4228
-    move-object/from16 v0, p0
-
-    iget-object v3, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mMiniModeTrayClass:Ljava/lang/Class;
-
-    const-string v4, "openMiniAppsPanel"
-
-    const/4 v5, 0x0
-
-    new-array v5, v5, [Ljava/lang/Class;
-
-    invoke-virtual {v3, v4, v5}, Ljava/lang/Class;->getMethod(Ljava/lang/String;[Ljava/lang/Class;)Ljava/lang/reflect/Method;
-
-    move-result-object v3
-
-    move-object/from16 v0, p0
-
-    iput-object v3, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mOpenMiniAppsPanel:Ljava/lang/reflect/Method;
-
-    .line 4230
-    move-object/from16 v0, p0
-
-    iget-object v3, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mMiniModeTrayClass:Ljava/lang/Class;
-
-    move-object/from16 v0, p0
-
-    iget-object v4, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mMiniModeAppsPanel:Landroid/view/ViewGroup;
-
-    invoke-virtual {v3, v4}, Ljava/lang/Class;->isInstance(Ljava/lang/Object;)Z
-
-    move-result v3
-
-    if-eqz v3, :cond_2
-
-    .line 4231
-    const/4 v3, 0x1
-
-    new-array v0, v3, [Ljava/lang/Class;
-
-    move-object/from16 v20, v0
-
-    const/4 v3, 0x0
-
-    const-class v4, Lcom/android/systemui/statusbar/BaseStatusBar;
-
-    aput-object v4, v20, v3
-
-    .line 4232
-    .local v20, paramTypes1:[Ljava/lang/Class;
-    move-object/from16 v0, p0
-
-    iget-object v3, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mMiniModeTrayClass:Ljava/lang/Class;
-
-    const-string v4, "setBar"
-
-    move-object/from16 v0, v20
-
-    invoke-virtual {v3, v4, v0}, Ljava/lang/Class;->getMethod(Ljava/lang/String;[Ljava/lang/Class;)Ljava/lang/reflect/Method;
-
-    move-result-object v17
-
-    .line 4233
-    .local v17, mSetBar:Ljava/lang/reflect/Method;
-    const/4 v3, 0x1
-
-    new-array v0, v3, [Ljava/lang/Object;
-
-    move-object/from16 v22, v0
-
-    const/4 v3, 0x0
-
-    aput-object p0, v22, v3
-
-    .line 4235
-    .local v22, params:[Ljava/lang/Object;
-    const/4 v3, 0x1
-
-    new-array v0, v3, [Ljava/lang/Class;
-
-    move-object/from16 v21, v0
-
-    const/4 v3, 0x0
-
-    const-class v4, Landroid/os/Handler;
-
-    aput-object v4, v21, v3
-
-    .line 4236
-    .local v21, paramTypes2:[Ljava/lang/Class;
-    const/4 v3, 0x1
-
-    new-array v0, v3, [Ljava/lang/Object;
-
-    move-object/from16 v23, v0
-
-    const/4 v3, 0x0
-
-    move-object/from16 v0, p0
-
-    iget-object v4, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mHandler:Lcom/android/systemui/statusbar/BaseStatusBar$H;
-
-    aput-object v4, v23, v3
-
-    .line 4237
-    .local v23, params2:[Ljava/lang/Object;
-    move-object/from16 v0, p0
-
-    iget-object v3, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mMiniModeTrayClass:Ljava/lang/Class;
-
-    const-string v4, "setStatusBarHandler"
-
-    move-object/from16 v0, v21
-
-    invoke-virtual {v3, v4, v0}, Ljava/lang/Class;->getMethod(Ljava/lang/String;[Ljava/lang/Class;)Ljava/lang/reflect/Method;
-
-    move-result-object v18
-
-    .line 4239
-    .local v18, mSetHandler:Ljava/lang/reflect/Method;
-    move-object/from16 v0, p0
-
-    iget-object v3, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mMiniModeAppsPanel:Landroid/view/ViewGroup;
-
-    move-object/from16 v0, v17
-
-    move-object/from16 v1, v22
-
-    invoke-virtual {v0, v3, v1}, Ljava/lang/reflect/Method;->invoke(Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object;
-
-    .line 4240
-    move-object/from16 v0, p0
-
-    iget-object v3, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mMiniModeAppsPanel:Landroid/view/ViewGroup;
-
-    move-object/from16 v0, v18
-
-    move-object/from16 v1, v23
-
-    invoke-virtual {v0, v3, v1}, Ljava/lang/reflect/Method;->invoke(Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object;
-    :try_end_2
-    .catch Ljava/lang/ClassNotFoundException; {:try_start_2 .. :try_end_2} :catch_1
-    .catch Ljava/lang/NoSuchMethodException; {:try_start_2 .. :try_end_2} :catch_3
-    .catch Ljava/lang/IllegalAccessException; {:try_start_2 .. :try_end_2} :catch_5
-    .catch Ljava/lang/reflect/InvocationTargetException; {:try_start_2 .. :try_end_2} :catch_7
-    .catch Ljava/lang/Exception; {:try_start_2 .. :try_end_2} :catch_8
-
-    .line 4259
-    .end local v2           #lp:Landroid/view/WindowManager$LayoutParams;
-    .end local v17           #mSetBar:Ljava/lang/reflect/Method;
-    .end local v18           #mSetHandler:Ljava/lang/reflect/Method;
-    .end local v19           #miniAppPanelId:I
-    .end local v20           #paramTypes1:[Ljava/lang/Class;
-    .end local v21           #paramTypes2:[Ljava/lang/Class;
-    .end local v22           #params:[Ljava/lang/Object;
-    .end local v23           #params2:[Ljava/lang/Object;
-    :cond_2
-    :goto_2
-    move-object/from16 v0, p0
-
-    iget-boolean v3, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mIsMiniAppPanelLoadedProperly:Z
-
-    if-eqz v3, :cond_6
-
-    .line 4260
-    const/4 v3, 0x0
-
-    move-object/from16 v0, p0
-
-    iput-object v3, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mMiniModeTrayView:Landroid/view/View;
-
-    .line 4261
-    new-instance v3, Lcom/android/systemui/statusbar/TFCubicRotateAnimation;
-
-    const/4 v4, 0x3
-
-    invoke-direct {v3, v4}, Lcom/android/systemui/statusbar/TFCubicRotateAnimation;-><init>(I)V
-
-    move-object/from16 v0, p0
-
-    iput-object v3, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mMiniModeAppsPanelOutAnim:Landroid/view/animation/Animation;
-
-    .line 4262
-    move-object/from16 v0, p0
-
-    iget-object v3, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mMiniModeAppsPanelOutAnim:Landroid/view/animation/Animation;
-
-    const-wide/16 v4, 0x10e
-
-    invoke-virtual {v3, v4, v5}, Landroid/view/animation/Animation;->setDuration(J)V
-
-    .line 4263
-    new-instance v3, Lcom/android/systemui/statusbar/TFCubicRotateAnimation;
-
-    const/4 v4, 0x0
-
-    invoke-direct {v3, v4}, Lcom/android/systemui/statusbar/TFCubicRotateAnimation;-><init>(I)V
-
-    move-object/from16 v0, p0
-
-    iput-object v3, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mMiniModeAppsPanelInAnim:Landroid/view/animation/Animation;
-
-    .line 4264
-    move-object/from16 v0, p0
-
-    iget-object v3, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mMiniModeAppsPanelInAnim:Landroid/view/animation/Animation;
-
-    const-wide/16 v4, 0x10e
-
-    invoke-virtual {v3, v4, v5}, Landroid/view/animation/Animation;->setDuration(J)V
-
-    .line 4266
-    move-object/from16 v0, p0
-
-    iget-object v3, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNavigationBarView:Lcom/android/systemui/statusbar/phone/NavigationBarView;
-
-    if-eqz v3, :cond_5
-
-    .line 4267
-    move-object/from16 v0, p0
-
-    iget-object v3, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNavigationBarView:Lcom/android/systemui/statusbar/phone/NavigationBarView;
-
-    const v4, 0x7f09001d
-
-    invoke-virtual {v3, v4}, Lcom/android/systemui/statusbar/phone/NavigationBarView;->findViewById(I)Landroid/view/View;
-
-    move-result-object v3
-
-    move-object/from16 v0, p0
-
-    iput-object v3, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNavigationBarContainerView:Landroid/view/View;
-
-    .line 4268
-    new-instance v3, Lcom/android/systemui/statusbar/TFCubicRotateAnimation;
-
-    const/4 v4, 0x1
-
-    invoke-direct {v3, v4}, Lcom/android/systemui/statusbar/TFCubicRotateAnimation;-><init>(I)V
-
-    move-object/from16 v0, p0
-
-    iput-object v3, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNavigationBarOutAnim:Landroid/view/animation/Animation;
-
-    .line 4269
-    move-object/from16 v0, p0
-
-    iget-object v3, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNavigationBarOutAnim:Landroid/view/animation/Animation;
-
-    const-wide/16 v4, 0x10e
-
-    invoke-virtual {v3, v4, v5}, Landroid/view/animation/Animation;->setDuration(J)V
-
-    .line 4270
-    new-instance v3, Lcom/android/systemui/statusbar/TFCubicRotateAnimation;
-
-    const/4 v4, 0x2
-
-    invoke-direct {v3, v4}, Lcom/android/systemui/statusbar/TFCubicRotateAnimation;-><init>(I)V
-
-    move-object/from16 v0, p0
-
-    iput-object v3, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNavigationBarInAnim:Landroid/view/animation/Animation;
-
-    .line 4271
-    move-object/from16 v0, p0
-
-    iget-object v3, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNavigationBarInAnim:Landroid/view/animation/Animation;
-
-    const-wide/16 v4, 0x10e
-
-    invoke-virtual {v3, v4, v5}, Landroid/view/animation/Animation;->setDuration(J)V
-
-    .line 4272
-    move-object/from16 v0, p0
-
-    iget-object v3, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNavigationBarOutAnim:Landroid/view/animation/Animation;
-
-    new-instance v4, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$32;
-
-    move-object/from16 v0, p0
-
-    invoke-direct {v4, v0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$32;-><init>(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)V
-
-    invoke-virtual {v3, v4}, Landroid/view/animation/Animation;->setAnimationListener(Landroid/view/animation/Animation$AnimationListener;)V
-
-    .line 4287
-    move-object/from16 v0, p0
-
-    iget-object v3, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mCues:[Landroid/view/View;
-
-    const/4 v4, 0x0
-
-    move-object/from16 v0, p0
-
-    iget-object v5, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mCues:[Landroid/view/View;
-
-    const/4 v6, 0x2
-
-    move-object/from16 v0, p0
-
-    iget-object v7, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNavigationBarView:Lcom/android/systemui/statusbar/phone/NavigationBarView;
-
-    iget-object v7, v7, Lcom/android/systemui/statusbar/phone/NavigationBarView;->mRotatedViews:[Landroid/view/View;
-
-    const/16 v24, 0x0
-
-    aget-object v7, v7, v24
-
-    const v24, 0x7f090020
-
-    move/from16 v0, v24
-
-    invoke-virtual {v7, v0}, Landroid/view/View;->findViewById(I)Landroid/view/View;
-
-    move-result-object v7
-
-    aput-object v7, v5, v6
-
-    aput-object v7, v3, v4
-
-    .line 4288
-    move-object/from16 v0, p0
-
-    iget-object v3, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mCues:[Landroid/view/View;
-
-    const/4 v4, 0x1
-
-    move-object/from16 v0, p0
-
-    iget-object v5, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mCues:[Landroid/view/View;
-
-    const/4 v6, 0x3
-
-    move-object/from16 v0, p0
-
-    iget-object v7, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNavigationBarView:Lcom/android/systemui/statusbar/phone/NavigationBarView;
-
-    iget-object v7, v7, Lcom/android/systemui/statusbar/phone/NavigationBarView;->mRotatedViews:[Landroid/view/View;
-
-    const/16 v24, 0x1
-
-    aget-object v7, v7, v24
-
-    const v24, 0x7f090020
-
-    move/from16 v0, v24
-
-    invoke-virtual {v7, v0}, Landroid/view/View;->findViewById(I)Landroid/view/View;
-
-    move-result-object v7
-
-    aput-object v7, v5, v6
-
-    aput-object v7, v3, v4
-
-    .line 4289
-    const/16 v16, 0x0
-
-    .line 4291
-    .local v16, mCue:Landroid/view/View;
-    const/4 v12, 0x0
-
-    .local v12, i:I
-    :goto_3
-    const/4 v3, 0x4
-
-    if-ge v12, v3, :cond_5
-
-    .line 4292
-    move-object/from16 v0, p0
-
-    iget-object v3, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mCues:[Landroid/view/View;
-
-    aget-object v16, v3, v12
-
-    .line 4293
-    if-eqz v16, :cond_4
-
-    .line 4294
-    const/4 v3, 0x0
-
-    move-object/from16 v0, v16
-
-    invoke-virtual {v0, v3}, Landroid/view/View;->setSoundEffectsEnabled(Z)V
-
-    .line 4295
-    new-instance v3, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$33;
-
-    move-object/from16 v0, p0
-
-    invoke-direct {v3, v0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$33;-><init>(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)V
-
-    move-object/from16 v0, v16
-
-    invoke-virtual {v0, v3}, Landroid/view/View;->setOnClickListener(Landroid/view/View$OnClickListener;)V
-
-    .line 4304
-    const/4 v3, 0x0
-
-    move-object/from16 v0, v16
-
-    invoke-virtual {v0, v3}, Landroid/view/View;->setVisibility(I)V
-
-    .line 4291
-    :goto_4
-    add-int/lit8 v12, v12, 0x1
-
-    goto :goto_3
-
-    .line 4191
-    .end local v12           #i:I
-    .end local v16           #mCue:Landroid/view/View;
-    .restart local v19       #miniAppPanelId:I
-    :catch_0
-    move-exception v10
-
-    .line 4192
-    .local v10, e:Ljava/lang/SecurityException;
-    :try_start_3
-    const-string v3, "PhoneStatusBar"
-
-    const-string v4, "SecurityException"
-
-    invoke-static {v3, v4}, Landroid/util/Slog;->w(Ljava/lang/String;Ljava/lang/String;)I
-    :try_end_3
-    .catch Ljava/lang/ClassNotFoundException; {:try_start_3 .. :try_end_3} :catch_1
-    .catch Ljava/lang/NoSuchMethodException; {:try_start_3 .. :try_end_3} :catch_3
-    .catch Ljava/lang/IllegalAccessException; {:try_start_3 .. :try_end_3} :catch_5
-    .catch Ljava/lang/reflect/InvocationTargetException; {:try_start_3 .. :try_end_3} :catch_7
-    .catch Ljava/lang/Exception; {:try_start_3 .. :try_end_3} :catch_8
-
-    goto/16 :goto_0
-
-    .line 4242
-    .end local v10           #e:Ljava/lang/SecurityException;
-    .end local v19           #miniAppPanelId:I
-    :catch_1
-    move-exception v11
-
-    .line 4243
-    .local v11, ex:Ljava/lang/ClassNotFoundException;
-    const-string v3, "PhoneStatusBar"
-
-    const-string v4, "ClassNotFoundException"
-
-    invoke-static {v3, v4}, Landroid/util/Slog;->w(Ljava/lang/String;Ljava/lang/String;)I
-
-    .line 4244
-    const/4 v3, 0x0
-
-    move-object/from16 v0, p0
-
-    iput-boolean v3, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mIsMiniAppPanelLoadedProperly:Z
-
-    goto/16 :goto_2
-
-    .line 4193
-    .end local v11           #ex:Ljava/lang/ClassNotFoundException;
-    .restart local v19       #miniAppPanelId:I
-    :catch_2
-    move-exception v10
-
-    .line 4194
-    .local v10, e:Ljava/lang/NoSuchFieldException;
-    :try_start_4
-    const-string v3, "PhoneStatusBar"
-
-    const-string v4, "NoSuchFieldException"
-
-    invoke-static {v3, v4}, Landroid/util/Slog;->w(Ljava/lang/String;Ljava/lang/String;)I
-    :try_end_4
-    .catch Ljava/lang/ClassNotFoundException; {:try_start_4 .. :try_end_4} :catch_1
-    .catch Ljava/lang/NoSuchMethodException; {:try_start_4 .. :try_end_4} :catch_3
-    .catch Ljava/lang/IllegalAccessException; {:try_start_4 .. :try_end_4} :catch_5
-    .catch Ljava/lang/reflect/InvocationTargetException; {:try_start_4 .. :try_end_4} :catch_7
-    .catch Ljava/lang/Exception; {:try_start_4 .. :try_end_4} :catch_8
-
-    goto/16 :goto_0
-
-    .line 4245
-    .end local v10           #e:Ljava/lang/NoSuchFieldException;
-    .end local v19           #miniAppPanelId:I
-    :catch_3
-    move-exception v11
-
-    .line 4246
-    .local v11, ex:Ljava/lang/NoSuchMethodException;
-    const-string v3, "PhoneStatusBar"
-
-    const-string v4, "NoSuchMethodException"
-
-    invoke-static {v3, v4}, Landroid/util/Slog;->w(Ljava/lang/String;Ljava/lang/String;)I
-
-    .line 4247
-    const/4 v3, 0x0
-
-    move-object/from16 v0, p0
-
-    iput-boolean v3, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mIsMiniAppPanelLoadedProperly:Z
-
-    goto/16 :goto_2
-
-    .line 4195
-    .end local v11           #ex:Ljava/lang/NoSuchMethodException;
-    .restart local v19       #miniAppPanelId:I
-    :catch_4
-    move-exception v10
-
-    .line 4196
-    .local v10, e:Ljava/lang/IllegalArgumentException;
-    :try_start_5
-    const-string v3, "PhoneStatusBar"
-
-    const-string v4, "IllegalArgumentException"
-
-    invoke-static {v3, v4}, Landroid/util/Slog;->w(Ljava/lang/String;Ljava/lang/String;)I
-    :try_end_5
-    .catch Ljava/lang/ClassNotFoundException; {:try_start_5 .. :try_end_5} :catch_1
-    .catch Ljava/lang/NoSuchMethodException; {:try_start_5 .. :try_end_5} :catch_3
-    .catch Ljava/lang/IllegalAccessException; {:try_start_5 .. :try_end_5} :catch_5
-    .catch Ljava/lang/reflect/InvocationTargetException; {:try_start_5 .. :try_end_5} :catch_7
-    .catch Ljava/lang/Exception; {:try_start_5 .. :try_end_5} :catch_8
-
-    goto/16 :goto_0
-
-    .line 4248
-    .end local v10           #e:Ljava/lang/IllegalArgumentException;
-    .end local v19           #miniAppPanelId:I
-    :catch_5
-    move-exception v11
-
-    .line 4249
-    .local v11, ex:Ljava/lang/IllegalAccessException;
-    const-string v3, "PhoneStatusBar"
-
-    const-string v4, "IllegalAccessException"
-
-    invoke-static {v3, v4}, Landroid/util/Slog;->w(Ljava/lang/String;Ljava/lang/String;)I
-
-    .line 4250
-    const/4 v3, 0x0
-
-    move-object/from16 v0, p0
-
-    iput-boolean v3, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mIsMiniAppPanelLoadedProperly:Z
-
-    goto/16 :goto_2
-
-    .line 4197
-    .end local v11           #ex:Ljava/lang/IllegalAccessException;
-    .restart local v19       #miniAppPanelId:I
-    :catch_6
-    move-exception v10
-
-    .line 4198
-    .local v10, e:Ljava/lang/IllegalAccessException;
-    :try_start_6
-    const-string v3, "PhoneStatusBar"
-
-    const-string v4, "IllegalAccessException"
-
-    invoke-static {v3, v4}, Landroid/util/Slog;->w(Ljava/lang/String;Ljava/lang/String;)I
-    :try_end_6
-    .catch Ljava/lang/ClassNotFoundException; {:try_start_6 .. :try_end_6} :catch_1
-    .catch Ljava/lang/NoSuchMethodException; {:try_start_6 .. :try_end_6} :catch_3
-    .catch Ljava/lang/IllegalAccessException; {:try_start_6 .. :try_end_6} :catch_5
-    .catch Ljava/lang/reflect/InvocationTargetException; {:try_start_6 .. :try_end_6} :catch_7
-    .catch Ljava/lang/Exception; {:try_start_6 .. :try_end_6} :catch_8
-
-    goto/16 :goto_0
-
-    .line 4251
-    .end local v10           #e:Ljava/lang/IllegalAccessException;
-    .end local v19           #miniAppPanelId:I
-    :catch_7
-    move-exception v11
-
-    .line 4252
-    .local v11, ex:Ljava/lang/reflect/InvocationTargetException;
-    const-string v3, "PhoneStatusBar"
-
-    const-string v4, "InvocationTargetException"
-
-    invoke-static {v3, v4}, Landroid/util/Slog;->w(Ljava/lang/String;Ljava/lang/String;)I
-
-    .line 4253
-    const/4 v3, 0x0
-
-    move-object/from16 v0, p0
-
-    iput-boolean v3, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mIsMiniAppPanelLoadedProperly:Z
-
-    goto/16 :goto_2
-
-    .line 4209
-    .end local v11           #ex:Ljava/lang/reflect/InvocationTargetException;
-    .restart local v19       #miniAppPanelId:I
+    .line 1396
     :cond_3
-    :try_start_7
-    const-string v3, "PhoneStatusBar"
+    iget-object v2, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mInterruptingNotificationEntry:Lcom/android/systemui/statusbar/NotificationData$Entry;
 
-    const-string v4, "MiniModeAppsPanel is not loaded properly"
+    if-nez v2, :cond_1
 
-    invoke-static {v3, v4}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I
-    :try_end_7
-    .catch Ljava/lang/ClassNotFoundException; {:try_start_7 .. :try_end_7} :catch_1
-    .catch Ljava/lang/NoSuchMethodException; {:try_start_7 .. :try_end_7} :catch_3
-    .catch Ljava/lang/IllegalAccessException; {:try_start_7 .. :try_end_7} :catch_5
-    .catch Ljava/lang/reflect/InvocationTargetException; {:try_start_7 .. :try_end_7} :catch_7
-    .catch Ljava/lang/Exception; {:try_start_7 .. :try_end_7} :catch_8
+    .line 1397
+    const/4 v2, 0x1
 
-    goto/16 :goto_1
+    invoke-virtual {p0, v3, p2, v2}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->tick(Landroid/os/IBinder;Landroid/service/notification/StatusBarNotification;Z)V
 
-    .line 4254
-    .end local v19           #miniAppPanelId:I
-    :catch_8
-    move-exception v11
-
-    .line 4255
-    .local v11, ex:Ljava/lang/Exception;
-    const-string v3, "PhoneStatusBar"
-
-    const-string v4, "Loading MiniAppsPanel has failed."
-
-    invoke-static {v3, v4, v11}, Landroid/util/Slog;->w(Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)I
-
-    .line 4256
-    const/4 v3, 0x0
-
-    move-object/from16 v0, p0
-
-    iput-boolean v3, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mIsMiniAppPanelLoadedProperly:Z
-
-    goto/16 :goto_2
-
-    .line 4306
-    .end local v11           #ex:Ljava/lang/Exception;
-    .restart local v12       #i:I
-    .restart local v16       #mCue:Landroid/view/View;
-    :cond_4
-    const-string v3, "PhoneStatusBar"
-
-    const-string v4, "can not load resource. (R.id.traybar_handler)"
-
-    invoke-static {v3, v4}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I
-
-    goto/16 :goto_4
-
-    .line 4310
-    .end local v12           #i:I
-    .end local v16           #mCue:Landroid/view/View;
-    :cond_5
-    invoke-direct/range {p0 .. p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->initTraySound()V
-
-    .line 4314
-    :cond_6
-    move-object/from16 v0, p0
-
-    iget-boolean v3, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mMiniModeTrayEnabled:Z
-
-    if-eqz v3, :cond_7
-
-    move-object/from16 v0, p0
-
-    iget-boolean v3, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mIsMiniAppPanelLoadedProperly:Z
-
-    if-nez v3, :cond_9
-
-    .line 4315
-    :cond_7
-    move-object/from16 v0, p0
-
-    iget-object v3, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mShadow:Landroid/view/View;
-
-    if-eqz v3, :cond_9
-
-    .line 4316
-    const/4 v13, -0x1
-
-    .line 4318
-    .local v13, id:I
-    :try_start_8
-    const-class v3, Lcom/android/systemui/R$id;
-
-    const-string v4, "miniapp_tray_dot"
-
-    invoke-virtual {v3, v4}, Ljava/lang/Class;->getField(Ljava/lang/String;)Ljava/lang/reflect/Field;
-
-    move-result-object v14
-
-    .line 4319
-    .local v14, idfield:Ljava/lang/reflect/Field;
-    if-eqz v14, :cond_8
-
-    .line 4320
-    invoke-virtual {v14, v14}, Ljava/lang/reflect/Field;->getInt(Ljava/lang/Object;)I
-    :try_end_8
-    .catch Ljava/lang/SecurityException; {:try_start_8 .. :try_end_8} :catch_c
-    .catch Ljava/lang/NoSuchFieldException; {:try_start_8 .. :try_end_8} :catch_b
-    .catch Ljava/lang/IllegalArgumentException; {:try_start_8 .. :try_end_8} :catch_a
-    .catch Ljava/lang/IllegalAccessException; {:try_start_8 .. :try_end_8} :catch_9
-
-    move-result v13
-
-    .line 4328
-    .end local v14           #idfield:Ljava/lang/reflect/Field;
-    :cond_8
-    :goto_5
-    move-object/from16 v0, p0
-
-    iget-object v3, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mShadow:Landroid/view/View;
-
-    invoke-virtual {v3, v13}, Landroid/view/View;->findViewById(I)Landroid/view/View;
-
-    move-result-object v9
-
-    .line 4329
-    .local v9, dotView:Landroid/view/View;
-    if-eqz v9, :cond_9
-
-    .line 4330
-    const/16 v3, 0x8
-
-    invoke-virtual {v9, v3}, Landroid/view/View;->setVisibility(I)V
-
-    .line 4334
-    .end local v9           #dotView:Landroid/view/View;
-    .end local v13           #id:I
-    :cond_9
-    return-void
-
-    .line 4325
-    .restart local v13       #id:I
-    :catch_9
-    move-exception v3
-
-    goto :goto_5
-
-    .line 4324
-    :catch_a
-    move-exception v3
-
-    goto :goto_5
-
-    .line 4323
-    :catch_b
-    move-exception v3
-
-    goto :goto_5
-
-    .line 4322
-    :catch_c
-    move-exception v3
-
-    goto :goto_5
+    goto :goto_1
 .end method
 
 .method public animateCollapsePanels()V
     .locals 1
 
     .prologue
-    .line 2268
+    .line 2069
     const/4 v0, 0x0
 
     invoke-virtual {p0, v0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->animateCollapsePanels(I)V
 
-    .line 2269
+    .line 2070
     return-void
 .end method
 
 .method public animateCollapsePanels(I)V
-    .locals 4
+    .locals 3
     .parameter "flags"
 
     .prologue
-    const/16 v3, 0x401
+    const/16 v2, 0x401
 
-    const/16 v2, 0x3fd
+    const/16 v1, 0x3fd
 
-    .line 2272
-    const-string v0, "STATUSBAR-PhoneStatusBar"
-
-    const-string v1, "animateCollapsePanels"
-
-    invoke-static {v0, v1}, Landroid/util/Slog;->d(Ljava/lang/String;Ljava/lang/String;)I
-
-    .line 2283
-    and-int/lit8 v0, p1, 0x2
+    .line 2082
+    :try_start_0
+    iget-boolean v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mIsStatusBarHidden:Z
 
     if-nez v0, :cond_0
 
-    .line 2284
+    .line 2083
+    invoke-direct {p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->releaseFocus()V
+    :try_end_0
+    .catch Ljava/lang/IllegalArgumentException; {:try_start_0 .. :try_end_0} :catch_0
+
+    .line 2088
+    :cond_0
+    :goto_0
+    and-int/lit8 v0, p1, 0x2
+
+    if-nez v0, :cond_1
+
+    .line 2089
+    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mHandler:Lcom/android/systemui/statusbar/BaseStatusBar$H;
+
+    invoke-virtual {v0, v1}, Lcom/android/systemui/statusbar/BaseStatusBar$H;->removeMessages(I)V
+
+    .line 2090
+    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mHandler:Lcom/android/systemui/statusbar/BaseStatusBar$H;
+
+    invoke-virtual {v0, v1}, Lcom/android/systemui/statusbar/BaseStatusBar$H;->sendEmptyMessage(I)Z
+
+    .line 2093
+    :cond_1
+    and-int/lit8 v0, p1, 0x1
+
+    if-nez v0, :cond_2
+
+    .line 2094
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mHandler:Lcom/android/systemui/statusbar/BaseStatusBar$H;
 
     invoke-virtual {v0, v2}, Lcom/android/systemui/statusbar/BaseStatusBar$H;->removeMessages(I)V
 
-    .line 2285
+    .line 2095
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mHandler:Lcom/android/systemui/statusbar/BaseStatusBar$H;
 
     invoke-virtual {v0, v2}, Lcom/android/systemui/statusbar/BaseStatusBar$H;->sendEmptyMessage(I)Z
 
-    .line 2288
-    :cond_0
-    and-int/lit8 v0, p1, 0x1
-
-    if-nez v0, :cond_1
-
-    .line 2289
-    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mHandler:Lcom/android/systemui/statusbar/BaseStatusBar$H;
-
-    invoke-virtual {v0, v3}, Lcom/android/systemui/statusbar/BaseStatusBar$H;->removeMessages(I)V
-
-    .line 2290
-    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mHandler:Lcom/android/systemui/statusbar/BaseStatusBar$H;
-
-    invoke-virtual {v0, v3}, Lcom/android/systemui/statusbar/BaseStatusBar$H;->sendEmptyMessage(I)Z
-
-    .line 2293
-    :cond_1
+    .line 2098
+    :cond_2
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarWindow:Lcom/android/systemui/statusbar/phone/StatusBarWindowView;
 
     invoke-virtual {v0}, Lcom/android/systemui/statusbar/phone/StatusBarWindowView;->cancelExpandHelper()V
 
-    .line 2296
+    .line 2101
     invoke-virtual {p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->isStatusBarVisible()Z
 
     move-result v0
 
-    if-nez v0, :cond_2
+    if-nez v0, :cond_3
 
-    .line 2297
+    .line 2102
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarView:Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;
 
     const/4 v1, 0x0
 
     invoke-virtual {v0, v1}, Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;->collapseAllPanels(Z)V
 
-    .line 2303
-    :goto_0
+    .line 2107
+    :goto_1
     return-void
 
-    .line 2299
-    :cond_2
+    .line 2104
+    :cond_3
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarView:Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;
 
     const/4 v1, 0x1
 
     invoke-virtual {v0, v1}, Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;->collapseAllPanels(Z)V
+
+    goto :goto_1
+
+    .line 2085
+    :catch_0
+    move-exception v0
 
     goto :goto_0
 .end method
@@ -7069,54 +4500,52 @@
     .locals 2
 
     .prologue
-    .line 2614
+    .line 2494
     const-string v0, "STATUSBAR-PhoneStatusBar"
 
     const-string v1, "animateCollapseQuickSettings"
 
     invoke-static {v0, v1}, Landroid/util/Slog;->d(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 2615
+    .line 2495
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarView:Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;
 
     const/4 v1, 0x1
 
     invoke-virtual {v0, v1}, Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;->collapseAllPanels(Z)V
 
-    .line 2616
+    .line 2496
     return-void
 .end method
 
 .method public animateExpandNotificationsPanel()V
-    .locals 2
+    .locals 1
 
     .prologue
-    .line 2378
+    .line 2182
     iget-boolean v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mIsStatusBarHidden:Z
 
     if-eqz v0, :cond_1
 
-    .line 2393
+    .line 2197
     :cond_0
     :goto_0
     return-void
 
-    .line 2383
+    .line 2186
     :cond_1
-    iget v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mDisabled:I
+    invoke-virtual {p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->panelsEnabled()Z
 
-    const/high16 v1, 0x1
+    move-result v0
 
-    and-int/2addr v0, v1
+    if-eqz v0, :cond_0
 
-    if-nez v0, :cond_0
-
-    .line 2387
+    .line 2190
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationPanel:Lcom/android/systemui/statusbar/phone/NotificationPanelView;
 
     invoke-virtual {v0}, Lcom/android/systemui/statusbar/phone/NotificationPanelView;->expand()V
 
-    .line 2388
+    .line 2191
     iget-boolean v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mHasFlipSettings:Z
 
     if-eqz v0, :cond_0
@@ -7129,7 +4558,7 @@
 
     if-eqz v0, :cond_0
 
-    .line 2389
+    .line 2192
     invoke-virtual {p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->flipToNotifications()V
 
     goto :goto_0
@@ -7139,39 +4568,42 @@
     .locals 2
 
     .prologue
-    .line 2482
+    .line 2302
     const-string v0, "STATUSBAR-PhoneStatusBar"
 
     const-string v1, "animateExpandSettingsPanel"
 
     invoke-static {v0, v1}, Landroid/util/Slog;->d(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 2484
-    iget v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mDisabled:I
+    .line 2304
+    invoke-virtual {p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->panelsEnabled()Z
 
-    const/high16 v1, 0x1
+    move-result v0
 
-    and-int/2addr v0, v1
+    if-nez v0, :cond_1
 
-    if-eqz v0, :cond_1
-
-    .line 2498
+    .line 2322
     :cond_0
     :goto_0
     return-void
 
-    .line 2488
+    .line 2309
     :cond_1
+    iget-boolean v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mUserSetup:Z
+
+    if-eqz v0, :cond_0
+
+    .line 2311
     iget-boolean v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mHasFlipSettings:Z
 
     if-eqz v0, :cond_2
 
-    .line 2489
+    .line 2312
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationPanel:Lcom/android/systemui/statusbar/phone/NotificationPanelView;
 
     invoke-virtual {v0}, Lcom/android/systemui/statusbar/phone/NotificationPanelView;->expand()V
 
-    .line 2490
+    .line 2314
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mScrollView:Landroid/widget/ScrollView;
 
     invoke-virtual {v0}, Landroid/widget/ScrollView;->getVisibility()I
@@ -7180,57 +4612,129 @@
 
     if-nez v0, :cond_0
 
-    .line 2491
+    .line 2315
     invoke-virtual {p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->flipToSettings()V
 
     goto :goto_0
 
-    .line 2493
+    .line 2317
     :cond_2
-    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSettingsPanel:Lcom/android/systemui/statusbar/phone/SettingsPanelView;
+    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSettingsPanel:Lcom/android/systemui/statusbar/phone/PanelView;
 
     if-eqz v0, :cond_0
 
-    .line 2494
-    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSettingsPanel:Lcom/android/systemui/statusbar/phone/SettingsPanelView;
+    .line 2318
+    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSettingsPanel:Lcom/android/systemui/statusbar/phone/PanelView;
 
-    invoke-virtual {v0}, Lcom/android/systemui/statusbar/phone/SettingsPanelView;->expand()V
+    invoke-virtual {v0}, Lcom/android/systemui/statusbar/phone/PanelView;->expand()V
 
     goto :goto_0
+.end method
+
+.method public animateHeadsUp(ZF)V
+    .locals 4
+    .parameter "animateInto"
+    .parameter "frac"
+
+    .prologue
+    const/high16 v2, 0x3f80
+
+    .line 3768
+    iget-object v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mHeadsUpNotificationView:Lcom/android/systemui/statusbar/policy/HeadsUpNotificationView;
+
+    if-nez v3, :cond_0
+
+    .line 3776
+    :goto_0
+    return-void
+
+    .line 3769
+    :cond_0
+    const v3, 0x3ecccccd
+
+    div-float/2addr p2, v3
+
+    .line 3770
+    cmpg-float v3, p2, v2
+
+    if-gez v3, :cond_1
+
+    .line 3771
+    :goto_1
+    sub-float v0, v2, p2
+
+    .line 3772
+    .local v0, alpha:F
+    iget v2, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mHeadsUpVerticalOffset:F
+
+    mul-float v1, v2, p2
+
+    .line 3773
+    .local v1, offset:F
+    if-eqz p1, :cond_2
+
+    .line 3774
+    :goto_2
+    iget-object v2, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mHeadsUpNotificationView:Lcom/android/systemui/statusbar/policy/HeadsUpNotificationView;
+
+    invoke-virtual {v2, v0}, Lcom/android/systemui/statusbar/policy/HeadsUpNotificationView;->setAlpha(F)V
+
+    .line 3775
+    iget-object v2, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mHeadsUpNotificationView:Lcom/android/systemui/statusbar/policy/HeadsUpNotificationView;
+
+    invoke-virtual {v2, v1}, Lcom/android/systemui/statusbar/policy/HeadsUpNotificationView;->setY(F)V
+
+    goto :goto_0
+
+    .end local v0           #alpha:F
+    .end local v1           #offset:F
+    :cond_1
+    move p2, v2
+
+    .line 3770
+    goto :goto_1
+
+    .line 3773
+    .restart local v0       #alpha:F
+    .restart local v1       #offset:F
+    :cond_2
+    const/4 v1, 0x0
+
+    goto :goto_2
 .end method
 
 .method public applyEDMPolicy()V
     .locals 6
 
     .prologue
-    .line 3942
+    .line 4060
     :try_start_0
     invoke-virtual {p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->isStatusBarHidden()Z
 
     move-result v2
 
-    .line 3943
+    .line 4061
     .local v2, isStatusBarHidden:Z
     iget-boolean v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mIsStatusBarHidden:Z
 
     if-eq v3, v2, :cond_0
 
-    .line 3944
+    .line 4062
     iput-boolean v2, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mIsStatusBarHidden:Z
 
-    .line 3946
+    .line 4064
     iget-boolean v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mIsStatusBarHidden:Z
 
     if-eqz v3, :cond_2
 
-    .line 3947
+    .line 4065
     iget-object v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mWindowManager:Landroid/view/WindowManager;
 
     iget-object v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarWindow:Lcom/android/systemui/statusbar/phone/StatusBarWindowView;
 
     invoke-interface {v3, v4}, Landroid/view/WindowManager;->removeView(Landroid/view/View;)V
 
-    .line 3948
+    .line 4066
     const-string v3, "PhoneStatusBar"
 
     const-string v4, "Removed status bar view"
@@ -7239,7 +4743,7 @@
     :try_end_0
     .catch Ljava/lang/Exception; {:try_start_0 .. :try_end_0} :catch_0
 
-    .line 3959
+    .line 4077
     .end local v2           #isStatusBarHidden:Z
     :cond_0
     :goto_0
@@ -7248,21 +4752,21 @@
 
     move-result v1
 
-    .line 3960
+    .line 4078
     .local v1, isNavigationBarHidden:Z
     iget-boolean v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mIsNavigationBarHidden:Z
 
     if-eq v3, v1, :cond_1
 
-    .line 3961
+    .line 4079
     iput-boolean v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mIsNavigationBarHidden:Z
 
-    .line 3963
+    .line 4081
     iget-boolean v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mIsNavigationBarHidden:Z
 
     if-eqz v3, :cond_3
 
-    .line 3964
+    .line 4082
     iget-object v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mWindowManager:Landroid/view/WindowManager;
 
     iget-object v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNavigationBarView:Lcom/android/systemui/statusbar/phone/NavigationBarView;
@@ -7271,13 +4775,13 @@
     :try_end_1
     .catch Ljava/lang/Exception; {:try_start_1 .. :try_end_1} :catch_1
 
-    .line 3972
+    .line 4090
     .end local v1           #isNavigationBarHidden:Z
     :cond_1
     :goto_1
     return-void
 
-    .line 3950
+    .line 4068
     .restart local v2       #isStatusBarHidden:Z
     :cond_2
     :try_start_2
@@ -7289,7 +4793,7 @@
 
     invoke-interface {v3, v4, v5}, Landroid/view/WindowManager;->addView(Landroid/view/View;Landroid/view/ViewGroup$LayoutParams;)V
 
-    .line 3951
+    .line 4069
     const-string v3, "PhoneStatusBar"
 
     const-string v4, "Added status bar view"
@@ -7300,12 +4804,12 @@
 
     goto :goto_0
 
-    .line 3954
+    .line 4072
     .end local v2           #isStatusBarHidden:Z
     :catch_0
     move-exception v0
 
-    .line 3955
+    .line 4073
     .local v0, e:Ljava/lang/Exception;
     const-string v3, "PhoneStatusBar"
 
@@ -7331,7 +4835,7 @@
 
     goto :goto_0
 
-    .line 3966
+    .line 4084
     .end local v0           #e:Ljava/lang/Exception;
     .restart local v1       #isNavigationBarHidden:Z
     :cond_3
@@ -7350,12 +4854,12 @@
 
     goto :goto_1
 
-    .line 3969
+    .line 4087
     .end local v1           #isNavigationBarHidden:Z
     :catch_1
     move-exception v0
 
-    .line 3970
+    .line 4088
     .restart local v0       #e:Ljava/lang/Exception;
     const-string v3, "PhoneStatusBar"
 
@@ -7382,27 +4886,14 @@
     goto :goto_1
 .end method
 
-.method public coverCheck(Z)V
-    .locals 0
-    .parameter "coveropen"
-
-    .line 132
-    iput-boolean p1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mCoverOpen:Z
-
-    return-void
-.end method
-
 .method public createAndAddWindows()V
     .locals 0
 
     .prologue
-    .line 3189
+    .line 3190
     invoke-direct {p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->addStatusBarWindow()V
 
-    .line 3192
-    invoke-virtual {p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->addPanelWindows()V
-
-    .line 3193
+    .line 3191
     return-void
 .end method
 
@@ -7410,7 +4901,7 @@
     .locals 2
 
     .prologue
-    .line 2080
+    .line 1921
     new-instance v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$H;
 
     const/4 v1, 0x0
@@ -7418,6 +4909,50 @@
     invoke-direct {v0, p0, v1}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$H;-><init>(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;Lcom/android/systemui/statusbar/phone/PhoneStatusBar$1;)V
 
     return-object v0
+.end method
+
+.method public destroy()V
+    .locals 2
+
+    .prologue
+    .line 3983
+    invoke-super {p0}, Lcom/android/systemui/statusbar/BaseStatusBar;->destroy()V
+
+    .line 3984
+    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarWindow:Lcom/android/systemui/statusbar/phone/StatusBarWindowView;
+
+    if-eqz v0, :cond_0
+
+    .line 3985
+    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mWindowManager:Landroid/view/WindowManager;
+
+    iget-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarWindow:Lcom/android/systemui/statusbar/phone/StatusBarWindowView;
+
+    invoke-interface {v0, v1}, Landroid/view/WindowManager;->removeViewImmediate(Landroid/view/View;)V
+
+    .line 3987
+    :cond_0
+    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNavigationBarView:Lcom/android/systemui/statusbar/phone/NavigationBarView;
+
+    if-eqz v0, :cond_1
+
+    .line 3988
+    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mWindowManager:Landroid/view/WindowManager;
+
+    iget-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNavigationBarView:Lcom/android/systemui/statusbar/phone/NavigationBarView;
+
+    invoke-interface {v0, v1}, Landroid/view/WindowManager;->removeViewImmediate(Landroid/view/View;)V
+
+    .line 3990
+    :cond_1
+    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mContext:Landroid/content/Context;
+
+    iget-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mBroadcastReceiver:Landroid/content/BroadcastReceiver;
+
+    invoke-virtual {v0, v1}, Landroid/content/Context;->unregisterReceiver(Landroid/content/BroadcastReceiver;)V
+
+    .line 3991
+    return-void
 .end method
 
 .method public disable(I)V
@@ -7435,126 +4970,150 @@
 
     const/4 v7, 0x0
 
-    .line 1923
+    .line 1790
     iget v2, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mDisabled:I
 
-    .line 1924
+    .line 1791
     .local v2, old:I
     xor-int v0, p1, v2
 
-    .line 1925
+    .line 1792
     .local v0, diff:I
     iput p1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mDisabled:I
 
-    .line 1932
+    .line 1799
     new-instance v1, Ljava/lang/StringBuilder;
 
     invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
 
-    .line 1933
+    .line 1800
     .local v1, flagdbg:Ljava/lang/StringBuilder;
     const-string v4, "disable: < "
 
     invoke-virtual {v1, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    .line 1934
+    .line 1801
     and-int v4, p1, v9
 
-    if-eqz v4, :cond_9
+    if-eqz v4, :cond_7
 
     const-string v4, "EXPAND"
 
     :goto_0
     invoke-virtual {v1, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    .line 1935
+    .line 1802
     and-int v4, v0, v9
 
-    if-eqz v4, :cond_a
+    if-eqz v4, :cond_8
 
     const-string v4, "* "
 
     :goto_1
     invoke-virtual {v1, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    .line 1936
+    .line 1803
     and-int v4, p1, v10
 
-    if-eqz v4, :cond_b
+    if-eqz v4, :cond_9
 
     const-string v4, "ICONS"
 
     :goto_2
     invoke-virtual {v1, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    .line 1937
+    .line 1804
     and-int v4, v0, v10
 
-    if-eqz v4, :cond_c
+    if-eqz v4, :cond_a
 
     const-string v4, "* "
 
     :goto_3
     invoke-virtual {v1, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    .line 1938
+    .line 1805
     const/high16 v4, 0x4
 
     and-int/2addr v4, p1
 
-    if-eqz v4, :cond_d
+    if-eqz v4, :cond_b
 
     const-string v4, "ALERTS"
 
     :goto_4
     invoke-virtual {v1, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    .line 1939
+    .line 1806
     const/high16 v4, 0x4
 
     and-int/2addr v4, v0
 
-    if-eqz v4, :cond_e
+    if-eqz v4, :cond_c
 
     const-string v4, "* "
 
     :goto_5
     invoke-virtual {v1, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    .line 1940
+    .line 1807
     and-int v4, p1, v11
 
-    if-eqz v4, :cond_f
+    if-eqz v4, :cond_d
 
     const-string v4, "TICKER"
 
     :goto_6
     invoke-virtual {v1, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    .line 1941
+    .line 1808
     and-int v4, v0, v11
 
-    if-eqz v4, :cond_10
+    if-eqz v4, :cond_e
 
     const-string v4, "* "
 
     :goto_7
     invoke-virtual {v1, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    .line 1942
+    .line 1809
     const/high16 v4, 0x10
 
     and-int/2addr v4, p1
 
-    if-eqz v4, :cond_11
+    if-eqz v4, :cond_f
 
     const-string v4, "SYSTEM_INFO"
 
     :goto_8
     invoke-virtual {v1, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    .line 1943
+    .line 1810
     const/high16 v4, 0x10
+
+    and-int/2addr v4, v0
+
+    if-eqz v4, :cond_10
+
+    const-string v4, "* "
+
+    :goto_9
+    invoke-virtual {v1, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    .line 1811
+    const/high16 v4, 0x40
+
+    and-int/2addr v4, p1
+
+    if-eqz v4, :cond_11
+
+    const-string v4, "BACK"
+
+    :goto_a
+    invoke-virtual {v1, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    .line 1812
+    const/high16 v4, 0x40
 
     and-int/2addr v4, v0
 
@@ -7562,23 +5121,23 @@
 
     const-string v4, "* "
 
-    :goto_9
+    :goto_b
     invoke-virtual {v1, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    .line 1944
-    const/high16 v4, 0x40
+    .line 1813
+    const/high16 v4, 0x20
 
     and-int/2addr v4, p1
 
     if-eqz v4, :cond_13
 
-    const-string v4, "BACK"
+    const-string v4, "HOME"
 
-    :goto_a
+    :goto_c
     invoke-virtual {v1, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    .line 1945
-    const/high16 v4, 0x40
+    .line 1814
+    const/high16 v4, 0x20
 
     and-int/2addr v4, v0
 
@@ -7586,23 +5145,23 @@
 
     const-string v4, "* "
 
-    :goto_b
+    :goto_d
     invoke-virtual {v1, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    .line 1946
-    const/high16 v4, 0x20
+    .line 1815
+    const/high16 v4, 0x100
 
     and-int/2addr v4, p1
 
     if-eqz v4, :cond_15
 
-    const-string v4, "HOME"
+    const-string v4, "RECENT"
 
-    :goto_c
+    :goto_e
     invoke-virtual {v1, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    .line 1947
-    const/high16 v4, 0x20
+    .line 1816
+    const/high16 v4, 0x100
 
     and-int/2addr v4, v0
 
@@ -7610,23 +5169,23 @@
 
     const-string v4, "* "
 
-    :goto_d
+    :goto_f
     invoke-virtual {v1, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    .line 1948
-    const/high16 v4, 0x100
+    .line 1817
+    const/high16 v4, 0x80
 
     and-int/2addr v4, p1
 
     if-eqz v4, :cond_17
 
-    const-string v4, "RECENT"
+    const-string v4, "CLOCK"
 
-    :goto_e
+    :goto_10
     invoke-virtual {v1, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    .line 1949
-    const/high16 v4, 0x100
+    .line 1818
+    const/high16 v4, 0x80
 
     and-int/2addr v4, v0
 
@@ -7634,23 +5193,23 @@
 
     const-string v4, "* "
 
-    :goto_f
+    :goto_11
     invoke-virtual {v1, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    .line 1950
-    const/high16 v4, 0x80
+    .line 1819
+    const/high16 v4, 0x200
 
     and-int/2addr v4, p1
 
     if-eqz v4, :cond_19
 
-    const-string v4, "CLOCK"
+    const-string v4, "SEARCH"
 
-    :goto_10
+    :goto_12
     invoke-virtual {v1, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    .line 1951
-    const/high16 v4, 0x80
+    .line 1820
+    const/high16 v4, 0x200
 
     and-int/2addr v4, v0
 
@@ -7658,79 +5217,31 @@
 
     const-string v4, "* "
 
-    :goto_11
-    invoke-virtual {v1, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    .line 1952
-    const/high16 v4, 0x200
-
-    and-int/2addr v4, p1
-
-    if-eqz v4, :cond_1b
-
-    const-string v4, "SEARCH"
-
-    :goto_12
-    invoke-virtual {v1, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    .line 1953
-    const/high16 v4, 0x200
-
-    and-int/2addr v4, v0
-
-    if-eqz v4, :cond_1c
-
-    const-string v4, "* "
-
     :goto_13
     invoke-virtual {v1, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    .line 1954
-    const/high16 v4, 0x1000
-
-    and-int/2addr v4, p1
-
-    if-eqz v4, :cond_1d
-
-    const-string v4, "BRIGHTNESS"
-
-    :goto_14
-    invoke-virtual {v1, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    .line 1955
-    const/high16 v4, 0x1000
-
-    and-int/2addr v4, v0
-
-    if-eqz v4, :cond_1e
-
-    const-string v4, "* "
-
-    :goto_15
-    invoke-virtual {v1, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    .line 1956
+    .line 1821
     const-string v4, ">"
 
     invoke-virtual {v1, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    .line 1957
+    .line 1822
     const-string v4, "PhoneStatusBar"
 
     invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
 
     move-result-object v5
 
-    invoke-static {v4, v5}, Landroid/util/Slog;->d(Ljava/lang/String;Ljava/lang/String;)I
+    invoke-static {v4, v5}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 1959
+    .line 1824
     const/high16 v4, 0x10
 
     and-int/2addr v4, v0
 
     if-eqz v4, :cond_0
 
-    .line 1960
+    .line 1825
     iget-object v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSystemIconArea:Landroid/widget/LinearLayout;
 
     invoke-virtual {v4}, Landroid/widget/LinearLayout;->animate()Landroid/view/ViewPropertyAnimator;
@@ -7739,14 +5250,14 @@
 
     invoke-virtual {v4}, Landroid/view/ViewPropertyAnimator;->cancel()V
 
-    .line 1961
+    .line 1826
     const/high16 v4, 0x10
 
     and-int/2addr v4, p1
 
-    if-eqz v4, :cond_1f
+    if-eqz v4, :cond_1b
 
-    .line 1962
+    .line 1827
     iget-object v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSystemIconArea:Landroid/widget/LinearLayout;
 
     invoke-virtual {v4}, Landroid/widget/LinearLayout;->animate()Landroid/view/ViewPropertyAnimator;
@@ -7791,112 +5302,104 @@
 
     invoke-virtual {v4}, Landroid/view/ViewPropertyAnimator;->start()V
 
-    .line 1985
+    .line 1850
     :cond_0
-    :goto_16
+    :goto_14
     const/high16 v4, 0x80
 
     and-int/2addr v4, v0
 
     if-eqz v4, :cond_1
 
-    .line 1986
+    .line 1851
     const/high16 v4, 0x80
 
     and-int/2addr v4, p1
 
-    if-nez v4, :cond_20
+    if-nez v4, :cond_1c
 
     const/4 v3, 0x1
 
-    .line 1987
+    .line 1852
     .local v3, show:Z
-    :goto_17
+    :goto_15
     invoke-virtual {p0, v3}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->showClock(Z)V
 
-    .line 1990
+    .line 1854
     .end local v3           #show:Z
     :cond_1
-    const/high16 v4, 0x1000
-
-    and-int/2addr v4, v0
+    and-int v4, v0, v9
 
     if-eqz v4, :cond_2
 
-    .line 2001
-    :cond_2
-    and-int v4, v0, v9
-
-    if-eqz v4, :cond_3
-
-    .line 2002
+    .line 1855
     and-int v4, p1, v9
 
-    if-eqz v4, :cond_3
+    if-eqz v4, :cond_2
 
-    .line 2003
+    .line 1856
     invoke-virtual {p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->animateCollapsePanels()V
 
-    .line 2007
-    :cond_3
+    .line 1860
+    :cond_2
     const/high16 v4, 0x360
 
     and-int/2addr v4, v0
 
-    if-eqz v4, :cond_5
+    if-eqz v4, :cond_4
 
-    .line 2012
+    .line 1865
     iget-object v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNavigationBarView:Lcom/android/systemui/statusbar/phone/NavigationBarView;
 
-    if-eqz v4, :cond_4
+    if-eqz v4, :cond_3
 
     iget-object v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNavigationBarView:Lcom/android/systemui/statusbar/phone/NavigationBarView;
 
     invoke-virtual {v4, p1}, Lcom/android/systemui/statusbar/phone/NavigationBarView;->setDisabledFlags(I)V
 
-    .line 2014
-    :cond_4
+    .line 1867
+    :cond_3
     const/high16 v4, 0x100
 
     and-int/2addr v4, p1
 
-    if-eqz v4, :cond_5
+    if-eqz v4, :cond_4
 
-    .line 2016
+    .line 1869
     iget-object v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mHandler:Lcom/android/systemui/statusbar/BaseStatusBar$H;
 
     const/16 v5, 0x3fd
 
     invoke-virtual {v4, v5}, Lcom/android/systemui/statusbar/BaseStatusBar$H;->removeMessages(I)V
 
-    .line 2017
+    .line 1870
     iget-object v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mHandler:Lcom/android/systemui/statusbar/BaseStatusBar$H;
 
     const/16 v5, 0x3fd
 
     invoke-virtual {v4, v5}, Lcom/android/systemui/statusbar/BaseStatusBar$H;->sendEmptyMessage(I)Z
 
-    .line 2021
-    :cond_5
+    .line 1874
+    :cond_4
     and-int v4, v0, v10
 
-    if-eqz v4, :cond_22
+    if-eqz v4, :cond_1e
 
-    .line 2022
+    .line 1875
     and-int v4, p1, v10
 
-    if-eqz v4, :cond_21
+    if-eqz v4, :cond_1d
 
-    .line 2023
+    .line 1876
     iget-boolean v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mTicking:Z
 
-    if-eqz v4, :cond_6
+    if-eqz v4, :cond_5
 
-    .line 2024
+    .line 1877
     invoke-virtual {p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->haltTicker()V
 
-    .line 2027
-    :cond_6
+    .line 1880
+    :cond_5
     iget-object v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationIcons:Lcom/android/systemui/statusbar/phone/IconMerger;
 
     invoke-virtual {v4}, Lcom/android/systemui/statusbar/phone/IconMerger;->animate()Landroid/view/ViewPropertyAnimator;
@@ -7941,193 +5444,198 @@
 
     invoke-virtual {v4}, Landroid/view/ViewPropertyAnimator;->start()V
 
-    .line 2056
-    :cond_7
-    :goto_18
-    iget-boolean v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mMiniModeTrayEnabled:Z
-
-    if-eqz v4, :cond_8
-
-    iget-boolean v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mIsMiniAppPanelLoadedProperly:Z
-
-    if-eqz v4, :cond_8
-
-    .line 2057
-    const/high16 v4, 0x900
-
-    and-int/2addr v4, v0
-
-    if-eqz v4, :cond_8
-
-    .line 2058
-    const/high16 v4, 0x900
-
-    and-int/2addr v4, p1
-
-    if-eqz v4, :cond_8
-
-    .line 2059
-    iget-object v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mHandler:Lcom/android/systemui/statusbar/BaseStatusBar$H;
-
-    const/16 v5, 0x425
-
-    invoke-virtual {v4, v5}, Lcom/android/systemui/statusbar/BaseStatusBar$H;->removeMessages(I)V
-
-    .line 2060
-    iget-object v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mHandler:Lcom/android/systemui/statusbar/BaseStatusBar$H;
-
-    const/16 v5, 0x425
-
-    invoke-virtual {v4, v5}, Lcom/android/systemui/statusbar/BaseStatusBar$H;->sendEmptyMessage(I)Z
-
-    .line 2065
-    :cond_8
+    .line 1906
+    :cond_6
+    :goto_16
     return-void
 
-    .line 1934
-    :cond_9
+    .line 1801
+    :cond_7
     const-string v4, "expand"
 
     goto/16 :goto_0
 
-    .line 1935
-    :cond_a
+    .line 1802
+    :cond_8
     const-string v4, " "
 
     goto/16 :goto_1
 
-    .line 1936
-    :cond_b
+    .line 1803
+    :cond_9
     const-string v4, "icons"
 
     goto/16 :goto_2
 
-    .line 1937
-    :cond_c
+    .line 1804
+    :cond_a
     const-string v4, " "
 
     goto/16 :goto_3
 
-    .line 1938
-    :cond_d
+    .line 1805
+    :cond_b
     const-string v4, "alerts"
 
     goto/16 :goto_4
 
-    .line 1939
-    :cond_e
+    .line 1806
+    :cond_c
     const-string v4, " "
 
     goto/16 :goto_5
 
-    .line 1940
-    :cond_f
+    .line 1807
+    :cond_d
     const-string v4, "ticker"
 
     goto/16 :goto_6
 
-    .line 1941
-    :cond_10
+    .line 1808
+    :cond_e
     const-string v4, " "
 
     goto/16 :goto_7
 
-    .line 1942
-    :cond_11
+    .line 1809
+    :cond_f
     const-string v4, "system_info"
 
     goto/16 :goto_8
 
-    .line 1943
-    :cond_12
+    .line 1810
+    :cond_10
     const-string v4, " "
 
     goto/16 :goto_9
 
-    .line 1944
-    :cond_13
+    .line 1811
+    :cond_11
     const-string v4, "back"
 
     goto/16 :goto_a
 
-    .line 1945
-    :cond_14
+    .line 1812
+    :cond_12
     const-string v4, " "
 
     goto/16 :goto_b
 
-    .line 1946
-    :cond_15
+    .line 1813
+    :cond_13
     const-string v4, "home"
 
     goto/16 :goto_c
 
-    .line 1947
-    :cond_16
+    .line 1814
+    :cond_14
     const-string v4, " "
 
     goto/16 :goto_d
 
-    .line 1948
-    :cond_17
+    .line 1815
+    :cond_15
     const-string v4, "recent"
 
     goto/16 :goto_e
 
-    .line 1949
-    :cond_18
+    .line 1816
+    :cond_16
     const-string v4, " "
 
     goto/16 :goto_f
 
-    .line 1950
-    :cond_19
+    .line 1817
+    :cond_17
     const-string v4, "clock"
 
     goto/16 :goto_10
 
-    .line 1951
-    :cond_1a
+    .line 1818
+    :cond_18
     const-string v4, " "
 
     goto/16 :goto_11
 
-    .line 1952
-    :cond_1b
+    .line 1819
+    :cond_19
     const-string v4, "search"
 
     goto/16 :goto_12
 
-    .line 1953
-    :cond_1c
+    .line 1820
+    :cond_1a
     const-string v4, " "
 
     goto/16 :goto_13
 
-    .line 1954
-    :cond_1d
-    const-string v4, "brightness"
-
-    goto/16 :goto_14
-
-    .line 1955
-    :cond_1e
-    const-string v4, " "
-
-    goto/16 :goto_15
-
-    .line 1970
-    :cond_1f
+    .line 1835
+    :cond_1b
     iget-object v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSystemIconArea:Landroid/widget/LinearLayout;
 
     const/4 v5, 0x0
 
     invoke-virtual {v4, v5}, Landroid/widget/LinearLayout;->setVisibility(I)V
 
-    .line 1971
+    .line 1836
     iget-object v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSystemIconArea:Landroid/widget/LinearLayout;
 
     invoke-virtual {v4}, Landroid/widget/LinearLayout;->animate()Landroid/view/ViewPropertyAnimator;
+
+    move-result-object v4
+
+    const/high16 v5, 0x3f80
+
+    invoke-virtual {v4, v5}, Landroid/view/ViewPropertyAnimator;->alpha(F)Landroid/view/ViewPropertyAnimator;
+
+    move-result-object v4
+
+    invoke-virtual {v4, v7}, Landroid/view/ViewPropertyAnimator;->translationY(F)Landroid/view/ViewPropertyAnimator;
+
+    move-result-object v4
+
+    const-wide/16 v5, 0x1e
+
+    invoke-virtual {v4, v5, v6}, Landroid/view/ViewPropertyAnimator;->setStartDelay(J)Landroid/view/ViewPropertyAnimator;
+
+    move-result-object v4
+
+    new-instance v5, Landroid/view/animation/DecelerateInterpolator;
+
+    invoke-direct {v5, v8}, Landroid/view/animation/DecelerateInterpolator;-><init>(F)V
+
+    invoke-virtual {v4, v5}, Landroid/view/ViewPropertyAnimator;->setInterpolator(Landroid/animation/TimeInterpolator;)Landroid/view/ViewPropertyAnimator;
+
+    move-result-object v4
+
+    const-wide/16 v5, 0xaf
+
+    invoke-virtual {v4, v5, v6}, Landroid/view/ViewPropertyAnimator;->setDuration(J)Landroid/view/ViewPropertyAnimator;
+
+    move-result-object v4
+
+    invoke-virtual {v4}, Landroid/view/ViewPropertyAnimator;->start()V
+
+    goto/16 :goto_14
+
+    .line 1851
+    :cond_1c
+    const/4 v3, 0x0
+
+    goto/16 :goto_15
+
+    .line 1888
+    :cond_1d
+    iget-object v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationIcons:Lcom/android/systemui/statusbar/phone/IconMerger;
+
+    const/4 v5, 0x0
+
+    invoke-virtual {v4, v5}, Lcom/android/systemui/statusbar/phone/IconMerger;->setVisibility(I)V
+
+    .line 1889
+    iget-object v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationIcons:Lcom/android/systemui/statusbar/phone/IconMerger;
+
+    invoke-virtual {v4}, Lcom/android/systemui/statusbar/phone/IconMerger;->animate()Landroid/view/ViewPropertyAnimator;
 
     move-result-object v4
 
@@ -8165,150 +5673,372 @@
 
     goto/16 :goto_16
 
-    .line 1986
-    :cond_20
-    const/4 v3, 0x0
-
-    goto/16 :goto_17
-
-    .line 2036
-    :cond_21
-    iget-object v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationIcons:Lcom/android/systemui/statusbar/phone/IconMerger;
-
-    const/4 v5, 0x0
-
-    invoke-virtual {v4, v5}, Lcom/android/systemui/statusbar/phone/IconMerger;->setVisibility(I)V
-
-    .line 2037
-    iget-object v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationIcons:Lcom/android/systemui/statusbar/phone/IconMerger;
-
-    invoke-virtual {v4}, Lcom/android/systemui/statusbar/phone/IconMerger;->animate()Landroid/view/ViewPropertyAnimator;
-
-    move-result-object v4
-
-    const/high16 v5, 0x3f80
-
-    invoke-virtual {v4, v5}, Landroid/view/ViewPropertyAnimator;->alpha(F)Landroid/view/ViewPropertyAnimator;
-
-    move-result-object v4
-
-    invoke-virtual {v4, v7}, Landroid/view/ViewPropertyAnimator;->translationY(F)Landroid/view/ViewPropertyAnimator;
-
-    move-result-object v4
-
-    const-wide/16 v5, 0x1e
-
-    invoke-virtual {v4, v5, v6}, Landroid/view/ViewPropertyAnimator;->setStartDelay(J)Landroid/view/ViewPropertyAnimator;
-
-    move-result-object v4
-
-    new-instance v5, Landroid/view/animation/DecelerateInterpolator;
-
-    invoke-direct {v5, v8}, Landroid/view/animation/DecelerateInterpolator;-><init>(F)V
-
-    invoke-virtual {v4, v5}, Landroid/view/ViewPropertyAnimator;->setInterpolator(Landroid/animation/TimeInterpolator;)Landroid/view/ViewPropertyAnimator;
-
-    move-result-object v4
-
-    const-wide/16 v5, 0xaf
-
-    invoke-virtual {v4, v5, v6}, Landroid/view/ViewPropertyAnimator;->setDuration(J)Landroid/view/ViewPropertyAnimator;
-
-    move-result-object v4
-
-    invoke-virtual {v4}, Landroid/view/ViewPropertyAnimator;->start()V
-
-    goto/16 :goto_18
-
-    .line 2050
-    :cond_22
+    .line 1901
+    :cond_1e
     and-int v4, v0, v11
 
-    if-eqz v4, :cond_7
+    if-eqz v4, :cond_6
 
-    .line 2051
+    .line 1902
     iget-boolean v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mTicking:Z
 
-    if-eqz v4, :cond_7
+    if-eqz v4, :cond_6
 
     and-int v4, p1, v11
 
-    if-eqz v4, :cond_7
+    if-eqz v4, :cond_6
 
-    .line 2052
+    .line 1903
     invoke-virtual {p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->haltTicker()V
 
-    goto/16 :goto_18
+    goto/16 :goto_16
 .end method
 
-.method public dismissIntruder()V
-    .locals 4
+.method public dispatchDemoCommand(Ljava/lang/String;Landroid/os/Bundle;)V
+    .locals 10
+    .parameter "command"
+    .parameter "args"
 
     .prologue
-    .line 3714
-    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mCurrentlyIntrudingNotification:Landroid/service/notification/StatusBarNotification;
+    const/4 v7, -0x1
 
-    if-nez v0, :cond_0
+    const/4 v5, 0x1
 
-    .line 3724
+    const/4 v6, 0x0
+
+    .line 3999
+    iget-boolean v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mDemoModeAllowed:Z
+
+    if-nez v4, :cond_0
+
+    .line 4000
+    iget-object v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mContext:Landroid/content/Context;
+
+    invoke-virtual {v4}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
+
+    move-result-object v4
+
+    const-string v8, "sysui_demo_allowed"
+
+    invoke-static {v4, v8, v6}, Landroid/provider/Settings$Global;->getInt(Landroid/content/ContentResolver;Ljava/lang/String;I)I
+
+    move-result v4
+
+    if-eqz v4, :cond_2
+
+    move v4, v5
+
     :goto_0
+    iput-boolean v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mDemoModeAllowed:Z
+
+    .line 4003
+    :cond_0
+    iget-boolean v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mDemoModeAllowed:Z
+
+    if-nez v4, :cond_3
+
+    .line 4045
+    :cond_1
+    :goto_1
     return-void
 
-    .line 3717
-    :cond_0
-    :try_start_0
-    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mBarService:Lcom/android/internal/statusbar/IStatusBarService;
+    :cond_2
+    move v4, v6
 
-    iget-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mCurrentlyIntrudingNotification:Landroid/service/notification/StatusBarNotification;
+    .line 4000
+    goto :goto_0
 
-    invoke-virtual {v1}, Landroid/service/notification/StatusBarNotification;->getPackageName()Ljava/lang/String;
+    .line 4004
+    :cond_3
+    const-string v4, "enter"
 
-    move-result-object v1
+    invoke-virtual {p1, v4}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
 
-    iget-object v2, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mCurrentlyIntrudingNotification:Landroid/service/notification/StatusBarNotification;
+    move-result v4
 
-    invoke-virtual {v2}, Landroid/service/notification/StatusBarNotification;->getTag()Ljava/lang/String;
+    if-eqz v4, :cond_f
+
+    .line 4005
+    iput-boolean v5, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mDemoMode:Z
+
+    .line 4013
+    :cond_4
+    :goto_2
+    const-string v4, "enter"
+
+    invoke-virtual {p1, v4}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+
+    move-result v4
+
+    if-nez v4, :cond_5
+
+    const-string v4, "exit"
+
+    invoke-virtual {p1, v4}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+
+    move-result v4
+
+    if-eqz v4, :cond_11
+
+    :cond_5
+    move v3, v5
+
+    .line 4014
+    .local v3, modeChange:Z
+    :goto_3
+    if-nez v3, :cond_6
+
+    const-string v4, "clock"
+
+    invoke-virtual {p1, v4}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+
+    move-result v4
+
+    if-eqz v4, :cond_7
+
+    .line 4015
+    :cond_6
+    const v4, 0x7f070078
+
+    invoke-direct {p0, p1, p2, v4}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->dispatchDemoCommandToView(Ljava/lang/String;Landroid/os/Bundle;I)V
+
+    .line 4017
+    :cond_7
+    if-nez v3, :cond_8
+
+    const-string v4, "battery"
+
+    invoke-virtual {p1, v4}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+
+    move-result v4
+
+    if-eqz v4, :cond_9
+
+    .line 4018
+    :cond_8
+    const v4, 0x7f070077
+
+    invoke-direct {p0, p1, p2, v4}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->dispatchDemoCommandToView(Ljava/lang/String;Landroid/os/Bundle;I)V
+
+    .line 4020
+    :cond_9
+    if-nez v3, :cond_a
+
+    const-string v4, "status"
+
+    invoke-virtual {p1, v4}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+
+    move-result v4
+
+    if-eqz v4, :cond_c
+
+    .line 4021
+    :cond_a
+    iget-object v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mDemoStatusIcons:Lcom/android/systemui/statusbar/phone/DemoStatusIcons;
+
+    if-nez v4, :cond_b
+
+    .line 4022
+    new-instance v4, Lcom/android/systemui/statusbar/phone/DemoStatusIcons;
+
+    iget-object v8, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusIcons:Landroid/widget/LinearLayout;
+
+    iget v9, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mIconSize:I
+
+    invoke-direct {v4, v8, v9}, Lcom/android/systemui/statusbar/phone/DemoStatusIcons;-><init>(Landroid/widget/LinearLayout;I)V
+
+    iput-object v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mDemoStatusIcons:Lcom/android/systemui/statusbar/phone/DemoStatusIcons;
+
+    .line 4024
+    :cond_b
+    iget-object v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mDemoStatusIcons:Lcom/android/systemui/statusbar/phone/DemoStatusIcons;
+
+    invoke-virtual {v4, p1, p2}, Lcom/android/systemui/statusbar/phone/DemoStatusIcons;->dispatchDemoCommand(Ljava/lang/String;Landroid/os/Bundle;)V
+
+    .line 4026
+    :cond_c
+    iget-object v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNetworkController:Lcom/android/systemui/statusbar/policy/NetworkController;
+
+    if-eqz v4, :cond_d
+
+    if-nez v3, :cond_d
+
+    const-string v4, "network"
+
+    invoke-virtual {p1, v4}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+
+    move-result v4
+
+    if-eqz v4, :cond_d
+
+    .line 4029
+    :cond_d
+    const-string v4, "bars"
+
+    invoke-virtual {p1, v4}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+
+    move-result v4
+
+    if-eqz v4, :cond_1
+
+    .line 4030
+    const-string v4, "mode"
+
+    invoke-virtual {p2, v4}, Landroid/os/Bundle;->getString(Ljava/lang/String;)Ljava/lang/String;
 
     move-result-object v2
 
-    iget-object v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mCurrentlyIntrudingNotification:Landroid/service/notification/StatusBarNotification;
+    .line 4031
+    .local v2, mode:Ljava/lang/String;
+    const-string v4, "opaque"
 
-    invoke-virtual {v3}, Landroid/service/notification/StatusBarNotification;->getId()I
+    invoke-virtual {v4, v2}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
 
-    move-result v3
+    move-result v4
 
-    invoke-interface {v0, v1, v2, v3}, Lcom/android/internal/statusbar/IStatusBarService;->onNotificationClear(Ljava/lang/String;Ljava/lang/String;I)V
-    :try_end_0
-    .catch Landroid/os/RemoteException; {:try_start_0 .. :try_end_0} :catch_0
+    if-eqz v4, :cond_12
 
-    goto :goto_0
+    move v1, v6
 
-    .line 3721
-    :catch_0
-    move-exception v0
+    .line 4035
+    .local v1, barMode:I
+    :goto_4
+    if-eq v1, v7, :cond_1
 
-    goto :goto_0
+    .line 4036
+    const/4 v0, 0x1
+
+    .line 4037
+    .local v0, animate:Z
+    iget-object v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarView:Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;
+
+    if-eqz v4, :cond_e
+
+    .line 4038
+    iget-object v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarView:Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;
+
+    invoke-virtual {v4}, Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;->getBarTransitions()Lcom/android/systemui/statusbar/phone/BarTransitions;
+
+    move-result-object v4
+
+    invoke-virtual {v4, v1, v0}, Lcom/android/systemui/statusbar/phone/BarTransitions;->transitionTo(IZ)V
+
+    .line 4040
+    :cond_e
+    iget-object v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNavigationBarView:Lcom/android/systemui/statusbar/phone/NavigationBarView;
+
+    if-eqz v4, :cond_1
+
+    .line 4041
+    iget-object v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNavigationBarView:Lcom/android/systemui/statusbar/phone/NavigationBarView;
+
+    invoke-virtual {v4}, Lcom/android/systemui/statusbar/phone/NavigationBarView;->getBarTransitions()Lcom/android/systemui/statusbar/phone/BarTransitions;
+
+    move-result-object v4
+
+    invoke-virtual {v4, v1, v0}, Lcom/android/systemui/statusbar/phone/BarTransitions;->transitionTo(IZ)V
+
+    goto/16 :goto_1
+
+    .line 4006
+    .end local v0           #animate:Z
+    .end local v1           #barMode:I
+    .end local v2           #mode:Ljava/lang/String;
+    .end local v3           #modeChange:Z
+    :cond_f
+    const-string v4, "exit"
+
+    invoke-virtual {p1, v4}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+
+    move-result v4
+
+    if-eqz v4, :cond_10
+
+    .line 4007
+    iput-boolean v6, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mDemoMode:Z
+
+    .line 4008
+    invoke-direct {p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->checkBarModes()V
+
+    goto/16 :goto_2
+
+    .line 4009
+    :cond_10
+    iget-boolean v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mDemoMode:Z
+
+    if-nez v4, :cond_4
+
+    .line 4011
+    const-string v4, "enter"
+
+    new-instance v8, Landroid/os/Bundle;
+
+    invoke-direct {v8}, Landroid/os/Bundle;-><init>()V
+
+    invoke-virtual {p0, v4, v8}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->dispatchDemoCommand(Ljava/lang/String;Landroid/os/Bundle;)V
+
+    goto/16 :goto_2
+
+    :cond_11
+    move v3, v6
+
+    .line 4013
+    goto/16 :goto_3
+
+    .line 4031
+    .restart local v2       #mode:Ljava/lang/String;
+    .restart local v3       #modeChange:Z
+    :cond_12
+    const-string v4, "translucent"
+
+    invoke-virtual {v4, v2}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+
+    move-result v4
+
+    if-eqz v4, :cond_13
+
+    const/4 v1, 0x2
+
+    goto :goto_4
+
+    :cond_13
+    const-string v4, "semi-transparent"
+
+    invoke-virtual {v4, v2}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+
+    move-result v4
+
+    if-eqz v4, :cond_14
+
+    move v1, v5
+
+    goto :goto_4
+
+    :cond_14
+    move v1, v7
+
+    goto :goto_4
 .end method
 
 .method public dump(Ljava/io/FileDescriptor;Ljava/io/PrintWriter;[Ljava/lang/String;)V
-    .locals 10
+    .locals 8
     .parameter "fd"
     .parameter "pw"
     .parameter "args"
 
     .prologue
-    .line 3094
+    .line 3091
     iget-object v6, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mQueueLock:Ljava/lang/Object;
 
     monitor-enter v6
 
-    .line 3095
+    .line 3092
     :try_start_0
     const-string v5, "Current Status Bar state:"
 
     invoke-virtual {p2, v5}, Ljava/io/PrintWriter;->println(Ljava/lang/String;)V
 
-    .line 3096
+    .line 3093
     new-instance v5, Ljava/lang/StringBuilder;
 
     invoke-direct {v5}, Ljava/lang/StringBuilder;-><init>()V
@@ -8343,7 +6073,7 @@
 
     invoke-virtual {p2, v5}, Ljava/io/PrintWriter;->println(Ljava/lang/String;)V
 
-    .line 3098
+    .line 3095
     new-instance v5, Ljava/lang/StringBuilder;
 
     invoke-direct {v5}, Ljava/lang/StringBuilder;-><init>()V
@@ -8366,7 +6096,7 @@
 
     invoke-virtual {p2, v5}, Ljava/io/PrintWriter;->println(Ljava/lang/String;)V
 
-    .line 3099
+    .line 3096
     new-instance v5, Ljava/lang/StringBuilder;
 
     invoke-direct {v5}, Ljava/lang/StringBuilder;-><init>()V
@@ -8389,152 +6119,7 @@
 
     invoke-virtual {p2, v5}, Ljava/io/PrintWriter;->println(Ljava/lang/String;)V
 
-    .line 3100
-    new-instance v5, Ljava/lang/StringBuilder;
-
-    invoke-direct {v5}, Ljava/lang/StringBuilder;-><init>()V
-
-    const-string v7, "  mNotificationPanel="
-
-    invoke-virtual {v5, v7}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v7
-
-    iget-object v5, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationPanel:Lcom/android/systemui/statusbar/phone/NotificationPanelView;
-
-    if-nez v5, :cond_0
-
-    const-string v5, "null"
-
-    :goto_0
-    invoke-virtual {v7, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v5
-
-    invoke-virtual {v5}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v5
-
-    invoke-virtual {p2, v5}, Ljava/io/PrintWriter;->println(Ljava/lang/String;)V
-
-    .line 3104
-    new-instance v5, Ljava/lang/StringBuilder;
-
-    invoke-direct {v5}, Ljava/lang/StringBuilder;-><init>()V
-
-    const-string v7, "  mAnimating="
-
-    invoke-virtual {v5, v7}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v5
-
-    iget-boolean v7, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mAnimating:Z
-
-    invoke-virtual {v5, v7}, Ljava/lang/StringBuilder;->append(Z)Ljava/lang/StringBuilder;
-
-    move-result-object v5
-
-    const-string v7, ", mAnimY="
-
-    invoke-virtual {v5, v7}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v5
-
-    iget v7, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mAnimY:F
-
-    invoke-virtual {v5, v7}, Ljava/lang/StringBuilder;->append(F)Ljava/lang/StringBuilder;
-
-    move-result-object v5
-
-    const-string v7, ", mAnimVel="
-
-    invoke-virtual {v5, v7}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v5
-
-    iget v7, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mAnimVel:F
-
-    invoke-virtual {v5, v7}, Ljava/lang/StringBuilder;->append(F)Ljava/lang/StringBuilder;
-
-    move-result-object v5
-
-    const-string v7, ", mAnimAccel="
-
-    invoke-virtual {v5, v7}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v5
-
-    iget v7, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mAnimAccel:F
-
-    invoke-virtual {v5, v7}, Ljava/lang/StringBuilder;->append(F)Ljava/lang/StringBuilder;
-
-    move-result-object v5
-
-    invoke-virtual {v5}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v5
-
-    invoke-virtual {p2, v5}, Ljava/io/PrintWriter;->println(Ljava/lang/String;)V
-
-    .line 3107
-    new-instance v5, Ljava/lang/StringBuilder;
-
-    invoke-direct {v5}, Ljava/lang/StringBuilder;-><init>()V
-
-    const-string v7, "  mAnimLastTimeNanos="
-
-    invoke-virtual {v5, v7}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v5
-
-    iget-wide v7, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mAnimLastTimeNanos:J
-
-    invoke-virtual {v5, v7, v8}, Ljava/lang/StringBuilder;->append(J)Ljava/lang/StringBuilder;
-
-    move-result-object v5
-
-    invoke-virtual {v5}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v5
-
-    invoke-virtual {p2, v5}, Ljava/io/PrintWriter;->println(Ljava/lang/String;)V
-
-    .line 3108
-    new-instance v5, Ljava/lang/StringBuilder;
-
-    invoke-direct {v5}, Ljava/lang/StringBuilder;-><init>()V
-
-    const-string v7, "  mAnimatingReveal="
-
-    invoke-virtual {v5, v7}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v5
-
-    iget-boolean v7, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mAnimatingReveal:Z
-
-    invoke-virtual {v5, v7}, Ljava/lang/StringBuilder;->append(Z)Ljava/lang/StringBuilder;
-
-    move-result-object v5
-
-    const-string v7, " mViewDelta="
-
-    invoke-virtual {v5, v7}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v5
-
-    iget v7, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mViewDelta:I
-
-    invoke-virtual {v5, v7}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
-
-    move-result-object v5
-
-    invoke-virtual {v5}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v5
-
-    invoke-virtual {p2, v5}, Ljava/io/PrintWriter;->println(Ljava/lang/String;)V
-
-    .line 3110
+    .line 3097
     new-instance v5, Ljava/lang/StringBuilder;
 
     invoke-direct {v5}, Ljava/lang/StringBuilder;-><init>()V
@@ -8557,18 +6142,18 @@
 
     invoke-virtual {p2, v5}, Ljava/io/PrintWriter;->println(Ljava/lang/String;)V
 
-    .line 3111
+    .line 3098
     new-instance v5, Ljava/lang/StringBuilder;
 
     invoke-direct {v5}, Ljava/lang/StringBuilder;-><init>()V
 
-    const-string v7, "  mLatestNotifications: "
+    const-string v7, "  mPile: "
 
     invoke-virtual {v5, v7}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
     move-result-object v5
 
-    iget-object v7, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mLatestNotifications:Lcom/android/systemui/statusbar/policy/NotificationRowLayout;
+    iget-object v7, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mPile:Lcom/android/systemui/statusbar/policy/NotificationRowLayout;
 
     invoke-static {v7}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->viewInfo(Landroid/view/View;)Ljava/lang/String;
 
@@ -8584,7 +6169,7 @@
 
     invoke-virtual {p2, v5}, Ljava/io/PrintWriter;->println(Ljava/lang/String;)V
 
-    .line 3112
+    .line 3099
     new-instance v5, Ljava/lang/StringBuilder;
 
     invoke-direct {v5}, Ljava/lang/StringBuilder;-><init>()V
@@ -8611,7 +6196,7 @@
 
     invoke-virtual {p2, v5}, Ljava/io/PrintWriter;->println(Ljava/lang/String;)V
 
-    .line 3113
+    .line 3100
     new-instance v5, Ljava/lang/StringBuilder;
 
     invoke-direct {v5}, Ljava/lang/StringBuilder;-><init>()V
@@ -8670,33 +6255,253 @@
 
     invoke-virtual {p2, v5}, Ljava/io/PrintWriter;->println(Ljava/lang/String;)V
 
-    .line 3115
+    .line 3102
     monitor-exit v6
     :try_end_0
     .catchall {:try_start_0 .. :try_end_0} :catchall_0
 
-    .line 3117
+    .line 3104
+    const-string v5, "  mInteractingWindows="
+
+    invoke-virtual {p2, v5}, Ljava/io/PrintWriter;->print(Ljava/lang/String;)V
+
+    iget v5, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mInteractingWindows:I
+
+    invoke-virtual {p2, v5}, Ljava/io/PrintWriter;->println(I)V
+
+    .line 3105
+    const-string v5, "  mStatusBarWindowState="
+
+    invoke-virtual {p2, v5}, Ljava/io/PrintWriter;->print(Ljava/lang/String;)V
+
+    .line 3106
+    iget v5, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarWindowState:I
+
+    invoke-static {v5}, Landroid/app/StatusBarManager;->windowStateToString(I)Ljava/lang/String;
+
+    move-result-object v5
+
+    invoke-virtual {p2, v5}, Ljava/io/PrintWriter;->println(Ljava/lang/String;)V
+
+    .line 3107
+    const-string v5, "  mStatusBarMode="
+
+    invoke-virtual {p2, v5}, Ljava/io/PrintWriter;->print(Ljava/lang/String;)V
+
+    .line 3108
+    iget v5, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarMode:I
+
+    invoke-static {v5}, Lcom/android/systemui/statusbar/phone/BarTransitions;->modeToString(I)Ljava/lang/String;
+
+    move-result-object v5
+
+    invoke-virtual {p2, v5}, Ljava/io/PrintWriter;->println(Ljava/lang/String;)V
+
+    .line 3109
+    const-string v5, "mStatusBarView"
+
+    iget-object v6, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarView:Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;
+
+    invoke-virtual {v6}, Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;->getBarTransitions()Lcom/android/systemui/statusbar/phone/BarTransitions;
+
+    move-result-object v6
+
+    invoke-static {p2, v5, v6}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->dumpBarTransitions(Ljava/io/PrintWriter;Ljava/lang/String;Lcom/android/systemui/statusbar/phone/BarTransitions;)V
+
+    .line 3110
+    iget-object v5, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNavigationBarView:Lcom/android/systemui/statusbar/phone/NavigationBarView;
+
+    if-eqz v5, :cond_0
+
+    .line 3111
+    const-string v5, "  mNavigationBarWindowState="
+
+    invoke-virtual {p2, v5}, Ljava/io/PrintWriter;->print(Ljava/lang/String;)V
+
+    .line 3112
+    iget v5, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNavigationBarWindowState:I
+
+    invoke-static {v5}, Landroid/app/StatusBarManager;->windowStateToString(I)Ljava/lang/String;
+
+    move-result-object v5
+
+    invoke-virtual {p2, v5}, Ljava/io/PrintWriter;->println(Ljava/lang/String;)V
+
+    .line 3113
+    const-string v5, "  mNavigationBarMode="
+
+    invoke-virtual {p2, v5}, Ljava/io/PrintWriter;->print(Ljava/lang/String;)V
+
+    .line 3114
+    iget v5, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNavigationBarMode:I
+
+    invoke-static {v5}, Lcom/android/systemui/statusbar/phone/BarTransitions;->modeToString(I)Ljava/lang/String;
+
+    move-result-object v5
+
+    invoke-virtual {p2, v5}, Ljava/io/PrintWriter;->println(Ljava/lang/String;)V
+
+    .line 3115
+    const-string v5, "mNavigationBarView"
+
+    iget-object v6, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNavigationBarView:Lcom/android/systemui/statusbar/phone/NavigationBarView;
+
+    invoke-virtual {v6}, Lcom/android/systemui/statusbar/phone/NavigationBarView;->getBarTransitions()Lcom/android/systemui/statusbar/phone/BarTransitions;
+
+    move-result-object v6
+
+    invoke-static {p2, v5, v6}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->dumpBarTransitions(Ljava/io/PrintWriter;Ljava/lang/String;Lcom/android/systemui/statusbar/phone/BarTransitions;)V
+
+    .line 3118
+    :cond_0
     const-string v5, "  mNavigationBarView="
 
     invoke-virtual {p2, v5}, Ljava/io/PrintWriter;->print(Ljava/lang/String;)V
 
-    .line 3118
+    .line 3119
     iget-object v5, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNavigationBarView:Lcom/android/systemui/statusbar/phone/NavigationBarView;
 
-    if-nez v5, :cond_1
+    if-nez v5, :cond_3
 
-    .line 3119
+    .line 3120
     const-string v5, "null"
 
     invoke-virtual {p2, v5}, Ljava/io/PrintWriter;->println(Ljava/lang/String;)V
 
     .line 3125
-    :goto_1
+    :goto_0
+    const-string v5, "  Panels: "
+
+    invoke-virtual {p2, v5}, Ljava/io/PrintWriter;->println(Ljava/lang/String;)V
+
+    .line 3126
+    iget-object v5, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationPanel:Lcom/android/systemui/statusbar/phone/NotificationPanelView;
+
+    if-eqz v5, :cond_1
+
+    .line 3127
+    new-instance v5, Ljava/lang/StringBuilder;
+
+    invoke-direct {v5}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v6, "    mNotificationPanel="
+
+    invoke-virtual {v5, v6}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v5
+
+    iget-object v6, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationPanel:Lcom/android/systemui/statusbar/phone/NotificationPanelView;
+
+    invoke-virtual {v5, v6}, Ljava/lang/StringBuilder;->append(Ljava/lang/Object;)Ljava/lang/StringBuilder;
+
+    move-result-object v5
+
+    const-string v6, " params="
+
+    invoke-virtual {v5, v6}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v5
+
+    iget-object v6, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationPanel:Lcom/android/systemui/statusbar/phone/NotificationPanelView;
+
+    invoke-virtual {v6}, Lcom/android/systemui/statusbar/phone/NotificationPanelView;->getLayoutParams()Landroid/view/ViewGroup$LayoutParams;
+
+    move-result-object v6
+
+    const-string v7, ""
+
+    invoke-virtual {v6, v7}, Landroid/view/ViewGroup$LayoutParams;->debug(Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v6
+
+    invoke-virtual {v5, v6}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v5
+
+    invoke-virtual {v5}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v5
+
+    invoke-virtual {p2, v5}, Ljava/io/PrintWriter;->println(Ljava/lang/String;)V
+
+    .line 3129
+    const-string v5, "      "
+
+    invoke-virtual {p2, v5}, Ljava/io/PrintWriter;->print(Ljava/lang/String;)V
+
+    .line 3130
+    iget-object v5, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationPanel:Lcom/android/systemui/statusbar/phone/NotificationPanelView;
+
+    invoke-virtual {v5, p1, p2, p3}, Lcom/android/systemui/statusbar/phone/NotificationPanelView;->dump(Ljava/io/FileDescriptor;Ljava/io/PrintWriter;[Ljava/lang/String;)V
+
+    .line 3132
+    :cond_1
+    iget-object v5, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSettingsPanel:Lcom/android/systemui/statusbar/phone/PanelView;
+
+    if-eqz v5, :cond_2
+
+    .line 3133
+    new-instance v5, Ljava/lang/StringBuilder;
+
+    invoke-direct {v5}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v6, "    mSettingsPanel="
+
+    invoke-virtual {v5, v6}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v5
+
+    iget-object v6, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSettingsPanel:Lcom/android/systemui/statusbar/phone/PanelView;
+
+    invoke-virtual {v5, v6}, Ljava/lang/StringBuilder;->append(Ljava/lang/Object;)Ljava/lang/StringBuilder;
+
+    move-result-object v5
+
+    const-string v6, " params="
+
+    invoke-virtual {v5, v6}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v5
+
+    iget-object v6, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSettingsPanel:Lcom/android/systemui/statusbar/phone/PanelView;
+
+    invoke-virtual {v6}, Lcom/android/systemui/statusbar/phone/PanelView;->getLayoutParams()Landroid/view/ViewGroup$LayoutParams;
+
+    move-result-object v6
+
+    const-string v7, ""
+
+    invoke-virtual {v6, v7}, Landroid/view/ViewGroup$LayoutParams;->debug(Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v6
+
+    invoke-virtual {v5, v6}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v5
+
+    invoke-virtual {v5}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v5
+
+    invoke-virtual {p2, v5}, Ljava/io/PrintWriter;->println(Ljava/lang/String;)V
+
+    .line 3135
+    const-string v5, "      "
+
+    invoke-virtual {p2, v5}, Ljava/io/PrintWriter;->print(Ljava/lang/String;)V
+
+    .line 3136
+    iget-object v5, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSettingsPanel:Lcom/android/systemui/statusbar/phone/PanelView;
+
+    invoke-virtual {v5, p1, p2, p3}, Lcom/android/systemui/statusbar/phone/PanelView;->dump(Ljava/io/FileDescriptor;Ljava/io/PrintWriter;[Ljava/lang/String;)V
+
+    .line 3140
+    :cond_2
     iget-object v6, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationData:Lcom/android/systemui/statusbar/NotificationData;
 
     monitor-enter v6
 
-    .line 3126
+    .line 3141
     :try_start_1
     iget-object v5, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationData:Lcom/android/systemui/statusbar/NotificationData;
 
@@ -8704,7 +6509,7 @@
 
     move-result v0
 
-    .line 3127
+    .line 3142
     .local v0, N:I
     new-instance v5, Ljava/lang/StringBuilder;
 
@@ -8726,21 +6531,21 @@
 
     invoke-virtual {p2, v5}, Ljava/io/PrintWriter;->println(Ljava/lang/String;)V
 
-    .line 3128
+    .line 3143
     const/4 v2, 0x0
 
     .local v2, i:I
-    :goto_2
-    if-ge v2, v0, :cond_2
+    :goto_1
+    if-ge v2, v0, :cond_4
 
-    .line 3129
+    .line 3144
     iget-object v5, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationData:Lcom/android/systemui/statusbar/NotificationData;
 
     invoke-virtual {v5, v2}, Lcom/android/systemui/statusbar/NotificationData;->get(I)Lcom/android/systemui/statusbar/NotificationData$Entry;
 
     move-result-object v1
 
-    .line 3130
+    .line 3145
     .local v1, e:Lcom/android/systemui/statusbar/NotificationData$Entry;
     new-instance v5, Ljava/lang/StringBuilder;
 
@@ -8786,10 +6591,10 @@
 
     invoke-virtual {p2, v5}, Ljava/io/PrintWriter;->println(Ljava/lang/String;)V
 
-    .line 3131
+    .line 3146
     iget-object v4, v1, Lcom/android/systemui/statusbar/NotificationData$Entry;->notification:Landroid/service/notification/StatusBarNotification;
 
-    .line 3132
+    .line 3147
     .local v4, n:Landroid/service/notification/StatusBarNotification;
     new-instance v5, Ljava/lang/StringBuilder;
 
@@ -8843,7 +6648,7 @@
 
     invoke-virtual {p2, v5}, Ljava/io/PrintWriter;->println(Ljava/lang/String;)V
 
-    .line 3133
+    .line 3148
     new-instance v5, Ljava/lang/StringBuilder;
 
     invoke-direct {v5}, Ljava/lang/StringBuilder;-><init>()V
@@ -8868,7 +6673,7 @@
 
     invoke-virtual {p2, v5}, Ljava/io/PrintWriter;->println(Ljava/lang/String;)V
 
-    .line 3134
+    .line 3149
     new-instance v5, Ljava/lang/StringBuilder;
 
     invoke-direct {v5}, Ljava/lang/StringBuilder;-><init>()V
@@ -8900,151 +6705,54 @@
     move-result-object v5
 
     invoke-virtual {p2, v5}, Ljava/io/PrintWriter;->println(Ljava/lang/String;)V
-
-    .line 3135
-    new-instance v5, Ljava/lang/StringBuilder;
-
-    invoke-direct {v5}, Ljava/lang/StringBuilder;-><init>()V
-
-    const-string v7, "         expandable="
-
-    invoke-virtual {v5, v7}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v5
-
-    invoke-virtual {v1}, Lcom/android/systemui/statusbar/NotificationData$Entry;->expandable()Z
-
-    move-result v7
-
-    invoke-virtual {v5, v7}, Ljava/lang/StringBuilder;->append(Z)Ljava/lang/StringBuilder;
-
-    move-result-object v5
-
-    const-string v7, " userexpanded="
-
-    invoke-virtual {v5, v7}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v5
-
-    invoke-virtual {v1}, Lcom/android/systemui/statusbar/NotificationData$Entry;->userExpanded()Z
-
-    move-result v7
-
-    invoke-virtual {v5, v7}, Ljava/lang/StringBuilder;->append(Z)Ljava/lang/StringBuilder;
-
-    move-result-object v5
-
-    const-string v7, " expandheight="
-
-    invoke-virtual {v5, v7}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v5
-
-    iget-object v7, v1, Lcom/android/systemui/statusbar/NotificationData$Entry;->row:Landroid/view/View;
-
-    invoke-virtual {v7}, Landroid/view/View;->getLayoutParams()Landroid/view/ViewGroup$LayoutParams;
-
-    move-result-object v7
-
-    iget v7, v7, Landroid/view/ViewGroup$LayoutParams;->height:I
-
-    invoke-virtual {v5, v7}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
-
-    move-result-object v5
-
-    invoke-virtual {v5}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v5
-
-    invoke-virtual {p2, v5}, Ljava/io/PrintWriter;->println(Ljava/lang/String;)V
     :try_end_1
     .catchall {:try_start_1 .. :try_end_1} :catchall_1
 
-    .line 3128
+    .line 3143
     add-int/lit8 v2, v2, 0x1
 
-    goto/16 :goto_2
+    goto/16 :goto_1
 
-    .line 3100
+    .line 3102
     .end local v0           #N:I
     .end local v1           #e:Lcom/android/systemui/statusbar/NotificationData$Entry;
     .end local v2           #i:I
     .end local v4           #n:Landroid/service/notification/StatusBarNotification;
-    :cond_0
-    :try_start_2
-    new-instance v5, Ljava/lang/StringBuilder;
-
-    invoke-direct {v5}, Ljava/lang/StringBuilder;-><init>()V
-
-    iget-object v8, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationPanel:Lcom/android/systemui/statusbar/phone/NotificationPanelView;
-
-    invoke-virtual {v5, v8}, Ljava/lang/StringBuilder;->append(Ljava/lang/Object;)Ljava/lang/StringBuilder;
-
-    move-result-object v5
-
-    const-string v8, " params="
-
-    invoke-virtual {v5, v8}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v5
-
-    iget-object v8, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationPanel:Lcom/android/systemui/statusbar/phone/NotificationPanelView;
-
-    invoke-virtual {v8}, Lcom/android/systemui/statusbar/phone/NotificationPanelView;->getLayoutParams()Landroid/view/ViewGroup$LayoutParams;
-
-    move-result-object v8
-
-    const-string v9, ""
-
-    invoke-virtual {v8, v9}, Landroid/view/ViewGroup$LayoutParams;->debug(Ljava/lang/String;)Ljava/lang/String;
-
-    move-result-object v8
-
-    invoke-virtual {v5, v8}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v5
-
-    invoke-virtual {v5}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v5
-
-    goto/16 :goto_0
-
-    .line 3115
     :catchall_0
     move-exception v5
 
+    :try_start_2
     monitor-exit v6
     :try_end_2
     .catchall {:try_start_2 .. :try_end_2} :catchall_0
 
     throw v5
 
-    .line 3121
-    :cond_1
+    .line 3122
+    :cond_3
     iget-object v5, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNavigationBarView:Lcom/android/systemui/statusbar/phone/NavigationBarView;
 
     invoke-virtual {v5, p1, p2, p3}, Lcom/android/systemui/statusbar/phone/NavigationBarView;->dump(Ljava/io/FileDescriptor;Ljava/io/PrintWriter;[Ljava/lang/String;)V
 
-    goto/16 :goto_1
+    goto/16 :goto_0
 
-    .line 3138
+    .line 3151
     .restart local v0       #N:I
     .restart local v2       #i:I
-    :cond_2
+    :cond_4
     :try_start_3
     monitor-exit v6
     :try_end_3
     .catchall {:try_start_3 .. :try_end_3} :catchall_1
 
-    .line 3140
+    .line 3153
     iget-object v5, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusIcons:Landroid/widget/LinearLayout;
 
     invoke-virtual {v5}, Landroid/widget/LinearLayout;->getChildCount()I
 
     move-result v0
 
-    .line 3141
+    .line 3154
     new-instance v5, Ljava/lang/StringBuilder;
 
     invoke-direct {v5}, Ljava/lang/StringBuilder;-><init>()V
@@ -9065,13 +6773,13 @@
 
     invoke-virtual {p2, v5}, Ljava/io/PrintWriter;->println(Ljava/lang/String;)V
 
-    .line 3142
+    .line 3155
     const/4 v2, 0x0
 
-    :goto_3
-    if-ge v2, v0, :cond_3
+    :goto_2
+    if-ge v2, v0, :cond_5
 
-    .line 3143
+    .line 3156
     iget-object v5, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusIcons:Landroid/widget/LinearLayout;
 
     invoke-virtual {v5, v2}, Landroid/widget/LinearLayout;->getChildAt(I)Landroid/view/View;
@@ -9080,7 +6788,7 @@
 
     check-cast v3, Lcom/android/systemui/statusbar/StatusBarIconView;
 
-    .line 3144
+    .line 3157
     .local v3, ic:Lcom/android/systemui/statusbar/StatusBarIconView;
     new-instance v5, Ljava/lang/StringBuilder;
 
@@ -9112,12 +6820,12 @@
 
     invoke-virtual {p2, v5}, Ljava/io/PrintWriter;->println(Ljava/lang/String;)V
 
-    .line 3142
+    .line 3155
     add-int/lit8 v2, v2, 0x1
 
-    goto :goto_3
+    goto :goto_2
 
-    .line 3138
+    .line 3151
     .end local v0           #N:I
     .end local v2           #i:I
     .end local v3           #ic:Lcom/android/systemui/statusbar/StatusBarIconView;
@@ -9131,265 +6839,15 @@
 
     throw v5
 
-    .line 3167
+    .line 3180
     .restart local v0       #N:I
     .restart local v2       #i:I
-    :cond_3
+    :cond_5
     iget-object v5, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNetworkController:Lcom/android/systemui/statusbar/policy/NetworkController;
 
     invoke-virtual {v5, p1, p2, p3}, Lcom/android/systemui/statusbar/policy/NetworkController;->dump(Ljava/io/FileDescriptor;Ljava/io/PrintWriter;[Ljava/lang/String;)V
 
-    .line 3170
-    new-instance v5, Ljava/lang/StringBuilder;
-
-    invoke-direct {v5}, Ljava/lang/StringBuilder;-><init>()V
-
-    const-string v6, "StatusBar Features : "
-
-    invoke-virtual {v5, v6}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v5
-
-    sget-object v6, Lcom/android/systemui/statusbar/Feature;->mProductName:Ljava/lang/String;
-
-    invoke-virtual {v5, v6}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v5
-
-    invoke-virtual {v5}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v5
-
-    invoke-virtual {p2, v5}, Ljava/io/PrintWriter;->println(Ljava/lang/String;)V
-
-    .line 3171
-    const-string v5, "    mShowSimCheckPopup=true"
-
-    invoke-virtual {p2, v5}, Ljava/io/PrintWriter;->println(Ljava/lang/String;)V
-
-    .line 3172
-    const-string v5, "    mUseStatusBarMarquee=true"
-
-    invoke-virtual {p2, v5}, Ljava/io/PrintWriter;->println(Ljava/lang/String;)V
-
-    .line 3173
-    new-instance v5, Ljava/lang/StringBuilder;
-
-    invoke-direct {v5}, Ljava/lang/StringBuilder;-><init>()V
-
-    const-string v6, "    mShowMenuKeyAlways="
-
-    invoke-virtual {v5, v6}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v5
-
-    sget-boolean v6, Lcom/android/systemui/statusbar/Feature;->mShowMenuKeyAlways:Z
-
-    invoke-virtual {v5, v6}, Ljava/lang/StringBuilder;->append(Z)Ljava/lang/StringBuilder;
-
-    move-result-object v5
-
-    invoke-virtual {v5}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v5
-
-    invoke-virtual {p2, v5}, Ljava/io/PrintWriter;->println(Ljava/lang/String;)V
-
-    .line 3174
-    new-instance v5, Ljava/lang/StringBuilder;
-
-    invoke-direct {v5}, Ljava/lang/StringBuilder;-><init>()V
-
-    const-string v6, "    mUseAnimatedBrightnessIcon="
-
-    invoke-virtual {v5, v6}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v5
-
-    sget-boolean v6, Lcom/android/systemui/statusbar/Feature;->mUseAnimatedBrightnessIcon:Z
-
-    invoke-virtual {v5, v6}, Ljava/lang/StringBuilder;->append(Z)Ljava/lang/StringBuilder;
-
-    move-result-object v5
-
-    invoke-virtual {v5}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v5
-
-    invoke-virtual {p2, v5}, Ljava/io/PrintWriter;->println(Ljava/lang/String;)V
-
-    .line 3175
-    new-instance v5, Ljava/lang/StringBuilder;
-
-    invoke-direct {v5}, Ljava/lang/StringBuilder;-><init>()V
-
-    const-string v6, "    mShowWorldClock="
-
-    invoke-virtual {v5, v6}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v5
-
-    sget-boolean v6, Lcom/android/systemui/statusbar/Feature;->mShowWorldClock:Z
-
-    invoke-virtual {v5, v6}, Ljava/lang/StringBuilder;->append(Z)Ljava/lang/StringBuilder;
-
-    move-result-object v5
-
-    invoke-virtual {v5}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v5
-
-    invoke-virtual {p2, v5}, Ljava/io/PrintWriter;->println(Ljava/lang/String;)V
-
-    .line 3176
-    new-instance v5, Ljava/lang/StringBuilder;
-
-    invoke-direct {v5}, Ljava/lang/StringBuilder;-><init>()V
-
-    const-string v6, "    mRoamingIconDisplay="
-
-    invoke-virtual {v5, v6}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v5
-
-    sget-boolean v6, Lcom/android/systemui/statusbar/Feature;->mRoamingIconDisplay:Z
-
-    invoke-virtual {v5, v6}, Ljava/lang/StringBuilder;->append(Z)Ljava/lang/StringBuilder;
-
-    move-result-object v5
-
-    invoke-virtual {v5}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v5
-
-    invoke-virtual {p2, v5}, Ljava/io/PrintWriter;->println(Ljava/lang/String;)V
-
-    .line 3177
-    new-instance v5, Ljava/lang/StringBuilder;
-
-    invoke-direct {v5}, Ljava/lang/StringBuilder;-><init>()V
-
-    const-string v6, "    mPLMNIconDisplay="
-
-    invoke-virtual {v5, v6}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v5
-
-    sget-boolean v6, Lcom/android/systemui/statusbar/Feature;->mPLMNIconDisplay:Z
-
-    invoke-virtual {v5, v6}, Ljava/lang/StringBuilder;->append(Z)Ljava/lang/StringBuilder;
-
-    move-result-object v5
-
-    invoke-virtual {v5}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v5
-
-    invoke-virtual {p2, v5}, Ljava/io/PrintWriter;->println(Ljava/lang/String;)V
-
-    .line 3178
-    new-instance v5, Ljava/lang/StringBuilder;
-
-    invoke-direct {v5}, Ljava/lang/StringBuilder;-><init>()V
-
-    const-string v6, "    mSoundProfile="
-
-    invoke-virtual {v5, v6}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v5
-
-    sget-boolean v6, Lcom/android/systemui/statusbar/Feature;->mSoundProfile:Z
-
-    invoke-virtual {v5, v6}, Ljava/lang/StringBuilder;->append(Z)Ljava/lang/StringBuilder;
-
-    move-result-object v5
-
-    invoke-virtual {v5}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v5
-
-    invoke-virtual {p2, v5}, Ljava/io/PrintWriter;->println(Ljava/lang/String;)V
-
-    .line 3179
-    new-instance v5, Ljava/lang/StringBuilder;
-
-    invoke-direct {v5}, Ljava/lang/StringBuilder;-><init>()V
-
-    const-string v6, "    mHideWifiInAndOut="
-
-    invoke-virtual {v5, v6}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v5
-
-    sget-boolean v6, Lcom/android/systemui/statusbar/Feature;->mHideWifiInAndOut:Z
-
-    invoke-virtual {v5, v6}, Ljava/lang/StringBuilder;->append(Z)Ljava/lang/StringBuilder;
-
-    move-result-object v5
-
-    invoke-virtual {v5}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v5
-
-    invoke-virtual {p2, v5}, Ljava/io/PrintWriter;->println(Ljava/lang/String;)V
-
-    .line 3180
-    const-string v5, "    mUseTouchWizGUI=true"
-
-    invoke-virtual {p2, v5}, Ljava/io/PrintWriter;->println(Ljava/lang/String;)V
-
     .line 3181
-    const-string v5, "    mShowRecentRemoveAllButton=true"
-
-    invoke-virtual {p2, v5}, Ljava/io/PrintWriter;->println(Ljava/lang/String;)V
-
-    .line 3182
-    new-instance v5, Ljava/lang/StringBuilder;
-
-    invoke-direct {v5}, Ljava/lang/StringBuilder;-><init>()V
-
-    const-string v6, "    mShowRecentOnlyStringForVZW="
-
-    invoke-virtual {v5, v6}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v5
-
-    sget-boolean v6, Lcom/android/systemui/statusbar/Feature;->mShowRecentOnlyStringForVZW:Z
-
-    invoke-virtual {v5, v6}, Ljava/lang/StringBuilder;->append(Z)Ljava/lang/StringBuilder;
-
-    move-result-object v5
-
-    invoke-virtual {v5}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v5
-
-    invoke-virtual {p2, v5}, Ljava/io/PrintWriter;->println(Ljava/lang/String;)V
-
-    .line 3183
-    new-instance v5, Ljava/lang/StringBuilder;
-
-    invoke-direct {v5}, Ljava/lang/StringBuilder;-><init>()V
-
-    const-string v6, "    mUseRedBatteryIcon="
-
-    invoke-virtual {v5, v6}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v5
-
-    sget-boolean v6, Lcom/android/systemui/statusbar/Feature;->mUseRedBatteryIcon:Z
-
-    invoke-virtual {v5, v6}, Ljava/lang/StringBuilder;->append(Z)Ljava/lang/StringBuilder;
-
-    move-result-object v5
-
-    invoke-virtual {v5}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v5
-
-    invoke-virtual {p2, v5}, Ljava/io/PrintWriter;->println(Ljava/lang/String;)V
-
-    .line 3185
     return-void
 .end method
 
@@ -9397,19 +6855,19 @@
     .locals 2
 
     .prologue
-    .line 2603
+    .line 2482
     const-string v0, "STATUSBAR-PhoneStatusBar"
 
     const-string v1, "flipPanels"
 
     invoke-static {v0, v1}, Landroid/util/Slog;->d(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 2604
+    .line 2483
     iget-boolean v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mHasFlipSettings:Z
 
     if-eqz v0, :cond_0
 
-    .line 2605
+    .line 2484
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mScrollView:Landroid/widget/ScrollView;
 
     invoke-virtual {v0}, Landroid/widget/ScrollView;->getVisibility()I
@@ -9418,15 +6876,15 @@
 
     if-nez v0, :cond_1
 
-    .line 2606
+    .line 2485
     invoke-virtual {p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->flipToSettings()V
 
-    .line 2611
+    .line 2491
     :cond_0
     :goto_0
     return-void
 
-    .line 2608
+    .line 2487
     :cond_1
     invoke-virtual {p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->flipToNotifications()V
 
@@ -9447,14 +6905,14 @@
 
     const/4 v4, 0x0
 
-    .line 2396
+    .line 2239
     const-string v0, "STATUSBAR-PhoneStatusBar"
 
     const-string v1, "flipToNotifications"
 
     invoke-static {v0, v1}, Landroid/util/Slog;->d(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 2397
+    .line 2240
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mFlipSettingsViewAnim:Landroid/animation/Animator;
 
     if-eqz v0, :cond_0
@@ -9463,7 +6921,7 @@
 
     invoke-virtual {v0}, Landroid/animation/Animator;->cancel()V
 
-    .line 2398
+    .line 2241
     :cond_0
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mScrollViewAnim:Landroid/animation/Animator;
 
@@ -9473,7 +6931,7 @@
 
     invoke-virtual {v0}, Landroid/animation/Animator;->cancel()V
 
-    .line 2399
+    .line 2242
     :cond_1
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSettingsButtonAnim:Landroid/animation/Animator;
 
@@ -9483,7 +6941,7 @@
 
     invoke-virtual {v0}, Landroid/animation/Animator;->cancel()V
 
-    .line 2400
+    .line 2243
     :cond_2
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationButtonAnim:Landroid/animation/Animator;
 
@@ -9493,7 +6951,7 @@
 
     invoke-virtual {v0}, Landroid/animation/Animator;->cancel()V
 
-    .line 2401
+    .line 2244
     :cond_3
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mEditButtonAnim:Landroid/animation/Animator;
 
@@ -9503,7 +6961,7 @@
 
     invoke-virtual {v0}, Landroid/animation/Animator;->cancel()V
 
-    .line 2402
+    .line 2245
     :cond_4
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mBasicSettingsButtonAnim:Landroid/animation/Animator;
 
@@ -9513,18 +6971,18 @@
 
     invoke-virtual {v0}, Landroid/animation/Animator;->cancel()V
 
-    .line 2405
+    .line 2248
     :cond_5
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mScrollView:Landroid/widget/ScrollView;
 
     invoke-virtual {v0, v4, v4}, Landroid/widget/ScrollView;->scrollTo(II)V
 
-    .line 2406
+    .line 2249
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mScrollView:Landroid/widget/ScrollView;
 
     invoke-virtual {v0, v4}, Landroid/widget/ScrollView;->setVisibility(I)V
 
-    .line 2407
+    .line 2250
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mScrollView:Landroid/widget/ScrollView;
 
     iget-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mDisplayMetrics:Landroid/util/DisplayMetrics;
@@ -9535,7 +6993,7 @@
 
     invoke-virtual {v0, v1}, Landroid/widget/ScrollView;->setTranslationY(F)V
 
-    .line 2408
+    .line 2251
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mScrollView:Landroid/widget/ScrollView;
 
     iget-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mDisplayMetrics:Landroid/util/DisplayMetrics;
@@ -9544,21 +7002,24 @@
 
     invoke-virtual {v0, v1}, Landroid/widget/ScrollView;->setMinimumHeight(I)V
 
-    .line 2409
+    .line 2252
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mScrollView:Landroid/widget/ScrollView;
 
-    const v1, 0x7f02019e
+    const v1, 0x7f020276
 
     invoke-virtual {v0, v1}, Landroid/widget/ScrollView;->setBackgroundResource(I)V
 
-    .line 2410
+    .line 2253
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mFlipSettingsView:Landroid/view/View;
 
     invoke-virtual {v0, v4}, Landroid/view/View;->setVisibility(I)V
 
-    invoke-direct {p0, v5}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->updateNotiToggs(Z)V
+    .line 2254
+    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mScrollView:Landroid/widget/ScrollView;
 
-    .line 2421
+    invoke-virtual {v0, v4, v4, v4, v4}, Landroid/widget/ScrollView;->setPadding(IIII)V
+
+    .line 2260
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mDecelerateInterpolator:Landroid/animation/TimeInterpolator;
 
     iget-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mScrollView:Landroid/widget/ScrollView;
@@ -9593,7 +7054,7 @@
 
     iput-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mScrollViewAnim:Landroid/animation/Animator;
 
-    .line 2441
+    .line 2270
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationButton:Landroid/widget/ImageView;
 
     sget-object v1, Landroid/view/View;->ALPHA:Landroid/util/Property;
@@ -9624,7 +7085,7 @@
 
     iput-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationButtonAnim:Landroid/animation/Animator;
 
-    .line 2446
+    .line 2275
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSettingsButton:Landroid/widget/ImageView;
 
     sget-object v1, Landroid/view/View;->ALPHA:Landroid/util/Property;
@@ -9653,15 +7114,15 @@
 
     iput-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSettingsButtonAnim:Landroid/animation/Animator;
 
-    .line 2451
+    .line 2280
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSettingsButton:Landroid/widget/ImageView;
 
     invoke-virtual {v0, v4}, Landroid/widget/ImageView;->setVisibility(I)V
 
-    .line 2453
+    .line 2282
     invoke-virtual {p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->setAreThereNotifications()V
 
-    .line 2456
+    .line 2285
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSettingsEditButton:Landroid/widget/ImageView;
 
     sget-object v1, Landroid/view/View;->ALPHA:Landroid/util/Property;
@@ -9692,12 +7153,12 @@
 
     iput-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mEditButtonAnim:Landroid/animation/Animator;
 
-    .line 2461
+    .line 2290
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mBasicSettingsButton:Landroid/widget/ImageView;
 
     invoke-virtual {v0, v4}, Landroid/widget/ImageView;->setVisibility(I)V
 
-    .line 2462
+    .line 2291
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mBasicSettingsButton:Landroid/widget/ImageView;
 
     sget-object v1, Landroid/view/View;->ALPHA:Landroid/util/Property;
@@ -9720,7 +7181,7 @@
 
     iput-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mBasicSettingsButtonAnim:Landroid/animation/Animator;
 
-    .line 2475
+    .line 2295
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mContext:Landroid/content/Context;
 
     new-instance v1, Landroid/content/Intent;
@@ -9733,14 +7194,14 @@
 
     invoke-virtual {v0, v1, v2}, Landroid/content/Context;->sendBroadcastAsUser(Landroid/content/Intent;Landroid/os/UserHandle;)V
 
-    .line 2476
+    .line 2296
     const-string v0, "PhoneStatusBar"
 
     const-string v1, "flipToNotifications in EXPAND_NOTI_ACTION"
 
     invoke-static {v0, v1}, Landroid/util/Slog;->d(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 2478
+    .line 2298
     return-void
 .end method
 
@@ -9758,23 +7219,23 @@
 
     const/4 v5, 0x0
 
-    .line 2527
+    .line 2404
     const-string v0, "STATUSBAR-PhoneStatusBar"
 
     const-string v1, "flipToSettings"
 
     invoke-static {v0, v1}, Landroid/util/Slog;->d(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 2529
-    iget-boolean v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mKidsModeActivated:Z
+    .line 2406
+    iget-boolean v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mUserSetup:Z
 
-    if-eqz v0, :cond_0
+    if-nez v0, :cond_0
 
-    .line 2600
+    .line 2472
     :goto_0
     return-void
 
-    .line 2531
+    .line 2408
     :cond_0
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mFlipSettingsViewAnim:Landroid/animation/Animator;
 
@@ -9784,7 +7245,7 @@
 
     invoke-virtual {v0}, Landroid/animation/Animator;->cancel()V
 
-    .line 2532
+    .line 2409
     :cond_1
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mScrollViewAnim:Landroid/animation/Animator;
 
@@ -9794,7 +7255,7 @@
 
     invoke-virtual {v0}, Landroid/animation/Animator;->cancel()V
 
-    .line 2533
+    .line 2410
     :cond_2
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSettingsButtonAnim:Landroid/animation/Animator;
 
@@ -9804,7 +7265,7 @@
 
     invoke-virtual {v0}, Landroid/animation/Animator;->cancel()V
 
-    .line 2534
+    .line 2411
     :cond_3
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationButtonAnim:Landroid/animation/Animator;
 
@@ -9814,7 +7275,7 @@
 
     invoke-virtual {v0}, Landroid/animation/Animator;->cancel()V
 
-    .line 2535
+    .line 2412
     :cond_4
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mEditButtonAnim:Landroid/animation/Animator;
 
@@ -9824,7 +7285,7 @@
 
     invoke-virtual {v0}, Landroid/animation/Animator;->cancel()V
 
-    .line 2536
+    .line 2413
     :cond_5
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mBasicSettingsButtonAnim:Landroid/animation/Animator;
 
@@ -9834,10 +7295,8 @@
 
     invoke-virtual {v0}, Landroid/animation/Animator;->cancel()V
 
-    .line 2549
+    .line 2416
     :cond_6
-    invoke-direct {p0, v5}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->updateNotiToggs(Z)V
-
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mScrollView:Landroid/widget/ScrollView;
 
     iget-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mDisplayMetrics:Landroid/util/DisplayMetrics;
@@ -9846,31 +7305,35 @@
 
     invoke-virtual {v0, v1}, Landroid/widget/ScrollView;->setMinimumHeight(I)V
 
-    .line 2550
+    .line 2418
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mScrollView:Landroid/widget/ScrollView;
 
-    const v1, 0x7f02019e
+    const v1, 0x7f020276
 
     invoke-virtual {v0, v1}, Landroid/widget/ScrollView;->setBackgroundResource(I)V
 
-    .line 2551
+    .line 2420
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mQSPanel:Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingPanel;
 
     if-eqz v0, :cond_7
 
+    .line 2421
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mQSPanel:Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingPanel;
 
     invoke-virtual {v0, v5}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingPanel;->setSingleLine(Z)V
 
-    .line 2552
+    .line 2422
     :cond_7
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mFlipSettingsView:Landroid/view/View;
 
     invoke-virtual {v0, v5}, Landroid/view/View;->setVisibility(I)V
 
-    invoke-direct {p0, v5}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->updateNotiToggs(Z)V
+    .line 2423
+    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mScrollView:Landroid/widget/ScrollView;
 
-    .line 2554
+    invoke-virtual {v0, v5, v5, v5, v5}, Landroid/widget/ScrollView;->setPadding(IIII)V
+
+    .line 2429
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mAccelerateInterpolator:Landroid/animation/TimeInterpolator;
 
     iget-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mScrollView:Landroid/widget/ScrollView;
@@ -9913,7 +7376,7 @@
 
     iput-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mScrollViewAnim:Landroid/animation/Animator;
 
-    .line 2565
+    .line 2438
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSettingsButton:Landroid/widget/ImageView;
 
     sget-object v1, Landroid/view/View;->ALPHA:Landroid/util/Property;
@@ -9944,7 +7407,7 @@
 
     iput-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSettingsButtonAnim:Landroid/animation/Animator;
 
-    .line 2570
+    .line 2443
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationButton:Landroid/widget/ImageView;
 
     sget-object v1, Landroid/view/View;->ALPHA:Landroid/util/Property;
@@ -9973,12 +7436,12 @@
 
     iput-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationButtonAnim:Landroid/animation/Animator;
 
-    .line 2575
+    .line 2448
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationButton:Landroid/widget/ImageView;
 
     invoke-virtual {v0, v5}, Landroid/widget/ImageView;->setVisibility(I)V
 
-    .line 2578
+    .line 2450
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mBasicSettingsButton:Landroid/widget/ImageView;
 
     sget-object v1, Landroid/view/View;->ALPHA:Landroid/util/Property;
@@ -10009,12 +7472,12 @@
 
     iput-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mBasicSettingsButtonAnim:Landroid/animation/Animator;
 
-    .line 2583
+    .line 2455
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSettingsEditButton:Landroid/widget/ImageView;
 
     invoke-virtual {v0, v5}, Landroid/widget/ImageView;->setVisibility(I)V
 
-    .line 2584
+    .line 2456
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSettingsEditButton:Landroid/widget/ImageView;
 
     sget-object v1, Landroid/view/View;->ALPHA:Landroid/util/Property;
@@ -10037,30 +7500,7 @@
 
     iput-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mEditButtonAnim:Landroid/animation/Animator;
 
-    .line 2597
-    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mContext:Landroid/content/Context;
-
-    invoke-virtual {v0}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
-
-    move-result-object v0
-
-    const-string v1, "statusbar_aosp_clear"
-
-    const/4 v2, 0x0
-
-    invoke-static {v0, v1, v2}, Landroid/provider/Settings$Global;->getInt(Landroid/content/ContentResolver;Ljava/lang/String;I)I
-
-    move-result v1
-
-    if-eqz v1, :cond_8
-
-    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mClearButton:Landroid/view/View;
-
-    const/16 v2, 0x8
-
-    invoke-virtual {v0, v2}, Landroid/view/ViewGroup;->setVisibility(I)V
-
-    :cond_8
+    .line 2469
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mContext:Landroid/content/Context;
 
     new-instance v1, Landroid/content/Intent;
@@ -10073,7 +7513,7 @@
 
     invoke-virtual {v0, v1, v2}, Landroid/content/Context;->sendBroadcastAsUser(Landroid/content/Intent;Landroid/os/UserHandle;)V
 
-    .line 2598
+    .line 2470
     const-string v0, "PhoneStatusBar"
 
     const-string v1, "flipToSettings in EXPAND_SETTING_ACTION"
@@ -10087,7 +7527,7 @@
     .locals 2
 
     .prologue
-    .line 3255
+    .line 3254
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mDisplayMetrics:Landroid/util/DisplayMetrics;
 
     iget v0, v0, Landroid/util/DisplayMetrics;->heightPixels:I
@@ -10103,7 +7543,7 @@
     .locals 1
 
     .prologue
-    .line 2860
+    .line 2701
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mGestureRec:Lcom/android/systemui/statusbar/GestureRecorder;
 
     return-object v0
@@ -10113,102 +7553,10 @@
     .locals 1
 
     .prologue
-    .line 2178
+    .line 1971
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mHandler:Lcom/android/systemui/statusbar/BaseStatusBar$H;
 
     return-object v0
-.end method
-
-.method protected getRecentsLayoutParams(Landroid/view/ViewGroup$LayoutParams;)Landroid/view/WindowManager$LayoutParams;
-    .locals 7
-    .parameter "layoutParams"
-
-    .prologue
-    .line 1149
-    const/4 v6, 0x0
-
-    .line 1150
-    .local v6, opaque:Z
-    new-instance v0, Landroid/view/WindowManager$LayoutParams;
-
-    iget v1, p1, Landroid/view/ViewGroup$LayoutParams;->width:I
-
-    iget v2, p1, Landroid/view/ViewGroup$LayoutParams;->height:I
-
-    const/16 v3, 0x7de
-
-    const v4, 0x820100
-
-    if-eqz v6, :cond_0
-
-    const/4 v5, -0x1
-
-    :goto_0
-    invoke-direct/range {v0 .. v5}, Landroid/view/WindowManager$LayoutParams;-><init>(IIIII)V
-
-    .line 1158
-    .local v0, lp:Landroid/view/WindowManager$LayoutParams;
-    invoke-static {}, Landroid/app/ActivityManager;->isHighEndGfx()Z
-
-    move-result v1
-
-    if-eqz v1, :cond_1
-
-    .line 1159
-    iget v1, v0, Landroid/view/WindowManager$LayoutParams;->flags:I
-
-    const/high16 v2, 0x100
-
-    or-int/2addr v1, v2
-
-    iput v1, v0, Landroid/view/WindowManager$LayoutParams;->flags:I
-
-    .line 1164
-    :goto_1
-    const v1, 0x800053
-
-    iput v1, v0, Landroid/view/WindowManager$LayoutParams;->gravity:I
-
-    .line 1165
-    const-string v1, "RecentsPanel"
-
-    invoke-virtual {v0, v1}, Landroid/view/WindowManager$LayoutParams;->setTitle(Ljava/lang/CharSequence;)V
-
-    .line 1166
-    const v1, 0x10301f3
-
-    iput v1, v0, Landroid/view/WindowManager$LayoutParams;->windowAnimations:I
-
-    .line 1167
-    const/16 v1, 0x31
-
-    iput v1, v0, Landroid/view/WindowManager$LayoutParams;->softInputMode:I
-
-    .line 1169
-    return-object v0
-
-    .line 1150
-    .end local v0           #lp:Landroid/view/WindowManager$LayoutParams;
-    :cond_0
-    const/4 v5, -0x3
-
-    goto :goto_0
-
-    .line 1161
-    .restart local v0       #lp:Landroid/view/WindowManager$LayoutParams;
-    :cond_1
-    iget v1, v0, Landroid/view/WindowManager$LayoutParams;->flags:I
-
-    or-int/lit8 v1, v1, 0x2
-
-    iput v1, v0, Landroid/view/WindowManager$LayoutParams;->flags:I
-
-    .line 1162
-    const/high16 v1, 0x3f40
-
-    iput v1, v0, Landroid/view/WindowManager$LayoutParams;->dimAmount:F
-
-    goto :goto_1
 .end method
 
 .method protected getSearchLayoutParams(Landroid/view/ViewGroup$LayoutParams;)Landroid/view/WindowManager$LayoutParams;
@@ -10218,10 +7566,10 @@
     .prologue
     const/4 v1, -0x1
 
-    .line 1174
+    .line 1123
     const/4 v6, 0x0
 
-    .line 1175
+    .line 1124
     .local v6, opaque:Z
     new-instance v0, Landroid/view/WindowManager$LayoutParams;
 
@@ -10238,7 +7586,7 @@
 
     invoke-direct/range {v0 .. v5}, Landroid/view/WindowManager$LayoutParams;-><init>(IIIII)V
 
-    .line 1183
+    .line 1132
     .local v0, lp:Landroid/view/WindowManager$LayoutParams;
     invoke-static {}, Landroid/app/ActivityManager;->isHighEndGfx()Z
 
@@ -10246,7 +7594,7 @@
 
     if-eqz v1, :cond_0
 
-    .line 1184
+    .line 1133
     iget v1, v0, Landroid/view/WindowManager$LayoutParams;->flags:I
 
     const/high16 v2, 0x100
@@ -10255,31 +7603,31 @@
 
     iput v1, v0, Landroid/view/WindowManager$LayoutParams;->flags:I
 
-    .line 1186
+    .line 1135
     :cond_0
     const v1, 0x800053
 
     iput v1, v0, Landroid/view/WindowManager$LayoutParams;->gravity:I
 
-    .line 1187
+    .line 1136
     const-string v1, "SearchPanel"
 
     invoke-virtual {v0, v1}, Landroid/view/WindowManager$LayoutParams;->setTitle(Ljava/lang/CharSequence;)V
 
-    .line 1189
-    const v1, 0x10301f3
+    .line 1138
+    const v1, 0x10301f7
 
     iput v1, v0, Landroid/view/WindowManager$LayoutParams;->windowAnimations:I
 
-    .line 1190
+    .line 1139
     const/16 v1, 0x31
 
     iput v1, v0, Landroid/view/WindowManager$LayoutParams;->softInputMode:I
 
-    .line 1192
+    .line 1141
     return-object v0
 
-    .line 1175
+    .line 1124
     .end local v0           #lp:Landroid/view/WindowManager$LayoutParams;
     :cond_1
     const/4 v5, -0x3
@@ -10291,7 +7639,7 @@
     .locals 1
 
     .prologue
-    .line 1226
+    .line 1180
     const/16 v0, 0x37
 
     return v0
@@ -10301,19 +7649,19 @@
     .locals 2
 
     .prologue
-    .line 1230
+    .line 1184
     iget v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNaturalBarHeight:I
 
     if-gez v1, :cond_0
 
-    .line 1231
+    .line 1185
     iget-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mContext:Landroid/content/Context;
 
     invoke-virtual {v1}, Landroid/content/Context;->getResources()Landroid/content/res/Resources;
 
     move-result-object v0
 
-    .line 1232
+    .line 1186
     .local v0, res:Landroid/content/res/Resources;
     const v1, 0x105000c
 
@@ -10323,7 +7671,7 @@
 
     iput v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNaturalBarHeight:I
 
-    .line 1235
+    .line 1189
     .end local v0           #res:Landroid/content/res/Resources;
     :cond_0
     iget v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNaturalBarHeight:I
@@ -10335,7 +7683,7 @@
     .locals 1
 
     .prologue
-    .line 1144
+    .line 1118
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarView:Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;
 
     return-object v0
@@ -10345,12 +7693,12 @@
     .locals 1
 
     .prologue
-    .line 3854
+    .line 3935
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mTicker:Lcom/android/systemui/statusbar/phone/Ticker;
 
     invoke-virtual {v0}, Lcom/android/systemui/statusbar/phone/Ticker;->halt()V
 
-    .line 3855
+    .line 3936
     return-void
 .end method
 
@@ -10358,62 +7706,19 @@
     .locals 2
 
     .prologue
-    .line 3915
+    .line 2748
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarView:Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;
-
-    iget-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mCallOnGoingView:Landroid/view/View;
-
-    invoke-virtual {v0, v1}, Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;->removeView(Landroid/view/View;)V
-
-    .line 3916
-    return-void
-.end method
-
-.method public hideCling()V
-    .locals 3
-
-    .prologue
-    .line 2772
-    invoke-virtual {p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->isClinging()Z
-
-    move-result v0
 
     if-eqz v0, :cond_0
 
-    .line 2773
-    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mCling:Landroid/view/ViewGroup;
-
-    invoke-virtual {v0}, Landroid/view/ViewGroup;->animate()Landroid/view/ViewPropertyAnimator;
-
-    move-result-object v0
+    .line 2749
+    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarView:Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;
 
     const/4 v1, 0x0
 
-    invoke-virtual {v0, v1}, Landroid/view/ViewPropertyAnimator;->alpha(F)Landroid/view/ViewPropertyAnimator;
+    invoke-virtual {v0, v1}, Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;->showCallOnGoingView(Z)V
 
-    move-result-object v0
-
-    const-wide/16 v1, 0xfa
-
-    invoke-virtual {v0, v1, v2}, Landroid/view/ViewPropertyAnimator;->setDuration(J)Landroid/view/ViewPropertyAnimator;
-
-    move-result-object v0
-
-    invoke-virtual {v0}, Landroid/view/ViewPropertyAnimator;->start()V
-
-    .line 2774
-    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mCling:Landroid/view/ViewGroup;
-
-    const/16 v1, 0x8
-
-    invoke-virtual {v0, v1}, Landroid/view/ViewGroup;->setVisibility(I)V
-
-    .line 2775
-    const/4 v0, 0x0
-
-    iput-boolean v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSuppressStatusBarDrags:Z
-
-    .line 2777
+    .line 2751
     :cond_0
     return-void
 .end method
@@ -10422,10 +7727,15 @@
     .locals 3
 
     .prologue
-    .line 1218
+    .line 1170
     invoke-super {p0}, Lcom/android/systemui/statusbar/BaseStatusBar;->hideSearchPanel()V
 
-    .line 1219
+    .line 1171
+    iget-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNavigationBarView:Lcom/android/systemui/statusbar/phone/NavigationBarView;
+
+    if-eqz v1, :cond_0
+
+    .line 1172
     iget-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNavigationBarView:Lcom/android/systemui/statusbar/phone/NavigationBarView;
 
     invoke-virtual {v1}, Lcom/android/systemui/statusbar/phone/NavigationBarView;->getLayoutParams()Landroid/view/ViewGroup$LayoutParams;
@@ -10434,7 +7744,7 @@
 
     check-cast v0, Landroid/view/WindowManager$LayoutParams;
 
-    .line 1221
+    .line 1174
     .local v0, lp:Landroid/view/WindowManager$LayoutParams;
     iget v1, v0, Landroid/view/WindowManager$LayoutParams;->flags:I
 
@@ -10442,59 +7752,79 @@
 
     iput v1, v0, Landroid/view/WindowManager$LayoutParams;->flags:I
 
-    .line 1222
+    .line 1175
     iget-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mWindowManager:Landroid/view/WindowManager;
 
     iget-object v2, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNavigationBarView:Lcom/android/systemui/statusbar/phone/NavigationBarView;
 
     invoke-interface {v1, v2, v0}, Landroid/view/WindowManager;->updateViewLayout(Landroid/view/View;Landroid/view/ViewGroup$LayoutParams;)V
 
-    .line 1223
+    .line 1177
+    .end local v0           #lp:Landroid/view/WindowManager$LayoutParams;
+    :cond_0
     return-void
 .end method
 
 .method public interceptTouchEvent(Landroid/view/MotionEvent;)Z
-    .locals 3
+    .locals 5
     .parameter "event"
 
     .prologue
-    const/4 v1, 0x1
-
-    .line 2847
-    invoke-virtual {p1}, Landroid/view/MotionEvent;->getActionMasked()I
-
-    move-result v0
-
-    .line 2848
-    .local v0, act:I
-    iget-boolean v2, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSuppressStatusBarDrags:Z
-
-    if-eqz v2, :cond_0
-
-    .line 2856
-    :goto_0
-    return v1
-
-    .line 2850
-    :cond_0
-    if-ne v0, v1, :cond_1
-
-    iget-boolean v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mClingShown:Z
-
-    if-nez v1, :cond_1
-
-    .line 2851
-    invoke-virtual {p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->showCling()V
-
-    .line 2856
-    :goto_1
     const/4 v1, 0x0
 
+    const/4 v2, 0x1
+
+    .line 2687
+    iget v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarWindowState:I
+
+    if-nez v3, :cond_1
+
+    .line 2688
+    invoke-virtual {p1}, Landroid/view/MotionEvent;->getAction()I
+
+    move-result v3
+
+    if-eq v3, v2, :cond_0
+
+    invoke-virtual {p1}, Landroid/view/MotionEvent;->getAction()I
+
+    move-result v3
+
+    const/4 v4, 0x3
+
+    if-ne v3, v4, :cond_2
+
+    :cond_0
+    move v0, v2
+
+    .line 2691
+    .local v0, upOrCancel:Z
+    :goto_0
+    if-eqz v0, :cond_3
+
+    iget-boolean v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mExpandedVisible:Z
+
+    if-nez v3, :cond_3
+
+    .line 2692
+    invoke-virtual {p0, v2, v1}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->setInteracting(IZ)V
+
+    .line 2697
+    .end local v0           #upOrCancel:Z
+    :cond_1
+    :goto_1
+    return v1
+
+    :cond_2
+    move v0, v1
+
+    .line 2688
     goto :goto_0
 
-    .line 2853
-    :cond_1
-    invoke-virtual {p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->hideCling()V
+    .line 2694
+    .restart local v0       #upOrCancel:Z
+    :cond_3
+    invoke-virtual {p0, v2, v2}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->setInteracting(IZ)V
 
     goto :goto_1
 .end method
@@ -10505,39 +7835,11 @@
     .parameter "a"
 
     .prologue
-    .line 2346
+    .line 2150
     invoke-virtual {p2, p1}, Landroid/animation/Animator;->setInterpolator(Landroid/animation/TimeInterpolator;)V
 
-    .line 2347
+    .line 2151
     return-object p2
-.end method
-
-.method public isClinging()Z
-    .locals 1
-
-    .prologue
-    .line 2768
-    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mCling:Landroid/view/ViewGroup;
-
-    if-eqz v0, :cond_0
-
-    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mCling:Landroid/view/ViewGroup;
-
-    invoke-virtual {v0}, Landroid/view/ViewGroup;->getVisibility()I
-
-    move-result v0
-
-    if-nez v0, :cond_0
-
-    const/4 v0, 0x1
-
-    :goto_0
-    return v0
-
-    :cond_0
-    const/4 v0, 0x0
-
-    goto :goto_0
 .end method
 
 .method protected loadDimens()V
@@ -10548,14 +7850,14 @@
 
     const/4 v6, 0x1
 
-    .line 3761
+    .line 3837
     iget-object v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mContext:Landroid/content/Context;
 
     invoke-virtual {v3}, Landroid/content/Context;->getResources()Landroid/content/res/Resources;
 
     move-result-object v2
 
-    .line 3763
+    .line 3839
     .local v2, res:Landroid/content/res/Resources;
     const v3, 0x105000c
 
@@ -10565,22 +7867,22 @@
 
     iput v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNaturalBarHeight:I
 
-    .line 3766
-    const v3, 0x7f0e0017
+    .line 3842
+    const v3, 0x1050010
 
     invoke-virtual {v2, v3}, Landroid/content/res/Resources;->getDimensionPixelSize(I)I
 
     move-result v1
 
-    .line 3768
+    .line 3844
     .local v1, newIconSize:I
-    const v3, 0x7f0e001e
+    const v3, 0x7f0c002a
 
     invoke-virtual {v2, v3}, Landroid/content/res/Resources;->getDimensionPixelSize(I)I
 
     move-result v0
 
-    .line 3771
+    .line 3847
     .local v0, newIconHPadding:I
     iget v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mIconHPadding:I
 
@@ -10590,16 +7892,16 @@
 
     if-eq v1, v3, :cond_1
 
-    .line 3773
+    .line 3849
     :cond_0
     iput v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mIconHPadding:I
 
-    .line 3774
+    .line 3850
     iput v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mIconSize:I
 
-    .line 3778
+    .line 3854
     :cond_1
-    const/high16 v3, 0x7f0e
+    const/high16 v3, 0x7f0c
 
     invoke-virtual {v2, v3}, Landroid/content/res/Resources;->getDimensionPixelSize(I)I
 
@@ -10607,8 +7909,8 @@
 
     iput v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mEdgeBorder:I
 
-    .line 3780
-    const v3, 0x7f0e0020
+    .line 3856
+    const v3, 0x7f0c002c
 
     invoke-virtual {v2, v3}, Landroid/content/res/Resources;->getDimension(I)F
 
@@ -10616,8 +7918,8 @@
 
     iput v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSelfExpandVelocityPx:F
 
-    .line 3781
-    const v3, 0x7f0e0021
+    .line 3857
+    const v3, 0x7f0c002d
 
     invoke-virtual {v2, v3}, Landroid/content/res/Resources;->getDimension(I)F
 
@@ -10625,8 +7927,8 @@
 
     iput v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSelfCollapseVelocityPx:F
 
-    .line 3782
-    const v3, 0x7f0e0022
+    .line 3858
+    const v3, 0x7f0c002e
 
     invoke-virtual {v2, v3}, Landroid/content/res/Resources;->getDimension(I)F
 
@@ -10634,8 +7936,8 @@
 
     iput v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mFlingExpandMinVelocityPx:F
 
-    .line 3783
-    const v3, 0x7f0e0023
+    .line 3859
+    const v3, 0x7f0c002f
 
     invoke-virtual {v2, v3}, Landroid/content/res/Resources;->getDimension(I)F
 
@@ -10643,8 +7945,8 @@
 
     iput v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mFlingCollapseMinVelocityPx:F
 
-    .line 3785
-    const v3, 0x7f0e0027
+    .line 3861
+    const v3, 0x7f0c0033
 
     invoke-virtual {v2, v3, v6, v6}, Landroid/content/res/Resources;->getFraction(III)F
 
@@ -10652,8 +7954,8 @@
 
     iput v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mCollapseMinDisplayFraction:F
 
-    .line 3786
-    const v3, 0x7f0e0028
+    .line 3862
+    const v3, 0x7f0c0034
 
     invoke-virtual {v2, v3, v6, v6}, Landroid/content/res/Resources;->getFraction(III)F
 
@@ -10661,8 +7963,8 @@
 
     iput v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mExpandMinDisplayFraction:F
 
-    .line 3788
-    const v3, 0x7f0e0029
+    .line 3864
+    const v3, 0x7f0c0035
 
     invoke-virtual {v2, v3}, Landroid/content/res/Resources;->getDimension(I)F
 
@@ -10670,8 +7972,8 @@
 
     iput v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mExpandAccelPx:F
 
-    .line 3789
-    const v3, 0x7f0e002a
+    .line 3865
+    const v3, 0x7f0c0036
 
     invoke-virtual {v2, v3}, Landroid/content/res/Resources;->getDimension(I)F
 
@@ -10679,8 +7981,8 @@
 
     iput v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mCollapseAccelPx:F
 
-    .line 3791
-    const v3, 0x7f0e0024
+    .line 3867
+    const v3, 0x7f0c0030
 
     invoke-virtual {v2, v3}, Landroid/content/res/Resources;->getDimension(I)F
 
@@ -10688,8 +7990,8 @@
 
     iput v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mFlingGestureMaxXVelocityPx:F
 
-    .line 3793
-    const v3, 0x7f0e0025
+    .line 3869
+    const v3, 0x7f0c0031
 
     invoke-virtual {v2, v3}, Landroid/content/res/Resources;->getDimension(I)F
 
@@ -10697,8 +7999,8 @@
 
     iput v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mFlingGestureMaxOutputVelocityPx:F
 
-    .line 3795
-    const v3, 0x7f0e0039
+    .line 3871
+    const v3, 0x7f0c0048
 
     invoke-virtual {v2, v3}, Landroid/content/res/Resources;->getDimension(I)F
 
@@ -10708,8 +8010,8 @@
 
     iput v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationPanelMarginBottomPx:I
 
-    .line 3797
-    const v3, 0x7f0e003a
+    .line 3873
+    const v3, 0x7f0c0049
 
     invoke-virtual {v2, v3}, Landroid/content/res/Resources;->getDimension(I)F
 
@@ -10717,10 +8019,21 @@
 
     float-to-int v3, v3
 
-    iput v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationPanelMarginPx:I
+    iput v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationPanelMarginLeftPx:I
 
-    .line 3799
-    const v3, 0x7f0d000e
+    .line 3875
+    const v3, 0x7f0c004a
+
+    invoke-virtual {v2, v3}, Landroid/content/res/Resources;->getDimension(I)F
+
+    move-result v3
+
+    float-to-int v3, v3
+
+    iput v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationPanelMarginRightPx:I
+
+    .line 3877
+    const v3, 0x7f0b0010
 
     invoke-virtual {v2, v3}, Landroid/content/res/Resources;->getInteger(I)I
 
@@ -10728,19 +8041,19 @@
 
     iput v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationPanelGravity:I
 
-    .line 3800
+    .line 3878
     iget v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationPanelGravity:I
 
     if-gtz v3, :cond_2
 
-    .line 3801
+    .line 3879
     const v3, 0x800033
 
     iput v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationPanelGravity:I
 
-    .line 3803
+    .line 3881
     :cond_2
-    const v3, 0x7f0d000f
+    const v3, 0x7f0b0011
 
     invoke-virtual {v2, v3}, Landroid/content/res/Resources;->getInteger(I)I
 
@@ -10748,7 +8061,7 @@
 
     iput v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSettingsPanelGravity:I
 
-    .line 3804
+    .line 3882
     const-string v3, "PhoneStatusBar"
 
     new-instance v4, Ljava/lang/StringBuilder;
@@ -10773,19 +8086,19 @@
 
     invoke-static {v3, v4}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 3805
+    .line 3883
     iget v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSettingsPanelGravity:I
 
     if-gtz v3, :cond_3
 
-    .line 3806
+    .line 3884
     const v3, 0x800035
 
     iput v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSettingsPanelGravity:I
 
-    .line 3809
+    .line 3887
     :cond_3
-    const v3, 0x7f0e003d
+    const v3, 0x7f0c004d
 
     invoke-virtual {v2, v3}, Landroid/content/res/Resources;->getDimensionPixelSize(I)I
 
@@ -10793,8 +8106,8 @@
 
     iput v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mCarrierLabelHeight:I
 
-    .line 3810
-    const v3, 0x7f0e0036
+    .line 3888
+    const v3, 0x7f0c0045
 
     invoke-virtual {v2, v3}, Landroid/content/res/Resources;->getDimensionPixelSize(I)I
 
@@ -10802,8 +8115,8 @@
 
     iput v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationHeaderHeight:I
 
-    .line 3812
-    const v3, 0x7f0e0041
+    .line 3890
+    const v3, 0x7f0c0051
 
     invoke-virtual {v2, v3, v6, v6}, Landroid/content/res/Resources;->getFraction(III)F
 
@@ -10811,7 +8124,7 @@
 
     iput v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationPanelMinHeightFrac:F
 
-    .line 3813
+    .line 3891
     iget v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationPanelMinHeightFrac:F
 
     cmpg-float v3, v3, v7
@@ -10826,401 +8139,408 @@
 
     if-lez v3, :cond_5
 
-    .line 3814
+    .line 3892
     :cond_4
     iput v7, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationPanelMinHeightFrac:F
 
-    .line 3818
+    .line 3895
     :cond_5
+    const v3, 0x7f0b000e
+
+    invoke-virtual {v2, v3}, Landroid/content/res/Resources;->getInteger(I)I
+
+    move-result v3
+
+    iput v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mHeadsUpNotificationDecay:I
+
+    .line 3896
+    const v3, 0x7f0c0026
+
+    invoke-virtual {v2, v3}, Landroid/content/res/Resources;->getDimensionPixelSize(I)I
+
+    move-result v3
+
+    iput v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mRowHeight:I
+
+    .line 3899
     return-void
 .end method
 
 .method makeExpandedInvisible()V
-    .locals 11
+    .locals 10
 
     .prologue
-    const/high16 v10, 0x10a
+    const/high16 v9, 0x10a
 
-    const/high16 v9, 0x3f80
+    const/high16 v8, 0x3f80
 
-    const/16 v8, 0x8
+    const/16 v7, 0x8
 
-    const/4 v7, 0x1
+    const/4 v6, 0x1
 
-    const/4 v6, 0x0
+    const/4 v5, 0x0
 
-    .line 2623
-    const-string v4, "STATUSBAR-PhoneStatusBar"
+    .line 2503
+    const-string v3, "STATUSBAR-PhoneStatusBar"
 
-    const-string v5, "makeExpandedInvisible"
+    const-string v4, "makeExpandedInvisible"
 
-    invoke-static {v4, v5}, Landroid/util/Slog;->d(Ljava/lang/String;Ljava/lang/String;)I
+    invoke-static {v3, v4}, Landroid/util/Slog;->d(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 2627
-    iget-boolean v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mExpandedVisible:Z
+    .line 2507
+    iget-boolean v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mExpandedVisible:Z
 
-    if-nez v4, :cond_1
+    if-nez v3, :cond_1
 
-    .line 2717
+    .line 2613
     :cond_0
     :goto_0
     return-void
 
-    .line 2633
+    .line 2513
     :cond_1
-    iget-boolean v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mHasFlipSettings:Z
+    iget-boolean v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mHasFlipSettings:Z
 
-    if-eqz v4, :cond_2
+    if-eqz v3, :cond_2
 
-    .line 2634
-    iget-object v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mHSView:Landroid/widget/HorizontalScrollView;
+    .line 2514
+    iget-object v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mHSView:Landroid/widget/HorizontalScrollView;
 
-    if-eqz v4, :cond_2
+    if-eqz v3, :cond_2
 
-    iget-object v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mHSView:Landroid/widget/HorizontalScrollView;
+    iget-object v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mHSView:Landroid/widget/HorizontalScrollView;
 
-    invoke-virtual {v4, v6, v6}, Landroid/widget/HorizontalScrollView;->scrollTo(II)V
+    invoke-virtual {v3, v5, v5}, Landroid/widget/HorizontalScrollView;->scrollTo(II)V
 
-    .line 2639
+    .line 2520
     :cond_2
-    const-string v4, "STATUSBAR-PhoneStatusBar"
+    const-string v3, "STATUSBAR-PhoneStatusBar"
 
-    const-string v5, "Mini Controller text scroll : OFF"
+    const-string v4, "Mini Controller text scroll : OFF"
 
-    invoke-static {v4, v5}, Landroid/util/Slog;->d(Ljava/lang/String;Ljava/lang/String;)I
+    invoke-static {v3, v4}, Landroid/util/Slog;->d(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 2640
-    iget-object v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationData:Lcom/android/systemui/statusbar/NotificationData;
+    .line 2521
+    iget-object v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationData:Lcom/android/systemui/statusbar/NotificationData;
 
-    invoke-virtual {v4}, Lcom/android/systemui/statusbar/NotificationData;->size()I
+    invoke-virtual {v3}, Lcom/android/systemui/statusbar/NotificationData;->size()I
 
     move-result v0
 
-    .line 2641
+    .line 2522
     .local v0, N:I
-    new-instance v3, Ljava/util/ArrayList;
-
-    invoke-direct {v3}, Ljava/util/ArrayList;-><init>()V
-
-    .line 2642
-    .local v3, miniController:Ljava/util/ArrayList;,"Ljava/util/ArrayList<Landroid/view/View;>;"
     const/4 v1, 0x0
 
     .local v1, i:I
     :goto_1
     if-ge v1, v0, :cond_4
 
-    .line 2643
-    iget-object v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationData:Lcom/android/systemui/statusbar/NotificationData;
+    .line 2523
+    iget-object v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationData:Lcom/android/systemui/statusbar/NotificationData;
 
-    sub-int v5, v0, v1
+    sub-int v4, v0, v1
 
-    add-int/lit8 v5, v5, -0x1
+    add-int/lit8 v4, v4, -0x1
 
-    invoke-virtual {v4, v5}, Lcom/android/systemui/statusbar/NotificationData;->get(I)Lcom/android/systemui/statusbar/NotificationData$Entry;
+    invoke-virtual {v3, v4}, Lcom/android/systemui/statusbar/NotificationData;->get(I)Lcom/android/systemui/statusbar/NotificationData$Entry;
 
-    move-result-object v4
+    move-result-object v3
 
-    iget-object v4, v4, Lcom/android/systemui/statusbar/NotificationData$Entry;->notification:Landroid/service/notification/StatusBarNotification;
+    iget-object v3, v3, Lcom/android/systemui/statusbar/NotificationData$Entry;->notification:Landroid/service/notification/StatusBarNotification;
 
-    invoke-virtual {v4}, Landroid/service/notification/StatusBarNotification;->isMiniCon()Z
+    invoke-virtual {v3}, Landroid/service/notification/StatusBarNotification;->isMiniCon()Z
 
-    move-result v4
+    move-result v3
 
-    if-eqz v4, :cond_3
+    if-eqz v3, :cond_3
 
-    .line 2644
-    iget-object v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationData:Lcom/android/systemui/statusbar/NotificationData;
+    .line 2524
+    iget-object v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationData:Lcom/android/systemui/statusbar/NotificationData;
 
-    sub-int v5, v0, v1
+    sub-int v4, v0, v1
 
-    add-int/lit8 v5, v5, -0x1
+    add-int/lit8 v4, v4, -0x1
 
-    invoke-virtual {v4, v5}, Lcom/android/systemui/statusbar/NotificationData;->get(I)Lcom/android/systemui/statusbar/NotificationData$Entry;
+    invoke-virtual {v3, v4}, Lcom/android/systemui/statusbar/NotificationData;->get(I)Lcom/android/systemui/statusbar/NotificationData$Entry;
 
-    move-result-object v4
+    move-result-object v3
 
-    iget-object v4, v4, Lcom/android/systemui/statusbar/NotificationData$Entry;->expanded:Landroid/view/View;
+    iget-object v3, v3, Lcom/android/systemui/statusbar/NotificationData$Entry;->expanded:Landroid/view/View;
 
-    invoke-virtual {v4, v6}, Landroid/view/View;->setSelected(Z)V
+    invoke-virtual {v3, v5}, Landroid/view/View;->setSelected(Z)V
 
-    .line 2642
+    .line 2522
     :cond_3
     add-int/lit8 v1, v1, 0x1
 
     goto :goto_1
 
-    .line 2649
+    .line 2531
     :cond_4
-    iget-object v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarView:Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;
+    iget-object v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarView:Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;
 
-    invoke-virtual {v4, v6}, Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;->collapseAllPanels(Z)V
+    invoke-virtual {v3, v5}, Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;->collapseAllPanels(Z)V
 
-    .line 2652
-    invoke-static {}, Landroid/app/ActivityManager;->isHighEndGfx()Z
+    .line 2550
+    iget-boolean v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mHasFlipSettings:Z
 
-    move-result v4
+    if-eqz v3, :cond_c
 
-    if-eqz v4, :cond_5
+    .line 2552
+    iget-object v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mFlipSettingsViewAnim:Landroid/animation/Animator;
 
-    .line 2653
-    iget-object v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarWindow:Lcom/android/systemui/statusbar/phone/StatusBarWindowView;
+    if-eqz v3, :cond_5
 
-    const v5, 0x106000d
+    iget-object v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mFlipSettingsViewAnim:Landroid/animation/Animator;
 
-    invoke-virtual {v4, v5}, Lcom/android/systemui/statusbar/phone/StatusBarWindowView;->setBackgroundColor(I)V
+    invoke-virtual {v3}, Landroid/animation/Animator;->cancel()V
 
-    .line 2657
+    .line 2553
     :cond_5
-    iget-boolean v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mHasFlipSettings:Z
+    iget-object v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mScrollViewAnim:Landroid/animation/Animator;
 
-    if-eqz v4, :cond_d
+    if-eqz v3, :cond_6
 
-    .line 2659
-    iget-object v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mFlipSettingsViewAnim:Landroid/animation/Animator;
+    iget-object v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mScrollViewAnim:Landroid/animation/Animator;
 
-    if-eqz v4, :cond_6
+    invoke-virtual {v3}, Landroid/animation/Animator;->cancel()V
 
-    iget-object v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mFlipSettingsViewAnim:Landroid/animation/Animator;
-
-    invoke-virtual {v4}, Landroid/animation/Animator;->cancel()V
-
-    .line 2660
+    .line 2554
     :cond_6
-    iget-object v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mScrollViewAnim:Landroid/animation/Animator;
+    iget-object v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSettingsButtonAnim:Landroid/animation/Animator;
 
-    if-eqz v4, :cond_7
+    if-eqz v3, :cond_7
 
-    iget-object v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mScrollViewAnim:Landroid/animation/Animator;
+    iget-object v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSettingsButtonAnim:Landroid/animation/Animator;
 
-    invoke-virtual {v4}, Landroid/animation/Animator;->cancel()V
+    invoke-virtual {v3}, Landroid/animation/Animator;->cancel()V
 
-    .line 2661
+    .line 2555
     :cond_7
-    iget-object v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSettingsButtonAnim:Landroid/animation/Animator;
+    iget-object v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationButtonAnim:Landroid/animation/Animator;
 
-    if-eqz v4, :cond_8
+    if-eqz v3, :cond_8
 
-    iget-object v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSettingsButtonAnim:Landroid/animation/Animator;
+    iget-object v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationButtonAnim:Landroid/animation/Animator;
 
-    invoke-virtual {v4}, Landroid/animation/Animator;->cancel()V
+    invoke-virtual {v3}, Landroid/animation/Animator;->cancel()V
 
-    .line 2662
+    .line 2556
     :cond_8
-    iget-object v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationButtonAnim:Landroid/animation/Animator;
+    iget-object v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mEditButtonAnim:Landroid/animation/Animator;
 
-    if-eqz v4, :cond_9
+    if-eqz v3, :cond_9
 
-    iget-object v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationButtonAnim:Landroid/animation/Animator;
+    iget-object v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mEditButtonAnim:Landroid/animation/Animator;
 
-    invoke-virtual {v4}, Landroid/animation/Animator;->cancel()V
+    invoke-virtual {v3}, Landroid/animation/Animator;->cancel()V
 
-    .line 2663
+    .line 2557
     :cond_9
-    iget-object v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mEditButtonAnim:Landroid/animation/Animator;
+    iget-object v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mBasicSettingsButtonAnim:Landroid/animation/Animator;
 
-    if-eqz v4, :cond_a
+    if-eqz v3, :cond_a
 
-    iget-object v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mEditButtonAnim:Landroid/animation/Animator;
+    iget-object v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mBasicSettingsButtonAnim:Landroid/animation/Animator;
 
-    invoke-virtual {v4}, Landroid/animation/Animator;->cancel()V
+    invoke-virtual {v3}, Landroid/animation/Animator;->cancel()V
 
-    .line 2664
+    .line 2560
     :cond_a
-    iget-object v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mBasicSettingsButtonAnim:Landroid/animation/Animator;
+    iget-object v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mScrollView:Landroid/widget/ScrollView;
 
-    if-eqz v4, :cond_b
+    invoke-virtual {v3, v5}, Landroid/widget/ScrollView;->setVisibility(I)V
 
-    iget-object v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mBasicSettingsButtonAnim:Landroid/animation/Animator;
+    .line 2561
+    iget-object v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mQSPanel:Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingPanel;
 
-    invoke-virtual {v4}, Landroid/animation/Animator;->cancel()V
+    if-eqz v3, :cond_b
 
-    .line 2667
+    iget-object v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mQSPanel:Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingPanel;
+
+    invoke-virtual {v3, v6}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingPanel;->setSingleLine(Z)V
+
+    .line 2562
     :cond_b
-    iget-object v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mScrollView:Landroid/widget/ScrollView;
+    iget-object v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mScrollView:Landroid/widget/ScrollView;
 
-    invoke-virtual {v4, v6}, Landroid/widget/ScrollView;->setVisibility(I)V
+    invoke-virtual {v3, v5}, Landroid/widget/ScrollView;->setMinimumHeight(I)V
 
-    .line 2668
-    iget-object v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mQSPanel:Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingPanel;
+    .line 2563
+    iget-object v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mScrollView:Landroid/widget/ScrollView;
 
-    if-eqz v4, :cond_c
+    const/4 v4, 0x0
 
-    iget-object v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mQSPanel:Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingPanel;
+    invoke-virtual {v3, v4}, Landroid/widget/ScrollView;->setTranslationY(F)V
 
-    invoke-virtual {v4, v7}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingPanel;->setSingleLine(Z)V
+    .line 2564
+    iget-object v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mFlipSettingsView:Landroid/view/View;
 
-    .line 2669
-    :cond_c
-    iget-object v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mScrollView:Landroid/widget/ScrollView;
+    invoke-virtual {v3, v5}, Landroid/view/View;->setVisibility(I)V
 
-    invoke-virtual {v4, v6}, Landroid/widget/ScrollView;->setMinimumHeight(I)V
+    .line 2565
+    iget-object v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSettingsButton:Landroid/widget/ImageView;
 
-    .line 2672
-    iget-object v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mScrollView:Landroid/widget/ScrollView;
+    invoke-virtual {v3, v8}, Landroid/widget/ImageView;->setAlpha(F)V
 
-    const/4 v5, 0x0
+    .line 2566
+    iget-object v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSettingsButton:Landroid/widget/ImageView;
 
-    invoke-virtual {v4, v5}, Landroid/widget/ScrollView;->setTranslationY(F)V
+    invoke-virtual {v3, v5}, Landroid/widget/ImageView;->setVisibility(I)V
 
-    .line 2673
-    iget-object v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mFlipSettingsView:Landroid/view/View;
+    .line 2567
+    iget-object v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mBasicSettingsButton:Landroid/widget/ImageView;
 
-    invoke-virtual {v4, v6}, Landroid/view/View;->setVisibility(I)V
+    invoke-virtual {v3, v5}, Landroid/widget/ImageView;->setVisibility(I)V
 
-    const/4 v5, 0x1
+    .line 2568
+    iget-object v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mBasicSettingsButton:Landroid/widget/ImageView;
 
-    invoke-direct {p0, v5}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->updateNotiToggs(Z)V
+    invoke-virtual {v3, v8}, Landroid/widget/ImageView;->setAlpha(F)V
 
-    .line 2674
-    iget-object v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSettingsButton:Landroid/widget/ImageView;
+    .line 2569
+    iget-object v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationPanel:Lcom/android/systemui/statusbar/phone/NotificationPanelView;
 
-    invoke-virtual {v4, v9}, Landroid/widget/ImageView;->setAlpha(F)V
+    invoke-virtual {v3, v7}, Lcom/android/systemui/statusbar/phone/NotificationPanelView;->setVisibility(I)V
 
-    .line 2675
-    iget-object v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSettingsButton:Landroid/widget/ImageView;
+    .line 2570
+    iget-object v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationButton:Landroid/widget/ImageView;
 
-    invoke-virtual {v4, v6}, Landroid/widget/ImageView;->setVisibility(I)V
+    invoke-virtual {v3, v7}, Landroid/widget/ImageView;->setVisibility(I)V
 
-    .line 2676
-    iget-object v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mBasicSettingsButton:Landroid/widget/ImageView;
+    .line 2571
+    iget-object v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSettingsEditButton:Landroid/widget/ImageView;
 
-    invoke-virtual {v4, v6}, Landroid/widget/ImageView;->setVisibility(I)V
+    invoke-virtual {v3, v7}, Landroid/widget/ImageView;->setVisibility(I)V
 
-    .line 2677
-    iget-object v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mBasicSettingsButton:Landroid/widget/ImageView;
-
-    invoke-virtual {v4, v9}, Landroid/widget/ImageView;->setAlpha(F)V
-
-    .line 2678
-    iget-object v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationPanel:Lcom/android/systemui/statusbar/phone/NotificationPanelView;
-
-    invoke-virtual {v4, v8}, Lcom/android/systemui/statusbar/phone/NotificationPanelView;->setVisibility(I)V
-
-    .line 2679
-    iget-object v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationButton:Landroid/widget/ImageView;
-
-    invoke-virtual {v4, v8}, Landroid/widget/ImageView;->setVisibility(I)V
-
-    .line 2680
-    iget-object v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSettingsEditButton:Landroid/widget/ImageView;
-
-    invoke-virtual {v4, v8}, Landroid/widget/ImageView;->setVisibility(I)V
-
-    .line 2681
+    .line 2572
     invoke-virtual {p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->setAreThereNotifications()V
 
-    .line 2684
+    .line 2575
+    :cond_c
+    iput-boolean v5, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mExpandedVisible:Z
+
+    .line 2576
+    iget-object v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mPile:Lcom/android/systemui/statusbar/policy/NotificationRowLayout;
+
+    invoke-virtual {v3, v5}, Lcom/android/systemui/statusbar/policy/NotificationRowLayout;->setLayoutTransitionsEnabled(Z)V
+
+    .line 2577
+    iget-object v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNavigationBarView:Lcom/android/systemui/statusbar/phone/NavigationBarView;
+
+    if-eqz v3, :cond_d
+
+    .line 2578
+    iget-object v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNavigationBarView:Lcom/android/systemui/statusbar/phone/NavigationBarView;
+
+    invoke-virtual {v3, v5}, Lcom/android/systemui/statusbar/phone/NavigationBarView;->setSlippery(Z)V
+
+    .line 2579
     :cond_d
-    iput-boolean v6, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mExpandedVisible:Z
+    invoke-virtual {p0, v5}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->visibilityChanged(Z)V
 
-    .line 2685
-    iget-object v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mLatestNotifications:Lcom/android/systemui/statusbar/policy/NotificationRowLayout;
+    .line 2582
+    iget-object v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarWindow:Lcom/android/systemui/statusbar/phone/StatusBarWindowView;
 
-    invoke-virtual {v4, v6}, Lcom/android/systemui/statusbar/policy/NotificationRowLayout;->setLayoutTransitionsEnabled(Z)V
-
-    .line 2686
-    iget-object v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNavigationBarView:Lcom/android/systemui/statusbar/phone/NavigationBarView;
-
-    if-eqz v4, :cond_e
-
-    .line 2687
-    iget-object v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNavigationBarView:Lcom/android/systemui/statusbar/phone/NavigationBarView;
-
-    invoke-virtual {v4, v6}, Lcom/android/systemui/statusbar/phone/NavigationBarView;->setSlippery(Z)V
-
-    .line 2688
-    :cond_e
-    invoke-virtual {p0, v6}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->visibilityChanged(Z)V
-
-    .line 2691
-    iget-object v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarWindow:Lcom/android/systemui/statusbar/phone/StatusBarWindowView;
-
-    invoke-virtual {v4}, Lcom/android/systemui/statusbar/phone/StatusBarWindowView;->getLayoutParams()Landroid/view/ViewGroup$LayoutParams;
+    invoke-virtual {v3}, Lcom/android/systemui/statusbar/phone/StatusBarWindowView;->getLayoutParams()Landroid/view/ViewGroup$LayoutParams;
 
     move-result-object v2
 
     check-cast v2, Landroid/view/WindowManager$LayoutParams;
 
-    .line 2692
+    .line 2583
     .local v2, lp:Landroid/view/WindowManager$LayoutParams;
     invoke-virtual {p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->getStatusBarHeight()I
 
-    move-result v4
+    move-result v3
 
-    iput v4, v2, Landroid/view/WindowManager$LayoutParams;->height:I
+    iput v3, v2, Landroid/view/WindowManager$LayoutParams;->height:I
 
-    .line 2693
-    iget v4, v2, Landroid/view/WindowManager$LayoutParams;->flags:I
+    .line 2584
+    iget v3, v2, Landroid/view/WindowManager$LayoutParams;->flags:I
 
-    or-int/lit8 v4, v4, 0x8
+    or-int/lit8 v3, v3, 0x8
 
-    iput v4, v2, Landroid/view/WindowManager$LayoutParams;->flags:I
+    iput v3, v2, Landroid/view/WindowManager$LayoutParams;->flags:I
 
-    .line 2694
-    iget v4, v2, Landroid/view/WindowManager$LayoutParams;->flags:I
+    .line 2585
+    iget v3, v2, Landroid/view/WindowManager$LayoutParams;->flags:I
 
-    const v5, -0x20001
+    const v4, -0x20001
 
-    and-int/2addr v4, v5
+    and-int/2addr v3, v4
 
-    iput v4, v2, Landroid/view/WindowManager$LayoutParams;->flags:I
+    iput v3, v2, Landroid/view/WindowManager$LayoutParams;->flags:I
 
-    .line 2695
-    iget-object v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mWindowManager:Landroid/view/WindowManager;
+    .line 2586
+    iget-object v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mWindowManager:Landroid/view/WindowManager;
 
-    iget-object v5, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarWindow:Lcom/android/systemui/statusbar/phone/StatusBarWindowView;
+    iget-object v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarWindow:Lcom/android/systemui/statusbar/phone/StatusBarWindowView;
 
-    invoke-interface {v4, v5, v2}, Landroid/view/WindowManager;->updateViewLayout(Landroid/view/View;Landroid/view/ViewGroup$LayoutParams;)V
+    invoke-interface {v3, v4, v2}, Landroid/view/WindowManager;->updateViewLayout(Landroid/view/View;Landroid/view/ViewGroup$LayoutParams;)V
 
-    .line 2697
-    iget v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mDisabled:I
+    .line 2588
+    iget v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mDisabled:I
 
-    const/high16 v5, 0x2
+    const/high16 v4, 0x2
 
-    and-int/2addr v4, v5
+    and-int/2addr v3, v4
 
-    if-nez v4, :cond_f
+    if-nez v3, :cond_e
 
-    .line 2698
-    invoke-virtual {p0, v7, v10}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->setNotificationIconVisibility(ZI)V
+    .line 2589
+    invoke-virtual {p0, v6, v9}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->setNotificationIconVisibility(ZI)V
 
-    .line 2702
-    :cond_f
+    .line 2593
+    :cond_e
     invoke-virtual {p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->dismissPopups()V
 
-    .line 2704
-    iget-object v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mPostCollapseCleanup:Ljava/lang/Runnable;
+    .line 2595
+    iget-object v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mPostCollapseCleanup:Ljava/lang/Runnable;
 
-    if-eqz v4, :cond_10
+    if-eqz v3, :cond_f
 
-    .line 2705
-    iget-object v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mPostCollapseCleanup:Ljava/lang/Runnable;
+    .line 2596
+    iget-object v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mPostCollapseCleanup:Ljava/lang/Runnable;
 
-    invoke-interface {v4}, Ljava/lang/Runnable;->run()V
+    invoke-interface {v3}, Ljava/lang/Runnable;->run()V
 
-    .line 2706
-    const/4 v4, 0x0
+    .line 2597
+    const/4 v3, 0x0
 
-    iput-object v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mPostCollapseCleanup:Ljava/lang/Runnable;
+    iput-object v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mPostCollapseCleanup:Ljava/lang/Runnable;
 
-    .line 2710
+    .line 2600
+    :cond_f
+    invoke-virtual {p0, v6, v5}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->setInteracting(IZ)V
+
+    .line 2603
+    sget-boolean v3, Lcom/android/systemui/statusbar/Feature;->mPLMNIconDisplay:Z
+
+    if-eqz v3, :cond_10
+
+    .line 2604
+    iget-object v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationIcons:Lcom/android/systemui/statusbar/phone/IconMerger;
+
+    invoke-virtual {v3}, Lcom/android/systemui/statusbar/phone/IconMerger;->getChildCount()I
+
+    move-result v3
+
+    if-nez v3, :cond_10
+
+    .line 2605
+    invoke-virtual {p0, v6, v9}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->setCarrierLabelVisibility(ZI)V
+
+    .line 2610
     :cond_10
-    sget-boolean v4, Lcom/android/systemui/statusbar/Feature;->mPLMNIconDisplay:Z
+    iget-object v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mVolumePanel:Lcom/android/systemui/statusbar/policy/VolumePanel;
 
-    if-eqz v4, :cond_0
+    if-eqz v3, :cond_0
 
-    .line 2711
-    iget-object v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationIcons:Lcom/android/systemui/statusbar/phone/IconMerger;
+    .line 2611
+    iget-object v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mVolumePanel:Lcom/android/systemui/statusbar/policy/VolumePanel;
 
-    invoke-virtual {v4}, Lcom/android/systemui/statusbar/phone/IconMerger;->getChildCount()I
-
-    move-result v4
-
-    if-nez v4, :cond_0
-
-    .line 2712
-    invoke-virtual {p0, v7, v10}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->setCarrierLabelVisibility(ZI)V
+    invoke-virtual {v3}, Lcom/android/systemui/statusbar/policy/VolumePanel;->onBarCollapse()V
 
     goto/16 :goto_0
 .end method
@@ -11229,239 +8549,243 @@
     .locals 4
 
     .prologue
-    .line 2619
+    .line 2499
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mHandler:Lcom/android/systemui/statusbar/BaseStatusBar$H;
 
-    new-instance v1, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$18;
+    new-instance v1, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$20;
 
-    invoke-direct {v1, p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$18;-><init>(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)V
+    invoke-direct {v1, p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$20;-><init>(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)V
 
     const-wide/16 v2, 0x32
 
     invoke-virtual {v0, v1, v2, v3}, Lcom/android/systemui/statusbar/BaseStatusBar$H;->postDelayed(Ljava/lang/Runnable;J)Z
 
-    .line 2620
+    .line 2500
     return-void
 .end method
 
-.method makeExpandedVisible(Z)V
-    .locals 7
-    .parameter "revealAfterDraw"
+.method makeExpandedVisible()V
+    .locals 6
 
     .prologue
-    const/4 v6, 0x1
+    const/4 v5, 0x1
 
-    .line 2212
-    const-string v4, "STATUSBAR-PhoneStatusBar"
+    .line 2008
+    const-string v3, "STATUSBAR-PhoneStatusBar"
 
-    const-string v5, "makeExpandedVisible"
+    const-string v4, "makeExpandedVisible"
 
-    invoke-static {v4, v5}, Landroid/util/Slog;->d(Ljava/lang/String;Ljava/lang/String;)I
+    invoke-static {v3, v4}, Landroid/util/Slog;->d(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 2214
-    iget-boolean v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mExpandedVisible:Z
+    .line 2010
+    iget-boolean v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mExpandedVisible:Z
 
-    if-eqz v4, :cond_0
+    if-nez v3, :cond_0
 
-    .line 2265
+    invoke-virtual {p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->panelsEnabled()Z
+
+    move-result v3
+
+    if-nez v3, :cond_1
+
+    .line 2058
+    :cond_0
     :goto_0
     return-void
 
-    .line 2219
-    :cond_0
-    iget-boolean v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mHasFlipSettings:Z
-
-    if-eqz v4, :cond_1
-
-    .line 2220
-    iget-object v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationButton:Landroid/widget/ImageView;
-
-    invoke-virtual {v4}, Landroid/widget/ImageView;->getVisibility()I
-
-    move-result v4
-
-    if-nez v4, :cond_3
-
-    .line 2221
-    iget-object v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mQSPanel:Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingPanel;
-
-    if-eqz v4, :cond_1
-
-    iget-object v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mQSPanel:Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingPanel;
-
-    const/4 v5, 0x0
-
-    invoke-virtual {v4, v5}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingPanel;->setSingleLine(Z)V
-
-    .line 2230
+    .line 2015
     :cond_1
+    iget-boolean v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mHasFlipSettings:Z
+
+    if-eqz v3, :cond_2
+
+    .line 2016
+    iget-object v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationButton:Landroid/widget/ImageView;
+
+    invoke-virtual {v3}, Landroid/widget/ImageView;->getVisibility()I
+
+    move-result v3
+
+    if-nez v3, :cond_4
+
+    .line 2017
+    iget-object v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mQSPanel:Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingPanel;
+
+    if-eqz v3, :cond_2
+
+    iget-object v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mQSPanel:Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingPanel;
+
+    const/4 v4, 0x0
+
+    invoke-virtual {v3, v4}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingPanel;->setSingleLine(Z)V
+
+    .line 2026
+    :cond_2
     :goto_1
-    const-string v4, "STATUSBAR-PhoneStatusBar"
+    const-string v3, "STATUSBAR-PhoneStatusBar"
 
-    const-string v5, "Mini Controller text scroll : ON"
+    const-string v4, "Mini Controller text scroll : ON"
 
-    invoke-static {v4, v5}, Landroid/util/Slog;->d(Ljava/lang/String;Ljava/lang/String;)I
+    invoke-static {v3, v4}, Landroid/util/Slog;->d(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 2231
-    iget-object v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationData:Lcom/android/systemui/statusbar/NotificationData;
+    .line 2027
+    iget-object v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationData:Lcom/android/systemui/statusbar/NotificationData;
 
-    invoke-virtual {v4}, Lcom/android/systemui/statusbar/NotificationData;->size()I
+    invoke-virtual {v3}, Lcom/android/systemui/statusbar/NotificationData;->size()I
 
     move-result v0
 
-    .line 2232
+    .line 2028
     .local v0, N:I
-    new-instance v3, Ljava/util/ArrayList;
-
-    invoke-direct {v3}, Ljava/util/ArrayList;-><init>()V
-
-    .line 2233
-    .local v3, miniController:Ljava/util/ArrayList;,"Ljava/util/ArrayList<Landroid/view/View;>;"
     const/4 v1, 0x0
 
     .local v1, i:I
     :goto_2
-    if-ge v1, v0, :cond_4
+    if-ge v1, v0, :cond_5
 
-    .line 2234
-    iget-object v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationData:Lcom/android/systemui/statusbar/NotificationData;
+    .line 2029
+    iget-object v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationData:Lcom/android/systemui/statusbar/NotificationData;
 
-    sub-int v5, v0, v1
+    sub-int v4, v0, v1
 
-    add-int/lit8 v5, v5, -0x1
+    add-int/lit8 v4, v4, -0x1
 
-    invoke-virtual {v4, v5}, Lcom/android/systemui/statusbar/NotificationData;->get(I)Lcom/android/systemui/statusbar/NotificationData$Entry;
+    invoke-virtual {v3, v4}, Lcom/android/systemui/statusbar/NotificationData;->get(I)Lcom/android/systemui/statusbar/NotificationData$Entry;
 
-    move-result-object v4
+    move-result-object v3
 
-    iget-object v4, v4, Lcom/android/systemui/statusbar/NotificationData$Entry;->notification:Landroid/service/notification/StatusBarNotification;
+    iget-object v3, v3, Lcom/android/systemui/statusbar/NotificationData$Entry;->notification:Landroid/service/notification/StatusBarNotification;
 
-    invoke-virtual {v4}, Landroid/service/notification/StatusBarNotification;->isMiniCon()Z
+    invoke-virtual {v3}, Landroid/service/notification/StatusBarNotification;->isMiniCon()Z
 
-    move-result v4
+    move-result v3
 
-    if-eqz v4, :cond_2
+    if-eqz v3, :cond_3
 
-    .line 2235
-    iget-object v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationData:Lcom/android/systemui/statusbar/NotificationData;
+    .line 2030
+    iget-object v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationData:Lcom/android/systemui/statusbar/NotificationData;
 
-    sub-int v5, v0, v1
+    sub-int v4, v0, v1
 
-    add-int/lit8 v5, v5, -0x1
+    add-int/lit8 v4, v4, -0x1
 
-    invoke-virtual {v4, v5}, Lcom/android/systemui/statusbar/NotificationData;->get(I)Lcom/android/systemui/statusbar/NotificationData$Entry;
+    invoke-virtual {v3, v4}, Lcom/android/systemui/statusbar/NotificationData;->get(I)Lcom/android/systemui/statusbar/NotificationData$Entry;
 
-    move-result-object v4
+    move-result-object v3
 
-    iget-object v4, v4, Lcom/android/systemui/statusbar/NotificationData$Entry;->expanded:Landroid/view/View;
+    iget-object v3, v3, Lcom/android/systemui/statusbar/NotificationData$Entry;->expanded:Landroid/view/View;
 
-    invoke-virtual {v4, v6}, Landroid/view/View;->setSelected(Z)V
+    invoke-virtual {v3, v5}, Landroid/view/View;->setSelected(Z)V
 
-    .line 2233
-    :cond_2
+    .line 2028
+    :cond_3
     add-int/lit8 v1, v1, 0x1
 
     goto :goto_2
 
-    .line 2222
+    .line 2018
     .end local v0           #N:I
     .end local v1           #i:I
-    .end local v3           #miniController:Ljava/util/ArrayList;,"Ljava/util/ArrayList<Landroid/view/View;>;"
-    :cond_3
-    iget-object v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mScrollView:Landroid/widget/ScrollView;
+    :cond_4
+    iget-object v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mScrollView:Landroid/widget/ScrollView;
 
-    invoke-virtual {v4}, Landroid/widget/ScrollView;->getVisibility()I
+    invoke-virtual {v3}, Landroid/widget/ScrollView;->getVisibility()I
 
-    move-result v4
+    move-result v3
 
-    if-nez v4, :cond_1
+    if-nez v3, :cond_2
 
-    .line 2223
-    iget-object v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mQSPanel:Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingPanel;
+    .line 2019
+    iget-object v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mQSPanel:Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingPanel;
 
-    if-eqz v4, :cond_1
+    if-eqz v3, :cond_2
 
-    iget-object v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mQSPanel:Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingPanel;
+    iget-object v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mQSPanel:Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingPanel;
 
-    invoke-virtual {v4, v6}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingPanel;->setSingleLine(Z)V
+    invoke-virtual {v3, v5}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingPanel;->setSingleLine(Z)V
 
     goto :goto_1
 
-    .line 2240
+    .line 2034
     .restart local v0       #N:I
     .restart local v1       #i:I
-    .restart local v3       #miniController:Ljava/util/ArrayList;,"Ljava/util/ArrayList<Landroid/view/View;>;"
-    :cond_4
-    iput-boolean v6, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mExpandedVisible:Z
-
-    .line 2241
-    iget-object v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mLatestNotifications:Lcom/android/systemui/statusbar/policy/NotificationRowLayout;
-
-    invoke-virtual {v4, v6}, Lcom/android/systemui/statusbar/policy/NotificationRowLayout;->setLayoutTransitionsEnabled(Z)V
-
-    .line 2242
-    iget-object v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNavigationBarView:Lcom/android/systemui/statusbar/phone/NavigationBarView;
-
-    if-eqz v4, :cond_5
-
-    .line 2243
-    iget-object v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNavigationBarView:Lcom/android/systemui/statusbar/phone/NavigationBarView;
-
-    invoke-virtual {v4, v6}, Lcom/android/systemui/statusbar/phone/NavigationBarView;->setSlippery(Z)V
-
-    .line 2247
     :cond_5
-    const/16 v4, -0x2710
+    iput-boolean v5, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mExpandedVisible:Z
 
-    invoke-virtual {p0, v4}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->updateExpandedViewPos(I)V
+    .line 2035
+    iget-object v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mPile:Lcom/android/systemui/statusbar/policy/NotificationRowLayout;
 
-    .line 2251
-    iget-object v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarWindow:Lcom/android/systemui/statusbar/phone/StatusBarWindowView;
+    invoke-virtual {v3, v5}, Lcom/android/systemui/statusbar/policy/NotificationRowLayout;->setLayoutTransitionsEnabled(Z)V
 
-    invoke-virtual {v4}, Lcom/android/systemui/statusbar/phone/StatusBarWindowView;->getLayoutParams()Landroid/view/ViewGroup$LayoutParams;
+    .line 2036
+    iget-object v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNavigationBarView:Lcom/android/systemui/statusbar/phone/NavigationBarView;
+
+    if-eqz v3, :cond_6
+
+    .line 2037
+    iget-object v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNavigationBarView:Lcom/android/systemui/statusbar/phone/NavigationBarView;
+
+    invoke-virtual {v3, v5}, Lcom/android/systemui/statusbar/phone/NavigationBarView;->setSlippery(Z)V
+
+    .line 2041
+    :cond_6
+    const/16 v3, -0x2710
+
+    invoke-virtual {p0, v3}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->updateExpandedViewPos(I)V
+
+    .line 2045
+    iget-object v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarWindow:Lcom/android/systemui/statusbar/phone/StatusBarWindowView;
+
+    invoke-virtual {v3}, Lcom/android/systemui/statusbar/phone/StatusBarWindowView;->getLayoutParams()Landroid/view/ViewGroup$LayoutParams;
 
     move-result-object v2
 
     check-cast v2, Landroid/view/WindowManager$LayoutParams;
 
-    .line 2252
+    .line 2046
     .local v2, lp:Landroid/view/WindowManager$LayoutParams;
-    iget v4, v2, Landroid/view/WindowManager$LayoutParams;->flags:I
+    iget v3, v2, Landroid/view/WindowManager$LayoutParams;->flags:I
 
-    and-int/lit8 v4, v4, -0x9
+    and-int/lit8 v3, v3, -0x9
 
-    iput v4, v2, Landroid/view/WindowManager$LayoutParams;->flags:I
+    iput v3, v2, Landroid/view/WindowManager$LayoutParams;->flags:I
 
-    .line 2253
-    iget v4, v2, Landroid/view/WindowManager$LayoutParams;->flags:I
+    .line 2047
+    iget v3, v2, Landroid/view/WindowManager$LayoutParams;->flags:I
 
-    const/high16 v5, 0x2
+    const/high16 v4, 0x2
 
-    or-int/2addr v4, v5
+    or-int/2addr v3, v4
 
-    iput v4, v2, Landroid/view/WindowManager$LayoutParams;->flags:I
+    iput v3, v2, Landroid/view/WindowManager$LayoutParams;->flags:I
 
-    .line 2254
-    const/4 v4, -0x1
+    .line 2048
+    const/4 v3, -0x1
 
-    iput v4, v2, Landroid/view/WindowManager$LayoutParams;->height:I
+    iput v3, v2, Landroid/view/WindowManager$LayoutParams;->height:I
 
-    .line 2255
-    iget-object v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mWindowManager:Landroid/view/WindowManager;
+    .line 2049
+    iget-object v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mWindowManager:Landroid/view/WindowManager;
 
-    iget-object v5, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarWindow:Lcom/android/systemui/statusbar/phone/StatusBarWindowView;
+    iget-object v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarWindow:Lcom/android/systemui/statusbar/phone/StatusBarWindowView;
 
-    invoke-interface {v4, v5, v2}, Landroid/view/WindowManager;->updateViewLayout(Landroid/view/View;Landroid/view/ViewGroup$LayoutParams;)V
+    invoke-interface {v3, v4, v2}, Landroid/view/WindowManager;->updateViewLayout(Landroid/view/View;Landroid/view/ViewGroup$LayoutParams;)V
 
-    .line 2259
-    if-eqz p1, :cond_6
+    .line 2051
+    invoke-virtual {p0, v5}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->visibilityChanged(Z)V
 
-    .line 2263
-    :cond_6
-    invoke-virtual {p0, v6}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->visibilityChanged(Z)V
+    .line 2053
+    invoke-virtual {p0, v5, v5}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->setInteracting(IZ)V
 
-    .line 2264
-    invoke-direct {p0, v6}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->doMarquee(Z)V
+    .line 2055
+    iget-object v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mVolumePanel:Lcom/android/systemui/statusbar/policy/VolumePanel;
+
+    if-eqz v3, :cond_0
+
+    .line 2056
+    iget-object v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mVolumePanel:Lcom/android/systemui/statusbar/policy/VolumePanel;
+
+    invoke-virtual {v3}, Lcom/android/systemui/statusbar/policy/VolumePanel;->onBarExpand()V
 
     goto/16 :goto_0
 .end method
@@ -11470,18 +8794,18 @@
     .locals 30
 
     .prologue
-    .line 517
+    .line 452
     move-object/from16 v0, p0
 
     iget-object v7, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mContext:Landroid/content/Context;
 
-    .line 518
+    .line 453
     .local v7, contextTheme:Landroid/content/Context;
-    sget-boolean v26, Lcom/android/systemui/statusbar/BaseStatusBar;->isLightTheme:Z
+    sget-boolean v25, Lcom/android/systemui/statusbar/BaseStatusBar;->isLightTheme:Z
 
-    if-eqz v26, :cond_0
+    if-eqz v25, :cond_0
 
-    .line 519
+    .line 454
     new-instance v7, Landroid/view/ContextThemeWrapper;
 
     .end local v7           #contextTheme:Landroid/content/Context;
@@ -11489,4271 +8813,3852 @@
 
     iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mContext:Landroid/content/Context;
 
-    move-object/from16 v26, v0
+    move-object/from16 v25, v0
 
-    const v27, 0x103012b
+    const v26, 0x103012b
 
-    move-object/from16 v0, v26
+    move-object/from16 v0, v25
 
-    move/from16 v1, v27
+    move/from16 v1, v26
 
     invoke-direct {v7, v0, v1}, Landroid/view/ContextThemeWrapper;-><init>(Landroid/content/Context;I)V
 
-    .line 522
+    .line 457
     .restart local v7       #contextTheme:Landroid/content/Context;
     :cond_0
     move-object v6, v7
 
-    .line 525
+    .line 460
     .local v6, context:Landroid/content/Context;
     invoke-virtual {v6}, Landroid/content/Context;->getResources()Landroid/content/res/Resources;
 
     move-result-object v17
 
-    .line 527
+    .line 462
     .local v17, res:Landroid/content/res/Resources;
     invoke-virtual/range {p0 .. p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->updateDisplaySize()V
 
-    .line 528
+    .line 463
     invoke-virtual/range {p0 .. p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->loadDimens()V
 
-    .line 530
-    const v26, 0x7f0e0017
+    .line 465
+    const v25, 0x1050010
 
     move-object/from16 v0, v17
 
-    move/from16 v1, v26
+    move/from16 v1, v25
 
     invoke-virtual {v0, v1}, Landroid/content/res/Resources;->getDimensionPixelSize(I)I
 
-    move-result v26
+    move-result v25
 
-    move/from16 v0, v26
+    move/from16 v0, v25
 
     move-object/from16 v1, p0
 
     iput v0, v1, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mIconSize:I
 
-    .line 532
-    const v26, 0x7f040033
+    .line 467
+    const v25, 0x7f040021
 
-    const/16 v27, 0x0
+    const/16 v26, 0x0
 
-    move/from16 v0, v26
+    move/from16 v0, v25
 
-    move-object/from16 v1, v27
+    move-object/from16 v1, v26
 
     invoke-static {v6, v0, v1}, Landroid/view/View;->inflate(Landroid/content/Context;ILandroid/view/ViewGroup;)Landroid/view/View;
 
-    move-result-object v26
+    move-result-object v25
 
-    check-cast v26, Lcom/android/systemui/statusbar/phone/StatusBarWindowView;
+    check-cast v25, Lcom/android/systemui/statusbar/phone/StatusBarWindowView;
 
-    move-object/from16 v0, v26
+    move-object/from16 v0, v25
 
     move-object/from16 v1, p0
 
     iput-object v0, v1, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarWindow:Lcom/android/systemui/statusbar/phone/StatusBarWindowView;
 
-    .line 534
+    .line 469
     move-object/from16 v0, p0
 
     iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarWindow:Lcom/android/systemui/statusbar/phone/StatusBarWindowView;
 
-    move-object/from16 v26, v0
+    move-object/from16 v25, v0
 
     move-object/from16 v0, p0
 
-    move-object/from16 v1, v26
+    move-object/from16 v1, v25
 
     iput-object v0, v1, Lcom/android/systemui/statusbar/phone/StatusBarWindowView;->mService:Lcom/android/systemui/statusbar/phone/PhoneStatusBar;
 
-    .line 535
+    .line 470
     move-object/from16 v0, p0
 
     iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarWindow:Lcom/android/systemui/statusbar/phone/StatusBarWindowView;
 
-    move-object/from16 v26, v0
+    move-object/from16 v25, v0
 
-    new-instance v27, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$3;
+    new-instance v26, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$5;
 
-    move-object/from16 v0, v27
+    move-object/from16 v0, v26
 
     move-object/from16 v1, p0
 
-    invoke-direct {v0, v1}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$3;-><init>(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)V
+    invoke-direct {v0, v1}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$5;-><init>(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)V
 
-    invoke-virtual/range {v26 .. v27}, Lcom/android/systemui/statusbar/phone/StatusBarWindowView;->setOnTouchListener(Landroid/view/View$OnTouchListener;)V
+    invoke-virtual/range {v25 .. v26}, Lcom/android/systemui/statusbar/phone/StatusBarWindowView;->setOnTouchListener(Landroid/view/View$OnTouchListener;)V
 
-    .line 546
+    .line 481
     move-object/from16 v0, p0
 
     iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarWindow:Lcom/android/systemui/statusbar/phone/StatusBarWindowView;
 
-    move-object/from16 v26, v0
+    move-object/from16 v25, v0
 
-    const v27, 0x7f09005a
+    const/16 v26, 0x1
 
-    invoke-virtual/range {v26 .. v27}, Lcom/android/systemui/statusbar/phone/StatusBarWindowView;->findViewById(I)Landroid/view/View;
+    invoke-virtual/range {v25 .. v26}, Lcom/android/systemui/statusbar/phone/StatusBarWindowView;->setSkipRtlCheck(Z)V
 
-    move-result-object v26
+    .line 482
+    move-object/from16 v0, p0
 
-    check-cast v26, Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarWindow:Lcom/android/systemui/statusbar/phone/StatusBarWindowView;
 
-    move-object/from16 v0, v26
+    move-object/from16 v25, v0
+
+    const v26, 0x7f07006a
+
+    invoke-virtual/range {v25 .. v26}, Lcom/android/systemui/statusbar/phone/StatusBarWindowView;->findViewById(I)Landroid/view/View;
+
+    move-result-object v25
+
+    check-cast v25, Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;
+
+    move-object/from16 v0, v25
 
     move-object/from16 v1, p0
 
     iput-object v0, v1, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarView:Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;
 
-    .line 547
+    .line 483
     move-object/from16 v0, p0
 
     iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarView:Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;
 
-    move-object/from16 v26, v0
+    move-object/from16 v25, v0
 
-    move-object/from16 v0, v26
+    move-object/from16 v0, v25
 
     move-object/from16 v1, p0
 
     invoke-virtual {v0, v1}, Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;->setBar(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)V
 
-    .line 550
+    .line 485
     move-object/from16 v0, p0
 
     iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarWindow:Lcom/android/systemui/statusbar/phone/StatusBarWindowView;
 
-    move-object/from16 v26, v0
+    move-object/from16 v25, v0
 
-    const v27, 0x7f0900be
+    const v26, 0x7f0700a3
 
-    invoke-virtual/range {v26 .. v27}, Lcom/android/systemui/statusbar/phone/StatusBarWindowView;->findViewById(I)Landroid/view/View;
+    invoke-virtual/range {v25 .. v26}, Lcom/android/systemui/statusbar/phone/StatusBarWindowView;->findViewById(I)Landroid/view/View;
 
     move-result-object v9
 
     check-cast v9, Lcom/android/systemui/statusbar/phone/PanelHolder;
 
-    .line 551
+    .line 486
     .local v9, holder:Lcom/android/systemui/statusbar/phone/PanelHolder;
     move-object/from16 v0, p0
 
     iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarView:Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;
 
-    move-object/from16 v26, v0
+    move-object/from16 v25, v0
+
+    move-object/from16 v0, v25
+
+    invoke-virtual {v0, v9}, Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;->setPanelHolder(Lcom/android/systemui/statusbar/phone/PanelHolder;)V
+
+    .line 488
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarWindow:Lcom/android/systemui/statusbar/phone/StatusBarWindowView;
+
+    move-object/from16 v25, v0
+
+    const v26, 0x7f07007c
+
+    invoke-virtual/range {v25 .. v26}, Lcom/android/systemui/statusbar/phone/StatusBarWindowView;->findViewById(I)Landroid/view/View;
+
+    move-result-object v25
+
+    check-cast v25, Lcom/android/systemui/statusbar/phone/NotificationPanelView;
+
+    move-object/from16 v0, v25
+
+    move-object/from16 v1, p0
+
+    iput-object v0, v1, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationPanel:Lcom/android/systemui/statusbar/phone/NotificationPanelView;
+
+    .line 489
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationPanel:Lcom/android/systemui/statusbar/phone/NotificationPanelView;
+
+    move-object/from16 v25, v0
+
+    move-object/from16 v0, v25
+
+    move-object/from16 v1, p0
+
+    invoke-virtual {v0, v1}, Lcom/android/systemui/statusbar/phone/NotificationPanelView;->setStatusBar(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)V
+
+    .line 490
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationPanel:Lcom/android/systemui/statusbar/phone/NotificationPanelView;
+
+    move-object/from16 v25, v0
+
+    invoke-virtual/range {v25 .. v25}, Lcom/android/systemui/statusbar/phone/NotificationPanelView;->getLayoutParams()Landroid/view/ViewGroup$LayoutParams;
+
+    move-result-object v25
+
+    move-object/from16 v0, v25
+
+    iget v0, v0, Landroid/view/ViewGroup$LayoutParams;->width:I
+
+    move/from16 v25, v0
+
+    const/16 v26, -0x1
+
+    move/from16 v0, v25
+
+    move/from16 v1, v26
+
+    if-ne v0, v1, :cond_1a
+
+    const/16 v25, 0x1
+
+    :goto_0
+    move/from16 v0, v25
+
+    move-object/from16 v1, p0
+
+    iput-boolean v0, v1, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationPanelIsFullScreenWidth:Z
+
+    .line 494
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationPanel:Lcom/android/systemui/statusbar/phone/NotificationPanelView;
+
+    move-object/from16 v25, v0
+
+    const v26, 0x7f07008a
+
+    invoke-virtual/range {v25 .. v26}, Lcom/android/systemui/statusbar/phone/NotificationPanelView;->findViewById(I)Landroid/view/View;
+
+    move-result-object v25
+
+    new-instance v26, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$6;
 
     move-object/from16 v0, v26
 
-    invoke-virtual {v0, v9}, Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;->setPanelHolder(Lcom/android/systemui/statusbar/phone/PanelHolder;)V
+    move-object/from16 v1, p0
+
+    invoke-direct {v0, v1}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$6;-><init>(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)V
+
+    invoke-virtual/range {v25 .. v26}, Landroid/view/View;->setOnTouchListener(Landroid/view/View$OnTouchListener;)V
+
+    .line 502
+    invoke-static {}, Landroid/app/ActivityManager;->isHighEndGfx()Z
+
+    move-result v25
+
+    if-nez v25, :cond_1
+
+    .line 503
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarWindow:Lcom/android/systemui/statusbar/phone/StatusBarWindowView;
+
+    move-object/from16 v25, v0
+
+    const/16 v26, 0x0
+
+    invoke-virtual/range {v25 .. v26}, Lcom/android/systemui/statusbar/phone/StatusBarWindowView;->setBackground(Landroid/graphics/drawable/Drawable;)V
+
+    .line 504
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationPanel:Lcom/android/systemui/statusbar/phone/NotificationPanelView;
+
+    move-object/from16 v25, v0
+
+    new-instance v26, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$FastColorDrawable;
+
+    invoke-virtual {v6}, Landroid/content/Context;->getResources()Landroid/content/res/Resources;
+
+    move-result-object v27
+
+    const v28, 0x7f080002
+
+    invoke-virtual/range {v27 .. v28}, Landroid/content/res/Resources;->getColor(I)I
+
+    move-result v27
+
+    invoke-direct/range {v26 .. v27}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$FastColorDrawable;-><init>(I)V
+
+    invoke-virtual/range {v25 .. v26}, Lcom/android/systemui/statusbar/phone/NotificationPanelView;->setBackground(Landroid/graphics/drawable/Drawable;)V
+
+    .line 508
+    :cond_1
+    const v25, 0x7f040008
+
+    const/16 v26, 0x0
+
+    move/from16 v0, v25
+
+    move-object/from16 v1, v26
+
+    invoke-static {v6, v0, v1}, Landroid/view/View;->inflate(Landroid/content/Context;ILandroid/view/ViewGroup;)Landroid/view/View;
+
+    move-result-object v25
+
+    check-cast v25, Lcom/android/systemui/statusbar/policy/HeadsUpNotificationView;
+
+    move-object/from16 v0, v25
+
+    move-object/from16 v1, p0
+
+    iput-object v0, v1, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mHeadsUpNotificationView:Lcom/android/systemui/statusbar/policy/HeadsUpNotificationView;
+
+    .line 510
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mHeadsUpNotificationView:Lcom/android/systemui/statusbar/policy/HeadsUpNotificationView;
+
+    move-object/from16 v25, v0
+
+    const/16 v26, 0x8
+
+    invoke-virtual/range {v25 .. v26}, Lcom/android/systemui/statusbar/policy/HeadsUpNotificationView;->setVisibility(I)V
+
+    .line 511
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mHeadsUpNotificationView:Lcom/android/systemui/statusbar/policy/HeadsUpNotificationView;
+
+    move-object/from16 v25, v0
+
+    move-object/from16 v0, v25
+
+    move-object/from16 v1, p0
+
+    invoke-virtual {v0, v1}, Lcom/android/systemui/statusbar/policy/HeadsUpNotificationView;->setBar(Lcom/android/systemui/statusbar/BaseStatusBar;)V
+
+    .line 518
+    invoke-direct/range {p0 .. p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->updateShowSearchHoldoff()V
+
+    .line 521
+    :try_start_0
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mWindowManagerService:Landroid/view/IWindowManager;
+
+    move-object/from16 v25, v0
+
+    invoke-interface/range {v25 .. v25}, Landroid/view/IWindowManager;->hasNavigationBar()Z
+
+    move-result v21
+
+    .line 523
+    .local v21, showNav:Z
+    if-eqz v21, :cond_2
+
+    .line 524
+    const v25, 0x7f04000d
+
+    const/16 v26, 0x0
+
+    move/from16 v0, v25
+
+    move-object/from16 v1, v26
+
+    invoke-static {v6, v0, v1}, Landroid/view/View;->inflate(Landroid/content/Context;ILandroid/view/ViewGroup;)Landroid/view/View;
+
+    move-result-object v25
+
+    check-cast v25, Lcom/android/systemui/statusbar/phone/NavigationBarView;
+
+    move-object/from16 v0, v25
+
+    move-object/from16 v1, p0
+
+    iput-object v0, v1, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNavigationBarView:Lcom/android/systemui/statusbar/phone/NavigationBarView;
+
+    .line 527
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNavigationBarView:Lcom/android/systemui/statusbar/phone/NavigationBarView;
+
+    move-object/from16 v25, v0
+
+    move-object/from16 v0, p0
+
+    iget v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mDisabled:I
+
+    move/from16 v26, v0
+
+    invoke-virtual/range {v25 .. v26}, Lcom/android/systemui/statusbar/phone/NavigationBarView;->setDisabledFlags(I)V
+
+    .line 528
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNavigationBarView:Lcom/android/systemui/statusbar/phone/NavigationBarView;
+
+    move-object/from16 v25, v0
+
+    move-object/from16 v0, v25
+
+    move-object/from16 v1, p0
+
+    invoke-virtual {v0, v1}, Lcom/android/systemui/statusbar/phone/NavigationBarView;->setBar(Lcom/android/systemui/statusbar/BaseStatusBar;)V
+
+    .line 529
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNavigationBarView:Lcom/android/systemui/statusbar/phone/NavigationBarView;
+
+    move-object/from16 v25, v0
+
+    new-instance v26, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$7;
+
+    move-object/from16 v0, v26
+
+    move-object/from16 v1, p0
+
+    invoke-direct {v0, v1}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$7;-><init>(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)V
+
+    invoke-virtual/range {v25 .. v26}, Lcom/android/systemui/statusbar/phone/NavigationBarView;->setOnTouchListener(Landroid/view/View$OnTouchListener;)V
+    :try_end_0
+    .catch Landroid/os/RemoteException; {:try_start_0 .. :try_end_0} :catch_0
+
+    .line 541
+    .end local v21           #showNav:Z
+    :cond_2
+    :goto_1
+    const/16 v25, -0x1
+
+    move/from16 v0, v25
+
+    move-object/from16 v1, p0
+
+    iput v0, v1, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mPixelFormat:I
+
+    .line 543
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarView:Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;
+
+    move-object/from16 v25, v0
+
+    const v26, 0x7f070072
+
+    invoke-virtual/range {v25 .. v26}, Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;->findViewById(I)Landroid/view/View;
+
+    move-result-object v25
+
+    check-cast v25, Landroid/widget/LinearLayout;
+
+    move-object/from16 v0, v25
+
+    move-object/from16 v1, p0
+
+    iput-object v0, v1, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSystemIconArea:Landroid/widget/LinearLayout;
+
+    .line 544
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarView:Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;
+
+    move-object/from16 v25, v0
+
+    const v26, 0x7f070073
+
+    invoke-virtual/range {v25 .. v26}, Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;->findViewById(I)Landroid/view/View;
+
+    move-result-object v25
+
+    check-cast v25, Landroid/widget/LinearLayout;
+
+    move-object/from16 v0, v25
+
+    move-object/from16 v1, p0
+
+    iput-object v0, v1, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusIcons:Landroid/widget/LinearLayout;
+
+    .line 545
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarView:Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;
+
+    move-object/from16 v25, v0
+
+    const v26, 0x7f070071
+
+    invoke-virtual/range {v25 .. v26}, Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;->findViewById(I)Landroid/view/View;
+
+    move-result-object v25
+
+    check-cast v25, Lcom/android/systemui/statusbar/phone/IconMerger;
+
+    move-object/from16 v0, v25
+
+    move-object/from16 v1, p0
+
+    iput-object v0, v1, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationIcons:Lcom/android/systemui/statusbar/phone/IconMerger;
+
+    .line 546
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarView:Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;
+
+    move-object/from16 v25, v0
+
+    const v26, 0x7f070070
+
+    invoke-virtual/range {v25 .. v26}, Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;->findViewById(I)Landroid/view/View;
+
+    move-result-object v25
+
+    move-object/from16 v0, v25
+
+    move-object/from16 v1, p0
+
+    iput-object v0, v1, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mMoreIcon:Landroid/view/View;
+
+    .line 547
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationIcons:Lcom/android/systemui/statusbar/phone/IconMerger;
+
+    move-object/from16 v25, v0
+
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mMoreIcon:Landroid/view/View;
+
+    move-object/from16 v26, v0
+
+    invoke-virtual/range {v25 .. v26}, Lcom/android/systemui/statusbar/phone/IconMerger;->setOverflowIndicator(Landroid/view/View;)V
+
+    .line 548
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarView:Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;
+
+    move-object/from16 v25, v0
+
+    const v26, 0x7f07006c
+
+    invoke-virtual/range {v25 .. v26}, Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;->findViewById(I)Landroid/view/View;
+
+    move-result-object v25
+
+    check-cast v25, Landroid/widget/LinearLayout;
+
+    move-object/from16 v0, v25
+
+    move-object/from16 v1, p0
+
+    iput-object v0, v1, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarContents:Landroid/widget/LinearLayout;
+
+    .line 549
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarView:Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;
+
+    move-object/from16 v25, v0
+
+    const v26, 0x7f070079
+
+    invoke-virtual/range {v25 .. v26}, Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;->findViewById(I)Landroid/view/View;
+
+    move-result-object v25
+
+    move-object/from16 v0, v25
+
+    move-object/from16 v1, p0
+
+    iput-object v0, v1, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mTickerView:Landroid/view/View;
+
+    .line 551
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarWindow:Lcom/android/systemui/statusbar/phone/StatusBarWindowView;
+
+    move-object/from16 v25, v0
+
+    const v26, 0x7f070083
+
+    invoke-virtual/range {v25 .. v26}, Lcom/android/systemui/statusbar/phone/StatusBarWindowView;->findViewById(I)Landroid/view/View;
+
+    move-result-object v25
+
+    check-cast v25, Landroid/widget/LinearLayout;
+
+    move-object/from16 v0, v25
+
+    move-object/from16 v1, p0
+
+    iput-object v0, v1, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNoNotificationsTitle:Landroid/widget/LinearLayout;
+
+    .line 552
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarWindow:Lcom/android/systemui/statusbar/phone/StatusBarWindowView;
+
+    move-object/from16 v25, v0
+
+    const v26, 0x7f070084
+
+    invoke-virtual/range {v25 .. v26}, Lcom/android/systemui/statusbar/phone/StatusBarWindowView;->findViewById(I)Landroid/view/View;
+
+    move-result-object v25
+
+    check-cast v25, Landroid/widget/TextView;
+
+    move-object/from16 v0, v25
+
+    move-object/from16 v1, p0
+
+    iput-object v0, v1, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNoNotificationText:Landroid/widget/TextView;
 
     .line 553
     move-object/from16 v0, p0
 
     iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarWindow:Lcom/android/systemui/statusbar/phone/StatusBarWindowView;
 
-    move-object/from16 v26, v0
+    move-object/from16 v25, v0
 
-    const v27, 0x7f09006e
+    const v26, 0x7f070086
 
-    invoke-virtual/range {v26 .. v27}, Lcom/android/systemui/statusbar/phone/StatusBarWindowView;->findViewById(I)Landroid/view/View;
+    invoke-virtual/range {v25 .. v26}, Lcom/android/systemui/statusbar/phone/StatusBarWindowView;->findViewById(I)Landroid/view/View;
 
-    move-result-object v26
+    move-result-object v25
 
-    check-cast v26, Lcom/android/systemui/statusbar/phone/NotificationPanelView;
+    check-cast v25, Landroid/widget/TextView;
 
-    move-object/from16 v0, v26
+    move-object/from16 v0, v25
 
     move-object/from16 v1, p0
 
-    iput-object v0, v1, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationPanel:Lcom/android/systemui/statusbar/phone/NotificationPanelView;
+    iput-object v0, v1, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mLatestNotificationText:Landroid/widget/TextView;
 
     .line 554
     move-object/from16 v0, p0
 
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationPanel:Lcom/android/systemui/statusbar/phone/NotificationPanelView;
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mLatestNotificationText:Landroid/widget/TextView;
+
+    move-object/from16 v25, v0
+
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mContext:Landroid/content/Context;
 
     move-object/from16 v26, v0
 
-    move-object/from16 v0, v26
+    const v27, 0x7f0a001a
 
-    move-object/from16 v1, p0
+    invoke-virtual/range {v26 .. v27}, Landroid/content/Context;->getText(I)Ljava/lang/CharSequence;
 
-    invoke-virtual {v0, v1}, Lcom/android/systemui/statusbar/phone/NotificationPanelView;->setStatusBar(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)V
+    move-result-object v26
+
+    invoke-virtual/range {v25 .. v26}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
     .line 555
     move-object/from16 v0, p0
 
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationPanel:Lcom/android/systemui/statusbar/phone/NotificationPanelView;
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNoNotificationText:Landroid/widget/TextView;
+
+    move-object/from16 v25, v0
+
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mContext:Landroid/content/Context;
 
     move-object/from16 v26, v0
 
-    invoke-virtual/range {v26 .. v26}, Lcom/android/systemui/statusbar/phone/NotificationPanelView;->getLayoutParams()Landroid/view/ViewGroup$LayoutParams;
+    const v27, 0x7f0a0018
+
+    invoke-virtual/range {v26 .. v27}, Landroid/content/Context;->getText(I)Ljava/lang/CharSequence;
 
     move-result-object v26
 
-    move-object/from16 v0, v26
+    invoke-virtual/range {v25 .. v26}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    iget v0, v0, Landroid/view/ViewGroup$LayoutParams;->width:I
+    .line 556
+    move-object/from16 v0, p0
 
-    move/from16 v26, v0
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNoNotificationText:Landroid/widget/TextView;
 
-    const/16 v27, -0x1
+    move-object/from16 v25, v0
 
-    move/from16 v0, v26
+    const/16 v26, 0x0
 
-    move/from16 v1, v27
+    const/16 v27, 0x0
 
-    if-ne v0, v1, :cond_19
+    invoke-virtual/range {v25 .. v27}, Landroid/widget/TextView;->setTypeface(Landroid/graphics/Typeface;I)V
 
-    const/16 v26, 0x1
+    .line 557
+    move-object/from16 v0, p0
 
-    :goto_0
-    move/from16 v0, v26
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mLatestNotificationText:Landroid/widget/TextView;
 
-    move-object/from16 v1, p0
+    move-object/from16 v25, v0
 
-    iput-boolean v0, v1, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationPanelIsFullScreenWidth:Z
+    const/16 v26, 0x0
+
+    const/16 v27, 0x0
+
+    invoke-virtual/range {v25 .. v27}, Landroid/widget/TextView;->setTypeface(Landroid/graphics/Typeface;I)V
 
     .line 559
     move-object/from16 v0, p0
 
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationPanel:Lcom/android/systemui/statusbar/phone/NotificationPanelView;
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarWindow:Lcom/android/systemui/statusbar/phone/StatusBarWindowView;
 
-    move-object/from16 v26, v0
+    move-object/from16 v25, v0
 
-    const v27, 0x7f090011
+    const v26, 0x7f070085
 
-    invoke-virtual/range {v26 .. v27}, Lcom/android/systemui/statusbar/phone/NotificationPanelView;->findViewById(I)Landroid/view/View;
+    invoke-virtual/range {v25 .. v26}, Lcom/android/systemui/statusbar/phone/StatusBarWindowView;->findViewById(I)Landroid/view/View;
 
-    move-result-object v26
+    move-result-object v25
 
-    new-instance v27, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$4;
+    check-cast v25, Landroid/widget/LinearLayout;
 
-    move-object/from16 v0, v27
+    move-object/from16 v0, v25
 
     move-object/from16 v1, p0
 
-    invoke-direct {v0, v1}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$4;-><init>(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)V
+    iput-object v0, v1, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mPileTitle:Landroid/widget/LinearLayout;
 
-    invoke-virtual/range {v26 .. v27}, Landroid/view/View;->setOnTouchListener(Landroid/view/View$OnTouchListener;)V
+    .line 560
+    move-object/from16 v0, p0
 
-    .line 567
-    invoke-static {}, Landroid/app/ActivityManager;->isHighEndGfx()Z
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mPileTitle:Landroid/widget/LinearLayout;
 
-    move-result v26
+    move-object/from16 v25, v0
 
-    if-nez v26, :cond_2
+    const/16 v26, 0x0
+
+    invoke-virtual/range {v25 .. v26}, Landroid/widget/LinearLayout;->setFocusable(Z)V
+
+    .line 561
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mPileTitle:Landroid/widget/LinearLayout;
+
+    move-object/from16 v25, v0
+
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mClearButtonFocusChangeListener:Landroid/view/View$OnFocusChangeListener;
+
+    move-object/from16 v26, v0
+
+    invoke-virtual/range {v25 .. v26}, Landroid/widget/LinearLayout;->setOnFocusChangeListener(Landroid/view/View$OnFocusChangeListener;)V
+
+    .line 563
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarWindow:Lcom/android/systemui/statusbar/phone/StatusBarWindowView;
+
+    move-object/from16 v25, v0
+
+    const v26, 0x7f070088
+
+    invoke-virtual/range {v25 .. v26}, Lcom/android/systemui/statusbar/phone/StatusBarWindowView;->findViewById(I)Landroid/view/View;
+
+    move-result-object v25
+
+    check-cast v25, Lcom/android/systemui/statusbar/policy/NotificationRowLayout;
+
+    move-object/from16 v0, v25
+
+    move-object/from16 v1, p0
+
+    iput-object v0, v1, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mPile:Lcom/android/systemui/statusbar/policy/NotificationRowLayout;
+
+    .line 564
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mPile:Lcom/android/systemui/statusbar/policy/NotificationRowLayout;
+
+    move-object/from16 v25, v0
+
+    const/16 v26, 0x0
+
+    invoke-virtual/range {v25 .. v26}, Lcom/android/systemui/statusbar/policy/NotificationRowLayout;->setLayoutTransitionsEnabled(Z)V
+
+    .line 565
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mPile:Lcom/android/systemui/statusbar/policy/NotificationRowLayout;
+
+    move-object/from16 v25, v0
+
+    invoke-virtual/range {p0 .. p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->getNotificationLongClicker()Landroid/view/View$OnLongClickListener;
+
+    move-result-object v26
+
+    invoke-virtual/range {v25 .. v26}, Lcom/android/systemui/statusbar/policy/NotificationRowLayout;->setLongPressListener(Landroid/view/View$OnLongClickListener;)V
+
+    .line 566
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mPile:Lcom/android/systemui/statusbar/policy/NotificationRowLayout;
+
+    move-object/from16 v25, v0
+
+    move-object/from16 v0, v25
+
+    move-object/from16 v1, p0
+
+    iput-object v0, v1, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mExpandedContents:Landroid/view/View;
 
     .line 568
     move-object/from16 v0, p0
 
     iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarWindow:Lcom/android/systemui/statusbar/phone/StatusBarWindowView;
 
-    move-object/from16 v26, v0
+    move-object/from16 v25, v0
 
-    const/16 v27, 0x0
+    const v26, 0x7f07008a
 
-    invoke-virtual/range {v26 .. v27}, Lcom/android/systemui/statusbar/phone/StatusBarWindowView;->setBackground(Landroid/graphics/drawable/Drawable;)V
+    invoke-virtual/range {v25 .. v26}, Lcom/android/systemui/statusbar/phone/StatusBarWindowView;->findViewById(I)Landroid/view/View;
 
-    .line 569
-    move-object/from16 v0, p0
+    move-result-object v25
 
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationPanel:Lcom/android/systemui/statusbar/phone/NotificationPanelView;
-
-    move-object/from16 v26, v0
-
-    move-object/from16 v0, p0
-
-    invoke-direct {v0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->notiCustomColor()Z
-
-    move-result v1
-
-    if-eqz v1, :cond_1
-
-    move-object/from16 v0, p0
-
-    invoke-direct {v0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->updateNotiColor()I
-
-    move-result v0
-
-    move/from16 v27, v0
-
-    invoke-virtual/range {v26 .. v27}, Lcom/android/systemui/statusbar/phone/NotificationPanelView;->setBackgroundColor(I)V
-
-    goto :goto_1
-
-    :cond_1
-    invoke-virtual {v6}, Landroid/content/Context;->getResources()Landroid/content/res/Resources;
-
-    move-result-object v27
-
-    const v28, 0x7f02026d
-
-    move/from16 v0, v28
-
-    move/from16 v28, v0
-
-    invoke-virtual/range {v27 .. v28}, Landroid/content/res/Resources;->getDrawable(I)Landroid/graphics/drawable/Drawable;
-
-    move-result-object v0
-
-    move-object/from16 v27, v0
-
-    invoke-virtual/range {v26 .. v27}, Landroid/view/View;->setBackgroundDrawable(Landroid/graphics/drawable/Drawable;)V
-
-    .line 582
-    :cond_2
-    :goto_1
-    invoke-direct/range {p0 .. p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->updateShowSearchHoldoff()V
-
-    .line 585
-    :try_start_0
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mWindowManagerService:Landroid/view/IWindowManager;
-
-    move-object/from16 v26, v0
-
-    invoke-interface/range {v26 .. v26}, Landroid/view/IWindowManager;->hasNavigationBar()Z
-
-    move-result v22
-
-    .line 587
-    .local v22, showNav:Z
-    if-eqz v22, :cond_3
-
-    .line 588
-    const v26, 0x7f04000c
-
-    const/16 v27, 0x0
-
-    move/from16 v0, v26
-
-    move-object/from16 v1, v27
-
-    invoke-static {v6, v0, v1}, Landroid/view/View;->inflate(Landroid/content/Context;ILandroid/view/ViewGroup;)Landroid/view/View;
-
-    move-result-object v26
-
-    check-cast v26, Lcom/android/systemui/statusbar/phone/NavigationBarView;
-
-    move-object/from16 v0, v26
-
-    move-object/from16 v1, p0
-
-    iput-object v0, v1, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNavigationBarView:Lcom/android/systemui/statusbar/phone/NavigationBarView;
-
-    .line 591
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNavigationBarView:Lcom/android/systemui/statusbar/phone/NavigationBarView;
-
-    move-object/from16 v26, v0
-
-    move-object/from16 v0, p0
-
-    iget v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mDisabled:I
-
-    move/from16 v27, v0
-
-    invoke-virtual/range {v26 .. v27}, Lcom/android/systemui/statusbar/phone/NavigationBarView;->setDisabledFlags(I)V
-
-    .line 592
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNavigationBarView:Lcom/android/systemui/statusbar/phone/NavigationBarView;
-
-    move-object/from16 v26, v0
-
-    move-object/from16 v0, v26
-
-    move-object/from16 v1, p0
-
-    invoke-virtual {v0, v1}, Lcom/android/systemui/statusbar/phone/NavigationBarView;->setBar(Lcom/android/systemui/statusbar/BaseStatusBar;)V
-    :try_end_0
-    .catch Landroid/os/RemoteException; {:try_start_0 .. :try_end_0} :catch_0
-
-    .line 599
-    .end local v22           #showNav:Z
-    :cond_3
-    :goto_2
-    const/16 v26, -0x1
-
-    move/from16 v0, v26
-
-    move-object/from16 v1, p0
-
-    iput v0, v1, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mPixelFormat:I
-
-    .line 601
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarView:Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;
-
-    move-object/from16 v26, v0
-
-    const v27, 0x7f090064
-
-    invoke-virtual/range {v26 .. v27}, Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;->findViewById(I)Landroid/view/View;
-
-    move-result-object v26
-
-    check-cast v26, Landroid/widget/LinearLayout;
-
-    move-object/from16 v0, v26
-
-    move-object/from16 v1, p0
-
-    iput-object v0, v1, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSystemIconArea:Landroid/widget/LinearLayout;
-
-    .line 602
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarView:Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;
-
-    move-object/from16 v26, v0
-
-    const v27, 0x7f090065
-
-    invoke-virtual/range {v26 .. v27}, Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;->findViewById(I)Landroid/view/View;
-
-    move-result-object v26
-
-    check-cast v26, Landroid/widget/LinearLayout;
-
-    move-object/from16 v0, v26
-
-    move-object/from16 v1, p0
-
-    iput-object v0, v1, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusIcons:Landroid/widget/LinearLayout;
-
-    .line 603
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarView:Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;
-
-    move-object/from16 v26, v0
-
-    const v27, 0x7f090063
-
-    invoke-virtual/range {v26 .. v27}, Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;->findViewById(I)Landroid/view/View;
-
-    move-result-object v26
-
-    check-cast v26, Lcom/android/systemui/statusbar/phone/IconMerger;
-
-    move-object/from16 v0, v26
-
-    move-object/from16 v1, p0
-
-    iput-object v0, v1, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationIcons:Lcom/android/systemui/statusbar/phone/IconMerger;
-
-    .line 604
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarView:Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;
-
-    move-object/from16 v26, v0
-
-    const v27, 0x7f090062
-
-    invoke-virtual/range {v26 .. v27}, Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;->findViewById(I)Landroid/view/View;
-
-    move-result-object v26
-
-    move-object/from16 v0, v26
-
-    move-object/from16 v1, p0
-
-    iput-object v0, v1, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mMoreIcon:Landroid/view/View;
-
-    .line 605
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationIcons:Lcom/android/systemui/statusbar/phone/IconMerger;
-
-    move-object/from16 v26, v0
-
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mMoreIcon:Landroid/view/View;
-
-    move-object/from16 v27, v0
-
-    invoke-virtual/range {v26 .. v27}, Lcom/android/systemui/statusbar/phone/IconMerger;->setOverflowIndicator(Landroid/view/View;)V
-
-    .line 606
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarView:Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;
-
-    move-object/from16 v26, v0
-
-    const v27, 0x7f09005d
-
-    invoke-virtual/range {v26 .. v27}, Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;->findViewById(I)Landroid/view/View;
-
-    move-result-object v26
-
-    check-cast v26, Landroid/widget/LinearLayout;
-
-    move-object/from16 v0, v26
-
-    move-object/from16 v1, p0
-
-    iput-object v0, v1, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarContents:Landroid/widget/LinearLayout;
-
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarView:Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;
-
-    move-object/from16 v26, v0
-
-    const v27, 0x7f09013b
-
-    invoke-virtual/range {v26 .. v27}, Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;->findViewById(I)Landroid/view/View;
-
-    move-result-object v26
-
-    check-cast v26, Landroid/view/View;
-
-    move-object/from16 v0, v26
-
-    move-object/from16 v1, p0
-
-    iput-object v0, v1, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mClockCenter:Landroid/view/View;
-
-    .line 607
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarView:Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;
-
-    move-object/from16 v26, v0
-
-    const v27, 0x7f09006b
-
-    invoke-virtual/range {v26 .. v27}, Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;->findViewById(I)Landroid/view/View;
-
-    move-result-object v26
-
-    move-object/from16 v0, v26
-
-    move-object/from16 v1, p0
-
-    iput-object v0, v1, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mTickerView:Landroid/view/View;
-
-    .line 609
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarWindow:Lcom/android/systemui/statusbar/phone/StatusBarWindowView;
-
-    move-object/from16 v26, v0
-
-    const v27, 0x7f090075
-
-    invoke-virtual/range {v26 .. v27}, Lcom/android/systemui/statusbar/phone/StatusBarWindowView;->findViewById(I)Landroid/view/View;
-
-    move-result-object v26
-
-    check-cast v26, Landroid/widget/LinearLayout;
-
-    move-object/from16 v0, v26
-
-    move-object/from16 v1, p0
-
-    iput-object v0, v1, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNoNotificationsTitle:Landroid/widget/LinearLayout;
-
-    .line 611
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarWindow:Lcom/android/systemui/statusbar/phone/StatusBarWindowView;
-
-    move-object/from16 v26, v0
-
-    const v27, 0x7f090077
-
-    invoke-virtual/range {v26 .. v27}, Lcom/android/systemui/statusbar/phone/StatusBarWindowView;->findViewById(I)Landroid/view/View;
-
-    move-result-object v26
-
-    check-cast v26, Landroid/widget/LinearLayout;
-
-    move-object/from16 v0, v26
-
-    move-object/from16 v1, p0
-
-    iput-object v0, v1, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mOngoingNotificationTitle:Landroid/widget/LinearLayout;
-
-    .line 612
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarWindow:Lcom/android/systemui/statusbar/phone/StatusBarWindowView;
-
-    move-object/from16 v26, v0
-
-    const v27, 0x7f09007a
-
-    invoke-virtual/range {v26 .. v27}, Lcom/android/systemui/statusbar/phone/StatusBarWindowView;->findViewById(I)Landroid/view/View;
-
-    move-result-object v26
-
-    check-cast v26, Landroid/widget/LinearLayout;
-
-    move-object/from16 v0, v26
-
-    move-object/from16 v1, p0
-
-    iput-object v0, v1, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mLatestNotificationTitle:Landroid/widget/LinearLayout;
-
-    .line 613
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarWindow:Lcom/android/systemui/statusbar/phone/StatusBarWindowView;
-
-    move-object/from16 v26, v0
-
-    const v27, 0x7f090079
-
-    invoke-virtual/range {v26 .. v27}, Lcom/android/systemui/statusbar/phone/StatusBarWindowView;->findViewById(I)Landroid/view/View;
-
-    move-result-object v26
-
-    check-cast v26, Lcom/android/systemui/statusbar/policy/NotificationRowLayout;
-
-    move-object/from16 v0, v26
-
-    move-object/from16 v1, p0
-
-    iput-object v0, v1, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mOngoingNotifications:Lcom/android/systemui/statusbar/policy/NotificationRowLayout;
-
-    .line 614
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarWindow:Lcom/android/systemui/statusbar/phone/StatusBarWindowView;
-
-    move-object/from16 v26, v0
-
-    const v27, 0x7f09007d
-
-    invoke-virtual/range {v26 .. v27}, Lcom/android/systemui/statusbar/phone/StatusBarWindowView;->findViewById(I)Landroid/view/View;
-
-    move-result-object v26
-
-    check-cast v26, Lcom/android/systemui/statusbar/policy/NotificationRowLayout;
-
-    move-object/from16 v0, v26
-
-    move-object/from16 v1, p0
-
-    iput-object v0, v1, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mLatestNotifications:Lcom/android/systemui/statusbar/policy/NotificationRowLayout;
-
-    .line 618
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationPanel:Lcom/android/systemui/statusbar/phone/NotificationPanelView;
-
-    move-object/from16 v26, v0
-
-    const v27, 0x7f090032
-
-    invoke-virtual/range {v26 .. v27}, Lcom/android/systemui/statusbar/phone/NotificationPanelView;->findViewById(I)Landroid/view/View;
-
-    move-result-object v26
-
-    move-object/from16 v0, v26
-
-    move-object/from16 v1, p0
-
-    iput-object v0, v1, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mBasicSettingDivider:Landroid/view/View;
-
-    .line 619
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationPanel:Lcom/android/systemui/statusbar/phone/NotificationPanelView;
-
-    move-object/from16 v26, v0
-
-    const v27, 0x7f090083
-
-    invoke-virtual/range {v26 .. v27}, Lcom/android/systemui/statusbar/phone/NotificationPanelView;->findViewById(I)Landroid/view/View;
-
-    move-result-object v26
-
-    move-object/from16 v0, v26
-
-    move-object/from16 v1, p0
-
-    iput-object v0, v1, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mBasicSetting:Landroid/view/View;
-
-    .line 620
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationPanel:Lcom/android/systemui/statusbar/phone/NotificationPanelView;
-
-    move-object/from16 v26, v0
-
-    const v27, 0x7f090082
-
-    invoke-virtual/range {v26 .. v27}, Lcom/android/systemui/statusbar/phone/NotificationPanelView;->findViewById(I)Landroid/view/View;
-
-    move-result-object v26
-
-    move-object/from16 v0, v26
-
-    move-object/from16 v1, p0
-
-    iput-object v0, v1, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSettingButtonDivider:Landroid/view/View;
-
-    .line 621
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationPanel:Lcom/android/systemui/statusbar/phone/NotificationPanelView;
-
-    move-object/from16 v26, v0
-
-    const v27, 0x7f09007f
-
-    invoke-virtual/range {v26 .. v27}, Lcom/android/systemui/statusbar/phone/NotificationPanelView;->findViewById(I)Landroid/view/View;
-
-    move-result-object v26
-
-    move-object/from16 v0, v26
-
-    move-object/from16 v1, p0
-
-    iput-object v0, v1, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSettingButton:Landroid/view/View;
-
-    .line 627
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mOngoingNotifications:Lcom/android/systemui/statusbar/policy/NotificationRowLayout;
-
-    move-object/from16 v26, v0
-
-    const/16 v27, 0x6
-
-    invoke-virtual/range {v26 .. v27}, Lcom/android/systemui/statusbar/policy/NotificationRowLayout;->setShowDividers(I)V
-
-    .line 628
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mOngoingNotifications:Lcom/android/systemui/statusbar/policy/NotificationRowLayout;
-
-    move-object/from16 v26, v0
-
-    const v27, 0x7f0e0066
-
-    move-object/from16 v0, v17
-
-    move/from16 v1, v27
-
-    invoke-virtual {v0, v1}, Landroid/content/res/Resources;->getDimensionPixelSize(I)I
-
-    move-result v27
-
-    invoke-virtual/range {v26 .. v27}, Lcom/android/systemui/statusbar/policy/NotificationRowLayout;->setDividerPadding(I)V
-
-    .line 629
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mOngoingNotifications:Lcom/android/systemui/statusbar/policy/NotificationRowLayout;
-
-    move-object/from16 v26, v0
-
-    const v27, 0x7f02008c
-
-    move-object/from16 v0, v17
-
-    move/from16 v1, v27
-
-    invoke-virtual {v0, v1}, Landroid/content/res/Resources;->getDrawable(I)Landroid/graphics/drawable/Drawable;
-
-    move-result-object v27
-
-    invoke-virtual/range {v26 .. v27}, Lcom/android/systemui/statusbar/policy/NotificationRowLayout;->setDividerDrawable(Landroid/graphics/drawable/Drawable;)V
-
-    .line 630
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mLatestNotifications:Lcom/android/systemui/statusbar/policy/NotificationRowLayout;
-
-    move-object/from16 v26, v0
-
-    const/16 v27, 0x6
-
-    invoke-virtual/range {v26 .. v27}, Lcom/android/systemui/statusbar/policy/NotificationRowLayout;->setShowDividers(I)V
-
-    .line 631
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mLatestNotifications:Lcom/android/systemui/statusbar/policy/NotificationRowLayout;
-
-    move-object/from16 v26, v0
-
-    const v27, 0x7f0e0066
-
-    move-object/from16 v0, v17
-
-    move/from16 v1, v27
-
-    invoke-virtual {v0, v1}, Landroid/content/res/Resources;->getDimensionPixelSize(I)I
-
-    move-result v27
-
-    invoke-virtual/range {v26 .. v27}, Lcom/android/systemui/statusbar/policy/NotificationRowLayout;->setDividerPadding(I)V
-
-    .line 632
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mLatestNotifications:Lcom/android/systemui/statusbar/policy/NotificationRowLayout;
-
-    move-object/from16 v26, v0
-
-    const v27, 0x7f02008c
-
-    move-object/from16 v0, v17
-
-    move/from16 v1, v27
-
-    invoke-virtual {v0, v1}, Landroid/content/res/Resources;->getDrawable(I)Landroid/graphics/drawable/Drawable;
-
-    move-result-object v27
-
-    invoke-virtual/range {v26 .. v27}, Lcom/android/systemui/statusbar/policy/NotificationRowLayout;->setDividerDrawable(Landroid/graphics/drawable/Drawable;)V
-
-    .line 638
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mOngoingNotifications:Lcom/android/systemui/statusbar/policy/NotificationRowLayout;
-
-    move-object/from16 v26, v0
-
-    const/16 v27, 0x0
-
-    invoke-virtual/range {v26 .. v27}, Lcom/android/systemui/statusbar/policy/NotificationRowLayout;->setLayoutTransitionsEnabled(Z)V
-
-    .line 639
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mLatestNotifications:Lcom/android/systemui/statusbar/policy/NotificationRowLayout;
-
-    move-object/from16 v26, v0
-
-    const/16 v27, 0x0
-
-    invoke-virtual/range {v26 .. v27}, Lcom/android/systemui/statusbar/policy/NotificationRowLayout;->setLayoutTransitionsEnabled(Z)V
-
-    .line 640
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mOngoingNotifications:Lcom/android/systemui/statusbar/policy/NotificationRowLayout;
-
-    move-object/from16 v26, v0
-
-    invoke-virtual/range {p0 .. p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->getNotificationLongClicker()Landroid/view/View$OnLongClickListener;
-
-    move-result-object v27
-
-    invoke-virtual/range {v26 .. v27}, Lcom/android/systemui/statusbar/policy/NotificationRowLayout;->setLongPressListener(Landroid/view/View$OnLongClickListener;)V
-
-    .line 641
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mLatestNotifications:Lcom/android/systemui/statusbar/policy/NotificationRowLayout;
-
-    move-object/from16 v26, v0
-
-    invoke-virtual/range {p0 .. p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->getNotificationLongClicker()Landroid/view/View$OnLongClickListener;
-
-    move-result-object v27
-
-    invoke-virtual/range {v26 .. v27}, Lcom/android/systemui/statusbar/policy/NotificationRowLayout;->setLongPressListener(Landroid/view/View$OnLongClickListener;)V
-
-    .line 642
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarWindow:Lcom/android/systemui/statusbar/phone/StatusBarWindowView;
-
-    move-object/from16 v26, v0
-
-    const v27, 0x7f090076
-
-    invoke-virtual/range {v26 .. v27}, Lcom/android/systemui/statusbar/phone/StatusBarWindowView;->findViewById(I)Landroid/view/View;
-
-    move-result-object v26
-
-    check-cast v26, Landroid/widget/TextView;
-
-    move-object/from16 v0, v26
-
-    move-object/from16 v1, p0
-
-    iput-object v0, v1, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNoNotificationText:Landroid/widget/TextView;
-
-    .line 643
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarWindow:Lcom/android/systemui/statusbar/phone/StatusBarWindowView;
-
-    move-object/from16 v26, v0
-
-    const v27, 0x7f090078
-
-    invoke-virtual/range {v26 .. v27}, Lcom/android/systemui/statusbar/phone/StatusBarWindowView;->findViewById(I)Landroid/view/View;
-
-    move-result-object v26
-
-    check-cast v26, Landroid/widget/TextView;
-
-    move-object/from16 v0, v26
-
-    move-object/from16 v1, p0
-
-    iput-object v0, v1, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mOngoingNotificationText:Landroid/widget/TextView;
-
-    .line 644
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarWindow:Lcom/android/systemui/statusbar/phone/StatusBarWindowView;
-
-    move-object/from16 v26, v0
-
-    const v27, 0x7f09007b
-
-    invoke-virtual/range {v26 .. v27}, Lcom/android/systemui/statusbar/phone/StatusBarWindowView;->findViewById(I)Landroid/view/View;
-
-    move-result-object v26
-
-    check-cast v26, Landroid/widget/TextView;
-
-    move-object/from16 v0, v26
-
-    move-object/from16 v1, p0
-
-    iput-object v0, v1, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mLatestNotificationText:Landroid/widget/TextView;
-
-    .line 645
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mLatestNotifications:Lcom/android/systemui/statusbar/policy/NotificationRowLayout;
-
-    move-object/from16 v26, v0
-
-    move-object/from16 v0, v26
-
-    move-object/from16 v1, p0
-
-    iput-object v0, v1, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mExpandedContents:Landroid/view/View;
-
-    .line 648
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mLatestNotificationTitle:Landroid/widget/LinearLayout;
-
-    move-object/from16 v26, v0
-
-    const/16 v27, 0x0
-
-    invoke-virtual/range {v26 .. v27}, Landroid/widget/LinearLayout;->setFocusable(Z)V
-
-    .line 649
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mLatestNotificationTitle:Landroid/widget/LinearLayout;
-
-    move-object/from16 v26, v0
-
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mClearButtonFocusChangeListener:Landroid/view/View$OnFocusChangeListener;
-
-    move-object/from16 v27, v0
-
-    invoke-virtual/range {v26 .. v27}, Landroid/widget/LinearLayout;->setOnFocusChangeListener(Landroid/view/View$OnFocusChangeListener;)V
-
-    .line 651
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mContext:Landroid/content/Context;
-
-    move-object/from16 v26, v0
-
-    invoke-virtual/range {v26 .. v26}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
-
-    move-result-object v26
-
-    const-string v27, "statusbar_aosp_clear"
-
-    const/16 v28, 0x0
-
-    invoke-static/range {v26 .. v28}, Landroid/provider/Settings$Global;->getInt(Landroid/content/ContentResolver;Ljava/lang/String;I)I
-
-    move-result v26
-
-    if-eqz v26, :cond_4
-
-    const v27, 0x7f090138
-
-    goto :goto_3
-
-    :cond_4
-    const v27, 0x7f09007c
-
-    :goto_3
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarWindow:Lcom/android/systemui/statusbar/phone/StatusBarWindowView;
-
-    move-object/from16 v26, v0
-
-    invoke-virtual/range {v26 .. v27}, Lcom/android/systemui/statusbar/phone/StatusBarWindowView;->findViewById(I)Landroid/view/View;
-
-    move-result-object v26
-
-    move-object/from16 v0, v26
-
-    move-object/from16 v1, p0
-
-    iput-object v0, v1, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mClearButton:Landroid/view/View;
-
-    .line 652
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mClearButton:Landroid/view/View;
-
-    move-object/from16 v26, v0
-
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mClearButtonListener:Landroid/view/View$OnClickListener;
-
-    move-object/from16 v27, v0
-
-    invoke-virtual/range {v26 .. v27}, Landroid/view/View;->setOnClickListener(Landroid/view/View$OnClickListener;)V
-
-    .line 653
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mClearButton:Landroid/view/View;
-
-    move-object/from16 v26, v0
-
-    const/16 v27, 0x0
-
-    invoke-virtual/range {v26 .. v27}, Landroid/view/View;->setAlpha(F)V
-
-    .line 654
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mClearButton:Landroid/view/View;
-
-    move-object/from16 v26, v0
-
-    const/16 v27, 0x4
-
-    invoke-virtual/range {v26 .. v27}, Landroid/view/View;->setVisibility(I)V
-
-    .line 655
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mClearButton:Landroid/view/View;
-
-    move-object/from16 v26, v0
-
-    const/16 v27, 0x0
-
-    invoke-virtual/range {v26 .. v27}, Landroid/view/View;->setEnabled(Z)V
-
-    .line 658
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarWindow:Lcom/android/systemui/statusbar/phone/StatusBarWindowView;
-
-    move-object/from16 v26, v0
-
-    const v27, 0x7f090011
-
-    invoke-virtual/range {v26 .. v27}, Lcom/android/systemui/statusbar/phone/StatusBarWindowView;->findViewById(I)Landroid/view/View;
-
-    move-result-object v26
-
-    move-object/from16 v0, v26
+    move-object/from16 v0, v25
 
     move-object/from16 v1, p0
 
     iput-object v0, v1, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationPanelHeader:Landroid/view/View;
 
-    .line 660
+    .line 570
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mPile:Lcom/android/systemui/statusbar/policy/NotificationRowLayout;
+
+    move-object/from16 v25, v0
+
+    const/16 v26, 0x6
+
+    invoke-virtual/range {v25 .. v26}, Lcom/android/systemui/statusbar/policy/NotificationRowLayout;->setShowDividers(I)V
+
+    .line 571
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mPile:Lcom/android/systemui/statusbar/policy/NotificationRowLayout;
+
+    move-object/from16 v25, v0
+
+    const v26, 0x7f0c006c
+
+    move-object/from16 v0, v17
+
+    move/from16 v1, v26
+
+    invoke-virtual {v0, v1}, Landroid/content/res/Resources;->getDimensionPixelSize(I)I
+
+    move-result v26
+
+    invoke-virtual/range {v25 .. v26}, Lcom/android/systemui/statusbar/policy/NotificationRowLayout;->setDividerPadding(I)V
+
+    .line 572
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mPile:Lcom/android/systemui/statusbar/policy/NotificationRowLayout;
+
+    move-object/from16 v25, v0
+
+    const v26, 0x7f0200a2
+
+    move-object/from16 v0, v17
+
+    move/from16 v1, v26
+
+    invoke-virtual {v0, v1}, Landroid/content/res/Resources;->getDrawable(I)Landroid/graphics/drawable/Drawable;
+
+    move-result-object v26
+
+    invoke-virtual/range {v25 .. v26}, Lcom/android/systemui/statusbar/policy/NotificationRowLayout;->setDividerDrawable(Landroid/graphics/drawable/Drawable;)V
+
+    .line 575
     move-object/from16 v0, p0
 
     iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarWindow:Lcom/android/systemui/statusbar/phone/StatusBarWindowView;
 
+    move-object/from16 v25, v0
+
+    const v26, 0x7f070087
+
+    invoke-virtual/range {v25 .. v26}, Lcom/android/systemui/statusbar/phone/StatusBarWindowView;->findViewById(I)Landroid/view/View;
+
+    move-result-object v25
+
+    move-object/from16 v0, v25
+
+    move-object/from16 v1, p0
+
+    iput-object v0, v1, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mClearButton:Landroid/view/View;
+
+    .line 576
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mClearButton:Landroid/view/View;
+
+    move-object/from16 v25, v0
+
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mClearButtonListener:Landroid/view/View$OnClickListener;
+
     move-object/from16 v26, v0
 
-    const v27, 0x7f090088
+    invoke-virtual/range {v25 .. v26}, Landroid/view/View;->setOnClickListener(Landroid/view/View$OnClickListener;)V
 
-    invoke-virtual/range {v26 .. v27}, Lcom/android/systemui/statusbar/phone/StatusBarWindowView;->findViewById(I)Landroid/view/View;
+    .line 577
+    move-object/from16 v0, p0
 
-    move-result-object v26
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mClearButton:Landroid/view/View;
 
-    check-cast v26, Lcom/android/systemui/statusbar/policy/DateView;
+    move-object/from16 v25, v0
 
-    move-object/from16 v0, v26
+    const/16 v26, 0x0
+
+    invoke-virtual/range {v25 .. v26}, Landroid/view/View;->setAlpha(F)V
+
+    .line 578
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mClearButton:Landroid/view/View;
+
+    move-object/from16 v25, v0
+
+    const/16 v26, 0x4
+
+    invoke-virtual/range {v25 .. v26}, Landroid/view/View;->setVisibility(I)V
+
+    .line 579
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mClearButton:Landroid/view/View;
+
+    move-object/from16 v25, v0
+
+    const/16 v26, 0x0
+
+    invoke-virtual/range {v25 .. v26}, Landroid/view/View;->setEnabled(Z)V
+
+    .line 580
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarWindow:Lcom/android/systemui/statusbar/phone/StatusBarWindowView;
+
+    move-object/from16 v25, v0
+
+    const v26, 0x7f07008e
+
+    invoke-virtual/range {v25 .. v26}, Lcom/android/systemui/statusbar/phone/StatusBarWindowView;->findViewById(I)Landroid/view/View;
+
+    move-result-object v25
+
+    check-cast v25, Lcom/android/systemui/statusbar/policy/DateView;
+
+    move-object/from16 v0, v25
 
     move-object/from16 v1, p0
 
     iput-object v0, v1, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mDateView:Lcom/android/systemui/statusbar/policy/DateView;
 
-    .line 662
-    const v26, 0x7f0b0009
+    .line 582
+    const v25, 0x7f09000a
 
     move-object/from16 v0, v17
 
-    move/from16 v1, v26
+    move/from16 v1, v25
 
     invoke-virtual {v0, v1}, Landroid/content/res/Resources;->getBoolean(I)Z
 
-    move-result v26
+    move-result v25
 
-    move/from16 v0, v26
+    move/from16 v0, v25
 
     move-object/from16 v1, p0
 
     iput-boolean v0, v1, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mHasSettingsPanel:Z
 
-    .line 663
-    const v26, 0x7f0b000a
+    .line 583
+    const v25, 0x7f09000b
 
     move-object/from16 v0, v17
 
-    move/from16 v1, v26
+    move/from16 v1, v25
 
     invoke-virtual {v0, v1}, Landroid/content/res/Resources;->getBoolean(I)Z
 
-    move-result v26
+    move-result v25
 
-    move/from16 v0, v26
+    move/from16 v0, v25
 
     move-object/from16 v1, p0
 
     iput-boolean v0, v1, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mHasFlipSettings:Z
 
-    .line 665
+    .line 585
     move-object/from16 v0, p0
 
     iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationPanelHeader:Landroid/view/View;
 
-    move-object/from16 v26, v0
+    move-object/from16 v25, v0
 
-    const v27, 0x7f090087
+    const v26, 0x7f07008d
 
-    invoke-virtual/range {v26 .. v27}, Landroid/view/View;->findViewById(I)Landroid/view/View;
+    invoke-virtual/range {v25 .. v26}, Landroid/view/View;->findViewById(I)Landroid/view/View;
 
-    move-result-object v26
+    move-result-object v25
 
-    move-object/from16 v0, v26
+    move-object/from16 v0, v25
 
     move-object/from16 v1, p0
 
     iput-object v0, v1, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mDateTimeView:Landroid/view/View;
 
-    .line 666
+    .line 586
     move-object/from16 v0, p0
 
     iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mDateTimeView:Landroid/view/View;
 
-    move-object/from16 v26, v0
+    move-object/from16 v25, v0
 
-    if-eqz v26, :cond_5
+    if-eqz v25, :cond_3
 
-    .line 667
+    .line 587
     move-object/from16 v0, p0
 
     iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mDateTimeView:Landroid/view/View;
 
-    move-object/from16 v26, v0
+    move-object/from16 v25, v0
 
     move-object/from16 v0, p0
 
     iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mClockClickListener:Landroid/view/View$OnClickListener;
 
-    move-object/from16 v27, v0
+    move-object/from16 v26, v0
 
-    invoke-virtual/range {v26 .. v27}, Landroid/view/View;->setOnClickListener(Landroid/view/View$OnClickListener;)V
+    invoke-virtual/range {v25 .. v26}, Landroid/view/View;->setOnClickListener(Landroid/view/View$OnClickListener;)V
 
-    .line 668
+    .line 588
     move-object/from16 v0, p0
 
     iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mDateTimeView:Landroid/view/View;
 
-    move-object/from16 v26, v0
+    move-object/from16 v25, v0
 
-    const/16 v27, 0x1
+    const/16 v26, 0x1
 
-    invoke-virtual/range {v26 .. v27}, Landroid/view/View;->setEnabled(Z)V
+    invoke-virtual/range {v25 .. v26}, Landroid/view/View;->setEnabled(Z)V
 
-    .line 672
+    .line 592
+    :cond_3
+    sget-boolean v25, Lcom/android/systemui/statusbar/Feature;->mUseJellyBeanGUI:Z
+
+    if-eqz v25, :cond_5
+
+    .line 593
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationPanelHeader:Landroid/view/View;
+
+    move-object/from16 v25, v0
+
+    const v26, 0x7f020280
+
+    invoke-virtual/range {v25 .. v26}, Landroid/view/View;->setBackgroundResource(I)V
+
+    .line 594
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mDateTimeView:Landroid/view/View;
+
+    move-object/from16 v25, v0
+
+    if-eqz v25, :cond_4
+
+    .line 595
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mDateTimeView:Landroid/view/View;
+
+    move-object/from16 v25, v0
+
+    const v26, 0x7f020091
+
+    invoke-virtual/range {v25 .. v26}, Landroid/view/View;->setBackgroundResource(I)V
+
+    .line 597
+    :cond_4
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarWindow:Lcom/android/systemui/statusbar/phone/StatusBarWindowView;
+
+    move-object/from16 v25, v0
+
+    const v26, 0x7f07008b
+
+    invoke-virtual/range {v25 .. v26}, Lcom/android/systemui/statusbar/phone/StatusBarWindowView;->findViewById(I)Landroid/view/View;
+
+    move-result-object v25
+
+    check-cast v25, Landroid/widget/ImageView;
+
+    const/16 v26, 0x8
+
+    invoke-virtual/range {v25 .. v26}, Landroid/widget/ImageView;->setVisibility(I)V
+
+    .line 598
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarWindow:Lcom/android/systemui/statusbar/phone/StatusBarWindowView;
+
+    move-object/from16 v25, v0
+
+    const v26, 0x7f07008c
+
+    invoke-virtual/range {v25 .. v26}, Lcom/android/systemui/statusbar/phone/StatusBarWindowView;->findViewById(I)Landroid/view/View;
+
+    move-result-object v25
+
+    const/16 v26, 0x8
+
+    invoke-virtual/range {v25 .. v26}, Landroid/view/View;->setVisibility(I)V
+
+    .line 599
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarWindow:Lcom/android/systemui/statusbar/phone/StatusBarWindowView;
+
+    move-object/from16 v25, v0
+
+    const v26, 0x7f070093
+
+    invoke-virtual/range {v25 .. v26}, Lcom/android/systemui/statusbar/phone/StatusBarWindowView;->findViewById(I)Landroid/view/View;
+
+    move-result-object v25
+
+    check-cast v25, Landroid/widget/ImageView;
+
+    const v26, 0x7f020091
+
+    invoke-virtual/range {v25 .. v26}, Landroid/widget/ImageView;->setBackgroundResource(I)V
+
+    .line 600
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarWindow:Lcom/android/systemui/statusbar/phone/StatusBarWindowView;
+
+    move-object/from16 v25, v0
+
+    const v26, 0x7f070094
+
+    invoke-virtual/range {v25 .. v26}, Lcom/android/systemui/statusbar/phone/StatusBarWindowView;->findViewById(I)Landroid/view/View;
+
+    move-result-object v25
+
+    check-cast v25, Landroid/widget/ImageView;
+
+    const v26, 0x7f020091
+
+    invoke-virtual/range {v25 .. v26}, Landroid/widget/ImageView;->setBackgroundResource(I)V
+
+    .line 601
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarWindow:Lcom/android/systemui/statusbar/phone/StatusBarWindowView;
+
+    move-object/from16 v25, v0
+
+    const v26, 0x7f070096
+
+    invoke-virtual/range {v25 .. v26}, Lcom/android/systemui/statusbar/phone/StatusBarWindowView;->findViewById(I)Landroid/view/View;
+
+    move-result-object v25
+
+    check-cast v25, Landroid/widget/ImageView;
+
+    const v26, 0x7f020091
+
+    invoke-virtual/range {v25 .. v26}, Landroid/widget/ImageView;->setBackgroundResource(I)V
+
+    .line 602
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarWindow:Lcom/android/systemui/statusbar/phone/StatusBarWindowView;
+
+    move-object/from16 v25, v0
+
+    const v26, 0x7f070097
+
+    invoke-virtual/range {v25 .. v26}, Lcom/android/systemui/statusbar/phone/StatusBarWindowView;->findViewById(I)Landroid/view/View;
+
+    move-result-object v25
+
+    check-cast v25, Landroid/widget/ImageView;
+
+    const v26, 0x7f020091
+
+    invoke-virtual/range {v25 .. v26}, Landroid/widget/ImageView;->setBackgroundResource(I)V
+
+    .line 604
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarWindow:Lcom/android/systemui/statusbar/phone/StatusBarWindowView;
+
+    move-object/from16 v25, v0
+
+    const v26, 0x7f070093
+
+    invoke-virtual/range {v25 .. v26}, Lcom/android/systemui/statusbar/phone/StatusBarWindowView;->findViewById(I)Landroid/view/View;
+
+    move-result-object v25
+
+    check-cast v25, Landroid/widget/ImageView;
+
+    const v26, 0x7f020094
+
+    invoke-virtual/range {v25 .. v26}, Landroid/widget/ImageView;->setImageResource(I)V
+
+    .line 605
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarWindow:Lcom/android/systemui/statusbar/phone/StatusBarWindowView;
+
+    move-object/from16 v25, v0
+
+    const v26, 0x7f070094
+
+    invoke-virtual/range {v25 .. v26}, Lcom/android/systemui/statusbar/phone/StatusBarWindowView;->findViewById(I)Landroid/view/View;
+
+    move-result-object v25
+
+    check-cast v25, Landroid/widget/ImageView;
+
+    const v26, 0x7f020092
+
+    invoke-virtual/range {v25 .. v26}, Landroid/widget/ImageView;->setImageResource(I)V
+
+    .line 606
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarWindow:Lcom/android/systemui/statusbar/phone/StatusBarWindowView;
+
+    move-object/from16 v25, v0
+
+    const v26, 0x7f070096
+
+    invoke-virtual/range {v25 .. v26}, Lcom/android/systemui/statusbar/phone/StatusBarWindowView;->findViewById(I)Landroid/view/View;
+
+    move-result-object v25
+
+    check-cast v25, Landroid/widget/ImageView;
+
+    const v26, 0x7f020096
+
+    invoke-virtual/range {v25 .. v26}, Landroid/widget/ImageView;->setImageResource(I)V
+
+    .line 607
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarWindow:Lcom/android/systemui/statusbar/phone/StatusBarWindowView;
+
+    move-object/from16 v25, v0
+
+    const v26, 0x7f070097
+
+    invoke-virtual/range {v25 .. v26}, Lcom/android/systemui/statusbar/phone/StatusBarWindowView;->findViewById(I)Landroid/view/View;
+
+    move-result-object v25
+
+    check-cast v25, Landroid/widget/ImageView;
+
+    const v26, 0x7f020090
+
+    invoke-virtual/range {v25 .. v26}, Landroid/widget/ImageView;->setImageResource(I)V
+
+    .line 609
+    new-instance v15, Landroid/widget/RelativeLayout$LayoutParams;
+
+    const/16 v25, -0x2
+
+    const/16 v26, -0x1
+
+    move/from16 v0, v25
+
+    move/from16 v1, v26
+
+    invoke-direct {v15, v0, v1}, Landroid/widget/RelativeLayout$LayoutParams;-><init>(II)V
+
+    .line 610
+    .local v15, params:Landroid/widget/RelativeLayout$LayoutParams;
+    const/16 v25, 0x9
+
+    const/16 v26, -0x1
+
+    move/from16 v0, v25
+
+    move/from16 v1, v26
+
+    invoke-virtual {v15, v0, v1}, Landroid/widget/RelativeLayout$LayoutParams;->addRule(II)V
+
+    .line 611
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mDateTimeView:Landroid/view/View;
+
+    move-object/from16 v25, v0
+
+    move-object/from16 v0, v25
+
+    invoke-virtual {v0, v15}, Landroid/view/View;->setLayoutParams(Landroid/view/ViewGroup$LayoutParams;)V
+
+    .line 617
+    .end local v15           #params:Landroid/widget/RelativeLayout$LayoutParams;
     :cond_5
     move-object/from16 v0, p0
 
     iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarWindow:Lcom/android/systemui/statusbar/phone/StatusBarWindowView;
 
-    move-object/from16 v26, v0
+    move-object/from16 v25, v0
 
-    const v27, 0x7f090083
+    const v26, 0x7f070093
 
-    invoke-virtual/range {v26 .. v27}, Lcom/android/systemui/statusbar/phone/StatusBarWindowView;->findViewById(I)Landroid/view/View;
+    invoke-virtual/range {v25 .. v26}, Lcom/android/systemui/statusbar/phone/StatusBarWindowView;->findViewById(I)Landroid/view/View;
 
-    move-result-object v26
+    move-result-object v25
 
-    check-cast v26, Landroid/widget/ImageView;
+    check-cast v25, Landroid/widget/ImageView;
 
-    move-object/from16 v0, v26
+    move-object/from16 v0, v25
 
     move-object/from16 v1, p0
 
     iput-object v0, v1, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mBasicSettingsButton:Landroid/widget/ImageView;
 
-    .line 673
+    .line 618
     move-object/from16 v0, p0
 
     iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mBasicSettingsButton:Landroid/widget/ImageView;
 
-    move-object/from16 v26, v0
+    move-object/from16 v25, v0
 
-    if-eqz v26, :cond_6
+    if-eqz v25, :cond_6
 
-    .line 674
+    .line 619
     move-object/from16 v0, p0
 
     iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mBasicSettingsButton:Landroid/widget/ImageView;
 
-    move-object/from16 v26, v0
+    move-object/from16 v25, v0
 
     move-object/from16 v0, p0
 
     iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mBasicSettingsButtonListener:Landroid/view/View$OnClickListener;
 
-    move-object/from16 v27, v0
+    move-object/from16 v26, v0
 
-    invoke-virtual/range {v26 .. v27}, Landroid/widget/ImageView;->setOnClickListener(Landroid/view/View$OnClickListener;)V
+    invoke-virtual/range {v25 .. v26}, Landroid/widget/ImageView;->setOnClickListener(Landroid/view/View$OnClickListener;)V
 
-    .line 677
+    .line 622
     :cond_6
     move-object/from16 v0, p0
 
     iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarWindow:Lcom/android/systemui/statusbar/phone/StatusBarWindowView;
 
-    move-object/from16 v26, v0
+    move-object/from16 v25, v0
 
-    const v27, 0x7f090084
+    const v26, 0x7f070094
 
-    invoke-virtual/range {v26 .. v27}, Lcom/android/systemui/statusbar/phone/StatusBarWindowView;->findViewById(I)Landroid/view/View;
+    invoke-virtual/range {v25 .. v26}, Lcom/android/systemui/statusbar/phone/StatusBarWindowView;->findViewById(I)Landroid/view/View;
 
-    move-result-object v26
+    move-result-object v25
 
-    check-cast v26, Landroid/widget/ImageView;
+    check-cast v25, Landroid/widget/ImageView;
 
-    move-object/from16 v0, v26
+    move-object/from16 v0, v25
 
     move-object/from16 v1, p0
 
     iput-object v0, v1, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSettingsEditButton:Landroid/widget/ImageView;
 
-    .line 678
+    .line 623
     move-object/from16 v0, p0
 
     iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSettingsEditButton:Landroid/widget/ImageView;
 
-    move-object/from16 v26, v0
+    move-object/from16 v25, v0
 
-    if-eqz v26, :cond_7
+    if-eqz v25, :cond_7
 
-    .line 679
+    .line 624
     move-object/from16 v0, p0
 
     iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSettingsEditButton:Landroid/widget/ImageView;
 
-    move-object/from16 v26, v0
+    move-object/from16 v25, v0
 
     move-object/from16 v0, p0
 
     iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSettingsEditButtonListener:Landroid/view/View$OnClickListener;
 
-    move-object/from16 v27, v0
+    move-object/from16 v26, v0
 
-    invoke-virtual/range {v26 .. v27}, Landroid/widget/ImageView;->setOnClickListener(Landroid/view/View$OnClickListener;)V
+    invoke-virtual/range {v25 .. v26}, Landroid/widget/ImageView;->setOnClickListener(Landroid/view/View$OnClickListener;)V
 
-    .line 683
+    .line 626
     :cond_7
     move-object/from16 v0, p0
 
     iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarWindow:Lcom/android/systemui/statusbar/phone/StatusBarWindowView;
 
-    move-object/from16 v26, v0
+    move-object/from16 v25, v0
 
-    const v27, 0x7f090031
+    const v26, 0x7f070096
 
-    invoke-virtual/range {v26 .. v27}, Lcom/android/systemui/statusbar/phone/StatusBarWindowView;->findViewById(I)Landroid/view/View;
+    invoke-virtual/range {v25 .. v26}, Lcom/android/systemui/statusbar/phone/StatusBarWindowView;->findViewById(I)Landroid/view/View;
 
-    move-result-object v26
+    move-result-object v25
 
-    check-cast v26, Landroid/widget/ImageView;
+    check-cast v25, Landroid/widget/ImageView;
 
-    move-object/from16 v0, v26
-
-    move-object/from16 v1, p0
-
-    iput-object v0, v1, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mBasicSettingsButtonTablet:Landroid/widget/ImageView;
-
-    .line 684
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mBasicSettingsButtonTablet:Landroid/widget/ImageView;
-
-    move-object/from16 v26, v0
-
-    if-eqz v26, :cond_8
-
-    .line 685
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mBasicSettingsButtonTablet:Landroid/widget/ImageView;
-
-    move-object/from16 v26, v0
-
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mBasicSettingsButtonListener:Landroid/view/View$OnClickListener;
-
-    move-object/from16 v27, v0
-
-    invoke-virtual/range {v26 .. v27}, Landroid/widget/ImageView;->setOnClickListener(Landroid/view/View$OnClickListener;)V
-
-    .line 688
-    :cond_8
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarWindow:Lcom/android/systemui/statusbar/phone/StatusBarWindowView;
-
-    move-object/from16 v26, v0
-
-    const v27, 0x7f09002e
-
-    invoke-virtual/range {v26 .. v27}, Lcom/android/systemui/statusbar/phone/StatusBarWindowView;->findViewById(I)Landroid/view/View;
-
-    move-result-object v26
-
-    check-cast v26, Landroid/widget/ImageView;
-
-    move-object/from16 v0, v26
-
-    move-object/from16 v1, p0
-
-    iput-object v0, v1, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSettingsEditButtonTablet:Landroid/widget/ImageView;
-
-    .line 689
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSettingsEditButtonTablet:Landroid/widget/ImageView;
-
-    move-object/from16 v26, v0
-
-    if-eqz v26, :cond_9
-
-    .line 690
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSettingsEditButtonTablet:Landroid/widget/ImageView;
-
-    move-object/from16 v26, v0
-
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSettingsEditButtonListener:Landroid/view/View$OnClickListener;
-
-    move-object/from16 v27, v0
-
-    invoke-virtual/range {v26 .. v27}, Landroid/widget/ImageView;->setOnClickListener(Landroid/view/View$OnClickListener;)V
-
-    .line 694
-    :cond_9
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarWindow:Lcom/android/systemui/statusbar/phone/StatusBarWindowView;
-
-    move-object/from16 v26, v0
-
-    const v27, 0x7f090080
-
-    invoke-virtual/range {v26 .. v27}, Lcom/android/systemui/statusbar/phone/StatusBarWindowView;->findViewById(I)Landroid/view/View;
-
-    move-result-object v26
-
-    check-cast v26, Landroid/widget/ImageView;
-
-    move-object/from16 v0, v26
+    move-object/from16 v0, v25
 
     move-object/from16 v1, p0
 
     iput-object v0, v1, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSettingsButton:Landroid/widget/ImageView;
 
-    .line 695
+    .line 627
     move-object/from16 v0, p0
 
     iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSettingsButton:Landroid/widget/ImageView;
 
-    move-object/from16 v26, v0
+    move-object/from16 v25, v0
 
-    if-eqz v26, :cond_a
+    if-eqz v25, :cond_9
 
-    .line 696
+    .line 628
     move-object/from16 v0, p0
 
     iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSettingsButton:Landroid/widget/ImageView;
 
-    move-object/from16 v26, v0
+    move-object/from16 v25, v0
 
     move-object/from16 v0, p0
 
     iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSettingsButtonListener:Landroid/view/View$OnClickListener;
 
-    move-object/from16 v27, v0
+    move-object/from16 v26, v0
 
-    invoke-virtual/range {v26 .. v27}, Landroid/widget/ImageView;->setOnClickListener(Landroid/view/View$OnClickListener;)V
+    invoke-virtual/range {v25 .. v26}, Landroid/widget/ImageView;->setOnClickListener(Landroid/view/View$OnClickListener;)V
 
-    .line 697
+    .line 629
     move-object/from16 v0, p0
 
     iget-boolean v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mHasSettingsPanel:Z
 
-    move/from16 v26, v0
+    move/from16 v25, v0
 
-    if-eqz v26, :cond_1e
+    if-eqz v25, :cond_1d
 
-    .line 698
+    .line 630
     move-object/from16 v0, p0
 
     iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarView:Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;
 
-    move-object/from16 v26, v0
+    move-object/from16 v25, v0
 
-    invoke-virtual/range {v26 .. v26}, Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;->hasFullWidthNotifications()Z
+    invoke-virtual/range {v25 .. v25}, Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;->hasFullWidthNotifications()Z
 
-    move-result v26
+    move-result v25
 
-    if-eqz v26, :cond_1a
+    if-eqz v25, :cond_1c
 
-    .line 700
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSettingsButton:Landroid/widget/ImageView;
-
-    move-object/from16 v26, v0
-
-    const v27, 0x7f02002c
-
-    invoke-virtual/range {v26 .. v27}, Landroid/widget/ImageView;->setImageResource(I)V
-
-    .line 701
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSettingsButton:Landroid/widget/ImageView;
-
-    move-object/from16 v26, v0
-
-    const/16 v27, 0x0
-
-    invoke-virtual/range {v26 .. v27}, Landroid/widget/ImageView;->setVisibility(I)V
-
-    .line 734
-    :cond_a
-    :goto_4
-    move-object/from16 v0, p0
-
-    iget-boolean v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mHasFlipSettings:Z
-
-    move/from16 v26, v0
-
-    if-eqz v26, :cond_c
-
-    .line 735
+    .line 631
     move-object/from16 v0, p0
 
     iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarWindow:Lcom/android/systemui/statusbar/phone/StatusBarWindowView;
 
-    move-object/from16 v26, v0
+    move-object/from16 v25, v0
 
-    const v27, 0x7f090081
+    const v26, 0x7f07007d
 
-    invoke-virtual/range {v26 .. v27}, Lcom/android/systemui/statusbar/phone/StatusBarWindowView;->findViewById(I)Landroid/view/View;
+    invoke-virtual/range {v25 .. v26}, Lcom/android/systemui/statusbar/phone/StatusBarWindowView;->findViewById(I)Landroid/view/View;
 
-    move-result-object v26
+    move-result-object v12
 
-    check-cast v26, Landroid/widget/ImageView;
+    .line 633
+    .local v12, mNotificationPanelHeaderDivier:Landroid/view/View;
+    if-eqz v12, :cond_8
 
-    move-object/from16 v0, v26
+    sget-boolean v25, Lcom/android/systemui/statusbar/Feature;->mHasNarrowNotificationConcept:Z
+
+    if-eqz v25, :cond_8
+
+    .line 634
+    const/16 v25, 0x0
+
+    move/from16 v0, v25
+
+    invoke-virtual {v12, v0}, Landroid/view/View;->setVisibility(I)V
+
+    .line 639
+    :cond_8
+    sget-boolean v25, Lcom/android/systemui/statusbar/Feature;->mUseJellyBeanGUI:Z
+
+    if-eqz v25, :cond_1b
+
+    .line 640
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSettingsButton:Landroid/widget/ImageView;
+
+    move-object/from16 v25, v0
+
+    const v26, 0x7f020096
+
+    invoke-virtual/range {v25 .. v26}, Landroid/widget/ImageView;->setImageResource(I)V
+
+    .line 643
+    :goto_2
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSettingsButton:Landroid/widget/ImageView;
+
+    move-object/from16 v25, v0
+
+    const/16 v26, 0x0
+
+    invoke-virtual/range {v25 .. v26}, Landroid/widget/ImageView;->setVisibility(I)V
+
+    .line 664
+    .end local v12           #mNotificationPanelHeaderDivier:Landroid/view/View;
+    :cond_9
+    :goto_3
+    move-object/from16 v0, p0
+
+    iget-boolean v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mHasFlipSettings:Z
+
+    move/from16 v25, v0
+
+    if-eqz v25, :cond_b
+
+    .line 665
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarWindow:Lcom/android/systemui/statusbar/phone/StatusBarWindowView;
+
+    move-object/from16 v25, v0
+
+    const v26, 0x7f070097
+
+    invoke-virtual/range {v25 .. v26}, Lcom/android/systemui/statusbar/phone/StatusBarWindowView;->findViewById(I)Landroid/view/View;
+
+    move-result-object v25
+
+    check-cast v25, Landroid/widget/ImageView;
+
+    move-object/from16 v0, v25
 
     move-object/from16 v1, p0
 
     iput-object v0, v1, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationButton:Landroid/widget/ImageView;
 
-    .line 736
+    .line 666
     move-object/from16 v0, p0
 
     iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationButton:Landroid/widget/ImageView;
 
-    move-object/from16 v26, v0
+    move-object/from16 v25, v0
 
-    if-eqz v26, :cond_b
+    if-eqz v25, :cond_a
 
-    .line 737
+    .line 667
     move-object/from16 v0, p0
 
     iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationButton:Landroid/widget/ImageView;
 
-    move-object/from16 v26, v0
+    move-object/from16 v25, v0
 
     move-object/from16 v0, p0
 
     iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationButtonListener:Landroid/view/View$OnClickListener;
 
-    move-object/from16 v27, v0
+    move-object/from16 v26, v0
 
-    invoke-virtual/range {v26 .. v27}, Landroid/widget/ImageView;->setOnClickListener(Landroid/view/View$OnClickListener;)V
+    invoke-virtual/range {v25 .. v26}, Landroid/widget/ImageView;->setOnClickListener(Landroid/view/View$OnClickListener;)V
 
-    .line 740
-    :cond_b
+    .line 670
+    :cond_a
     move-object/from16 v0, p0
 
     iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSettingsButton:Landroid/widget/ImageView;
 
-    move-object/from16 v26, v0
+    move-object/from16 v25, v0
+
+    if-eqz v25, :cond_b
+
+    .line 671
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSettingsButton:Landroid/widget/ImageView;
+
+    move-object/from16 v25, v0
 
     move-object/from16 v0, p0
 
     iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSettingButtonFocusChangeListener:Landroid/view/View$OnFocusChangeListener;
 
-    move-object/from16 v27, v0
+    move-object/from16 v26, v0
 
-    invoke-virtual/range {v26 .. v27}, Landroid/widget/ImageView;->setOnFocusChangeListener(Landroid/view/View$OnFocusChangeListener;)V
+    invoke-virtual/range {v25 .. v26}, Landroid/widget/ImageView;->setOnFocusChangeListener(Landroid/view/View$OnFocusChangeListener;)V
 
-    .line 743
-    :cond_c
+    .line 675
+    :cond_b
     move-object/from16 v0, p0
 
     iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarWindow:Lcom/android/systemui/statusbar/phone/StatusBarWindowView;
 
-    move-object/from16 v26, v0
+    move-object/from16 v25, v0
 
-    const v27, 0x7f090072
+    const v26, 0x7f070080
 
-    invoke-virtual/range {v26 .. v27}, Lcom/android/systemui/statusbar/phone/StatusBarWindowView;->findViewById(I)Landroid/view/View;
+    invoke-virtual/range {v25 .. v26}, Lcom/android/systemui/statusbar/phone/StatusBarWindowView;->findViewById(I)Landroid/view/View;
 
-    move-result-object v26
+    move-result-object v25
 
-    check-cast v26, Landroid/widget/ScrollView;
+    check-cast v25, Landroid/widget/ScrollView;
 
-    move-object/from16 v0, v26
+    move-object/from16 v0, v25
 
     move-object/from16 v1, p0
 
     iput-object v0, v1, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mScrollView:Landroid/widget/ScrollView;
 
-    .line 745
+    .line 677
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mScrollView:Landroid/widget/ScrollView;
+
+    move-object/from16 v25, v0
+
+    const/16 v26, 0x1
+
+    invoke-virtual/range {v25 .. v26}, Landroid/widget/ScrollView;->setIgnoreDelaychildPrerssedState(Z)V
+
+    .line 680
     move-object/from16 v0, p0
 
     iget-boolean v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mHasFlipSettings:Z
 
-    move/from16 v26, v0
+    move/from16 v25, v0
 
-    if-eqz v26, :cond_d
+    if-eqz v25, :cond_c
 
-    .line 746
+    .line 687
     move-object/from16 v0, p0
 
-    iget-boolean v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mKidsModeActivated:Z
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mContext:Landroid/content/Context;
 
-    move/from16 v26, v0
+    move-object/from16 v25, v0
 
-    if-eqz v26, :cond_1f
+    invoke-virtual/range {v25 .. v25}, Landroid/content/Context;->getResources()Landroid/content/res/Resources;
 
-    .line 747
+    move-result-object v26
+
+    sget-boolean v25, Lcom/android/systemui/statusbar/Feature;->mUseJellyBeanGUI:Z
+
+    const/16 v27, 0x1
+
+    move/from16 v0, v25
+
+    move/from16 v1, v27
+
+    if-ne v0, v1, :cond_1f
+
+    const v25, 0x7f0c0091
+
+    :goto_4
+    move-object/from16 v0, v26
+
+    move/from16 v1, v25
+
+    invoke-virtual {v0, v1}, Landroid/content/res/Resources;->getDimension(I)F
+
+    move-result v25
+
+    move/from16 v0, v25
+
+    float-to-int v0, v0
+
+    move/from16 v24, v0
+
+    .line 689
+    .local v24, topMargin:I
     move-object/from16 v0, p0
 
     iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mScrollView:Landroid/widget/ScrollView;
 
-    move-object/from16 v26, v0
+    move-object/from16 v25, v0
 
-    invoke-virtual/range {v26 .. v26}, Landroid/widget/ScrollView;->getLayoutParams()Landroid/view/ViewGroup$LayoutParams;
+    invoke-virtual/range {v25 .. v25}, Landroid/widget/ScrollView;->getLayoutParams()Landroid/view/ViewGroup$LayoutParams;
 
-    move-result-object v14
+    move-result-object v13
 
-    check-cast v14, Landroid/view/ViewGroup$MarginLayoutParams;
+    check-cast v13, Landroid/view/ViewGroup$MarginLayoutParams;
 
-    .line 748
-    .local v14, marginParams:Landroid/view/ViewGroup$MarginLayoutParams;
+    .line 690
+    .local v13, marginParams:Landroid/view/ViewGroup$MarginLayoutParams;
+    const/16 v25, 0x0
+
     const/16 v26, 0x0
 
     const/16 v27, 0x0
 
-    const/16 v28, 0x0
+    move/from16 v0, v25
 
-    const/16 v29, 0x0
+    move/from16 v1, v24
 
-    move/from16 v0, v26
+    move/from16 v2, v26
 
-    move/from16 v1, v27
+    move/from16 v3, v27
 
-    move/from16 v2, v28
+    invoke-virtual {v13, v0, v1, v2, v3}, Landroid/view/ViewGroup$MarginLayoutParams;->setMargins(IIII)V
 
-    move/from16 v3, v29
-
-    invoke-virtual {v14, v0, v1, v2, v3}, Landroid/view/ViewGroup$MarginLayoutParams;->setMargins(IIII)V
-
-    .line 749
+    .line 691
     move-object/from16 v0, p0
 
     iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mScrollView:Landroid/widget/ScrollView;
 
-    move-object/from16 v26, v0
+    move-object/from16 v25, v0
 
-    move-object/from16 v0, v26
+    move-object/from16 v0, v25
 
-    invoke-virtual {v0, v14}, Landroid/widget/ScrollView;->setLayoutParams(Landroid/view/ViewGroup$LayoutParams;)V
+    invoke-virtual {v0, v13}, Landroid/widget/ScrollView;->setLayoutParams(Landroid/view/ViewGroup$LayoutParams;)V
 
-    .line 761
-    .end local v14           #marginParams:Landroid/view/ViewGroup$MarginLayoutParams;
-    :cond_d
-    :goto_5
+    .line 696
+    .end local v13           #marginParams:Landroid/view/ViewGroup$MarginLayoutParams;
+    .end local v24           #topMargin:I
+    :cond_c
     move-object/from16 v0, p0
 
     iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mScrollView:Landroid/widget/ScrollView;
 
-    move-object/from16 v26, v0
+    move-object/from16 v25, v0
 
-    const/16 v27, 0x0
+    const/16 v26, 0x0
 
-    invoke-virtual/range {v26 .. v27}, Landroid/widget/ScrollView;->setVerticalScrollBarEnabled(Z)V
+    invoke-virtual/range {v25 .. v26}, Landroid/widget/ScrollView;->setVerticalScrollBarEnabled(Z)V
 
-    .line 762
+    .line 697
     move-object/from16 v0, p0
 
     iget-boolean v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationPanelIsFullScreenWidth:Z
 
-    move/from16 v26, v0
+    move/from16 v25, v0
 
-    if-nez v26, :cond_20
+    if-nez v25, :cond_20
 
-    .line 763
+    .line 698
     move-object/from16 v0, p0
 
     iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mScrollView:Landroid/widget/ScrollView;
 
-    move-object/from16 v26, v0
+    move-object/from16 v25, v0
 
-    const/high16 v27, 0x8a
+    const/high16 v26, 0x8a
 
-    invoke-virtual/range {v26 .. v27}, Landroid/widget/ScrollView;->setSystemUiVisibility(I)V
+    invoke-virtual/range {v25 .. v26}, Landroid/widget/ScrollView;->setSystemUiVisibility(I)V
 
-    .line 776
-    :cond_e
-    :goto_6
-    new-instance v26, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$MyTicker;
+    .line 711
+    :cond_d
+    :goto_5
+    new-instance v25, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$MyTicker;
 
     move-object/from16 v0, p0
 
     iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarView:Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;
 
-    move-object/from16 v27, v0
+    move-object/from16 v26, v0
 
-    move-object/from16 v0, v26
+    move-object/from16 v0, v25
 
     move-object/from16 v1, p0
 
-    move-object/from16 v2, v27
+    move-object/from16 v2, v26
 
     invoke-direct {v0, v1, v6, v2}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$MyTicker;-><init>(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;Landroid/content/Context;Landroid/view/View;)V
 
-    move-object/from16 v0, v26
+    move-object/from16 v0, v25
 
     move-object/from16 v1, p0
 
     iput-object v0, v1, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mTicker:Lcom/android/systemui/statusbar/phone/Ticker;
 
-    .line 778
+    .line 713
     move-object/from16 v0, p0
 
     iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarView:Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;
 
-    move-object/from16 v26, v0
+    move-object/from16 v25, v0
 
-    const v27, 0x7f09006d
+    const v26, 0x7f07007b
 
-    invoke-virtual/range {v26 .. v27}, Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;->findViewById(I)Landroid/view/View;
+    invoke-virtual/range {v25 .. v26}, Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;->findViewById(I)Landroid/view/View;
 
-    move-result-object v24
+    move-result-object v23
 
-    check-cast v24, Lcom/android/systemui/statusbar/phone/TickerView;
+    check-cast v23, Lcom/android/systemui/statusbar/phone/TickerView;
 
-    .line 779
-    .local v24, tickerView:Lcom/android/systemui/statusbar/phone/TickerView;
+    .line 714
+    .local v23, tickerView:Lcom/android/systemui/statusbar/phone/TickerView;
     move-object/from16 v0, p0
 
     iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mTicker:Lcom/android/systemui/statusbar/phone/Ticker;
 
-    move-object/from16 v26, v0
+    move-object/from16 v25, v0
 
-    move-object/from16 v0, v26
+    move-object/from16 v0, v25
 
-    move-object/from16 v1, v24
+    move-object/from16 v1, v23
 
     iput-object v0, v1, Lcom/android/systemui/statusbar/phone/TickerView;->mTicker:Lcom/android/systemui/statusbar/phone/Ticker;
 
-    .line 781
-    const/high16 v26, 0x7f0e
+    .line 716
+    const/high16 v25, 0x7f0c
 
     move-object/from16 v0, v17
 
-    move/from16 v1, v26
+    move/from16 v1, v25
 
     invoke-virtual {v0, v1}, Landroid/content/res/Resources;->getDimensionPixelSize(I)I
 
-    move-result v26
+    move-result v25
 
-    move/from16 v0, v26
+    move/from16 v0, v25
 
     move-object/from16 v1, p0
 
     iput v0, v1, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mEdgeBorder:I
 
-    .line 784
+    .line 719
     invoke-virtual/range {p0 .. p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->setAreThereNotifications()V
 
-    .line 787
-    new-instance v26, Lcom/android/systemui/statusbar/policy/LocationController;
+    .line 722
+    new-instance v25, Lcom/android/systemui/statusbar/policy/LocationController;
 
     move-object/from16 v0, p0
 
     iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mContext:Landroid/content/Context;
 
-    move-object/from16 v27, v0
+    move-object/from16 v26, v0
 
-    invoke-direct/range {v26 .. v27}, Lcom/android/systemui/statusbar/policy/LocationController;-><init>(Landroid/content/Context;)V
+    invoke-direct/range {v25 .. v26}, Lcom/android/systemui/statusbar/policy/LocationController;-><init>(Landroid/content/Context;)V
 
-    move-object/from16 v0, v26
+    move-object/from16 v0, v25
 
     move-object/from16 v1, p0
 
     iput-object v0, v1, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mLocationController:Lcom/android/systemui/statusbar/policy/LocationController;
 
-    .line 788
-    new-instance v26, Lcom/android/systemui/statusbar/policy/BatteryController;
+    .line 723
+    new-instance v25, Lcom/android/systemui/statusbar/policy/BatteryController;
 
     move-object/from16 v0, p0
 
     iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mContext:Landroid/content/Context;
 
-    move-object/from16 v27, v0
+    move-object/from16 v26, v0
 
-    invoke-direct/range {v26 .. v27}, Lcom/android/systemui/statusbar/policy/BatteryController;-><init>(Landroid/content/Context;)V
+    invoke-direct/range {v25 .. v26}, Lcom/android/systemui/statusbar/policy/BatteryController;-><init>(Landroid/content/Context;)V
 
-    move-object/from16 v0, v26
+    move-object/from16 v0, v25
 
     move-object/from16 v1, p0
 
     iput-object v0, v1, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mBatteryController:Lcom/android/systemui/statusbar/policy/BatteryController;
 
-    .line 789
+    .line 726
+    new-instance v25, Lcom/android/systemui/statusbar/policy/SmartBondingController;
+
     move-object/from16 v0, p0
 
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mBatteryController:Lcom/android/systemui/statusbar/policy/BatteryController;
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mContext:Landroid/content/Context;
 
-    move-object/from16 v27, v0
+    move-object/from16 v26, v0
 
+    invoke-direct/range {v25 .. v26}, Lcom/android/systemui/statusbar/policy/SmartBondingController;-><init>(Landroid/content/Context;)V
+
+    move-object/from16 v0, v25
+
+    move-object/from16 v1, p0
+
+    iput-object v0, v1, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSmartBondingController:Lcom/android/systemui/statusbar/policy/SmartBondingController;
+
+    .line 729
     move-object/from16 v0, p0
 
     iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarView:Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;
 
-    move-object/from16 v26, v0
+    move-object/from16 v25, v0
 
-    const v28, 0x7f090069
+    const v26, 0x7f070076
 
-    move-object/from16 v0, v26
+    invoke-virtual/range {v25 .. v26}, Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;->findViewById(I)Landroid/view/View;
 
-    move/from16 v1, v28
+    move-result-object v25
 
-    invoke-virtual {v0, v1}, Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;->findViewById(I)Landroid/view/View;
+    check-cast v25, Landroid/widget/TextView;
 
-    move-result-object v26
-
-    check-cast v26, Landroid/widget/ImageView;
-
-    move-object/from16 v0, v26
-
-    move-object/from16 v1, p0
-
-    iput-object v0, v1, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mBatteryIcon:Landroid/widget/ImageView;
-
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mBatteryController:Lcom/android/systemui/statusbar/policy/BatteryController;
-
-    move-object/from16 v26, v0
-
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mBatteryIcon:Landroid/widget/ImageView;
-
-    move-object/from16 v27, v0
-
-    invoke-virtual/range {v26 .. v27}, Lcom/android/systemui/statusbar/policy/BatteryController;->addIconView(Landroid/widget/ImageView;)V
-
-    .line 792
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mBatteryIcon:Landroid/widget/ImageView;
-
-    invoke-virtual {v0}, Landroid/widget/ImageView;->getAlpha()F
-
-    move-result v26
-
-    move/from16 v0, v26
-
-    move-object/from16 v1, p0
-
-    iput v0, v1, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mBaseAlpha:F
-
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarView:Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;
-
-    move-object/from16 v26, v0
-
-    const v27, 0x7f090068
-
-    invoke-virtual/range {v26 .. v27}, Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;->findViewById(I)Landroid/view/View;
-
-    move-result-object v26
-
-    check-cast v26, Landroid/widget/TextView;
-
-    move-object/from16 v0, v26
+    move-object/from16 v0, v25
 
     move-object/from16 v1, p0
 
     iput-object v0, v1, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mBatteryText:Landroid/widget/TextView;
 
-    .line 793
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mBatteryController:Lcom/android/systemui/statusbar/policy/BatteryController;
-
-    move-object/from16 v26, v0
-
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mBatteryText:Landroid/widget/TextView;
-
-    move-object/from16 v27, v0
-
-    invoke-virtual/range {v26 .. v27}, Lcom/android/systemui/statusbar/policy/BatteryController;->addLabelView(Landroid/widget/TextView;)V
-
-    .line 794
+    .line 730
     move-object/from16 v0, p0
 
     iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mContext:Landroid/content/Context;
 
-    move-object/from16 v26, v0
+    move-object/from16 v25, v0
 
-    invoke-virtual/range {v26 .. v26}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
+    invoke-virtual/range {v25 .. v25}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
+
+    move-result-object v25
+
+    const-string v26, "display_battery_percentage"
+
+    invoke-static/range {v26 .. v26}, Landroid/provider/Settings$System;->getUriFor(Ljava/lang/String;)Landroid/net/Uri;
 
     move-result-object v26
+
+    const/16 v27, 0x0
+
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mBatteryTextObserver:Lcom/android/systemui/statusbar/phone/PhoneStatusBar$BatteryTextObserver;
+
+    move-object/from16 v28, v0
+
+    invoke-virtual/range {v25 .. v28}, Landroid/content/ContentResolver;->registerContentObserver(Landroid/net/Uri;ZLandroid/database/ContentObserver;)V
+
+    .line 732
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mBatteryText:Landroid/widget/TextView;
+
+    move-object/from16 v26, v0
+
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mContext:Landroid/content/Context;
+
+    move-object/from16 v25, v0
+
+    invoke-virtual/range {v25 .. v25}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
+
+    move-result-object v25
 
     const-string v27, "display_battery_percentage"
 
-    invoke-static/range {v27 .. v27}, Landroid/provider/Settings$System;->getUriFor(Ljava/lang/String;)Landroid/net/Uri;
-
-    move-result-object v27
-
     const/16 v28, 0x0
 
-    move-object/from16 v0, p0
+    move-object/from16 v0, v25
 
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mBatteryTextObserver:Lcom/android/systemui/statusbar/phone/PhoneStatusBar$BatteryTextObserver;
+    move-object/from16 v1, v27
 
-    move-object/from16 v29, v0
-
-    invoke-virtual/range {v26 .. v29}, Landroid/content/ContentResolver;->registerContentObserver(Landroid/net/Uri;ZLandroid/database/ContentObserver;)V
-
-    .line 797
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mBatteryText:Landroid/widget/TextView;
-
-    move-object/from16 v27, v0
-
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mContext:Landroid/content/Context;
-
-    move-object/from16 v26, v0
-
-    invoke-virtual/range {v26 .. v26}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
-
-    move-result-object v26
-
-    const-string v28, "display_battery_percentage"
-
-    const/16 v29, 0x0
-
-    move-object/from16 v0, v26
-
-    move-object/from16 v1, v28
-
-    move/from16 v2, v29
+    move/from16 v2, v28
 
     invoke-static {v0, v1, v2}, Landroid/provider/Settings$System;->getInt(Landroid/content/ContentResolver;Ljava/lang/String;I)I
 
-    move-result v26
+    move-result v25
 
-    const/16 v28, 0x1
+    const/16 v27, 0x1
 
-    move/from16 v0, v26
+    move/from16 v0, v25
 
-    move/from16 v1, v28
+    move/from16 v1, v27
 
     if-ne v0, v1, :cond_21
 
-    move-object/from16 v0, v27
+    const/16 v25, 0x0
 
-    move-object/from16 v1, p0
+    :goto_6
+    move-object/from16 v0, v26
 
-    invoke-direct {v1}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->updateBatteryColor()I
-
-    move-result v26
-
-    move/from16 v1, v26
-
-    invoke-virtual {v0, v1}, Landroid/widget/TextView;->setTextColor(I)V
-
-    const/16 v26, 0x0
-
-    :goto_7
-    move-object/from16 v0, v27
-
-    move/from16 v1, v26
+    move/from16 v1, v25
 
     invoke-virtual {v0, v1}, Landroid/widget/TextView;->setVisibility(I)V
 
-    .line 802
-    move-object/from16 v0, p0
+    .line 736
+    new-instance v25, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$BrightnessEnableObserver;
 
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mContext:Landroid/content/Context;
-
-    move-object/from16 v26, v0
-
-    invoke-virtual/range {v26 .. v26}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
-
-    move-result-object v26
-
-    const-string v27, "statusbar_acc_battery"
-
-    invoke-static/range {v27 .. v27}, Landroid/provider/Settings$Global;->getUriFor(Ljava/lang/String;)Landroid/net/Uri;
-
-    move-result-object v27
-
-    const/16 v28, 0x0
-
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mBatteryTextObserver:Lcom/android/systemui/statusbar/phone/PhoneStatusBar$BatteryTextObserver;
-
-    move-object/from16 v29, v0
-
-    invoke-virtual/range {v26 .. v29}, Landroid/content/ContentResolver;->registerContentObserver(Landroid/net/Uri;ZLandroid/database/ContentObserver;)V
-
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mContext:Landroid/content/Context;
-
-    move-object/from16 v26, v0
-
-    invoke-virtual/range {v26 .. v26}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
-
-    move-result-object v26
-
-    const-string v27, "battery_text_color"
-
-    invoke-static/range {v27 .. v27}, Landroid/provider/Settings$Global;->getUriFor(Ljava/lang/String;)Landroid/net/Uri;
-
-    move-result-object v27
-
-    const/16 v28, 0x0
-
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mBatteryTextObserver:Lcom/android/systemui/statusbar/phone/PhoneStatusBar$BatteryTextObserver;
-
-    move-object/from16 v29, v0
-
-    invoke-virtual/range {v26 .. v29}, Landroid/content/ContentResolver;->registerContentObserver(Landroid/net/Uri;ZLandroid/database/ContentObserver;)V
-
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mContext:Landroid/content/Context;
-
-    move-object/from16 v26, v0
-
-    invoke-virtual/range {v26 .. v26}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
-
-    move-result-object v26
-
-    const-string v27, "battcolorchange"
-
-    invoke-static/range {v27 .. v27}, Landroid/provider/Settings$Global;->getUriFor(Ljava/lang/String;)Landroid/net/Uri;
-
-    move-result-object v27
-
-    const/16 v28, 0x0
-
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mBatteryTextObserver:Lcom/android/systemui/statusbar/phone/PhoneStatusBar$BatteryTextObserver;
-
-    move-object/from16 v29, v0
-
-    invoke-virtual/range {v26 .. v29}, Landroid/content/ContentResolver;->registerContentObserver(Landroid/net/Uri;ZLandroid/database/ContentObserver;)V
-
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mContext:Landroid/content/Context;
-
-    move-object/from16 v26, v0
-
-    invoke-virtual/range {v26 .. v26}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
-
-    move-result-object v26
-
-    const-string v27, "statusbar_hide_battery"
-
-    invoke-static/range {v27 .. v27}, Landroid/provider/Settings$Global;->getUriFor(Ljava/lang/String;)Landroid/net/Uri;
-
-    move-result-object v27
-
-    const/16 v28, 0x0
-
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mBatteryTextObserver:Lcom/android/systemui/statusbar/phone/PhoneStatusBar$BatteryTextObserver;
-
-    move-object/from16 v29, v0
-
-    invoke-virtual/range {v26 .. v29}, Landroid/content/ContentResolver;->registerContentObserver(Landroid/net/Uri;ZLandroid/database/ContentObserver;)V
-
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mBatteryIcon:Landroid/widget/ImageView;
-
-    move-object/from16 v27, v0
-
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mContext:Landroid/content/Context;
-
-    move-object/from16 v26, v0
-
-    invoke-virtual/range {v26 .. v26}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
-
-    move-result-object v26
-
-    const-string v28, "statusbar_hide_battery"
-
-    const/16 v29, 0x0
-
-    move-object/from16 v0, v26
-
-    move-object/from16 v1, v28
-
-    move/from16 v2, v29
-
-    invoke-static {v0, v1, v2}, Landroid/provider/Settings$Global;->getInt(Landroid/content/ContentResolver;Ljava/lang/String;I)I
-
-    move-result v26
-
-    const/16 v28, 0x1
-
-    move/from16 v0, v26
-
-    move/from16 v1, v28
-
-    if-ne v0, v1, :cond_2b
-
-    const/16 v26, 0x8
-
-    :goto_8
-    move/from16 v1, v26
-
-    move-object/from16 v0, v27
-
-    invoke-virtual {v0, v1}, Landroid/widget/ImageView;->setVisibility(I)V
-
-    .line 803
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mContext:Landroid/content/Context;
-
-    move-object/from16 v26, v0
-
-    invoke-virtual/range {v26 .. v26}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
-
-    move-result-object v26
-
-    const-string v27, "kids_mode_enabled"
-
-    invoke-static/range {v27 .. v27}, Landroid/provider/Settings$System;->getUriFor(Ljava/lang/String;)Landroid/net/Uri;
-
-    move-result-object v27
-
-    const/16 v28, 0x0
-
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mKidsModeObserver:Lcom/android/systemui/statusbar/phone/PhoneStatusBar$KidsModeObserver;
-
-    move-object/from16 v29, v0
-
-    invoke-virtual/range {v26 .. v29}, Landroid/content/ContentResolver;->registerContentObserver(Landroid/net/Uri;ZLandroid/database/ContentObserver;)V
-
-    .line 806
-    new-instance v26, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$BrightnessEnableObserver;
-
-    move-object/from16 v0, v26
+    move-object/from16 v0, v25
 
     move-object/from16 v1, p0
 
     invoke-direct {v0, v1}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$BrightnessEnableObserver;-><init>(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)V
 
-    move-object/from16 v0, v26
+    move-object/from16 v0, v25
 
     move-object/from16 v1, p0
 
     iput-object v0, v1, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mBrightnessEnableObserver:Lcom/android/systemui/statusbar/phone/PhoneStatusBar$BrightnessEnableObserver;
 
-    .line 807
+    .line 737
+    new-instance v25, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$PmsBrightnessEnableObserver;
+
+    move-object/from16 v0, v25
+
+    move-object/from16 v1, p0
+
+    invoke-direct {v0, v1}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$PmsBrightnessEnableObserver;-><init>(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)V
+
+    move-object/from16 v0, v25
+
+    move-object/from16 v1, p0
+
+    iput-object v0, v1, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mPmsBrightnessEnableObserver:Lcom/android/systemui/statusbar/phone/PhoneStatusBar$PmsBrightnessEnableObserver;
+
+    .line 738
     move-object/from16 v0, p0
 
     iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mContext:Landroid/content/Context;
 
-    move-object/from16 v26, v0
+    move-object/from16 v25, v0
 
-    invoke-virtual/range {v26 .. v26}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
+    invoke-virtual/range {v25 .. v25}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
 
-    move-result-object v26
+    move-result-object v25
 
-    const-string v27, "notification_panel_brightness_adjustment"
-
-    const/16 v28, 0x1
-
-    invoke-static/range {v26 .. v28}, Landroid/provider/Settings$System;->getInt(Landroid/content/ContentResolver;Ljava/lang/String;I)I
-
-    move-result v26
+    const-string v26, "notification_panel_brightness_adjustment"
 
     const/16 v27, 0x1
 
-    move/from16 v0, v26
+    invoke-static/range {v25 .. v27}, Landroid/provider/Settings$System;->getInt(Landroid/content/ContentResolver;Ljava/lang/String;I)I
 
-    move/from16 v1, v27
-
-    if-ne v0, v1, :cond_22
+    move-result v25
 
     const/16 v26, 0x1
 
-    :goto_9
-    move/from16 v0, v26
+    move/from16 v0, v25
+
+    move/from16 v1, v26
+
+    if-ne v0, v1, :cond_22
+
+    const/16 v25, 0x1
+
+    :goto_7
+    move/from16 v0, v25
 
     move-object/from16 v1, p0
 
     iput-boolean v0, v1, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mBrightnessEnablebySettings:Z
 
-    .line 809
-    invoke-direct/range {p0 .. p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->setBrightnessControllerVisivility()V
-
-    .line 810
+    .line 740
     move-object/from16 v0, p0
 
     iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mContext:Landroid/content/Context;
 
-    move-object/from16 v26, v0
+    move-object/from16 v25, v0
 
-    invoke-virtual/range {v26 .. v26}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
+    invoke-virtual/range {v25 .. v25}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
+
+    move-result-object v25
+
+    const-string v26, "pms_notification_panel_brightness_adjustment"
+
+    const/16 v27, 0x1
+
+    invoke-static/range {v25 .. v27}, Landroid/provider/Settings$System;->getInt(Landroid/content/ContentResolver;Ljava/lang/String;I)I
+
+    move-result v25
+
+    const/16 v26, 0x1
+
+    move/from16 v0, v25
+
+    move/from16 v1, v26
+
+    if-ne v0, v1, :cond_23
+
+    const/16 v25, 0x1
+
+    :goto_8
+    move/from16 v0, v25
+
+    move-object/from16 v1, p0
+
+    iput-boolean v0, v1, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mPmsBrightnessEnablebySettings:Z
+
+    .line 742
+    invoke-direct/range {p0 .. p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->setBrightnessControllerVisivility()V
+
+    .line 743
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mContext:Landroid/content/Context;
+
+    move-object/from16 v25, v0
+
+    invoke-virtual/range {v25 .. v25}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
+
+    move-result-object v25
+
+    const-string v26, "notification_panel_brightness_adjustment"
+
+    invoke-static/range {v26 .. v26}, Landroid/provider/Settings$System;->getUriFor(Ljava/lang/String;)Landroid/net/Uri;
 
     move-result-object v26
 
-    const-string v27, "notification_panel_brightness_adjustment"
-
-    invoke-static/range {v27 .. v27}, Landroid/provider/Settings$System;->getUriFor(Ljava/lang/String;)Landroid/net/Uri;
-
-    move-result-object v27
-
-    const/16 v28, 0x0
+    const/16 v27, 0x0
 
     move-object/from16 v0, p0
 
     iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mBrightnessEnableObserver:Lcom/android/systemui/statusbar/phone/PhoneStatusBar$BrightnessEnableObserver;
 
-    move-object/from16 v29, v0
+    move-object/from16 v28, v0
 
-    invoke-virtual/range {v26 .. v29}, Landroid/content/ContentResolver;->registerContentObserver(Landroid/net/Uri;ZLandroid/database/ContentObserver;)V
+    invoke-virtual/range {v25 .. v28}, Landroid/content/ContentResolver;->registerContentObserver(Landroid/net/Uri;ZLandroid/database/ContentObserver;)V
 
-    .line 815
-    new-instance v26, Lcom/android/systemui/statusbar/DoNotDisturb;
+    .line 745
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mContext:Landroid/content/Context;
+
+    move-object/from16 v25, v0
+
+    invoke-virtual/range {v25 .. v25}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
+
+    move-result-object v25
+
+    const-string v26, "pms_notification_panel_brightness_adjustment"
+
+    invoke-static/range {v26 .. v26}, Landroid/provider/Settings$System;->getUriFor(Ljava/lang/String;)Landroid/net/Uri;
+
+    move-result-object v26
+
+    const/16 v27, 0x0
+
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mPmsBrightnessEnableObserver:Lcom/android/systemui/statusbar/phone/PhoneStatusBar$PmsBrightnessEnableObserver;
+
+    move-object/from16 v28, v0
+
+    invoke-virtual/range {v25 .. v28}, Landroid/content/ContentResolver;->registerContentObserver(Landroid/net/Uri;ZLandroid/database/ContentObserver;)V
+
+    .line 750
+    new-instance v25, Lcom/android/systemui/statusbar/DoNotDisturb;
 
     move-object/from16 v0, p0
 
     iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mContext:Landroid/content/Context;
 
-    move-object/from16 v27, v0
+    move-object/from16 v26, v0
 
-    invoke-direct/range {v26 .. v27}, Lcom/android/systemui/statusbar/DoNotDisturb;-><init>(Landroid/content/Context;)V
+    invoke-direct/range {v25 .. v26}, Lcom/android/systemui/statusbar/DoNotDisturb;-><init>(Landroid/content/Context;)V
 
-    move-object/from16 v0, v26
+    move-object/from16 v0, v25
 
     move-object/from16 v1, p0
 
     iput-object v0, v1, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mDoNotDisturb:Lcom/android/systemui/statusbar/DoNotDisturb;
 
-    .line 817
-    new-instance v26, Lcom/android/systemui/statusbar/policy/NetworkController;
+    .line 752
+    new-instance v25, Lcom/android/systemui/statusbar/policy/NetworkController;
 
     move-object/from16 v0, p0
 
     iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mContext:Landroid/content/Context;
 
-    move-object/from16 v27, v0
+    move-object/from16 v26, v0
 
-    invoke-direct/range {v26 .. v27}, Lcom/android/systemui/statusbar/policy/NetworkController;-><init>(Landroid/content/Context;)V
+    invoke-direct/range {v25 .. v26}, Lcom/android/systemui/statusbar/policy/NetworkController;-><init>(Landroid/content/Context;)V
 
-    move-object/from16 v0, v26
+    move-object/from16 v0, v25
 
     move-object/from16 v1, p0
 
     iput-object v0, v1, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNetworkController:Lcom/android/systemui/statusbar/policy/NetworkController;
 
-    .line 818
-    new-instance v26, Lcom/android/systemui/statusbar/policy/BluetoothController;
+    .line 753
+    new-instance v25, Lcom/android/systemui/statusbar/policy/BluetoothController;
 
     move-object/from16 v0, p0
 
     iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mContext:Landroid/content/Context;
 
-    move-object/from16 v27, v0
+    move-object/from16 v26, v0
 
-    invoke-direct/range {v26 .. v27}, Lcom/android/systemui/statusbar/policy/BluetoothController;-><init>(Landroid/content/Context;)V
+    invoke-direct/range {v25 .. v26}, Lcom/android/systemui/statusbar/policy/BluetoothController;-><init>(Landroid/content/Context;)V
 
-    move-object/from16 v0, v26
+    move-object/from16 v0, v25
 
     move-object/from16 v1, p0
 
     iput-object v0, v1, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mBluetoothController:Lcom/android/systemui/statusbar/policy/BluetoothController;
 
-    .line 819
+    .line 754
+    new-instance v25, Lcom/android/systemui/statusbar/policy/RotationLockController;
+
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mContext:Landroid/content/Context;
+
+    move-object/from16 v26, v0
+
+    invoke-direct/range {v25 .. v26}, Lcom/android/systemui/statusbar/policy/RotationLockController;-><init>(Landroid/content/Context;)V
+
+    move-object/from16 v0, v25
+
+    move-object/from16 v1, p0
+
+    iput-object v0, v1, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mRotationLockController:Lcom/android/systemui/statusbar/policy/RotationLockController;
+
+    .line 755
     move-object/from16 v0, p0
 
     iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarView:Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;
 
-    move-object/from16 v26, v0
+    move-object/from16 v25, v0
 
-    const v27, 0x7f090067
+    const v26, 0x7f070075
 
-    invoke-virtual/range {v26 .. v27}, Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;->findViewById(I)Landroid/view/View;
+    invoke-virtual/range {v25 .. v26}, Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;->findViewById(I)Landroid/view/View;
 
-    move-result-object v23
+    move-result-object v22
 
-    check-cast v23, Lcom/android/systemui/statusbar/SignalClusterView;
+    check-cast v22, Lcom/android/systemui/statusbar/SignalClusterView;
 
-    .line 825
-    .local v23, signalCluster:Lcom/android/systemui/statusbar/SignalClusterView;
+    .line 759
+    .local v22, signalCluster:Lcom/android/systemui/statusbar/SignalClusterView;
     move-object/from16 v0, p0
 
     iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNetworkController:Lcom/android/systemui/statusbar/policy/NetworkController;
 
-    move-object/from16 v26, v0
+    move-object/from16 v25, v0
 
-    move-object/from16 v0, v26
+    move-object/from16 v0, v25
 
-    move-object/from16 v1, v23
+    move-object/from16 v1, v22
 
     invoke-virtual {v0, v1}, Lcom/android/systemui/statusbar/policy/NetworkController;->addSignalCluster(Lcom/android/systemui/statusbar/policy/NetworkController$SignalCluster;)V
 
-    .line 826
+    .line 760
     move-object/from16 v0, p0
 
     iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNetworkController:Lcom/android/systemui/statusbar/policy/NetworkController;
 
-    move-object/from16 v26, v0
+    move-object/from16 v25, v0
 
-    move-object/from16 v0, v23
+    move-object/from16 v0, v22
 
-    move-object/from16 v1, v26
+    move-object/from16 v1, v25
 
     invoke-virtual {v0, v1}, Lcom/android/systemui/statusbar/SignalClusterView;->setNetworkController(Lcom/android/systemui/statusbar/policy/NetworkController;)V
 
-    .line 828
+    .line 762
     move-object/from16 v0, p0
 
     iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNetworkController:Lcom/android/systemui/statusbar/policy/NetworkController;
 
-    move-object/from16 v26, v0
+    move-object/from16 v25, v0
 
-    invoke-virtual/range {v26 .. v26}, Lcom/android/systemui/statusbar/policy/NetworkController;->hasVoiceCallingFeature()Z
+    invoke-virtual/range {v25 .. v25}, Lcom/android/systemui/statusbar/policy/NetworkController;->hasVoiceCallingFeature()Z
 
     move-result v11
 
-    .line 829
+    .line 779
     .local v11, isAPhone:Z
-    if-eqz v11, :cond_f
+    sget-boolean v25, Lcom/android/systemui/statusbar/Feature;->mUseJellyBeanGUI:Z
 
-    .line 830
+    if-eqz v25, :cond_24
+
+    .line 780
     move-object/from16 v0, p0
 
     iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarWindow:Lcom/android/systemui/statusbar/phone/StatusBarWindowView;
 
-    move-object/from16 v26, v0
+    move-object/from16 v25, v0
 
-    const v27, 0x7f09006f
+    const v26, 0x7f070013
 
-    invoke-virtual/range {v26 .. v27}, Lcom/android/systemui/statusbar/phone/StatusBarWindowView;->findViewById(I)Landroid/view/View;
+    invoke-virtual/range {v25 .. v26}, Lcom/android/systemui/statusbar/phone/StatusBarWindowView;->findViewById(I)Landroid/view/View;
 
-    move-result-object v26
+    move-result-object v25
 
-    check-cast v26, Landroid/widget/TextView;
+    check-cast v25, Landroid/widget/TextView;
 
-    move-object/from16 v0, v26
-
-    move-object/from16 v1, p0
-
-    iput-object v0, v1, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mEmergencyCallLabel:Landroid/widget/TextView;
-
-    .line 832
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mEmergencyCallLabel:Landroid/widget/TextView;
-
-    move-object/from16 v26, v0
-
-    if-eqz v26, :cond_f
-
-    .line 833
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNetworkController:Lcom/android/systemui/statusbar/policy/NetworkController;
-
-    move-object/from16 v26, v0
-
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mEmergencyCallLabel:Landroid/widget/TextView;
-
-    move-object/from16 v27, v0
-
-    invoke-virtual/range {v26 .. v27}, Lcom/android/systemui/statusbar/policy/NetworkController;->addEmergencyLabelView(Landroid/widget/TextView;)V
-
-    .line 834
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mEmergencyCallLabel:Landroid/widget/TextView;
-
-    move-object/from16 v26, v0
-
-    new-instance v27, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$5;
-
-    move-object/from16 v0, v27
-
-    move-object/from16 v1, p0
-
-    invoke-direct {v0, v1}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$5;-><init>(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)V
-
-    invoke-virtual/range {v26 .. v27}, Landroid/widget/TextView;->setOnClickListener(Landroid/view/View$OnClickListener;)V
-
-    .line 847
-    :cond_f
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarWindow:Lcom/android/systemui/statusbar/phone/StatusBarWindowView;
-
-    move-object/from16 v26, v0
-
-    const v27, 0x7f09000f
-
-    invoke-virtual/range {v26 .. v27}, Lcom/android/systemui/statusbar/phone/StatusBarWindowView;->findViewById(I)Landroid/view/View;
-
-    move-result-object v26
-
-    check-cast v26, Landroid/widget/TextView;
-
-    move-object/from16 v0, v26
+    move-object/from16 v0, v25
 
     move-object/from16 v1, p0
 
     iput-object v0, v1, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mCarrierLabel:Landroid/widget/TextView;
 
-    .line 848
+    .line 784
+    :goto_9
     move-object/from16 v0, p0
 
     iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mCarrierLabel:Landroid/widget/TextView;
 
-    move-object/from16 v26, v0
+    move-object/from16 v25, v0
 
-    if-eqz v26, :cond_23
+    if-eqz v25, :cond_25
 
-    const/16 v26, 0x1
+    const/16 v25, 0x1
 
     :goto_a
-    move/from16 v0, v26
+    move/from16 v0, v25
 
     move-object/from16 v1, p0
 
     iput-boolean v0, v1, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mShowCarrierInPanel:Z
 
-    .line 850
+    .line 786
     move-object/from16 v0, p0
 
     iget-boolean v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mShowCarrierInPanel:Z
 
-    move/from16 v26, v0
+    move/from16 v25, v0
 
-    if-eqz v26, :cond_10
+    if-eqz v25, :cond_e
 
-    .line 855
+    .line 788
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mCarrierLabel:Landroid/widget/TextView;
+
+    move-object/from16 v25, v0
+
+    const/16 v26, 0x0
+
+    invoke-virtual/range {v25 .. v26}, Landroid/widget/TextView;->setVisibility(I)V
+
+    .line 792
     move-object/from16 v0, p0
 
     iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNetworkController:Lcom/android/systemui/statusbar/policy/NetworkController;
 
-    move-object/from16 v26, v0
+    move-object/from16 v25, v0
 
-    invoke-virtual/range {v26 .. v26}, Lcom/android/systemui/statusbar/policy/NetworkController;->hasMobileDataFeature()Z
+    invoke-virtual/range {v25 .. v25}, Lcom/android/systemui/statusbar/policy/NetworkController;->hasMobileDataFeature()Z
 
-    move-result v26
+    move-result v25
 
-    if-eqz v26, :cond_24
+    if-eqz v25, :cond_26
 
-    .line 856
+    .line 793
     move-object/from16 v0, p0
 
     iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNetworkController:Lcom/android/systemui/statusbar/policy/NetworkController;
 
-    move-object/from16 v26, v0
+    move-object/from16 v25, v0
 
     move-object/from16 v0, p0
 
     iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mCarrierLabel:Landroid/widget/TextView;
 
-    move-object/from16 v27, v0
+    move-object/from16 v26, v0
 
-    invoke-virtual/range {v26 .. v27}, Lcom/android/systemui/statusbar/policy/NetworkController;->addMobileLabelView(Landroid/widget/TextView;)V
+    invoke-virtual/range {v25 .. v26}, Lcom/android/systemui/statusbar/policy/NetworkController;->addMobileLabelView(Landroid/widget/TextView;)V
 
-    .line 877
-    :cond_10
+    .line 810
+    :cond_e
     :goto_b
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mContext:Landroid/content/Context;
-
-    move-object/from16 v26, v0
-
-    invoke-virtual/range {v26 .. v26}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
-
-    move-result-object v26
-
-    const-string v27, "statusbar_carrier_color"
-
-    invoke-static/range {v27 .. v27}, Landroid/provider/Settings$Global;->getUriFor(Ljava/lang/String;)Landroid/net/Uri;
-
-    move-result-object v27
-
-    const/16 v28, 0x0
-
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNetContObserver:Lcom/android/systemui/statusbar/phone/PhoneStatusBar$TSMNetContObserver;
-
-    move-object/from16 v29, v0
-
-    invoke-virtual/range {v26 .. v29}, Landroid/content/ContentResolver;->registerContentObserver(Landroid/net/Uri;ZLandroid/database/ContentObserver;)V
-
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mContext:Landroid/content/Context;
-
-    move-object/from16 v26, v0
-
-    invoke-virtual/range {v26 .. v26}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
-
-    move-result-object v26
-
-    const-string v27, "statusbar_custom_carrier"
-
-    invoke-static/range {v27 .. v27}, Landroid/provider/Settings$Global;->getUriFor(Ljava/lang/String;)Landroid/net/Uri;
-
-    move-result-object v27
-
-    const/16 v28, 0x0
-
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNetContObserver:Lcom/android/systemui/statusbar/phone/PhoneStatusBar$TSMNetContObserver;
-
-    move-object/from16 v29, v0
-
-    invoke-virtual/range {v26 .. v29}, Landroid/content/ContentResolver;->registerContentObserver(Landroid/net/Uri;ZLandroid/database/ContentObserver;)V
-
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mContext:Landroid/content/Context;
-
-    move-object/from16 v26, v0
-
-    invoke-virtual/range {v26 .. v26}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
-
-    move-result-object v26
-
-    const-string v27, "statusbar_carrier_text"
-
-    invoke-static/range {v27 .. v27}, Landroid/provider/Settings$Global;->getUriFor(Ljava/lang/String;)Landroid/net/Uri;
-
-    move-result-object v27
-
-    const/16 v28, 0x0
-
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNetContObserver:Lcom/android/systemui/statusbar/phone/PhoneStatusBar$TSMNetContObserver;
-
-    move-object/from16 v29, v0
-
-    invoke-virtual/range {v26 .. v29}, Landroid/content/ContentResolver;->registerContentObserver(Landroid/net/Uri;ZLandroid/database/ContentObserver;)V
-
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mContext:Landroid/content/Context;
-
-    move-object/from16 v26, v0
-
-    invoke-virtual/range {v26 .. v26}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
-
-    move-result-object v26
-
-    const-string v27, "statusbar_data_icon"
-
-    invoke-static/range {v27 .. v27}, Landroid/provider/Settings$Global;->getUriFor(Ljava/lang/String;)Landroid/net/Uri;
-
-    move-result-object v27
-
-    const/16 v28, 0x0
-
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNetContObserver:Lcom/android/systemui/statusbar/phone/PhoneStatusBar$TSMNetContObserver;
-
-    move-object/from16 v29, v0
-
-    invoke-virtual/range {v26 .. v29}, Landroid/content/ContentResolver;->registerContentObserver(Landroid/net/Uri;ZLandroid/database/ContentObserver;)V
-
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mContext:Landroid/content/Context;
-
-    move-object/from16 v26, v0
-
-    invoke-virtual/range {v26 .. v26}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
-
-    move-result-object v26
-
-    const-string v27, "statusbar_att_carrier"
-
-    invoke-static/range {v27 .. v27}, Landroid/provider/Settings$Global;->getUriFor(Ljava/lang/String;)Landroid/net/Uri;
-
-    move-result-object v27
-
-    const/16 v28, 0x0
-
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNetContObserver:Lcom/android/systemui/statusbar/phone/PhoneStatusBar$TSMNetContObserver;
-
-    move-object/from16 v29, v0
-
-    invoke-virtual/range {v26 .. v29}, Landroid/content/ContentResolver;->registerContentObserver(Landroid/net/Uri;ZLandroid/database/ContentObserver;)V
-
     move-object/from16 v0, p0
 
     iget-boolean v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mHasSettingsPanel:Z
 
-    move/from16 v26, v0
+    move/from16 v25, v0
 
-    if-eqz v26, :cond_14
+    if-eqz v25, :cond_13
 
-    .line 880
+    .line 813
     move-object/from16 v0, p0
 
     iget-boolean v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mHasFlipSettings:Z
 
-    move/from16 v26, v0
+    move/from16 v25, v0
 
-    if-eqz v26, :cond_25
+    if-eqz v25, :cond_27
 
-    .line 882
+    .line 815
     move-object/from16 v0, p0
 
     iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarWindow:Lcom/android/systemui/statusbar/phone/StatusBarWindowView;
 
-    move-object/from16 v26, v0
+    move-object/from16 v25, v0
 
-    const v27, 0x7f090071
+    const v26, 0x7f07007f
 
-    invoke-virtual/range {v26 .. v27}, Lcom/android/systemui/statusbar/phone/StatusBarWindowView;->findViewById(I)Landroid/view/View;
+    invoke-virtual/range {v25 .. v26}, Lcom/android/systemui/statusbar/phone/StatusBarWindowView;->findViewById(I)Landroid/view/View;
 
-    move-result-object v21
+    move-result-object v20
 
-    .line 883
-    .local v21, settings_stub:Landroid/view/View;
-    if-eqz v21, :cond_12
+    .line 816
+    .local v20, settings_stub:Landroid/view/View;
+    if-eqz v20, :cond_11
 
-    move-object/from16 v26, v21
+    move-object/from16 v25, v20
 
-    .line 884
-    check-cast v26, Landroid/view/ViewStub;
+    .line 817
+    check-cast v25, Landroid/view/ViewStub;
 
-    invoke-virtual/range {v26 .. v26}, Landroid/view/ViewStub;->inflate()Landroid/view/View;
+    invoke-virtual/range {v25 .. v25}, Landroid/view/ViewStub;->inflate()Landroid/view/View;
 
-    move-result-object v26
+    move-result-object v25
 
-    move-object/from16 v0, v26
+    move-object/from16 v0, v25
 
     move-object/from16 v1, p0
 
     iput-object v0, v1, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mFlipSettingsView:Landroid/view/View;
 
-    .line 886
+    .line 819
     move-object/from16 v0, p0
 
     iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarWindow:Lcom/android/systemui/statusbar/phone/StatusBarWindowView;
 
-    move-object/from16 v26, v0
+    move-object/from16 v25, v0
 
-    const v27, 0x7f090018
+    const v26, 0x7f07000c
 
-    invoke-virtual/range {v26 .. v27}, Lcom/android/systemui/statusbar/phone/StatusBarWindowView;->findViewById(I)Landroid/view/View;
+    invoke-virtual/range {v25 .. v26}, Lcom/android/systemui/statusbar/phone/StatusBarWindowView;->findViewById(I)Landroid/view/View;
 
-    move-result-object v26
+    move-result-object v25
 
-    check-cast v26, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingPanel;
+    check-cast v25, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingPanel;
 
-    move-object/from16 v0, v26
+    move-object/from16 v0, v25
 
     move-object/from16 v1, p0
 
     iput-object v0, v1, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mQSPanel:Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingPanel;
 
-    .line 887
+    .line 820
     move-object/from16 v0, p0
 
     iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mQSPanel:Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingPanel;
 
-    move-object/from16 v26, v0
+    move-object/from16 v25, v0
 
-    const/16 v27, 0x0
+    const/16 v26, 0x0
 
-    invoke-virtual/range {v26 .. v27}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingPanel;->setLayoutTransition(Landroid/animation/LayoutTransition;)V
+    invoke-virtual/range {v25 .. v26}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingPanel;->setLayoutTransition(Landroid/animation/LayoutTransition;)V
 
-    .line 888
+    .line 821
+    sget-boolean v25, Lcom/android/systemui/statusbar/Feature;->mUseJellyBeanGUI:Z
+
+    if-nez v25, :cond_f
+
+    .line 822
     move-object/from16 v0, p0
 
     iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mQSPanel:Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingPanel;
 
-    move-object/from16 v26, v0
+    move-object/from16 v25, v0
 
-    if-eqz v26, :cond_11
+    const v26, 0x7f020228
+
+    invoke-virtual/range {v25 .. v26}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingPanel;->setBackgroundResource(I)V
+
+    .line 824
+    :cond_f
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mQSPanel:Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingPanel;
+
+    move-object/from16 v25, v0
+
+    if-eqz v25, :cond_10
 
     move-object/from16 v0, p0
 
     iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mQSPanel:Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingPanel;
 
-    move-object/from16 v26, v0
+    move-object/from16 v25, v0
 
-    const/16 v27, 0x1
+    const/16 v26, 0x1
 
-    invoke-virtual/range {v26 .. v27}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingPanel;->setSingleLine(Z)V
+    invoke-virtual/range {v25 .. v26}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingPanel;->setSingleLine(Z)V
 
-    .line 889
+    .line 825
+    :cond_10
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mFlipSettingsView:Landroid/view/View;
+
+    move-object/from16 v25, v0
+
+    const/16 v26, 0x0
+
+    invoke-virtual/range {v25 .. v26}, Landroid/view/View;->setVisibility(I)V
+
+    .line 826
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mFlipSettingsView:Landroid/view/View;
+
+    move-object/from16 v25, v0
+
+    const/16 v26, 0x0
+
+    invoke-virtual/range {v25 .. v26}, Landroid/view/View;->setVerticalScrollBarEnabled(Z)V
+
+    .line 830
     :cond_11
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mFlipSettingsView:Landroid/view/View;
-
-    move-object/from16 v26, v0
-
-    const/16 v27, 0x0
-
-    invoke-virtual/range {v26 .. v27}, Landroid/view/View;->setVisibility(I)V
-
-    .line 890
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mFlipSettingsView:Landroid/view/View;
-
-    move-object/from16 v26, v0
-
-    const/16 v27, 0x0
-
-    invoke-virtual/range {v26 .. v27}, Landroid/view/View;->setVerticalScrollBarEnabled(Z)V
-
-    .line 894
-    :cond_12
     move-object/from16 v0, p0
 
     iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarWindow:Lcom/android/systemui/statusbar/phone/StatusBarWindowView;
 
-    move-object/from16 v26, v0
+    move-object/from16 v25, v0
 
-    const v27, 0x7f090017
+    const v26, 0x7f07000b
 
-    invoke-virtual/range {v26 .. v27}, Lcom/android/systemui/statusbar/phone/StatusBarWindowView;->findViewById(I)Landroid/view/View;
+    invoke-virtual/range {v25 .. v26}, Lcom/android/systemui/statusbar/phone/StatusBarWindowView;->findViewById(I)Landroid/view/View;
 
-    move-result-object v26
+    move-result-object v25
 
-    check-cast v26, Landroid/widget/HorizontalScrollView;
+    check-cast v25, Landroid/widget/HorizontalScrollView;
 
-    move-object/from16 v0, v26
+    move-object/from16 v0, v25
 
     move-object/from16 v1, p0
 
     iput-object v0, v1, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mHSView:Landroid/widget/HorizontalScrollView;
 
-    .line 895
+    .line 831
     move-object/from16 v0, p0
 
     iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mHSView:Landroid/widget/HorizontalScrollView;
 
-    move-object/from16 v26, v0
+    move-object/from16 v25, v0
 
-    if-eqz v26, :cond_13
+    if-eqz v25, :cond_12
 
-    .line 896
+    .line 832
     move-object/from16 v0, p0
 
     iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mHSView:Landroid/widget/HorizontalScrollView;
 
-    move-object/from16 v26, v0
+    move-object/from16 v25, v0
 
-    const/16 v27, 0x0
+    const/16 v26, 0x0
 
-    invoke-virtual/range {v26 .. v27}, Landroid/widget/HorizontalScrollView;->setLayoutDirection(I)V
+    invoke-virtual/range {v25 .. v26}, Landroid/widget/HorizontalScrollView;->setLayoutDirection(I)V
 
-    .line 897
+    .line 833
     move-object/from16 v0, p0
 
     iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mHSView:Landroid/widget/HorizontalScrollView;
 
-    move-object/from16 v26, v0
+    move-object/from16 v25, v0
 
-    const/16 v27, 0x0
+    const/16 v26, 0x0
 
-    invoke-virtual/range {v26 .. v27}, Landroid/widget/HorizontalScrollView;->setHoverScrollMode(Z)V
+    invoke-virtual/range {v25 .. v26}, Landroid/widget/HorizontalScrollView;->setHoverScrollMode(Z)V
 
-    .line 930
-    :cond_13
+    .line 890
+    :cond_12
     :goto_c
     move-object/from16 v0, p0
 
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSettingsPanel:Lcom/android/systemui/statusbar/phone/SettingsPanelView;
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSettingsPanel:Lcom/android/systemui/statusbar/phone/PanelView;
 
-    move-object/from16 v26, v0
+    move-object/from16 v25, v0
 
-    if-eqz v26, :cond_14
+    if-eqz v25, :cond_13
 
-    .line 931
+    .line 891
     move-object/from16 v0, p0
 
     iget-boolean v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationPanelIsFullScreenWidth:Z
 
-    move/from16 v26, v0
+    move/from16 v25, v0
 
-    if-nez v26, :cond_14
+    if-nez v25, :cond_13
 
-    .line 932
+    .line 892
     move-object/from16 v0, p0
 
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSettingsPanel:Lcom/android/systemui/statusbar/phone/SettingsPanelView;
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSettingsPanel:Lcom/android/systemui/statusbar/phone/PanelView;
 
-    move-object/from16 v26, v0
+    move-object/from16 v25, v0
 
-    const/high16 v27, 0x18
+    const/high16 v26, 0x18
 
-    invoke-virtual/range {v26 .. v27}, Lcom/android/systemui/statusbar/phone/SettingsPanelView;->setSystemUiVisibility(I)V
+    invoke-virtual/range {v25 .. v26}, Lcom/android/systemui/statusbar/phone/PanelView;->setSystemUiVisibility(I)V
 
-    .line 961
-    .end local v21           #settings_stub:Landroid/view/View;
-    :cond_14
+    .line 902
+    .end local v20           #settings_stub:Landroid/view/View;
+    :cond_13
     move-object/from16 v0, p0
 
     iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mCarrierLabelSetting:Landroid/widget/TextView;
 
-    move-object/from16 v26, v0
+    move-object/from16 v25, v0
 
-    if-eqz v26, :cond_27
+    if-eqz v25, :cond_29
 
-    const/16 v26, 0x1
+    const/16 v25, 0x1
 
     :goto_d
-    move/from16 v0, v26
+    move/from16 v0, v25
 
     move-object/from16 v1, p0
 
     iput-boolean v0, v1, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mShowCarrierInSettingPanel:Z
 
-    .line 962
+    .line 903
     move-object/from16 v0, p0
 
     iget-boolean v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mShowCarrierInSettingPanel:Z
 
-    move/from16 v26, v0
+    move/from16 v25, v0
 
-    if-eqz v26, :cond_15
+    if-eqz v25, :cond_14
 
-    .line 967
+    .line 908
     move-object/from16 v0, p0
 
     iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNetworkController:Lcom/android/systemui/statusbar/policy/NetworkController;
 
-    move-object/from16 v26, v0
+    move-object/from16 v25, v0
 
-    invoke-virtual/range {v26 .. v26}, Lcom/android/systemui/statusbar/policy/NetworkController;->hasMobileDataFeature()Z
+    invoke-virtual/range {v25 .. v25}, Lcom/android/systemui/statusbar/policy/NetworkController;->hasMobileDataFeature()Z
 
-    move-result v26
+    move-result v25
 
-    if-eqz v26, :cond_28
+    if-eqz v25, :cond_2a
 
-    .line 968
+    .line 909
     move-object/from16 v0, p0
 
     iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNetworkController:Lcom/android/systemui/statusbar/policy/NetworkController;
 
-    move-object/from16 v26, v0
+    move-object/from16 v25, v0
 
     move-object/from16 v0, p0
 
     iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mCarrierLabelSetting:Landroid/widget/TextView;
 
-    move-object/from16 v27, v0
-
-    invoke-virtual/range {v26 .. v27}, Lcom/android/systemui/statusbar/policy/NetworkController;->addMobileLabelView(Landroid/widget/TextView;)V
-
-    .line 975
-    :cond_15
-    :goto_e
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mContext:Landroid/content/Context;
-
     move-object/from16 v26, v0
 
-    invoke-static/range {v26 .. v26}, Lcom/android/systemui/statusbar/policy/Prefs;->read(Landroid/content/Context;)Landroid/content/SharedPreferences;
+    invoke-virtual/range {v25 .. v26}, Lcom/android/systemui/statusbar/policy/NetworkController;->addMobileLabelView(Landroid/widget/TextView;)V
 
-    move-result-object v26
+    .line 918
+    :cond_14
+    :goto_e
+    sget-boolean v25, Lcom/android/systemui/statusbar/Feature;->mPLMNIconDisplay:Z
 
-    const-string v27, "shown_quick_settings_help"
+    if-eqz v25, :cond_15
 
-    const/16 v28, 0x0
-
-    invoke-interface/range {v26 .. v28}, Landroid/content/SharedPreferences;->getBoolean(Ljava/lang/String;Z)Z
-
-    move-result v26
-
-    if-eqz v26, :cond_29
-
-    const/16 v26, 0x1
-
-    :goto_f
-    move/from16 v0, v26
-
-    move-object/from16 v1, p0
-
-    iput-boolean v0, v1, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mClingShown:Z
-
-    .line 979
-    const/16 v26, 0x1
-
-    move/from16 v0, v26
-
-    move-object/from16 v1, p0
-
-    iput-boolean v0, v1, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mClingShown:Z
-
-    .line 983
+    .line 919
     move-object/from16 v0, p0
 
     iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarView:Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;
 
-    move-object/from16 v26, v0
+    move-object/from16 v25, v0
 
-    const v27, 0x7f09005f
+    const v26, 0x7f07006e
 
-    invoke-virtual/range {v26 .. v27}, Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;->findViewById(I)Landroid/view/View;
+    invoke-virtual/range {v25 .. v26}, Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;->findViewById(I)Landroid/view/View;
 
-    move-result-object v26
+    move-result-object v25
 
-    check-cast v26, Landroid/widget/TextView;
+    check-cast v25, Landroid/widget/TextView;
 
-    move-object/from16 v0, v26
+    move-object/from16 v0, v25
 
     move-object/from16 v1, p0
 
     iput-object v0, v1, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mAttCarrierLabel:Landroid/widget/TextView;
 
-    .line 985
+    .line 920
     move-object/from16 v0, p0
 
     iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNetworkController:Lcom/android/systemui/statusbar/policy/NetworkController;
 
-    move-object/from16 v26, v0
+    move-object/from16 v25, v0
 
     move-object/from16 v0, p0
 
     iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mAttCarrierLabel:Landroid/widget/TextView;
 
-    move-object/from16 v27, v0
+    move-object/from16 v26, v0
 
-    invoke-virtual/range {v26 .. v27}, Lcom/android/systemui/statusbar/policy/NetworkController;->addATTMobileLabelView(Landroid/widget/TextView;)V
+    invoke-virtual/range {v25 .. v26}, Lcom/android/systemui/statusbar/policy/NetworkController;->addATTMobileLabelView(Landroid/widget/TextView;)V
 
-    .line 986
+    .line 921
     move-object/from16 v0, p0
 
     iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationIcons:Lcom/android/systemui/statusbar/phone/IconMerger;
 
-    move-object/from16 v26, v0
+    move-object/from16 v25, v0
 
     move-object/from16 v0, p0
 
     iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mAttCarrierLabel:Landroid/widget/TextView;
 
-    move-object/from16 v27, v0
+    move-object/from16 v26, v0
 
-    invoke-virtual/range {v26 .. v27}, Lcom/android/systemui/statusbar/phone/IconMerger;->setAttCarrierLabel(Landroid/view/View;)V
+    invoke-virtual/range {v25 .. v26}, Lcom/android/systemui/statusbar/phone/IconMerger;->setAttCarrierLabel(Landroid/view/View;)V
 
-    move-object/from16 v0, p0
+    .line 922
+    invoke-virtual/range {p0 .. p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->showPlmnString()V
 
-    invoke-virtual {v0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->showPlmnString()V
+    .line 927
+    :cond_15
+    sget-boolean v25, Lcom/android/systemui/statusbar/Feature;->mShowOperatorLogoIcon:Z
 
-    .line 998
-    sget-boolean v26, Lcom/android/systemui/statusbar/Feature;->mShowOperatorLogoIcon:Z
+    if-eqz v25, :cond_16
 
-    if-eqz v26, :cond_17
-
-    .line 999
-    const v26, 0x7f0e0017
+    .line 928
+    const v25, 0x7f0c0023
 
     move-object/from16 v0, v17
 
-    move/from16 v1, v26
+    move/from16 v1, v25
 
     invoke-virtual {v0, v1}, Landroid/content/res/Resources;->getDimensionPixelSize(I)I
 
-    move-result v15
+    move-result v14
 
-    .line 1000
-    .local v15, outerBounds:I
-    const v26, 0x7f0e001c
+    .line 929
+    .local v14, outerBounds:I
+    const v25, 0x7f0c0028
 
     move-object/from16 v0, v17
 
-    move/from16 v1, v26
+    move/from16 v1, v25
 
     invoke-virtual {v0, v1}, Landroid/content/res/Resources;->getDimensionPixelSize(I)I
 
     move-result v10
 
-    .line 1001
+    .line 930
     .local v10, imageBounds:I
     int-to-float v0, v10
 
+    move/from16 v25, v0
+
+    int-to-float v0, v14
+
     move/from16 v26, v0
 
-    int-to-float v0, v15
+    div-float v18, v25, v26
 
-    move/from16 v27, v0
-
-    div-float v18, v26, v27
-
-    .line 1002
+    .line 933
     .local v18, scale:F
-    const v26, 0x7f0e001d
-
-    const/16 v27, 0x1
-
-    const/16 v28, 0x1
-
-    move-object/from16 v0, v17
-
-    move/from16 v1, v26
-
-    move/from16 v2, v27
-
-    move/from16 v3, v28
-
-    invoke-virtual {v0, v1, v2, v3}, Landroid/content/res/Resources;->getFraction(III)F
-
-    move-result v4
-
-    .line 1005
-    .local v4, alpha:F
     move-object/from16 v0, p0
 
     iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarView:Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;
 
-    move-object/from16 v26, v0
+    move-object/from16 v25, v0
 
-    const v27, 0x7f090060
+    const v26, 0x7f07006f
 
-    invoke-virtual/range {v26 .. v27}, Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;->findViewById(I)Landroid/view/View;
+    invoke-virtual/range {v25 .. v26}, Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;->findViewById(I)Landroid/view/View;
 
-    move-result-object v26
+    move-result-object v25
 
-    move-object/from16 v0, v26
+    move-object/from16 v0, v25
 
     move-object/from16 v1, p0
 
     iput-object v0, v1, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->operatorLogoIcon:Landroid/view/View;
 
-    .line 1007
-    invoke-static {}, Lcom/sec/android/app/CscFeature;->getInstance()Lcom/sec/android/app/CscFeature;
-
-    move-result-object v26
-
-    const-string v27, "CscFeature_Framework_ReplaceDataTypeIconAsOpBrand"
-
-    invoke-virtual/range {v26 .. v27}, Lcom/sec/android/app/CscFeature;->getString(Ljava/lang/String;)Ljava/lang/String;
-
-    move-result-object v26
-
-    sput-object v26, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mDataTypeBrand:Ljava/lang/String;
-
-    .line 1008
-    sget-object v26, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mDataTypeBrand:Ljava/lang/String;
-
-    const-string v27, "ORANGE"
-
-    invoke-virtual/range {v26 .. v27}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
-
-    move-result v26
-
-    if-eqz v26, :cond_16
-
-    .line 1009
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarView:Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;
-
-    move-object/from16 v26, v0
-
-    const v27, 0x7f090061
-
-    invoke-virtual/range {v26 .. v27}, Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;->findViewById(I)Landroid/view/View;
-
-    move-result-object v26
-
-    move-object/from16 v0, v26
-
-    move-object/from16 v1, p0
-
-    iput-object v0, v1, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->operatorLogoIcon:Landroid/view/View;
-
-    .line 1014
-    :cond_16
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->operatorLogoIcon:Landroid/view/View;
-
-    move-object/from16 v26, v0
-
-    move-object/from16 v0, v26
-
-    invoke-virtual {v0, v4}, Landroid/view/View;->setAlpha(F)V
-
-    .line 1021
+    .line 936
     move-object/from16 v0, p0
 
     iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationIcons:Lcom/android/systemui/statusbar/phone/IconMerger;
 
-    move-object/from16 v26, v0
+    move-object/from16 v25, v0
 
     move-object/from16 v0, p0
 
     iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->operatorLogoIcon:Landroid/view/View;
 
-    move-object/from16 v27, v0
+    move-object/from16 v26, v0
 
-    invoke-virtual/range {v26 .. v27}, Lcom/android/systemui/statusbar/phone/IconMerger;->setOperatorLogoIndicator(Landroid/view/View;)V
+    invoke-virtual/range {v25 .. v26}, Lcom/android/systemui/statusbar/phone/IconMerger;->setOperatorLogoIndicator(Landroid/view/View;)V
 
-    .line 1022
+    .line 937
     move-object/from16 v0, p0
 
     iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNetworkController:Lcom/android/systemui/statusbar/policy/NetworkController;
 
-    move-object/from16 v26, v0
+    move-object/from16 v25, v0
 
     move-object/from16 v0, p0
 
     iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->operatorLogoIcon:Landroid/view/View;
 
-    move-object/from16 v27, v0
+    move-object/from16 v26, v0
 
-    invoke-virtual/range {v26 .. v27}, Lcom/android/systemui/statusbar/policy/NetworkController;->addOperatorLogoIconView(Landroid/view/View;)V
+    invoke-virtual/range {v25 .. v26}, Lcom/android/systemui/statusbar/policy/NetworkController;->addOperatorLogoIconView(Landroid/view/View;)V
 
-    .line 1023
+    .line 938
     move-object/from16 v0, p0
 
     iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNetworkController:Lcom/android/systemui/statusbar/policy/NetworkController;
 
-    move-object/from16 v26, v0
+    move-object/from16 v25, v0
 
     move-object/from16 v0, p0
 
     iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mMoreIcon:Landroid/view/View;
 
-    move-object/from16 v27, v0
+    move-object/from16 v26, v0
 
-    invoke-virtual/range {v26 .. v27}, Lcom/android/systemui/statusbar/policy/NetworkController;->addMoreIconView(Landroid/view/View;)V
+    invoke-virtual/range {v25 .. v26}, Lcom/android/systemui/statusbar/policy/NetworkController;->addMoreIconView(Landroid/view/View;)V
 
-    .line 1028
-    .end local v4           #alpha:F
+    .line 942
     .end local v10           #imageBounds:I
-    .end local v15           #outerBounds:I
+    .end local v14           #outerBounds:I
     .end local v18           #scale:F
-    :cond_17
-    new-instance v8, Landroid/content/IntentFilter;
+    :cond_16
+    move-object/from16 v0, p0
 
-    invoke-direct {v8}, Landroid/content/IntentFilter;-><init>()V
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mContext:Landroid/content/Context;
 
-    .line 1029
-    .local v8, filter:Landroid/content/IntentFilter;
-    const-string v26, "android.intent.action.CONFIGURATION_CHANGED"
+    move-object/from16 v25, v0
 
-    move-object/from16 v0, v26
+    const-string v26, "power"
 
-    invoke-virtual {v8, v0}, Landroid/content/IntentFilter;->addAction(Ljava/lang/String;)V
+    invoke-virtual/range {v25 .. v26}, Landroid/content/Context;->getSystemService(Ljava/lang/String;)Ljava/lang/Object;
 
-    .line 1030
-    const-string v26, "android.intent.action.CLOSE_SYSTEM_DIALOGS"
+    move-result-object v16
 
-    move-object/from16 v0, v26
+    check-cast v16, Landroid/os/PowerManager;
 
-    invoke-virtual {v8, v0}, Landroid/content/IntentFilter;->addAction(Ljava/lang/String;)V
-
-    .line 1031
-    const-string v26, "android.intent.action.SCREEN_OFF"
-
-    move-object/from16 v0, v26
-
-    invoke-virtual {v8, v0}, Landroid/content/IntentFilter;->addAction(Ljava/lang/String;)V
-
-    .line 1032
-    const-string v26, "android.intent.action.SCREEN_ON"
-
-    move-object/from16 v0, v26
-
-    invoke-virtual {v8, v0}, Landroid/content/IntentFilter;->addAction(Ljava/lang/String;)V
-
-    .line 1033
-    const-string v26, "android.intent.action.BATTERY_CHANGED"
-
-    move-object/from16 v0, v26
-
-    invoke-virtual {v8, v0}, Landroid/content/IntentFilter;->addAction(Ljava/lang/String;)V
-
-    .line 1034
-    const-string v26, "com.sec.android.enterprisenotificationcenter.ENTERPRISE_MODE_CHANGE"
-
-    move-object/from16 v0, v26
-
-    invoke-virtual {v8, v0}, Landroid/content/IntentFilter;->addAction(Ljava/lang/String;)V
-
-    .line 1035
-    const-string v26, "com.android.systemui.statusbar.COLLAPSED"
-
-    move-object/from16 v0, v26
-
-    invoke-virtual {v8, v0}, Landroid/content/IntentFilter;->addAction(Ljava/lang/String;)V
-
-    .line 1036
-    const-string v26, "com.samsung.android.intent.action.SECRET_MODE_ON"
-
-    move-object/from16 v0, v26
-
-    invoke-virtual {v8, v0}, Landroid/content/IntentFilter;->addAction(Ljava/lang/String;)V
-
-    .line 1037
-    const-string v26, "com.samsung.android.intent.action.SECRET_MODE_OFF"
-
-    move-object/from16 v0, v26
-
-    invoke-virtual {v8, v0}, Landroid/content/IntentFilter;->addAction(Ljava/lang/String;)V
-
-    const-string v26, "com.samsung.cover.OPEN"
-
-    move-object/from16 v0, v26
-
-    invoke-virtual {v8, v0}, Landroid/content/IntentFilter;->addAction(Ljava/lang/String;)V
-
-    .line 1038
+    .line 943
+    .local v16, pm:Landroid/os/PowerManager;
     move-object/from16 v0, p0
 
     iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mBroadcastReceiver:Landroid/content/BroadcastReceiver;
 
     move-object/from16 v26, v0
 
-    move-object/from16 v0, v26
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mContext:Landroid/content/Context;
+
+    move-object/from16 v27, v0
+
+    new-instance v28, Landroid/content/Intent;
+
+    invoke-virtual/range {v16 .. v16}, Landroid/os/PowerManager;->isScreenOn()Z
+
+    move-result v25
+
+    if-eqz v25, :cond_2b
+
+    const-string v25, "android.intent.action.SCREEN_ON"
+
+    :goto_f
+    move-object/from16 v0, v28
+
+    move-object/from16 v1, v25
+
+    invoke-direct {v0, v1}, Landroid/content/Intent;-><init>(Ljava/lang/String;)V
+
+    invoke-virtual/range {v26 .. v28}, Landroid/content/BroadcastReceiver;->onReceive(Landroid/content/Context;Landroid/content/Intent;)V
+
+    .line 947
+    new-instance v8, Landroid/content/IntentFilter;
+
+    invoke-direct {v8}, Landroid/content/IntentFilter;-><init>()V
+
+    .line 948
+    .local v8, filter:Landroid/content/IntentFilter;
+    const-string v25, "android.intent.action.CLOSE_SYSTEM_DIALOGS"
+
+    move-object/from16 v0, v25
+
+    invoke-virtual {v8, v0}, Landroid/content/IntentFilter;->addAction(Ljava/lang/String;)V
+
+    .line 949
+    const-string v25, "android.intent.action.SCREEN_OFF"
+
+    move-object/from16 v0, v25
+
+    invoke-virtual {v8, v0}, Landroid/content/IntentFilter;->addAction(Ljava/lang/String;)V
+
+    .line 950
+    const-string v25, "android.intent.action.SCREEN_ON"
+
+    move-object/from16 v0, v25
+
+    invoke-virtual {v8, v0}, Landroid/content/IntentFilter;->addAction(Ljava/lang/String;)V
+
+    .line 951
+    const-string v25, "android.intent.action.BATTERY_CHANGED"
+
+    move-object/from16 v0, v25
+
+    invoke-virtual {v8, v0}, Landroid/content/IntentFilter;->addAction(Ljava/lang/String;)V
+
+    .line 952
+    const-string v25, "com.android.systemui.demo"
+
+    move-object/from16 v0, v25
+
+    invoke-virtual {v8, v0}, Landroid/content/IntentFilter;->addAction(Ljava/lang/String;)V
+
+    .line 953
+    sget-boolean v25, Lcom/android/systemui/statusbar/Feature;->mUsb3PopupForVZW:Z
+
+    if-eqz v25, :cond_17
+
+    .line 954
+    const-string v25, "android.intent.action.ACTION_POWER_DISCONNECTED"
+
+    move-object/from16 v0, v25
+
+    invoke-virtual {v8, v0}, Landroid/content/IntentFilter;->addAction(Ljava/lang/String;)V
+
+    .line 956
+    :cond_17
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mBroadcastReceiver:Landroid/content/BroadcastReceiver;
+
+    move-object/from16 v25, v0
+
+    move-object/from16 v0, v25
 
     invoke-virtual {v6, v0, v8}, Landroid/content/Context;->registerReceiver(Landroid/content/BroadcastReceiver;Landroid/content/IntentFilter;)Landroid/content/Intent;
 
-    .line 1041
+    .line 959
     invoke-direct/range {p0 .. p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->resetUserSetupObserver()V
 
-    .line 1044
-    new-instance v16, Landroid/widget/LinearLayout$LayoutParams;
-
-    const/16 v26, -0x1
-
-    const/16 v27, -0x2
-
-    move-object/from16 v0, v16
-
-    move/from16 v1, v26
-
-    move/from16 v2, v27
-
-    invoke-direct {v0, v1, v2}, Landroid/widget/LinearLayout$LayoutParams;-><init>(II)V
-
-    .line 1046
-    .local v16, params:Landroid/widget/LinearLayout$LayoutParams;
-    new-instance v26, Landroid/widget/LinearLayout;
-
-    move-object/from16 v0, v26
-
-    invoke-direct {v0, v6}, Landroid/widget/LinearLayout;-><init>(Landroid/content/Context;)V
-
-    move-object/from16 v0, v26
-
-    move-object/from16 v1, p0
-
-    iput-object v0, v1, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mMiniConPile:Landroid/widget/LinearLayout;
-
-    .line 1047
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mMiniConPile:Landroid/widget/LinearLayout;
-
-    move-object/from16 v26, v0
-
-    const/16 v27, 0x1
-
-    invoke-virtual/range {v26 .. v27}, Landroid/widget/LinearLayout;->setOrientation(I)V
-
-    .line 1051
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mMiniConPile:Landroid/widget/LinearLayout;
-
-    move-object/from16 v26, v0
-
-    const/16 v27, 0x7
-
-    invoke-virtual/range {v26 .. v27}, Landroid/widget/LinearLayout;->setShowDividers(I)V
-
-    .line 1052
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mMiniConPile:Landroid/widget/LinearLayout;
-
-    move-object/from16 v26, v0
-
-    const v27, 0x7f02008d
-
-    move-object/from16 v0, v17
-
-    move/from16 v1, v27
-
-    invoke-virtual {v0, v1}, Landroid/content/res/Resources;->getDrawable(I)Landroid/graphics/drawable/Drawable;
-
-    move-result-object v27
-
-    invoke-virtual/range {v26 .. v27}, Landroid/widget/LinearLayout;->setDividerDrawable(Landroid/graphics/drawable/Drawable;)V
-
-    .line 1053
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mMiniConPile:Landroid/widget/LinearLayout;
-
-    move-object/from16 v26, v0
-
-    const v27, 0x7f02019e
-
-    invoke-virtual/range {v26 .. v27}, Landroid/widget/LinearLayout;->setBackgroundResource(I)V
-
-    .line 1056
-    new-instance v27, Lcom/android/systemui/statusbar/policy/BrightnessController;
+    .line 961
+    new-instance v26, Lcom/android/systemui/statusbar/policy/BrightnessController;
 
     move-object/from16 v0, p0
 
     iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mContext:Landroid/content/Context;
 
-    move-object/from16 v28, v0
+    move-object/from16 v27, v0
 
     move-object/from16 v0, p0
 
     iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarWindow:Lcom/android/systemui/statusbar/phone/StatusBarWindowView;
 
-    move-object/from16 v26, v0
+    move-object/from16 v25, v0
 
-    const v29, 0x7f090036
+    const v28, 0x7f07005a
 
-    move-object/from16 v0, v26
+    move-object/from16 v0, v25
 
-    move/from16 v1, v29
+    move/from16 v1, v28
 
     invoke-virtual {v0, v1}, Lcom/android/systemui/statusbar/phone/StatusBarWindowView;->findViewById(I)Landroid/view/View;
 
-    move-result-object v26
+    move-result-object v25
 
-    check-cast v26, Lcom/android/systemui/statusbar/policy/ToggleSlider;
+    check-cast v25, Lcom/android/systemui/statusbar/policy/ToggleSlider;
 
-    move-object/from16 v0, v27
+    move-object/from16 v0, v26
 
-    move-object/from16 v1, v28
+    move-object/from16 v1, v27
 
-    move-object/from16 v2, v26
+    move-object/from16 v2, v25
 
     invoke-direct {v0, v1, v2}, Lcom/android/systemui/statusbar/policy/BrightnessController;-><init>(Landroid/content/Context;Lcom/android/systemui/statusbar/policy/ToggleSlider;)V
 
-    move-object/from16 v0, v27
+    move-object/from16 v0, v26
 
     move-object/from16 v1, p0
 
     iput-object v0, v1, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mBrightness:Lcom/android/systemui/statusbar/policy/BrightnessController;
 
-    .line 1059
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationPanel:Lcom/android/systemui/statusbar/phone/NotificationPanelView;
-
-    move-object/from16 v26, v0
-
-    const v27, 0x7f090073
-
-    invoke-virtual/range {v26 .. v27}, Lcom/android/systemui/statusbar/phone/NotificationPanelView;->findViewById(I)Landroid/view/View;
-
-    move-result-object v19
-
-    check-cast v19, Landroid/widget/LinearLayout;
-
-    .line 1062
-    .local v19, scrollCart:Landroid/widget/LinearLayout;
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mMiniConPile:Landroid/widget/LinearLayout;
-
-    move-object/from16 v26, v0
-
-    const/16 v27, 0x1
-
-    move-object/from16 v0, v19
-
-    move-object/from16 v1, v26
-
-    move/from16 v2, v27
-
-    move-object/from16 v3, v16
-
-    invoke-virtual {v0, v1, v2, v3}, Landroid/widget/LinearLayout;->addView(Landroid/view/View;ILandroid/view/ViewGroup$LayoutParams;)V
-
-    .line 1064
+    .line 963
     move-object/from16 v0, p0
 
     iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarWindow:Lcom/android/systemui/statusbar/phone/StatusBarWindowView;
 
-    move-object/from16 v26, v0
+    move-object/from16 v25, v0
 
-    const v27, 0x7f0900b3
+    const v26, 0x7f070014
 
-    invoke-virtual/range {v26 .. v27}, Lcom/android/systemui/statusbar/phone/StatusBarWindowView;->findViewById(I)Landroid/view/View;
+    invoke-virtual/range {v25 .. v26}, Lcom/android/systemui/statusbar/phone/StatusBarWindowView;->findViewById(I)Landroid/view/View;
 
-    move-result-object v26
+    move-result-object v25
 
-    check-cast v26, Landroid/widget/RelativeLayout;
+    check-cast v25, Landroid/widget/RelativeLayout;
 
-    move-object/from16 v0, v26
+    move-object/from16 v0, v25
 
     move-object/from16 v1, p0
 
     iput-object v0, v1, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mToggleSlider:Landroid/widget/RelativeLayout;
 
-    .line 1069
+    .line 970
+    new-instance v15, Landroid/widget/LinearLayout$LayoutParams;
+
+    const/16 v25, -0x1
+
+    const/16 v26, -0x2
+
+    move/from16 v0, v25
+
+    move/from16 v1, v26
+
+    invoke-direct {v15, v0, v1}, Landroid/widget/LinearLayout$LayoutParams;-><init>(II)V
+
+    .line 972
+    .local v15, params:Landroid/widget/LinearLayout$LayoutParams;
+    new-instance v25, Landroid/widget/LinearLayout;
+
+    move-object/from16 v0, v25
+
+    invoke-direct {v0, v6}, Landroid/widget/LinearLayout;-><init>(Landroid/content/Context;)V
+
+    move-object/from16 v0, v25
+
+    move-object/from16 v1, p0
+
+    iput-object v0, v1, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mMiniConPile:Landroid/widget/LinearLayout;
+
+    .line 973
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mMiniConPile:Landroid/widget/LinearLayout;
+
+    move-object/from16 v25, v0
+
+    const/16 v26, 0x1
+
+    invoke-virtual/range {v25 .. v26}, Landroid/widget/LinearLayout;->setOrientation(I)V
+
+    .line 974
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mMiniConPile:Landroid/widget/LinearLayout;
+
+    move-object/from16 v25, v0
+
+    const/16 v26, 0x7
+
+    invoke-virtual/range {v25 .. v26}, Landroid/widget/LinearLayout;->setShowDividers(I)V
+
+    .line 976
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mMiniConPile:Landroid/widget/LinearLayout;
+
+    move-object/from16 v25, v0
+
+    const v26, 0x7f0200a2
+
+    move-object/from16 v0, v17
+
+    move/from16 v1, v26
+
+    invoke-virtual {v0, v1}, Landroid/content/res/Resources;->getDrawable(I)Landroid/graphics/drawable/Drawable;
+
+    move-result-object v26
+
+    invoke-virtual/range {v25 .. v26}, Landroid/widget/LinearLayout;->setDividerDrawable(Landroid/graphics/drawable/Drawable;)V
+
+    .line 977
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mMiniConPile:Landroid/widget/LinearLayout;
+
+    move-object/from16 v25, v0
+
+    const v26, 0x7f02019c
+
+    invoke-virtual/range {v25 .. v26}, Landroid/widget/LinearLayout;->setBackgroundResource(I)V
+
+    .line 979
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationPanel:Lcom/android/systemui/statusbar/phone/NotificationPanelView;
+
+    move-object/from16 v25, v0
+
+    const v26, 0x7f070081
+
+    invoke-virtual/range {v25 .. v26}, Lcom/android/systemui/statusbar/phone/NotificationPanelView;->findViewById(I)Landroid/view/View;
+
+    move-result-object v19
+
+    check-cast v19, Landroid/widget/LinearLayout;
+
+    .line 981
+    .local v19, scrollCart:Landroid/widget/LinearLayout;
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mMiniConPile:Landroid/widget/LinearLayout;
+
+    move-object/from16 v25, v0
+
+    const/16 v26, 0x1
+
+    move-object/from16 v0, v19
+
+    move-object/from16 v1, v25
+
+    move/from16 v2, v26
+
+    invoke-virtual {v0, v1, v2, v15}, Landroid/widget/LinearLayout;->addView(Landroid/view/View;ILandroid/view/ViewGroup$LayoutParams;)V
+
+    .line 985
     move-object/from16 v0, p0
 
     iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mContext:Landroid/content/Context;
 
-    move-object/from16 v26, v0
+    move-object/from16 v25, v0
 
-    invoke-virtual/range {v26 .. v26}, Landroid/content/Context;->getResources()Landroid/content/res/Resources;
+    invoke-virtual/range {v25 .. v25}, Landroid/content/Context;->getResources()Landroid/content/res/Resources;
 
-    move-result-object v26
+    move-result-object v25
 
-    const v27, 0x10e0025
+    const v26, 0x10e0029
 
-    invoke-virtual/range {v26 .. v27}, Landroid/content/res/Resources;->getInteger(I)I
+    invoke-virtual/range {v25 .. v26}, Landroid/content/res/Resources;->getInteger(I)I
 
-    move-result v26
+    move-result v25
 
-    if-nez v26, :cond_2a
+    if-nez v25, :cond_2c
 
-    const/16 v26, 0x1
+    const/16 v25, 0x1
 
     :goto_10
-    move/from16 v0, v26
+    move/from16 v0, v25
 
     move-object/from16 v1, p0
 
     iput-boolean v0, v1, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mIsDisplaySearchPanel:Z
 
-    .line 1073
+    .line 989
     move-object/from16 v0, p0
 
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mContext:Landroid/content/Context;
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarWindow:Lcom/android/systemui/statusbar/phone/StatusBarWindowView;
 
-    move-object/from16 v26, v0
+    move-object/from16 v25, v0
 
-    invoke-virtual/range {v26 .. v26}, Landroid/content/Context;->getPackageManager()Landroid/content/pm/PackageManager;
+    const v26, 0x7f07008b
 
-    move-result-object v26
+    invoke-virtual/range {v25 .. v26}, Lcom/android/systemui/statusbar/phone/StatusBarWindowView;->findViewById(I)Landroid/view/View;
 
-    const-string v27, "com.sec.feature.minimode_tray"
+    move-result-object v25
 
-    invoke-virtual/range {v26 .. v27}, Landroid/content/pm/PackageManager;->hasSystemFeature(Ljava/lang/String;)Z
+    check-cast v25, Landroid/widget/ImageView;
 
-    move-result v26
-
-    move/from16 v0, v26
+    move-object/from16 v0, v25
 
     move-object/from16 v1, p0
 
-    iput-boolean v0, v1, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mMiniModeTrayEnabled:Z
+    iput-object v0, v1, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->sFinderButton:Landroid/widget/ImageView;
 
-    .line 1077
-    sget-boolean v26, Lcom/android/systemui/statusbar/Feature;->mSupportLongLifeMode:Z
+    .line 990
+    move-object/from16 v0, p0
 
-    if-eqz v26, :cond_18
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->sFinderButton:Landroid/widget/ImageView;
 
-    .line 1078
+    move-object/from16 v25, v0
+
+    if-eqz v25, :cond_18
+
+    .line 991
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->sFinderButton:Landroid/widget/ImageView;
+
+    move-object/from16 v25, v0
+
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSFinderButtonListener:Landroid/view/View$OnClickListener;
+
+    move-object/from16 v26, v0
+
+    invoke-virtual/range {v25 .. v26}, Landroid/widget/ImageView;->setOnClickListener(Landroid/view/View$OnClickListener;)V
+
+    .line 995
+    :cond_18
+    sget-boolean v25, Lcom/android/systemui/statusbar/Feature;->mUsb3PopupForVZW:Z
+
+    if-eqz v25, :cond_2d
+
     move-object/from16 v0, p0
 
     iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mContext:Landroid/content/Context;
 
-    move-object/from16 v26, v0
+    move-object/from16 v25, v0
 
-    invoke-virtual/range {v26 .. v26}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
+    invoke-virtual/range {v25 .. v25}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
 
-    move-result-object v26
+    move-result-object v25
 
-    const-string v27, "longlife_mode"
-
-    invoke-static/range {v27 .. v27}, Landroid/provider/Settings$System;->getUriFor(Ljava/lang/String;)Landroid/net/Uri;
-
-    move-result-object v27
-
-    const/16 v28, 0x0
-
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mLongLifeModeObserver:Lcom/android/systemui/statusbar/phone/PhoneStatusBar$LongLifeModeObserver;
-
-    move-object/from16 v29, v0
-
-    invoke-virtual/range {v26 .. v29}, Landroid/content/ContentResolver;->registerContentObserver(Landroid/net/Uri;ZLandroid/database/ContentObserver;)V
-
-    .line 1080
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mLongLifeModeObserver:Lcom/android/systemui/statusbar/phone/PhoneStatusBar$LongLifeModeObserver;
-
-    move-object/from16 v26, v0
+    const-string v26, "airplane_mode_on_reason_usb3"
 
     const/16 v27, 0x0
 
-    invoke-virtual/range {v26 .. v27}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$LongLifeModeObserver;->onChange(Z)V
+    invoke-static/range {v25 .. v27}, Landroid/provider/Settings$System;->getInt(Landroid/content/ContentResolver;Ljava/lang/String;I)I
 
-    .line 1084
-    :cond_18
-    move-object/from16 v0, p0
+    move-result v25
 
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mContext:Landroid/content/Context;
+    const/16 v26, 0x1
 
-    move-object/from16 v26, v0
+    move/from16 v0, v25
 
-    invoke-virtual/range {v26 .. v26}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
+    move/from16 v1, v26
 
-    move-result-object v26
-
-    const-string v27, "statusbar_aosp_clear"
-
-    invoke-static/range {v27 .. v27}, Landroid/provider/Settings$Global;->getUriFor(Ljava/lang/String;)Landroid/net/Uri;
-
-    move-result-object v27
-
-    const/16 v28, 0x0
-
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mTSMObserver:Lcom/android/systemui/statusbar/phone/PhoneStatusBar$TSMObserver;
-
-    move-object/from16 v29, v0
-
-    invoke-virtual/range {v26 .. v29}, Landroid/content/ContentResolver;->registerContentObserver(Landroid/net/Uri;ZLandroid/database/ContentObserver;)V
+    if-ne v0, v1, :cond_2d
 
     move-object/from16 v0, p0
 
     iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mContext:Landroid/content/Context;
 
-    move-object/from16 v26, v0
+    move-object/from16 v25, v0
 
-    invoke-virtual/range {v26 .. v26}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
+    invoke-virtual/range {v25 .. v25}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
 
-    move-result-object v26
+    move-result-object v25
 
-    const-string v27, "statusbar_toggle_type"
+    const-string v26, "airplane_mode_on"
 
-    invoke-static/range {v27 .. v27}, Landroid/provider/Settings$Global;->getUriFor(Ljava/lang/String;)Landroid/net/Uri;
+    const/16 v27, 0x0
 
-    move-result-object v27
+    invoke-static/range {v25 .. v27}, Landroid/provider/Settings$Global;->getInt(Landroid/content/ContentResolver;Ljava/lang/String;I)I
 
-    const/16 v28, 0x0
+    move-result v25
 
-    move-object/from16 v0, p0
+    const/16 v26, 0x1
 
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mTSMObserver:Lcom/android/systemui/statusbar/phone/PhoneStatusBar$TSMObserver;
+    move/from16 v0, v25
 
-    move-object/from16 v29, v0
+    move/from16 v1, v26
 
-    invoke-virtual/range {v26 .. v29}, Landroid/content/ContentResolver;->registerContentObserver(Landroid/net/Uri;ZLandroid/database/ContentObserver;)V
+    if-ne v0, v1, :cond_2d
 
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mContext:Landroid/content/Context;
-
-    move-object/from16 v26, v0
-
-    invoke-virtual/range {v26 .. v26}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
-
-    move-result-object v26
-
-    const-string v27, "statusbar_hide_latest"
-
-    invoke-static/range {v27 .. v27}, Landroid/provider/Settings$Global;->getUriFor(Ljava/lang/String;)Landroid/net/Uri;
-
-    move-result-object v27
-
-    const/16 v28, 0x0
-
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mTSMObserver:Lcom/android/systemui/statusbar/phone/PhoneStatusBar$TSMObserver;
-
-    move-object/from16 v29, v0
-
-    invoke-virtual/range {v26 .. v29}, Landroid/content/ContentResolver;->registerContentObserver(Landroid/net/Uri;ZLandroid/database/ContentObserver;)V
-
+    .line 998
     move-object/from16 v0, p0
 
     iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mContext:Landroid/content/Context;
 
-    move-object/from16 v26, v0
+    move-object/from16 v25, v0
 
-    invoke-virtual/range {v26 .. v26}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
+    invoke-virtual/range {v25 .. v25}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
 
-    move-result-object v26
+    move-result-object v25
 
-    const-string v27, "statusbar_hide_nonoti"
+    const-string v26, "airplane_mode_on_reason_usb3"
 
-    invoke-static/range {v27 .. v27}, Landroid/provider/Settings$Global;->getUriFor(Ljava/lang/String;)Landroid/net/Uri;
+    const/16 v27, 0x0
 
-    move-result-object v27
+    invoke-static/range {v25 .. v27}, Landroid/provider/Settings$System;->putInt(Landroid/content/ContentResolver;Ljava/lang/String;I)Z
 
-    const/16 v28, 0x0
-
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mTSMObserver:Lcom/android/systemui/statusbar/phone/PhoneStatusBar$TSMObserver;
-
-    move-object/from16 v29, v0
-
-    invoke-virtual/range {v26 .. v29}, Landroid/content/ContentResolver;->registerContentObserver(Landroid/net/Uri;ZLandroid/database/ContentObserver;)V
-
+    .line 999
     move-object/from16 v0, p0
 
     iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mContext:Landroid/content/Context;
 
-    move-object/from16 v26, v0
+    move-object/from16 v25, v0
 
-    invoke-virtual/range {v26 .. v26}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
+    invoke-virtual/range {v25 .. v25}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
 
-    move-result-object v26
+    move-result-object v25
 
-    const-string v27, "statusbar_hide_ongoin"
+    const-string v26, "airplane_mode_on"
 
-    invoke-static/range {v27 .. v27}, Landroid/provider/Settings$Global;->getUriFor(Ljava/lang/String;)Landroid/net/Uri;
+    const/16 v27, 0x0
 
-    move-result-object v27
+    invoke-static/range {v25 .. v27}, Landroid/provider/Settings$Global;->putInt(Landroid/content/ContentResolver;Ljava/lang/String;I)Z
 
-    const/16 v28, 0x0
-
+    .line 1007
+    :goto_11
     move-object/from16 v0, p0
 
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mTSMObserver:Lcom/android/systemui/statusbar/phone/PhoneStatusBar$TSMObserver;
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarWindow:Lcom/android/systemui/statusbar/phone/StatusBarWindowView;
 
-    move-object/from16 v29, v0
+    move-object/from16 v25, v0
 
-    invoke-virtual/range {v26 .. v29}, Landroid/content/ContentResolver;->registerContentObserver(Landroid/net/Uri;ZLandroid/database/ContentObserver;)V
+    const v26, 0x7f0700bd
 
+    invoke-virtual/range {v25 .. v26}, Lcom/android/systemui/statusbar/phone/StatusBarWindowView;->findViewById(I)Landroid/view/View;
+
+    move-result-object v25
+
+    check-cast v25, Lcom/android/systemui/statusbar/policy/VolumePanel;
+
+    move-object/from16 v0, v25
+
+    move-object/from16 v1, p0
+
+    iput-object v0, v1, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mVolumePanel:Lcom/android/systemui/statusbar/policy/VolumePanel;
+
+    .line 1008
     move-object/from16 v0, p0
 
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mContext:Landroid/content/Context;
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mVolumePanel:Lcom/android/systemui/statusbar/policy/VolumePanel;
 
-    move-object/from16 v26, v0
+    move-object/from16 v25, v0
 
-    invoke-virtual/range {v26 .. v26}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
+    if-eqz v25, :cond_19
 
-    move-result-object v26
-
-    const-string v27, "notification_color_custom"
-
-    invoke-static/range {v27 .. v27}, Landroid/provider/Settings$Global;->getUriFor(Ljava/lang/String;)Landroid/net/Uri;
-
-    move-result-object v27
-
-    const/16 v28, 0x0
-
+    .line 1009
     move-object/from16 v0, p0
 
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mTSMObserver:Lcom/android/systemui/statusbar/phone/PhoneStatusBar$TSMObserver;
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mVolumePanel:Lcom/android/systemui/statusbar/policy/VolumePanel;
 
-    move-object/from16 v29, v0
+    move-object/from16 v25, v0
 
-    invoke-virtual/range {v26 .. v29}, Landroid/content/ContentResolver;->registerContentObserver(Landroid/net/Uri;ZLandroid/database/ContentObserver;)V
+    move-object/from16 v0, v25
 
-    move-object/from16 v0, p0
+    move-object/from16 v1, p0
 
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mContext:Landroid/content/Context;
+    invoke-virtual {v0, v1}, Lcom/android/systemui/statusbar/policy/VolumePanel;->setBar(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)V
 
-    move-object/from16 v26, v0
-
-    invoke-virtual/range {v26 .. v26}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
-
-    move-result-object v26
-
-    const-string v27, "notification_background_color"
-
-    invoke-static/range {v27 .. v27}, Landroid/provider/Settings$Global;->getUriFor(Ljava/lang/String;)Landroid/net/Uri;
-
-    move-result-object v27
-
-    const/16 v28, 0x0
-
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mTSMObserver:Lcom/android/systemui/statusbar/phone/PhoneStatusBar$TSMObserver;
-
-    move-object/from16 v29, v0
-
-    invoke-virtual/range {v26 .. v29}, Landroid/content/ContentResolver;->registerContentObserver(Landroid/net/Uri;ZLandroid/database/ContentObserver;)V
-
+    .line 1011
+    :cond_19
     move-object/from16 v0, p0
 
     iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mContext:Landroid/content/Context;
 
-    move-object/from16 v26, v0
+    move-object/from16 v25, v0
 
-    invoke-virtual/range {v26 .. v26}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
+    const-string v26, "audio"
 
-    move-result-object v26
+    invoke-virtual/range {v25 .. v26}, Landroid/content/Context;->getSystemService(Ljava/lang/String;)Ljava/lang/Object;
 
-    const-string v27, "statusbar_color_custom"
+    move-result-object v4
 
-    invoke-static/range {v27 .. v27}, Landroid/provider/Settings$Global;->getUriFor(Ljava/lang/String;)Landroid/net/Uri;
+    check-cast v4, Landroid/media/AudioManager;
 
-    move-result-object v27
-
-    const/16 v28, 0x0
-
+    .line 1012
+    .local v4, audioManager:Landroid/media/AudioManager;
     move-object/from16 v0, p0
 
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mTSMObserver:Lcom/android/systemui/statusbar/phone/PhoneStatusBar$TSMObserver;
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mVolumePanel:Lcom/android/systemui/statusbar/policy/VolumePanel;
 
-    move-object/from16 v29, v0
+    move-object/from16 v25, v0
 
-    invoke-virtual/range {v26 .. v29}, Landroid/content/ContentResolver;->registerContentObserver(Landroid/net/Uri;ZLandroid/database/ContentObserver;)V
+    if-eqz v25, :cond_2e
 
-    move-object/from16 v0, p0
+    const/16 v25, 0x1
 
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mContext:Landroid/content/Context;
+    :goto_12
+    move/from16 v0, v25
 
-    move-object/from16 v26, v0
+    invoke-virtual {v4, v0}, Landroid/media/AudioManager;->setStatusbarHasVolumeSlider(Z)V
 
-    invoke-virtual/range {v26 .. v26}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
-
-    move-result-object v26
-
-    const-string v27, "statusbar_background_color"
-
-    invoke-static/range {v27 .. v27}, Landroid/provider/Settings$Global;->getUriFor(Ljava/lang/String;)Landroid/net/Uri;
-
-    move-result-object v27
-
-    const/16 v28, 0x0
-
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mTSMObserver:Lcom/android/systemui/statusbar/phone/PhoneStatusBar$TSMObserver;
-
-    move-object/from16 v29, v0
-
-    invoke-virtual/range {v26 .. v29}, Landroid/content/ContentResolver;->registerContentObserver(Landroid/net/Uri;ZLandroid/database/ContentObserver;)V
-
-    move-object/from16 v0, p0
-
-    invoke-direct {v0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->updateNetContSettings()V
-
-    move-object/from16 v0, p0
-
-    invoke-direct {v0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->updateTSMSettings()V
-
+    .line 1021
     move-object/from16 v0, p0
 
     iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarView:Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;
 
-    move-object/from16 v26, v0
+    move-object/from16 v25, v0
 
-    return-object v26
+    return-object v25
 
-    .line 555
+    .line 490
+    .end local v4           #audioManager:Landroid/media/AudioManager;
     .end local v8           #filter:Landroid/content/IntentFilter;
     .end local v11           #isAPhone:Z
-    .end local v16           #params:Landroid/widget/LinearLayout$LayoutParams;
+    .end local v15           #params:Landroid/widget/LinearLayout$LayoutParams;
+    .end local v16           #pm:Landroid/os/PowerManager;
     .end local v19           #scrollCart:Landroid/widget/LinearLayout;
-    .end local v23           #signalCluster:Lcom/android/systemui/statusbar/SignalClusterView;
-    .end local v24           #tickerView:Lcom/android/systemui/statusbar/phone/TickerView;
-    :cond_19
-    const/16 v26, 0x0
+    .end local v22           #signalCluster:Lcom/android/systemui/statusbar/SignalClusterView;
+    .end local v23           #tickerView:Lcom/android/systemui/statusbar/phone/TickerView;
+    :cond_1a
+    const/16 v25, 0x0
 
     goto/16 :goto_0
 
-    .line 704
-    :cond_1a
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarWindow:Lcom/android/systemui/statusbar/phone/StatusBarWindowView;
-
-    move-object/from16 v26, v0
-
-    const v27, 0x7f09007f
-
-    invoke-virtual/range {v26 .. v27}, Lcom/android/systemui/statusbar/phone/StatusBarWindowView;->findViewById(I)Landroid/view/View;
-
-    move-result-object v5
-
-    .line 706
-    .local v5, buttonHolder:Landroid/view/View;
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarWindow:Lcom/android/systemui/statusbar/phone/StatusBarWindowView;
-
-    move-object/from16 v26, v0
-
-    const v27, 0x7f09002d
-
-    invoke-virtual/range {v26 .. v27}, Lcom/android/systemui/statusbar/phone/StatusBarWindowView;->findViewById(I)Landroid/view/View;
-
-    move-result-object v20
-
-    .line 708
-    .local v20, settingHolder:Landroid/view/View;
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarWindow:Lcom/android/systemui/statusbar/phone/StatusBarWindowView;
-
-    move-object/from16 v26, v0
-
-    const v27, 0x7f090070
-
-    invoke-virtual/range {v26 .. v27}, Lcom/android/systemui/statusbar/phone/StatusBarWindowView;->findViewById(I)Landroid/view/View;
-
-    move-result-object v13
-
-    .line 711
-    .local v13, mNotificationPanelHeaderDivier:Landroid/view/View;
-    if-eqz v5, :cond_1b
-
-    .line 712
-    const/16 v26, 0x8
-
-    move/from16 v0, v26
-
-    invoke-virtual {v5, v0}, Landroid/view/View;->setVisibility(I)V
-
-    .line 715
+    .line 642
+    .restart local v12       #mNotificationPanelHeaderDivier:Landroid/view/View;
     :cond_1b
     move-object/from16 v0, p0
 
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSettingButtonDivider:Landroid/view/View;
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSettingsButton:Landroid/widget/ImageView;
 
-    move-object/from16 v26, v0
+    move-object/from16 v25, v0
 
-    if-eqz v26, :cond_1c
+    const v26, 0x7f020022
 
-    .line 716
+    invoke-virtual/range {v25 .. v26}, Landroid/widget/ImageView;->setImageResource(I)V
+
+    goto/16 :goto_2
+
+    .line 647
+    .end local v12           #mNotificationPanelHeaderDivier:Landroid/view/View;
+    :cond_1c
     move-object/from16 v0, p0
 
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSettingButtonDivider:Landroid/view/View;
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarWindow:Lcom/android/systemui/statusbar/phone/StatusBarWindowView;
 
-    move-object/from16 v26, v0
+    move-object/from16 v25, v0
 
-    const/16 v27, 0x8
+    const v26, 0x7f070095
 
-    invoke-virtual/range {v26 .. v27}, Landroid/view/View;->setVisibility(I)V
+    invoke-virtual/range {v25 .. v26}, Lcom/android/systemui/statusbar/phone/StatusBarWindowView;->findViewById(I)Landroid/view/View;
 
-    .line 718
-    :cond_1c
-    if-eqz v20, :cond_1d
+    move-result-object v5
 
-    .line 719
-    invoke-virtual/range {v20 .. v20}, Landroid/view/View;->getLayoutParams()Landroid/view/ViewGroup$LayoutParams;
+    .line 649
+    .local v5, buttonHolder:Landroid/view/View;
+    if-eqz v5, :cond_9
 
-    move-result-object v12
+    .line 650
+    const/16 v25, 0x8
 
-    check-cast v12, Landroid/widget/RelativeLayout$LayoutParams;
+    move/from16 v0, v25
 
-    .line 720
-    .local v12, layoutParams:Landroid/widget/RelativeLayout$LayoutParams;
-    const/16 v26, 0xb
+    invoke-virtual {v5, v0}, Landroid/view/View;->setVisibility(I)V
 
-    move/from16 v0, v26
+    goto/16 :goto_3
 
-    invoke-virtual {v12, v0}, Landroid/widget/RelativeLayout$LayoutParams;->addRule(I)V
-
-    .line 721
-    move-object/from16 v0, v20
-
-    invoke-virtual {v0, v12}, Landroid/view/View;->setLayoutParams(Landroid/view/ViewGroup$LayoutParams;)V
-
-    .line 723
-    .end local v12           #layoutParams:Landroid/widget/RelativeLayout$LayoutParams;
+    .line 655
+    .end local v5           #buttonHolder:Landroid/view/View;
     :cond_1d
-    if-eqz v13, :cond_a
+    move-object/from16 v0, p0
 
-    .line 724
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSettingsButton:Landroid/widget/ImageView;
+
+    move-object/from16 v25, v0
+
     const/16 v26, 0x0
 
-    move/from16 v0, v26
+    invoke-virtual/range {v25 .. v26}, Landroid/widget/ImageView;->setVisibility(I)V
 
-    invoke-virtual {v13, v0}, Landroid/view/View;->setVisibility(I)V
+    .line 657
+    sget-boolean v25, Lcom/android/systemui/statusbar/Feature;->mUseJellyBeanGUI:Z
 
-    goto/16 :goto_4
+    if-eqz v25, :cond_1e
 
-    .line 730
-    .end local v5           #buttonHolder:Landroid/view/View;
-    .end local v13           #mNotificationPanelHeaderDivier:Landroid/view/View;
-    .end local v20           #settingHolder:Landroid/view/View;
+    .line 658
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSettingsButton:Landroid/widget/ImageView;
+
+    move-object/from16 v25, v0
+
+    const v26, 0x7f020096
+
+    invoke-virtual/range {v25 .. v26}, Landroid/widget/ImageView;->setImageResource(I)V
+
+    goto/16 :goto_3
+
+    .line 660
     :cond_1e
     move-object/from16 v0, p0
 
     iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSettingsButton:Landroid/widget/ImageView;
 
-    move-object/from16 v26, v0
+    move-object/from16 v25, v0
 
-    const/16 v27, 0x0
+    const v26, 0x7f020022
 
-    invoke-virtual/range {v26 .. v27}, Landroid/widget/ImageView;->setVisibility(I)V
+    invoke-virtual/range {v25 .. v26}, Landroid/widget/ImageView;->setImageResource(I)V
 
-    .line 731
-    move-object/from16 v0, p0
+    goto/16 :goto_3
 
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSettingsButton:Landroid/widget/ImageView;
-
-    move-object/from16 v26, v0
-
-    const v27, 0x7f020025
-
-    invoke-virtual/range {v26 .. v27}, Landroid/widget/ImageView;->setImageResource(I)V
+    .line 687
+    :cond_1f
+    const v25, 0x7f0c006e
 
     goto/16 :goto_4
 
-    .line 752
-    :cond_1f
-    move-object/from16 v0, p0
+    .line 705
+    :cond_20
+    sget-boolean v25, Lcom/android/systemui/statusbar/Feature;->mPanelExpandedTickerStop:Z
 
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mContext:Landroid/content/Context;
+    if-eqz v25, :cond_d
 
-    move-object/from16 v26, v0
-
-    invoke-virtual/range {v26 .. v26}, Landroid/content/Context;->getResources()Landroid/content/res/Resources;
-
-    move-result-object v26
-
-    const v27, 0x7f0e0044
-
-    invoke-virtual/range {v26 .. v27}, Landroid/content/res/Resources;->getDimension(I)F
-
-    move-result v26
-
-    move/from16 v0, v26
-
-    float-to-int v0, v0
-
-    move/from16 v26, v0
-
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mContext:Landroid/content/Context;
-
-    move-object/from16 v27, v0
-
-    invoke-virtual/range {v27 .. v27}, Landroid/content/Context;->getResources()Landroid/content/res/Resources;
-
-    move-result-object v27
-
-    const v28, 0x7f0e004c
-
-    invoke-virtual/range {v27 .. v28}, Landroid/content/res/Resources;->getDimension(I)F
-
-    move-result v27
-
-    move/from16 v0, v27
-
-    float-to-int v0, v0
-
-    move/from16 v27, v0
-
-    add-int v25, v26, v27
-
-    .line 754
-    .local v25, topMargin:I
+    .line 706
     move-object/from16 v0, p0
 
     iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mScrollView:Landroid/widget/ScrollView;
 
-    move-object/from16 v26, v0
+    move-object/from16 v25, v0
 
-    invoke-virtual/range {v26 .. v26}, Landroid/widget/ScrollView;->getLayoutParams()Landroid/view/ViewGroup$LayoutParams;
+    const/high16 v26, 0x8
 
-    move-result-object v14
-
-    check-cast v14, Landroid/view/ViewGroup$MarginLayoutParams;
-
-    .line 755
-    .restart local v14       #marginParams:Landroid/view/ViewGroup$MarginLayoutParams;
-    const/16 v26, 0x0
-
-    const/16 v27, 0x0
-
-    const/16 v28, 0x0
-
-    move/from16 v0, v26
-
-    move/from16 v1, v25
-
-    move/from16 v2, v27
-
-    move/from16 v3, v28
-
-    invoke-virtual {v14, v0, v1, v2, v3}, Landroid/view/ViewGroup$MarginLayoutParams;->setMargins(IIII)V
-
-    .line 756
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mScrollView:Landroid/widget/ScrollView;
-
-    move-object/from16 v26, v0
-
-    move-object/from16 v0, v26
-
-    invoke-virtual {v0, v14}, Landroid/widget/ScrollView;->setLayoutParams(Landroid/view/ViewGroup$LayoutParams;)V
+    invoke-virtual/range {v25 .. v26}, Landroid/widget/ScrollView;->setSystemUiVisibility(I)V
 
     goto/16 :goto_5
 
-    .line 770
-    .end local v14           #marginParams:Landroid/view/ViewGroup$MarginLayoutParams;
-    .end local v25           #topMargin:I
-    :cond_20
-    sget-boolean v26, Lcom/android/systemui/statusbar/Feature;->mPanelExpandedTickerStop:Z
-
-    if-eqz v26, :cond_e
-
-    .line 771
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mScrollView:Landroid/widget/ScrollView;
-
-    move-object/from16 v26, v0
-
-    const/high16 v27, 0x8
-
-    invoke-virtual/range {v26 .. v27}, Landroid/widget/ScrollView;->setSystemUiVisibility(I)V
+    .line 732
+    .restart local v23       #tickerView:Lcom/android/systemui/statusbar/phone/TickerView;
+    :cond_21
+    const/16 v25, 0x8
 
     goto/16 :goto_6
 
-    .line 797
-    .restart local v24       #tickerView:Lcom/android/systemui/statusbar/phone/TickerView;
-    :cond_21
-    const/16 v26, 0x8
+    .line 738
+    :cond_22
+    const/16 v25, 0x0
 
     goto/16 :goto_7
 
-    .line 807
-    :cond_22
-    const/16 v26, 0x0
+    .line 740
+    :cond_23
+    const/16 v25, 0x0
+
+    goto/16 :goto_8
+
+    .line 782
+    .restart local v11       #isAPhone:Z
+    .restart local v22       #signalCluster:Lcom/android/systemui/statusbar/SignalClusterView;
+    :cond_24
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarWindow:Lcom/android/systemui/statusbar/phone/StatusBarWindowView;
+
+    move-object/from16 v25, v0
+
+    const v26, 0x7f070009
+
+    invoke-virtual/range {v25 .. v26}, Lcom/android/systemui/statusbar/phone/StatusBarWindowView;->findViewById(I)Landroid/view/View;
+
+    move-result-object v25
+
+    check-cast v25, Landroid/widget/TextView;
+
+    move-object/from16 v0, v25
+
+    move-object/from16 v1, p0
+
+    iput-object v0, v1, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mCarrierLabel:Landroid/widget/TextView;
 
     goto/16 :goto_9
 
-    .line 848
-    .restart local v11       #isAPhone:Z
-    .restart local v23       #signalCluster:Lcom/android/systemui/statusbar/SignalClusterView;
-    :cond_23
-    const/16 v26, 0x0
+    .line 784
+    :cond_25
+    const/16 v25, 0x0
 
     goto/16 :goto_a
 
-    .line 858
-    :cond_24
+    .line 795
+    :cond_26
     move-object/from16 v0, p0
 
     iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNetworkController:Lcom/android/systemui/statusbar/policy/NetworkController;
 
-    move-object/from16 v26, v0
+    move-object/from16 v25, v0
 
     move-object/from16 v0, p0
 
     iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mCarrierLabel:Landroid/widget/TextView;
 
-    move-object/from16 v27, v0
+    move-object/from16 v26, v0
 
-    invoke-virtual/range {v26 .. v27}, Lcom/android/systemui/statusbar/policy/NetworkController;->addCombinedLabelView(Landroid/widget/TextView;)V
+    invoke-virtual/range {v25 .. v26}, Lcom/android/systemui/statusbar/policy/NetworkController;->addCombinedLabelView(Landroid/widget/TextView;)V
 
     goto/16 :goto_b
 
-    .line 903
-    :cond_25
+    .line 839
+    :cond_27
     move-object/from16 v0, p0
 
     iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarWindow:Lcom/android/systemui/statusbar/phone/StatusBarWindowView;
 
-    move-object/from16 v26, v0
+    move-object/from16 v25, v0
 
-    const v27, 0x7f0900bf
+    const v26, 0x7f0700a4
 
-    invoke-virtual/range {v26 .. v27}, Lcom/android/systemui/statusbar/phone/StatusBarWindowView;->findViewById(I)Landroid/view/View;
+    invoke-virtual/range {v25 .. v26}, Lcom/android/systemui/statusbar/phone/StatusBarWindowView;->findViewById(I)Landroid/view/View;
 
-    move-result-object v21
+    move-result-object v20
 
-    .line 904
-    .restart local v21       #settings_stub:Landroid/view/View;
-    if-eqz v21, :cond_26
+    .line 840
+    .restart local v20       #settings_stub:Landroid/view/View;
+    if-eqz v20, :cond_28
 
-    move-object/from16 v26, v21
+    move-object/from16 v25, v20
 
-    .line 905
-    check-cast v26, Landroid/view/ViewStub;
+    .line 842
+    check-cast v25, Landroid/view/ViewStub;
 
-    invoke-virtual/range {v26 .. v26}, Landroid/view/ViewStub;->inflate()Landroid/view/View;
+    invoke-virtual/range {v25 .. v25}, Landroid/view/ViewStub;->inflate()Landroid/view/View;
 
-    move-result-object v26
+    move-result-object v25
 
-    check-cast v26, Lcom/android/systemui/statusbar/phone/SettingsPanelView;
+    check-cast v25, Lcom/android/systemui/statusbar/phone/PanelView;
 
-    move-object/from16 v0, v26
+    move-object/from16 v0, v25
 
     move-object/from16 v1, p0
 
-    iput-object v0, v1, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSettingsPanel:Lcom/android/systemui/statusbar/phone/SettingsPanelView;
+    iput-object v0, v1, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSettingsPanel:Lcom/android/systemui/statusbar/phone/PanelView;
 
-    .line 910
-    :goto_11
+    .line 848
+    :goto_13
     move-object/from16 v0, p0
 
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSettingsPanel:Lcom/android/systemui/statusbar/phone/SettingsPanelView;
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSettingsPanel:Lcom/android/systemui/statusbar/phone/PanelView;
 
-    move-object/from16 v26, v0
+    move-object/from16 v25, v0
 
-    if-eqz v26, :cond_13
+    if-eqz v25, :cond_12
 
-    .line 912
+    .line 850
     move-object/from16 v0, p0
 
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSettingsPanel:Lcom/android/systemui/statusbar/phone/SettingsPanelView;
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSettingsPanel:Lcom/android/systemui/statusbar/phone/PanelView;
 
-    move-object/from16 v26, v0
+    move-object/from16 v25, v0
 
-    const v27, 0x7f09000f
+    const v26, 0x7f070009
 
-    invoke-virtual/range {v26 .. v27}, Lcom/android/systemui/statusbar/phone/SettingsPanelView;->findViewById(I)Landroid/view/View;
+    invoke-virtual/range {v25 .. v26}, Lcom/android/systemui/statusbar/phone/PanelView;->findViewById(I)Landroid/view/View;
 
-    move-result-object v26
+    move-result-object v25
 
-    check-cast v26, Landroid/widget/TextView;
+    check-cast v25, Landroid/widget/TextView;
 
-    move-object/from16 v0, v26
+    move-object/from16 v0, v25
 
     move-object/from16 v1, p0
 
     iput-object v0, v1, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mCarrierLabelSetting:Landroid/widget/TextView;
 
-    .line 915
+    .line 853
     move-object/from16 v0, p0
 
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSettingsPanel:Lcom/android/systemui/statusbar/phone/SettingsPanelView;
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSettingsPanel:Lcom/android/systemui/statusbar/phone/PanelView;
 
-    move-object/from16 v26, v0
+    move-object/from16 v25, v0
 
-    const v27, 0x7f090011
+    const v26, 0x7f07008a
 
-    invoke-virtual/range {v26 .. v27}, Lcom/android/systemui/statusbar/phone/SettingsPanelView;->findViewById(I)Landroid/view/View;
+    invoke-virtual/range {v25 .. v26}, Lcom/android/systemui/statusbar/phone/PanelView;->findViewById(I)Landroid/view/View;
 
-    move-result-object v26
+    move-result-object v25
 
-    new-instance v27, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$6;
-
-    move-object/from16 v0, v27
-
-    move-object/from16 v1, p0
-
-    invoke-direct {v0, v1}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$6;-><init>(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)V
-
-    invoke-virtual/range {v26 .. v27}, Landroid/view/View;->setOnTouchListener(Landroid/view/View$OnTouchListener;)V
-
-    .line 924
-    invoke-static {}, Landroid/app/ActivityManager;->isHighEndGfx()Z
-
-    move-result v26
-
-    if-nez v26, :cond_13
-
-    .line 925
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSettingsPanel:Lcom/android/systemui/statusbar/phone/SettingsPanelView;
-
-    move-object/from16 v26, v0
-
-    new-instance v27, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$FastColorDrawable;
-
-    invoke-virtual {v6}, Landroid/content/Context;->getResources()Landroid/content/res/Resources;
-
-    move-result-object v28
-
-    const/high16 v29, 0x7f0a
-
-    invoke-virtual/range {v28 .. v29}, Landroid/content/res/Resources;->getColor(I)I
-
-    move-result v28
-
-    invoke-direct/range {v27 .. v28}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$FastColorDrawable;-><init>(I)V
-
-    invoke-virtual/range {v26 .. v27}, Lcom/android/systemui/statusbar/phone/SettingsPanelView;->setBackground(Landroid/graphics/drawable/Drawable;)V
-
-    goto/16 :goto_c
-
-    .line 907
-    :cond_26
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarWindow:Lcom/android/systemui/statusbar/phone/StatusBarWindowView;
-
-    move-object/from16 v26, v0
-
-    const v27, 0x7f09002c
-
-    invoke-virtual/range {v26 .. v27}, Lcom/android/systemui/statusbar/phone/StatusBarWindowView;->findViewById(I)Landroid/view/View;
-
-    move-result-object v26
-
-    check-cast v26, Lcom/android/systemui/statusbar/phone/SettingsPanelView;
+    new-instance v26, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$8;
 
     move-object/from16 v0, v26
 
     move-object/from16 v1, p0
 
-    iput-object v0, v1, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSettingsPanel:Lcom/android/systemui/statusbar/phone/SettingsPanelView;
+    invoke-direct {v0, v1}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$8;-><init>(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)V
 
-    goto :goto_11
+    invoke-virtual/range {v25 .. v26}, Landroid/view/View;->setOnTouchListener(Landroid/view/View$OnTouchListener;)V
 
-    .line 961
-    .end local v21           #settings_stub:Landroid/view/View;
-    :cond_27
-    const/16 v26, 0x0
+    .line 862
+    invoke-static {}, Landroid/app/ActivityManager;->isHighEndGfx()Z
+
+    move-result v25
+
+    if-nez v25, :cond_12
+
+    .line 863
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSettingsPanel:Lcom/android/systemui/statusbar/phone/PanelView;
+
+    move-object/from16 v25, v0
+
+    new-instance v26, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$FastColorDrawable;
+
+    invoke-virtual {v6}, Landroid/content/Context;->getResources()Landroid/content/res/Resources;
+
+    move-result-object v27
+
+    const v28, 0x7f080002
+
+    invoke-virtual/range {v27 .. v28}, Landroid/content/res/Resources;->getColor(I)I
+
+    move-result v27
+
+    invoke-direct/range {v26 .. v27}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$FastColorDrawable;-><init>(I)V
+
+    invoke-virtual/range {v25 .. v26}, Lcom/android/systemui/statusbar/phone/PanelView;->setBackground(Landroid/graphics/drawable/Drawable;)V
+
+    goto/16 :goto_c
+
+    .line 845
+    :cond_28
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarWindow:Lcom/android/systemui/statusbar/phone/StatusBarWindowView;
+
+    move-object/from16 v25, v0
+
+    const v26, 0x7f070058
+
+    invoke-virtual/range {v25 .. v26}, Lcom/android/systemui/statusbar/phone/StatusBarWindowView;->findViewById(I)Landroid/view/View;
+
+    move-result-object v25
+
+    check-cast v25, Lcom/android/systemui/statusbar/phone/PanelView;
+
+    move-object/from16 v0, v25
+
+    move-object/from16 v1, p0
+
+    iput-object v0, v1, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSettingsPanel:Lcom/android/systemui/statusbar/phone/PanelView;
+
+    goto :goto_13
+
+    .line 902
+    .end local v20           #settings_stub:Landroid/view/View;
+    :cond_29
+    const/16 v25, 0x0
 
     goto/16 :goto_d
 
-    .line 970
-    :cond_28
+    .line 911
+    :cond_2a
     move-object/from16 v0, p0
 
     iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNetworkController:Lcom/android/systemui/statusbar/policy/NetworkController;
 
-    move-object/from16 v26, v0
+    move-object/from16 v25, v0
 
     move-object/from16 v0, p0
 
     iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mCarrierLabelSetting:Landroid/widget/TextView;
 
-    move-object/from16 v27, v0
+    move-object/from16 v26, v0
 
-    invoke-virtual/range {v26 .. v27}, Lcom/android/systemui/statusbar/policy/NetworkController;->addCombinedLabelView(Landroid/widget/TextView;)V
+    invoke-virtual/range {v25 .. v26}, Lcom/android/systemui/statusbar/policy/NetworkController;->addCombinedLabelView(Landroid/widget/TextView;)V
 
     goto/16 :goto_e
 
-    .line 975
-    :cond_29
-    const/16 v26, 0x0
+    .line 943
+    .restart local v16       #pm:Landroid/os/PowerManager;
+    :cond_2b
+    const-string v25, "android.intent.action.SCREEN_OFF"
 
     goto/16 :goto_f
 
-    .line 1069
+    .line 985
     .restart local v8       #filter:Landroid/content/IntentFilter;
-    .restart local v16       #params:Landroid/widget/LinearLayout$LayoutParams;
+    .restart local v15       #params:Landroid/widget/LinearLayout$LayoutParams;
     .restart local v19       #scrollCart:Landroid/widget/LinearLayout;
-    :cond_2a
-    const/16 v26, 0x0
+    :cond_2c
+    const/16 v25, 0x0
 
     goto/16 :goto_10
 
-    :cond_2b
+    .line 1001
+    :cond_2d
+    const-string v25, "STATUSBAR-PhoneStatusBar"
+
+    new-instance v26, Ljava/lang/StringBuilder;
+
+    invoke-direct/range {v26 .. v26}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v27, "makeStatusbarView() DB_AIRPLANEMODE_ON_REASON_USB3 = "
+
+    invoke-virtual/range {v26 .. v27}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v26
+
     move-object/from16 v0, p0
 
-    invoke-direct {v0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->updateBatteryImage()V
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mContext:Landroid/content/Context;
 
-    const/16 v26, 0x0
+    move-object/from16 v27, v0
 
-    goto/16 :goto_8
+    invoke-virtual/range {v27 .. v27}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
 
-    .line 594
+    move-result-object v27
+
+    const-string v28, "airplane_mode_on_reason_usb3"
+
+    const/16 v29, 0x0
+
+    invoke-static/range {v27 .. v29}, Landroid/provider/Settings$System;->getInt(Landroid/content/ContentResolver;Ljava/lang/String;I)I
+
+    move-result v27
+
+    invoke-virtual/range {v26 .. v27}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    move-result-object v26
+
+    const-string v27, " Settings.Global.AIRPLANE_MODE_ON = "
+
+    invoke-virtual/range {v26 .. v27}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v26
+
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mContext:Landroid/content/Context;
+
+    move-object/from16 v27, v0
+
+    invoke-virtual/range {v27 .. v27}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
+
+    move-result-object v27
+
+    const-string v28, "airplane_mode_on"
+
+    const/16 v29, 0x0
+
+    invoke-static/range {v27 .. v29}, Landroid/provider/Settings$Global;->getInt(Landroid/content/ContentResolver;Ljava/lang/String;I)I
+
+    move-result v27
+
+    invoke-virtual/range {v26 .. v27}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    move-result-object v26
+
+    invoke-virtual/range {v26 .. v26}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v26
+
+    invoke-static/range {v25 .. v26}, Landroid/util/Slog;->d(Ljava/lang/String;Ljava/lang/String;)I
+
+    goto/16 :goto_11
+
+    .line 1012
+    .restart local v4       #audioManager:Landroid/media/AudioManager;
+    :cond_2e
+    const/16 v25, 0x0
+
+    goto/16 :goto_12
+
+    .line 536
+    .end local v4           #audioManager:Landroid/media/AudioManager;
     .end local v8           #filter:Landroid/content/IntentFilter;
     .end local v11           #isAPhone:Z
-    .end local v16           #params:Landroid/widget/LinearLayout$LayoutParams;
+    .end local v15           #params:Landroid/widget/LinearLayout$LayoutParams;
+    .end local v16           #pm:Landroid/os/PowerManager;
     .end local v19           #scrollCart:Landroid/widget/LinearLayout;
-    .end local v23           #signalCluster:Lcom/android/systemui/statusbar/SignalClusterView;
-    .end local v24           #tickerView:Lcom/android/systemui/statusbar/phone/TickerView;
+    .end local v22           #signalCluster:Lcom/android/systemui/statusbar/SignalClusterView;
+    .end local v23           #tickerView:Lcom/android/systemui/statusbar/phone/TickerView;
     :catch_0
-    move-exception v26
+    move-exception v25
 
-    goto/16 :goto_2
+    goto/16 :goto_1
 .end method
 
 .method protected onConfigurationChanged(Landroid/content/res/Configuration;)V
@@ -15763,61 +12668,73 @@
     .prologue
     const/4 v2, 0x0
 
-    .line 1575
+    .line 3666
+    invoke-super {p0, p1}, Lcom/android/systemui/statusbar/BaseStatusBar;->onConfigurationChanged(Landroid/content/res/Configuration;)V
+
+    .line 3671
+    invoke-virtual {p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->updateDisplaySize()V
+
+    .line 3673
+    invoke-virtual {p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->updateResources()V
+
+    .line 3674
+    invoke-direct {p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->repositionNavigationBar()V
+
+    .line 3675
+    const/16 v0, -0x2710
+
+    invoke-virtual {p0, v0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->updateExpandedViewPos(I)V
+
+    .line 3676
+    invoke-direct {p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->updateShowSearchHoldoff()V
+
+    .line 3680
     iget v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mOrientation:I
 
     iget v1, p1, Landroid/content/res/Configuration;->orientation:I
 
     if-eq v0, v1, :cond_0
 
-    .line 1576
+    .line 3681
     iget v0, p1, Landroid/content/res/Configuration;->orientation:I
 
     iput v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mOrientation:I
 
-    .line 1577
+    .line 3682
     iget v0, p1, Landroid/content/res/Configuration;->orientation:I
 
     packed-switch v0, :pswitch_data_0
 
-    .line 1590
+    .line 3698
     :cond_0
     :goto_0
     return-void
 
-    .line 1581
+    .line 3686
     :pswitch_0
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarView:Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;
 
     if-eqz v0, :cond_1
 
+    .line 3687
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarView:Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;
 
     invoke-virtual {v0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;->marqueeStatusBar()V
 
-    .line 1583
+    .line 3689
     :cond_1
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mHSView:Landroid/widget/HorizontalScrollView;
 
-    if-eqz v0, :cond_2
+    if-eqz v0, :cond_0
 
+    .line 3690
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mHSView:Landroid/widget/HorizontalScrollView;
 
     invoke-virtual {v0, v2, v2}, Landroid/widget/HorizontalScrollView;->scrollTo(II)V
 
-    .line 1584
-    :cond_2
-    sget-boolean v0, Lcom/android/systemui/statusbar/Feature;->mHasNarrowNotificationConcept:Z
-
-    if-eqz v0, :cond_0
-
-    invoke-virtual {p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->updateNotificationPanelMargins()V
-
     goto :goto_0
 
-    .line 1577
-    nop
-
+    .line 3682
     :pswitch_data_0
     .packed-switch 0x1
         :pswitch_0
@@ -15825,214 +12742,157 @@
     .end packed-switch
 .end method
 
-.method public onHover(Landroid/view/View;Landroid/view/MotionEvent;)Z
-    .locals 10
-    .parameter "v"
-    .parameter "event"
+.method public onHeadsUpDismissed()V
+    .locals 4
 
     .prologue
-    const/4 v8, 0x1
+    .line 3779
+    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mInterruptingNotificationEntry:Lcom/android/systemui/statusbar/NotificationData$Entry;
 
-    const/4 v9, 0x0
+    if-nez v0, :cond_1
 
-    .line 4101
-    iget-object v6, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mContext:Landroid/content/Context;
+    .line 3791
+    :cond_0
+    :goto_0
+    return-void
 
-    invoke-virtual {v6}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
+    .line 3780
+    :cond_1
+    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mHandler:Lcom/android/systemui/statusbar/BaseStatusBar$H;
 
-    move-result-object v6
+    const/16 v1, 0x403
 
-    const-string v7, "mouse_hovering"
+    invoke-virtual {v0, v1}, Lcom/android/systemui/statusbar/BaseStatusBar$H;->sendEmptyMessage(I)Z
 
-    invoke-static {v6, v7, v9}, Landroid/provider/Settings$System;->getInt(Landroid/content/ContentResolver;Ljava/lang/String;I)I
+    .line 3781
+    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mHeadsUpNotificationView:Lcom/android/systemui/statusbar/policy/HeadsUpNotificationView;
 
-    move-result v6
-
-    if-ne v6, v8, :cond_0
-
-    iget-object v6, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mContext:Landroid/content/Context;
-
-    invoke-virtual {v6}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
-
-    move-result-object v6
-
-    const-string v7, "mouse_hovering_magnetic_ui"
-
-    invoke-static {v6, v7, v9}, Landroid/provider/Settings$System;->getInt(Landroid/content/ContentResolver;Ljava/lang/String;I)I
-
-    move-result v6
-
-    if-ne v6, v8, :cond_0
-
-    .line 4103
-    invoke-virtual {p2}, Landroid/view/MotionEvent;->getAction()I
+    invoke-virtual {v0}, Lcom/android/systemui/statusbar/policy/HeadsUpNotificationView;->isClearable()Z
 
     move-result v0
 
-    .line 4105
-    .local v0, action:I
-    packed-switch v0, :pswitch_data_0
+    if-eqz v0, :cond_0
 
-    .line 4131
-    .end local v0           #action:I
-    :cond_0
-    :goto_0
-    return v9
+    .line 3783
+    :try_start_0
+    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mBarService:Lcom/android/internal/statusbar/IStatusBarService;
 
-    .line 4107
-    .restart local v0       #action:I
-    :pswitch_0
-    new-instance v5, Landroid/graphics/Rect;
+    iget-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mInterruptingNotificationEntry:Lcom/android/systemui/statusbar/NotificationData$Entry;
 
-    invoke-direct {v5}, Landroid/graphics/Rect;-><init>()V
+    iget-object v1, v1, Lcom/android/systemui/statusbar/NotificationData$Entry;->notification:Landroid/service/notification/StatusBarNotification;
 
-    .line 4108
-    .local v5, r:Landroid/graphics/Rect;
-    const/4 v3, 0x0
+    invoke-virtual {v1}, Landroid/service/notification/StatusBarNotification;->getPackageName()Ljava/lang/String;
 
-    .line 4109
-    .local v3, posX:I
-    const/4 v4, 0x0
+    move-result-object v1
 
-    .line 4111
-    .local v4, posY:I
-    invoke-virtual {p1, v5}, Landroid/view/View;->getGlobalVisibleRect(Landroid/graphics/Rect;)Z
+    iget-object v2, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mInterruptingNotificationEntry:Lcom/android/systemui/statusbar/NotificationData$Entry;
 
-    .line 4113
-    iget v6, v5, Landroid/graphics/Rect;->left:I
+    iget-object v2, v2, Lcom/android/systemui/statusbar/NotificationData$Entry;->notification:Landroid/service/notification/StatusBarNotification;
 
-    invoke-virtual {v5}, Landroid/graphics/Rect;->width()I
+    invoke-virtual {v2}, Landroid/service/notification/StatusBarNotification;->getTag()Ljava/lang/String;
 
-    move-result v7
+    move-result-object v2
 
-    div-int/lit8 v7, v7, 0x2
+    iget-object v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mInterruptingNotificationEntry:Lcom/android/systemui/statusbar/NotificationData$Entry;
 
-    add-int v3, v6, v7
+    iget-object v3, v3, Lcom/android/systemui/statusbar/NotificationData$Entry;->notification:Landroid/service/notification/StatusBarNotification;
 
-    .line 4114
-    iget-object v6, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mDisplay:Landroid/view/Display;
+    invoke-virtual {v3}, Landroid/service/notification/StatusBarNotification;->getId()I
 
-    invoke-virtual {v6}, Landroid/view/Display;->getHeight()I
+    move-result v3
 
-    move-result v6
-
-    invoke-virtual {v5}, Landroid/graphics/Rect;->height()I
-
-    move-result v7
-
-    div-int/lit8 v7, v7, 0x2
-
-    add-int v4, v6, v7
-
-    .line 4116
-    const-string v6, "PhoneStatusBar"
-
-    new-instance v7, Ljava/lang/StringBuilder;
-
-    invoke-direct {v7}, Ljava/lang/StringBuilder;-><init>()V
-
-    const-string v8, "ACTION_HOVER_ENTER  posX: "
-
-    invoke-virtual {v7, v8}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v7
-
-    invoke-virtual {v7, v3}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
-
-    move-result-object v7
-
-    const-string v8, " posY : "
-
-    invoke-virtual {v7, v8}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v7
-
-    invoke-virtual {v7, v4}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
-
-    move-result-object v7
-
-    const-string v8, " height : "
-
-    invoke-virtual {v7, v8}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v7
-
-    iget-object v8, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mDisplay:Landroid/view/Display;
-
-    invoke-virtual {v8}, Landroid/view/Display;->getHeight()I
-
-    move-result v8
-
-    invoke-virtual {v7, v8}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
-
-    move-result-object v7
-
-    invoke-virtual {v7}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v7
-
-    invoke-static {v6, v7}, Landroid/util/Slog;->d(Ljava/lang/String;Ljava/lang/String;)I
-
-    .line 4118
-    new-instance v2, Landroid/content/Intent;
-
-    invoke-direct {v2}, Landroid/content/Intent;-><init>()V
-
-    .line 4119
-    .local v2, intent:Landroid/content/Intent;
-    new-instance v1, Landroid/content/ComponentName;
-
-    const-string v6, "com.sec.android.spc.eventcontrol"
-
-    const-string v7, "com.sec.android.spc.eventcontrol.SpcEventControlReceiver"
-
-    invoke-direct {v1, v6, v7}, Landroid/content/ComponentName;-><init>(Ljava/lang/String;Ljava/lang/String;)V
-
-    .line 4120
-    .local v1, component:Landroid/content/ComponentName;
-    invoke-virtual {v2, v1}, Landroid/content/Intent;->setComponent(Landroid/content/ComponentName;)Landroid/content/Intent;
-
-    .line 4121
-    const-string v6, "com.sec.android.spc.eventcontrol.ACTION_SET_MOUSE_POS"
-
-    invoke-virtual {v2, v6}, Landroid/content/Intent;->setAction(Ljava/lang/String;)Landroid/content/Intent;
-
-    .line 4122
-    const-string v6, "event"
-
-    invoke-virtual {v2, v6, p2}, Landroid/content/Intent;->putExtra(Ljava/lang/String;Landroid/os/Parcelable;)Landroid/content/Intent;
-
-    .line 4123
-    const-string v6, "x"
-
-    invoke-virtual {v2, v6, v3}, Landroid/content/Intent;->putExtra(Ljava/lang/String;I)Landroid/content/Intent;
-
-    .line 4124
-    const-string v6, "y"
-
-    invoke-virtual {v2, v6, v4}, Landroid/content/Intent;->putExtra(Ljava/lang/String;I)Landroid/content/Intent;
-
-    .line 4126
-    iget-object v6, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mContext:Landroid/content/Context;
-
-    invoke-virtual {v6, v2}, Landroid/content/Context;->sendBroadcast(Landroid/content/Intent;)V
+    invoke-interface {v0, v1, v2, v3}, Lcom/android/internal/statusbar/IStatusBarService;->onNotificationClear(Ljava/lang/String;Ljava/lang/String;I)V
+    :try_end_0
+    .catch Landroid/os/RemoteException; {:try_start_0 .. :try_end_0} :catch_0
 
     goto :goto_0
 
-    .line 4105
-    nop
+    .line 3787
+    :catch_0
+    move-exception v0
 
-    :pswitch_data_0
-    .packed-switch 0x9
-        :pswitch_0
-    .end packed-switch
+    goto :goto_0
+.end method
+
+.method protected onHideSearchPanel()V
+    .locals 2
+
+    .prologue
+    .line 1111
+    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNavigationBarView:Lcom/android/systemui/statusbar/phone/NavigationBarView;
+
+    if-eqz v0, :cond_0
+
+    .line 1112
+    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNavigationBarView:Lcom/android/systemui/statusbar/phone/NavigationBarView;
+
+    invoke-virtual {v0}, Lcom/android/systemui/statusbar/phone/NavigationBarView;->getBarTransitions()Lcom/android/systemui/statusbar/phone/BarTransitions;
+
+    move-result-object v0
+
+    const/4 v1, 0x1
+
+    invoke-virtual {v0, v1}, Lcom/android/systemui/statusbar/phone/BarTransitions;->setContentVisible(Z)V
+
+    .line 1114
+    :cond_0
+    return-void
+.end method
+
+.method protected onShowSearchPanel()V
+    .locals 2
+
+    .prologue
+    .line 1104
+    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNavigationBarView:Lcom/android/systemui/statusbar/phone/NavigationBarView;
+
+    if-eqz v0, :cond_0
+
+    .line 1105
+    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNavigationBarView:Lcom/android/systemui/statusbar/phone/NavigationBarView;
+
+    invoke-virtual {v0}, Lcom/android/systemui/statusbar/phone/NavigationBarView;->getBarTransitions()Lcom/android/systemui/statusbar/phone/BarTransitions;
+
+    move-result-object v0
+
+    const/4 v1, 0x0
+
+    invoke-virtual {v0, v1}, Lcom/android/systemui/statusbar/phone/BarTransitions;->setContentVisible(Z)V
+
+    .line 1107
+    :cond_0
+    return-void
+.end method
+
+.method panelsEnabled()Z
+    .locals 2
+
+    .prologue
+    .line 1983
+    iget v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mDisabled:I
+
+    const/high16 v1, 0x1
+
+    and-int/2addr v0, v1
+
+    if-nez v0, :cond_0
+
+    const/4 v0, 0x1
+
+    :goto_0
+    return v0
+
+    :cond_0
+    const/4 v0, 0x0
+
+    goto :goto_0
 .end method
 
 .method postStartTracing()V
     .locals 4
 
     .prologue
-    .line 3825
+    .line 3906
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mHandler:Lcom/android/systemui/statusbar/BaseStatusBar$H;
 
     iget-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStartTracing:Ljava/lang/Runnable;
@@ -16041,7 +12901,7 @@
 
     invoke-virtual {v0, v1, v2, v3}, Lcom/android/systemui/statusbar/BaseStatusBar$H;->postDelayed(Ljava/lang/Runnable;J)Z
 
-    .line 3826
+    .line 3907
     return-void
 .end method
 
@@ -16049,17 +12909,17 @@
     .locals 1
 
     .prologue
-    .line 1375
+    .line 1323
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusIcons:Landroid/widget/LinearLayout;
 
     invoke-direct {p0, v0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->refreshAllIconsForLayout(Landroid/widget/LinearLayout;)V
 
-    .line 1376
+    .line 1324
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationIcons:Lcom/android/systemui/statusbar/phone/IconMerger;
 
     invoke-direct {p0, v0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->refreshAllIconsForLayout(Landroid/widget/LinearLayout;)V
 
-    .line 1377
+    .line 1325
     return-void
 .end method
 
@@ -16070,17 +12930,17 @@
     .prologue
     const/4 v2, 0x0
 
-    .line 1594
+    .line 1472
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNavigationBarView:Lcom/android/systemui/statusbar/phone/NavigationBarView;
 
     if-eqz v0, :cond_0
 
-    .line 1595
+    .line 1473
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNavigationBarView:Lcom/android/systemui/statusbar/phone/NavigationBarView;
 
     invoke-virtual {v0, p1}, Lcom/android/systemui/statusbar/phone/NavigationBarView;->setLayoutDirection(I)V
 
-    .line 1598
+    .line 1476
     :cond_0
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mClearButton:Landroid/view/View;
 
@@ -16092,64 +12952,96 @@
 
     if-eqz v0, :cond_1
 
-    .line 1600
+    .line 1478
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mClearButton:Landroid/view/View;
 
     check-cast v0, Landroid/widget/ImageView;
 
     invoke-virtual {v0, v2}, Landroid/widget/ImageView;->setImageDrawable(Landroid/graphics/drawable/Drawable;)V
 
-    .line 1601
+    .line 1479
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mClearButton:Landroid/view/View;
 
     check-cast v0, Landroid/widget/ImageView;
 
-    const v1, 0x7f020021
+    const v1, 0x7f0200a9
 
     invoke-virtual {v0, v1}, Landroid/widget/ImageView;->setImageResource(I)V
 
-    .line 1604
+    .line 1482
     :cond_1
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSettingsButton:Landroid/widget/ImageView;
 
     if-eqz v0, :cond_2
 
-    .line 1606
+    .line 1484
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSettingsButton:Landroid/widget/ImageView;
 
     invoke-virtual {v0, v2}, Landroid/widget/ImageView;->setImageDrawable(Landroid/graphics/drawable/Drawable;)V
 
-    .line 1607
+    .line 1486
+    sget-boolean v0, Lcom/android/systemui/statusbar/Feature;->mUseJellyBeanGUI:Z
+
+    if-eqz v0, :cond_4
+
+    .line 1487
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSettingsButton:Landroid/widget/ImageView;
 
-    const v1, 0x7f020025
+    const v1, 0x7f020096
 
     invoke-virtual {v0, v1}, Landroid/widget/ImageView;->setImageResource(I)V
 
-    .line 1610
+    .line 1493
     :cond_2
+    :goto_0
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationButton:Landroid/widget/ImageView;
 
     if-eqz v0, :cond_3
 
-    .line 1612
+    .line 1495
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationButton:Landroid/widget/ImageView;
 
     invoke-virtual {v0, v2}, Landroid/widget/ImageView;->setImageDrawable(Landroid/graphics/drawable/Drawable;)V
 
-    .line 1613
+    .line 1497
+    sget-boolean v0, Lcom/android/systemui/statusbar/Feature;->mUseJellyBeanGUI:Z
+
+    if-eqz v0, :cond_5
+
+    .line 1498
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationButton:Landroid/widget/ImageView;
 
-    const v1, 0x7f02001f
+    const v1, 0x7f020090
 
     invoke-virtual {v0, v1}, Landroid/widget/ImageView;->setImageResource(I)V
 
-    .line 1616
+    .line 1504
     :cond_3
+    :goto_1
     invoke-virtual {p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->refreshAllStatusBarIcons()V
 
-    .line 1617
+    .line 1505
     return-void
+
+    .line 1489
+    :cond_4
+    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSettingsButton:Landroid/widget/ImageView;
+
+    const v1, 0x7f020022
+
+    invoke-virtual {v0, v1}, Landroid/widget/ImageView;->setImageResource(I)V
+
+    goto :goto_0
+
+    .line 1500
+    :cond_5
+    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationButton:Landroid/widget/ImageView;
+
+    const v1, 0x7f02001a
+
+    invoke-virtual {v0, v1}, Landroid/widget/ImageView;->setImageResource(I)V
+
+    goto :goto_1
 .end method
 
 .method public removeIcon(Ljava/lang/String;II)V
@@ -16159,12 +13051,12 @@
     .parameter "viewIndex"
 
     .prologue
-    .line 1407
+    .line 1355
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusIcons:Landroid/widget/LinearLayout;
 
     invoke-virtual {v0, p3}, Landroid/widget/LinearLayout;->removeViewAt(I)V
 
-    .line 1408
+    .line 1356
     return-void
 .end method
 
@@ -16173,63 +13065,48 @@
     .parameter "key"
 
     .prologue
-    .line 1486
+    .line 1416
     invoke-virtual {p0, p1}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->removeNotificationViews(Landroid/os/IBinder;)Landroid/service/notification/StatusBarNotification;
 
     move-result-object v2
 
-    .line 1487
+    .line 1419
     .local v2, old:Landroid/service/notification/StatusBarNotification;
-    const-string v3, "PhoneStatusBar"
-
-    new-instance v4, Ljava/lang/StringBuilder;
-
-    invoke-direct {v4}, Ljava/lang/StringBuilder;-><init>()V
-
-    const-string v5, "removeNotification key="
-
-    invoke-virtual {v4, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v4
-
-    invoke-virtual {v4, p1}, Ljava/lang/StringBuilder;->append(Ljava/lang/Object;)Ljava/lang/StringBuilder;
-
-    move-result-object v4
-
-    const-string v5, " old="
-
-    invoke-virtual {v4, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v4
-
-    invoke-virtual {v4, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/Object;)Ljava/lang/StringBuilder;
-
-    move-result-object v4
-
-    invoke-virtual {v4}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v4
-
-    invoke-static {v3, v4}, Landroid/util/Slog;->d(Ljava/lang/String;Ljava/lang/String;)I
-
-    .line 1489
     if-eqz v2, :cond_0
 
-    .line 1496
+    .line 1426
     const/16 v3, -0x2710
 
     invoke-virtual {p0, v3}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->updateExpandedViewPos(I)V
 
-    .line 1507
+    .line 1428
+    iget-object v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mInterruptingNotificationEntry:Lcom/android/systemui/statusbar/NotificationData$Entry;
+
+    if-eqz v3, :cond_0
+
+    iget-object v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mInterruptingNotificationEntry:Lcom/android/systemui/statusbar/NotificationData$Entry;
+
+    iget-object v3, v3, Lcom/android/systemui/statusbar/NotificationData$Entry;->notification:Landroid/service/notification/StatusBarNotification;
+
+    if-ne v2, v3, :cond_0
+
+    .line 1430
+    iget-object v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mHandler:Lcom/android/systemui/statusbar/BaseStatusBar$H;
+
+    const/16 v4, 0x403
+
+    invoke-virtual {v3, v4}, Lcom/android/systemui/statusbar/BaseStatusBar$H;->sendEmptyMessage(I)Z
+
+    .line 1439
     :cond_0
     invoke-virtual {p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->setAreThereNotifications()V
 
-    .line 1510
+    .line 1442
     sget-boolean v3, Lcom/android/systemui/statusbar/Feature;->mPLMNIconDisplay:Z
 
     if-eqz v3, :cond_1
 
-    .line 1511
+    .line 1443
     iget-object v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationIcons:Lcom/android/systemui/statusbar/phone/IconMerger;
 
     invoke-virtual {v3}, Lcom/android/systemui/statusbar/phone/IconMerger;->getChildCount()I
@@ -16238,31 +13115,34 @@
 
     if-nez v3, :cond_1
 
-    .line 1512
+    .line 1444
     const/4 v3, 0x1
 
     const/high16 v4, 0x10a
 
     invoke-virtual {p0, v3, v4}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->setCarrierLabelVisibility(ZI)V
 
-    .line 1517
+    .line 1450
     :cond_1
     sget-boolean v3, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->isSweepedNotification:Z
 
-    if-eqz v3, :cond_2
+    if-eqz v3, :cond_3
 
-    .line 1518
+    .line 1451
+    if-eqz v2, :cond_2
+
+    .line 1452
     new-instance v0, Landroid/content/Intent;
 
     invoke-direct {v0}, Landroid/content/Intent;-><init>()V
 
-    .line 1519
+    .line 1453
     .local v0, intent:Landroid/content/Intent;
     const-string v3, "com.samsung.accessory.intent.action.CHECK_NOTIFICATION_ITEM"
 
     invoke-virtual {v0, v3}, Landroid/content/Intent;->setAction(Ljava/lang/String;)Landroid/content/Intent;
 
-    .line 1520
+    .line 1454
     const-string v3, "NOTIFICATION_PACKAGE_NAME"
 
     invoke-virtual {v2}, Landroid/service/notification/StatusBarNotification;->getPackageName()Ljava/lang/String;
@@ -16271,7 +13151,7 @@
 
     invoke-virtual {v0, v3, v4}, Landroid/content/Intent;->putExtra(Ljava/lang/String;Ljava/lang/String;)Landroid/content/Intent;
 
-    .line 1521
+    .line 1455
     const-string v3, "NOTIFICATION_ID"
 
     invoke-virtual {v2}, Landroid/service/notification/StatusBarNotification;->getId()I
@@ -16280,12 +13160,12 @@
 
     invoke-virtual {v0, v3, v4}, Landroid/content/Intent;->putExtra(Ljava/lang/String;I)Landroid/content/Intent;
 
-    .line 1522
+    .line 1456
     iget-object v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mContext:Landroid/content/Context;
 
     invoke-virtual {v3, v0}, Landroid/content/Context;->sendBroadcast(Landroid/content/Intent;)V
 
-    .line 1523
+    .line 1457
     const-string v3, "PhoneStatusBar"
 
     new-instance v4, Ljava/lang/StringBuilder;
@@ -16326,18 +13206,18 @@
 
     invoke-static {v3, v4}, Landroid/util/Slog;->v(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 1525
+    .line 1459
     new-instance v1, Landroid/content/Intent;
 
     invoke-direct {v1}, Landroid/content/Intent;-><init>()V
 
-    .line 1526
+    .line 1460
     .local v1, intentForMessage:Landroid/content/Intent;
     const-string v3, "com.android.sms.action.SWEEP_NOTIFICATION"
 
     invoke-virtual {v1, v3}, Landroid/content/Intent;->setAction(Ljava/lang/String;)Landroid/content/Intent;
 
-    .line 1527
+    .line 1461
     const-string v3, "NOTIFICATION_PACKAGE_NAME"
 
     invoke-virtual {v2}, Landroid/service/notification/StatusBarNotification;->getPackageName()Ljava/lang/String;
@@ -16346,20 +13226,21 @@
 
     invoke-virtual {v1, v3, v4}, Landroid/content/Intent;->putExtra(Ljava/lang/String;Ljava/lang/String;)Landroid/content/Intent;
 
-    .line 1528
+    .line 1462
     iget-object v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mContext:Landroid/content/Context;
 
     invoke-virtual {v3, v1}, Landroid/content/Context;->sendBroadcast(Landroid/content/Intent;)V
 
-    .line 1530
+    .line 1465
+    .end local v0           #intent:Landroid/content/Intent;
+    .end local v1           #intentForMessage:Landroid/content/Intent;
+    :cond_2
     const/4 v3, 0x0
 
     sput-boolean v3, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->isSweepedNotification:Z
 
-    .line 1540
-    .end local v0           #intent:Landroid/content/Intent;
-    .end local v1           #intentForMessage:Landroid/content/Intent;
-    :cond_2
+    .line 1468
+    :cond_3
     return-void
 .end method
 
@@ -16367,14 +13248,14 @@
     .locals 3
 
     .prologue
-    .line 3669
+    .line 3719
     const-string v1, "STATUSBAR-PhoneStatusBar"
 
     const-string v2, "removePlmnString"
 
     invoke-static {v1, v2}, Landroid/util/Slog;->d(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 3670
+    .line 3720
     iget-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mAttCarrierLabel:Landroid/widget/TextView;
 
     invoke-virtual {v1}, Landroid/widget/TextView;->getVisibility()I
@@ -16383,29 +13264,71 @@
 
     if-nez v1, :cond_0
 
-    .line 3671
+    .line 3721
     const/4 v1, 0x0
 
     const v2, 0x10a0001
 
     invoke-virtual {p0, v1, v2}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->setCarrierLabelVisibility(ZI)V
 
-    .line 3672
+    .line 3722
     iget-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationIcons:Lcom/android/systemui/statusbar/phone/IconMerger;
 
     invoke-virtual {v1}, Lcom/android/systemui/statusbar/phone/IconMerger;->getChildCount()I
 
     move-result v0
 
-    .line 3673
+    .line 3723
     .local v0, count:I
     if-nez v0, :cond_0
 
-    .line 3674
+    .line 3726
     invoke-virtual {p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->showPlmnString()V
 
-    .line 3678
+    .line 3730
     .end local v0           #count:I
+    :cond_0
+    return-void
+.end method
+
+.method public resetHeadsUpDecayTimer()V
+    .locals 4
+
+    .prologue
+    const/16 v3, 0x403
+
+    .line 1408
+    iget-boolean v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mUseHeadsUp:Z
+
+    if-eqz v0, :cond_0
+
+    iget v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mHeadsUpNotificationDecay:I
+
+    if-lez v0, :cond_0
+
+    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mHeadsUpNotificationView:Lcom/android/systemui/statusbar/policy/HeadsUpNotificationView;
+
+    invoke-virtual {v0}, Lcom/android/systemui/statusbar/policy/HeadsUpNotificationView;->isClearable()Z
+
+    move-result v0
+
+    if-eqz v0, :cond_0
+
+    .line 1410
+    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mHandler:Lcom/android/systemui/statusbar/BaseStatusBar$H;
+
+    invoke-virtual {v0, v3}, Lcom/android/systemui/statusbar/BaseStatusBar$H;->removeMessages(I)V
+
+    .line 1411
+    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mHandler:Lcom/android/systemui/statusbar/BaseStatusBar$H;
+
+    iget v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mHeadsUpNotificationDecay:I
+
+    int-to-long v1, v1
+
+    invoke-virtual {v0, v3, v1, v2}, Lcom/android/systemui/statusbar/BaseStatusBar$H;->sendEmptyMessageDelayed(IJ)Z
+
+    .line 1413
     :cond_0
     return-void
 .end method
@@ -16422,7 +13345,7 @@
 
     const/4 v5, 0x0
 
-    .line 1864
+    .line 1702
     iget-object v6, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationData:Lcom/android/systemui/statusbar/NotificationData;
 
     invoke-virtual {v6}, Lcom/android/systemui/statusbar/NotificationData;->size()I
@@ -16433,7 +13356,7 @@
 
     move v0, v4
 
-    .line 1866
+    .line 1704
     .local v0, any:Z
     :goto_0
     if-eqz v0, :cond_3
@@ -16448,7 +13371,7 @@
 
     move v1, v4
 
-    .line 1873
+    .line 1739
     .local v1, clearable:Z
     :goto_1
     iget-object v9, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mClearButton:Landroid/view/View;
@@ -16460,101 +13383,88 @@
     :goto_2
     invoke-virtual {v9, v6}, Landroid/view/View;->setAlpha(F)V
 
-    .line 1874
+    .line 1740
+    iget-object v9, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mClearButton:Landroid/view/View;
+
     if-eqz v1, :cond_5
-
-    iget-object v9, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSettingsButton:Landroid/widget/ImageView;
-
-    invoke-virtual {v9}, Landroid/widget/ImageView;->getVisibility()I
-
-    move-result v9
-
-    if-nez v9, :cond_5
 
     move v6, v5
 
     :goto_3
-    iget-object v9, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mClearButton:Landroid/view/View;
-
     invoke-virtual {v9, v6}, Landroid/view/View;->setVisibility(I)V
 
-    .line 1875
+    .line 1742
     iget-object v6, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mClearButton:Landroid/view/View;
 
     invoke-virtual {v6, v1}, Landroid/view/View;->setEnabled(Z)V
 
-    .line 1876
-    iget-object v9, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mLatestNotificationTitle:Landroid/widget/LinearLayout;
+    .line 1743
+    iget-object v6, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mPileTitle:Landroid/widget/LinearLayout;
 
-    if-eqz v1, :cond_6
+    invoke-virtual {v6, v1}, Landroid/widget/LinearLayout;->setFocusable(Z)V
 
-    move v6, v4
-
-    :goto_4
-    invoke-virtual {v9, v6}, Landroid/widget/LinearLayout;->setFocusable(Z)V
-
-    .line 1878
+    .line 1745
     iget-object v6, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarView:Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;
 
-    const v9, 0x7f09005c
+    const v9, 0x7f07006b
 
     invoke-virtual {v6, v9}, Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;->findViewById(I)Landroid/view/View;
 
     move-result-object v2
 
-    .line 1879
+    .line 1746
     .local v2, nlo:Landroid/view/View;
-    if-eqz v0, :cond_7
+    if-eqz v0, :cond_6
 
     invoke-direct {p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->areLightsOn()Z
 
     move-result v6
 
-    if-nez v6, :cond_7
+    if-nez v6, :cond_6
 
     move v3, v4
 
-    .line 1880
+    .line 1747
     .local v3, showDot:Z
-    :goto_5
+    :goto_4
     invoke-virtual {v2}, Landroid/view/View;->getAlpha()F
 
     move-result v6
 
     cmpl-float v6, v6, v7
 
-    if-nez v6, :cond_8
+    if-nez v6, :cond_7
 
-    :goto_6
+    :goto_5
     if-eq v3, v4, :cond_1
 
-    .line 1881
+    .line 1748
     if-eqz v3, :cond_0
 
-    .line 1882
+    .line 1749
     invoke-virtual {v2, v8}, Landroid/view/View;->setAlpha(F)V
 
-    .line 1883
+    .line 1750
     invoke-virtual {v2, v5}, Landroid/view/View;->setVisibility(I)V
 
-    .line 1885
+    .line 1752
     :cond_0
     invoke-virtual {v2}, Landroid/view/View;->animate()Landroid/view/ViewPropertyAnimator;
 
     move-result-object v4
 
-    if-eqz v3, :cond_9
+    if-eqz v3, :cond_8
 
-    :goto_7
+    :goto_6
     invoke-virtual {v4, v7}, Landroid/view/ViewPropertyAnimator;->alpha(F)Landroid/view/ViewPropertyAnimator;
 
     move-result-object v6
 
-    if-eqz v3, :cond_a
+    if-eqz v3, :cond_9
 
     const-wide/16 v4, 0x2ee
 
-    :goto_8
+    :goto_7
     invoke-virtual {v6, v4, v5}, Landroid/view/ViewPropertyAnimator;->setDuration(J)Landroid/view/ViewPropertyAnimator;
 
     move-result-object v4
@@ -16569,18 +13479,18 @@
 
     move-result-object v5
 
-    if-eqz v3, :cond_b
+    if-eqz v3, :cond_a
 
     const/4 v4, 0x0
 
-    :goto_9
+    :goto_8
     invoke-virtual {v5, v4}, Landroid/view/ViewPropertyAnimator;->setListener(Landroid/animation/Animator$AnimatorListener;)Landroid/view/ViewPropertyAnimator;
 
     move-result-object v4
 
     invoke-virtual {v4}, Landroid/view/ViewPropertyAnimator;->start()V
 
-    .line 1899
+    .line 1766
     :cond_1
     return-void
 
@@ -16591,66 +13501,60 @@
     :cond_2
     move v0, v5
 
-    .line 1864
+    .line 1702
     goto :goto_0
 
     .restart local v0       #any:Z
     :cond_3
     move v1, v5
 
-    .line 1866
+    .line 1704
     goto :goto_1
 
     .restart local v1       #clearable:Z
     :cond_4
     move v6, v8
 
-    .line 1873
+    .line 1739
     goto :goto_2
 
-    .line 1874
+    .line 1740
     :cond_5
     const/4 v6, 0x4
 
     goto :goto_3
 
-    :cond_6
-    move v6, v5
-
-    .line 1876
-    goto :goto_4
-
     .restart local v2       #nlo:Landroid/view/View;
-    :cond_7
+    :cond_6
     move v3, v5
 
-    .line 1879
-    goto :goto_5
+    .line 1746
+    goto :goto_4
 
     .restart local v3       #showDot:Z
-    :cond_8
+    :cond_7
     move v4, v5
 
-    .line 1880
+    .line 1747
+    goto :goto_5
+
+    :cond_8
+    move v7, v8
+
+    .line 1752
     goto :goto_6
 
     :cond_9
-    move v7, v8
+    const-wide/16 v4, 0xfa
 
-    .line 1885
     goto :goto_7
 
     :cond_a
-    const-wide/16 v4, 0xfa
+    new-instance v4, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$13;
+
+    invoke-direct {v4, p0, v2}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$13;-><init>(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;Landroid/view/View;)V
 
     goto :goto_8
-
-    :cond_b
-    new-instance v4, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$11;
-
-    invoke-direct {v4, p0, v2}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$11;-><init>(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;Landroid/view/View;)V
-
-    goto :goto_9
 .end method
 
 .method setCarrierLabelVisibility(ZI)V
@@ -16659,7 +13563,7 @@
     .parameter "anim"
 
     .prologue
-    .line 3230
+    .line 3229
     const-string v0, "PhoneStatusBar"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -16682,7 +13586,7 @@
 
     invoke-static {v0, v1}, Landroid/util/Slog;->d(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 3231
+    .line 3230
     iget-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mAttCarrierLabel:Landroid/widget/TextView;
 
     if-eqz p1, :cond_0
@@ -16692,10 +13596,10 @@
     :goto_0
     invoke-virtual {v1, v0}, Landroid/widget/TextView;->setVisibility(I)V
 
-    .line 3233
+    .line 3232
     return-void
 
-    .line 3231
+    .line 3230
     :cond_0
     const/16 v0, 0x8
 
@@ -16708,84 +13612,107 @@
     .parameter "enabled"
 
     .prologue
-    .line 2991
+    .line 2979
     return-void
 .end method
 
 .method public setImeWindowStatus(Landroid/os/IBinder;II)V
-    .locals 5
+    .locals 2
     .parameter "token"
     .parameter "vis"
     .parameter "backDisposition"
 
     .prologue
-    const/4 v2, 0x1
+    .line 2969
+    const/4 v1, 0x2
 
-    const/4 v1, 0x0
+    if-eq p3, v1, :cond_0
 
-    .line 2981
-    const/4 v3, 0x2
+    and-int/lit8 v1, p2, 0x2
 
-    if-eq p3, v3, :cond_0
-
-    and-int/lit8 v3, p2, 0x2
-
-    if-eqz v3, :cond_2
+    if-eqz v1, :cond_1
 
     :cond_0
-    move v0, v2
+    const/4 v0, 0x1
 
-    .line 2984
+    .line 2972
     .local v0, altBack:Z
     :goto_0
-    iget-object v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mCommandQueue:Lcom/android/systemui/statusbar/CommandQueue;
+    if-eqz v0, :cond_2
 
-    if-eqz v0, :cond_3
+    iget v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNavigationIconHints:I
 
-    iget v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNavigationIconHints:I
-
-    or-int/lit8 v3, v3, 0x8
+    or-int/lit8 v1, v1, 0x1
 
     :goto_1
-    invoke-virtual {v4, v3}, Lcom/android/systemui/statusbar/CommandQueue;->setNavigationIconHints(I)V
+    invoke-direct {p0, v1}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->setNavigationIconHints(I)V
 
-    .line 2987
-    iget-object v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mQS:Lcom/android/systemui/statusbar/phone/QuickSettings;
-
-    if-eqz v3, :cond_1
-
-    iget-object v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mQS:Lcom/android/systemui/statusbar/phone/QuickSettings;
-
-    if-lez p2, :cond_4
-
-    :goto_2
-    invoke-virtual {v3, v2}, Lcom/android/systemui/statusbar/phone/QuickSettings;->setImeWindowStatus(Z)V
-
-    .line 2988
-    :cond_1
+    .line 2976
     return-void
 
+    .line 2969
     .end local v0           #altBack:Z
-    :cond_2
-    move v0, v1
+    :cond_1
+    const/4 v0, 0x0
 
-    .line 2981
     goto :goto_0
 
-    .line 2984
+    .line 2972
     .restart local v0       #altBack:Z
-    :cond_3
-    iget v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNavigationIconHints:I
+    :cond_2
+    iget v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNavigationIconHints:I
 
-    and-int/lit8 v3, v3, -0x9
+    and-int/lit8 v1, v1, -0x2
 
     goto :goto_1
+.end method
 
-    :cond_4
-    move v2, v1
+.method public setInteracting(IZ)V
+    .locals 2
+    .parameter "barWindow"
+    .parameter "interacting"
 
-    .line 2987
-    goto :goto_2
+    .prologue
+    .line 2885
+    if-eqz p2, :cond_0
+
+    iget v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mInteractingWindows:I
+
+    or-int/2addr v0, p1
+
+    :goto_0
+    iput v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mInteractingWindows:I
+
+    .line 2888
+    iget v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mInteractingWindows:I
+
+    if-eqz v0, :cond_1
+
+    .line 2889
+    invoke-direct {p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->suspendAutohide()V
+
+    .line 2893
+    :goto_1
+    invoke-direct {p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->checkBarModes()V
+
+    .line 2894
+    return-void
+
+    .line 2885
+    :cond_0
+    iget v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mInteractingWindows:I
+
+    xor-int/lit8 v1, p1, -0x1
+
+    and-int/2addr v0, v1
+
+    goto :goto_0
+
+    .line 2891
+    :cond_1
+    invoke-direct {p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->resumeSuspendedAutohide()V
+
+    goto :goto_1
 .end method
 
 .method public setLightsOn(Z)V
@@ -16795,7 +13722,7 @@
     .prologue
     const/4 v3, 0x1
 
-    .line 2952
+    .line 2940
     const-string v0, "PhoneStatusBar"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -16824,19 +13751,19 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->v(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 2953
+    .line 2941
     if-eqz p1, :cond_0
 
-    .line 2954
+    .line 2942
     const/4 v0, 0x0
 
     invoke-virtual {p0, v0, v3}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->setSystemUiVisibility(II)V
 
-    .line 2958
+    .line 2946
     :goto_0
     return-void
 
-    .line 2956
+    .line 2944
     :cond_0
     invoke-virtual {p0, v3, v3}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->setSystemUiVisibility(II)V
 
@@ -16849,54 +13776,22 @@
     .parameter "v"
 
     .prologue
-    .line 2332
+    .line 2135
     const-string v0, "STATUSBAR-PhoneStatusBar"
 
     const-string v1, "setMinHeightWhenDone"
 
     invoke-static {v0, v1}, Landroid/util/Slog;->d(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 2333
-    new-instance v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$17;
+    .line 2136
+    new-instance v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$19;
 
-    invoke-direct {v0, p0, p2}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$17;-><init>(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;Landroid/view/View;)V
+    invoke-direct {v0, p0, p2}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$19;-><init>(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;Landroid/view/View;)V
 
     invoke-virtual {p1, v0}, Landroid/animation/Animator;->addListener(Landroid/animation/Animator$AnimatorListener;)V
 
-    .line 2340
+    .line 2144
     return-object p1
-.end method
-
-.method public setNavigationIconHints(I)V
-    .locals 1
-    .parameter "hints"
-
-    .prologue
-    .line 2865
-    iget v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNavigationIconHints:I
-
-    if-ne p1, v0, :cond_1
-
-    .line 2872
-    :cond_0
-    :goto_0
-    return-void
-
-    .line 2867
-    :cond_1
-    iput p1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNavigationIconHints:I
-
-    .line 2869
-    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNavigationBarView:Lcom/android/systemui/statusbar/phone/NavigationBarView;
-
-    if-eqz v0, :cond_0
-
-    .line 2870
-    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNavigationBarView:Lcom/android/systemui/statusbar/phone/NavigationBarView;
-
-    invoke-virtual {v0, p1}, Lcom/android/systemui/statusbar/phone/NavigationBarView;->setNavigationIconHints(I)V
-
-    goto :goto_0
 .end method
 
 .method setNotificationIconVisibility(ZI)V
@@ -16905,30 +13800,30 @@
     .parameter "anim"
 
     .prologue
-    .line 3237
+    .line 3236
     iget-object v2, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationIcons:Lcom/android/systemui/statusbar/phone/IconMerger;
 
     invoke-virtual {v2}, Lcom/android/systemui/statusbar/phone/IconMerger;->getVisibility()I
 
     move-result v0
 
-    .line 3238
+    .line 3237
     .local v0, old:I
     if-eqz p1, :cond_1
 
     const/4 v1, 0x0
 
-    .line 3239
+    .line 3238
     .local v1, v:I
     :goto_0
     if-eq v0, v1, :cond_0
 
-    .line 3240
+    .line 3239
     iget-object v2, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationIcons:Lcom/android/systemui/statusbar/phone/IconMerger;
 
     invoke-virtual {v2, v1}, Lcom/android/systemui/statusbar/phone/IconMerger;->setVisibility(I)V
 
-    .line 3241
+    .line 3240
     iget-object v2, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationIcons:Lcom/android/systemui/statusbar/phone/IconMerger;
 
     const/4 v3, 0x0
@@ -16939,11 +13834,11 @@
 
     invoke-virtual {v2, v3}, Lcom/android/systemui/statusbar/phone/IconMerger;->startAnimation(Landroid/view/animation/Animation;)V
 
-    .line 3243
+    .line 3242
     :cond_0
     return-void
 
-    .line 3238
+    .line 3237
     .end local v1           #v:I
     :cond_1
     const/4 v1, 0x4
@@ -16952,92 +13847,270 @@
 .end method
 
 .method public setSystemUiVisibility(II)V
-    .locals 6
+    .locals 13
     .parameter "vis"
     .parameter "mask"
 
     .prologue
-    .line 2876
-    iget v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSystemUiVisibility:I
+    .line 2766
+    iget v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSystemUiVisibility:I
 
-    .line 2877
-    .local v3, oldVal:I
-    xor-int/lit8 v4, p2, -0x1
+    .line 2767
+    .local v1, oldVal:I
+    xor-int/lit8 v0, p2, -0x1
 
-    and-int/2addr v4, v3
+    and-int/2addr v0, v1
 
-    and-int v5, p1, p2
+    and-int v3, p1, p2
 
-    or-int v2, v4, v5
+    or-int v2, v0, v3
 
-    .line 2878
+    .line 2768
     .local v2, newVal:I
-    xor-int v0, v2, v3
+    xor-int v7, v2, v1
 
-    .line 2880
-    .local v0, diff:I
-    if-eqz v0, :cond_3
+    .line 2774
+    .local v7, diff:I
+    if-eqz v7, :cond_a
 
-    .line 2881
+    .line 2775
     iput v2, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSystemUiVisibility:I
 
-    .line 2883
-    and-int/lit8 v4, v0, 0x1
+    .line 2778
+    and-int/lit8 v0, v7, 0x1
 
-    if-eqz v4, :cond_2
+    if-eqz v0, :cond_1
 
-    .line 2884
-    and-int/lit8 v4, p1, 0x1
+    .line 2779
+    and-int/lit8 v0, p1, 0x1
 
-    if-eqz v4, :cond_4
+    if-eqz v0, :cond_b
 
-    const/4 v1, 0x1
+    const/4 v8, 0x1
 
-    .line 2885
-    .local v1, lightsOut:Z
+    .line 2780
+    .local v8, lightsOut:Z
     :goto_0
-    if-eqz v1, :cond_0
+    if-eqz v8, :cond_0
 
-    .line 2886
+    .line 2781
     invoke-virtual {p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->animateCollapsePanels()V
 
-    .line 2887
-    iget-boolean v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mTicking:Z
+    .line 2782
+    iget-boolean v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mTicking:Z
 
-    if-eqz v4, :cond_0
+    if-eqz v0, :cond_0
 
-    .line 2888
+    .line 2783
     invoke-virtual {p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->haltTicker()V
 
-    .line 2892
+    .line 2787
     :cond_0
-    iget-object v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNavigationBarView:Lcom/android/systemui/statusbar/phone/NavigationBarView;
+    invoke-virtual {p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->setAreThereNotifications()V
 
-    if-eqz v4, :cond_1
-
-    .line 2893
-    iget-object v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNavigationBarView:Lcom/android/systemui/statusbar/phone/NavigationBarView;
-
-    invoke-virtual {v4, v1}, Lcom/android/systemui/statusbar/phone/NavigationBarView;->setLowProfile(Z)V
-
-    .line 2896
+    .line 2791
+    .end local v8           #lightsOut:Z
     :cond_1
-    invoke-direct {p0, v1}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->setStatusBarLowProfile(Z)V
+    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarView:Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;
 
-    .line 2899
-    .end local v1           #lightsOut:Z
+    invoke-virtual {v0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;->getBarTransitions()Lcom/android/systemui/statusbar/phone/BarTransitions;
+
+    move-result-object v3
+
+    const/high16 v4, 0x400
+
+    const/high16 v5, 0x4000
+
+    move-object v0, p0
+
+    invoke-direct/range {v0 .. v5}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->computeBarMode(IILcom/android/systemui/statusbar/phone/BarTransitions;II)I
+
+    move-result v11
+
+    .line 2795
+    .local v11, sbMode:I
+    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNavigationBarView:Lcom/android/systemui/statusbar/phone/NavigationBarView;
+
+    if-nez v0, :cond_c
+
+    const/4 v9, -0x1
+
+    .line 2798
+    .local v9, nbMode:I
+    :goto_1
+    const/4 v0, -0x1
+
+    if-eq v11, v0, :cond_d
+
+    const/4 v12, 0x1
+
+    .line 2799
+    .local v12, sbModeChanged:Z
+    :goto_2
+    const/4 v0, -0x1
+
+    if-eq v9, v0, :cond_e
+
+    const/4 v10, 0x1
+
+    .line 2800
+    .local v10, nbModeChanged:Z
+    :goto_3
+    const/4 v6, 0x0
+
+    .line 2801
+    .local v6, checkBarModes:Z
+    if-eqz v12, :cond_2
+
+    iget v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarMode:I
+
+    if-eq v11, v0, :cond_2
+
+    .line 2802
+    iput v11, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarMode:I
+
+    .line 2803
+    const/4 v6, 0x1
+
+    .line 2805
     :cond_2
-    invoke-direct {p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->notifyUiVisibilityChanged()V
+    if-eqz v10, :cond_3
 
-    .line 2901
+    iget v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNavigationBarMode:I
+
+    if-eq v9, v0, :cond_3
+
+    .line 2806
+    iput v9, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNavigationBarMode:I
+
+    .line 2807
+    const/4 v6, 0x1
+
+    .line 2809
     :cond_3
+    if-eqz v6, :cond_4
+
+    .line 2810
+    invoke-direct {p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->checkBarModes()V
+
+    .line 2812
+    :cond_4
+    if-nez v12, :cond_5
+
+    if-eqz v10, :cond_7
+
+    .line 2814
+    :cond_5
+    const/4 v0, 0x1
+
+    if-eq v11, v0, :cond_6
+
+    const/4 v0, 0x1
+
+    if-ne v9, v0, :cond_f
+
+    .line 2815
+    :cond_6
+    invoke-direct {p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->scheduleAutohide()V
+
+    .line 2822
+    :cond_7
+    :goto_4
+    const/high16 v0, 0x1000
+
+    and-int/2addr v0, p1
+
+    if-eqz v0, :cond_8
+
+    .line 2823
+    iget v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSystemUiVisibility:I
+
+    const v3, -0x10000001
+
+    and-int/2addr v0, v3
+
+    iput v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSystemUiVisibility:I
+
+    .line 2825
+    :cond_8
+    const/high16 v0, 0x2000
+
+    and-int/2addr v0, p1
+
+    if-eqz v0, :cond_9
+
+    .line 2826
+    iget v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSystemUiVisibility:I
+
+    const v3, -0x20000001
+
+    and-int/2addr v0, v3
+
+    iput v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSystemUiVisibility:I
+
+    .line 2830
+    :cond_9
+    iget v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSystemUiVisibility:I
+
+    invoke-direct {p0, v0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->notifyUiVisibilityChanged(I)V
+
+    .line 2832
+    .end local v6           #checkBarModes:Z
+    .end local v9           #nbMode:I
+    .end local v10           #nbModeChanged:Z
+    .end local v11           #sbMode:I
+    .end local v12           #sbModeChanged:Z
+    :cond_a
     return-void
 
-    .line 2884
-    :cond_4
-    const/4 v1, 0x0
+    .line 2779
+    :cond_b
+    const/4 v8, 0x0
 
     goto :goto_0
+
+    .line 2795
+    .restart local v11       #sbMode:I
+    :cond_c
+    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNavigationBarView:Lcom/android/systemui/statusbar/phone/NavigationBarView;
+
+    invoke-virtual {v0}, Lcom/android/systemui/statusbar/phone/NavigationBarView;->getBarTransitions()Lcom/android/systemui/statusbar/phone/BarTransitions;
+
+    move-result-object v3
+
+    const/high16 v4, 0x800
+
+    const/high16 v5, -0x8000
+
+    move-object v0, p0
+
+    invoke-direct/range {v0 .. v5}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->computeBarMode(IILcom/android/systemui/statusbar/phone/BarTransitions;II)I
+
+    move-result v9
+
+    goto :goto_1
+
+    .line 2798
+    .restart local v9       #nbMode:I
+    :cond_d
+    const/4 v12, 0x0
+
+    goto :goto_2
+
+    .line 2799
+    .restart local v12       #sbModeChanged:Z
+    :cond_e
+    const/4 v10, 0x0
+
+    goto :goto_3
+
+    .line 2817
+    .restart local v6       #checkBarModes:Z
+    .restart local v10       #nbModeChanged:Z
+    :cond_f
+    invoke-direct {p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->cancelAutohide()V
+
+    goto :goto_4
 .end method
 
 .method public setVisibilityWhenDone(Landroid/animation/Animator;Landroid/view/View;I)Landroid/animation/Animator;
@@ -17047,14 +14120,14 @@
     .parameter "vis"
 
     .prologue
-    .line 2319
-    new-instance v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$16;
+    .line 2123
+    new-instance v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$18;
 
-    invoke-direct {v0, p0, p2, p3}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$16;-><init>(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;Landroid/view/View;I)V
+    invoke-direct {v0, p0, p2, p3}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$18;-><init>(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;Landroid/view/View;I)V
 
     invoke-virtual {p1, v0}, Landroid/animation/Animator;->addListener(Landroid/animation/Animator$AnimatorListener;)V
 
-    .line 2325
+    .line 2129
     return-object p1
 .end method
 
@@ -17065,22 +14138,148 @@
     .parameter "vis"
 
     .prologue
-    .line 2307
-    new-instance v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$15;
+    .line 2111
+    new-instance v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$17;
 
-    invoke-direct {v0, p0, p2, p3, p1}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$15;-><init>(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;Landroid/view/View;ILandroid/view/ViewPropertyAnimator;)V
+    invoke-direct {v0, p0, p2, p3, p1}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$17;-><init>(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;Landroid/view/View;ILandroid/view/ViewPropertyAnimator;)V
 
     invoke-virtual {p1, v0}, Landroid/view/ViewPropertyAnimator;->setListener(Landroid/animation/Animator$AnimatorListener;)Landroid/view/ViewPropertyAnimator;
 
-    .line 2314
+    .line 2118
     return-object p1
+.end method
+
+.method public setWindowState(II)V
+    .locals 5
+    .parameter "window"
+    .parameter "state"
+
+    .prologue
+    const/4 v1, 0x1
+
+    const/4 v2, 0x0
+
+    .line 2717
+    if-nez p2, :cond_2
+
+    move v0, v1
+
+    .line 2718
+    .local v0, showing:Z
+    :goto_0
+    iget-object v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarWindow:Lcom/android/systemui/statusbar/phone/StatusBarWindowView;
+
+    if-eqz v3, :cond_0
+
+    if-ne p1, v1, :cond_0
+
+    iget v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarWindowState:I
+
+    if-eq v1, p2, :cond_0
+
+    .line 2721
+    iput p2, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarWindowState:I
+
+    .line 2722
+    const-string v1, "PhoneStatusBar"
+
+    new-instance v3, Ljava/lang/StringBuilder;
+
+    invoke-direct {v3}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v4, "Status bar "
+
+    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v3
+
+    invoke-static {p2}, Landroid/app/StatusBarManager;->windowStateToString(I)Ljava/lang/String;
+
+    move-result-object v4
+
+    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v3
+
+    invoke-virtual {v3}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v3
+
+    invoke-static {v1, v3}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 2723
+    if-nez v0, :cond_0
+
+    iget-boolean v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mTicking:Z
+
+    if-nez v1, :cond_0
+
+    .line 2724
+    iget-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarView:Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;
+
+    invoke-virtual {v1, v2}, Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;->collapseAllPanels(Z)V
+
+    .line 2727
+    :cond_0
+    iget-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNavigationBarView:Lcom/android/systemui/statusbar/phone/NavigationBarView;
+
+    if-eqz v1, :cond_1
+
+    const/4 v1, 0x2
+
+    if-ne p1, v1, :cond_1
+
+    iget v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNavigationBarWindowState:I
+
+    if-eq v1, p2, :cond_1
+
+    .line 2730
+    iput p2, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNavigationBarWindowState:I
+
+    .line 2731
+    const-string v1, "PhoneStatusBar"
+
+    new-instance v2, Ljava/lang/StringBuilder;
+
+    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v3, "Navigation bar "
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    invoke-static {p2}, Landroid/app/StatusBarManager;->windowStateToString(I)Ljava/lang/String;
+
+    move-result-object v3
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    invoke-virtual {v2}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v2
+
+    invoke-static {v1, v2}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 2733
+    :cond_1
+    return-void
+
+    .end local v0           #showing:Z
+    :cond_2
+    move v0, v2
+
+    .line 2717
+    goto :goto_0
 .end method
 
 .method protected shouldDisableNavbarGestures()Z
     .locals 2
 
     .prologue
-    .line 3859
+    .line 3940
     invoke-virtual {p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->isDeviceProvisioned()Z
 
     move-result v0
@@ -17116,224 +14315,73 @@
 .end method
 
 .method public showCallOnGoingView()V
-    .locals 4
+    .locals 2
 
     .prologue
-    const/4 v3, -0x1
+    .line 2740
+    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarView:Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;
 
-    .line 3903
-    iget-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mCallOnGoingView:Landroid/view/View;
+    if-eqz v0, :cond_0
 
-    if-nez v1, :cond_0
+    .line 2741
+    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarView:Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;
 
-    .line 3904
-    new-instance v1, Landroid/view/View;
+    const/4 v1, 0x1
 
-    iget-object v2, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mContext:Landroid/content/Context;
+    invoke-virtual {v0, v1}, Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;->showCallOnGoingView(Z)V
 
-    invoke-direct {v1, v2}, Landroid/view/View;-><init>(Landroid/content/Context;)V
-
-    iput-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mCallOnGoingView:Landroid/view/View;
-
-    .line 3905
-    iget-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mCallOnGoingView:Landroid/view/View;
-
-    const v2, 0x7f020251
-
-    invoke-virtual {v1, v2}, Landroid/view/View;->setBackgroundResource(I)V
-
-    .line 3907
+    .line 2743
     :cond_0
-    iget-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarView:Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;
-
-    iget-object v2, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mCallOnGoingView:Landroid/view/View;
-
-    invoke-virtual {v1, v2}, Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;->indexOfChild(Landroid/view/View;)I
-
-    move-result v1
-
-    if-ne v1, v3, :cond_1
-
-    .line 3908
-    new-instance v0, Landroid/view/ViewGroup$LayoutParams;
-
-    invoke-direct {v0, v3, v3}, Landroid/view/ViewGroup$LayoutParams;-><init>(II)V
-
-    .line 3910
-    .local v0, vglp:Landroid/view/ViewGroup$LayoutParams;
-    iget-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarView:Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;
-
-    iget-object v2, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mCallOnGoingView:Landroid/view/View;
-
-    invoke-virtual {v1, v2, v0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;->addView(Landroid/view/View;Landroid/view/ViewGroup$LayoutParams;)V
-
-    .line 3912
-    .end local v0           #vglp:Landroid/view/ViewGroup$LayoutParams;
-    :cond_1
     return-void
-.end method
-
-.method public showCling()V
-    .locals 5
-
-    .prologue
-    const/4 v3, 0x1
-
-    .line 2781
-    iget-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarWindow:Lcom/android/systemui/statusbar/phone/StatusBarWindowView;
-
-    const v2, 0x7f090005
-
-    invoke-virtual {v1, v2}, Lcom/android/systemui/statusbar/phone/StatusBarWindowView;->findViewById(I)Landroid/view/View;
-
-    move-result-object v0
-
-    check-cast v0, Landroid/view/ViewStub;
-
-    .line 2782
-    .local v0, stub:Landroid/view/ViewStub;
-    if-nez v0, :cond_0
-
-    .line 2783
-    iput-boolean v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mClingShown:Z
-
-    .line 2822
-    :goto_0
-    return-void
-
-    .line 2787
-    :cond_0
-    iput-boolean v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSuppressStatusBarDrags:Z
-
-    .line 2789
-    iget-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mHandler:Lcom/android/systemui/statusbar/BaseStatusBar$H;
-
-    new-instance v2, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$19;
-
-    invoke-direct {v2, p0, v0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$19;-><init>(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;Landroid/view/ViewStub;)V
-
-    const-wide/16 v3, 0x1f4
-
-    invoke-virtual {v1, v2, v3, v4}, Lcom/android/systemui/statusbar/BaseStatusBar$H;->postDelayed(Ljava/lang/Runnable;J)Z
-
-    .line 2821
-    invoke-virtual {p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->animateExpandNotificationsPanel()V
-
-    goto :goto_0
 .end method
 
 .method public showClock(Z)V
-    .locals 6
+    .locals 3
     .parameter "show"
 
     .prologue
-    const/4 v5, 0x0
-
-    .line 1908
+    .line 1769
     iget-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarView:Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;
 
     if-nez v1, :cond_1
 
-    .line 1916
+    .line 1774
     :cond_0
     :goto_0
     return-void
 
-    .line 1909
+    .line 1770
     :cond_1
-    iget-object v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mContext:Landroid/content/Context;
-
-    invoke-virtual {v3}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
-
-    move-result-object v3
-
-    .line 1910
-    .local v3, resolver:Landroid/content/ContentResolver;
-    const-string v4, "statusbar_clock_style"
-
-    invoke-static {v3, v4, v5}, Landroid/provider/Settings$Global;->getInt(Landroid/content/ContentResolver;Ljava/lang/String;I)I
-
-    move-result v2
-
-    const/4 v4, 0x3
-
-    if-eq v2, v4, :cond_0
-
-    const-string v4, "statusbar_clock_position"
-
-    invoke-static {v3, v4, v5}, Landroid/provider/Settings$Global;->getInt(Landroid/content/ContentResolver;Ljava/lang/String;I)I
-
-    move-result v2
-
-    if-eqz v2, :cond_2
-
-    const/4 v4, 0x1
-
-    if-eq v2, v4, :cond_3
-
     iget-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarView:Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;
 
-    const v2, 0x7f09013c
+    const v2, 0x7f070078
 
     invoke-virtual {v1, v2}, Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;->findViewById(I)Landroid/view/View;
 
     move-result-object v0
 
-    .line 1911
+    .line 1771
     .local v0, clock:Landroid/view/View;
     if-eqz v0, :cond_0
 
-    goto :goto_1
-
-    :cond_2
-    iget-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarView:Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;
-
-    const v2, 0x7f09006a
-
-    invoke-virtual {v1, v2}, Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;->findViewById(I)Landroid/view/View;
-
-    move-result-object v0
-
-    .line 1912
-    .local v0, clock:Landroid/view/View;
-    if-eqz v0, :cond_0
-
-    goto :goto_1
-
-    :cond_3
-    iget-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarView:Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;
-
-    const v2, 0x7f09013b
-
-    invoke-virtual {v1, v2}, Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;->findViewById(I)Landroid/view/View;
-
-    move-result-object v0
-
-    .line 1913
-    .local v0, clock:Landroid/view/View;
-    if-eqz v0, :cond_0
-
-    :goto_1
-    iput-boolean p1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mClockVisibility:Z
-
-    .line 1914
-    if-eqz p1, :cond_4
+    .line 1772
+    if-eqz p1, :cond_2
 
     iget-boolean v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mShowClockByClearCover:Z
 
-    if-eqz v1, :cond_4
+    if-eqz v1, :cond_2
 
     const/4 v1, 0x0
 
-    :goto_2
+    :goto_1
     invoke-virtual {v0, v1}, Landroid/view/View;->setVisibility(I)V
 
     goto :goto_0
 
-    :cond_4
+    :cond_2
     const/16 v1, 0x8
 
-    goto :goto_2
+    goto :goto_1
 .end method
 
 .method public showClockByClearCover(Z)V
@@ -17341,15 +14389,15 @@
     .parameter "show"
 
     .prologue
-    .line 1903
+    .line 1781
     iput-boolean p1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mShowClockByClearCover:Z
 
-    .line 1904
+    .line 1782
     iget-boolean v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mClockVisibility:Z
 
     invoke-virtual {p0, v0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->showClock(Z)V
 
-    .line 1905
+    .line 1783
     return-void
 .end method
 
@@ -17357,76 +14405,56 @@
     .locals 4
 
     .prologue
-    .line 3652
+    .line 3702
     const-string v1, "STATUSBAR-PhoneStatusBar"
 
     const-string v2, "showPlmnString"
 
     invoke-static {v1, v2}, Landroid/util/Slog;->d(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 3653
-    sget-boolean v0, Lcom/android/systemui/statusbar/Feature;->mPLMNIconDisplay:Z
-
-    if-eqz v0, :cond_0
-
-    iget-boolean v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mCoverOpen:Z
-
-    if-nez v0, :cond_1
-
-    :cond_0
-    const/4 v1, 0x0
-
-    const/high16 v2, 0x10a
-
-    invoke-virtual {p0, v1, v2}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->setCarrierLabelVisibility(ZI)V
-
-    goto :goto_0
-
-    :cond_1
+    .line 3703
     iget-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mAttCarrierLabel:Landroid/widget/TextView;
 
     invoke-virtual {v1}, Landroid/widget/TextView;->getVisibility()I
 
     move-result v1
 
-    if-eqz v1, :cond_2
+    if-eqz v1, :cond_0
 
-    .line 3654
+    .line 3704
     const/4 v1, 0x1
 
     const/high16 v2, 0x10a
 
     invoke-virtual {p0, v1, v2}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->setCarrierLabelVisibility(ZI)V
 
-    .line 3656
-    :cond_2
+    .line 3706
     iget-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationIcons:Lcom/android/systemui/statusbar/phone/IconMerger;
 
     invoke-virtual {v1}, Lcom/android/systemui/statusbar/phone/IconMerger;->getChildCount()I
 
     move-result v1
 
-    if-lez v1, :cond_3
+    if-lez v1, :cond_0
 
-    .line 3657
+    .line 3707
     new-instance v0, Landroid/os/Handler;
 
     invoke-direct {v0}, Landroid/os/Handler;-><init>()V
 
-    .line 3658
+    .line 3708
     .local v0, mPlmnHandler:Landroid/os/Handler;
-    new-instance v1, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$29;
+    new-instance v1, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$31;
 
-    invoke-direct {v1, p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$29;-><init>(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)V
+    invoke-direct {v1, p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$31;-><init>(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)V
 
     const-wide/16 v2, 0xfa0
 
     invoke-virtual {v0, v1, v2, v3}, Landroid/os/Handler;->postDelayed(Ljava/lang/Runnable;J)Z
 
-    .line 3666
+    .line 3716
     .end local v0           #mPlmnHandler:Landroid/os/Handler;
-    :cond_3
-    :goto_0
+    :cond_0
     return-void
 .end method
 
@@ -17434,24 +14462,29 @@
     .locals 3
 
     .prologue
-    .line 1204
+    .line 1154
     invoke-super {p0}, Lcom/android/systemui/statusbar/BaseStatusBar;->showSearchPanel()V
 
-    .line 1205
+    .line 1155
     iget-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mHandler:Lcom/android/systemui/statusbar/BaseStatusBar$H;
 
     iget-object v2, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mShowSearchPanel:Ljava/lang/Runnable;
 
     invoke-virtual {v1, v2}, Lcom/android/systemui/statusbar/BaseStatusBar$H;->removeCallbacks(Ljava/lang/Runnable;)V
 
-    .line 1208
+    .line 1158
     iget-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSearchPanelView:Lcom/android/systemui/SearchPanelView;
 
     iget v2, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSystemUiVisibility:I
 
     invoke-virtual {v1, v2}, Lcom/android/systemui/SearchPanelView;->setSystemUiVisibility(I)V
 
-    .line 1210
+    .line 1160
+    iget-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNavigationBarView:Lcom/android/systemui/statusbar/phone/NavigationBarView;
+
+    if-eqz v1, :cond_0
+
+    .line 1161
     iget-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNavigationBarView:Lcom/android/systemui/statusbar/phone/NavigationBarView;
 
     invoke-virtual {v1}, Lcom/android/systemui/statusbar/phone/NavigationBarView;->getLayoutParams()Landroid/view/ViewGroup$LayoutParams;
@@ -17460,7 +14493,7 @@
 
     check-cast v0, Landroid/view/WindowManager$LayoutParams;
 
-    .line 1212
+    .line 1163
     .local v0, lp:Landroid/view/WindowManager$LayoutParams;
     iget v1, v0, Landroid/view/WindowManager$LayoutParams;->flags:I
 
@@ -17468,14 +14501,16 @@
 
     iput v1, v0, Landroid/view/WindowManager$LayoutParams;->flags:I
 
-    .line 1213
+    .line 1164
     iget-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mWindowManager:Landroid/view/WindowManager;
 
     iget-object v2, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNavigationBarView:Lcom/android/systemui/statusbar/phone/NavigationBarView;
 
     invoke-interface {v1, v2, v0}, Landroid/view/WindowManager;->updateViewLayout(Landroid/view/View;Landroid/view/ViewGroup$LayoutParams;)V
 
-    .line 1214
+    .line 1166
+    .end local v0           #lp:Landroid/view/WindowManager$LayoutParams;
+    :cond_0
     return-void
 .end method
 
@@ -17484,18 +14519,20 @@
     .parameter "a"
 
     .prologue
-    .line 2356
+    .line 2160
     invoke-virtual {p1}, Landroid/animation/Animator;->start()V
 
-    .line 2357
+    .line 2161
     return-object p1
 .end method
 
 .method public start()V
-    .locals 2
+    .locals 4
 
     .prologue
-    .line 496
+    const/4 v3, 0x1
+
+    .line 428
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mContext:Landroid/content/Context;
 
     const-string v1, "window"
@@ -17512,26 +14549,16 @@
 
     iput-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mDisplay:Landroid/view/Display;
 
-    .line 499
-    const-string v0, "dreams"
+    .line 430
+    invoke-virtual {p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->updateDisplaySize()V
 
-    invoke-static {v0}, Landroid/os/ServiceManager;->checkService(Ljava/lang/String;)Landroid/os/IBinder;
-
-    move-result-object v0
-
-    invoke-static {v0}, Landroid/service/dreams/IDreamManager$Stub;->asInterface(Landroid/os/IBinder;)Landroid/service/dreams/IDreamManager;
-
-    move-result-object v0
-
-    iput-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mDreamManager:Landroid/service/dreams/IDreamManager;
-
-    .line 502
+    .line 432
     invoke-super {p0}, Lcom/android/systemui/statusbar/BaseStatusBar;->start()V
 
-    .line 504
+    .line 434
     invoke-direct {p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->addNavigationBar()V
 
-    .line 509
+    .line 437
     new-instance v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBarPolicy;
 
     iget-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mContext:Landroid/content/Context;
@@ -17540,7 +14567,29 @@
 
     iput-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mIconPolicy:Lcom/android/systemui/statusbar/phone/PhoneStatusBarPolicy;
 
-    .line 510
+    .line 439
+    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mHeadsUpObserver:Landroid/database/ContentObserver;
+
+    invoke-virtual {v0, v3}, Landroid/database/ContentObserver;->onChange(Z)V
+
+    .line 441
+    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mContext:Landroid/content/Context;
+
+    invoke-virtual {v0}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
+
+    move-result-object v0
+
+    const-string v1, "heads_up_enabled"
+
+    invoke-static {v1}, Landroid/provider/Settings$Global;->getUriFor(Ljava/lang/String;)Landroid/net/Uri;
+
+    move-result-object v1
+
+    iget-object v2, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mHeadsUpObserver:Landroid/database/ContentObserver;
+
+    invoke-virtual {v0, v1, v3, v2}, Landroid/content/ContentResolver;->registerContentObserver(Landroid/net/Uri;ZLandroid/database/ContentObserver;)V
+
+    .line 445
     return-void
 .end method
 
@@ -17550,7 +14599,7 @@
     .parameter "onlyProvisioned"
 
     .prologue
-    .line 3404
+    .line 3412
     if-eqz p2, :cond_0
 
     invoke-virtual {p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->isDeviceProvisioned()Z
@@ -17559,11 +14608,11 @@
 
     if-nez v0, :cond_0
 
-    .line 3413
+    .line 3421
     :goto_0
     return-void
 
-    .line 3407
+    .line 3415
     :cond_0
     :try_start_0
     invoke-static {}, Landroid/app/ActivityManagerNative;->getDefault()Landroid/app/IActivityManager;
@@ -17574,13 +14623,13 @@
     :try_end_0
     .catch Landroid/os/RemoteException; {:try_start_0 .. :try_end_0} :catch_0
 
-    .line 3410
+    .line 3418
     :goto_1
     const/high16 v0, 0x1400
 
     invoke-virtual {p1, v0}, Landroid/content/Intent;->setFlags(I)Landroid/content/Intent;
 
-    .line 3411
+    .line 3419
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mContext:Landroid/content/Context;
 
     new-instance v1, Landroid/os/UserHandle;
@@ -17591,12 +14640,12 @@
 
     invoke-virtual {v0, p1, v1}, Landroid/content/Context;->startActivityAsUser(Landroid/content/Intent;Landroid/os/UserHandle;)V
 
-    .line 3412
+    .line 3420
     invoke-virtual {p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->animateCollapsePanels()V
 
     goto :goto_0
 
-    .line 3408
+    .line 3416
     :catch_0
     move-exception v0
 
@@ -17609,12 +14658,12 @@
     .parameter "a"
 
     .prologue
-    .line 2351
+    .line 2155
     int-to-long v0, p1
 
     invoke-virtual {p2, v0, v1}, Landroid/animation/Animator;->setStartDelay(J)V
 
-    .line 2352
+    .line 2156
     return-object p2
 .end method
 
@@ -17628,97 +14677,87 @@
 
     const/4 v2, 0x0
 
-    .line 2501
+    .line 2336
     const-string v0, "STATUSBAR-PhoneStatusBar"
 
     const-string v1, "switchToSettings"
 
     invoke-static {v0, v1}, Landroid/util/Slog;->d(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 2503
-    iget-boolean v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mKidsModeActivated:Z
-
-    if-eqz v0, :cond_0
-
-    .line 2524
-    :goto_0
-    return-void
-
-    .line 2505
-    :cond_0
+    .line 2338
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mFlipSettingsView:Landroid/view/View;
 
     invoke-virtual {v0, v3}, Landroid/view/View;->setScaleX(F)V
 
-    .line 2506
+    .line 2339
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mFlipSettingsView:Landroid/view/View;
 
     invoke-virtual {v0, v2}, Landroid/view/View;->setVisibility(I)V
 
-    invoke-direct {p0, v2}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->updateNotiToggs(Z)V
-
-    .line 2509
+    .line 2342
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSettingsButton:Landroid/widget/ImageView;
 
     invoke-virtual {v0, v4}, Landroid/widget/ImageView;->setVisibility(I)V
 
-    .line 2510
+    .line 2343
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mBasicSettingsButton:Landroid/widget/ImageView;
 
     invoke-virtual {v0, v4}, Landroid/widget/ImageView;->setVisibility(I)V
 
-    .line 2511
+    .line 2344
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mScrollView:Landroid/widget/ScrollView;
 
     invoke-virtual {v0, v4}, Landroid/widget/ScrollView;->setVisibility(I)V
 
-    .line 2513
+    .line 2346
     iget-boolean v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mHasFlipSettings:Z
-
-    if-eqz v0, :cond_2
-
-    .line 2514
-    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mQSPanel:Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingPanel;
 
     if-eqz v0, :cond_1
 
+    .line 2347
+    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mQSPanel:Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingPanel;
+
+    if-eqz v0, :cond_0
+
+    .line 2348
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mQSPanel:Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingPanel;
 
     invoke-virtual {v0, v2}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingPanel;->setSingleLine(Z)V
 
-    .line 2515
+    .line 2349
+    :cond_0
+    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationButton:Landroid/widget/ImageView;
+
+    invoke-virtual {v0, v2}, Landroid/widget/ImageView;->setVisibility(I)V
+
+    .line 2350
+    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationButton:Landroid/widget/ImageView;
+
+    invoke-virtual {v0, v3}, Landroid/widget/ImageView;->setAlpha(F)V
+
+    .line 2354
+    :goto_0
+    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSettingsEditButton:Landroid/widget/ImageView;
+
+    invoke-virtual {v0, v2}, Landroid/widget/ImageView;->setVisibility(I)V
+
+    .line 2355
+    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSettingsEditButton:Landroid/widget/ImageView;
+
+    invoke-virtual {v0, v3}, Landroid/widget/ImageView;->setAlpha(F)V
+
+    .line 2358
+    return-void
+
+    .line 2352
     :cond_1
-    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationButton:Landroid/widget/ImageView;
-
-    invoke-virtual {v0, v2}, Landroid/widget/ImageView;->setVisibility(I)V
-
-    .line 2516
-    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationButton:Landroid/widget/ImageView;
-
-    invoke-virtual {v0, v3}, Landroid/widget/ImageView;->setAlpha(F)V
-
-    .line 2520
-    :goto_1
-    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSettingsEditButton:Landroid/widget/ImageView;
-
-    invoke-virtual {v0, v2}, Landroid/widget/ImageView;->setVisibility(I)V
-
-    .line 2521
-    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSettingsEditButton:Landroid/widget/ImageView;
-
-    invoke-virtual {v0, v3}, Landroid/widget/ImageView;->setAlpha(F)V
-
-    goto :goto_0
-
-    .line 2518
-    :cond_2
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mScrollView:Landroid/widget/ScrollView;
 
     const/4 v1, 0x0
 
     invoke-virtual {v0, v1}, Landroid/widget/ScrollView;->setScaleX(F)V
 
-    goto :goto_1
+    goto :goto_0
 .end method
 
 .method protected tick(Landroid/os/IBinder;Landroid/service/notification/StatusBarNotification;Z)V
@@ -17728,19 +14767,19 @@
     .parameter "firstTime"
 
     .prologue
-    .line 2996
+    .line 2984
     invoke-direct {p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->areLightsOn()Z
 
     move-result v0
 
     if-nez v0, :cond_1
 
-    .line 3014
+    .line 3002
     :cond_0
     :goto_0
     return-void
 
-    .line 2999
+    .line 2987
     :cond_1
     invoke-virtual {p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->isDeviceProvisioned()Z
 
@@ -17748,14 +14787,14 @@
 
     if-eqz v0, :cond_0
 
-    .line 3002
+    .line 2990
     invoke-virtual {p0, p2}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->notificationIsForCurrentUser(Landroid/service/notification/StatusBarNotification;)Z
 
     move-result v0
 
     if-eqz v0, :cond_0
 
-    .line 3008
+    .line 2996
     invoke-virtual {p2}, Landroid/service/notification/StatusBarNotification;->getNotification()Landroid/app/Notification;
 
     move-result-object v0
@@ -17772,7 +14811,7 @@
 
     if-eqz v0, :cond_0
 
-    .line 3009
+    .line 2997
     iget v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mDisabled:I
 
     const/high16 v1, 0xa
@@ -17781,7 +14820,7 @@
 
     if-nez v0, :cond_0
 
-    .line 3011
+    .line 2999
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mTicker:Lcom/android/systemui/statusbar/phone/Ticker;
 
     invoke-virtual {v0, p2}, Lcom/android/systemui/statusbar/phone/Ticker;->addEntry(Landroid/service/notification/StatusBarNotification;)V
@@ -17793,29 +14832,29 @@
     .locals 2
 
     .prologue
-    .line 3931
+    .line 2758
     iget-boolean v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mExpandedVisible:Z
 
     if-eqz v1, :cond_0
 
     const/16 v0, 0x3e9
 
-    .line 3932
+    .line 2759
     .local v0, msg:I
     :goto_0
     iget-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mHandler:Lcom/android/systemui/statusbar/BaseStatusBar$H;
 
     invoke-virtual {v1, v0}, Lcom/android/systemui/statusbar/BaseStatusBar$H;->removeMessages(I)V
 
-    .line 3933
+    .line 2760
     iget-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mHandler:Lcom/android/systemui/statusbar/BaseStatusBar$H;
 
     invoke-virtual {v1, v0}, Lcom/android/systemui/statusbar/BaseStatusBar$H;->sendEmptyMessage(I)Z
 
-    .line 3934
+    .line 2761
     return-void
 
-    .line 3931
+    .line 2758
     .end local v0           #msg:I
     :cond_0
     const/16 v0, 0x3e8
@@ -17828,17 +14867,17 @@
     .parameter "showMenu"
 
     .prologue
-    .line 2971
+    .line 2959
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNavigationBarView:Lcom/android/systemui/statusbar/phone/NavigationBarView;
 
     if-eqz v0, :cond_0
 
-    .line 2972
+    .line 2960
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNavigationBarView:Lcom/android/systemui/statusbar/phone/NavigationBarView;
 
     invoke-virtual {v0, p1}, Lcom/android/systemui/statusbar/phone/NavigationBarView;->setMenuVisibility(Z)V
 
-    .line 2976
+    .line 2964
     :cond_0
     if-eqz p1, :cond_1
 
@@ -17846,72 +14885,9 @@
 
     invoke-virtual {p0, v0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->setLightsOn(Z)V
 
-    .line 2977
+    .line 2965
     :cond_1
     return-void
-.end method
-
-.method public transparentizeStatusBar(I)V
-    .locals 2
-    .parameter "transparent"
-
-    .prologue
-    .line 3921
-    invoke-direct {p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->sbarCustomColor()Z
-
-    move-result v1
-
-    if-eqz v1, :cond_0
-
-    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarView:Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;
-
-    invoke-direct {p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->updateSBarColor()I
-
-    move-result v1
-
-    invoke-virtual {v0, v1}, Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;->setBackgroundColor(I)V
-
-    goto :goto_2
-
-    :cond_0
-    if-eqz p1, :cond_2
-
-    const/4 v0, 0x1
-
-    :goto_0
-    iput-boolean v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mIsTransparentStatusBar:Z
-
-    .line 3922
-    iget-boolean v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mIsKnoxStatusBar:Z
-
-    if-nez v0, :cond_1
-
-    .line 3923
-    iget-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarView:Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;
-
-    if-eqz p1, :cond_3
-
-    const v0, 0x7f020267
-
-    :goto_1
-    invoke-virtual {v1, v0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;->setBackgroundResource(I)V
-
-    .line 3926
-    :cond_1
-    :goto_2
-    return-void
-
-    .line 3921
-    :cond_2
-    const/4 v0, 0x0
-
-    goto :goto_0
-
-    .line 3923
-    :cond_3
-    const v0, 0x7f020259
-
-    goto :goto_1
 .end method
 
 .method protected updateCarrierLabelVisibility(Z)V
@@ -17923,17 +14899,17 @@
 
     const/4 v2, 0x0
 
-    .line 1814
+    .line 1654
     iget-boolean v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mShowCarrierInPanel:Z
 
     if-nez v3, :cond_1
 
-    .line 1860
+    .line 1698
     :cond_0
     :goto_0
     return-void
 
-    .line 1823
+    .line 1662
     :cond_1
     iget-object v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mEmergencyCallLabel:Landroid/widget/TextView;
 
@@ -17941,7 +14917,7 @@
 
     move v0, v1
 
-    .line 1826
+    .line 1665
     .local v0, emergencyCallsShownElsewhere:Z
     :goto_1
     if-eqz v0, :cond_2
@@ -17955,7 +14931,7 @@
     if-nez v3, :cond_6
 
     :cond_2
-    iget-object v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mLatestNotifications:Lcom/android/systemui/statusbar/policy/NotificationRowLayout;
+    iget-object v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mPile:Lcom/android/systemui/statusbar/policy/NotificationRowLayout;
 
     invoke-virtual {v3}, Lcom/android/systemui/statusbar/policy/NotificationRowLayout;->getHeight()I
 
@@ -17985,7 +14961,7 @@
 
     if-nez v3, :cond_6
 
-    .line 1835
+    .line 1673
     .local v1, makeVisible:Z
     :goto_2
     if-nez p1, :cond_3
@@ -17994,11 +14970,11 @@
 
     if-eq v3, v1, :cond_0
 
-    .line 1836
+    .line 1674
     :cond_3
     iput-boolean v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mCarrierLabelVisible:Z
 
-    .line 1840
+    .line 1678
     iget-object v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mCarrierLabel:Landroid/widget/TextView;
 
     invoke-virtual {v3}, Landroid/widget/TextView;->animate()Landroid/view/ViewPropertyAnimator;
@@ -18007,15 +14983,15 @@
 
     invoke-virtual {v3}, Landroid/view/ViewPropertyAnimator;->cancel()V
 
-    .line 1841
+    .line 1679
     if-eqz v1, :cond_4
 
-    .line 1842
+    .line 1680
     iget-object v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mCarrierLabel:Landroid/widget/TextView;
 
     invoke-virtual {v3, v2}, Landroid/widget/TextView;->setVisibility(I)V
 
-    .line 1844
+    .line 1682
     :cond_4
     iget-object v2, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mCarrierLabel:Landroid/widget/TextView;
 
@@ -18056,17 +15032,17 @@
     :cond_5
     move v0, v2
 
-    .line 1823
+    .line 1662
     goto :goto_1
 
     .restart local v0       #emergencyCallsShownElsewhere:Z
     :cond_6
     move v1, v2
 
-    .line 1826
+    .line 1665
     goto :goto_2
 
-    .line 1844
+    .line 1682
     .restart local v1       #makeVisible:Z
     :cond_7
     const/4 v2, 0x0
@@ -18074,9 +15050,9 @@
     goto :goto_3
 
     :cond_8
-    new-instance v2, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$10;
+    new-instance v2, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$12;
 
-    invoke-direct {v2, p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$10;-><init>(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)V
+    invoke-direct {v2, p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$12;-><init>(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)V
 
     goto :goto_4
 .end method
@@ -18085,14 +15061,21 @@
     .locals 2
 
     .prologue
-    .line 3283
+    .line 3290
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mDisplay:Landroid/view/Display;
 
     iget-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mDisplayMetrics:Landroid/util/DisplayMetrics;
 
     invoke-virtual {v0, v1}, Landroid/view/Display;->getMetrics(Landroid/util/DisplayMetrics;)V
 
-    .line 3288
+    .line 3291
+    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mDisplay:Landroid/view/Display;
+
+    iget-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mCurrentDisplaySize:Landroid/graphics/Point;
+
+    invoke-virtual {v0, v1}, Landroid/view/Display;->getSize(Landroid/graphics/Point;)V
+
+    .line 3296
     return-void
 .end method
 
@@ -18100,7 +15083,7 @@
     .locals 1
 
     .prologue
-    .line 3246
+    .line 3245
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mDisplayMetrics:Landroid/util/DisplayMetrics;
 
     iget v0, v0, Landroid/util/DisplayMetrics;->heightPixels:I
@@ -18109,7 +15092,7 @@
 
     iput v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mTrackingPosition:I
 
-    .line 3247
+    .line 3246
     return-void
 .end method
 
@@ -18118,7 +15101,7 @@
     .parameter "thingy"
 
     .prologue
-    .line 3263
+    .line 3262
     iget-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationPanel:Lcom/android/systemui/statusbar/phone/NotificationPanelView;
 
     iget v2, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationPanelMinHeightFrac:F
@@ -18135,7 +15118,7 @@
 
     invoke-virtual {v1, v2}, Lcom/android/systemui/statusbar/phone/NotificationPanelView;->setMinimumHeight(I)V
 
-    .line 3266
+    .line 3265
     iget-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationPanel:Lcom/android/systemui/statusbar/phone/NotificationPanelView;
 
     invoke-virtual {v1}, Lcom/android/systemui/statusbar/phone/NotificationPanelView;->getLayoutParams()Landroid/view/ViewGroup$LayoutParams;
@@ -18144,55 +15127,97 @@
 
     check-cast v0, Landroid/widget/FrameLayout$LayoutParams;
 
-    .line 3267
+    .line 3266
     .local v0, lp:Landroid/widget/FrameLayout$LayoutParams;
     iget v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationPanelGravity:I
 
     iput v1, v0, Landroid/widget/FrameLayout$LayoutParams;->gravity:I
 
-    .line 3268
-    iget v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationPanelMarginPx:I
+    .line 3267
+    iget v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationPanelMarginLeftPx:I
 
     invoke-virtual {v0, v1}, Landroid/widget/FrameLayout$LayoutParams;->setMarginStart(I)V
 
-    .line 3269
+    .line 3268
+    iget v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationPanelMarginRightPx:I
+
+    invoke-virtual {v0, v1}, Landroid/widget/FrameLayout$LayoutParams;->setMarginEnd(I)V
+
+    .line 3270
     iget-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationPanel:Lcom/android/systemui/statusbar/phone/NotificationPanelView;
 
     invoke-virtual {v1, v0}, Lcom/android/systemui/statusbar/phone/NotificationPanelView;->setLayoutParams(Landroid/view/ViewGroup$LayoutParams;)V
 
-    .line 3271
-    iget-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSettingsPanel:Lcom/android/systemui/statusbar/phone/SettingsPanelView;
+    .line 3272
+    iget-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSettingsPanel:Lcom/android/systemui/statusbar/phone/PanelView;
 
     if-eqz v1, :cond_0
 
-    .line 3272
-    iget-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSettingsPanel:Lcom/android/systemui/statusbar/phone/SettingsPanelView;
+    .line 3273
+    iget-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSettingsPanel:Lcom/android/systemui/statusbar/phone/PanelView;
 
-    invoke-virtual {v1}, Lcom/android/systemui/statusbar/phone/SettingsPanelView;->getLayoutParams()Landroid/view/ViewGroup$LayoutParams;
+    invoke-virtual {v1}, Lcom/android/systemui/statusbar/phone/PanelView;->getLayoutParams()Landroid/view/ViewGroup$LayoutParams;
 
     move-result-object v0
 
     .end local v0           #lp:Landroid/widget/FrameLayout$LayoutParams;
     check-cast v0, Landroid/widget/FrameLayout$LayoutParams;
 
-    .line 3273
+    .line 3274
     .restart local v0       #lp:Landroid/widget/FrameLayout$LayoutParams;
     iget v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSettingsPanelGravity:I
 
     iput v1, v0, Landroid/widget/FrameLayout$LayoutParams;->gravity:I
 
-    .line 3274
-    iget v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationPanelMarginPx:I
+    .line 3275
+    iget v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationPanelMarginLeftPx:I
 
     invoke-virtual {v0, v1}, Landroid/widget/FrameLayout$LayoutParams;->setMarginEnd(I)V
 
-    .line 3275
-    iget-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSettingsPanel:Lcom/android/systemui/statusbar/phone/SettingsPanelView;
+    .line 3276
+    iget-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSettingsPanel:Lcom/android/systemui/statusbar/phone/PanelView;
 
-    invoke-virtual {v1, v0}, Lcom/android/systemui/statusbar/phone/SettingsPanelView;->setLayoutParams(Landroid/view/ViewGroup$LayoutParams;)V
+    invoke-virtual {v1, v0}, Lcom/android/systemui/statusbar/phone/PanelView;->setLayoutParams(Landroid/view/ViewGroup$LayoutParams;)V
 
     .line 3279
     :cond_0
+    iget-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mHeadsUpNotificationView:Lcom/android/systemui/statusbar/policy/HeadsUpNotificationView;
+
+    if-eqz v1, :cond_1
+
+    .line 3280
+    iget-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mHeadsUpNotificationView:Lcom/android/systemui/statusbar/policy/HeadsUpNotificationView;
+
+    iget v2, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationPanelMarginLeftPx:I
+
+    iget v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationPanelMarginRightPx:I
+
+    invoke-virtual {v1, v2, v3}, Lcom/android/systemui/statusbar/policy/HeadsUpNotificationView;->setMargin(II)V
+
+    .line 3281
+    iget-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mPile:Lcom/android/systemui/statusbar/policy/NotificationRowLayout;
+
+    iget-object v2, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mPilePosition:[I
+
+    invoke-virtual {v1, v2}, Lcom/android/systemui/statusbar/policy/NotificationRowLayout;->getLocationOnScreen([I)V
+
+    .line 3282
+    iget-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mPilePosition:[I
+
+    const/4 v2, 0x1
+
+    aget v1, v1, v2
+
+    iget v2, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNaturalBarHeight:I
+
+    sub-int/2addr v1, v2
+
+    int-to-float v1, v1
+
+    iput v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mHeadsUpVerticalOffset:F
+
+    .line 3286
+    :cond_1
     return-void
 .end method
 
@@ -18205,7 +15230,7 @@
     .parameter "icon"
 
     .prologue
-    .line 1401
+    .line 1349
     iget-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusIcons:Landroid/widget/LinearLayout;
 
     invoke-virtual {v1, p3}, Landroid/widget/LinearLayout;->getChildAt(I)Landroid/view/View;
@@ -18214,11 +15239,11 @@
 
     check-cast v0, Lcom/android/systemui/statusbar/StatusBarIconView;
 
-    .line 1402
+    .line 1350
     .local v0, view:Lcom/android/systemui/statusbar/StatusBarIconView;
     invoke-virtual {v0, p5}, Lcom/android/systemui/statusbar/StatusBarIconView;->set(Lcom/android/internal/statusbar/StatusBarIcon;)Z
 
-    .line 1403
+    .line 1351
     return-void
 .end method
 
@@ -18226,20 +15251,20 @@
     .locals 13
 
     .prologue
-    .line 1768
+    .line 1608
     iget-object v11, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationIcons:Lcom/android/systemui/statusbar/phone/IconMerger;
 
     if-nez v11, :cond_1
 
-    .line 1811
+    .line 1651
     :cond_0
     return-void
 
-    .line 1770
+    .line 1610
     :cond_1
     invoke-direct {p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->loadNotificationShade()V
 
-    .line 1772
+    .line 1612
     new-instance v5, Landroid/widget/LinearLayout$LayoutParams;
 
     iget v11, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mIconSize:I
@@ -18254,7 +15279,7 @@
 
     invoke-direct {v5, v11, v12}, Landroid/widget/LinearLayout$LayoutParams;-><init>(II)V
 
-    .line 1775
+    .line 1615
     .local v5, params:Landroid/widget/LinearLayout$LayoutParams;
     iget-object v11, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationData:Lcom/android/systemui/statusbar/NotificationData;
 
@@ -18262,19 +15287,19 @@
 
     move-result v0
 
-    .line 1781
+    .line 1621
     .local v0, N:I
     new-instance v9, Ljava/util/ArrayList;
 
     invoke-direct {v9}, Ljava/util/ArrayList;-><init>()V
 
-    .line 1783
+    .line 1623
     .local v9, toShow:Ljava/util/ArrayList;,"Ljava/util/ArrayList<Landroid/view/View;>;"
     invoke-virtual {p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->isDeviceProvisioned()Z
 
     move-result v6
 
-    .line 1785
+    .line 1625
     .local v6, provisioned:Z
     const/4 v3, 0x0
 
@@ -18282,7 +15307,7 @@
     :goto_0
     if-ge v3, v0, :cond_5
 
-    .line 1786
+    .line 1626
     iget-object v11, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationData:Lcom/android/systemui/statusbar/NotificationData;
 
     sub-int v12, v0, v3
@@ -18293,7 +15318,7 @@
 
     move-result-object v2
 
-    .line 1787
+    .line 1627
     .local v2, ent:Lcom/android/systemui/statusbar/NotificationData$Entry;
     if-eqz v6, :cond_2
 
@@ -18316,14 +15341,14 @@
 
     if-nez v11, :cond_4
 
-    .line 1785
+    .line 1625
     :cond_3
     :goto_1
     add-int/lit8 v3, v3, 0x1
 
     goto :goto_0
 
-    .line 1789
+    .line 1629
     :cond_4
     iget-object v11, v2, Lcom/android/systemui/statusbar/NotificationData$Entry;->notification:Landroid/service/notification/StatusBarNotification;
 
@@ -18333,21 +15358,21 @@
 
     if-eqz v11, :cond_3
 
-    .line 1790
+    .line 1630
     iget-object v11, v2, Lcom/android/systemui/statusbar/NotificationData$Entry;->icon:Lcom/android/systemui/statusbar/StatusBarIconView;
 
     invoke-virtual {v9, v11}, Ljava/util/ArrayList;->add(Ljava/lang/Object;)Z
 
     goto :goto_1
 
-    .line 1793
+    .line 1633
     .end local v2           #ent:Lcom/android/systemui/statusbar/NotificationData$Entry;
     :cond_5
     new-instance v8, Ljava/util/ArrayList;
 
     invoke-direct {v8}, Ljava/util/ArrayList;-><init>()V
 
-    .line 1794
+    .line 1634
     .local v8, toRemove:Ljava/util/ArrayList;,"Ljava/util/ArrayList<Landroid/view/View;>;"
     const/4 v3, 0x0
 
@@ -18360,14 +15385,14 @@
 
     if-ge v3, v11, :cond_7
 
-    .line 1795
+    .line 1635
     iget-object v11, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationIcons:Lcom/android/systemui/statusbar/phone/IconMerger;
 
     invoke-virtual {v11, v3}, Lcom/android/systemui/statusbar/phone/IconMerger;->getChildAt(I)Landroid/view/View;
 
     move-result-object v1
 
-    .line 1796
+    .line 1636
     .local v1, child:Landroid/view/View;
     invoke-virtual {v9, v1}, Ljava/util/ArrayList;->contains(Ljava/lang/Object;)Z
 
@@ -18375,16 +15400,16 @@
 
     if-nez v11, :cond_6
 
-    .line 1797
+    .line 1637
     invoke-virtual {v8, v1}, Ljava/util/ArrayList;->add(Ljava/lang/Object;)Z
 
-    .line 1794
+    .line 1634
     :cond_6
     add-int/lit8 v3, v3, 0x1
 
     goto :goto_2
 
-    .line 1801
+    .line 1641
     .end local v1           #child:Landroid/view/View;
     :cond_7
     invoke-virtual {v8}, Ljava/util/ArrayList;->iterator()Ljava/util/Iterator;
@@ -18405,7 +15430,7 @@
 
     check-cast v7, Landroid/view/View;
 
-    .line 1802
+    .line 1642
     .local v7, remove:Landroid/view/View;
     iget-object v11, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationIcons:Lcom/android/systemui/statusbar/phone/IconMerger;
 
@@ -18413,7 +15438,7 @@
 
     goto :goto_3
 
-    .line 1805
+    .line 1645
     .end local v7           #remove:Landroid/view/View;
     :cond_8
     const/4 v3, 0x0
@@ -18425,14 +15450,14 @@
 
     if-ge v3, v11, :cond_0
 
-    .line 1806
+    .line 1646
     invoke-virtual {v9, v3}, Ljava/util/ArrayList;->get(I)Ljava/lang/Object;
 
     move-result-object v10
 
     check-cast v10, Landroid/view/View;
 
-    .line 1807
+    .line 1647
     .local v10, v:Landroid/view/View;
     invoke-virtual {v10}, Landroid/view/View;->getParent()Landroid/view/ViewParent;
 
@@ -18440,160 +15465,60 @@
 
     if-nez v11, :cond_9
 
-    .line 1808
+    .line 1648
     iget-object v11, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationIcons:Lcom/android/systemui/statusbar/phone/IconMerger;
 
     invoke-virtual {v11, v10, v3, v5}, Lcom/android/systemui/statusbar/phone/IconMerger;->addView(Landroid/view/View;ILandroid/view/ViewGroup$LayoutParams;)V
 
-    .line 1805
+    .line 1645
     :cond_9
     add-int/lit8 v3, v3, 0x1
 
     goto :goto_4
 .end method
 
-.method protected updateNotificationPanelMargins()V
-    .locals 6
+.method updateResources()V
+    .locals 4
 
     .prologue
-    .line 1543
-    iget-object v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mContext:Landroid/content/Context;
+    .line 3801
+    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mContext:Landroid/content/Context;
 
-    invoke-virtual {v4}, Landroid/content/Context;->getResources()Landroid/content/res/Resources;
+    .line 3802
+    .local v0, context:Landroid/content/Context;
+    invoke-virtual {v0}, Landroid/content/Context;->getResources()Landroid/content/res/Resources;
+
+    move-result-object v1
+
+    .line 3804
+    .local v1, res:Landroid/content/res/Resources;
+    iget-object v2, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mClearButton:Landroid/view/View;
+
+    instance-of v2, v2, Landroid/widget/TextView;
+
+    if-eqz v2, :cond_0
+
+    .line 3805
+    iget-object v2, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mClearButton:Landroid/view/View;
+
+    check-cast v2, Landroid/widget/TextView;
+
+    const v3, 0x7f0a0011
+
+    invoke-virtual {v0, v3}, Landroid/content/Context;->getText(I)Ljava/lang/CharSequence;
 
     move-result-object v3
 
-    .line 1544
-    .local v3, res:Landroid/content/res/Resources;
-    const v4, 0x7f0e0059
+    invoke-virtual {v2, v3}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    invoke-virtual {v3, v4}, Landroid/content/res/Resources;->getDimension(I)F
-
-    move-result v4
-
-    float-to-int v4, v4
-
-    iput v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationSideMargins:I
-
-    .line 1545
-    iget v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationSideMargins:I
-
-    const v5, 0x7f0e005a
-
-    invoke-virtual {v3, v5}, Landroid/content/res/Resources;->getDimension(I)F
-
-    move-result v5
-
-    float-to-int v5, v5
-
-    add-int/2addr v4, v5
-
-    int-to-float v0, v4
-
-    .line 1547
-    .local v0, clearBtnMargin:F
-    iget-object v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNoNotificationText:Landroid/widget/TextView;
-
-    iget v5, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationSideMargins:I
-
-    int-to-float v5, v5
-
-    invoke-virtual {p0, v4, v5}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->applyNotificationMargins(Landroid/view/View;F)V
-
-    .line 1548
-    iget-object v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mOngoingNotificationText:Landroid/widget/TextView;
-
-    iget v5, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationSideMargins:I
-
-    int-to-float v5, v5
-
-    invoke-virtual {p0, v4, v5}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->applyNotificationMargins(Landroid/view/View;F)V
-
-    .line 1549
-    iget-object v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mLatestNotificationText:Landroid/widget/TextView;
-
-    iget v5, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationSideMargins:I
-
-    int-to-float v5, v5
-
-    invoke-virtual {p0, v4, v5}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->applyNotificationMargins(Landroid/view/View;F)V
-
-    .line 1550
-    iget-object v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mClearButton:Landroid/view/View;
-
-    invoke-virtual {p0, v4, v0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->applyNotificationMargins(Landroid/view/View;F)V
-
-    .line 1551
-    iget-object v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mToggleSlider:Landroid/widget/RelativeLayout;
-
-    iget v5, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationSideMargins:I
-
-    int-to-float v5, v5
-
-    invoke-virtual {p0, v4, v5}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->applyNotificationMargins(Landroid/view/View;F)V
-
-    .line 1553
-    const/4 v1, 0x0
-
-    .local v1, i:I
-    :goto_0
-    iget-object v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationData:Lcom/android/systemui/statusbar/NotificationData;
-
-    invoke-virtual {v4}, Lcom/android/systemui/statusbar/NotificationData;->size()I
-
-    move-result v4
-
-    if-ge v1, v4, :cond_0
-
-    .line 1554
-    iget-object v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationData:Lcom/android/systemui/statusbar/NotificationData;
-
-    invoke-virtual {v4, v1}, Lcom/android/systemui/statusbar/NotificationData;->get(I)Lcom/android/systemui/statusbar/NotificationData$Entry;
-
-    move-result-object v4
-
-    iget-object v2, v4, Lcom/android/systemui/statusbar/NotificationData$Entry;->row:Landroid/view/View;
-
-    .line 1555
-    .local v2, noti_view:Landroid/view/View;
-    iget v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationSideMargins:I
-
-    int-to-float v4, v4
-
-    invoke-virtual {p0, v2, v4}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->applyNotificationMargins(Landroid/view/View;F)V
-
-    .line 1553
-    add-int/lit8 v1, v1, 0x1
-
-    goto :goto_0
-
-    .line 1557
-    .end local v2           #noti_view:Landroid/view/View;
-    :cond_0
-    return-void
-.end method
-
-.method updateResources()V
-    .locals 1
-
-    .prologue
-    .line 3735
-    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mQS:Lcom/android/systemui/statusbar/phone/QuickSettings;
-
-    if-eqz v0, :cond_0
-
-    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mQS:Lcom/android/systemui/statusbar/phone/QuickSettings;
-
-    invoke-virtual {v0}, Lcom/android/systemui/statusbar/phone/QuickSettings;->updateResources()V
-
-    .line 3737
+    .line 3811
     :cond_0
     invoke-virtual {p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->updateTextResources()V
 
-    .line 3738
+    .line 3812
     invoke-virtual {p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->loadDimens()V
 
-    .line 3739
+    .line 3813
     return-void
 .end method
 
@@ -18601,24 +15526,23 @@
     .locals 2
 
     .prologue
-    .line 1197
+    .line 1146
     invoke-super {p0}, Lcom/android/systemui/statusbar/BaseStatusBar;->updateSearchPanel()V
 
-    .line 1198
-    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSearchPanelView:Lcom/android/systemui/SearchPanelView;
+    .line 1147
+    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNavigationBarView:Lcom/android/systemui/statusbar/phone/NavigationBarView;
 
-    iget-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNavigationBarView:Lcom/android/systemui/statusbar/phone/NavigationBarView;
+    if-eqz v0, :cond_0
 
-    invoke-virtual {v0, v1}, Lcom/android/systemui/SearchPanelView;->setStatusBarView(Landroid/view/View;)V
-
-    .line 1199
+    .line 1148
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNavigationBarView:Lcom/android/systemui/statusbar/phone/NavigationBarView;
 
     iget-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSearchPanelView:Lcom/android/systemui/SearchPanelView;
 
     invoke-virtual {v0, v1}, Lcom/android/systemui/statusbar/phone/NavigationBarView;->setDelegateView(Landroid/view/View;)V
 
-    .line 1200
+    .line 1150
+    :cond_0
     return-void
 .end method
 
@@ -18630,33 +15554,20 @@
 
     const/4 v4, 0x0
 
-    .line 3742
+    .line 3816
     iget-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mContext:Landroid/content/Context;
 
     invoke-virtual {v1}, Landroid/content/Context;->getResources()Landroid/content/res/Resources;
 
     move-result-object v0
 
-    .line 3744
+    .line 3819
     .local v0, res:Landroid/content/res/Resources;
-    iget-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mOngoingNotificationText:Landroid/widget/TextView;
-
-    iget-object v2, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mContext:Landroid/content/Context;
-
-    const v3, 0x7f0c0018
-
-    invoke-virtual {v2, v3}, Landroid/content/Context;->getText(I)Ljava/lang/CharSequence;
-
-    move-result-object v2
-
-    invoke-virtual {v1, v2}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
-
-    .line 3745
     iget-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mLatestNotificationText:Landroid/widget/TextView;
 
     iget-object v2, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mContext:Landroid/content/Context;
 
-    const v3, 0x7f0c0019
+    const v3, 0x7f0a001a
 
     invoke-virtual {v2, v3}, Landroid/content/Context;->getText(I)Ljava/lang/CharSequence;
 
@@ -18664,12 +15575,12 @@
 
     invoke-virtual {v1, v2}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 3746
+    .line 3820
     iget-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNoNotificationText:Landroid/widget/TextView;
 
     iget-object v2, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mContext:Landroid/content/Context;
 
-    const v3, 0x7f0c0017
+    const v3, 0x7f0a0018
 
     invoke-virtual {v2, v3}, Landroid/content/Context;->getText(I)Ljava/lang/CharSequence;
 
@@ -18677,35 +15588,31 @@
 
     invoke-virtual {v1, v2}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 3747
+    .line 3821
     iget-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNoNotificationText:Landroid/widget/TextView;
 
     invoke-virtual {v1, v5, v4}, Landroid/widget/TextView;->setTypeface(Landroid/graphics/Typeface;I)V
 
-    .line 3748
+    .line 3822
     iget-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mLatestNotificationText:Landroid/widget/TextView;
 
     invoke-virtual {v1, v5, v4}, Landroid/widget/TextView;->setTypeface(Landroid/graphics/Typeface;I)V
 
-    .line 3749
-    iget-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNoNotificationText:Landroid/widget/TextView;
-
-    invoke-virtual {v1, v5, v4}, Landroid/widget/TextView;->setTypeface(Landroid/graphics/Typeface;I)V
-
-    .line 3751
+    .line 3824
     iget-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mClearButton:Landroid/view/View;
 
-    instance-of v1, v1, Landroid/widget/ImageView;
+    instance-of v1, v1, Landroid/widget/TextView;
 
-    if-nez v1, :cond_0
+    if-eqz v1, :cond_0
 
+    .line 3825
     iget-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mClearButton:Landroid/view/View;
 
     check-cast v1, Landroid/widget/TextView;
 
     iget-object v2, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mContext:Landroid/content/Context;
 
-    const v3, 0x7f0c0010
+    const v3, 0x7f0a0011
 
     invoke-virtual {v2, v3}, Landroid/content/Context;->getText(I)Ljava/lang/CharSequence;
 
@@ -18713,36 +15620,31 @@
 
     invoke-virtual {v1, v2}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 3752
+    .line 3826
     iget-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mClearButton:Landroid/view/View;
 
     check-cast v1, Landroid/widget/TextView;
 
     invoke-virtual {v1, v5, v4}, Landroid/widget/TextView;->setTypeface(Landroid/graphics/Typeface;I)V
 
-    goto :goto_0
-
-    .line 3753
+    .line 3829
     :cond_0
-    iget-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mStatusBarWindow:Lcom/android/systemui/statusbar/phone/StatusBarWindowView;
+    iget-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mClearButton:Landroid/view/View;
 
-    const v2, 0x7f09007c
+    iget-object v2, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mContext:Landroid/content/Context;
 
-    invoke-virtual {v1, v2}, Lcom/android/systemui/statusbar/phone/StatusBarWindowView;->findViewById(I)Landroid/view/View;
+    const v3, 0x7f0a00b0
 
-    move-result-object v1
+    invoke-virtual {v2, v3}, Landroid/content/Context;->getText(I)Ljava/lang/CharSequence;
 
-    check-cast v1, Landroid/widget/TextView;
+    move-result-object v2
 
-    const-string v2, ""
+    invoke-virtual {v1, v2}, Landroid/view/View;->setContentDescription(Ljava/lang/CharSequence;)V
 
-    invoke-virtual {v1, v2}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
-
-    .line 3754
-    :goto_0
+    .line 3830
     iget-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSettingsButton:Landroid/widget/ImageView;
 
-    const v2, 0x7f0c0096
+    const v2, 0x7f0a0099
 
     invoke-virtual {v0, v2}, Landroid/content/res/Resources;->getString(I)Ljava/lang/String;
 
@@ -18750,10 +15652,10 @@
 
     invoke-virtual {v1, v2}, Landroid/widget/ImageView;->setContentDescription(Ljava/lang/CharSequence;)V
 
-    .line 3755
+    .line 3831
     iget-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mNotificationButton:Landroid/widget/ImageView;
 
-    const v2, 0x7f0c008c
+    const v2, 0x7f0a008f
 
     invoke-virtual {v0, v2}, Landroid/content/res/Resources;->getString(I)Ljava/lang/String;
 
@@ -18761,10 +15663,10 @@
 
     invoke-virtual {v1, v2}, Landroid/widget/ImageView;->setContentDescription(Ljava/lang/CharSequence;)V
 
-    .line 3756
+    .line 3832
     iget-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mBasicSettingsButton:Landroid/widget/ImageView;
 
-    const v2, 0x7f0c008b
+    const v2, 0x7f0a008e
 
     invoke-virtual {v0, v2}, Landroid/content/res/Resources;->getString(I)Ljava/lang/String;
 
@@ -18772,10 +15674,10 @@
 
     invoke-virtual {v1, v2}, Landroid/widget/ImageView;->setContentDescription(Ljava/lang/CharSequence;)V
 
-    .line 3757
+    .line 3833
     iget-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mSettingsEditButton:Landroid/widget/ImageView;
 
-    const v2, 0x7f0c0102
+    const v2, 0x7f0a010b
 
     invoke-virtual {v0, v2}, Landroid/content/res/Resources;->getString(I)Ljava/lang/String;
 
@@ -18783,7 +15685,7 @@
 
     invoke-virtual {v1, v2}, Landroid/widget/ImageView;->setContentDescription(Ljava/lang/CharSequence;)V
 
-    .line 3758
+    .line 3834
     return-void
 .end method
 
@@ -18792,35 +15694,32 @@
     .parameter "newUserId"
 
     .prologue
-    .line 3684
+    .line 3738
     invoke-virtual {p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->animateCollapsePanels()V
 
-    .line 3685
+    .line 3739
     invoke-virtual {p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->updateNotificationIcons()V
 
-    .line 3686
+    .line 3740
     invoke-direct {p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->resetUserSetupObserver()V
 
-    .line 3689
+    .line 3741
     invoke-direct {p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->resetBrightnessEnableObserver()V
 
-    .line 3690
+    .line 3742
     invoke-direct {p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->resetBatteryPercentageObserver()V
 
-    invoke-direct {p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->resetTSMObserver()V
-
-    invoke-direct {p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->resetTSMNetContObserver()V
-
-    .line 3692
+    .line 3744
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mQSPanel:Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingPanel;
 
     if-eqz v0, :cond_0
 
+    .line 3745
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mQSPanel:Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingPanel;
 
-    invoke-virtual {v0}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingPanel;->userSwitched()V
+    invoke-virtual {v0, p1}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingPanel;->userSwitched(I)V
 
-    .line 3694
+    .line 3746
     :cond_0
     return-void
 .end method
@@ -18829,7 +15728,7 @@
     .locals 3
 
     .prologue
-    .line 3829
+    .line 3910
     iget-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mContext:Landroid/content/Context;
 
     const-string v2, "vibrator"
@@ -18840,12 +15739,12 @@
 
     check-cast v0, Landroid/os/Vibrator;
 
-    .line 3831
+    .line 3912
     .local v0, vib:Landroid/os/Vibrator;
     const-wide/16 v1, 0xfa
 
     invoke-virtual {v0, v1, v2}, Landroid/os/Vibrator;->vibrate(J)V
 
-    .line 3832
+    .line 3913
     return-void
 .end method

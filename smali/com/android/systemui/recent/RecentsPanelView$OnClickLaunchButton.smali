@@ -18,33 +18,19 @@
 
 
 # instance fields
-.field final CLASS_NAME:Ljava/lang/String;
-
-.field final PACKAGE_NAME:Ljava/lang/String;
-
 .field final synthetic this$0:Lcom/android/systemui/recent/RecentsPanelView;
 
 
 # direct methods
 .method private constructor <init>(Lcom/android/systemui/recent/RecentsPanelView;)V
-    .locals 1
+    .locals 0
     .parameter
 
     .prologue
-    .line 1216
+    .line 1185
     iput-object p1, p0, Lcom/android/systemui/recent/RecentsPanelView$OnClickLaunchButton;->this$0:Lcom/android/systemui/recent/RecentsPanelView;
 
-    invoke-direct/range {p0 .. p0}, Ljava/lang/Object;-><init>()V
-
-    .line 1217
-    const-string v0, "com.sec.android.app.controlpanel"
-
-    iput-object v0, p0, Lcom/android/systemui/recent/RecentsPanelView$OnClickLaunchButton;->PACKAGE_NAME:Ljava/lang/String;
-
-    .line 1219
-    const-string v0, "com.sec.android.app.controlpanel.activity.JobManagerActivity"
-
-    iput-object v0, p0, Lcom/android/systemui/recent/RecentsPanelView$OnClickLaunchButton;->CLASS_NAME:Ljava/lang/String;
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
     return-void
 .end method
@@ -55,7 +41,7 @@
     .parameter "x1"
 
     .prologue
-    .line 1216
+    .line 1185
     invoke-direct {p0, p1}, Lcom/android/systemui/recent/RecentsPanelView$OnClickLaunchButton;-><init>(Lcom/android/systemui/recent/RecentsPanelView;)V
 
     return-void
@@ -64,84 +50,152 @@
 
 # virtual methods
 .method public onClick(Landroid/view/View;)V
-    .locals 6
+    .locals 9
     .parameter "v"
 
     .prologue
-    .line 1224
+    .line 1190
+    iget-object v5, p0, Lcom/android/systemui/recent/RecentsPanelView$OnClickLaunchButton;->this$0:Lcom/android/systemui/recent/RecentsPanelView;
+
+    #calls: Lcom/android/systemui/recent/RecentsPanelView;->isTaskManagerInstalled()Z
+    invoke-static {v5}, Lcom/android/systemui/recent/RecentsPanelView;->access$1500(Lcom/android/systemui/recent/RecentsPanelView;)Z
+
+    move-result v4
+
+    .line 1192
+    .local v4, useTaskManager:Z
+    if-eqz v4, :cond_0
+
+    const-string v1, "com.sec.android.app.taskmanager"
+
+    .line 1194
+    .local v1, PACKAGE_NAME:Ljava/lang/String;
+    :goto_0
+    if-eqz v4, :cond_1
+
+    const-string v0, "com.sec.android.app.taskmanager.activity.TaskManagerActivity"
+
+    .line 1197
+    .local v0, CLASS_NAME:Ljava/lang/String;
+    :goto_1
     :try_start_0
-    iget-object v2, p0, Lcom/android/systemui/recent/RecentsPanelView$OnClickLaunchButton;->this$0:Lcom/android/systemui/recent/RecentsPanelView;
+    iget-object v5, p0, Lcom/android/systemui/recent/RecentsPanelView$OnClickLaunchButton;->this$0:Lcom/android/systemui/recent/RecentsPanelView;
 
-    const/4 v3, 0x1
+    const/4 v6, 0x1
 
-    invoke-virtual {v2, v3}, Lcom/android/systemui/recent/RecentsPanelView;->sendAccessibilityEvent(I)V
+    invoke-virtual {v5, v6}, Landroid/view/View;->sendAccessibilityEvent(I)V
 
-    .line 1225
-    iget-object v2, p0, Lcom/android/systemui/recent/RecentsPanelView$OnClickLaunchButton;->this$0:Lcom/android/systemui/recent/RecentsPanelView;
+    .line 1198
+    iget-object v5, p0, Lcom/android/systemui/recent/RecentsPanelView$OnClickLaunchButton;->this$0:Lcom/android/systemui/recent/RecentsPanelView;
 
-    const/4 v3, 0x0
+    const/4 v6, 0x0
 
-    invoke-virtual {v2, v3}, Lcom/android/systemui/recent/RecentsPanelView;->show(Z)V
+    invoke-virtual {v5, v6}, Lcom/android/systemui/recent/RecentsPanelView;->show(Z)V
 
-    .line 1227
-    new-instance v1, Landroid/content/Intent;
+    .line 1200
+    new-instance v3, Landroid/content/Intent;
 
-    invoke-direct {v1}, Landroid/content/Intent;-><init>()V
+    invoke-direct {v3}, Landroid/content/Intent;-><init>()V
 
-    .line 1228
-    .local v1, intent:Landroid/content/Intent;
-    const-string v2, "android.intent.action.MAIN"
+    .line 1201
+    .local v3, intent:Landroid/content/Intent;
+    const-string v5, "android.intent.action.MAIN"
 
-    invoke-virtual {v1, v2}, Landroid/content/Intent;->setAction(Ljava/lang/String;)Landroid/content/Intent;
+    invoke-virtual {v3, v5}, Landroid/content/Intent;->setAction(Ljava/lang/String;)Landroid/content/Intent;
 
-    .line 1229
-    const v2, 0x10004000
+    .line 1202
+    const v5, 0x10004000
 
-    invoke-virtual {v1, v2}, Landroid/content/Intent;->setFlags(I)Landroid/content/Intent;
+    invoke-virtual {v3, v5}, Landroid/content/Intent;->setFlags(I)Landroid/content/Intent;
 
-    .line 1230
-    const-string v2, "com.sec.android.app.controlpanel"
+    .line 1203
+    invoke-virtual {v3, v1, v0}, Landroid/content/Intent;->setClassName(Ljava/lang/String;Ljava/lang/String;)Landroid/content/Intent;
 
-    const-string v3, "com.sec.android.app.controlpanel.activity.JobManagerActivity"
+    .line 1205
+    iget-object v5, p0, Lcom/android/systemui/recent/RecentsPanelView$OnClickLaunchButton;->this$0:Lcom/android/systemui/recent/RecentsPanelView;
 
-    invoke-virtual {v1, v2, v3}, Landroid/content/Intent;->setClassName(Ljava/lang/String;Ljava/lang/String;)Landroid/content/Intent;
+    #getter for: Landroid/view/View;->mContext:Landroid/content/Context;
+    invoke-static {v5}, Lcom/android/systemui/recent/RecentsPanelView;->access$1600(Lcom/android/systemui/recent/RecentsPanelView;)Landroid/content/Context;
 
-    .line 1232
-    iget-object v2, p0, Lcom/android/systemui/recent/RecentsPanelView$OnClickLaunchButton;->this$0:Lcom/android/systemui/recent/RecentsPanelView;
+    move-result-object v5
 
-    #getter for: Lcom/android/systemui/recent/RecentsPanelView;->mContext:Landroid/content/Context;
-    invoke-static {v2}, Lcom/android/systemui/recent/RecentsPanelView;->access$1400(Lcom/android/systemui/recent/RecentsPanelView;)Landroid/content/Context;
+    const/4 v6, 0x0
 
-    move-result-object v2
+    new-instance v7, Landroid/os/UserHandle;
 
-    const/4 v3, 0x0
+    const/4 v8, -0x2
 
-    new-instance v4, Landroid/os/UserHandle;
+    invoke-direct {v7, v8}, Landroid/os/UserHandle;-><init>(I)V
 
-    const/4 v5, -0x2
+    invoke-virtual {v5, v3, v6, v7}, Landroid/content/Context;->startActivityAsUser(Landroid/content/Intent;Landroid/os/Bundle;Landroid/os/UserHandle;)V
 
-    invoke-direct {v4, v5}, Landroid/os/UserHandle;-><init>(I)V
+    .line 1206
+    sget-boolean v5, Lcom/android/systemui/statusbar/Feature;->mUseRecentsTrayConcept:Z
 
-    invoke-virtual {v2, v1, v3, v4}, Landroid/content/Context;->startActivityAsUser(Landroid/content/Intent;Landroid/os/Bundle;Landroid/os/UserHandle;)V
+    if-eqz v5, :cond_2
+
+    .line 1207
+    iget-object v5, p0, Lcom/android/systemui/recent/RecentsPanelView$OnClickLaunchButton;->this$0:Lcom/android/systemui/recent/RecentsPanelView;
+
+    #getter for: Lcom/android/systemui/recent/RecentsPanelView;->mRecentsCallbacks:Lcom/android/systemui/recent/IRecentsUI;
+    invoke-static {v5}, Lcom/android/systemui/recent/RecentsPanelView;->access$1300(Lcom/android/systemui/recent/RecentsPanelView;)Lcom/android/systemui/recent/IRecentsUI;
+
+    move-result-object v5
+
+    invoke-interface {v5}, Lcom/android/systemui/recent/IRecentsUI;->dismissAndGoBack()V
     :try_end_0
     .catch Landroid/content/ActivityNotFoundException; {:try_start_0 .. :try_end_0} :catch_0
 
-    .line 1238
-    .end local v1           #intent:Landroid/content/Intent;
-    :goto_0
+    .line 1215
+    .end local v3           #intent:Landroid/content/Intent;
+    :goto_2
     return-void
 
-    .line 1235
-    :catch_0
-    move-exception v0
-
-    .line 1236
-    .local v0, e:Landroid/content/ActivityNotFoundException;
-    const-string v2, "RecentsPanelView"
-
-    const-string v3, "Activity Not Found"
-
-    invoke-static {v2, v3}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I
+    .line 1192
+    .end local v0           #CLASS_NAME:Ljava/lang/String;
+    .end local v1           #PACKAGE_NAME:Ljava/lang/String;
+    :cond_0
+    const-string v1, "com.sec.android.app.controlpanel"
 
     goto :goto_0
+
+    .line 1194
+    .restart local v1       #PACKAGE_NAME:Ljava/lang/String;
+    :cond_1
+    const-string v0, "com.sec.android.app.controlpanel.activity.JobManagerActivity"
+
+    goto :goto_1
+
+    .line 1209
+    .restart local v0       #CLASS_NAME:Ljava/lang/String;
+    .restart local v3       #intent:Landroid/content/Intent;
+    :cond_2
+    :try_start_1
+    iget-object v5, p0, Lcom/android/systemui/recent/RecentsPanelView$OnClickLaunchButton;->this$0:Lcom/android/systemui/recent/RecentsPanelView;
+
+    #getter for: Lcom/android/systemui/recent/RecentsPanelView;->mRecentsCallbacks:Lcom/android/systemui/recent/IRecentsUI;
+    invoke-static {v5}, Lcom/android/systemui/recent/RecentsPanelView;->access$1300(Lcom/android/systemui/recent/RecentsPanelView;)Lcom/android/systemui/recent/IRecentsUI;
+
+    move-result-object v5
+
+    invoke-interface {v5}, Lcom/android/systemui/recent/IRecentsUI;->dismissAndGoHome()V
+    :try_end_1
+    .catch Landroid/content/ActivityNotFoundException; {:try_start_1 .. :try_end_1} :catch_0
+
+    goto :goto_2
+
+    .line 1212
+    .end local v3           #intent:Landroid/content/Intent;
+    :catch_0
+    move-exception v2
+
+    .line 1213
+    .local v2, e:Landroid/content/ActivityNotFoundException;
+    const-string v5, "RecentsPanelView"
+
+    const-string v6, "Activity Not Found"
+
+    invoke-static {v5, v6}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I
+
+    goto :goto_2
 .end method

@@ -19,9 +19,11 @@
 
 .field public expanded:Landroid/view/View;
 
-.field protected expandedLarge:Landroid/view/View;
+.field private expandedBig:Landroid/view/View;
 
 .field public icon:Lcom/android/systemui/statusbar/StatusBarIconView;
+
+.field private interruption:Z
 
 .field public key:Landroid/os/IBinder;
 
@@ -29,7 +31,7 @@
 
 .field public notification:Landroid/service/notification/StatusBarNotification;
 
-.field public row:Landroid/view/View;
+.field public row:Lcom/android/systemui/statusbar/ExpandableNotificationRow;
 
 
 # direct methods
@@ -37,8 +39,8 @@
     .locals 0
 
     .prologue
-    .line 42
-    invoke-direct/range {p0 .. p0}, Ljava/lang/Object;-><init>()V
+    .line 43
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
     return-void
 .end method
@@ -50,132 +52,96 @@
     .parameter "ic"
 
     .prologue
-    .line 43
-    invoke-direct/range {p0 .. p0}, Ljava/lang/Object;-><init>()V
-
     .line 44
-    iput-object p1, p0, Lcom/android/systemui/statusbar/NotificationData$Entry;->key:Landroid/os/IBinder;
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
     .line 45
-    iput-object p2, p0, Lcom/android/systemui/statusbar/NotificationData$Entry;->notification:Landroid/service/notification/StatusBarNotification;
+    iput-object p1, p0, Lcom/android/systemui/statusbar/NotificationData$Entry;->key:Landroid/os/IBinder;
 
     .line 46
-    iput-object p3, p0, Lcom/android/systemui/statusbar/NotificationData$Entry;->icon:Lcom/android/systemui/statusbar/StatusBarIconView;
+    iput-object p2, p0, Lcom/android/systemui/statusbar/NotificationData$Entry;->notification:Landroid/service/notification/StatusBarNotification;
 
     .line 47
+    iput-object p3, p0, Lcom/android/systemui/statusbar/NotificationData$Entry;->icon:Lcom/android/systemui/statusbar/StatusBarIconView;
+
+    .line 48
     return-void
 .end method
 
-
-# virtual methods
-.method public expandable()Z
+.method static synthetic access$000(Lcom/android/systemui/statusbar/NotificationData$Entry;)Z
     .locals 1
+    .parameter "x0"
 
     .prologue
-    .line 59
-    iget-object v0, p0, Lcom/android/systemui/statusbar/NotificationData$Entry;->row:Landroid/view/View;
-
-    invoke-static {v0}, Lcom/android/systemui/statusbar/NotificationData;->getIsExpandable(Landroid/view/View;)Z
-
-    move-result v0
+    .line 33
+    iget-boolean v0, p0, Lcom/android/systemui/statusbar/NotificationData$Entry;->interruption:Z
 
     return v0
 .end method
 
-.method public getLargeView()Landroid/view/View;
+
+# virtual methods
+.method public getBigContentView()Landroid/view/View;
     .locals 1
 
     .prologue
-    .line 53
-    iget-object v0, p0, Lcom/android/systemui/statusbar/NotificationData$Entry;->expandedLarge:Landroid/view/View;
+    .line 54
+    iget-object v0, p0, Lcom/android/systemui/statusbar/NotificationData$Entry;->expandedBig:Landroid/view/View;
 
     return-object v0
 .end method
 
-.method public setLargeView(Landroid/view/View;)V
-    .locals 3
-    .parameter "expandedLarge"
+.method public setBigContentView(Landroid/view/View;)V
+    .locals 2
+    .parameter "bigContentView"
 
     .prologue
-    .line 49
-    iput-object p1, p0, Lcom/android/systemui/statusbar/NotificationData$Entry;->expandedLarge:Landroid/view/View;
-
     .line 50
-    iget-object v1, p0, Lcom/android/systemui/statusbar/NotificationData$Entry;->row:Landroid/view/View;
+    iput-object p1, p0, Lcom/android/systemui/statusbar/NotificationData$Entry;->expandedBig:Landroid/view/View;
 
-    const v2, 0x7f090002
+    .line 51
+    iget-object v1, p0, Lcom/android/systemui/statusbar/NotificationData$Entry;->row:Lcom/android/systemui/statusbar/ExpandableNotificationRow;
 
     if-eqz p1, :cond_0
 
     const/4 v0, 0x1
 
     :goto_0
-    invoke-static {v1, v2, v0}, Lcom/android/systemui/statusbar/NotificationData;->writeBooleanTag(Landroid/view/View;IZ)Z
+    invoke-virtual {v1, v0}, Lcom/android/systemui/statusbar/ExpandableNotificationRow;->setExpandable(Z)V
 
-    .line 51
+    .line 52
     return-void
 
-    .line 50
+    .line 51
     :cond_0
     const/4 v0, 0x0
 
     goto :goto_0
 .end method
 
-.method public setUserExpanded(Z)Z
+.method public setInterruption()V
     .locals 1
-    .parameter "userExpanded"
 
     .prologue
-    .line 71
-    iget-object v0, p0, Lcom/android/systemui/statusbar/NotificationData$Entry;->row:Landroid/view/View;
+    .line 64
+    const/4 v0, 0x1
 
-    invoke-static {v0, p1}, Lcom/android/systemui/statusbar/NotificationData;->setUserExpanded(Landroid/view/View;Z)Z
+    iput-boolean v0, p0, Lcom/android/systemui/statusbar/NotificationData$Entry;->interruption:Z
 
-    move-result v0
-
-    return v0
+    .line 65
+    return-void
 .end method
 
-.method public setUserLocked(Z)Z
+.method public setUserLocked(Z)V
     .locals 1
     .parameter "userLocked"
 
     .prologue
-    .line 83
-    iget-object v0, p0, Lcom/android/systemui/statusbar/NotificationData$Entry;->row:Landroid/view/View;
+    .line 60
+    iget-object v0, p0, Lcom/android/systemui/statusbar/NotificationData$Entry;->row:Lcom/android/systemui/statusbar/ExpandableNotificationRow;
 
-    invoke-static {v0, p1}, Lcom/android/systemui/statusbar/NotificationData;->setUserLocked(Landroid/view/View;Z)Z
+    invoke-virtual {v0, p1}, Lcom/android/systemui/statusbar/ExpandableNotificationRow;->setUserLocked(Z)V
 
-    move-result v0
-
-    return v0
-.end method
-
-.method public userExpanded()Z
-    .locals 1
-
-    .prologue
-    .line 65
-    iget-object v0, p0, Lcom/android/systemui/statusbar/NotificationData$Entry;->row:Landroid/view/View;
-
-    invoke-static {v0}, Lcom/android/systemui/statusbar/NotificationData;->getUserExpanded(Landroid/view/View;)Z
-
-    move-result v0
-
-    return v0
-.end method
-
-.method public userLocked()Z
-    .locals 1
-
-    .prologue
-    .line 77
-    iget-object v0, p0, Lcom/android/systemui/statusbar/NotificationData$Entry;->row:Landroid/view/View;
-
-    invoke-static {v0}, Lcom/android/systemui/statusbar/NotificationData;->getUserLocked(Landroid/view/View;)Z
-
-    move-result v0
-
-    return v0
+    .line 61
+    return-void
 .end method

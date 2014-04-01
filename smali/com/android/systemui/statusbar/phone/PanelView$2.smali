@@ -27,10 +27,10 @@
     .parameter
 
     .prologue
-    .line 102
+    .line 214
     iput-object p1, p0, Lcom/android/systemui/statusbar/phone/PanelView$2;->this$0:Lcom/android/systemui/statusbar/phone/PanelView;
 
-    invoke-direct/range {p0 .. p0}, Ljava/lang/Object;-><init>()V
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
     return-void
 .end method
@@ -43,7 +43,7 @@
     .prologue
     const/4 v1, 0x0
 
-    .line 105
+    .line 217
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PanelView$2;->this$0:Lcom/android/systemui/statusbar/phone/PanelView;
 
     #getter for: Lcom/android/systemui/statusbar/phone/PanelView;->mTimeAnimator:Landroid/animation/TimeAnimator;
@@ -60,13 +60,13 @@
 
     move-result-object v0
 
-    invoke-virtual {v0}, Landroid/animation/TimeAnimator;->isStarted()Z
+    invoke-virtual {v0}, Landroid/animation/ValueAnimator;->isStarted()Z
 
     move-result v0
 
     if-eqz v0, :cond_0
 
-    .line 106
+    .line 218
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PanelView$2;->this$0:Lcom/android/systemui/statusbar/phone/PanelView;
 
     #getter for: Lcom/android/systemui/statusbar/phone/PanelView;->mTimeAnimator:Landroid/animation/TimeAnimator;
@@ -74,28 +74,21 @@
 
     move-result-object v0
 
-    invoke-virtual {v0}, Landroid/animation/TimeAnimator;->end()V
+    invoke-virtual {v0}, Landroid/animation/ValueAnimator;->end()V
 
-    .line 107
+    .line 219
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PanelView$2;->this$0:Lcom/android/systemui/statusbar/phone/PanelView;
 
     #setter for: Lcom/android/systemui/statusbar/phone/PanelView;->mRubberbanding:Z
     invoke-static {v0, v1}, Lcom/android/systemui/statusbar/phone/PanelView;->access$202(Lcom/android/systemui/statusbar/phone/PanelView;Z)Z
 
-    .line 108
+    .line 220
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PanelView$2;->this$0:Lcom/android/systemui/statusbar/phone/PanelView;
 
     #setter for: Lcom/android/systemui/statusbar/phone/PanelView;->mClosing:Z
     invoke-static {v0, v1}, Lcom/android/systemui/statusbar/phone/PanelView;->access$302(Lcom/android/systemui/statusbar/phone/PanelView;Z)Z
 
-    .line 111
-    sget-object v0, Lcom/android/systemui/statusbar/phone/PanelView;->TAG:Ljava/lang/String;
-
-    const-string v1, "mStopAnimator"
-
-    invoke-static {v0, v1}, Landroid/util/secutil/Log;->secD(Ljava/lang/String;Ljava/lang/String;)I
-
-    .line 113
+    .line 222
     :cond_0
     return-void
 .end method

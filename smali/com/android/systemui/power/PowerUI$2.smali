@@ -30,12 +30,12 @@
     .parameter
 
     .prologue
-    .line 757
+    .line 839
     iput-object p1, p0, Lcom/android/systemui/power/PowerUI$2;->this$0:Lcom/android/systemui/power/PowerUI;
 
     iput-object p2, p0, Lcom/android/systemui/power/PowerUI$2;->val$intent:Landroid/content/Intent;
 
-    invoke-direct/range {p0 .. p0}, Ljava/lang/Object;-><init>()V
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
     return-void
 .end method
@@ -48,7 +48,7 @@
     .parameter "which"
 
     .prologue
-    .line 760
+    .line 842
     iget-object v0, p0, Lcom/android/systemui/power/PowerUI$2;->this$0:Lcom/android/systemui/power/PowerUI;
 
     iget-object v0, v0, Lcom/android/systemui/SystemUI;->mContext:Landroid/content/Context;
@@ -59,11 +59,11 @@
 
     invoke-virtual {v0, v1, v2}, Landroid/content/Context;->startActivityAsUser(Landroid/content/Intent;Landroid/os/UserHandle;)V
 
-    .line 761
+    .line 843
     iget-object v0, p0, Lcom/android/systemui/power/PowerUI$2;->this$0:Lcom/android/systemui/power/PowerUI;
 
     invoke-virtual {v0}, Lcom/android/systemui/power/PowerUI;->dismissLowBatteryWarning()V
 
-    .line 762
+    .line 844
     return-void
 .end method

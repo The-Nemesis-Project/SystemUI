@@ -37,7 +37,7 @@
     iput-wide p2, p0, Lcom/android/systemui/statusbar/GestureRecorder$Gesture$Record;->time:J
 
     .line 49
-    invoke-virtual {p4}, Landroid/view/MotionEvent;->copy()Landroid/view/MotionEvent;
+    invoke-static {p4}, Landroid/view/MotionEvent;->obtain(Landroid/view/MotionEvent;)Landroid/view/MotionEvent;
 
     move-result-object v0
 

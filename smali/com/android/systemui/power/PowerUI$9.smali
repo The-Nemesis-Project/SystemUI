@@ -36,7 +36,7 @@
     .parameter
 
     .prologue
-    .line 1062
+    .line 1167
     iput-object p1, p0, Lcom/android/systemui/power/PowerUI$9;->this$0:Lcom/android/systemui/power/PowerUI;
 
     iput-object p2, p0, Lcom/android/systemui/power/PowerUI$9;->val$v:Landroid/view/View;
@@ -45,7 +45,7 @@
 
     iput p4, p0, Lcom/android/systemui/power/PowerUI$9;->val$finalMessageId:I
 
-    invoke-direct/range {p0 .. p0}, Ljava/lang/Object;-><init>()V
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
     return-void
 .end method
@@ -60,10 +60,10 @@
     .prologue
     const/4 v3, 0x1
 
-    .line 1064
+    .line 1169
     iget-object v1, p0, Lcom/android/systemui/power/PowerUI$9;->val$v:Landroid/view/View;
 
-    const v2, 0x7f090008
+    const v2, 0x7f070004
 
     invoke-virtual {v1, v2}, Landroid/view/View;->findViewById(I)Landroid/view/View;
 
@@ -73,49 +73,49 @@
 
     check-cast v1, Landroid/widget/CheckBox;
 
-    invoke-virtual {v1}, Landroid/widget/CheckBox;->isChecked()Z
+    invoke-virtual {v1}, Landroid/widget/CompoundButton;->isChecked()Z
 
     move-result v1
 
     if-eqz v1, :cond_1
 
-    .line 1065
+    .line 1170
     iget-object v1, p0, Lcom/android/systemui/power/PowerUI$9;->val$abnormalChargeSharedPrefs:Landroid/content/SharedPreferences;
 
     invoke-interface {v1}, Landroid/content/SharedPreferences;->edit()Landroid/content/SharedPreferences$Editor;
 
     move-result-object v0
 
-    .line 1066
+    .line 1171
     .local v0, editor:Landroid/content/SharedPreferences$Editor;
-    const v1, 0x7f0c0139
+    const v1, 0x7f0a0145
 
     iget v2, p0, Lcom/android/systemui/power/PowerUI$9;->val$finalMessageId:I
 
     if-eq v1, v2, :cond_0
 
-    const v1, 0x7f0c013a
+    const v1, 0x7f0a0146
 
     iget v2, p0, Lcom/android/systemui/power/PowerUI$9;->val$finalMessageId:I
 
     if-ne v1, v2, :cond_2
 
-    .line 1067
+    .line 1172
     :cond_0
     const-string v1, "DoNotShowSlowChargingWarning"
 
     invoke-interface {v0, v1, v3}, Landroid/content/SharedPreferences$Editor;->putBoolean(Ljava/lang/String;Z)Landroid/content/SharedPreferences$Editor;
 
-    .line 1071
+    .line 1176
     :goto_0
     invoke-interface {v0}, Landroid/content/SharedPreferences$Editor;->commit()Z
 
-    .line 1073
+    .line 1178
     .end local v0           #editor:Landroid/content/SharedPreferences$Editor;
     :cond_1
     return-void
 
-    .line 1069
+    .line 1174
     .restart local v0       #editor:Landroid/content/SharedPreferences$Editor;
     :cond_2
     const-string v1, "DoNotShowIncompatibleChargerWarning"

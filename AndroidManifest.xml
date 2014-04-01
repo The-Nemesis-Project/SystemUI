@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest android:sharedUserId="android.uid.system" android:process="system" android:versionCode="18" android:versionName="4.3-N900TUVUBMI7" package="com.android.systemui" coreApp="true"
+<manifest android:sharedUserId="android.uid.systemui" android:versionCode="19" android:versionName="4.4.2-N900TUVUCNB4" package="com.android.systemui" coreApp="true"
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:androidprv="http://schemas.android.com/apk/prv/res/android">
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
@@ -19,6 +19,7 @@
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.CONFIGURE_WIFI_DISPLAY" />
     <uses-permission android:name="android.permission.WRITE_SECURE_SETTINGS" />
+    <uses-permission android:name="android.permission.GET_APP_OPS_STATS" />
     <uses-permission android:name="android.permission.CHANGE_CONFIGURATION" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
@@ -31,7 +32,6 @@
     <uses-permission android:name="android.permission.MANAGE_USB" />
     <uses-permission android:name="android.permission.DEVICE_POWER" />
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
-    <uses-permission android:name="android.permission.UPDATE_DEVICE_STATS" />
     <uses-permission android:name="android.permission.MASTER_CLEAR" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.GET_TASKS" />
@@ -41,6 +41,7 @@
     <uses-permission android:name="android.permission.STOP_APP_SWITCHES" />
     <uses-permission android:name="android.permission.SET_SCREEN_COMPATIBILITY" />
     <uses-permission android:name="android.permission.START_ANY_ACTIVITY" />
+    <uses-permission android:name="android.permission.INTERACT_ACROSS_USERS" />
     <uses-permission android:name="android.permission.INTERACT_ACROSS_USERS_FULL" />
     <uses-permission android:name="android.permission.GET_TOP_ACTIVITY_INFO" />
     <uses-permission android:name="android.permission.INTERNAL_SYSTEM_WINDOW" />
@@ -51,37 +52,29 @@
     <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
     <uses-permission android:name="android.permission.READ_DREAM_STATE" />
     <uses-permission android:name="android.permission.WRITE_DREAM_STATE" />
-    <uses-permission android:name="com.samsung.tmowfc.wfcprovider.permission.READ_WFCPROVIDER" />
-    <uses-permission android:name="com.samsung.tmowfc.wfcprovider.permission.WRITE_REGISTER" />
     <uses-permission android:name="android.permission.WRITE_SYNC_SETTINGS" />
     <uses-permission android:name="android.permission.READ_SYNC_SETTINGS" />
-    <uses-permission android:name="com.samsung.clipboardsaveservice.CLIPBOARDSAVESERVICE_PERMISSION" />
+    <uses-permission android:name="com.android.alarm.permission.SET_ALARM" />
+    <uses-permission android:name="android.permission.CONTROL_KEYGUARD" />
+    <uses-permission android:name="android.permission.CONFIGURE_WIFI_DISPLAY" />
     <uses-permission android:name="android.permission.WRITE_APN_SETTINGS" />
-    <uses-permission android:name="android.permission.CALL_PHONE" />
-    <uses-permission android:name="com.sec.android.app.twdvfs.DVFS_BOOSTER_PERMISSION" />
-    <uses-permission android:name="com.sec.android.app.servicemodeapp.permission.KEYSTRING" />
-    <application android:label="@string/app_label" android:icon="@*android:drawable/platlogo" android:allowClearUserData="false" android:persistent="true" android:allowBackup="false" android:hardwareAccelerated="true" android:largeHeap="true">
+    <uses-permission android:name="com.samsung.clipboardsaveservice.CLIPBOARDSAVESERVICE_PERMISSION" />
+    <uses-permission android:name="android.permission.SET_PROCESS_LIMIT" />
+    <application android:label="@string/app_label" android:icon="@*android:drawable/platlogo" android:allowClearUserData="false" android:persistent="true" android:process="com.android.systemui" android:allowBackup="false" android:hardwareAccelerated="true" android:largeHeap="true" android:supportsRtl="false">
         <service android:name="SystemUIService" android:exported="true" />
         <service android:name=".screenshot.TakeScreenshotService" android:exported="false" android:process=":screenshot" />
         <activity android:theme="@*android:style/Theme.Translucent" android:name=".screenshot.ScreenshotDeleteActivity" android:excludeFromRecents="true" />
         <activity android:theme="@*android:style/Theme.Translucent" android:name=".screenshot.ScreenshotEditResolveActivity" android:excludeFromRecents="true" android:configChanges="orientation|screenSize" />
-        <activity android:theme="@*android:style/Theme.Light.NoTitleBar" android:name=".PickUpTutorial" android:configChanges="keyboardHidden|orientation|screenSize">
-            <intent-filter>
-                <action android:name="android.pickuptutorial.PICKUPTUTORIAL" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-        <activity android:theme="@*android:style/Theme.Black.NoTitleBar.Fullscreen" android:name=".PickUpBlackScreen" android:configChanges="keyboardHidden|orientation|screenSize">
-            <intent-filter>
-                <action android:name="android.pickuptutorial.PICKUPBLACKSCREEN" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
         <service android:name=".LoadAverageService" android:exported="true" />
         <service android:name=".ImageWallpaper" android:permission="android.permission.BIND_WALLPAPER" android:exported="true" />
         <receiver android:name=".BootReceiver" androidprv:primaryUserOnly="true">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+        <receiver android:name=".EdmToastReceiver">
+            <intent-filter>
+                <action android:name="edm.intent.action.ACTION_EDM_RESTRICTION_TOAST" />
             </intent-filter>
         </receiver>
         <activity android:label="@*android:string/usb_storage_activity_title" android:name=".usb.UsbStorageActivity" android:excludeFromRecents="true" />
@@ -92,10 +85,27 @@
                 <action android:name="com.android.systemui.TOGGLE_RECENTS" />
             </intent-filter>
         </activity>
+        <activity android:theme="@*android:style/Theme.Light.NoTitleBar" android:name=".statusbar.PickUpTutorial" android:configChanges="keyboardHidden|orientation|screenSize">
+            <intent-filter>
+                <action android:name="android.pickuptutorial.PICKUPTUTORIAL" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:theme="@*android:style/Theme.Black.NoTitleBar.Fullscreen" android:name=".statusbar.PickUpBlackScreen" android:configChanges="keyboardHidden|orientation|screenSize">
+            <intent-filter>
+                <action android:name="android.pickuptutorial.PICKUPBLACKSCREEN" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
         <receiver android:name=".recent.RecentsPreloadReceiver" android:exported="false">
             <intent-filter>
                 <action android:name="com.android.systemui.recent.action.PRELOAD" />
                 <action android:name="com.android.systemui.recent.action.CANCEL_PRELOAD" />
+            </intent-filter>
+        </receiver>
+        <receiver android:name=".usb.UsbToastReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.SDCARD_ITPOLICY_TOAST_EVENT" />
             </intent-filter>
         </receiver>
         <activity android:theme="@*android:style/Theme.Holo.Dialog.Alert" android:name=".usb.UsbConfirmActivity" android:permission="android.permission.MANAGE_USB" android:exported="true" android:excludeFromRecents="true" android:finishOnCloseSystemDialogs="true" />
@@ -103,29 +113,28 @@
         <activity android:theme="@*android:style/Theme.Holo.Dialog.Alert" android:name=".usb.UsbResolverActivity" android:permission="android.permission.MANAGE_USB" android:exported="true" android:excludeFromRecents="true" android:finishOnCloseSystemDialogs="true" />
         <activity android:theme="@*android:style/Theme.Holo.Dialog.Alert" android:name=".usb.UsbAccessoryUriActivity" android:permission="android.permission.MANAGE_USB" android:exported="true" android:excludeFromRecents="true" android:finishOnCloseSystemDialogs="true" />
         <activity android:theme="@*android:style/Theme.Holo.Dialog.Alert" android:name=".usb.UsbDebuggingActivity" android:permission="android.permission.MANAGE_USB" android:excludeFromRecents="true" android:finishOnCloseSystemDialogs="true" />
-        <activity android:theme="@*android:style/Theme.DeviceDefault.Panel" android:name=".net.NetworkOverLimitActivity" android:permission="android.permission.MANAGE_NETWORK_POLICY" android:exported="true" android:taskAffinity="com.android.systemui.net" android:excludeFromRecents="true" android:launchMode="singleTop" android:finishOnCloseSystemDialogs="true" />
-        <activity android:theme="@*android:style/Theme.Wallpaper.NoTitleBar.Fullscreen" android:label="BeanBag" android:icon="@drawable/redbean2" android:name=".BeanBag" android:exported="true" android:excludeFromRecents="true" android:launchMode="singleInstance" android:hardwareAccelerated="true">
+        <activity android:theme="@*android:style/Theme.Holo.Panel" android:name=".net.NetworkOverLimitActivity" android:permission="android.permission.MANAGE_NETWORK_POLICY" android:exported="true" android:taskAffinity="com.android.systemui.net" android:excludeFromRecents="true" android:launchMode="singleTop" android:finishOnCloseSystemDialogs="true" />
+        <activity android:theme="@*android:style/Theme.Black.NoTitleBar.Fullscreen" android:label="@string/dessert_case" android:name=".DessertCase" android:exported="true" android:excludeFromRecents="true" android:launchMode="singleInstance" android:configChanges="orientation|screenSize" android:hardwareAccelerated="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="com.android.internal.category.PLATLOGO" />
             </intent-filter>
         </activity>
-        <service android:label="@string/jelly_bean_dream_name" android:name=".BeanBagDream" android:enabled="false" android:exported="true">
+        <service android:label="@string/dessert_case" android:name=".DessertCaseDream" android:enabled="false" android:exported="true">
             <intent-filter>
                 <action android:name="android.service.dreams.DreamService" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </service>
-        <service android:name=".PhoneSettingService">
+        <activity android:theme="@style/Overheating" android:label="@string/cooling_popup_name" android:name=".cooldown.Overheat" android:exported="true" android:excludeFromRecents="true" android:configChanges="keyboardHidden|orientation|screenSize" />
+        <receiver android:name=".cooldown.OverheatReceiver">
             <intent-filter>
-                <action android:name="android.intent.action.SPELL" />
+                <action android:name="android.intent.action.CHECK_SIOP_LEVEL" />
+                <action android:name="android.intent.action.PROCESS_SIOP" />
             </intent-filter>
-            <meta-data android:name="android.app.spellscroll" android:resource="@xml/spellscroll" />
-        </service>
+        </receiver>
         <uses-library android:name="touchwiz" />
-        <meta-data android:name="android.nfc.disable_beam_default" android:value="true" />
-        <uses-library android:name="com.sec.android.app.minimode" android:required="false" />
-        <uses-library android:name="TmoWfcUtils" android:required="false" />
+        <uses-library android:name="colorextractionlib" android:required="false" />
     </application>
 </manifest>

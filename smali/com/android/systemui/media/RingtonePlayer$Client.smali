@@ -35,15 +35,15 @@
     .parameter "streamType"
 
     .prologue
-    .line 78
+    .line 77
     iput-object p1, p0, Lcom/android/systemui/media/RingtonePlayer$Client;->this$0:Lcom/android/systemui/media/RingtonePlayer;
 
-    invoke-direct/range {p0 .. p0}, Ljava/lang/Object;-><init>()V
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 79
+    .line 78
     iput-object p2, p0, Lcom/android/systemui/media/RingtonePlayer$Client;->mToken:Landroid/os/IBinder;
 
-    .line 81
+    .line 80
     new-instance v0, Landroid/media/Ringtone;
 
     #calls: Lcom/android/systemui/media/RingtonePlayer;->getContextForUser(Landroid/os/UserHandle;)Landroid/content/Context;
@@ -57,17 +57,17 @@
 
     iput-object v0, p0, Lcom/android/systemui/media/RingtonePlayer$Client;->mRingtone:Landroid/media/Ringtone;
 
-    .line 82
+    .line 81
     iget-object v0, p0, Lcom/android/systemui/media/RingtonePlayer$Client;->mRingtone:Landroid/media/Ringtone;
 
     invoke-virtual {v0, p5}, Landroid/media/Ringtone;->setStreamType(I)V
 
-    .line 83
+    .line 82
     iget-object v0, p0, Lcom/android/systemui/media/RingtonePlayer$Client;->mRingtone:Landroid/media/Ringtone;
 
     invoke-virtual {v0, p3}, Landroid/media/Ringtone;->setUri(Landroid/net/Uri;)Z
 
-    .line 84
+    .line 83
     return-void
 .end method
 
@@ -76,7 +76,7 @@
     .parameter "x0"
 
     .prologue
-    .line 74
+    .line 73
     iget-object v0, p0, Lcom/android/systemui/media/RingtonePlayer$Client;->mRingtone:Landroid/media/Ringtone;
 
     return-object v0
@@ -87,7 +87,7 @@
     .parameter "x0"
 
     .prologue
-    .line 74
+    .line 73
     iget-object v0, p0, Lcom/android/systemui/media/RingtonePlayer$Client;->mToken:Landroid/os/IBinder;
 
     return-object v0
@@ -99,7 +99,7 @@
     .locals 3
 
     .prologue
-    .line 89
+    .line 88
     iget-object v0, p0, Lcom/android/systemui/media/RingtonePlayer$Client;->this$0:Lcom/android/systemui/media/RingtonePlayer;
 
     #getter for: Lcom/android/systemui/media/RingtonePlayer;->mClients:Ljava/util/HashMap;
@@ -109,7 +109,7 @@
 
     monitor-enter v1
 
-    .line 90
+    .line 89
     :try_start_0
     iget-object v0, p0, Lcom/android/systemui/media/RingtonePlayer$Client;->this$0:Lcom/android/systemui/media/RingtonePlayer;
 
@@ -122,20 +122,20 @@
 
     invoke-virtual {v0, v2}, Ljava/util/HashMap;->remove(Ljava/lang/Object;)Ljava/lang/Object;
 
-    .line 91
+    .line 90
     monitor-exit v1
     :try_end_0
     .catchall {:try_start_0 .. :try_end_0} :catchall_0
 
-    .line 92
+    .line 91
     iget-object v0, p0, Lcom/android/systemui/media/RingtonePlayer$Client;->mRingtone:Landroid/media/Ringtone;
 
     invoke-virtual {v0}, Landroid/media/Ringtone;->stop()V
 
-    .line 93
+    .line 92
     return-void
 
-    .line 91
+    .line 90
     :catchall_0
     move-exception v0
 

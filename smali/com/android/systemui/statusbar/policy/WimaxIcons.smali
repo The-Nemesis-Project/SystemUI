@@ -18,12 +18,12 @@
     .prologue
     const/4 v1, 0x0
 
-    .line 23
+    .line 22
     sget-object v0, Lcom/android/systemui/statusbar/policy/TelephonyIcons;->DATA_SIGNAL_STRENGTH:[[I
 
     sput-object v0, Lcom/android/systemui/statusbar/policy/WimaxIcons;->WIMAX_SIGNAL_STRENGTH:[[I
 
-    .line 25
+    .line 24
     sget-object v0, Lcom/android/systemui/statusbar/policy/WimaxIcons;->WIMAX_SIGNAL_STRENGTH:[[I
 
     aget-object v0, v0, v1
@@ -32,7 +32,7 @@
 
     sput v0, Lcom/android/systemui/statusbar/policy/WimaxIcons;->WIMAX_DISCONNECTED:I
 
-    .line 27
+    .line 26
     sget v0, Lcom/android/systemui/statusbar/policy/WimaxIcons;->WIMAX_DISCONNECTED:I
 
     sput v0, Lcom/android/systemui/statusbar/policy/WimaxIcons;->WIMAX_IDLE:I
@@ -44,8 +44,8 @@
     .locals 0
 
     .prologue
-    .line 22
-    invoke-direct/range {p0 .. p0}, Ljava/lang/Object;-><init>()V
+    .line 21
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
     return-void
 .end method

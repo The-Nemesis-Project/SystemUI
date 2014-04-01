@@ -39,30 +39,30 @@
     .parameter "text"
 
     .prologue
-    .line 144
+    .line 138
     iput-object p1, p0, Lcom/android/systemui/statusbar/phone/Ticker$Segment;->this$0:Lcom/android/systemui/statusbar/phone/Ticker;
 
-    invoke-direct/range {p0 .. p0}, Ljava/lang/Object;-><init>()V
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 145
+    .line 139
     iput-object p2, p0, Lcom/android/systemui/statusbar/phone/Ticker$Segment;->notification:Landroid/service/notification/StatusBarNotification;
 
-    .line 146
+    .line 140
     iput-object p3, p0, Lcom/android/systemui/statusbar/phone/Ticker$Segment;->icon:Landroid/graphics/drawable/Drawable;
 
-    .line 147
+    .line 141
     iput-object p4, p0, Lcom/android/systemui/statusbar/phone/Ticker$Segment;->text:Ljava/lang/CharSequence;
 
-    .line 148
+    .line 142
     const/4 v0, 0x0
 
-    .line 149
+    .line 143
     .local v0, index:I
     invoke-interface {p4}, Ljava/lang/CharSequence;->length()I
 
     move-result v1
 
-    .line 150
+    .line 144
     .local v1, len:I
     :goto_0
     if-ge v0, v1, :cond_0
@@ -77,24 +77,24 @@
 
     if-nez v2, :cond_0
 
-    .line 151
+    .line 145
     add-int/lit8 v0, v0, 0x1
 
     goto :goto_0
 
-    .line 153
+    .line 147
     :cond_0
     iput v0, p0, Lcom/android/systemui/statusbar/phone/Ticker$Segment;->current:I
 
-    .line 154
+    .line 148
     iput v0, p0, Lcom/android/systemui/statusbar/phone/Ticker$Segment;->next:I
 
-    .line 155
+    .line 149
     const/4 v2, 0x1
 
     iput-boolean v2, p0, Lcom/android/systemui/statusbar/phone/Ticker$Segment;->first:Z
 
-    .line 156
+    .line 150
     return-void
 .end method
 
@@ -106,15 +106,15 @@
     .prologue
     const/4 v9, 0x0
 
-    .line 112
+    .line 106
     const/4 v10, 0x0
 
     iput-boolean v10, p0, Lcom/android/systemui/statusbar/phone/Ticker$Segment;->first:Z
 
-    .line 113
+    .line 107
     iget v2, p0, Lcom/android/systemui/statusbar/phone/Ticker$Segment;->next:I
 
-    .line 114
+    .line 108
     .local v2, index:I
     iget-object v10, p0, Lcom/android/systemui/statusbar/phone/Ticker$Segment;->text:Ljava/lang/CharSequence;
 
@@ -122,7 +122,7 @@
 
     move-result v4
 
-    .line 115
+    .line 109
     .local v4, len:I
     :goto_0
     if-ge v2, v4, :cond_0
@@ -139,22 +139,22 @@
 
     if-nez v10, :cond_0
 
-    .line 116
+    .line 110
     add-int/lit8 v2, v2, 0x1
 
     goto :goto_0
 
-    .line 118
+    .line 112
     :cond_0
     if-lt v2, v4, :cond_1
 
     move-object v6, v9
 
-    .line 141
+    .line 135
     :goto_1
     return-object v6
 
-    .line 122
+    .line 116
     :cond_1
     iget-object v10, p0, Lcom/android/systemui/statusbar/phone/Ticker$Segment;->text:Ljava/lang/CharSequence;
 
@@ -168,19 +168,19 @@
 
     move-result-object v8
 
-    .line 123
+    .line 117
     .local v8, substr:Ljava/lang/CharSequence;
     invoke-virtual {p0, v8}, Lcom/android/systemui/statusbar/phone/Ticker$Segment;->getLayout(Ljava/lang/CharSequence;)Landroid/text/StaticLayout;
 
     move-result-object v3
 
-    .line 124
+    .line 118
     .local v3, l:Landroid/text/StaticLayout;
     invoke-virtual {v3}, Landroid/text/StaticLayout;->getLineCount()I
 
     move-result v5
 
-    .line 126
+    .line 120
     .local v5, lineCount:I
     const/4 v1, 0x0
 
@@ -188,44 +188,44 @@
     :goto_2
     if-ge v1, v5, :cond_4
 
-    .line 127
+    .line 121
     invoke-virtual {v3, v1}, Landroid/text/StaticLayout;->getLineStart(I)I
 
     move-result v7
 
-    .line 128
+    .line 122
     .local v7, start:I
-    invoke-virtual {v3, v1}, Landroid/text/StaticLayout;->getLineEnd(I)I
+    invoke-virtual {v3, v1}, Landroid/text/Layout;->getLineEnd(I)I
 
     move-result v0
 
-    .line 129
+    .line 123
     .local v0, end:I
     add-int/lit8 v10, v5, -0x1
 
     if-ne v1, v10, :cond_2
 
-    .line 130
+    .line 124
     iput v4, p0, Lcom/android/systemui/statusbar/phone/Ticker$Segment;->next:I
 
-    .line 134
+    .line 128
     :goto_3
     invoke-virtual {p0, v8, v7, v0}, Lcom/android/systemui/statusbar/phone/Ticker$Segment;->rtrim(Ljava/lang/CharSequence;II)Ljava/lang/CharSequence;
 
     move-result-object v6
 
-    .line 135
+    .line 129
     .local v6, result:Ljava/lang/CharSequence;
     if-eqz v6, :cond_3
 
-    .line 136
+    .line 130
     add-int v9, v2, v7
 
     iput v9, p0, Lcom/android/systemui/statusbar/phone/Ticker$Segment;->current:I
 
     goto :goto_1
 
-    .line 132
+    .line 126
     .end local v6           #result:Ljava/lang/CharSequence;
     :cond_2
     add-int/lit8 v10, v1, 0x1
@@ -240,14 +240,14 @@
 
     goto :goto_3
 
-    .line 126
+    .line 120
     .restart local v6       #result:Ljava/lang/CharSequence;
     :cond_3
     add-int/lit8 v1, v1, 0x1
 
     goto :goto_2
 
-    .line 140
+    .line 134
     .end local v0           #end:I
     .end local v6           #result:Ljava/lang/CharSequence;
     .end local v7           #start:I
@@ -256,7 +256,7 @@
 
     move-object v6, v9
 
-    .line 141
+    .line 135
     goto :goto_1
 .end method
 
@@ -265,7 +265,7 @@
     .parameter "substr"
 
     .prologue
-    .line 76
+    .line 70
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/Ticker$Segment;->this$0:Lcom/android/systemui/statusbar/phone/Ticker;
 
     #getter for: Lcom/android/systemui/statusbar/phone/Ticker;->mTextSwitcher:Landroid/widget/TextSwitcher;
@@ -273,7 +273,7 @@
 
     move-result-object v0
 
-    invoke-virtual {v0}, Landroid/widget/TextSwitcher;->getWidth()I
+    invoke-virtual {v0}, Landroid/view/View;->getWidth()I
 
     move-result v0
 
@@ -284,7 +284,7 @@
 
     move-result-object v1
 
-    invoke-virtual {v1}, Landroid/widget/TextSwitcher;->getPaddingLeft()I
+    invoke-virtual {v1}, Landroid/view/View;->getPaddingLeft()I
 
     move-result v1
 
@@ -297,13 +297,13 @@
 
     move-result-object v1
 
-    invoke-virtual {v1}, Landroid/widget/TextSwitcher;->getPaddingRight()I
+    invoke-virtual {v1}, Landroid/view/View;->getPaddingRight()I
 
     move-result v1
 
     sub-int v3, v0, v1
 
-    .line 78
+    .line 72
     .local v3, w:I
     new-instance v0, Landroid/text/StaticLayout;
 
@@ -335,7 +335,7 @@
     .prologue
     const/4 v8, 0x0
 
-    .line 93
+    .line 87
     iget v5, p0, Lcom/android/systemui/statusbar/phone/Ticker$Segment;->current:I
 
     iget-object v6, p0, Lcom/android/systemui/statusbar/phone/Ticker$Segment;->text:Ljava/lang/CharSequence;
@@ -346,14 +346,14 @@
 
     if-le v5, v6, :cond_0
 
-    .line 94
+    .line 88
     const/4 v5, 0x0
 
-    .line 103
+    .line 97
     :goto_0
     return-object v5
 
-    .line 96
+    .line 90
     :cond_0
     iget-object v5, p0, Lcom/android/systemui/statusbar/phone/Ticker$Segment;->text:Ljava/lang/CharSequence;
 
@@ -369,34 +369,34 @@
 
     move-result-object v4
 
-    .line 97
+    .line 91
     .local v4, substr:Ljava/lang/CharSequence;
     invoke-virtual {p0, v4}, Lcom/android/systemui/statusbar/phone/Ticker$Segment;->getLayout(Ljava/lang/CharSequence;)Landroid/text/StaticLayout;
 
     move-result-object v1
 
-    .line 98
+    .line 92
     .local v1, l:Landroid/text/StaticLayout;
     invoke-virtual {v1}, Landroid/text/StaticLayout;->getLineCount()I
 
     move-result v2
 
-    .line 99
+    .line 93
     .local v2, lineCount:I
     if-lez v2, :cond_1
 
-    .line 100
+    .line 94
     invoke-virtual {v1, v8}, Landroid/text/StaticLayout;->getLineStart(I)I
 
     move-result v3
 
-    .line 101
+    .line 95
     .local v3, start:I
-    invoke-virtual {v1, v8}, Landroid/text/StaticLayout;->getLineEnd(I)I
+    invoke-virtual {v1, v8}, Landroid/text/Layout;->getLineEnd(I)I
 
     move-result v0
 
-    .line 102
+    .line 96
     .local v0, end:I
     iget v5, p0, Lcom/android/systemui/statusbar/phone/Ticker$Segment;->current:I
 
@@ -404,14 +404,14 @@
 
     iput v5, p0, Lcom/android/systemui/statusbar/phone/Ticker$Segment;->next:I
 
-    .line 103
+    .line 97
     invoke-virtual {p0, v4, v3, v0}, Lcom/android/systemui/statusbar/phone/Ticker$Segment;->rtrim(Ljava/lang/CharSequence;II)Ljava/lang/CharSequence;
 
     move-result-object v5
 
     goto :goto_0
 
-    .line 105
+    .line 99
     .end local v0           #end:I
     .end local v3           #start:I
     :cond_1
@@ -471,7 +471,7 @@
     .parameter "end"
 
     .prologue
-    .line 82
+    .line 76
     :goto_0
     if-le p3, p2, :cond_0
 
@@ -487,21 +487,21 @@
 
     if-nez v0, :cond_0
 
-    .line 83
+    .line 77
     add-int/lit8 p3, p3, -0x1
 
     goto :goto_0
 
-    .line 85
+    .line 79
     :cond_0
     if-le p3, p2, :cond_1
 
-    .line 86
+    .line 80
     invoke-interface {p1, p2, p3}, Ljava/lang/CharSequence;->subSequence(II)Ljava/lang/CharSequence;
 
     move-result-object v0
 
-    .line 88
+    .line 82
     :goto_1
     return-object v0
 

@@ -24,7 +24,7 @@
     .parameter
 
     .prologue
-    .line 920
+    .line 723
     iput-object p1, p0, Lcom/android/systemui/statusbar/policy/NetworkController$1;->this$0:Lcom/android/systemui/statusbar/policy/NetworkController;
 
     invoke-direct {p0}, Landroid/telephony/PhoneStateListener;-><init>()V
@@ -46,7 +46,7 @@
 
     const/4 v4, 0x0
 
-    .line 979
+    .line 784
     const-string v0, "STATUSBAR-NetworkController"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -69,12 +69,12 @@
 
     invoke-static {v0, v1}, Landroid/util/Slog;->d(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 981
+    .line 786
     sget-boolean v0, Lcom/android/systemui/statusbar/Feature;->mShowFakeRssiIcon:Z
 
     if-eqz v0, :cond_1
 
-    .line 982
+    .line 787
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/NetworkController$1;->this$0:Lcom/android/systemui/statusbar/policy/NetworkController;
 
     #getter for: Lcom/android/systemui/statusbar/policy/NetworkController;->mEmgcCallState:I
@@ -88,13 +88,13 @@
 
     if-nez p1, :cond_0
 
-    .line 983
+    .line 788
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/NetworkController$1;->this$0:Lcom/android/systemui/statusbar/policy/NetworkController;
 
     #setter for: Lcom/android/systemui/statusbar/policy/NetworkController;->mKeepFakeState:Z
     invoke-static {v0, v5}, Lcom/android/systemui/statusbar/policy/NetworkController;->access$702(Lcom/android/systemui/statusbar/policy/NetworkController;Z)Z
 
-    .line 984
+    .line 789
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/NetworkController$1;->this$0:Lcom/android/systemui/statusbar/policy/NetworkController;
 
     #getter for: Lcom/android/systemui/statusbar/policy/NetworkController;->mHandler:Landroid/os/Handler;
@@ -104,7 +104,7 @@
 
     invoke-virtual {v0, v3}, Landroid/os/Handler;->removeMessages(I)V
 
-    .line 985
+    .line 790
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/NetworkController$1;->this$0:Lcom/android/systemui/statusbar/policy/NetworkController;
 
     #getter for: Lcom/android/systemui/statusbar/policy/NetworkController;->mHandler:Landroid/os/Handler;
@@ -134,7 +134,7 @@
 
     invoke-virtual {v0, v1, v2, v3}, Landroid/os/Handler;->sendMessageDelayed(Landroid/os/Message;J)Z
 
-    .line 992
+    .line 797
     :cond_0
     const-string v0, "ril.ims.pre_regstate"
 
@@ -142,15 +142,15 @@
 
     move-result v0
 
-    if-eqz v0, :cond_4
+    if-eqz v0, :cond_5
 
-    .line 993
+    .line 798
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/NetworkController$1;->this$0:Lcom/android/systemui/statusbar/policy/NetworkController;
 
     #setter for: Lcom/android/systemui/statusbar/policy/NetworkController;->mEmgcCallState:I
     invoke-static {v0, p1}, Lcom/android/systemui/statusbar/policy/NetworkController;->access$602(Lcom/android/systemui/statusbar/policy/NetworkController;I)I
 
-    .line 997
+    .line 802
     :goto_0
     const-string v0, "STATUSBAR-NetworkController"
 
@@ -198,7 +198,7 @@
 
     invoke-static {v0, v1}, Landroid/util/Slog;->d(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 1001
+    .line 806
     :cond_1
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/NetworkController$1;->this$0:Lcom/android/systemui/statusbar/policy/NetworkController;
 
@@ -216,7 +216,7 @@
 
     move-result v0
 
-    if-eqz v0, :cond_3
+    if-eqz v0, :cond_4
 
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/NetworkController$1;->this$0:Lcom/android/systemui/statusbar/policy/NetworkController;
 
@@ -226,32 +226,44 @@
 
     move-result v0
 
-    if-eq v0, v5, :cond_3
+    if-eq v0, v5, :cond_4
 
-    .line 1002
+    .line 807
     :cond_2
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/NetworkController$1;->this$0:Lcom/android/systemui/statusbar/policy/NetworkController;
 
     #calls: Lcom/android/systemui/statusbar/policy/NetworkController;->getUpdateDataNetType()V
     invoke-static {v0}, Lcom/android/systemui/statusbar/policy/NetworkController;->access$400(Lcom/android/systemui/statusbar/policy/NetworkController;)V
 
-    .line 1003
+    .line 808
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/NetworkController$1;->this$0:Lcom/android/systemui/statusbar/policy/NetworkController;
 
     #calls: Lcom/android/systemui/statusbar/policy/NetworkController;->updateTelephonySignalStrength()V
     invoke-static {v0}, Lcom/android/systemui/statusbar/policy/NetworkController;->access$000(Lcom/android/systemui/statusbar/policy/NetworkController;)V
 
-    .line 1004
+    .line 809
+    sget-boolean v0, Lcom/android/systemui/statusbar/Feature;->mUseDisabledDataIcon:Z
+
+    if-eqz v0, :cond_3
+
+    .line 810
+    iget-object v0, p0, Lcom/android/systemui/statusbar/policy/NetworkController$1;->this$0:Lcom/android/systemui/statusbar/policy/NetworkController;
+
+    #calls: Lcom/android/systemui/statusbar/policy/NetworkController;->updateDataIcon()V
+    invoke-static {v0}, Lcom/android/systemui/statusbar/policy/NetworkController;->access$500(Lcom/android/systemui/statusbar/policy/NetworkController;)V
+
+    .line 812
+    :cond_3
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/NetworkController$1;->this$0:Lcom/android/systemui/statusbar/policy/NetworkController;
 
     invoke-virtual {v0}, Lcom/android/systemui/statusbar/policy/NetworkController;->refreshViews()V
 
-    .line 1006
-    :cond_3
+    .line 814
+    :cond_4
     return-void
 
-    .line 995
-    :cond_4
+    .line 800
+    :cond_5
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/NetworkController$1;->this$0:Lcom/android/systemui/statusbar/policy/NetworkController;
 
     #setter for: Lcom/android/systemui/statusbar/policy/NetworkController;->mEmgcCallState:I
@@ -265,7 +277,7 @@
     .parameter "direction"
 
     .prologue
-    .line 1030
+    .line 838
     const-string v0, "STATUSBAR-NetworkController"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -288,23 +300,23 @@
 
     invoke-static {v0, v1}, Landroid/util/Slog;->d(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 1031
+    .line 839
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/NetworkController$1;->this$0:Lcom/android/systemui/statusbar/policy/NetworkController;
 
     iput p1, v0, Lcom/android/systemui/statusbar/policy/NetworkController;->mDataActivity:I
 
-    .line 1032
+    .line 840
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/NetworkController$1;->this$0:Lcom/android/systemui/statusbar/policy/NetworkController;
 
     #calls: Lcom/android/systemui/statusbar/policy/NetworkController;->updateDataIcon()V
     invoke-static {v0}, Lcom/android/systemui/statusbar/policy/NetworkController;->access$500(Lcom/android/systemui/statusbar/policy/NetworkController;)V
 
-    .line 1033
+    .line 841
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/NetworkController$1;->this$0:Lcom/android/systemui/statusbar/policy/NetworkController;
 
     invoke-virtual {v0}, Lcom/android/systemui/statusbar/policy/NetworkController;->refreshViews()V
 
-    .line 1034
+    .line 842
     return-void
 .end method
 
@@ -314,7 +326,7 @@
     .parameter "networkType"
 
     .prologue
-    .line 1014
+    .line 822
     const-string v0, "STATUSBAR-NetworkController"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -347,34 +359,34 @@
 
     invoke-static {v0, v1}, Landroid/util/Slog;->d(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 1016
+    .line 824
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/NetworkController$1;->this$0:Lcom/android/systemui/statusbar/policy/NetworkController;
 
     iput p1, v0, Lcom/android/systemui/statusbar/policy/NetworkController;->mDataState:I
 
-    .line 1017
+    .line 825
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/NetworkController$1;->this$0:Lcom/android/systemui/statusbar/policy/NetworkController;
 
     iput p2, v0, Lcom/android/systemui/statusbar/policy/NetworkController;->mDataNetType:I
 
-    .line 1019
+    .line 827
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/NetworkController$1;->this$0:Lcom/android/systemui/statusbar/policy/NetworkController;
 
     #calls: Lcom/android/systemui/statusbar/policy/NetworkController;->getUpdateDataNetType()V
     invoke-static {v0}, Lcom/android/systemui/statusbar/policy/NetworkController;->access$400(Lcom/android/systemui/statusbar/policy/NetworkController;)V
 
-    .line 1021
+    .line 829
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/NetworkController$1;->this$0:Lcom/android/systemui/statusbar/policy/NetworkController;
 
     #calls: Lcom/android/systemui/statusbar/policy/NetworkController;->updateDataIcon()V
     invoke-static {v0}, Lcom/android/systemui/statusbar/policy/NetworkController;->access$500(Lcom/android/systemui/statusbar/policy/NetworkController;)V
 
-    .line 1022
+    .line 830
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/NetworkController$1;->this$0:Lcom/android/systemui/statusbar/policy/NetworkController;
 
     invoke-virtual {v0}, Lcom/android/systemui/statusbar/policy/NetworkController;->refreshViews()V
 
-    .line 1023
+    .line 831
     return-void
 .end method
 
@@ -383,20 +395,34 @@
     .parameter "state"
 
     .prologue
-    .line 938
+    .line 743
     const-string v1, "STATUSBAR-NetworkController"
 
     new-instance v2, Ljava/lang/StringBuilder;
 
     invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
 
-    const-string v3, "onServiceStateChanged state="
+    const-string v3, "onServiceStateChanged voiceState="
 
     invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
     move-result-object v2
 
-    invoke-virtual {p1}, Landroid/telephony/ServiceState;->getState()I
+    invoke-virtual {p1}, Landroid/telephony/ServiceState;->getVoiceRegState()I
+
+    move-result v3
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    const-string v3, " dataState="
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    invoke-virtual {p1}, Landroid/telephony/ServiceState;->getDataRegState()I
 
     move-result v3
 
@@ -410,12 +436,37 @@
 
     invoke-static {v1, v2}, Landroid/util/Slog;->d(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 939
+    .line 745
     iget-object v1, p0, Lcom/android/systemui/statusbar/policy/NetworkController$1;->this$0:Lcom/android/systemui/statusbar/policy/NetworkController;
 
     iput-object p1, v1, Lcom/android/systemui/statusbar/policy/NetworkController;->mServiceState:Landroid/telephony/ServiceState;
 
-    .line 942
+    .line 748
+    const-string v1, "ro.config.combined_signal"
+
+    const/4 v2, 0x0
+
+    invoke-static {v1, v2}, Landroid/os/SystemProperties;->getBoolean(Ljava/lang/String;Z)Z
+
+    move-result v1
+
+    if-eqz v1, :cond_0
+
+    .line 753
+    iget-object v1, p0, Lcom/android/systemui/statusbar/policy/NetworkController$1;->this$0:Lcom/android/systemui/statusbar/policy/NetworkController;
+
+    iget-object v2, p0, Lcom/android/systemui/statusbar/policy/NetworkController$1;->this$0:Lcom/android/systemui/statusbar/policy/NetworkController;
+
+    #calls: Lcom/android/systemui/statusbar/policy/NetworkController;->getDataServiceState()I
+    invoke-static {v2}, Lcom/android/systemui/statusbar/policy/NetworkController;->access$200(Lcom/android/systemui/statusbar/policy/NetworkController;)I
+
+    move-result v2
+
+    #setter for: Lcom/android/systemui/statusbar/policy/NetworkController;->mDataServiceState:I
+    invoke-static {v1, v2}, Lcom/android/systemui/statusbar/policy/NetworkController;->access$102(Lcom/android/systemui/statusbar/policy/NetworkController;I)I
+
+    .line 761
+    :cond_0
     invoke-static {}, Lcom/sec/android/app/CscFeature;->getInstance()Lcom/sec/android/app/CscFeature;
 
     move-result-object v1
@@ -430,16 +481,16 @@
 
     move-result v1
 
-    if-nez v1, :cond_0
+    if-nez v1, :cond_1
 
-    .line 944
+    .line 763
     new-instance v0, Landroid/content/Intent;
 
     const-string v1, "com.sec.android.app.mms.CB_CLEAR"
 
     invoke-direct {v0, v1}, Landroid/content/Intent;-><init>(Ljava/lang/String;)V
 
-    .line 945
+    .line 764
     .local v0, intent:Landroid/content/Intent;
     iget-object v1, p0, Lcom/android/systemui/statusbar/policy/NetworkController$1;->this$0:Lcom/android/systemui/statusbar/policy/NetworkController;
 
@@ -447,63 +498,38 @@
 
     invoke-virtual {v1, v0}, Landroid/content/Context;->sendBroadcast(Landroid/content/Intent;)V
 
-    .line 949
+    .line 768
     .end local v0           #intent:Landroid/content/Intent;
-    :cond_0
-    const-string v1, "ro.config.combined_signal"
-
-    const/4 v2, 0x0
-
-    invoke-static {v1, v2}, Landroid/os/SystemProperties;->getBoolean(Ljava/lang/String;Z)Z
-
-    move-result v1
-
-    if-eqz v1, :cond_1
-
-    .line 955
-    iget-object v1, p0, Lcom/android/systemui/statusbar/policy/NetworkController$1;->this$0:Lcom/android/systemui/statusbar/policy/NetworkController;
-
-    iget-object v2, p0, Lcom/android/systemui/statusbar/policy/NetworkController$1;->this$0:Lcom/android/systemui/statusbar/policy/NetworkController;
-
-    #calls: Lcom/android/systemui/statusbar/policy/NetworkController;->getDataServiceState()I
-    invoke-static {v2}, Lcom/android/systemui/statusbar/policy/NetworkController;->access$200(Lcom/android/systemui/statusbar/policy/NetworkController;)I
-
-    move-result v2
-
-    #setter for: Lcom/android/systemui/statusbar/policy/NetworkController;->mDataServiceState:I
-    invoke-static {v1, v2}, Lcom/android/systemui/statusbar/policy/NetworkController;->access$102(Lcom/android/systemui/statusbar/policy/NetworkController;I)I
-
-    .line 963
     :cond_1
     iget-object v1, p0, Lcom/android/systemui/statusbar/policy/NetworkController$1;->this$0:Lcom/android/systemui/statusbar/policy/NetworkController;
 
     #calls: Lcom/android/systemui/statusbar/policy/NetworkController;->refreshOperatorLogoView()V
     invoke-static {v1}, Lcom/android/systemui/statusbar/policy/NetworkController;->access$300(Lcom/android/systemui/statusbar/policy/NetworkController;)V
 
-    .line 966
+    .line 771
     iget-object v1, p0, Lcom/android/systemui/statusbar/policy/NetworkController$1;->this$0:Lcom/android/systemui/statusbar/policy/NetworkController;
 
     #calls: Lcom/android/systemui/statusbar/policy/NetworkController;->updateTelephonySignalStrength()V
     invoke-static {v1}, Lcom/android/systemui/statusbar/policy/NetworkController;->access$000(Lcom/android/systemui/statusbar/policy/NetworkController;)V
 
-    .line 968
+    .line 773
     iget-object v1, p0, Lcom/android/systemui/statusbar/policy/NetworkController$1;->this$0:Lcom/android/systemui/statusbar/policy/NetworkController;
 
     #calls: Lcom/android/systemui/statusbar/policy/NetworkController;->getUpdateDataNetType()V
     invoke-static {v1}, Lcom/android/systemui/statusbar/policy/NetworkController;->access$400(Lcom/android/systemui/statusbar/policy/NetworkController;)V
 
-    .line 970
+    .line 775
     iget-object v1, p0, Lcom/android/systemui/statusbar/policy/NetworkController$1;->this$0:Lcom/android/systemui/statusbar/policy/NetworkController;
 
     #calls: Lcom/android/systemui/statusbar/policy/NetworkController;->updateDataIcon()V
     invoke-static {v1}, Lcom/android/systemui/statusbar/policy/NetworkController;->access$500(Lcom/android/systemui/statusbar/policy/NetworkController;)V
 
-    .line 971
+    .line 776
     iget-object v1, p0, Lcom/android/systemui/statusbar/policy/NetworkController$1;->this$0:Lcom/android/systemui/statusbar/policy/NetworkController;
 
     invoke-virtual {v1}, Lcom/android/systemui/statusbar/policy/NetworkController;->refreshViews()V
 
-    .line 972
+    .line 777
     return-void
 .end method
 
@@ -512,7 +538,7 @@
     .parameter "signalStrength"
 
     .prologue
-    .line 927
+    .line 730
     const-string v1, "STATUSBAR-NetworkController"
 
     new-instance v0, Ljava/lang/StringBuilder;
@@ -544,26 +570,26 @@
 
     invoke-static {v1, v0}, Landroid/util/Slog;->d(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 928
+    .line 732
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/NetworkController$1;->this$0:Lcom/android/systemui/statusbar/policy/NetworkController;
 
     iput-object p1, v0, Lcom/android/systemui/statusbar/policy/NetworkController;->mSignalStrength:Landroid/telephony/SignalStrength;
 
-    .line 929
+    .line 733
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/NetworkController$1;->this$0:Lcom/android/systemui/statusbar/policy/NetworkController;
 
     #calls: Lcom/android/systemui/statusbar/policy/NetworkController;->updateTelephonySignalStrength()V
     invoke-static {v0}, Lcom/android/systemui/statusbar/policy/NetworkController;->access$000(Lcom/android/systemui/statusbar/policy/NetworkController;)V
 
-    .line 930
+    .line 734
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/NetworkController$1;->this$0:Lcom/android/systemui/statusbar/policy/NetworkController;
 
     invoke-virtual {v0}, Lcom/android/systemui/statusbar/policy/NetworkController;->refreshViews()V
 
-    .line 931
+    .line 735
     return-void
 
-    .line 927
+    .line 730
     :cond_0
     new-instance v0, Ljava/lang/StringBuilder;
 

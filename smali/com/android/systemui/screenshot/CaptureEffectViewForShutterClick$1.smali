@@ -27,10 +27,10 @@
     .parameter
 
     .prologue
-    .line 70
+    .line 69
     iput-object p1, p0, Lcom/android/systemui/screenshot/CaptureEffectViewForShutterClick$1;->this$0:Lcom/android/systemui/screenshot/CaptureEffectViewForShutterClick;
 
-    invoke-direct/range {p0 .. p0}, Ljava/lang/Object;-><init>()V
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
     return-void
 .end method
@@ -42,7 +42,7 @@
     .parameter "animation"
 
     .prologue
-    .line 79
+    .line 78
     iget-object v0, p0, Lcom/android/systemui/screenshot/CaptureEffectViewForShutterClick$1;->this$0:Lcom/android/systemui/screenshot/CaptureEffectViewForShutterClick;
 
     #getter for: Lcom/android/systemui/screenshot/CaptureEffectViewForShutterClick;->mCaptureAnimationListener:Lcom/android/systemui/screenshot/CaptureEffectViewForShutterClick$OnCaptureAnimationListener;
@@ -52,14 +52,14 @@
 
     if-eqz v0, :cond_0
 
-    .line 80
+    .line 79
     const-string v0, "CaptureEffectViewForShutterClick"
 
     const-string v1, "onFinish called"
 
     invoke-static {v0, v1}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 81
+    .line 80
     iget-object v0, p0, Lcom/android/systemui/screenshot/CaptureEffectViewForShutterClick$1;->this$0:Lcom/android/systemui/screenshot/CaptureEffectViewForShutterClick;
 
     #getter for: Lcom/android/systemui/screenshot/CaptureEffectViewForShutterClick;->mCaptureAnimationListener:Lcom/android/systemui/screenshot/CaptureEffectViewForShutterClick$OnCaptureAnimationListener;
@@ -69,7 +69,7 @@
 
     invoke-interface {v0}, Lcom/android/systemui/screenshot/CaptureEffectViewForShutterClick$OnCaptureAnimationListener;->onFinish()V
 
-    .line 83
+    .line 82
     :cond_0
     return-void
 .end method
@@ -79,7 +79,7 @@
     .parameter "animation"
 
     .prologue
-    .line 76
+    .line 75
     return-void
 .end method
 
@@ -88,6 +88,6 @@
     .parameter "animation"
 
     .prologue
-    .line 73
+    .line 72
     return-void
 .end method

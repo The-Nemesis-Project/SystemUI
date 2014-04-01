@@ -27,10 +27,10 @@
     .parameter
 
     .prologue
-    .line 921
+    .line 1023
     iput-object p1, p0, Lcom/android/systemui/power/PowerUI$6;->this$0:Lcom/android/systemui/power/PowerUI;
 
-    invoke-direct/range {p0 .. p0}, Ljava/lang/Object;-><init>()V
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
     return-void
 .end method
@@ -41,11 +41,11 @@
     .locals 1
 
     .prologue
-    .line 923
+    .line 1025
     iget-object v0, p0, Lcom/android/systemui/power/PowerUI$6;->this$0:Lcom/android/systemui/power/PowerUI;
 
     invoke-virtual {v0}, Lcom/android/systemui/power/PowerUI;->showChargingInterruptionWarning()V
 
-    .line 924
+    .line 1026
     return-void
 .end method

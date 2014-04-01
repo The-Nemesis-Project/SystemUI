@@ -24,10 +24,10 @@
     .parameter
 
     .prologue
-    .line 203
+    .line 172
     iput-object p1, p0, Lcom/android/systemui/media/NotificationPlayer$CmdThread;->this$0:Lcom/android/systemui/media/NotificationPlayer;
 
-    .line 204
+    .line 173
     new-instance v0, Ljava/lang/StringBuilder;
 
     invoke-direct {v0}, Ljava/lang/StringBuilder;-><init>()V
@@ -53,7 +53,7 @@
 
     invoke-direct {p0, v0}, Ljava/lang/Thread;-><init>(Ljava/lang/String;)V
 
-    .line 205
+    .line 174
     return-void
 .end method
 
@@ -65,11 +65,11 @@
     .prologue
     const/4 v8, 0x0
 
-    .line 209
+    .line 178
     :goto_0
     const/4 v1, 0x0
 
-    .line 211
+    .line 180
     .local v1, cmd:Lcom/android/systemui/media/NotificationPlayer$Command;
     iget-object v4, p0, Lcom/android/systemui/media/NotificationPlayer$CmdThread;->this$0:Lcom/android/systemui/media/NotificationPlayer;
 
@@ -80,7 +80,7 @@
 
     monitor-enter v5
 
-    .line 213
+    .line 182
     :try_start_0
     iget-object v4, p0, Lcom/android/systemui/media/NotificationPlayer$CmdThread;->this$0:Lcom/android/systemui/media/NotificationPlayer;
 
@@ -99,17 +99,17 @@
 
     move-object v1, v0
 
-    .line 214
+    .line 183
     monitor-exit v5
     :try_end_0
     .catchall {:try_start_0 .. :try_end_0} :catchall_0
 
-    .line 216
+    .line 185
     iget v4, v1, Lcom/android/systemui/media/NotificationPlayer$Command;->code:I
 
     packed-switch v4, :pswitch_data_0
 
-    .line 247
+    .line 216
     :cond_0
     :goto_1
     iget-object v4, p0, Lcom/android/systemui/media/NotificationPlayer$CmdThread;->this$0:Lcom/android/systemui/media/NotificationPlayer;
@@ -121,7 +121,7 @@
 
     monitor-enter v5
 
-    .line 248
+    .line 217
     :try_start_1
     iget-object v4, p0, Lcom/android/systemui/media/NotificationPlayer$CmdThread;->this$0:Lcom/android/systemui/media/NotificationPlayer;
 
@@ -136,7 +136,7 @@
 
     if-nez v4, :cond_4
 
-    .line 253
+    .line 222
     iget-object v4, p0, Lcom/android/systemui/media/NotificationPlayer$CmdThread;->this$0:Lcom/android/systemui/media/NotificationPlayer;
 
     const/4 v6, 0x0
@@ -144,20 +144,20 @@
     #setter for: Lcom/android/systemui/media/NotificationPlayer;->mThread:Lcom/android/systemui/media/NotificationPlayer$CmdThread;
     invoke-static {v4, v6}, Lcom/android/systemui/media/NotificationPlayer;->access$702(Lcom/android/systemui/media/NotificationPlayer;Lcom/android/systemui/media/NotificationPlayer$CmdThread;)Lcom/android/systemui/media/NotificationPlayer$CmdThread;
 
-    .line 254
+    .line 223
     iget-object v4, p0, Lcom/android/systemui/media/NotificationPlayer$CmdThread;->this$0:Lcom/android/systemui/media/NotificationPlayer;
 
     #calls: Lcom/android/systemui/media/NotificationPlayer;->releaseWakeLock()V
     invoke-static {v4}, Lcom/android/systemui/media/NotificationPlayer;->access$800(Lcom/android/systemui/media/NotificationPlayer;)V
 
-    .line 255
+    .line 224
     monitor-exit v5
     :try_end_1
     .catchall {:try_start_1 .. :try_end_1} :catchall_2
 
     return-void
 
-    .line 214
+    .line 183
     :catchall_0
     move-exception v4
 
@@ -168,7 +168,7 @@
 
     throw v4
 
-    .line 219
+    .line 188
     :pswitch_0
     iget-object v4, p0, Lcom/android/systemui/media/NotificationPlayer$CmdThread;->this$0:Lcom/android/systemui/media/NotificationPlayer;
 
@@ -177,7 +177,7 @@
 
     goto :goto_1
 
-    .line 223
+    .line 192
     :pswitch_1
     iget-object v4, p0, Lcom/android/systemui/media/NotificationPlayer$CmdThread;->this$0:Lcom/android/systemui/media/NotificationPlayer;
 
@@ -188,7 +188,7 @@
 
     if-eqz v4, :cond_3
 
-    .line 224
+    .line 193
     invoke-static {}, Landroid/os/SystemClock;->uptimeMillis()J
 
     move-result-wide v4
@@ -197,7 +197,7 @@
 
     sub-long v2, v4, v6
 
-    .line 225
+    .line 194
     .local v2, delay:J
     const-wide/16 v4, 0x3e8
 
@@ -205,7 +205,7 @@
 
     if-lez v4, :cond_1
 
-    .line 226
+    .line 195
     iget-object v4, p0, Lcom/android/systemui/media/NotificationPlayer$CmdThread;->this$0:Lcom/android/systemui/media/NotificationPlayer;
 
     #getter for: Lcom/android/systemui/media/NotificationPlayer;->mTag:Ljava/lang/String;
@@ -239,7 +239,7 @@
 
     invoke-static {v4, v5}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 228
+    .line 197
     :cond_1
     iget-object v4, p0, Lcom/android/systemui/media/NotificationPlayer$CmdThread;->this$0:Lcom/android/systemui/media/NotificationPlayer;
 
@@ -250,7 +250,7 @@
 
     invoke-virtual {v4}, Landroid/media/MediaPlayer;->stop()V
 
-    .line 229
+    .line 198
     iget-object v4, p0, Lcom/android/systemui/media/NotificationPlayer$CmdThread;->this$0:Lcom/android/systemui/media/NotificationPlayer;
 
     #getter for: Lcom/android/systemui/media/NotificationPlayer;->mPlayer:Landroid/media/MediaPlayer;
@@ -260,13 +260,13 @@
 
     invoke-virtual {v4}, Landroid/media/MediaPlayer;->release()V
 
-    .line 230
+    .line 199
     iget-object v4, p0, Lcom/android/systemui/media/NotificationPlayer$CmdThread;->this$0:Lcom/android/systemui/media/NotificationPlayer;
 
     #setter for: Lcom/android/systemui/media/NotificationPlayer;->mPlayer:Landroid/media/MediaPlayer;
     invoke-static {v4, v8}, Lcom/android/systemui/media/NotificationPlayer;->access$302(Lcom/android/systemui/media/NotificationPlayer;Landroid/media/MediaPlayer;)Landroid/media/MediaPlayer;
 
-    .line 231
+    .line 200
     iget-object v4, p0, Lcom/android/systemui/media/NotificationPlayer$CmdThread;->this$0:Lcom/android/systemui/media/NotificationPlayer;
 
     #getter for: Lcom/android/systemui/media/NotificationPlayer;->mQueueAudioFocusLock:Ljava/lang/Object;
@@ -276,7 +276,7 @@
 
     monitor-enter v5
 
-    .line 232
+    .line 201
     :try_start_3
     iget-object v4, p0, Lcom/android/systemui/media/NotificationPlayer$CmdThread;->this$0:Lcom/android/systemui/media/NotificationPlayer;
 
@@ -287,7 +287,7 @@
 
     if-eqz v4, :cond_2
 
-    .line 233
+    .line 202
     iget-object v4, p0, Lcom/android/systemui/media/NotificationPlayer$CmdThread;->this$0:Lcom/android/systemui/media/NotificationPlayer;
 
     #getter for: Lcom/android/systemui/media/NotificationPlayer;->mAudioManagerWithAudioFocus:Landroid/media/AudioManager;
@@ -299,7 +299,7 @@
 
     invoke-virtual {v4, v6}, Landroid/media/AudioManager;->abandonAudioFocus(Landroid/media/AudioManager$OnAudioFocusChangeListener;)I
 
-    .line 234
+    .line 203
     iget-object v4, p0, Lcom/android/systemui/media/NotificationPlayer$CmdThread;->this$0:Lcom/android/systemui/media/NotificationPlayer;
 
     const/4 v6, 0x0
@@ -307,13 +307,13 @@
     #setter for: Lcom/android/systemui/media/NotificationPlayer;->mAudioManagerWithAudioFocus:Landroid/media/AudioManager;
     invoke-static {v4, v6}, Lcom/android/systemui/media/NotificationPlayer;->access$202(Lcom/android/systemui/media/NotificationPlayer;Landroid/media/AudioManager;)Landroid/media/AudioManager;
 
-    .line 236
+    .line 205
     :cond_2
     monitor-exit v5
     :try_end_3
     .catchall {:try_start_3 .. :try_end_3} :catchall_1
 
-    .line 237
+    .line 206
     iget-object v4, p0, Lcom/android/systemui/media/NotificationPlayer$CmdThread;->this$0:Lcom/android/systemui/media/NotificationPlayer;
 
     #getter for: Lcom/android/systemui/media/NotificationPlayer;->mLooper:Landroid/os/Looper;
@@ -342,7 +342,7 @@
 
     if-eq v4, v5, :cond_0
 
-    .line 239
+    .line 208
     iget-object v4, p0, Lcom/android/systemui/media/NotificationPlayer$CmdThread;->this$0:Lcom/android/systemui/media/NotificationPlayer;
 
     #getter for: Lcom/android/systemui/media/NotificationPlayer;->mLooper:Landroid/os/Looper;
@@ -354,7 +354,7 @@
 
     goto/16 :goto_1
 
-    .line 236
+    .line 205
     :catchall_1
     move-exception v4
 
@@ -365,7 +365,7 @@
 
     throw v4
 
-    .line 242
+    .line 211
     .end local v2           #delay:J
     :cond_3
     iget-object v4, p0, Lcom/android/systemui/media/NotificationPlayer$CmdThread;->this$0:Lcom/android/systemui/media/NotificationPlayer;
@@ -381,7 +381,7 @@
 
     goto/16 :goto_1
 
-    .line 257
+    .line 226
     :cond_4
     :try_start_5
     monitor-exit v5
@@ -397,7 +397,7 @@
 
     throw v4
 
-    .line 216
+    .line 185
     :pswitch_data_0
     .packed-switch 0x1
         :pswitch_0

@@ -30,12 +30,12 @@
     .parameter
 
     .prologue
-    .line 247
+    .line 263
     iput-object p1, p0, Lcom/android/systemui/statusbar/policy/BrightnessController$3;->this$0:Lcom/android/systemui/statusbar/policy/BrightnessController;
 
     iput p2, p0, Lcom/android/systemui/statusbar/policy/BrightnessController$3;->val$val:I
 
-    invoke-direct/range {p0 .. p0}, Ljava/lang/Object;-><init>()V
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
     return-void
 .end method
@@ -46,7 +46,7 @@
     .locals 4
 
     .prologue
-    .line 249
+    .line 265
     const-string v0, "StatusBar.BrightnessController"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -71,7 +71,7 @@
 
     invoke-static {v0, v1}, Landroid/util/Slog;->d(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 250
+    .line 266
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/BrightnessController$3;->this$0:Lcom/android/systemui/statusbar/policy/BrightnessController;
 
     #getter for: Lcom/android/systemui/statusbar/policy/BrightnessController;->mContext:Landroid/content/Context;
@@ -100,6 +100,6 @@
 
     invoke-static {v0, v1, v2, v3}, Landroid/provider/Settings$System;->putIntForUser(Landroid/content/ContentResolver;Ljava/lang/String;II)Z
 
-    .line 253
+    .line 269
     return-void
 .end method

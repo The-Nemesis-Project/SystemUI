@@ -30,12 +30,12 @@
     .parameter
 
     .prologue
-    .line 253
+    .line 259
     iput-object p1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/LocationQuickSettingButton$4;->this$0:Lcom/android/systemui/statusbar/policy/quicksetting/LocationQuickSettingButton;
 
     iput-boolean p2, p0, Lcom/android/systemui/statusbar/policy/quicksetting/LocationQuickSettingButton$4;->val$value:Z
 
-    invoke-direct/range {p0 .. p0}, Ljava/lang/Object;-><init>()V
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
     return-void
 .end method
@@ -48,7 +48,7 @@
     .parameter "which"
 
     .prologue
-    .line 256
+    .line 262
     const-string v1, "STATUSBAR-LocationQuickSettingButton"
 
     new-instance v2, Ljava/lang/StringBuilder;
@@ -73,39 +73,42 @@
 
     invoke-static {v1, v2}, Landroid/util/secutil/Log;->secD(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 257
+    .line 263
     iget-object v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/LocationQuickSettingButton$4;->this$0:Lcom/android/systemui/statusbar/policy/quicksetting/LocationQuickSettingButton;
 
-    iget-object v1, v1, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->mContext:Landroid/content/Context;
+    #getter for: Landroid/view/View;->mContext:Landroid/content/Context;
+    invoke-static {v1}, Lcom/android/systemui/statusbar/policy/quicksetting/LocationQuickSettingButton;->access$300(Lcom/android/systemui/statusbar/policy/quicksetting/LocationQuickSettingButton;)Landroid/content/Context;
+
+    move-result-object v1
 
     invoke-static {v1}, Lcom/android/systemui/statusbar/policy/Prefs;->edit(Landroid/content/Context;)Landroid/content/SharedPreferences$Editor;
 
     move-result-object v0
 
-    .line 258
+    .line 264
     .local v0, editor:Landroid/content/SharedPreferences$Editor;
     const-string v1, "gps_alert_pref"
 
     iget-object v2, p0, Lcom/android/systemui/statusbar/policy/quicksetting/LocationQuickSettingButton$4;->this$0:Lcom/android/systemui/statusbar/policy/quicksetting/LocationQuickSettingButton;
 
     #getter for: Lcom/android/systemui/statusbar/policy/quicksetting/LocationQuickSettingButton;->mIsPrefChecked:Z
-    invoke-static {v2}, Lcom/android/systemui/statusbar/policy/quicksetting/LocationQuickSettingButton;->access$100(Lcom/android/systemui/statusbar/policy/quicksetting/LocationQuickSettingButton;)Z
+    invoke-static {v2}, Lcom/android/systemui/statusbar/policy/quicksetting/LocationQuickSettingButton;->access$200(Lcom/android/systemui/statusbar/policy/quicksetting/LocationQuickSettingButton;)Z
 
     move-result v2
 
     invoke-interface {v0, v1, v2}, Landroid/content/SharedPreferences$Editor;->putBoolean(Ljava/lang/String;Z)Landroid/content/SharedPreferences$Editor;
 
-    .line 259
+    .line 265
     invoke-interface {v0}, Landroid/content/SharedPreferences$Editor;->apply()V
 
-    .line 260
+    .line 266
     iget-object v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/LocationQuickSettingButton$4;->this$0:Lcom/android/systemui/statusbar/policy/quicksetting/LocationQuickSettingButton;
 
     iget-boolean v2, p0, Lcom/android/systemui/statusbar/policy/quicksetting/LocationQuickSettingButton$4;->val$value:Z
 
     #calls: Lcom/android/systemui/statusbar/policy/quicksetting/LocationQuickSettingButton;->setGpsMode(Z)V
-    invoke-static {v1, v2}, Lcom/android/systemui/statusbar/policy/quicksetting/LocationQuickSettingButton;->access$200(Lcom/android/systemui/statusbar/policy/quicksetting/LocationQuickSettingButton;Z)V
+    invoke-static {v1, v2}, Lcom/android/systemui/statusbar/policy/quicksetting/LocationQuickSettingButton;->access$400(Lcom/android/systemui/statusbar/policy/quicksetting/LocationQuickSettingButton;Z)V
 
-    .line 261
+    .line 267
     return-void
 .end method

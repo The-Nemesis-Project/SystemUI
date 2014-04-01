@@ -24,7 +24,7 @@
     .parameter
 
     .prologue
-    .line 68
+    .line 69
     iput-object p1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/PersonalModeQuickSettingButton$1;->this$0:Lcom/android/systemui/statusbar/policy/quicksetting/PersonalModeQuickSettingButton;
 
     invoke-direct {p0}, Landroid/content/BroadcastReceiver;-><init>()V
@@ -40,12 +40,12 @@
     .parameter "intent"
 
     .prologue
-    .line 71
+    .line 72
     invoke-virtual {p2}, Landroid/content/Intent;->getAction()Ljava/lang/String;
 
     move-result-object v0
 
-    .line 72
+    .line 73
     .local v0, action:Ljava/lang/String;
     const-string v1, "android.intent.action.CLOSE_SYSTEM_DIALOGS"
 
@@ -55,29 +55,6 @@
 
     if-eqz v1, :cond_1
 
-    .line 73
-    iget-object v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/PersonalModeQuickSettingButton$1;->this$0:Lcom/android/systemui/statusbar/policy/quicksetting/PersonalModeQuickSettingButton;
-
-    #getter for: Lcom/android/systemui/statusbar/policy/quicksetting/PersonalModeQuickSettingButton;->mAlertDialog:Landroid/app/AlertDialog;
-    invoke-static {v1}, Lcom/android/systemui/statusbar/policy/quicksetting/PersonalModeQuickSettingButton;->access$000(Lcom/android/systemui/statusbar/policy/quicksetting/PersonalModeQuickSettingButton;)Landroid/app/AlertDialog;
-
-    move-result-object v1
-
-    if-eqz v1, :cond_0
-
-    iget-object v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/PersonalModeQuickSettingButton$1;->this$0:Lcom/android/systemui/statusbar/policy/quicksetting/PersonalModeQuickSettingButton;
-
-    #getter for: Lcom/android/systemui/statusbar/policy/quicksetting/PersonalModeQuickSettingButton;->mAlertDialog:Landroid/app/AlertDialog;
-    invoke-static {v1}, Lcom/android/systemui/statusbar/policy/quicksetting/PersonalModeQuickSettingButton;->access$000(Lcom/android/systemui/statusbar/policy/quicksetting/PersonalModeQuickSettingButton;)Landroid/app/AlertDialog;
-
-    move-result-object v1
-
-    invoke-virtual {v1}, Landroid/app/AlertDialog;->isShowing()Z
-
-    move-result v1
-
-    if-eqz v1, :cond_0
-
     .line 74
     iget-object v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/PersonalModeQuickSettingButton$1;->this$0:Lcom/android/systemui/statusbar/policy/quicksetting/PersonalModeQuickSettingButton;
 
@@ -86,14 +63,37 @@
 
     move-result-object v1
 
-    invoke-virtual {v1}, Landroid/app/AlertDialog;->cancel()V
+    if-eqz v1, :cond_0
 
-    .line 83
+    iget-object v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/PersonalModeQuickSettingButton$1;->this$0:Lcom/android/systemui/statusbar/policy/quicksetting/PersonalModeQuickSettingButton;
+
+    #getter for: Lcom/android/systemui/statusbar/policy/quicksetting/PersonalModeQuickSettingButton;->mAlertDialog:Landroid/app/AlertDialog;
+    invoke-static {v1}, Lcom/android/systemui/statusbar/policy/quicksetting/PersonalModeQuickSettingButton;->access$000(Lcom/android/systemui/statusbar/policy/quicksetting/PersonalModeQuickSettingButton;)Landroid/app/AlertDialog;
+
+    move-result-object v1
+
+    invoke-virtual {v1}, Landroid/app/Dialog;->isShowing()Z
+
+    move-result v1
+
+    if-eqz v1, :cond_0
+
+    .line 75
+    iget-object v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/PersonalModeQuickSettingButton$1;->this$0:Lcom/android/systemui/statusbar/policy/quicksetting/PersonalModeQuickSettingButton;
+
+    #getter for: Lcom/android/systemui/statusbar/policy/quicksetting/PersonalModeQuickSettingButton;->mAlertDialog:Landroid/app/AlertDialog;
+    invoke-static {v1}, Lcom/android/systemui/statusbar/policy/quicksetting/PersonalModeQuickSettingButton;->access$000(Lcom/android/systemui/statusbar/policy/quicksetting/PersonalModeQuickSettingButton;)Landroid/app/AlertDialog;
+
+    move-result-object v1
+
+    invoke-virtual {v1}, Landroid/app/Dialog;->cancel()V
+
+    .line 84
     :cond_0
     :goto_0
     return-void
 
-    .line 76
+    .line 77
     :cond_1
     const-string v1, "com.samsung.android.intent.action.SECRET_MODE_ON"
 
@@ -103,7 +103,7 @@
 
     if-eqz v1, :cond_2
 
-    .line 77
+    .line 78
     iget-object v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/PersonalModeQuickSettingButton$1;->this$0:Lcom/android/systemui/statusbar/policy/quicksetting/PersonalModeQuickSettingButton;
 
     const/4 v2, 0x1
@@ -113,7 +113,7 @@
 
     goto :goto_0
 
-    .line 78
+    .line 79
     :cond_2
     const-string v1, "com.samsung.android.intent.action.SECRET_MODE_OFF"
 
@@ -123,7 +123,7 @@
 
     if-eqz v1, :cond_3
 
-    .line 79
+    .line 80
     iget-object v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/PersonalModeQuickSettingButton$1;->this$0:Lcom/android/systemui/statusbar/policy/quicksetting/PersonalModeQuickSettingButton;
 
     const/4 v2, 0x0
@@ -133,7 +133,7 @@
 
     goto :goto_0
 
-    .line 80
+    .line 81
     :cond_3
     const-string v1, "android.intent.action.USER_SWITCHED"
 
@@ -143,7 +143,7 @@
 
     if-eqz v1, :cond_0
 
-    .line 81
+    .line 82
     iget-object v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/PersonalModeQuickSettingButton$1;->this$0:Lcom/android/systemui/statusbar/policy/quicksetting/PersonalModeQuickSettingButton;
 
     #calls: Lcom/android/systemui/statusbar/policy/quicksetting/PersonalModeQuickSettingButton;->updateState()V

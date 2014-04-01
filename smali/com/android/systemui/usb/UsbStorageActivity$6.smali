@@ -30,12 +30,12 @@
     .parameter
 
     .prologue
-    .line 259
+    .line 257
     iput-object p1, p0, Lcom/android/systemui/usb/UsbStorageActivity$6;->this$0:Lcom/android/systemui/usb/UsbStorageActivity;
 
     iput p2, p0, Lcom/android/systemui/usb/UsbStorageActivity$6;->val$id:I
 
-    invoke-direct/range {p0 .. p0}, Ljava/lang/Object;-><init>()V
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
     return-void
 .end method
@@ -46,7 +46,7 @@
     .locals 2
 
     .prologue
-    .line 262
+    .line 260
     iget-object v0, p0, Lcom/android/systemui/usb/UsbStorageActivity$6;->this$0:Lcom/android/systemui/usb/UsbStorageActivity;
 
     #getter for: Lcom/android/systemui/usb/UsbStorageActivity;->mDestroyed:Z
@@ -56,21 +56,21 @@
 
     if-nez v0, :cond_0
 
-    .line 263
+    .line 261
     iget-object v0, p0, Lcom/android/systemui/usb/UsbStorageActivity$6;->this$0:Lcom/android/systemui/usb/UsbStorageActivity;
 
     iget v1, p0, Lcom/android/systemui/usb/UsbStorageActivity$6;->val$id:I
 
-    invoke-virtual {v0, v1}, Lcom/android/systemui/usb/UsbStorageActivity;->removeDialog(I)V
+    invoke-virtual {v0, v1}, Landroid/app/Activity;->removeDialog(I)V
+
+    .line 262
+    iget-object v0, p0, Lcom/android/systemui/usb/UsbStorageActivity$6;->this$0:Lcom/android/systemui/usb/UsbStorageActivity;
+
+    iget v1, p0, Lcom/android/systemui/usb/UsbStorageActivity$6;->val$id:I
+
+    invoke-virtual {v0, v1}, Landroid/app/Activity;->showDialog(I)V
 
     .line 264
-    iget-object v0, p0, Lcom/android/systemui/usb/UsbStorageActivity$6;->this$0:Lcom/android/systemui/usb/UsbStorageActivity;
-
-    iget v1, p0, Lcom/android/systemui/usb/UsbStorageActivity$6;->val$id:I
-
-    invoke-virtual {v0, v1}, Lcom/android/systemui/usb/UsbStorageActivity;->showDialog(I)V
-
-    .line 266
     :cond_0
     return-void
 .end method

@@ -1,5 +1,5 @@
 .class Lcom/android/systemui/statusbar/BaseStatusBar$3;
-.super Landroid/os/Handler;
+.super Landroid/content/BroadcastReceiver;
 .source "BaseStatusBar.java"
 
 
@@ -24,44 +24,108 @@
     .parameter
 
     .prologue
-    .line 318
+    .line 266
     iput-object p1, p0, Lcom/android/systemui/statusbar/BaseStatusBar$3;->this$0:Lcom/android/systemui/statusbar/BaseStatusBar;
 
-    invoke-direct {p0}, Landroid/os/Handler;-><init>()V
+    invoke-direct {p0}, Landroid/content/BroadcastReceiver;-><init>()V
 
     return-void
 .end method
 
 
 # virtual methods
-.method public handleMessage(Landroid/os/Message;)V
-    .locals 2
-    .parameter "msg"
+.method public onReceive(Landroid/content/Context;Landroid/content/Intent;)V
+    .locals 4
+    .parameter "context"
+    .parameter "intent"
 
     .prologue
-    .line 321
-    iget v0, p1, Landroid/os/Message;->what:I
+    .line 269
+    invoke-virtual {p2}, Landroid/content/Intent;->getAction()Ljava/lang/String;
 
-    packed-switch v0, :pswitch_data_0
+    move-result-object v0
 
-    .line 326
-    :goto_0
+    .line 270
+    .local v0, action:Ljava/lang/String;
+    const-string v1, "android.intent.action.USER_SWITCHED"
+
+    invoke-virtual {v1, v0}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+
+    move-result v1
+
+    if-eqz v1, :cond_0
+
+    .line 271
+    iget-object v1, p0, Lcom/android/systemui/statusbar/BaseStatusBar$3;->this$0:Lcom/android/systemui/statusbar/BaseStatusBar;
+
+    const-string v2, "android.intent.extra.user_handle"
+
+    const/4 v3, -0x1
+
+    invoke-virtual {p2, v2, v3}, Landroid/content/Intent;->getIntExtra(Ljava/lang/String;I)I
+
+    move-result v2
+
+    iput v2, v1, Lcom/android/systemui/statusbar/BaseStatusBar;->mCurrentUserId:I
+
+    .line 272
+    const-string v1, "StatusBar"
+
+    new-instance v2, Ljava/lang/StringBuilder;
+
+    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v3, "userId "
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    iget-object v3, p0, Lcom/android/systemui/statusbar/BaseStatusBar$3;->this$0:Lcom/android/systemui/statusbar/BaseStatusBar;
+
+    iget v3, v3, Lcom/android/systemui/statusbar/BaseStatusBar;->mCurrentUserId:I
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    const-string v3, " is in the house"
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    invoke-virtual {v2}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v2
+
+    invoke-static {v1, v2}, Landroid/util/Log;->v(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 273
+    iget-object v1, p0, Lcom/android/systemui/statusbar/BaseStatusBar$3;->this$0:Lcom/android/systemui/statusbar/BaseStatusBar;
+
+    iget-object v2, p0, Lcom/android/systemui/statusbar/BaseStatusBar$3;->this$0:Lcom/android/systemui/statusbar/BaseStatusBar;
+
+    iget v2, v2, Lcom/android/systemui/statusbar/BaseStatusBar;->mCurrentUserId:I
+
+    invoke-virtual {v1, v2}, Lcom/android/systemui/statusbar/BaseStatusBar;->userSwitched(I)V
+
+    .line 275
+    iget-object v1, p0, Lcom/android/systemui/statusbar/BaseStatusBar$3;->this$0:Lcom/android/systemui/statusbar/BaseStatusBar;
+
+    invoke-virtual {v1}, Lcom/android/systemui/statusbar/BaseStatusBar;->isDeviceProvisioned()Z
+
+    move-result v1
+
+    if-eqz v1, :cond_0
+
+    .line 276
+    iget-object v1, p0, Lcom/android/systemui/statusbar/BaseStatusBar$3;->this$0:Lcom/android/systemui/statusbar/BaseStatusBar;
+
+    #calls: Lcom/android/systemui/statusbar/BaseStatusBar;->FlipFontSwitched()V
+    invoke-static {v1}, Lcom/android/systemui/statusbar/BaseStatusBar;->access$100(Lcom/android/systemui/statusbar/BaseStatusBar;)V
+
+    .line 280
+    :cond_0
     return-void
-
-    .line 323
-    :pswitch_0
-    iget-object v0, p0, Lcom/android/systemui/statusbar/BaseStatusBar$3;->this$0:Lcom/android/systemui/statusbar/BaseStatusBar;
-
-    iget v1, p1, Landroid/os/Message;->arg1:I
-
-    #calls: Lcom/android/systemui/statusbar/BaseStatusBar;->handleTimeout(I)V
-    invoke-static {v0, v1}, Lcom/android/systemui/statusbar/BaseStatusBar;->access$200(Lcom/android/systemui/statusbar/BaseStatusBar;I)V
-
-    goto :goto_0
-
-    .line 321
-    :pswitch_data_0
-    .packed-switch 0x1
-        :pswitch_0
-    .end packed-switch
 .end method

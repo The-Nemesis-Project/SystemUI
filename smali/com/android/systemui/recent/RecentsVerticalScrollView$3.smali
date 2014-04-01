@@ -35,7 +35,7 @@
 
     iput-object p2, p0, Lcom/android/systemui/recent/RecentsVerticalScrollView$3;->val$view:Landroid/view/View;
 
-    invoke-direct/range {p0 .. p0}, Ljava/lang/Object;-><init>()V
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
     return-void
 .end method

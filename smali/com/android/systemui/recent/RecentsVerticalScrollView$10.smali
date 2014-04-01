@@ -1,11 +1,14 @@
 .class Lcom/android/systemui/recent/RecentsVerticalScrollView$10;
-.super Landroid/database/DataSetObserver;
+.super Ljava/lang/Object;
 .source "RecentsVerticalScrollView.java"
+
+# interfaces
+.implements Ljava/lang/Runnable;
 
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lcom/android/systemui/recent/RecentsVerticalScrollView;->setAdapter(Lcom/android/systemui/recent/RecentsPanelView$TaskDescriptionAdapter;)V
+    value = Lcom/android/systemui/recent/RecentsVerticalScrollView;->removeAllViewsInLayout()V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -17,47 +20,39 @@
 # instance fields
 .field final synthetic this$0:Lcom/android/systemui/recent/RecentsVerticalScrollView;
 
+.field final synthetic val$child:Landroid/view/View;
+
 
 # direct methods
-.method constructor <init>(Lcom/android/systemui/recent/RecentsVerticalScrollView;)V
+.method constructor <init>(Lcom/android/systemui/recent/RecentsVerticalScrollView;Landroid/view/View;)V
     .locals 0
+    .parameter
     .parameter
 
     .prologue
-    .line 391
+    .line 419
     iput-object p1, p0, Lcom/android/systemui/recent/RecentsVerticalScrollView$10;->this$0:Lcom/android/systemui/recent/RecentsVerticalScrollView;
 
-    invoke-direct {p0}, Landroid/database/DataSetObserver;-><init>()V
+    iput-object p2, p0, Lcom/android/systemui/recent/RecentsVerticalScrollView$10;->val$child:Landroid/view/View;
+
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
     return-void
 .end method
 
 
 # virtual methods
-.method public onChanged()V
-    .locals 1
+.method public run()V
+    .locals 2
 
     .prologue
-    .line 393
+    .line 422
     iget-object v0, p0, Lcom/android/systemui/recent/RecentsVerticalScrollView$10;->this$0:Lcom/android/systemui/recent/RecentsVerticalScrollView;
 
-    #calls: Lcom/android/systemui/recent/RecentsVerticalScrollView;->update()V
-    invoke-static {v0}, Lcom/android/systemui/recent/RecentsVerticalScrollView;->access$300(Lcom/android/systemui/recent/RecentsVerticalScrollView;)V
+    iget-object v1, p0, Lcom/android/systemui/recent/RecentsVerticalScrollView$10;->val$child:Landroid/view/View;
 
-    .line 394
-    return-void
-.end method
+    invoke-virtual {v0, v1}, Lcom/android/systemui/recent/RecentsVerticalScrollView;->dismissChild(Landroid/view/View;)V
 
-.method public onInvalidated()V
-    .locals 1
-
-    .prologue
-    .line 397
-    iget-object v0, p0, Lcom/android/systemui/recent/RecentsVerticalScrollView$10;->this$0:Lcom/android/systemui/recent/RecentsVerticalScrollView;
-
-    #calls: Lcom/android/systemui/recent/RecentsVerticalScrollView;->update()V
-    invoke-static {v0}, Lcom/android/systemui/recent/RecentsVerticalScrollView;->access$300(Lcom/android/systemui/recent/RecentsVerticalScrollView;)V
-
-    .line 398
+    .line 423
     return-void
 .end method

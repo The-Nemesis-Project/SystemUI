@@ -3,8 +3,8 @@
 .source "ToggleSlider.java"
 
 # interfaces
-.implements Landroid/widget/CompoundButton$OnCheckedChangeListener;
 .implements Landroid/widget/SeekBar$OnSeekBarChangeListener;
+.implements Lcom/sec/android/touchwiz/widget/TwCompoundButton$OnCheckedChangeListener;
 
 
 # annotations
@@ -26,7 +26,7 @@
 
 .field private mSlider:Landroid/widget/SeekBar;
 
-.field private mToggle:Landroid/widget/CompoundButton;
+.field private mToggle:Lcom/sec/android/touchwiz/widget/TwCompoundButton;
 
 .field private mTracking:Z
 
@@ -37,12 +37,12 @@
     .parameter "context"
 
     .prologue
-    .line 51
+    .line 50
     const/4 v0, 0x0
 
     invoke-direct {p0, p1, v0}, Lcom/android/systemui/settings/ToggleSlider;-><init>(Landroid/content/Context;Landroid/util/AttributeSet;)V
 
-    .line 52
+    .line 51
     return-void
 .end method
 
@@ -52,12 +52,12 @@
     .parameter "attrs"
 
     .prologue
-    .line 55
+    .line 54
     const/4 v0, 0x0
 
     invoke-direct {p0, p1, p2, v0}, Lcom/android/systemui/settings/ToggleSlider;-><init>(Landroid/content/Context;Landroid/util/AttributeSet;I)V
 
-    .line 56
+    .line 55
     return-void
 .end method
 
@@ -70,20 +70,20 @@
     .prologue
     const/4 v4, 0x0
 
-    .line 59
+    .line 58
     invoke-direct {p0, p1, p2, p3}, Landroid/widget/RelativeLayout;-><init>(Landroid/content/Context;Landroid/util/AttributeSet;I)V
 
-    .line 60
-    const v2, 0x7f040032
+    .line 59
+    const v2, 0x7f040020
 
     invoke-static {p1, v2, p0}, Landroid/view/View;->inflate(Landroid/content/Context;ILandroid/view/ViewGroup;)Landroid/view/View;
 
-    .line 62
+    .line 61
     invoke-virtual {p1}, Landroid/content/Context;->getResources()Landroid/content/res/Resources;
 
     move-result-object v1
 
-    .line 63
+    .line 62
     .local v1, res:Landroid/content/res/Resources;
     sget-object v2, Lcom/android/systemui/R$styleable;->ToggleSlider:[I
 
@@ -91,36 +91,36 @@
 
     move-result-object v0
 
-    .line 66
+    .line 65
     .local v0, a:Landroid/content/res/TypedArray;
-    const v2, 0x7f0900b5
+    const v2, 0x7f070016
 
     invoke-virtual {p0, v2}, Lcom/android/systemui/settings/ToggleSlider;->findViewById(I)Landroid/view/View;
 
     move-result-object v2
 
-    check-cast v2, Landroid/widget/CompoundButton;
+    check-cast v2, Lcom/sec/android/touchwiz/widget/TwCompoundButton;
 
-    iput-object v2, p0, Lcom/android/systemui/settings/ToggleSlider;->mToggle:Landroid/widget/CompoundButton;
+    iput-object v2, p0, Lcom/android/systemui/settings/ToggleSlider;->mToggle:Lcom/sec/android/touchwiz/widget/TwCompoundButton;
+
+    .line 66
+    iget-object v2, p0, Lcom/android/systemui/settings/ToggleSlider;->mToggle:Lcom/sec/android/touchwiz/widget/TwCompoundButton;
+
+    invoke-virtual {v2, p0}, Lcom/sec/android/touchwiz/widget/TwCompoundButton;->setOnCheckedChangeListener(Lcom/sec/android/touchwiz/widget/TwCompoundButton$OnCheckedChangeListener;)V
 
     .line 67
-    iget-object v2, p0, Lcom/android/systemui/settings/ToggleSlider;->mToggle:Landroid/widget/CompoundButton;
+    iget-object v2, p0, Lcom/android/systemui/settings/ToggleSlider;->mToggle:Lcom/sec/android/touchwiz/widget/TwCompoundButton;
 
-    invoke-virtual {v2, p0}, Landroid/widget/CompoundButton;->setOnCheckedChangeListener(Landroid/widget/CompoundButton$OnCheckedChangeListener;)V
-
-    .line 68
-    iget-object v2, p0, Lcom/android/systemui/settings/ToggleSlider;->mToggle:Landroid/widget/CompoundButton;
-
-    const v3, 0x7f02016c
+    const v3, 0x7f020181
 
     invoke-virtual {v1, v3}, Landroid/content/res/Resources;->getDrawable(I)Landroid/graphics/drawable/Drawable;
 
     move-result-object v3
 
-    invoke-virtual {v2, v3}, Landroid/widget/CompoundButton;->setBackgroundDrawable(Landroid/graphics/drawable/Drawable;)V
+    invoke-virtual {v2, v3}, Lcom/sec/android/touchwiz/widget/TwCompoundButton;->setBackgroundDrawable(Landroid/graphics/drawable/Drawable;)V
 
-    .line 70
-    const v2, 0x7f0900ba
+    .line 69
+    const v2, 0x7f07001d
 
     invoke-virtual {p0, v2}, Lcom/android/systemui/settings/ToggleSlider;->findViewById(I)Landroid/view/View;
 
@@ -130,13 +130,13 @@
 
     iput-object v2, p0, Lcom/android/systemui/settings/ToggleSlider;->mSlider:Landroid/widget/SeekBar;
 
-    .line 71
+    .line 70
     iget-object v2, p0, Lcom/android/systemui/settings/ToggleSlider;->mSlider:Landroid/widget/SeekBar;
 
     invoke-virtual {v2, p0}, Landroid/widget/SeekBar;->setOnSeekBarChangeListener(Landroid/widget/SeekBar$OnSeekBarChangeListener;)V
 
-    .line 73
-    const v2, 0x7f0900b6
+    .line 72
+    const v2, 0x7f070017
 
     invoke-virtual {p0, v2}, Lcom/android/systemui/settings/ToggleSlider;->findViewById(I)Landroid/view/View;
 
@@ -146,7 +146,7 @@
 
     iput-object v2, p0, Lcom/android/systemui/settings/ToggleSlider;->mLabel:Landroid/widget/TextView;
 
-    .line 74
+    .line 73
     iget-object v2, p0, Lcom/android/systemui/settings/ToggleSlider;->mLabel:Landroid/widget/TextView;
 
     invoke-virtual {v0, v4}, Landroid/content/res/TypedArray;->getString(I)Ljava/lang/String;
@@ -155,10 +155,10 @@
 
     invoke-virtual {v2, v3}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 76
+    .line 75
     invoke-virtual {v0}, Landroid/content/res/TypedArray;->recycle()V
 
-    .line 77
+    .line 76
     return-void
 .end method
 
@@ -168,10 +168,10 @@
     .locals 1
 
     .prologue
-    .line 140
-    iget-object v0, p0, Lcom/android/systemui/settings/ToggleSlider;->mToggle:Landroid/widget/CompoundButton;
+    .line 139
+    iget-object v0, p0, Lcom/android/systemui/settings/ToggleSlider;->mToggle:Lcom/sec/android/touchwiz/widget/TwCompoundButton;
 
-    invoke-virtual {v0}, Landroid/widget/CompoundButton;->isChecked()Z
+    invoke-virtual {v0}, Lcom/sec/android/touchwiz/widget/TwCompoundButton;->isChecked()Z
 
     move-result v0
 
@@ -182,31 +182,31 @@
     .locals 1
 
     .prologue
-    .line 81
+    .line 80
     invoke-super {p0}, Landroid/widget/RelativeLayout;->onAttachedToWindow()V
 
-    .line 82
+    .line 81
     iget-object v0, p0, Lcom/android/systemui/settings/ToggleSlider;->mListener:Lcom/android/systemui/settings/ToggleSlider$Listener;
 
     if-eqz v0, :cond_0
 
-    .line 83
+    .line 82
     iget-object v0, p0, Lcom/android/systemui/settings/ToggleSlider;->mListener:Lcom/android/systemui/settings/ToggleSlider$Listener;
 
     invoke-interface {v0, p0}, Lcom/android/systemui/settings/ToggleSlider$Listener;->onInit(Lcom/android/systemui/settings/ToggleSlider;)V
 
-    .line 85
+    .line 84
     :cond_0
     return-void
 .end method
 
-.method public onCheckedChanged(Landroid/widget/CompoundButton;Z)V
+.method public onCheckedChanged(Lcom/sec/android/touchwiz/widget/TwCompoundButton;Z)V
     .locals 6
     .parameter "toggle"
     .parameter "checked"
 
     .prologue
-    .line 90
+    .line 89
     invoke-virtual {p0}, Lcom/android/systemui/settings/ToggleSlider;->getContext()Landroid/content/Context;
 
     move-result-object v3
@@ -215,43 +215,43 @@
 
     move-result-object v0
 
-    .line 91
+    .line 90
     .local v0, res:Landroid/content/res/Resources;
     if-eqz p2, :cond_1
 
-    .line 92
-    const v3, 0x10806f9
+    .line 91
+    const v3, 0x1080659
 
     invoke-virtual {v0, v3}, Landroid/content/res/Resources;->getDrawable(I)Landroid/graphics/drawable/Drawable;
 
     move-result-object v2
 
-    .line 94
+    .line 93
     .local v2, thumb:Landroid/graphics/drawable/Drawable;
-    const v3, 0x7f02016a
+    const v3, 0x7f02017f
 
     invoke-virtual {v0, v3}, Landroid/content/res/Resources;->getDrawable(I)Landroid/graphics/drawable/Drawable;
 
     move-result-object v1
 
-    .line 102
+    .line 101
     .local v1, slider:Landroid/graphics/drawable/Drawable;
     :goto_0
     iget-object v3, p0, Lcom/android/systemui/settings/ToggleSlider;->mSlider:Landroid/widget/SeekBar;
 
     invoke-virtual {v3, v2}, Landroid/widget/SeekBar;->setThumb(Landroid/graphics/drawable/Drawable;)V
 
-    .line 103
+    .line 102
     iget-object v3, p0, Lcom/android/systemui/settings/ToggleSlider;->mSlider:Landroid/widget/SeekBar;
 
     invoke-virtual {v3, v1}, Landroid/widget/SeekBar;->setProgressDrawable(Landroid/graphics/drawable/Drawable;)V
 
-    .line 105
+    .line 104
     iget-object v3, p0, Lcom/android/systemui/settings/ToggleSlider;->mListener:Lcom/android/systemui/settings/ToggleSlider$Listener;
 
     if-eqz v3, :cond_0
 
-    .line 106
+    .line 105
     iget-object v3, p0, Lcom/android/systemui/settings/ToggleSlider;->mListener:Lcom/android/systemui/settings/ToggleSlider$Listener;
 
     iget-boolean v4, p0, Lcom/android/systemui/settings/ToggleSlider;->mTracking:Z
@@ -264,23 +264,23 @@
 
     invoke-interface {v3, p0, v4, p2, v5}, Lcom/android/systemui/settings/ToggleSlider$Listener;->onChanged(Lcom/android/systemui/settings/ToggleSlider;ZZI)V
 
-    .line 108
+    .line 107
     :cond_0
     return-void
 
-    .line 97
+    .line 96
     .end local v1           #slider:Landroid/graphics/drawable/Drawable;
     .end local v2           #thumb:Landroid/graphics/drawable/Drawable;
     :cond_1
-    const v3, 0x10806fd
+    const v3, 0x108065d
 
     invoke-virtual {v0, v3}, Landroid/content/res/Resources;->getDrawable(I)Landroid/graphics/drawable/Drawable;
 
     move-result-object v2
 
-    .line 99
+    .line 98
     .restart local v2       #thumb:Landroid/graphics/drawable/Drawable;
-    const v3, 0x10806ff
+    const v3, 0x108065f
 
     invoke-virtual {v0, v3}, Landroid/content/res/Resources;->getDrawable(I)Landroid/graphics/drawable/Drawable;
 
@@ -297,25 +297,25 @@
     .parameter "fromUser"
 
     .prologue
-    .line 111
+    .line 110
     iget-object v0, p0, Lcom/android/systemui/settings/ToggleSlider;->mListener:Lcom/android/systemui/settings/ToggleSlider$Listener;
 
     if-eqz v0, :cond_0
 
-    .line 112
+    .line 111
     iget-object v0, p0, Lcom/android/systemui/settings/ToggleSlider;->mListener:Lcom/android/systemui/settings/ToggleSlider$Listener;
 
     iget-boolean v1, p0, Lcom/android/systemui/settings/ToggleSlider;->mTracking:Z
 
-    iget-object v2, p0, Lcom/android/systemui/settings/ToggleSlider;->mToggle:Landroid/widget/CompoundButton;
+    iget-object v2, p0, Lcom/android/systemui/settings/ToggleSlider;->mToggle:Lcom/sec/android/touchwiz/widget/TwCompoundButton;
 
-    invoke-virtual {v2}, Landroid/widget/CompoundButton;->isChecked()Z
+    invoke-virtual {v2}, Lcom/sec/android/touchwiz/widget/TwCompoundButton;->isChecked()Z
 
     move-result v2
 
     invoke-interface {v0, p0, v1, v2, p2}, Lcom/android/systemui/settings/ToggleSlider$Listener;->onChanged(Lcom/android/systemui/settings/ToggleSlider;ZZI)V
 
-    .line 114
+    .line 113
     :cond_0
     return-void
 .end method
@@ -325,24 +325,24 @@
     .parameter "seekBar"
 
     .prologue
-    .line 117
+    .line 116
     const/4 v0, 0x1
 
     iput-boolean v0, p0, Lcom/android/systemui/settings/ToggleSlider;->mTracking:Z
 
-    .line 118
+    .line 117
     iget-object v0, p0, Lcom/android/systemui/settings/ToggleSlider;->mListener:Lcom/android/systemui/settings/ToggleSlider$Listener;
 
     if-eqz v0, :cond_0
 
-    .line 119
+    .line 118
     iget-object v0, p0, Lcom/android/systemui/settings/ToggleSlider;->mListener:Lcom/android/systemui/settings/ToggleSlider$Listener;
 
     iget-boolean v1, p0, Lcom/android/systemui/settings/ToggleSlider;->mTracking:Z
 
-    iget-object v2, p0, Lcom/android/systemui/settings/ToggleSlider;->mToggle:Landroid/widget/CompoundButton;
+    iget-object v2, p0, Lcom/android/systemui/settings/ToggleSlider;->mToggle:Lcom/sec/android/touchwiz/widget/TwCompoundButton;
 
-    invoke-virtual {v2}, Landroid/widget/CompoundButton;->isChecked()Z
+    invoke-virtual {v2}, Lcom/sec/android/touchwiz/widget/TwCompoundButton;->isChecked()Z
 
     move-result v2
 
@@ -354,15 +354,15 @@
 
     invoke-interface {v0, p0, v1, v2, v3}, Lcom/android/systemui/settings/ToggleSlider$Listener;->onChanged(Lcom/android/systemui/settings/ToggleSlider;ZZI)V
 
-    .line 121
+    .line 120
     :cond_0
-    iget-object v0, p0, Lcom/android/systemui/settings/ToggleSlider;->mToggle:Landroid/widget/CompoundButton;
+    iget-object v0, p0, Lcom/android/systemui/settings/ToggleSlider;->mToggle:Lcom/sec/android/touchwiz/widget/TwCompoundButton;
 
     const/4 v1, 0x0
 
-    invoke-virtual {v0, v1}, Landroid/widget/CompoundButton;->setChecked(Z)V
+    invoke-virtual {v0, v1}, Lcom/sec/android/touchwiz/widget/TwCompoundButton;->setChecked(Z)V
 
-    .line 122
+    .line 121
     return-void
 .end method
 
@@ -371,24 +371,24 @@
     .parameter "seekBar"
 
     .prologue
-    .line 125
+    .line 124
     const/4 v0, 0x0
 
     iput-boolean v0, p0, Lcom/android/systemui/settings/ToggleSlider;->mTracking:Z
 
-    .line 126
+    .line 125
     iget-object v0, p0, Lcom/android/systemui/settings/ToggleSlider;->mListener:Lcom/android/systemui/settings/ToggleSlider$Listener;
 
     if-eqz v0, :cond_0
 
-    .line 127
+    .line 126
     iget-object v0, p0, Lcom/android/systemui/settings/ToggleSlider;->mListener:Lcom/android/systemui/settings/ToggleSlider$Listener;
 
     iget-boolean v1, p0, Lcom/android/systemui/settings/ToggleSlider;->mTracking:Z
 
-    iget-object v2, p0, Lcom/android/systemui/settings/ToggleSlider;->mToggle:Landroid/widget/CompoundButton;
+    iget-object v2, p0, Lcom/android/systemui/settings/ToggleSlider;->mToggle:Lcom/sec/android/touchwiz/widget/TwCompoundButton;
 
-    invoke-virtual {v2}, Landroid/widget/CompoundButton;->isChecked()Z
+    invoke-virtual {v2}, Lcom/sec/android/touchwiz/widget/TwCompoundButton;->isChecked()Z
 
     move-result v2
 
@@ -400,7 +400,7 @@
 
     invoke-interface {v0, p0, v1, v2, v3}, Lcom/android/systemui/settings/ToggleSlider$Listener;->onChanged(Lcom/android/systemui/settings/ToggleSlider;ZZI)V
 
-    .line 129
+    .line 128
     :cond_0
     return-void
 .end method
@@ -410,12 +410,12 @@
     .parameter "checked"
 
     .prologue
+    .line 135
+    iget-object v0, p0, Lcom/android/systemui/settings/ToggleSlider;->mToggle:Lcom/sec/android/touchwiz/widget/TwCompoundButton;
+
+    invoke-virtual {v0, p1}, Lcom/sec/android/touchwiz/widget/TwCompoundButton;->setChecked(Z)V
+
     .line 136
-    iget-object v0, p0, Lcom/android/systemui/settings/ToggleSlider;->mToggle:Landroid/widget/CompoundButton;
-
-    invoke-virtual {v0, p1}, Landroid/widget/CompoundButton;->setChecked(Z)V
-
-    .line 137
     return-void
 .end method
 
@@ -424,12 +424,12 @@
     .parameter "max"
 
     .prologue
-    .line 144
+    .line 143
     iget-object v0, p0, Lcom/android/systemui/settings/ToggleSlider;->mSlider:Landroid/widget/SeekBar;
 
     invoke-virtual {v0, p1}, Landroid/widget/SeekBar;->setMax(I)V
 
-    .line 145
+    .line 144
     return-void
 .end method
 
@@ -438,10 +438,10 @@
     .parameter "l"
 
     .prologue
-    .line 132
+    .line 131
     iput-object p1, p0, Lcom/android/systemui/settings/ToggleSlider;->mListener:Lcom/android/systemui/settings/ToggleSlider$Listener;
 
-    .line 133
+    .line 132
     return-void
 .end method
 
@@ -450,11 +450,11 @@
     .parameter "value"
 
     .prologue
-    .line 148
+    .line 147
     iget-object v0, p0, Lcom/android/systemui/settings/ToggleSlider;->mSlider:Landroid/widget/SeekBar;
 
     invoke-virtual {v0, p1}, Landroid/widget/SeekBar;->setProgress(I)V
 
-    .line 149
+    .line 148
     return-void
 .end method

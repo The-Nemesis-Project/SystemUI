@@ -8,7 +8,7 @@
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lcom/android/systemui/screenshot/ScreenshotDeleteActivity;->onCreateDialog(I)Landroid/app/Dialog;
+    value = Lcom/android/systemui/screenshot/ScreenshotDeleteActivity;->onCreate(Landroid/os/Bundle;)V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -27,10 +27,10 @@
     .parameter
 
     .prologue
-    .line 149
+    .line 115
     iput-object p1, p0, Lcom/android/systemui/screenshot/ScreenshotDeleteActivity$2;->this$0:Lcom/android/systemui/screenshot/ScreenshotDeleteActivity;
 
-    invoke-direct/range {p0 .. p0}, Ljava/lang/Object;-><init>()V
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
     return-void
 .end method
@@ -43,11 +43,11 @@
     .parameter "whichButton"
 
     .prologue
-    .line 151
+    .line 117
     iget-object v0, p0, Lcom/android/systemui/screenshot/ScreenshotDeleteActivity$2;->this$0:Lcom/android/systemui/screenshot/ScreenshotDeleteActivity;
 
-    invoke-virtual {v0}, Lcom/android/systemui/screenshot/ScreenshotDeleteActivity;->finish()V
+    invoke-virtual {v0}, Landroid/app/Activity;->finish()V
 
-    .line 152
+    .line 118
     return-void
 .end method

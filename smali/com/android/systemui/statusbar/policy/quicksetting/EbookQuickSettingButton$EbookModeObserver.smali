@@ -24,17 +24,17 @@
     .parameter
 
     .prologue
-    .line 118
+    .line 127
     iput-object p1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/EbookQuickSettingButton$EbookModeObserver;->this$0:Lcom/android/systemui/statusbar/policy/quicksetting/EbookQuickSettingButton;
 
-    .line 119
+    .line 128
     new-instance v0, Landroid/os/Handler;
 
     invoke-direct {v0}, Landroid/os/Handler;-><init>()V
 
     invoke-direct {p0, v0}, Landroid/database/ContentObserver;-><init>(Landroid/os/Handler;)V
 
-    .line 120
+    .line 129
     return-void
 .end method
 
@@ -49,7 +49,7 @@
 
     const/4 v1, 0x1
 
-    .line 123
+    .line 132
     const-string v2, "STATUSBAR-E-BookSettingButton"
 
     new-instance v3, Ljava/lang/StringBuilder;
@@ -87,10 +87,10 @@
 
     invoke-static {v2, v3}, Landroid/util/Slog;->d(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 127
+    .line 136
     invoke-super {p0, p1}, Landroid/database/ContentObserver;->onChange(Z)V
 
-    .line 128
+    .line 137
     iget-object v2, p0, Lcom/android/systemui/statusbar/policy/quicksetting/EbookQuickSettingButton$EbookModeObserver;->this$0:Lcom/android/systemui/statusbar/policy/quicksetting/EbookQuickSettingButton;
 
     iget-object v3, p0, Lcom/android/systemui/statusbar/policy/quicksetting/EbookQuickSettingButton$EbookModeObserver;->this$0:Lcom/android/systemui/statusbar/policy/quicksetting/EbookQuickSettingButton;
@@ -108,7 +108,7 @@
     #setter for: Lcom/android/systemui/statusbar/policy/quicksetting/EbookQuickSettingButton;->mState:Z
     invoke-static {v2, v0}, Lcom/android/systemui/statusbar/policy/quicksetting/EbookQuickSettingButton;->access$202(Lcom/android/systemui/statusbar/policy/quicksetting/EbookQuickSettingButton;Z)Z
 
-    .line 129
+    .line 138
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/EbookQuickSettingButton$EbookModeObserver;->this$0:Lcom/android/systemui/statusbar/policy/quicksetting/EbookQuickSettingButton;
 
     iget-object v2, p0, Lcom/android/systemui/statusbar/policy/quicksetting/EbookQuickSettingButton$EbookModeObserver;->this$0:Lcom/android/systemui/statusbar/policy/quicksetting/EbookQuickSettingButton;
@@ -121,12 +121,12 @@
     if-eqz v2, :cond_1
 
     :goto_0
-    invoke-virtual {v0, v1}, Lcom/android/systemui/statusbar/policy/quicksetting/EbookQuickSettingButton;->setActivateStatus(I)V
+    invoke-virtual {v0, v1}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->setActivateStatus(I)V
 
-    .line 130
+    .line 139
     return-void
 
-    .line 129
+    .line 138
     :cond_1
     const/4 v1, 0x2
 

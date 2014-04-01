@@ -24,7 +24,7 @@
     .parameter
 
     .prologue
-    .line 122
+    .line 118
     iput-object p1, p0, Lcom/android/systemui/statusbar/policy/Clock$1;->this$0:Lcom/android/systemui/statusbar/policy/Clock;
 
     invoke-direct {p0}, Landroid/content/BroadcastReceiver;-><init>()V
@@ -40,11 +40,11 @@
     .parameter "intent"
 
     .prologue
-    .line 125
+    .line 121
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/Clock$1;->this$0:Lcom/android/systemui/statusbar/policy/Clock;
 
     invoke-virtual {v0}, Lcom/android/systemui/statusbar/policy/Clock;->updateClock()V
 
-    .line 126
+    .line 122
     return-void
 .end method

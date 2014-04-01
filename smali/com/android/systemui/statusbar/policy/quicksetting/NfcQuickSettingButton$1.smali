@@ -24,7 +24,7 @@
     .parameter
 
     .prologue
-    .line 28
+    .line 24
     iput-object p1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/NfcQuickSettingButton$1;->this$0:Lcom/android/systemui/statusbar/policy/quicksetting/NfcQuickSettingButton;
 
     invoke-direct {p0}, Landroid/content/BroadcastReceiver;-><init>()V
@@ -40,7 +40,7 @@
     .parameter "intent"
 
     .prologue
-    .line 31
+    .line 27
     const-string v1, "STATUSBAR-NfcQuickSettingButton"
 
     new-instance v2, Ljava/lang/StringBuilder;
@@ -67,7 +67,7 @@
 
     invoke-static {v1, v2}, Landroid/util/secutil/Log;->secD(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 32
+    .line 28
     const-string v1, "android.nfc.extra.ADAPTER_STATE"
 
     const/4 v2, 0x1
@@ -76,7 +76,7 @@
 
     move-result v0
 
-    .line 33
+    .line 29
     .local v0, state:I
     iget-object v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/NfcQuickSettingButton$1;->this$0:Lcom/android/systemui/statusbar/policy/quicksetting/NfcQuickSettingButton;
 
@@ -87,15 +87,15 @@
 
     move-result v2
 
-    invoke-virtual {v1, v2}, Lcom/android/systemui/statusbar/policy/quicksetting/NfcQuickSettingButton;->setActivateStatus(I)V
+    invoke-virtual {v1, v2}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->setActivateStatus(I)V
 
-    .line 36
+    .line 32
     iget-object v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/NfcQuickSettingButton$1;->this$0:Lcom/android/systemui/statusbar/policy/quicksetting/NfcQuickSettingButton;
 
     const/4 v2, 0x0
 
     iput-boolean v2, v1, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->mIsProcessing:Z
 
-    .line 37
+    .line 33
     return-void
 .end method

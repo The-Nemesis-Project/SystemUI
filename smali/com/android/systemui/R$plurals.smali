@@ -15,7 +15,7 @@
 
 
 # static fields
-.field public static final status_bar_accessibility_recent_apps:I = 0x7f0f0000
+.field public static final status_bar_accessibility_recent_apps:I = 0x7f0d0000
 
 
 # direct methods
@@ -23,8 +23,8 @@
     .locals 0
 
     .prologue
-    .line 1761
-    invoke-direct/range {p0 .. p0}, Ljava/lang/Object;-><init>()V
+    .line 1604
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
     return-void
 .end method

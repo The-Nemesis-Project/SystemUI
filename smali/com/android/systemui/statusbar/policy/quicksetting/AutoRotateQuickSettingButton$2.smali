@@ -30,12 +30,12 @@
     .parameter
 
     .prologue
-    .line 127
+    .line 133
     iput-object p1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/AutoRotateQuickSettingButton$2;->this$0:Lcom/android/systemui/statusbar/policy/quicksetting/AutoRotateQuickSettingButton;
 
     iput-boolean p2, p0, Lcom/android/systemui/statusbar/policy/quicksetting/AutoRotateQuickSettingButton$2;->val$autorotate:Z
 
-    invoke-direct/range {p0 .. p0}, Ljava/lang/Object;-><init>()V
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
     return-void
 .end method
@@ -46,7 +46,7 @@
     .locals 4
 
     .prologue
-    .line 130
+    .line 136
     :try_start_0
     const-string v2, "window"
 
@@ -58,21 +58,21 @@
 
     move-result-object v1
 
-    .line 132
+    .line 138
     .local v1, wm:Landroid/view/IWindowManager;
     iget-boolean v2, p0, Lcom/android/systemui/statusbar/policy/quicksetting/AutoRotateQuickSettingButton$2;->val$autorotate:Z
 
     if-eqz v2, :cond_0
 
-    .line 133
+    .line 139
     invoke-interface {v1}, Landroid/view/IWindowManager;->thawRotation()V
 
-    .line 150
+    .line 156
     .end local v1           #wm:Landroid/view/IWindowManager;
     :goto_0
     return-void
 
-    .line 136
+    .line 142
     .restart local v1       #wm:Landroid/view/IWindowManager;
     :cond_0
     sget-boolean v2, Lcom/android/systemui/statusbar/BaseStatusBar;->canStatusBarHide:Z
@@ -83,12 +83,12 @@
 
     if-eqz v2, :cond_2
 
-    .line 137
+    .line 143
     sget-boolean v2, Lcom/android/systemui/statusbar/Feature;->mSetDefaultOrientationLandscapeMode:Z
 
     if-eqz v2, :cond_1
 
-    .line 138
+    .line 144
     const/4 v2, -0x1
 
     invoke-interface {v1, v2}, Landroid/view/IWindowManager;->freezeRotation(I)V
@@ -97,12 +97,12 @@
 
     goto :goto_0
 
-    .line 147
+    .line 153
     .end local v1           #wm:Landroid/view/IWindowManager;
     :catch_0
     move-exception v0
 
-    .line 148
+    .line 154
     .local v0, exc:Landroid/os/RemoteException;
     const-string v2, "STATUSBAR-AutoRotateQuickSettingButton"
 
@@ -112,7 +112,7 @@
 
     goto :goto_0
 
-    .line 140
+    .line 146
     .end local v0           #exc:Landroid/os/RemoteException;
     .restart local v1       #wm:Landroid/view/IWindowManager;
     :cond_1
@@ -123,7 +123,7 @@
 
     goto :goto_0
 
-    .line 144
+    .line 150
     :cond_2
     const/4 v2, -0x1
 

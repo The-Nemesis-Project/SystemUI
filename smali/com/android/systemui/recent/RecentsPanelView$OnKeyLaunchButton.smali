@@ -27,10 +27,10 @@
     .parameter
 
     .prologue
-    .line 1268
+    .line 1246
     iput-object p1, p0, Lcom/android/systemui/recent/RecentsPanelView$OnKeyLaunchButton;->this$0:Lcom/android/systemui/recent/RecentsPanelView;
 
-    invoke-direct/range {p0 .. p0}, Ljava/lang/Object;-><init>()V
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
     return-void
 .end method
@@ -41,7 +41,7 @@
     .parameter "x1"
 
     .prologue
-    .line 1268
+    .line 1246
     invoke-direct {p0, p1}, Lcom/android/systemui/recent/RecentsPanelView$OnKeyLaunchButton;-><init>(Lcom/android/systemui/recent/RecentsPanelView;)V
 
     return-void
@@ -56,20 +56,20 @@
     .parameter "event"
 
     .prologue
-    .line 1271
+    .line 1249
     const/4 v0, 0x4
 
     if-ne p2, v0, :cond_0
 
-    .line 1272
+    .line 1250
     iget-object v0, p0, Lcom/android/systemui/recent/RecentsPanelView$OnKeyLaunchButton;->this$0:Lcom/android/systemui/recent/RecentsPanelView;
 
     invoke-virtual {v0}, Lcom/android/systemui/recent/RecentsPanelView;->dismiss()V
 
-    .line 1273
+    .line 1251
     const/4 v0, 0x1
 
-    .line 1275
+    .line 1253
     :goto_0
     return v0
 

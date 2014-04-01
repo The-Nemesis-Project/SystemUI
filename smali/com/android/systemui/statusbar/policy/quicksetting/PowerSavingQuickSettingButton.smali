@@ -40,103 +40,131 @@
 
 # direct methods
 .method public constructor <init>(Landroid/content/Context;)V
-    .locals 11
+    .locals 9
     .parameter "context"
 
     .prologue
-    const/4 v10, -0x2
+    const v1, 0x7f0a00e8
 
-    const/4 v9, 0x1
+    const/4 v8, -0x2
 
-    const/4 v7, 0x0
+    const/4 v7, 0x1
 
-    .line 80
+    const/4 v5, 0x0
+
+    .line 81
     const/4 v2, 0x0
 
-    const v3, 0x7f0c00df
+    sget-boolean v0, Lcom/android/systemui/statusbar/Feature;->mUseJellyBeanGUI:Z
 
-    const v4, 0x7f0201d1
+    if-nez v0, :cond_0
 
-    const v5, 0x7f0201d0
+    move v0, v7
 
-    const v6, 0x7f0201cf
+    :goto_0
+    invoke-direct {p0, p1, v2, v0}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;-><init>(Landroid/content/Context;Landroid/util/AttributeSet;Z)V
 
-    move-object v0, p0
-
-    move-object v1, p1
-
-    move v8, v7
-
-    invoke-direct/range {v0 .. v8}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;-><init>(Landroid/content/Context;Landroid/util/AttributeSet;IIIIII)V
-
-    .line 67
+    .line 68
     new-instance v0, Lcom/android/systemui/statusbar/policy/quicksetting/PowerSavingQuickSettingButton$1;
 
     invoke-direct {v0, p0}, Lcom/android/systemui/statusbar/policy/quicksetting/PowerSavingQuickSettingButton$1;-><init>(Lcom/android/systemui/statusbar/policy/quicksetting/PowerSavingQuickSettingButton;)V
 
     iput-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/PowerSavingQuickSettingButton;->mIntentReceiver:Landroid/content/BroadcastReceiver;
 
-    .line 87
+    .line 83
+    sget-boolean v0, Lcom/android/systemui/statusbar/Feature;->mUseJellyBeanGUI:Z
+
+    if-eqz v0, :cond_1
+
+    .line 84
+    const v2, 0x7f0201e7
+
+    const v3, 0x7f0201e6
+
+    const v4, 0x7f0201e5
+
+    move-object v0, p0
+
+    move v6, v5
+
+    invoke-virtual/range {v0 .. v6}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->initLayout(IIIIII)V
+
+    .line 94
+    :goto_1
     invoke-virtual {p1}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
 
     move-result-object v0
 
     iput-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/PowerSavingQuickSettingButton;->mContentResolver:Landroid/content/ContentResolver;
 
-    .line 88
+    .line 95
     new-instance v0, Lcom/android/systemui/statusbar/policy/quicksetting/PowerSavingQuickSettingButton$PowerSavingObserver;
 
     invoke-direct {v0, p0}, Lcom/android/systemui/statusbar/policy/quicksetting/PowerSavingQuickSettingButton$PowerSavingObserver;-><init>(Lcom/android/systemui/statusbar/policy/quicksetting/PowerSavingQuickSettingButton;)V
 
     iput-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/PowerSavingQuickSettingButton;->mPowerSavingObserver:Lcom/android/systemui/statusbar/policy/quicksetting/PowerSavingQuickSettingButton$PowerSavingObserver;
 
-    .line 90
-    invoke-virtual {p0, p0}, Lcom/android/systemui/statusbar/policy/quicksetting/PowerSavingQuickSettingButton;->setListener(Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton$Listener;)V
+    .line 97
+    invoke-virtual {p0, p0}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->setListener(Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton$Listener;)V
 
-    .line 91
+    .line 98
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/PowerSavingQuickSettingButton;->mContentResolver:Landroid/content/ContentResolver;
 
     const-string v1, "psm_switch"
 
-    invoke-static {v0, v1, v7, v10}, Landroid/provider/Settings$System;->getIntForUser(Landroid/content/ContentResolver;Ljava/lang/String;II)I
+    invoke-static {v0, v1, v5, v8}, Landroid/provider/Settings$System;->getIntForUser(Landroid/content/ContentResolver;Ljava/lang/String;II)I
 
     move-result v0
 
-    if-ne v0, v9, :cond_0
+    if-ne v0, v7, :cond_2
 
-    move v0, v9
+    move v0, v7
 
-    :goto_0
-    invoke-virtual {p0, v0}, Lcom/android/systemui/statusbar/policy/quicksetting/PowerSavingQuickSettingButton;->setActivateStatus(I)V
+    :goto_2
+    invoke-virtual {p0, v0}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->setActivateStatus(I)V
 
-    .line 93
+    .line 100
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/PowerSavingQuickSettingButton;->mContentResolver:Landroid/content/ContentResolver;
 
     const-string v1, "psm_switch"
 
-    invoke-static {v0, v1, v7, v10}, Landroid/provider/Settings$System;->getIntForUser(Landroid/content/ContentResolver;Ljava/lang/String;II)I
+    invoke-static {v0, v1, v5, v8}, Landroid/provider/Settings$System;->getIntForUser(Landroid/content/ContentResolver;Ljava/lang/String;II)I
 
     move-result v0
 
-    if-ne v0, v9, :cond_1
+    if-ne v0, v7, :cond_3
 
-    :goto_1
-    iput-boolean v9, p0, Lcom/android/systemui/statusbar/policy/quicksetting/PowerSavingQuickSettingButton;->mState:Z
+    :goto_3
+    iput-boolean v7, p0, Lcom/android/systemui/statusbar/policy/quicksetting/PowerSavingQuickSettingButton;->mState:Z
 
-    .line 94
+    .line 101
     return-void
 
-    .line 91
     :cond_0
-    const/4 v0, 0x2
+    move v0, v5
 
+    .line 81
     goto :goto_0
 
+    .line 91
     :cond_1
-    move v9, v7
+    const v0, 0x7f0201e8
 
-    .line 93
+    invoke-virtual {p0, v1, v0}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->initLayout(II)V
+
     goto :goto_1
+
+    .line 98
+    :cond_2
+    const/4 v0, 0x2
+
+    goto :goto_2
+
+    :cond_3
+    move v7, v5
+
+    .line 100
+    goto :goto_3
 .end method
 
 .method static synthetic access$000(Lcom/android/systemui/statusbar/policy/quicksetting/PowerSavingQuickSettingButton;)Landroid/app/AlertDialog;
@@ -144,7 +172,7 @@
     .parameter "x0"
 
     .prologue
-    .line 51
+    .line 52
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/PowerSavingQuickSettingButton;->mAlertDialog:Landroid/app/AlertDialog;
 
     return-object v0
@@ -155,7 +183,7 @@
     .parameter "x0"
 
     .prologue
-    .line 51
+    .line 52
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/PowerSavingQuickSettingButton;->mContentResolver:Landroid/content/ContentResolver;
 
     return-object v0
@@ -167,7 +195,7 @@
     .parameter "x1"
 
     .prologue
-    .line 51
+    .line 52
     iput-boolean p1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/PowerSavingQuickSettingButton;->mState:Z
 
     return p1
@@ -178,7 +206,7 @@
     .parameter "x0"
 
     .prologue
-    .line 51
+    .line 52
     invoke-direct {p0}, Lcom/android/systemui/statusbar/policy/quicksetting/PowerSavingQuickSettingButton;->getMode()I
 
     move-result v0
@@ -196,8 +224,8 @@
 
     const/4 v7, 0x0
 
-    .line 184
-    iget-object v5, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->mContext:Landroid/content/Context;
+    .line 191
+    iget-object v5, p0, Landroid/view/View;->mContext:Landroid/content/Context;
 
     invoke-virtual {v5}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
 
@@ -209,9 +237,9 @@
 
     move-result v1
 
-    .line 185
+    .line 192
     .local v1, cpu:I
-    iget-object v5, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->mContext:Landroid/content/Context;
+    iget-object v5, p0, Landroid/view/View;->mContext:Landroid/content/Context;
 
     invoke-virtual {v5}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
 
@@ -223,9 +251,9 @@
 
     move-result v2
 
-    .line 187
+    .line 194
     .local v2, display:I
-    iget-object v5, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->mContext:Landroid/content/Context;
+    iget-object v5, p0, Landroid/view/View;->mContext:Landroid/content/Context;
 
     invoke-virtual {v5}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
 
@@ -237,9 +265,9 @@
 
     move-result v0
 
-    .line 189
+    .line 196
     .local v0, back:I
-    iget-object v5, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->mContext:Landroid/content/Context;
+    iget-object v5, p0, Landroid/view/View;->mContext:Landroid/content/Context;
 
     invoke-virtual {v5}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
 
@@ -251,7 +279,7 @@
 
     move-result v3
 
-    .line 194
+    .line 201
     .local v3, haptic:I
     if-nez v1, :cond_2
 
@@ -259,10 +287,10 @@
 
     move v4, v6
 
-    .line 196
+    .line 203
     .local v4, retVal:Z
     :goto_0
-    iget-object v5, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->mContext:Landroid/content/Context;
+    iget-object v5, p0, Landroid/view/View;->mContext:Landroid/content/Context;
 
     const-string v8, "vibrator"
 
@@ -278,28 +306,28 @@
 
     if-eqz v5, :cond_0
 
-    .line 198
+    .line 205
     if-eqz v4, :cond_3
 
     if-nez v3, :cond_3
 
     move v4, v6
 
-    .line 200
+    .line 207
     :cond_0
     :goto_1
     iget-boolean v5, p0, Lcom/android/systemui/statusbar/policy/quicksetting/PowerSavingQuickSettingButton;->mSupportBrowser:Z
 
     if-eqz v5, :cond_1
 
-    .line 201
+    .line 208
     if-eqz v4, :cond_4
 
     if-nez v0, :cond_4
 
     move v4, v6
 
-    .line 203
+    .line 210
     :cond_1
     :goto_2
     return v4
@@ -308,20 +336,20 @@
     :cond_2
     move v4, v7
 
-    .line 194
+    .line 201
     goto :goto_0
 
     .restart local v4       #retVal:Z
     :cond_3
     move v4, v7
 
-    .line 198
+    .line 205
     goto :goto_1
 
     :cond_4
     move v4, v7
 
-    .line 201
+    .line 208
     goto :goto_2
 .end method
 
@@ -329,7 +357,7 @@
     .locals 4
 
     .prologue
-    .line 229
+    .line 236
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/PowerSavingQuickSettingButton;->mContentResolver:Landroid/content/ContentResolver;
 
     const-string v1, "psm_switch"
@@ -351,16 +379,16 @@
     .parameter "pkg"
 
     .prologue
-    .line 207
+    .line 214
     invoke-virtual {p0}, Landroid/content/Context;->getPackageManager()Landroid/content/pm/PackageManager;
 
     move-result-object v2
 
-    .line 208
+    .line 215
     .local v2, pm:Landroid/content/pm/PackageManager;
     const/4 v1, 0x1
 
-    .line 210
+    .line 217
     .local v1, hasPkg:Z
     const/16 v3, 0x80
 
@@ -369,15 +397,15 @@
     :try_end_0
     .catch Landroid/content/pm/PackageManager$NameNotFoundException; {:try_start_0 .. :try_end_0} :catch_0
 
-    .line 215
+    .line 222
     :goto_0
     return v1
 
-    .line 211
+    .line 218
     :catch_0
     move-exception v0
 
-    .line 212
+    .line 219
     .local v0, e:Landroid/content/pm/PackageManager$NameNotFoundException;
     const/4 v1, 0x0
 
@@ -389,12 +417,12 @@
     .parameter "mode"
 
     .prologue
-    .line 220
+    .line 227
     const/4 v1, 0x1
 
     iput-boolean v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->mIsProcessing:Z
 
-    .line 222
+    .line 229
     iget-object v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/PowerSavingQuickSettingButton;->mContentResolver:Landroid/content/ContentResolver;
 
     const-string v2, "psm_switch"
@@ -403,22 +431,22 @@
 
     invoke-static {v1, v2, p1, v3}, Landroid/provider/Settings$System;->putIntForUser(Landroid/content/ContentResolver;Ljava/lang/String;II)Z
 
-    .line 224
+    .line 231
     new-instance v0, Landroid/content/Intent;
 
     const-string v1, "android.settings.POWERSAVING_CHANGED"
 
     invoke-direct {v0, v1}, Landroid/content/Intent;-><init>(Ljava/lang/String;)V
 
-    .line 225
+    .line 232
     .local v0, intent:Landroid/content/Intent;
-    iget-object v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->mContext:Landroid/content/Context;
+    iget-object v1, p0, Landroid/view/View;->mContext:Landroid/content/Context;
 
     sget-object v2, Landroid/os/UserHandle;->CURRENT:Landroid/os/UserHandle;
 
     invoke-virtual {v1, v0, v2}, Landroid/content/Context;->sendBroadcastAsUser(Landroid/content/Intent;Landroid/os/UserHandle;)V
 
-    .line 226
+    .line 233
     return-void
 .end method
 
@@ -426,23 +454,23 @@
     .locals 5
 
     .prologue
-    .line 148
+    .line 155
     const/4 v1, 0x0
 
-    .line 149
+    .line 156
     .local v1, theme:I
     sget-boolean v2, Lcom/android/systemui/statusbar/BaseStatusBar;->isLightTheme:Z
 
     if-eqz v2, :cond_0
 
-    .line 150
+    .line 157
     const/4 v1, 0x5
 
-    .line 152
+    .line 159
     :cond_0
     new-instance v2, Landroid/app/AlertDialog$Builder;
 
-    iget-object v3, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->mContext:Landroid/content/Context;
+    iget-object v3, p0, Landroid/view/View;->mContext:Landroid/content/Context;
 
     invoke-direct {v2, v3, v1}, Landroid/app/AlertDialog$Builder;-><init>(Landroid/content/Context;I)V
 
@@ -452,7 +480,7 @@
 
     move-result-object v2
 
-    const v3, 0x7f0c0119
+    const v3, 0x7f0a0125
 
     invoke-virtual {v2, v3}, Landroid/app/AlertDialog$Builder;->setMessage(I)Landroid/app/AlertDialog$Builder;
 
@@ -490,11 +518,11 @@
 
     iput-object v2, p0, Lcom/android/systemui/statusbar/policy/quicksetting/PowerSavingQuickSettingButton;->mAlertDialog:Landroid/app/AlertDialog;
 
-    .line 172
-    invoke-virtual {p0}, Lcom/android/systemui/statusbar/policy/quicksetting/PowerSavingQuickSettingButton;->statusBarCollapse()V
+    .line 179
+    invoke-virtual {p0}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->statusBarCollapse()V
 
-    .line 174
-    iget-object v2, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->mContext:Landroid/content/Context;
+    .line 181
+    iget-object v2, p0, Landroid/view/View;->mContext:Landroid/content/Context;
 
     const-string v3, "keyguard"
 
@@ -504,7 +532,7 @@
 
     check-cast v0, Landroid/app/KeyguardManager;
 
-    .line 175
+    .line 182
     .local v0, kgm:Landroid/app/KeyguardManager;
     if-eqz v0, :cond_1
 
@@ -514,10 +542,10 @@
 
     if-eqz v2, :cond_1
 
-    .line 176
+    .line 183
     iget-object v2, p0, Lcom/android/systemui/statusbar/policy/quicksetting/PowerSavingQuickSettingButton;->mAlertDialog:Landroid/app/AlertDialog;
 
-    invoke-virtual {v2}, Landroid/app/AlertDialog;->getWindow()Landroid/view/Window;
+    invoke-virtual {v2}, Landroid/app/Dialog;->getWindow()Landroid/view/Window;
 
     move-result-object v2
 
@@ -525,20 +553,20 @@
 
     invoke-virtual {v2, v3}, Landroid/view/Window;->setType(I)V
 
-    .line 180
+    .line 187
     :goto_0
     iget-object v2, p0, Lcom/android/systemui/statusbar/policy/quicksetting/PowerSavingQuickSettingButton;->mAlertDialog:Landroid/app/AlertDialog;
 
-    invoke-virtual {v2}, Landroid/app/AlertDialog;->show()V
+    invoke-virtual {v2}, Landroid/app/Dialog;->show()V
 
-    .line 181
+    .line 188
     return-void
 
-    .line 178
+    .line 185
     :cond_1
     iget-object v2, p0, Lcom/android/systemui/statusbar/policy/quicksetting/PowerSavingQuickSettingButton;->mAlertDialog:Landroid/app/AlertDialog;
 
-    invoke-virtual {v2}, Landroid/app/AlertDialog;->getWindow()Landroid/view/Window;
+    invoke-virtual {v2}, Landroid/app/Dialog;->getWindow()Landroid/view/Window;
 
     move-result-object v2
 
@@ -555,21 +583,21 @@
     .locals 2
 
     .prologue
-    .line 108
+    .line 115
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/PowerSavingQuickSettingButton;->mContentResolver:Landroid/content/ContentResolver;
 
     iget-object v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/PowerSavingQuickSettingButton;->mPowerSavingObserver:Lcom/android/systemui/statusbar/policy/quicksetting/PowerSavingQuickSettingButton$PowerSavingObserver;
 
     invoke-virtual {v0, v1}, Landroid/content/ContentResolver;->unregisterContentObserver(Landroid/database/ContentObserver;)V
 
-    .line 109
-    iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->mContext:Landroid/content/Context;
+    .line 116
+    iget-object v0, p0, Landroid/view/View;->mContext:Landroid/content/Context;
 
     iget-object v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/PowerSavingQuickSettingButton;->mIntentReceiver:Landroid/content/BroadcastReceiver;
 
     invoke-virtual {v0, v1}, Landroid/content/Context;->unregisterReceiver(Landroid/content/BroadcastReceiver;)V
 
-    .line 110
+    .line 117
     return-void
 .end method
 
@@ -577,7 +605,7 @@
     .locals 6
 
     .prologue
-    .line 97
+    .line 104
     iget-object v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/PowerSavingQuickSettingButton;->mContentResolver:Landroid/content/ContentResolver;
 
     const-string v2, "psm_switch"
@@ -594,8 +622,8 @@
 
     invoke-virtual {v1, v2, v3, v4, v5}, Landroid/content/ContentResolver;->registerContentObserver(Landroid/net/Uri;ZLandroid/database/ContentObserver;I)V
 
-    .line 100
-    iget-object v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->mContext:Landroid/content/Context;
+    .line 107
+    iget-object v1, p0, Landroid/view/View;->mContext:Landroid/content/Context;
 
     const-string v2, "com.android.browser"
 
@@ -605,25 +633,25 @@
 
     iput-boolean v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/PowerSavingQuickSettingButton;->mSupportBrowser:Z
 
-    .line 102
+    .line 109
     new-instance v0, Landroid/content/IntentFilter;
 
     invoke-direct {v0}, Landroid/content/IntentFilter;-><init>()V
 
-    .line 103
+    .line 110
     .local v0, filter:Landroid/content/IntentFilter;
     const-string v1, "android.intent.action.CLOSE_SYSTEM_DIALOGS"
 
     invoke-virtual {v0, v1}, Landroid/content/IntentFilter;->addAction(Ljava/lang/String;)V
 
-    .line 104
-    iget-object v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->mContext:Landroid/content/Context;
+    .line 111
+    iget-object v1, p0, Landroid/view/View;->mContext:Landroid/content/Context;
 
     iget-object v2, p0, Lcom/android/systemui/statusbar/policy/quicksetting/PowerSavingQuickSettingButton;->mIntentReceiver:Landroid/content/BroadcastReceiver;
 
     invoke-virtual {v1, v2, v0}, Landroid/content/Context;->registerReceiver(Landroid/content/BroadcastReceiver;Landroid/content/IntentFilter;)Landroid/content/Intent;
 
-    .line 105
+    .line 112
     return-void
 .end method
 
@@ -634,24 +662,24 @@
     .prologue
     const/4 v1, 0x0
 
-    .line 114
+    .line 121
     iget-boolean v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->mIsProcessing:Z
 
     if-eqz v0, :cond_1
 
-    .line 115
+    .line 122
     const-string v0, "STATUSBAR-PowerSavingController"
 
     const-string v1, "onClick(): Processing..."
 
     invoke-static {v0, v1}, Landroid/util/secutil/Log;->secW(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 139
+    .line 146
     :cond_0
     :goto_0
     return-void
 
-    .line 120
+    .line 127
     :cond_1
     const-string v0, "STATUSBAR-PowerSavingController"
 
@@ -681,8 +709,8 @@
 
     invoke-static {v0, v2}, Landroid/util/secutil/Log;->secD(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 123
-    iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->mContext:Landroid/content/Context;
+    .line 130
+    iget-object v0, p0, Landroid/view/View;->mContext:Landroid/content/Context;
 
     const-string v2, "enterprise_policy"
 
@@ -694,7 +722,7 @@
 
     iput-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/PowerSavingQuickSettingButton;->mEDM:Landroid/app/enterprise/EnterpriseDeviceManager;
 
-    .line 124
+    .line 131
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/PowerSavingQuickSettingButton;->mEDM:Landroid/app/enterprise/EnterpriseDeviceManager;
 
     invoke-virtual {v0}, Landroid/app/enterprise/EnterpriseDeviceManager;->getRestrictionPolicy()Landroid/app/enterprise/RestrictionPolicy;
@@ -703,7 +731,7 @@
 
     iput-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/PowerSavingQuickSettingButton;->mRestrictionPolicy:Landroid/app/enterprise/RestrictionPolicy;
 
-    .line 125
+    .line 132
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/PowerSavingQuickSettingButton;->mRestrictionPolicy:Landroid/app/enterprise/RestrictionPolicy;
 
     invoke-virtual {v0, v1}, Landroid/app/enterprise/RestrictionPolicy;->isSettingsChangesAllowed(Z)Z
@@ -712,7 +740,7 @@
 
     if-nez v0, :cond_2
 
-    .line 126
+    .line 133
     const-string v0, "STATUSBAR-PowerSavingController"
 
     const-string v1, "onClick(): PowerSaving state change is not allowed"
@@ -721,13 +749,13 @@
 
     goto :goto_0
 
-    .line 131
+    .line 138
     :cond_2
     iget-boolean v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/PowerSavingQuickSettingButton;->mState:Z
 
     if-eq v0, p1, :cond_0
 
-    .line 132
+    .line 139
     iget-boolean v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/PowerSavingQuickSettingButton;->mState:Z
 
     if-nez v0, :cond_3
@@ -738,18 +766,18 @@
 
     if-eqz v0, :cond_3
 
-    .line 133
+    .line 140
     invoke-direct {p0}, Lcom/android/systemui/statusbar/policy/quicksetting/PowerSavingQuickSettingButton;->showConfirmPopup()V
 
     goto :goto_0
 
-    .line 135
+    .line 142
     :cond_3
     const/4 v0, 0x3
 
-    invoke-virtual {p0, v0}, Lcom/android/systemui/statusbar/policy/quicksetting/PowerSavingQuickSettingButton;->setActivateStatus(I)V
+    invoke-virtual {p0, v0}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->setActivateStatus(I)V
 
-    .line 136
+    .line 143
     if-eqz p1, :cond_4
 
     const/4 v0, 0x1
@@ -769,14 +797,14 @@
     .locals 2
 
     .prologue
-    .line 143
+    .line 150
     const-string v0, "com.android.settings"
 
     const-string v1, "com.android.settings.Settings$PowerSavingModeSettingsActivity"
 
-    invoke-virtual {p0, v0, v1}, Lcom/android/systemui/statusbar/policy/quicksetting/PowerSavingQuickSettingButton;->callActivity(Ljava/lang/String;Ljava/lang/String;)V
+    invoke-virtual {p0, v0, v1}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->callActivity(Ljava/lang/String;Ljava/lang/String;)V
 
-    .line 145
+    .line 152
     return-void
 .end method
 
@@ -784,13 +812,13 @@
     .locals 2
 
     .prologue
-    .line 254
+    .line 261
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/PowerSavingQuickSettingButton;->mPowerSavingObserver:Lcom/android/systemui/statusbar/policy/quicksetting/PowerSavingQuickSettingButton$PowerSavingObserver;
 
     const/4 v1, 0x0
 
     invoke-virtual {v0, v1}, Lcom/android/systemui/statusbar/policy/quicksetting/PowerSavingQuickSettingButton$PowerSavingObserver;->onChange(Z)V
 
-    .line 255
+    .line 262
     return-void
 .end method

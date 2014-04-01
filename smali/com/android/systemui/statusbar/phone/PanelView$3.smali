@@ -27,10 +27,10 @@
     .parameter
 
     .prologue
-    .line 302
+    .line 404
     iput-object p1, p0, Lcom/android/systemui/statusbar/phone/PanelView$3;->this$0:Lcom/android/systemui/statusbar/phone/PanelView;
 
-    invoke-direct/range {p0 .. p0}, Ljava/lang/Object;-><init>()V
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
     return-void
 .end method
@@ -38,714 +38,1135 @@
 
 # virtual methods
 .method public onTouch(Landroid/view/View;Landroid/view/MotionEvent;)Z
-    .locals 13
+    .locals 20
     .parameter "v"
     .parameter "event"
 
     .prologue
-    .line 305
-    invoke-virtual {p2}, Landroid/view/MotionEvent;->getY()F
+    .line 408
+    move-object/from16 v0, p0
 
-    move-result v6
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PanelView$3;->this$0:Lcom/android/systemui/statusbar/phone/PanelView;
 
-    .line 306
-    .local v6, y:F
-    invoke-virtual {p2}, Landroid/view/MotionEvent;->getRawY()F
+    move-object/from16 v16, v0
 
-    move-result v3
+    #getter for: Lcom/android/systemui/statusbar/phone/PanelView;->mClosing:Z
+    invoke-static/range {v16 .. v16}, Lcom/android/systemui/statusbar/phone/PanelView;->access$300(Lcom/android/systemui/statusbar/phone/PanelView;)Z
 
-    .line 307
-    .local v3, rawY:F
-    sget-boolean v8, Lcom/android/systemui/statusbar/phone/PanelView;->DEBUG:Z
+    move-result v16
 
-    if-eqz v8, :cond_0
+    if-eqz v16, :cond_0
 
-    iget-object v8, p0, Lcom/android/systemui/statusbar/phone/PanelView$3;->this$0:Lcom/android/systemui/statusbar/phone/PanelView;
+    .line 409
+    move-object/from16 v0, p0
 
-    const-string v9, "handle.onTouch: a=%s y=%.1f rawY=%.1f off=%.1f"
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PanelView$3;->this$0:Lcom/android/systemui/statusbar/phone/PanelView;
 
-    const/4 v10, 0x4
-
-    new-array v10, v10, [Ljava/lang/Object;
-
-    const/4 v11, 0x0
-
-    invoke-virtual {p2}, Landroid/view/MotionEvent;->getAction()I
-
-    move-result v12
-
-    invoke-static {v12}, Landroid/view/MotionEvent;->actionToString(I)Ljava/lang/String;
-
-    move-result-object v12
-
-    aput-object v12, v10, v11
-
-    const/4 v11, 0x1
-
-    invoke-static {v6}, Ljava/lang/Float;->valueOf(F)Ljava/lang/Float;
-
-    move-result-object v12
-
-    aput-object v12, v10, v11
-
-    const/4 v11, 0x2
-
-    invoke-static {v3}, Ljava/lang/Float;->valueOf(F)Ljava/lang/Float;
-
-    move-result-object v12
-
-    aput-object v12, v10, v11
-
-    const/4 v11, 0x3
-
-    iget-object v12, p0, Lcom/android/systemui/statusbar/phone/PanelView$3;->this$0:Lcom/android/systemui/statusbar/phone/PanelView;
-
-    #getter for: Lcom/android/systemui/statusbar/phone/PanelView;->mTouchOffset:F
-    invoke-static {v12}, Lcom/android/systemui/statusbar/phone/PanelView;->access$400(Lcom/android/systemui/statusbar/phone/PanelView;)F
-
-    move-result v12
-
-    invoke-static {v12}, Ljava/lang/Float;->valueOf(F)Ljava/lang/Float;
-
-    move-result-object v12
-
-    aput-object v12, v10, v11
-
-    invoke-virtual {v8, v9, v10}, Lcom/android/systemui/statusbar/phone/PanelView;->LOG(Ljava/lang/String;[Ljava/lang/Object;)V
-
-    .line 310
-    :cond_0
-    iget-object v8, p0, Lcom/android/systemui/statusbar/phone/PanelView$3;->this$0:Lcom/android/systemui/statusbar/phone/PanelView;
-
-    iget-object v9, p0, Lcom/android/systemui/statusbar/phone/PanelView$3;->this$0:Lcom/android/systemui/statusbar/phone/PanelView;
-
-    #getter for: Lcom/android/systemui/statusbar/phone/PanelView;->mAbsPos:[I
-    invoke-static {v9}, Lcom/android/systemui/statusbar/phone/PanelView;->access$500(Lcom/android/systemui/statusbar/phone/PanelView;)[I
-
-    move-result-object v9
-
-    invoke-virtual {v8, v9}, Lcom/android/systemui/statusbar/phone/PanelView;->getLocationOnScreen([I)V
-
-    .line 312
-    invoke-virtual {p2}, Landroid/view/MotionEvent;->getAction()I
-
-    move-result v8
-
-    packed-switch v8, :pswitch_data_0
-
-    .line 412
-    :cond_1
-    :goto_0
-    const/4 v8, 0x1
-
-    return v8
-
-    .line 314
-    :pswitch_0
-    iget-object v8, p0, Lcom/android/systemui/statusbar/phone/PanelView$3;->this$0:Lcom/android/systemui/statusbar/phone/PanelView;
-
-    const/4 v9, 0x1
-
-    #setter for: Lcom/android/systemui/statusbar/phone/PanelView;->mTracking:Z
-    invoke-static {v8, v9}, Lcom/android/systemui/statusbar/phone/PanelView;->access$602(Lcom/android/systemui/statusbar/phone/PanelView;Z)Z
-
-    .line 315
-    iget-object v8, p0, Lcom/android/systemui/statusbar/phone/PanelView$3;->this$0:Lcom/android/systemui/statusbar/phone/PanelView;
-
-    #getter for: Lcom/android/systemui/statusbar/phone/PanelView;->mHandleView:Landroid/view/View;
-    invoke-static {v8}, Lcom/android/systemui/statusbar/phone/PanelView;->access$700(Lcom/android/systemui/statusbar/phone/PanelView;)Landroid/view/View;
-
-    move-result-object v8
-
-    const/4 v9, 0x1
-
-    invoke-virtual {v8, v9}, Landroid/view/View;->setPressed(Z)V
-
-    .line 316
-    iget-object v8, p0, Lcom/android/systemui/statusbar/phone/PanelView$3;->this$0:Lcom/android/systemui/statusbar/phone/PanelView;
-
-    invoke-virtual {v8}, Lcom/android/systemui/statusbar/phone/PanelView;->postInvalidate()V
-
-    .line 317
-    iget-object v8, p0, Lcom/android/systemui/statusbar/phone/PanelView$3;->this$0:Lcom/android/systemui/statusbar/phone/PanelView;
-
-    iput v6, v8, Lcom/android/systemui/statusbar/phone/PanelView;->mInitialTouchY:F
-
-    .line 318
-    iget-object v8, p0, Lcom/android/systemui/statusbar/phone/PanelView$3;->this$0:Lcom/android/systemui/statusbar/phone/PanelView;
-
-    invoke-static {}, Landroid/view/VelocityTracker;->obtain()Landroid/view/VelocityTracker;
-
-    move-result-object v9
-
-    #setter for: Lcom/android/systemui/statusbar/phone/PanelView;->mVelocityTracker:Landroid/view/VelocityTracker;
-    invoke-static {v8, v9}, Lcom/android/systemui/statusbar/phone/PanelView;->access$802(Lcom/android/systemui/statusbar/phone/PanelView;Landroid/view/VelocityTracker;)Landroid/view/VelocityTracker;
-
-    .line 319
-    iget-object v8, p0, Lcom/android/systemui/statusbar/phone/PanelView$3;->this$0:Lcom/android/systemui/statusbar/phone/PanelView;
-
-    #calls: Lcom/android/systemui/statusbar/phone/PanelView;->trackMovement(Landroid/view/MotionEvent;)V
-    invoke-static {v8, p2}, Lcom/android/systemui/statusbar/phone/PanelView;->access$900(Lcom/android/systemui/statusbar/phone/PanelView;Landroid/view/MotionEvent;)V
-
-    .line 320
-    iget-object v8, p0, Lcom/android/systemui/statusbar/phone/PanelView$3;->this$0:Lcom/android/systemui/statusbar/phone/PanelView;
+    move-object/from16 v16, v0
 
     #getter for: Lcom/android/systemui/statusbar/phone/PanelView;->mTimeAnimator:Landroid/animation/TimeAnimator;
-    invoke-static {v8}, Lcom/android/systemui/statusbar/phone/PanelView;->access$100(Lcom/android/systemui/statusbar/phone/PanelView;)Landroid/animation/TimeAnimator;
+    invoke-static/range {v16 .. v16}, Lcom/android/systemui/statusbar/phone/PanelView;->access$100(Lcom/android/systemui/statusbar/phone/PanelView;)Landroid/animation/TimeAnimator;
 
-    move-result-object v8
+    move-result-object v16
 
-    invoke-virtual {v8}, Landroid/animation/TimeAnimator;->cancel()V
+    if-eqz v16, :cond_0
 
-    .line 321
-    iget-object v8, p0, Lcom/android/systemui/statusbar/phone/PanelView$3;->this$0:Lcom/android/systemui/statusbar/phone/PanelView;
+    move-object/from16 v0, p0
 
-    iget-object v8, v8, Lcom/android/systemui/statusbar/phone/PanelView;->mBar:Lcom/android/systemui/statusbar/phone/PanelBar;
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PanelView$3;->this$0:Lcom/android/systemui/statusbar/phone/PanelView;
 
-    iget-object v9, p0, Lcom/android/systemui/statusbar/phone/PanelView$3;->this$0:Lcom/android/systemui/statusbar/phone/PanelView;
+    move-object/from16 v16, v0
 
-    invoke-virtual {v8, v9}, Lcom/android/systemui/statusbar/phone/PanelBar;->onTrackingStarted(Lcom/android/systemui/statusbar/phone/PanelView;)V
+    #getter for: Lcom/android/systemui/statusbar/phone/PanelView;->mTimeAnimator:Landroid/animation/TimeAnimator;
+    invoke-static/range {v16 .. v16}, Lcom/android/systemui/statusbar/phone/PanelView;->access$100(Lcom/android/systemui/statusbar/phone/PanelView;)Landroid/animation/TimeAnimator;
 
-    .line 322
-    iget-object v8, p0, Lcom/android/systemui/statusbar/phone/PanelView$3;->this$0:Lcom/android/systemui/statusbar/phone/PanelView;
+    move-result-object v16
 
-    iget-object v9, p0, Lcom/android/systemui/statusbar/phone/PanelView$3;->this$0:Lcom/android/systemui/statusbar/phone/PanelView;
+    invoke-virtual/range {v16 .. v16}, Landroid/animation/ValueAnimator;->isStarted()Z
 
-    #getter for: Lcom/android/systemui/statusbar/phone/PanelView;->mAbsPos:[I
-    invoke-static {v9}, Lcom/android/systemui/statusbar/phone/PanelView;->access$500(Lcom/android/systemui/statusbar/phone/PanelView;)[I
+    move-result v16
 
-    move-result-object v9
+    if-eqz v16, :cond_0
 
-    const/4 v10, 0x1
+    .line 410
+    sget-object v16, Lcom/android/systemui/statusbar/phone/PanelView;->TAG:Ljava/lang/String;
 
-    aget v9, v9, v10
+    const-string v17, "Stop Collapsing Anim."
 
-    int-to-float v9, v9
+    invoke-static/range {v16 .. v17}, Landroid/util/Log;->v(Ljava/lang/String;Ljava/lang/String;)I
 
-    sub-float v9, v3, v9
+    .line 411
+    move-object/from16 v0, p0
 
-    iget-object v10, p0, Lcom/android/systemui/statusbar/phone/PanelView$3;->this$0:Lcom/android/systemui/statusbar/phone/PanelView;
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PanelView$3;->this$0:Lcom/android/systemui/statusbar/phone/PanelView;
 
-    invoke-virtual {v10}, Lcom/android/systemui/statusbar/phone/PanelView;->getExpandedHeight()F
+    move-object/from16 v16, v0
 
-    move-result v10
+    move-object/from16 v0, p0
 
-    sub-float/2addr v9, v10
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PanelView$3;->this$0:Lcom/android/systemui/statusbar/phone/PanelView;
 
-    #setter for: Lcom/android/systemui/statusbar/phone/PanelView;->mTouchOffset:F
-    invoke-static {v8, v9}, Lcom/android/systemui/statusbar/phone/PanelView;->access$402(Lcom/android/systemui/statusbar/phone/PanelView;F)F
+    move-object/from16 v17, v0
 
-    .line 323
-    iget-object v8, p0, Lcom/android/systemui/statusbar/phone/PanelView$3;->this$0:Lcom/android/systemui/statusbar/phone/PanelView;
+    #getter for: Lcom/android/systemui/statusbar/phone/PanelView;->mStopAnimator:Ljava/lang/Runnable;
+    invoke-static/range {v17 .. v17}, Lcom/android/systemui/statusbar/phone/PanelView;->access$400(Lcom/android/systemui/statusbar/phone/PanelView;)Ljava/lang/Runnable;
 
-    #getter for: Lcom/android/systemui/statusbar/phone/PanelView;->mExpandedHeight:F
-    invoke-static {v8}, Lcom/android/systemui/statusbar/phone/PanelView;->access$1000(Lcom/android/systemui/statusbar/phone/PanelView;)F
+    move-result-object v17
+
+    invoke-virtual/range {v16 .. v17}, Landroid/view/View;->post(Ljava/lang/Runnable;)Z
+
+    .line 412
+    const/16 v16, 0x1
+
+    .line 535
+    :goto_0
+    return v16
+
+    .line 416
+    :cond_0
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PanelView$3;->this$0:Lcom/android/systemui/statusbar/phone/PanelView;
+
+    move-object/from16 v16, v0
+
+    #getter for: Lcom/android/systemui/statusbar/phone/PanelView;->mTrackingPointer:I
+    invoke-static/range {v16 .. v16}, Lcom/android/systemui/statusbar/phone/PanelView;->access$500(Lcom/android/systemui/statusbar/phone/PanelView;)I
+
+    move-result v16
+
+    move-object/from16 v0, p2
+
+    move/from16 v1, v16
+
+    invoke-virtual {v0, v1}, Landroid/view/MotionEvent;->findPointerIndex(I)I
 
     move-result v8
 
-    const/4 v9, 0x0
+    .line 417
+    .local v8, pointerIndex:I
+    if-gez v8, :cond_1
 
-    cmpl-float v8, v8, v9
+    .line 418
+    const/4 v8, 0x0
 
-    if-nez v8, :cond_1
+    .line 419
+    move-object/from16 v0, p0
 
-    .line 324
-    iget-object v8, p0, Lcom/android/systemui/statusbar/phone/PanelView$3;->this$0:Lcom/android/systemui/statusbar/phone/PanelView;
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PanelView$3;->this$0:Lcom/android/systemui/statusbar/phone/PanelView;
 
-    const/4 v9, 0x1
+    move-object/from16 v16, v0
 
-    #setter for: Lcom/android/systemui/statusbar/phone/PanelView;->mJustPeeked:Z
-    invoke-static {v8, v9}, Lcom/android/systemui/statusbar/phone/PanelView;->access$1102(Lcom/android/systemui/statusbar/phone/PanelView;Z)Z
+    move-object/from16 v0, p2
 
-    .line 325
-    iget-object v8, p0, Lcom/android/systemui/statusbar/phone/PanelView$3;->this$0:Lcom/android/systemui/statusbar/phone/PanelView;
+    invoke-virtual {v0, v8}, Landroid/view/MotionEvent;->getPointerId(I)I
 
-    #calls: Lcom/android/systemui/statusbar/phone/PanelView;->runPeekAnimation()V
-    invoke-static {v8}, Lcom/android/systemui/statusbar/phone/PanelView;->access$1200(Lcom/android/systemui/statusbar/phone/PanelView;)V
+    move-result v17
+
+    #setter for: Lcom/android/systemui/statusbar/phone/PanelView;->mTrackingPointer:I
+    invoke-static/range {v16 .. v17}, Lcom/android/systemui/statusbar/phone/PanelView;->access$502(Lcom/android/systemui/statusbar/phone/PanelView;I)I
+
+    .line 421
+    :cond_1
+    move-object/from16 v0, p2
+
+    invoke-virtual {v0, v8}, Landroid/view/MotionEvent;->getY(I)F
+
+    move-result v14
+
+    .line 422
+    .local v14, y:F
+    invoke-virtual/range {p2 .. p2}, Landroid/view/MotionEvent;->getRawY()F
+
+    move-result v16
+
+    invoke-virtual/range {p2 .. p2}, Landroid/view/MotionEvent;->getY()F
+
+    move-result v17
+
+    sub-float v9, v16, v17
+
+    .line 423
+    .local v9, rawDelta:F
+    add-float v10, v14, v9
+
+    .line 428
+    .local v10, rawY:F
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PanelView$3;->this$0:Lcom/android/systemui/statusbar/phone/PanelView;
+
+    move-object/from16 v16, v0
+
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PanelView$3;->this$0:Lcom/android/systemui/statusbar/phone/PanelView;
+
+    move-object/from16 v17, v0
+
+    #getter for: Lcom/android/systemui/statusbar/phone/PanelView;->mAbsPos:[I
+    invoke-static/range {v17 .. v17}, Lcom/android/systemui/statusbar/phone/PanelView;->access$600(Lcom/android/systemui/statusbar/phone/PanelView;)[I
+
+    move-result-object v17
+
+    invoke-virtual/range {v16 .. v17}, Landroid/view/View;->getLocationOnScreen([I)V
+
+    .line 430
+    invoke-virtual/range {p2 .. p2}, Landroid/view/MotionEvent;->getActionMasked()I
+
+    move-result v16
+
+    packed-switch v16, :pswitch_data_0
+
+    .line 535
+    :cond_2
+    :goto_1
+    :pswitch_0
+    const/16 v16, 0x1
 
     goto :goto_0
 
-    .line 331
+    .line 432
     :pswitch_1
-    iget-object v8, p0, Lcom/android/systemui/statusbar/phone/PanelView$3;->this$0:Lcom/android/systemui/statusbar/phone/PanelView;
+    move-object/from16 v0, p0
 
-    #getter for: Lcom/android/systemui/statusbar/phone/PanelView;->mTimeAnimator:Landroid/animation/TimeAnimator;
-    invoke-static {v8}, Lcom/android/systemui/statusbar/phone/PanelView;->access$100(Lcom/android/systemui/statusbar/phone/PanelView;)Landroid/animation/TimeAnimator;
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PanelView$3;->this$0:Lcom/android/systemui/statusbar/phone/PanelView;
 
-    move-result-object v8
+    move-object/from16 v16, v0
 
-    invoke-virtual {v8}, Landroid/animation/TimeAnimator;->isRunning()Z
-
-    move-result v8
-
-    if-eqz v8, :cond_3
-
-    .line 332
-    sget-boolean v8, Lcom/android/systemui/statusbar/Feature;->mQuickpanelAnimationStopWorkaround:Z
-
-    if-nez v8, :cond_2
-
-    .line 333
-    iget-object v8, p0, Lcom/android/systemui/statusbar/phone/PanelView$3;->this$0:Lcom/android/systemui/statusbar/phone/PanelView;
-
-    #getter for: Lcom/android/systemui/statusbar/phone/PanelView;->mTimeAnimator:Landroid/animation/TimeAnimator;
-    invoke-static {v8}, Lcom/android/systemui/statusbar/phone/PanelView;->access$100(Lcom/android/systemui/statusbar/phone/PanelView;)Landroid/animation/TimeAnimator;
-
-    move-result-object v8
-
-    invoke-virtual {v8}, Landroid/animation/TimeAnimator;->cancel()V
-
-    .line 335
-    :cond_2
-    sget-object v8, Lcom/android/systemui/statusbar/phone/PanelView;->TAG:Ljava/lang/String;
-
-    const-string v9, "Stop Anim."
-
-    invoke-static {v8, v9}, Landroid/util/Slog;->d(Ljava/lang/String;Ljava/lang/String;)I
-
-    .line 339
-    :cond_3
-    iget-object v8, p0, Lcom/android/systemui/statusbar/phone/PanelView$3;->this$0:Lcom/android/systemui/statusbar/phone/PanelView;
-
-    #getter for: Lcom/android/systemui/statusbar/phone/PanelView;->mAbsPos:[I
-    invoke-static {v8}, Lcom/android/systemui/statusbar/phone/PanelView;->access$500(Lcom/android/systemui/statusbar/phone/PanelView;)[I
-
-    move-result-object v8
-
-    const/4 v9, 0x1
-
-    aget v8, v8, v9
-
-    int-to-float v8, v8
-
-    sub-float v8, v3, v8
-
-    iget-object v9, p0, Lcom/android/systemui/statusbar/phone/PanelView$3;->this$0:Lcom/android/systemui/statusbar/phone/PanelView;
-
-    #getter for: Lcom/android/systemui/statusbar/phone/PanelView;->mTouchOffset:F
-    invoke-static {v9}, Lcom/android/systemui/statusbar/phone/PanelView;->access$400(Lcom/android/systemui/statusbar/phone/PanelView;)F
-
-    move-result v9
-
-    sub-float v1, v8, v9
-
-    .line 340
-    .local v1, h:F
-    iget-object v8, p0, Lcom/android/systemui/statusbar/phone/PanelView$3;->this$0:Lcom/android/systemui/statusbar/phone/PanelView;
-
-    #getter for: Lcom/android/systemui/statusbar/phone/PanelView;->mPeekHeight:F
-    invoke-static {v8}, Lcom/android/systemui/statusbar/phone/PanelView;->access$1300(Lcom/android/systemui/statusbar/phone/PanelView;)F
-
-    move-result v8
-
-    cmpl-float v8, v1, v8
-
-    if-lez v8, :cond_5
-
-    .line 341
-    iget-object v8, p0, Lcom/android/systemui/statusbar/phone/PanelView$3;->this$0:Lcom/android/systemui/statusbar/phone/PanelView;
-
-    #getter for: Lcom/android/systemui/statusbar/phone/PanelView;->mPeekAnimator:Landroid/animation/ObjectAnimator;
-    invoke-static {v8}, Lcom/android/systemui/statusbar/phone/PanelView;->access$1400(Lcom/android/systemui/statusbar/phone/PanelView;)Landroid/animation/ObjectAnimator;
-
-    move-result-object v8
-
-    if-eqz v8, :cond_4
-
-    iget-object v8, p0, Lcom/android/systemui/statusbar/phone/PanelView$3;->this$0:Lcom/android/systemui/statusbar/phone/PanelView;
-
-    #getter for: Lcom/android/systemui/statusbar/phone/PanelView;->mPeekAnimator:Landroid/animation/ObjectAnimator;
-    invoke-static {v8}, Lcom/android/systemui/statusbar/phone/PanelView;->access$1400(Lcom/android/systemui/statusbar/phone/PanelView;)Landroid/animation/ObjectAnimator;
-
-    move-result-object v8
-
-    invoke-virtual {v8}, Landroid/animation/ObjectAnimator;->isRunning()Z
-
-    move-result v8
-
-    if-eqz v8, :cond_4
-
-    .line 342
-    iget-object v8, p0, Lcom/android/systemui/statusbar/phone/PanelView$3;->this$0:Lcom/android/systemui/statusbar/phone/PanelView;
-
-    #getter for: Lcom/android/systemui/statusbar/phone/PanelView;->mPeekAnimator:Landroid/animation/ObjectAnimator;
-    invoke-static {v8}, Lcom/android/systemui/statusbar/phone/PanelView;->access$1400(Lcom/android/systemui/statusbar/phone/PanelView;)Landroid/animation/ObjectAnimator;
-
-    move-result-object v8
-
-    invoke-virtual {v8}, Landroid/animation/ObjectAnimator;->cancel()V
-
-    .line 344
-    :cond_4
-    iget-object v8, p0, Lcom/android/systemui/statusbar/phone/PanelView$3;->this$0:Lcom/android/systemui/statusbar/phone/PanelView;
-
-    const/4 v9, 0x0
-
-    #setter for: Lcom/android/systemui/statusbar/phone/PanelView;->mJustPeeked:Z
-    invoke-static {v8, v9}, Lcom/android/systemui/statusbar/phone/PanelView;->access$1102(Lcom/android/systemui/statusbar/phone/PanelView;Z)Z
-
-    .line 346
-    :cond_5
-    iget-object v8, p0, Lcom/android/systemui/statusbar/phone/PanelView$3;->this$0:Lcom/android/systemui/statusbar/phone/PanelView;
-
-    #getter for: Lcom/android/systemui/statusbar/phone/PanelView;->mJustPeeked:Z
-    invoke-static {v8}, Lcom/android/systemui/statusbar/phone/PanelView;->access$1100(Lcom/android/systemui/statusbar/phone/PanelView;)Z
-
-    move-result v8
-
-    if-nez v8, :cond_6
-
-    .line 347
-    iget-object v8, p0, Lcom/android/systemui/statusbar/phone/PanelView$3;->this$0:Lcom/android/systemui/statusbar/phone/PanelView;
-
-    invoke-virtual {v8, v1}, Lcom/android/systemui/statusbar/phone/PanelView;->setExpandedHeightInternal(F)V
-
-    .line 348
-    iget-object v8, p0, Lcom/android/systemui/statusbar/phone/PanelView$3;->this$0:Lcom/android/systemui/statusbar/phone/PanelView;
-
-    iget-object v8, v8, Lcom/android/systemui/statusbar/phone/PanelView;->mBar:Lcom/android/systemui/statusbar/phone/PanelBar;
-
-    iget-object v9, p0, Lcom/android/systemui/statusbar/phone/PanelView$3;->this$0:Lcom/android/systemui/statusbar/phone/PanelView;
-
-    iget-object v10, p0, Lcom/android/systemui/statusbar/phone/PanelView$3;->this$0:Lcom/android/systemui/statusbar/phone/PanelView;
-
-    #getter for: Lcom/android/systemui/statusbar/phone/PanelView;->mExpandedFraction:F
-    invoke-static {v10}, Lcom/android/systemui/statusbar/phone/PanelView;->access$1500(Lcom/android/systemui/statusbar/phone/PanelView;)F
-
-    move-result v10
-
-    invoke-virtual {v8, v9, v10}, Lcom/android/systemui/statusbar/phone/PanelBar;->panelExpansionChanged(Lcom/android/systemui/statusbar/phone/PanelView;F)V
-
-    .line 351
-    :cond_6
-    iget-object v8, p0, Lcom/android/systemui/statusbar/phone/PanelView$3;->this$0:Lcom/android/systemui/statusbar/phone/PanelView;
-
-    #calls: Lcom/android/systemui/statusbar/phone/PanelView;->trackMovement(Landroid/view/MotionEvent;)V
-    invoke-static {v8, p2}, Lcom/android/systemui/statusbar/phone/PanelView;->access$900(Lcom/android/systemui/statusbar/phone/PanelView;Landroid/view/MotionEvent;)V
-
-    goto/16 :goto_0
-
-    .line 356
-    .end local v1           #h:F
-    :pswitch_2
-    iget-object v8, p0, Lcom/android/systemui/statusbar/phone/PanelView$3;->this$0:Lcom/android/systemui/statusbar/phone/PanelView;
-
-    iput v6, v8, Lcom/android/systemui/statusbar/phone/PanelView;->mFinalTouchY:F
-
-    .line 357
-    iget-object v8, p0, Lcom/android/systemui/statusbar/phone/PanelView$3;->this$0:Lcom/android/systemui/statusbar/phone/PanelView;
-
-    const/4 v9, 0x0
+    const/16 v17, 0x1
 
     #setter for: Lcom/android/systemui/statusbar/phone/PanelView;->mTracking:Z
-    invoke-static {v8, v9}, Lcom/android/systemui/statusbar/phone/PanelView;->access$602(Lcom/android/systemui/statusbar/phone/PanelView;Z)Z
+    invoke-static/range {v16 .. v17}, Lcom/android/systemui/statusbar/phone/PanelView;->access$702(Lcom/android/systemui/statusbar/phone/PanelView;Z)Z
 
-    .line 358
-    iget-object v8, p0, Lcom/android/systemui/statusbar/phone/PanelView$3;->this$0:Lcom/android/systemui/statusbar/phone/PanelView;
+    .line 433
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PanelView$3;->this$0:Lcom/android/systemui/statusbar/phone/PanelView;
+
+    move-object/from16 v16, v0
 
     #getter for: Lcom/android/systemui/statusbar/phone/PanelView;->mHandleView:Landroid/view/View;
-    invoke-static {v8}, Lcom/android/systemui/statusbar/phone/PanelView;->access$700(Lcom/android/systemui/statusbar/phone/PanelView;)Landroid/view/View;
+    invoke-static/range {v16 .. v16}, Lcom/android/systemui/statusbar/phone/PanelView;->access$800(Lcom/android/systemui/statusbar/phone/PanelView;)Landroid/view/View;
 
-    move-result-object v8
+    move-result-object v16
 
-    const/4 v9, 0x0
+    const/16 v17, 0x1
 
-    invoke-virtual {v8, v9}, Landroid/view/View;->setPressed(Z)V
+    invoke-virtual/range {v16 .. v17}, Landroid/view/View;->setPressed(Z)V
 
-    .line 359
-    iget-object v8, p0, Lcom/android/systemui/statusbar/phone/PanelView$3;->this$0:Lcom/android/systemui/statusbar/phone/PanelView;
+    .line 434
+    move-object/from16 v0, p0
 
-    invoke-virtual {v8}, Lcom/android/systemui/statusbar/phone/PanelView;->postInvalidate()V
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PanelView$3;->this$0:Lcom/android/systemui/statusbar/phone/PanelView;
 
-    .line 360
-    iget-object v8, p0, Lcom/android/systemui/statusbar/phone/PanelView$3;->this$0:Lcom/android/systemui/statusbar/phone/PanelView;
+    move-object/from16 v16, v0
 
-    iget-object v8, v8, Lcom/android/systemui/statusbar/phone/PanelView;->mBar:Lcom/android/systemui/statusbar/phone/PanelBar;
+    invoke-virtual/range {v16 .. v16}, Landroid/view/View;->postInvalidate()V
 
-    iget-object v9, p0, Lcom/android/systemui/statusbar/phone/PanelView$3;->this$0:Lcom/android/systemui/statusbar/phone/PanelView;
+    .line 435
+    move-object/from16 v0, p0
 
-    invoke-virtual {v8, v9}, Lcom/android/systemui/statusbar/phone/PanelBar;->onTrackingStopped(Lcom/android/systemui/statusbar/phone/PanelView;)V
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PanelView$3;->this$0:Lcom/android/systemui/statusbar/phone/PanelView;
 
-    .line 361
-    iget-object v8, p0, Lcom/android/systemui/statusbar/phone/PanelView$3;->this$0:Lcom/android/systemui/statusbar/phone/PanelView;
+    move-object/from16 v16, v0
+
+    move-object/from16 v0, v16
+
+    iput v14, v0, Lcom/android/systemui/statusbar/phone/PanelView;->mInitialTouchY:F
+
+    .line 436
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PanelView$3;->this$0:Lcom/android/systemui/statusbar/phone/PanelView;
+
+    move-object/from16 v16, v0
+
+    invoke-static {}, Lcom/android/systemui/statusbar/phone/PanelView$FlingTracker;->obtain()Lcom/android/systemui/statusbar/phone/PanelView$FlingTracker;
+
+    move-result-object v17
+
+    #setter for: Lcom/android/systemui/statusbar/phone/PanelView;->mVelocityTracker:Lcom/android/systemui/statusbar/phone/PanelView$FlingTracker;
+    invoke-static/range {v16 .. v17}, Lcom/android/systemui/statusbar/phone/PanelView;->access$902(Lcom/android/systemui/statusbar/phone/PanelView;Lcom/android/systemui/statusbar/phone/PanelView$FlingTracker;)Lcom/android/systemui/statusbar/phone/PanelView$FlingTracker;
+
+    .line 437
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PanelView$3;->this$0:Lcom/android/systemui/statusbar/phone/PanelView;
+
+    move-object/from16 v16, v0
+
+    move-object/from16 v0, v16
+
+    move-object/from16 v1, p2
 
     #calls: Lcom/android/systemui/statusbar/phone/PanelView;->trackMovement(Landroid/view/MotionEvent;)V
-    invoke-static {v8, p2}, Lcom/android/systemui/statusbar/phone/PanelView;->access$900(Lcom/android/systemui/statusbar/phone/PanelView;Landroid/view/MotionEvent;)V
+    invoke-static {v0, v1}, Lcom/android/systemui/statusbar/phone/PanelView;->access$1000(Lcom/android/systemui/statusbar/phone/PanelView;Landroid/view/MotionEvent;)V
 
-    .line 363
-    const/4 v4, 0x0
+    .line 438
+    move-object/from16 v0, p0
 
-    .local v4, vel:F
-    const/4 v7, 0x0
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PanelView$3;->this$0:Lcom/android/systemui/statusbar/phone/PanelView;
 
-    .local v7, yVel:F
-    const/4 v5, 0x0
+    move-object/from16 v16, v0
 
-    .line 364
-    .local v5, xVel:F
-    const/4 v2, 0x0
+    #getter for: Lcom/android/systemui/statusbar/phone/PanelView;->mTimeAnimator:Landroid/animation/TimeAnimator;
+    invoke-static/range {v16 .. v16}, Lcom/android/systemui/statusbar/phone/PanelView;->access$100(Lcom/android/systemui/statusbar/phone/PanelView;)Landroid/animation/TimeAnimator;
 
-    .line 366
-    .local v2, negative:Z
-    iget-object v8, p0, Lcom/android/systemui/statusbar/phone/PanelView$3;->this$0:Lcom/android/systemui/statusbar/phone/PanelView;
+    move-result-object v16
 
-    #getter for: Lcom/android/systemui/statusbar/phone/PanelView;->mVelocityTracker:Landroid/view/VelocityTracker;
-    invoke-static {v8}, Lcom/android/systemui/statusbar/phone/PanelView;->access$800(Lcom/android/systemui/statusbar/phone/PanelView;)Landroid/view/VelocityTracker;
+    invoke-virtual/range {v16 .. v16}, Landroid/animation/ValueAnimator;->cancel()V
 
-    move-result-object v8
+    .line 439
+    move-object/from16 v0, p0
 
-    if-eqz v8, :cond_a
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PanelView$3;->this$0:Lcom/android/systemui/statusbar/phone/PanelView;
 
-    .line 368
-    iget-object v8, p0, Lcom/android/systemui/statusbar/phone/PanelView$3;->this$0:Lcom/android/systemui/statusbar/phone/PanelView;
+    move-object/from16 v16, v0
 
-    #getter for: Lcom/android/systemui/statusbar/phone/PanelView;->mVelocityTracker:Landroid/view/VelocityTracker;
-    invoke-static {v8}, Lcom/android/systemui/statusbar/phone/PanelView;->access$800(Lcom/android/systemui/statusbar/phone/PanelView;)Landroid/view/VelocityTracker;
+    move-object/from16 v0, v16
 
-    move-result-object v8
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PanelView;->mBar:Lcom/android/systemui/statusbar/phone/PanelBar;
 
-    const/16 v9, 0x3e8
+    move-object/from16 v16, v0
 
-    invoke-virtual {v8, v9}, Landroid/view/VelocityTracker;->computeCurrentVelocity(I)V
+    move-object/from16 v0, p0
 
-    .line 370
-    iget-object v8, p0, Lcom/android/systemui/statusbar/phone/PanelView$3;->this$0:Lcom/android/systemui/statusbar/phone/PanelView;
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PanelView$3;->this$0:Lcom/android/systemui/statusbar/phone/PanelView;
 
-    #getter for: Lcom/android/systemui/statusbar/phone/PanelView;->mVelocityTracker:Landroid/view/VelocityTracker;
-    invoke-static {v8}, Lcom/android/systemui/statusbar/phone/PanelView;->access$800(Lcom/android/systemui/statusbar/phone/PanelView;)Landroid/view/VelocityTracker;
+    move-object/from16 v17, v0
 
-    move-result-object v8
+    invoke-virtual/range {v16 .. v17}, Lcom/android/systemui/statusbar/phone/PanelBar;->onTrackingStarted(Lcom/android/systemui/statusbar/phone/PanelView;)V
 
-    invoke-virtual {v8}, Landroid/view/VelocityTracker;->getYVelocity()F
+    .line 440
+    move-object/from16 v0, p0
 
-    move-result v7
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PanelView$3;->this$0:Lcom/android/systemui/statusbar/phone/PanelView;
 
-    .line 371
-    const/4 v8, 0x0
+    move-object/from16 v16, v0
 
-    cmpg-float v8, v7, v8
+    move-object/from16 v0, p0
 
-    if-gez v8, :cond_f
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PanelView$3;->this$0:Lcom/android/systemui/statusbar/phone/PanelView;
 
-    const/4 v2, 0x1
+    move-object/from16 v17, v0
 
-    .line 373
-    :goto_1
-    iget-object v8, p0, Lcom/android/systemui/statusbar/phone/PanelView$3;->this$0:Lcom/android/systemui/statusbar/phone/PanelView;
+    #getter for: Lcom/android/systemui/statusbar/phone/PanelView;->mAbsPos:[I
+    invoke-static/range {v17 .. v17}, Lcom/android/systemui/statusbar/phone/PanelView;->access$600(Lcom/android/systemui/statusbar/phone/PanelView;)[I
 
-    #getter for: Lcom/android/systemui/statusbar/phone/PanelView;->mVelocityTracker:Landroid/view/VelocityTracker;
-    invoke-static {v8}, Lcom/android/systemui/statusbar/phone/PanelView;->access$800(Lcom/android/systemui/statusbar/phone/PanelView;)Landroid/view/VelocityTracker;
+    move-result-object v17
 
-    move-result-object v8
+    const/16 v18, 0x1
 
-    invoke-virtual {v8}, Landroid/view/VelocityTracker;->getXVelocity()F
+    aget v17, v17, v18
 
-    move-result v5
+    move/from16 v0, v17
 
-    .line 374
-    const/4 v8, 0x0
+    int-to-float v0, v0
 
-    cmpg-float v8, v5, v8
+    move/from16 v17, v0
 
-    if-gez v8, :cond_7
+    sub-float v17, v10, v17
 
-    .line 375
-    neg-float v5, v5
+    move-object/from16 v0, p0
 
-    .line 377
-    :cond_7
-    iget-object v8, p0, Lcom/android/systemui/statusbar/phone/PanelView$3;->this$0:Lcom/android/systemui/statusbar/phone/PanelView;
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PanelView$3;->this$0:Lcom/android/systemui/statusbar/phone/PanelView;
 
-    #getter for: Lcom/android/systemui/statusbar/phone/PanelView;->mFlingGestureMaxXVelocityPx:F
-    invoke-static {v8}, Lcom/android/systemui/statusbar/phone/PanelView;->access$1600(Lcom/android/systemui/statusbar/phone/PanelView;)F
+    move-object/from16 v18, v0
 
-    move-result v8
+    #getter for: Lcom/android/systemui/statusbar/phone/PanelView;->mExpandedHeight:F
+    invoke-static/range {v18 .. v18}, Lcom/android/systemui/statusbar/phone/PanelView;->access$1200(Lcom/android/systemui/statusbar/phone/PanelView;)F
 
-    cmpl-float v8, v5, v8
+    move-result v18
 
-    if-lez v8, :cond_8
+    sub-float v17, v17, v18
 
-    .line 378
-    iget-object v8, p0, Lcom/android/systemui/statusbar/phone/PanelView$3;->this$0:Lcom/android/systemui/statusbar/phone/PanelView;
+    #setter for: Lcom/android/systemui/statusbar/phone/PanelView;->mTouchOffset:F
+    invoke-static/range {v16 .. v17}, Lcom/android/systemui/statusbar/phone/PanelView;->access$1102(Lcom/android/systemui/statusbar/phone/PanelView;F)F
 
-    #getter for: Lcom/android/systemui/statusbar/phone/PanelView;->mFlingGestureMaxXVelocityPx:F
-    invoke-static {v8}, Lcom/android/systemui/statusbar/phone/PanelView;->access$1600(Lcom/android/systemui/statusbar/phone/PanelView;)F
+    .line 441
+    move-object/from16 v0, p0
 
-    move-result v5
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PanelView$3;->this$0:Lcom/android/systemui/statusbar/phone/PanelView;
 
-    .line 381
-    :cond_8
-    float-to-double v8, v7
+    move-object/from16 v16, v0
 
-    float-to-double v10, v5
+    #getter for: Lcom/android/systemui/statusbar/phone/PanelView;->mExpandedHeight:F
+    invoke-static/range {v16 .. v16}, Lcom/android/systemui/statusbar/phone/PanelView;->access$1200(Lcom/android/systemui/statusbar/phone/PanelView;)F
 
-    invoke-static {v8, v9, v10, v11}, Ljava/lang/Math;->hypot(DD)D
+    move-result v16
 
-    move-result-wide v8
+    const/16 v17, 0x0
 
-    double-to-float v4, v8
+    cmpl-float v16, v16, v17
 
-    .line 382
-    iget-object v8, p0, Lcom/android/systemui/statusbar/phone/PanelView$3;->this$0:Lcom/android/systemui/statusbar/phone/PanelView;
+    if-nez v16, :cond_2
 
-    #getter for: Lcom/android/systemui/statusbar/phone/PanelView;->mFlingGestureMaxOutputVelocityPx:F
-    invoke-static {v8}, Lcom/android/systemui/statusbar/phone/PanelView;->access$1700(Lcom/android/systemui/statusbar/phone/PanelView;)F
+    .line 442
+    move-object/from16 v0, p0
 
-    move-result v8
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PanelView$3;->this$0:Lcom/android/systemui/statusbar/phone/PanelView;
 
-    cmpl-float v8, v4, v8
+    move-object/from16 v16, v0
 
-    if-lez v8, :cond_9
+    const/16 v17, 0x1
 
-    .line 383
-    iget-object v8, p0, Lcom/android/systemui/statusbar/phone/PanelView$3;->this$0:Lcom/android/systemui/statusbar/phone/PanelView;
+    #setter for: Lcom/android/systemui/statusbar/phone/PanelView;->mJustPeeked:Z
+    invoke-static/range {v16 .. v17}, Lcom/android/systemui/statusbar/phone/PanelView;->access$1302(Lcom/android/systemui/statusbar/phone/PanelView;Z)Z
 
-    #getter for: Lcom/android/systemui/statusbar/phone/PanelView;->mFlingGestureMaxOutputVelocityPx:F
-    invoke-static {v8}, Lcom/android/systemui/statusbar/phone/PanelView;->access$1700(Lcom/android/systemui/statusbar/phone/PanelView;)F
+    .line 443
+    move-object/from16 v0, p0
 
-    move-result v4
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PanelView$3;->this$0:Lcom/android/systemui/statusbar/phone/PanelView;
 
-    .line 386
-    :cond_9
-    iget-object v8, p0, Lcom/android/systemui/statusbar/phone/PanelView$3;->this$0:Lcom/android/systemui/statusbar/phone/PanelView;
+    move-object/from16 v16, v0
 
-    #getter for: Lcom/android/systemui/statusbar/phone/PanelView;->mVelocityTracker:Landroid/view/VelocityTracker;
-    invoke-static {v8}, Lcom/android/systemui/statusbar/phone/PanelView;->access$800(Lcom/android/systemui/statusbar/phone/PanelView;)Landroid/view/VelocityTracker;
-
-    move-result-object v8
-
-    invoke-virtual {v8}, Landroid/view/VelocityTracker;->recycle()V
-
-    .line 387
-    iget-object v8, p0, Lcom/android/systemui/statusbar/phone/PanelView$3;->this$0:Lcom/android/systemui/statusbar/phone/PanelView;
-
-    const/4 v9, 0x0
-
-    #setter for: Lcom/android/systemui/statusbar/phone/PanelView;->mVelocityTracker:Landroid/view/VelocityTracker;
-    invoke-static {v8, v9}, Lcom/android/systemui/statusbar/phone/PanelView;->access$802(Lcom/android/systemui/statusbar/phone/PanelView;Landroid/view/VelocityTracker;)Landroid/view/VelocityTracker;
-
-    .line 392
-    :cond_a
-    iget-object v8, p0, Lcom/android/systemui/statusbar/phone/PanelView$3;->this$0:Lcom/android/systemui/statusbar/phone/PanelView;
-
-    iget v8, v8, Lcom/android/systemui/statusbar/phone/PanelView;->mFinalTouchY:F
-
-    iget-object v9, p0, Lcom/android/systemui/statusbar/phone/PanelView$3;->this$0:Lcom/android/systemui/statusbar/phone/PanelView;
-
-    iget v9, v9, Lcom/android/systemui/statusbar/phone/PanelView;->mInitialTouchY:F
-
-    sub-float/2addr v8, v9
-
-    invoke-static {v8}, Ljava/lang/Math;->abs(F)F
-
-    move-result v0
-
-    .line 393
-    .local v0, deltaY:F
-    iget-object v8, p0, Lcom/android/systemui/statusbar/phone/PanelView$3;->this$0:Lcom/android/systemui/statusbar/phone/PanelView;
-
-    #getter for: Lcom/android/systemui/statusbar/phone/PanelView;->mFlingGestureMinDistPx:F
-    invoke-static {v8}, Lcom/android/systemui/statusbar/phone/PanelView;->access$1800(Lcom/android/systemui/statusbar/phone/PanelView;)F
-
-    move-result v8
-
-    cmpg-float v8, v0, v8
-
-    if-ltz v8, :cond_b
-
-    iget-object v8, p0, Lcom/android/systemui/statusbar/phone/PanelView$3;->this$0:Lcom/android/systemui/statusbar/phone/PanelView;
-
-    #getter for: Lcom/android/systemui/statusbar/phone/PanelView;->mFlingExpandMinVelocityPx:F
-    invoke-static {v8}, Lcom/android/systemui/statusbar/phone/PanelView;->access$1900(Lcom/android/systemui/statusbar/phone/PanelView;)F
-
-    move-result v8
-
-    cmpg-float v8, v4, v8
-
-    if-gez v8, :cond_c
-
-    .line 396
-    :cond_b
-    const/4 v4, 0x0
-
-    .line 399
-    :cond_c
-    if-eqz v2, :cond_d
-
-    .line 400
-    neg-float v4, v4
-
-    .line 403
-    :cond_d
-    sget-boolean v8, Lcom/android/systemui/statusbar/phone/PanelView;->DEBUG:Z
-
-    if-eqz v8, :cond_e
-
-    iget-object v8, p0, Lcom/android/systemui/statusbar/phone/PanelView$3;->this$0:Lcom/android/systemui/statusbar/phone/PanelView;
-
-    const-string v9, "gesture: dy=%f vel=(%f,%f) vlinear=%f"
-
-    const/4 v10, 0x4
-
-    new-array v10, v10, [Ljava/lang/Object;
-
-    const/4 v11, 0x0
-
-    invoke-static {v0}, Ljava/lang/Float;->valueOf(F)Ljava/lang/Float;
-
-    move-result-object v12
-
-    aput-object v12, v10, v11
-
-    const/4 v11, 0x1
-
-    invoke-static {v5}, Ljava/lang/Float;->valueOf(F)Ljava/lang/Float;
-
-    move-result-object v12
-
-    aput-object v12, v10, v11
-
-    const/4 v11, 0x2
-
-    invoke-static {v7}, Ljava/lang/Float;->valueOf(F)Ljava/lang/Float;
-
-    move-result-object v12
-
-    aput-object v12, v10, v11
-
-    const/4 v11, 0x3
-
-    invoke-static {v4}, Ljava/lang/Float;->valueOf(F)Ljava/lang/Float;
-
-    move-result-object v12
-
-    aput-object v12, v10, v11
-
-    invoke-virtual {v8, v9, v10}, Lcom/android/systemui/statusbar/phone/PanelView;->LOG(Ljava/lang/String;[Ljava/lang/Object;)V
-
-    .line 408
-    :cond_e
-    iget-object v8, p0, Lcom/android/systemui/statusbar/phone/PanelView$3;->this$0:Lcom/android/systemui/statusbar/phone/PanelView;
-
-    const/4 v9, 0x1
-
-    invoke-virtual {v8, v4, v9}, Lcom/android/systemui/statusbar/phone/PanelView;->fling(FZ)V
-
-    goto/16 :goto_0
-
-    .line 371
-    .end local v0           #deltaY:F
-    :cond_f
-    const/4 v2, 0x0
+    #calls: Lcom/android/systemui/statusbar/phone/PanelView;->runPeekAnimation()V
+    invoke-static/range {v16 .. v16}, Lcom/android/systemui/statusbar/phone/PanelView;->access$1400(Lcom/android/systemui/statusbar/phone/PanelView;)V
 
     goto/16 :goto_1
 
-    .line 312
+    .line 448
+    :pswitch_2
+    invoke-virtual/range {p2 .. p2}, Landroid/view/MotionEvent;->getActionIndex()I
+
+    move-result v16
+
+    move-object/from16 v0, p2
+
+    move/from16 v1, v16
+
+    invoke-virtual {v0, v1}, Landroid/view/MotionEvent;->getPointerId(I)I
+
+    move-result v11
+
+    .line 449
+    .local v11, upPointer:I
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PanelView$3;->this$0:Lcom/android/systemui/statusbar/phone/PanelView;
+
+    move-object/from16 v16, v0
+
+    #getter for: Lcom/android/systemui/statusbar/phone/PanelView;->mTrackingPointer:I
+    invoke-static/range {v16 .. v16}, Lcom/android/systemui/statusbar/phone/PanelView;->access$500(Lcom/android/systemui/statusbar/phone/PanelView;)I
+
+    move-result v16
+
+    move/from16 v0, v16
+
+    if-ne v0, v11, :cond_2
+
+    .line 451
+    const/16 v16, 0x0
+
+    move-object/from16 v0, p2
+
+    move/from16 v1, v16
+
+    invoke-virtual {v0, v1}, Landroid/view/MotionEvent;->getPointerId(I)I
+
+    move-result v16
+
+    move/from16 v0, v16
+
+    if-eq v0, v11, :cond_3
+
+    const/4 v5, 0x0
+
+    .line 452
+    .local v5, newIndex:I
+    :goto_2
+    move-object/from16 v0, p2
+
+    invoke-virtual {v0, v5}, Landroid/view/MotionEvent;->getY(I)F
+
+    move-result v7
+
+    .line 453
+    .local v7, newY:F
+    add-float v6, v7, v9
+
+    .line 454
+    .local v6, newRawY:F
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PanelView$3;->this$0:Lcom/android/systemui/statusbar/phone/PanelView;
+
+    move-object/from16 v16, v0
+
+    move-object/from16 v0, p2
+
+    invoke-virtual {v0, v5}, Landroid/view/MotionEvent;->getPointerId(I)I
+
+    move-result v17
+
+    #setter for: Lcom/android/systemui/statusbar/phone/PanelView;->mTrackingPointer:I
+    invoke-static/range {v16 .. v17}, Lcom/android/systemui/statusbar/phone/PanelView;->access$502(Lcom/android/systemui/statusbar/phone/PanelView;I)I
+
+    .line 455
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PanelView$3;->this$0:Lcom/android/systemui/statusbar/phone/PanelView;
+
+    move-object/from16 v16, v0
+
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PanelView$3;->this$0:Lcom/android/systemui/statusbar/phone/PanelView;
+
+    move-object/from16 v17, v0
+
+    #getter for: Lcom/android/systemui/statusbar/phone/PanelView;->mAbsPos:[I
+    invoke-static/range {v17 .. v17}, Lcom/android/systemui/statusbar/phone/PanelView;->access$600(Lcom/android/systemui/statusbar/phone/PanelView;)[I
+
+    move-result-object v17
+
+    const/16 v18, 0x1
+
+    aget v17, v17, v18
+
+    move/from16 v0, v17
+
+    int-to-float v0, v0
+
+    move/from16 v17, v0
+
+    sub-float v17, v6, v17
+
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PanelView$3;->this$0:Lcom/android/systemui/statusbar/phone/PanelView;
+
+    move-object/from16 v18, v0
+
+    #getter for: Lcom/android/systemui/statusbar/phone/PanelView;->mExpandedHeight:F
+    invoke-static/range {v18 .. v18}, Lcom/android/systemui/statusbar/phone/PanelView;->access$1200(Lcom/android/systemui/statusbar/phone/PanelView;)F
+
+    move-result v18
+
+    sub-float v17, v17, v18
+
+    #setter for: Lcom/android/systemui/statusbar/phone/PanelView;->mTouchOffset:F
+    invoke-static/range {v16 .. v17}, Lcom/android/systemui/statusbar/phone/PanelView;->access$1102(Lcom/android/systemui/statusbar/phone/PanelView;F)F
+
+    .line 456
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PanelView$3;->this$0:Lcom/android/systemui/statusbar/phone/PanelView;
+
+    move-object/from16 v16, v0
+
+    move-object/from16 v0, v16
+
+    iput v7, v0, Lcom/android/systemui/statusbar/phone/PanelView;->mInitialTouchY:F
+
+    goto/16 :goto_1
+
+    .line 451
+    .end local v5           #newIndex:I
+    .end local v6           #newRawY:F
+    .end local v7           #newY:F
+    :cond_3
+    const/4 v5, 0x1
+
+    goto :goto_2
+
+    .line 461
+    .end local v11           #upPointer:I
+    :pswitch_3
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PanelView$3;->this$0:Lcom/android/systemui/statusbar/phone/PanelView;
+
+    move-object/from16 v16, v0
+
+    #getter for: Lcom/android/systemui/statusbar/phone/PanelView;->mAbsPos:[I
+    invoke-static/range {v16 .. v16}, Lcom/android/systemui/statusbar/phone/PanelView;->access$600(Lcom/android/systemui/statusbar/phone/PanelView;)[I
+
+    move-result-object v16
+
+    const/16 v17, 0x1
+
+    aget v16, v16, v17
+
+    move/from16 v0, v16
+
+    int-to-float v0, v0
+
+    move/from16 v16, v0
+
+    sub-float v16, v10, v16
+
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PanelView$3;->this$0:Lcom/android/systemui/statusbar/phone/PanelView;
+
+    move-object/from16 v17, v0
+
+    #getter for: Lcom/android/systemui/statusbar/phone/PanelView;->mTouchOffset:F
+    invoke-static/range {v17 .. v17}, Lcom/android/systemui/statusbar/phone/PanelView;->access$1100(Lcom/android/systemui/statusbar/phone/PanelView;)F
+
+    move-result v17
+
+    sub-float v3, v16, v17
+
+    .line 462
+    .local v3, h:F
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PanelView$3;->this$0:Lcom/android/systemui/statusbar/phone/PanelView;
+
+    move-object/from16 v16, v0
+
+    #getter for: Lcom/android/systemui/statusbar/phone/PanelView;->mPeekHeight:F
+    invoke-static/range {v16 .. v16}, Lcom/android/systemui/statusbar/phone/PanelView;->access$1500(Lcom/android/systemui/statusbar/phone/PanelView;)F
+
+    move-result v16
+
+    cmpl-float v16, v3, v16
+
+    if-lez v16, :cond_5
+
+    .line 463
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PanelView$3;->this$0:Lcom/android/systemui/statusbar/phone/PanelView;
+
+    move-object/from16 v16, v0
+
+    #getter for: Lcom/android/systemui/statusbar/phone/PanelView;->mPeekAnimator:Landroid/animation/ObjectAnimator;
+    invoke-static/range {v16 .. v16}, Lcom/android/systemui/statusbar/phone/PanelView;->access$1600(Lcom/android/systemui/statusbar/phone/PanelView;)Landroid/animation/ObjectAnimator;
+
+    move-result-object v16
+
+    if-eqz v16, :cond_4
+
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PanelView$3;->this$0:Lcom/android/systemui/statusbar/phone/PanelView;
+
+    move-object/from16 v16, v0
+
+    #getter for: Lcom/android/systemui/statusbar/phone/PanelView;->mPeekAnimator:Landroid/animation/ObjectAnimator;
+    invoke-static/range {v16 .. v16}, Lcom/android/systemui/statusbar/phone/PanelView;->access$1600(Lcom/android/systemui/statusbar/phone/PanelView;)Landroid/animation/ObjectAnimator;
+
+    move-result-object v16
+
+    invoke-virtual/range {v16 .. v16}, Landroid/animation/ValueAnimator;->isStarted()Z
+
+    move-result v16
+
+    if-eqz v16, :cond_4
+
+    .line 464
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PanelView$3;->this$0:Lcom/android/systemui/statusbar/phone/PanelView;
+
+    move-object/from16 v16, v0
+
+    #getter for: Lcom/android/systemui/statusbar/phone/PanelView;->mPeekAnimator:Landroid/animation/ObjectAnimator;
+    invoke-static/range {v16 .. v16}, Lcom/android/systemui/statusbar/phone/PanelView;->access$1600(Lcom/android/systemui/statusbar/phone/PanelView;)Landroid/animation/ObjectAnimator;
+
+    move-result-object v16
+
+    invoke-virtual/range {v16 .. v16}, Landroid/animation/ValueAnimator;->cancel()V
+
+    .line 466
+    :cond_4
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PanelView$3;->this$0:Lcom/android/systemui/statusbar/phone/PanelView;
+
+    move-object/from16 v16, v0
+
+    const/16 v17, 0x0
+
+    #setter for: Lcom/android/systemui/statusbar/phone/PanelView;->mJustPeeked:Z
+    invoke-static/range {v16 .. v17}, Lcom/android/systemui/statusbar/phone/PanelView;->access$1302(Lcom/android/systemui/statusbar/phone/PanelView;Z)Z
+
+    .line 468
+    :cond_5
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PanelView$3;->this$0:Lcom/android/systemui/statusbar/phone/PanelView;
+
+    move-object/from16 v16, v0
+
+    #getter for: Lcom/android/systemui/statusbar/phone/PanelView;->mJustPeeked:Z
+    invoke-static/range {v16 .. v16}, Lcom/android/systemui/statusbar/phone/PanelView;->access$1300(Lcom/android/systemui/statusbar/phone/PanelView;)Z
+
+    move-result v16
+
+    if-nez v16, :cond_6
+
+    .line 469
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PanelView$3;->this$0:Lcom/android/systemui/statusbar/phone/PanelView;
+
+    move-object/from16 v16, v0
+
+    move-object/from16 v0, v16
+
+    invoke-virtual {v0, v3}, Lcom/android/systemui/statusbar/phone/PanelView;->setExpandedHeightInternal(F)V
+
+    .line 470
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PanelView$3;->this$0:Lcom/android/systemui/statusbar/phone/PanelView;
+
+    move-object/from16 v16, v0
+
+    move-object/from16 v0, v16
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PanelView;->mBar:Lcom/android/systemui/statusbar/phone/PanelBar;
+
+    move-object/from16 v16, v0
+
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PanelView$3;->this$0:Lcom/android/systemui/statusbar/phone/PanelView;
+
+    move-object/from16 v17, v0
+
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PanelView$3;->this$0:Lcom/android/systemui/statusbar/phone/PanelView;
+
+    move-object/from16 v18, v0
+
+    #getter for: Lcom/android/systemui/statusbar/phone/PanelView;->mExpandedFraction:F
+    invoke-static/range {v18 .. v18}, Lcom/android/systemui/statusbar/phone/PanelView;->access$1700(Lcom/android/systemui/statusbar/phone/PanelView;)F
+
+    move-result v18
+
+    invoke-virtual/range {v16 .. v18}, Lcom/android/systemui/statusbar/phone/PanelBar;->panelExpansionChanged(Lcom/android/systemui/statusbar/phone/PanelView;F)V
+
+    .line 473
+    :cond_6
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PanelView$3;->this$0:Lcom/android/systemui/statusbar/phone/PanelView;
+
+    move-object/from16 v16, v0
+
+    move-object/from16 v0, v16
+
+    move-object/from16 v1, p2
+
+    #calls: Lcom/android/systemui/statusbar/phone/PanelView;->trackMovement(Landroid/view/MotionEvent;)V
+    invoke-static {v0, v1}, Lcom/android/systemui/statusbar/phone/PanelView;->access$1000(Lcom/android/systemui/statusbar/phone/PanelView;Landroid/view/MotionEvent;)V
+
+    goto/16 :goto_1
+
+    .line 478
+    .end local v3           #h:F
+    :pswitch_4
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PanelView$3;->this$0:Lcom/android/systemui/statusbar/phone/PanelView;
+
+    move-object/from16 v16, v0
+
+    move-object/from16 v0, v16
+
+    iput v14, v0, Lcom/android/systemui/statusbar/phone/PanelView;->mFinalTouchY:F
+
+    .line 479
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PanelView$3;->this$0:Lcom/android/systemui/statusbar/phone/PanelView;
+
+    move-object/from16 v16, v0
+
+    const/16 v17, 0x0
+
+    #setter for: Lcom/android/systemui/statusbar/phone/PanelView;->mTracking:Z
+    invoke-static/range {v16 .. v17}, Lcom/android/systemui/statusbar/phone/PanelView;->access$702(Lcom/android/systemui/statusbar/phone/PanelView;Z)Z
+
+    .line 480
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PanelView$3;->this$0:Lcom/android/systemui/statusbar/phone/PanelView;
+
+    move-object/from16 v16, v0
+
+    const/16 v17, -0x1
+
+    #setter for: Lcom/android/systemui/statusbar/phone/PanelView;->mTrackingPointer:I
+    invoke-static/range {v16 .. v17}, Lcom/android/systemui/statusbar/phone/PanelView;->access$502(Lcom/android/systemui/statusbar/phone/PanelView;I)I
+
+    .line 481
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PanelView$3;->this$0:Lcom/android/systemui/statusbar/phone/PanelView;
+
+    move-object/from16 v16, v0
+
+    #getter for: Lcom/android/systemui/statusbar/phone/PanelView;->mHandleView:Landroid/view/View;
+    invoke-static/range {v16 .. v16}, Lcom/android/systemui/statusbar/phone/PanelView;->access$800(Lcom/android/systemui/statusbar/phone/PanelView;)Landroid/view/View;
+
+    move-result-object v16
+
+    const/16 v17, 0x0
+
+    invoke-virtual/range {v16 .. v17}, Landroid/view/View;->setPressed(Z)V
+
+    .line 482
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PanelView$3;->this$0:Lcom/android/systemui/statusbar/phone/PanelView;
+
+    move-object/from16 v16, v0
+
+    invoke-virtual/range {v16 .. v16}, Landroid/view/View;->postInvalidate()V
+
+    .line 483
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PanelView$3;->this$0:Lcom/android/systemui/statusbar/phone/PanelView;
+
+    move-object/from16 v16, v0
+
+    move-object/from16 v0, v16
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PanelView;->mBar:Lcom/android/systemui/statusbar/phone/PanelBar;
+
+    move-object/from16 v16, v0
+
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PanelView$3;->this$0:Lcom/android/systemui/statusbar/phone/PanelView;
+
+    move-object/from16 v17, v0
+
+    invoke-virtual/range {v16 .. v17}, Lcom/android/systemui/statusbar/phone/PanelBar;->onTrackingStopped(Lcom/android/systemui/statusbar/phone/PanelView;)V
+
+    .line 484
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PanelView$3;->this$0:Lcom/android/systemui/statusbar/phone/PanelView;
+
+    move-object/from16 v16, v0
+
+    move-object/from16 v0, v16
+
+    move-object/from16 v1, p2
+
+    #calls: Lcom/android/systemui/statusbar/phone/PanelView;->trackMovement(Landroid/view/MotionEvent;)V
+    invoke-static {v0, v1}, Lcom/android/systemui/statusbar/phone/PanelView;->access$1000(Lcom/android/systemui/statusbar/phone/PanelView;Landroid/view/MotionEvent;)V
+
+    .line 486
+    const/4 v12, 0x0
+
+    .local v12, vel:F
+    const/4 v15, 0x0
+
+    .local v15, yVel:F
+    const/4 v13, 0x0
+
+    .line 487
+    .local v13, xVel:F
+    const/4 v4, 0x0
+
+    .line 489
+    .local v4, negative:Z
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PanelView$3;->this$0:Lcom/android/systemui/statusbar/phone/PanelView;
+
+    move-object/from16 v16, v0
+
+    #getter for: Lcom/android/systemui/statusbar/phone/PanelView;->mVelocityTracker:Lcom/android/systemui/statusbar/phone/PanelView$FlingTracker;
+    invoke-static/range {v16 .. v16}, Lcom/android/systemui/statusbar/phone/PanelView;->access$900(Lcom/android/systemui/statusbar/phone/PanelView;)Lcom/android/systemui/statusbar/phone/PanelView$FlingTracker;
+
+    move-result-object v16
+
+    if-eqz v16, :cond_a
+
+    .line 491
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PanelView$3;->this$0:Lcom/android/systemui/statusbar/phone/PanelView;
+
+    move-object/from16 v16, v0
+
+    #getter for: Lcom/android/systemui/statusbar/phone/PanelView;->mVelocityTracker:Lcom/android/systemui/statusbar/phone/PanelView$FlingTracker;
+    invoke-static/range {v16 .. v16}, Lcom/android/systemui/statusbar/phone/PanelView;->access$900(Lcom/android/systemui/statusbar/phone/PanelView;)Lcom/android/systemui/statusbar/phone/PanelView$FlingTracker;
+
+    move-result-object v16
+
+    const-wide/16 v17, 0x3e8
+
+    invoke-virtual/range {v16 .. v18}, Lcom/android/systemui/statusbar/phone/PanelView$FlingTracker;->computeCurrentVelocity(J)V
+
+    .line 493
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PanelView$3;->this$0:Lcom/android/systemui/statusbar/phone/PanelView;
+
+    move-object/from16 v16, v0
+
+    #getter for: Lcom/android/systemui/statusbar/phone/PanelView;->mVelocityTracker:Lcom/android/systemui/statusbar/phone/PanelView$FlingTracker;
+    invoke-static/range {v16 .. v16}, Lcom/android/systemui/statusbar/phone/PanelView;->access$900(Lcom/android/systemui/statusbar/phone/PanelView;)Lcom/android/systemui/statusbar/phone/PanelView$FlingTracker;
+
+    move-result-object v16
+
+    invoke-virtual/range {v16 .. v16}, Lcom/android/systemui/statusbar/phone/PanelView$FlingTracker;->getYVelocity()F
+
+    move-result v15
+
+    .line 494
+    const/16 v16, 0x0
+
+    cmpg-float v16, v15, v16
+
+    if-gez v16, :cond_e
+
+    const/4 v4, 0x1
+
+    .line 496
+    :goto_3
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PanelView$3;->this$0:Lcom/android/systemui/statusbar/phone/PanelView;
+
+    move-object/from16 v16, v0
+
+    #getter for: Lcom/android/systemui/statusbar/phone/PanelView;->mVelocityTracker:Lcom/android/systemui/statusbar/phone/PanelView$FlingTracker;
+    invoke-static/range {v16 .. v16}, Lcom/android/systemui/statusbar/phone/PanelView;->access$900(Lcom/android/systemui/statusbar/phone/PanelView;)Lcom/android/systemui/statusbar/phone/PanelView$FlingTracker;
+
+    move-result-object v16
+
+    invoke-virtual/range {v16 .. v16}, Lcom/android/systemui/statusbar/phone/PanelView$FlingTracker;->getXVelocity()F
+
+    move-result v13
+
+    .line 497
+    const/16 v16, 0x0
+
+    cmpg-float v16, v13, v16
+
+    if-gez v16, :cond_7
+
+    .line 498
+    neg-float v13, v13
+
+    .line 500
+    :cond_7
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PanelView$3;->this$0:Lcom/android/systemui/statusbar/phone/PanelView;
+
+    move-object/from16 v16, v0
+
+    #getter for: Lcom/android/systemui/statusbar/phone/PanelView;->mFlingGestureMaxXVelocityPx:F
+    invoke-static/range {v16 .. v16}, Lcom/android/systemui/statusbar/phone/PanelView;->access$1800(Lcom/android/systemui/statusbar/phone/PanelView;)F
+
+    move-result v16
+
+    cmpl-float v16, v13, v16
+
+    if-lez v16, :cond_8
+
+    .line 501
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PanelView$3;->this$0:Lcom/android/systemui/statusbar/phone/PanelView;
+
+    move-object/from16 v16, v0
+
+    #getter for: Lcom/android/systemui/statusbar/phone/PanelView;->mFlingGestureMaxXVelocityPx:F
+    invoke-static/range {v16 .. v16}, Lcom/android/systemui/statusbar/phone/PanelView;->access$1800(Lcom/android/systemui/statusbar/phone/PanelView;)F
+
+    move-result v13
+
+    .line 504
+    :cond_8
+    float-to-double v0, v15
+
+    move-wide/from16 v16, v0
+
+    float-to-double v0, v13
+
+    move-wide/from16 v18, v0
+
+    invoke-static/range {v16 .. v19}, Ljava/lang/Math;->hypot(DD)D
+
+    move-result-wide v16
+
+    move-wide/from16 v0, v16
+
+    double-to-float v12, v0
+
+    .line 505
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PanelView$3;->this$0:Lcom/android/systemui/statusbar/phone/PanelView;
+
+    move-object/from16 v16, v0
+
+    #getter for: Lcom/android/systemui/statusbar/phone/PanelView;->mFlingGestureMaxOutputVelocityPx:F
+    invoke-static/range {v16 .. v16}, Lcom/android/systemui/statusbar/phone/PanelView;->access$1900(Lcom/android/systemui/statusbar/phone/PanelView;)F
+
+    move-result v16
+
+    cmpl-float v16, v12, v16
+
+    if-lez v16, :cond_9
+
+    .line 506
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PanelView$3;->this$0:Lcom/android/systemui/statusbar/phone/PanelView;
+
+    move-object/from16 v16, v0
+
+    #getter for: Lcom/android/systemui/statusbar/phone/PanelView;->mFlingGestureMaxOutputVelocityPx:F
+    invoke-static/range {v16 .. v16}, Lcom/android/systemui/statusbar/phone/PanelView;->access$1900(Lcom/android/systemui/statusbar/phone/PanelView;)F
+
+    move-result v12
+
+    .line 509
+    :cond_9
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PanelView$3;->this$0:Lcom/android/systemui/statusbar/phone/PanelView;
+
+    move-object/from16 v16, v0
+
+    #getter for: Lcom/android/systemui/statusbar/phone/PanelView;->mVelocityTracker:Lcom/android/systemui/statusbar/phone/PanelView$FlingTracker;
+    invoke-static/range {v16 .. v16}, Lcom/android/systemui/statusbar/phone/PanelView;->access$900(Lcom/android/systemui/statusbar/phone/PanelView;)Lcom/android/systemui/statusbar/phone/PanelView$FlingTracker;
+
+    move-result-object v16
+
+    invoke-virtual/range {v16 .. v16}, Lcom/android/systemui/statusbar/phone/PanelView$FlingTracker;->recycle()V
+
+    .line 510
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PanelView$3;->this$0:Lcom/android/systemui/statusbar/phone/PanelView;
+
+    move-object/from16 v16, v0
+
+    const/16 v17, 0x0
+
+    #setter for: Lcom/android/systemui/statusbar/phone/PanelView;->mVelocityTracker:Lcom/android/systemui/statusbar/phone/PanelView$FlingTracker;
+    invoke-static/range {v16 .. v17}, Lcom/android/systemui/statusbar/phone/PanelView;->access$902(Lcom/android/systemui/statusbar/phone/PanelView;Lcom/android/systemui/statusbar/phone/PanelView$FlingTracker;)Lcom/android/systemui/statusbar/phone/PanelView$FlingTracker;
+
+    .line 515
+    :cond_a
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PanelView$3;->this$0:Lcom/android/systemui/statusbar/phone/PanelView;
+
+    move-object/from16 v16, v0
+
+    move-object/from16 v0, v16
+
+    iget v0, v0, Lcom/android/systemui/statusbar/phone/PanelView;->mFinalTouchY:F
+
+    move/from16 v16, v0
+
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PanelView$3;->this$0:Lcom/android/systemui/statusbar/phone/PanelView;
+
+    move-object/from16 v17, v0
+
+    move-object/from16 v0, v17
+
+    iget v0, v0, Lcom/android/systemui/statusbar/phone/PanelView;->mInitialTouchY:F
+
+    move/from16 v17, v0
+
+    sub-float v16, v16, v17
+
+    invoke-static/range {v16 .. v16}, Ljava/lang/Math;->abs(F)F
+
+    move-result v2
+
+    .line 516
+    .local v2, deltaY:F
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PanelView$3;->this$0:Lcom/android/systemui/statusbar/phone/PanelView;
+
+    move-object/from16 v16, v0
+
+    #getter for: Lcom/android/systemui/statusbar/phone/PanelView;->mFlingGestureMinDistPx:F
+    invoke-static/range {v16 .. v16}, Lcom/android/systemui/statusbar/phone/PanelView;->access$2000(Lcom/android/systemui/statusbar/phone/PanelView;)F
+
+    move-result v16
+
+    cmpg-float v16, v2, v16
+
+    if-ltz v16, :cond_b
+
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PanelView$3;->this$0:Lcom/android/systemui/statusbar/phone/PanelView;
+
+    move-object/from16 v16, v0
+
+    #getter for: Lcom/android/systemui/statusbar/phone/PanelView;->mFlingExpandMinVelocityPx:F
+    invoke-static/range {v16 .. v16}, Lcom/android/systemui/statusbar/phone/PanelView;->access$2100(Lcom/android/systemui/statusbar/phone/PanelView;)F
+
+    move-result v16
+
+    cmpg-float v16, v12, v16
+
+    if-gez v16, :cond_c
+
+    .line 519
+    :cond_b
+    const/4 v12, 0x0
+
+    .line 522
+    :cond_c
+    if-eqz v4, :cond_d
+
+    .line 523
+    neg-float v12, v12
+
+    .line 531
+    :cond_d
+    move-object/from16 v0, p0
+
+    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/PanelView$3;->this$0:Lcom/android/systemui/statusbar/phone/PanelView;
+
+    move-object/from16 v16, v0
+
+    const/16 v17, 0x1
+
+    move-object/from16 v0, v16
+
+    move/from16 v1, v17
+
+    invoke-virtual {v0, v12, v1}, Lcom/android/systemui/statusbar/phone/PanelView;->fling(FZ)V
+
+    goto/16 :goto_1
+
+    .line 494
+    .end local v2           #deltaY:F
+    :cond_e
+    const/4 v4, 0x0
+
+    goto/16 :goto_3
+
+    .line 430
+    nop
+
     :pswitch_data_0
     .packed-switch 0x0
-        :pswitch_0
-        :pswitch_2
         :pswitch_1
+        :pswitch_4
+        :pswitch_3
+        :pswitch_4
+        :pswitch_0
+        :pswitch_0
         :pswitch_2
     .end packed-switch
 .end method

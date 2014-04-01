@@ -33,14 +33,14 @@
     .parameter
 
     .prologue
-    .line 142
+    .line 143
     iput-object p1, p0, Lcom/android/systemui/recent/RecentsHorizontalScrollView$4;->this$0:Lcom/android/systemui/recent/RecentsHorizontalScrollView;
 
     iput-object p2, p0, Lcom/android/systemui/recent/RecentsHorizontalScrollView$4;->val$view:Landroid/view/View;
 
     iput-object p3, p0, Lcom/android/systemui/recent/RecentsHorizontalScrollView$4;->val$thumbnailView:Landroid/view/View;
 
-    invoke-direct/range {p0 .. p0}, Ljava/lang/Object;-><init>()V
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
     return-void
 .end method
@@ -52,16 +52,16 @@
     .parameter "v"
 
     .prologue
-    .line 144
+    .line 145
     iget-object v1, p0, Lcom/android/systemui/recent/RecentsHorizontalScrollView$4;->val$view:Landroid/view/View;
 
-    const v2, 0x7f0900ab
+    const v2, 0x7f070027
 
     invoke-virtual {v1, v2}, Landroid/view/View;->findViewById(I)Landroid/view/View;
 
     move-result-object v0
 
-    .line 145
+    .line 146
     .local v0, anchorView:Landroid/view/View;
     iget-object v1, p0, Lcom/android/systemui/recent/RecentsHorizontalScrollView$4;->this$0:Lcom/android/systemui/recent/RecentsHorizontalScrollView;
 
@@ -76,7 +76,7 @@
 
     invoke-interface {v1, v2, v0, v3}, Lcom/android/systemui/recent/RecentsCallback;->handleLongPress(Landroid/view/View;Landroid/view/View;Landroid/view/View;)V
 
-    .line 146
+    .line 147
     const/4 v1, 0x1
 
     return v1

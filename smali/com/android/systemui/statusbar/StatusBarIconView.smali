@@ -4,6 +4,8 @@
 
 
 # static fields
+.field public static final NOTIF_PACKAGE:Ljava/lang/String; = "com.samsung.knox.notifsync"
+
 .field private static final TAG:Ljava/lang/String; = "StatusBarIconView"
 
 
@@ -30,380 +32,879 @@
 
 # direct methods
 .method public constructor <init>(Landroid/content/Context;Landroid/util/AttributeSet;)V
-    .locals 8
+    .locals 6
     .parameter "context"
     .parameter "attrs"
 
     .prologue
-    const/4 v7, 0x1
-
-    .line 86
+    .line 82
     invoke-direct {p0, p1, p2}, Lcom/android/systemui/statusbar/AnimatedImageView;-><init>(Landroid/content/Context;Landroid/util/AttributeSet;)V
 
-    .line 87
+    .line 83
     invoke-virtual {p1}, Landroid/content/Context;->getResources()Landroid/content/res/Resources;
 
-    move-result-object v3
+    move-result-object v2
 
-    .line 91
-    .local v3, res:Landroid/content/res/Resources;
-    const v5, 0x7f0e0017
+    .line 84
+    .local v2, res:Landroid/content/res/Resources;
+    const v4, 0x7f0c0023
 
-    invoke-virtual {v3, v5}, Landroid/content/res/Resources;->getDimensionPixelSize(I)I
-
-    move-result v2
-
-    .line 92
-    .local v2, outerBounds:I
-    const v5, 0x7f0e001c
-
-    invoke-virtual {v3, v5}, Landroid/content/res/Resources;->getDimensionPixelSize(I)I
+    invoke-virtual {v2, v4}, Landroid/content/res/Resources;->getDimensionPixelSize(I)I
 
     move-result v1
 
-    .line 93
-    .local v1, imageBounds:I
-    int-to-float v5, v1
+    .line 85
+    .local v1, outerBounds:I
+    const v4, 0x7f0c0028
 
-    int-to-float v6, v2
-
-    div-float v4, v5, v6
-
-    .line 94
-    .local v4, scale:F
-    invoke-virtual {p0, v4}, Lcom/android/systemui/statusbar/StatusBarIconView;->setScaleX(F)V
-
-    .line 95
-    invoke-virtual {p0, v4}, Lcom/android/systemui/statusbar/StatusBarIconView;->setScaleY(F)V
-
-    .line 96
-    new-instance v6, Landroid/util/TypedValue;
-
-    invoke-direct {v6}, Landroid/util/TypedValue;-><init>()V
-
-    .local v6, outValue:Landroid/util/TypedValue;
-    const v5, 0x7f0e0079
-
-    invoke-virtual {v3, v5, v6, v7}, Landroid/content/res/Resources;->getValue(ILandroid/util/TypedValue;Z)V
-
-    invoke-virtual {v6}, Landroid/util/TypedValue;->getFloat()F
+    invoke-virtual {v2, v4}, Landroid/content/res/Resources;->getDimensionPixelSize(I)I
 
     move-result v0
 
-    .line 97
-    .local v0, alpha:F
-    invoke-virtual {p0, v0}, Lcom/android/systemui/statusbar/StatusBarIconView;->setAlpha(F)V
+    .line 86
+    .local v0, imageBounds:I
+    int-to-float v4, v0
 
-    .line 99
+    int-to-float v5, v1
+
+    div-float v3, v4, v5
+
+    .line 87
+    .local v3, scale:F
+    invoke-virtual {p0, v3}, Landroid/view/View;->setScaleX(F)V
+
+    .line 88
+    invoke-virtual {p0, v3}, Landroid/view/View;->setScaleY(F)V
+
+    .line 89
     return-void
 .end method
 
 .method public constructor <init>(Landroid/content/Context;Ljava/lang/String;Landroid/app/Notification;)V
-    .locals 8
+    .locals 6
     .parameter "context"
     .parameter "slot"
     .parameter "notification"
 
     .prologue
-    const/4 v7, 0x1
-
-    .line 59
+    .line 58
     invoke-direct {p0, p1}, Lcom/android/systemui/statusbar/AnimatedImageView;-><init>(Landroid/content/Context;)V
 
-    .line 60
+    .line 59
     invoke-virtual {p1}, Landroid/content/Context;->getResources()Landroid/content/res/Resources;
 
-    move-result-object v3
+    move-result-object v2
 
-    .line 61
-    .local v3, res:Landroid/content/res/Resources;
+    .line 60
+    .local v2, res:Landroid/content/res/Resources;
     iput-object p2, p0, Lcom/android/systemui/statusbar/StatusBarIconView;->mSlot:Ljava/lang/String;
 
+    .line 61
+    new-instance v4, Landroid/graphics/Paint;
+
+    invoke-direct {v4}, Landroid/graphics/Paint;-><init>()V
+
+    iput-object v4, p0, Lcom/android/systemui/statusbar/StatusBarIconView;->mNumberPain:Landroid/graphics/Paint;
+
     .line 62
-    new-instance v5, Landroid/graphics/Paint;
+    iget-object v4, p0, Lcom/android/systemui/statusbar/StatusBarIconView;->mNumberPain:Landroid/graphics/Paint;
 
-    invoke-direct {v5}, Landroid/graphics/Paint;-><init>()V
+    sget-object v5, Landroid/graphics/Paint$Align;->CENTER:Landroid/graphics/Paint$Align;
 
-    iput-object v5, p0, Lcom/android/systemui/statusbar/StatusBarIconView;->mNumberPain:Landroid/graphics/Paint;
+    invoke-virtual {v4, v5}, Landroid/graphics/Paint;->setTextAlign(Landroid/graphics/Paint$Align;)V
 
     .line 63
-    iget-object v5, p0, Lcom/android/systemui/statusbar/StatusBarIconView;->mNumberPain:Landroid/graphics/Paint;
+    iget-object v4, p0, Lcom/android/systemui/statusbar/StatusBarIconView;->mNumberPain:Landroid/graphics/Paint;
 
-    sget-object v6, Landroid/graphics/Paint$Align;->CENTER:Landroid/graphics/Paint$Align;
+    const v5, 0x7f02026e
 
-    invoke-virtual {v5, v6}, Landroid/graphics/Paint;->setTextAlign(Landroid/graphics/Paint$Align;)V
+    invoke-virtual {v2, v5}, Landroid/content/res/Resources;->getColor(I)I
+
+    move-result v5
+
+    invoke-virtual {v4, v5}, Landroid/graphics/Paint;->setColor(I)V
 
     .line 64
-    iget-object v5, p0, Lcom/android/systemui/statusbar/StatusBarIconView;->mNumberPain:Landroid/graphics/Paint;
+    iget-object v4, p0, Lcom/android/systemui/statusbar/StatusBarIconView;->mNumberPain:Landroid/graphics/Paint;
 
-    const v6, 0x7f020257
+    const/4 v5, 0x1
 
-    invoke-virtual {v3, v6}, Landroid/content/res/Resources;->getColor(I)I
-
-    move-result v6
-
-    invoke-virtual {v5, v6}, Landroid/graphics/Paint;->setColor(I)V
+    invoke-virtual {v4, v5}, Landroid/graphics/Paint;->setAntiAlias(Z)V
 
     .line 65
-    iget-object v5, p0, Lcom/android/systemui/statusbar/StatusBarIconView;->mNumberPain:Landroid/graphics/Paint;
-
-    invoke-virtual {v5, v7}, Landroid/graphics/Paint;->setAntiAlias(Z)V
-
-    .line 66
     iput-object p3, p0, Lcom/android/systemui/statusbar/StatusBarIconView;->mNotification:Landroid/app/Notification;
 
-    .line 67
+    .line 66
     invoke-direct {p0, p3}, Lcom/android/systemui/statusbar/StatusBarIconView;->setContentDescription(Landroid/app/Notification;)V
 
-    .line 72
+    .line 70
     if-eqz p3, :cond_0
 
-    .line 73
-    const v5, 0x7f0e0017
+    .line 71
+    const v4, 0x7f0c0023
 
-    invoke-virtual {v3, v5}, Landroid/content/res/Resources;->getDimensionPixelSize(I)I
-
-    move-result v2
-
-    .line 74
-    .local v2, outerBounds:I
-    const v5, 0x7f0e001c
-
-    invoke-virtual {v3, v5}, Landroid/content/res/Resources;->getDimensionPixelSize(I)I
+    invoke-virtual {v2, v4}, Landroid/content/res/Resources;->getDimensionPixelSize(I)I
 
     move-result v1
 
-    .line 75
-    .local v1, imageBounds:I
-    int-to-float v5, v1
+    .line 72
+    .local v1, outerBounds:I
+    const v4, 0x7f0c0028
 
-    int-to-float v6, v2
-
-    div-float v4, v5, v6
-
-    .line 76
-    .local v4, scale:F
-    invoke-virtual {p0, v4}, Lcom/android/systemui/statusbar/StatusBarIconView;->setScaleX(F)V
-
-    .line 77
-    invoke-virtual {p0, v4}, Lcom/android/systemui/statusbar/StatusBarIconView;->setScaleY(F)V
-
-    .line 78
-    new-instance v6, Landroid/util/TypedValue;
-
-    invoke-direct {v6}, Landroid/util/TypedValue;-><init>()V
-
-    .local v6, outValue:Landroid/util/TypedValue;
-    const v5, 0x7f0e0079
-
-    invoke-virtual {v3, v5, v6, v7}, Landroid/content/res/Resources;->getValue(ILandroid/util/TypedValue;Z)V
-
-    invoke-virtual {v6}, Landroid/util/TypedValue;->getFloat()F
+    invoke-virtual {v2, v4}, Landroid/content/res/Resources;->getDimensionPixelSize(I)I
 
     move-result v0
 
-    .line 79
-    .local v0, alpha:F
-    invoke-virtual {p0, v0}, Lcom/android/systemui/statusbar/StatusBarIconView;->setAlpha(F)V
+    .line 73
+    .local v0, imageBounds:I
+    int-to-float v4, v0
 
-    .line 82
-    .end local v0           #alpha:F
-    .end local v1           #imageBounds:I
-    .end local v2           #outerBounds:I
-    .end local v4           #scale:F
-    .end local v6           #outValue:Landroid/util/TypedValue;
+    int-to-float v5, v1
+
+    div-float v3, v4, v5
+
+    .line 74
+    .local v3, scale:F
+    invoke-virtual {p0, v3}, Landroid/view/View;->setScaleX(F)V
+
+    .line 75
+    invoke-virtual {p0, v3}, Landroid/view/View;->setScaleY(F)V
+
+    .line 78
+    .end local v0           #imageBounds:I
+    .end local v1           #outerBounds:I
+    .end local v3           #scale:F
     :cond_0
-    sget-object v5, Landroid/widget/ImageView$ScaleType;->CENTER:Landroid/widget/ImageView$ScaleType;
+    sget-object v4, Landroid/widget/ImageView$ScaleType;->CENTER:Landroid/widget/ImageView$ScaleType;
 
-    invoke-virtual {p0, v5}, Lcom/android/systemui/statusbar/StatusBarIconView;->setScaleType(Landroid/widget/ImageView$ScaleType;)V
+    invoke-virtual {p0, v4}, Landroid/widget/ImageView;->setScaleType(Landroid/widget/ImageView$ScaleType;)V
 
-    .line 83
+    .line 79
     return-void
 .end method
 
 .method public static getIcon(Landroid/content/Context;Lcom/android/internal/statusbar/StatusBarIcon;)Landroid/graphics/drawable/Drawable;
-    .locals 8
+    .locals 13
     .parameter "context"
     .parameter "icon"
 
     .prologue
-    const/4 v5, 0x0
+    .line 180
+    const/4 v6, 0x0
+
+    .line 184
+    .local v6, r:Landroid/content/res/Resources;
+    iget v10, p1, Lcom/android/internal/statusbar/StatusBarIcon;->iconId:I
+
+    if-gez v10, :cond_6
 
     .line 186
-    const/4 v2, 0x0
+    iget v10, p1, Lcom/android/internal/statusbar/StatusBarIcon;->iconId:I
+
+    invoke-static {v10}, Ljava/lang/Math;->abs(I)I
+
+    move-result v10
+
+    iput v10, p1, Lcom/android/internal/statusbar/StatusBarIcon;->iconId:I
 
     .line 188
-    .local v2, r:Landroid/content/res/Resources;
-    iget-object v4, p1, Lcom/android/internal/statusbar/StatusBarIcon;->iconPackage:Ljava/lang/String;
+    const-string v10, "StatusBarIconView"
 
-    if-eqz v4, :cond_1
+    new-instance v11, Ljava/lang/StringBuilder;
+
+    invoke-direct {v11}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v12, "HERE - iconId = "
+
+    invoke-virtual {v11, v12}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v11
+
+    iget v12, p1, Lcom/android/internal/statusbar/StatusBarIcon;->iconId:I
+
+    invoke-virtual {v11, v12}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    move-result-object v11
+
+    invoke-virtual {v11}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v11
+
+    invoke-static {v10, v11}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
 
     .line 190
-    :try_start_0
-    iget-object v4, p1, Lcom/android/internal/statusbar/StatusBarIcon;->user:Landroid/os/UserHandle;
+    const-string v10, "statusbar"
 
-    invoke-virtual {v4}, Landroid/os/UserHandle;->getIdentifier()I
+    invoke-virtual {p0, v10}, Landroid/content/Context;->getSystemService(Ljava/lang/String;)Ljava/lang/Object;
 
-    move-result v3
+    move-result-object v7
+
+    check-cast v7, Landroid/app/StatusBarManager;
 
     .line 191
-    .local v3, userId:I
-    const/4 v4, -0x1
+    .local v7, sbms:Landroid/app/StatusBarManager;
+    const/4 v10, 0x1
 
-    if-ne v3, v4, :cond_0
+    invoke-virtual {v7, v10}, Landroid/app/StatusBarManager;->getAllNotificationsForBridge(Z)Ljava/util/List;
+
+    move-result-object v3
 
     .line 192
-    const/4 v3, 0x0
+    .local v3, list:Ljava/util/List;,"Ljava/util/List<Landroid/service/notification/StatusBarNotification;>;"
+    const-string v11, "StatusBarIconView"
+
+    new-instance v10, Ljava/lang/StringBuilder;
+
+    invoke-direct {v10}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v12, "got "
+
+    invoke-virtual {v10, v12}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v12
+
+    if-nez v3, :cond_1
+
+    const/4 v10, 0x0
+
+    :goto_0
+    invoke-virtual {v12, v10}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    move-result-object v10
+
+    const-string v12, " notifs from bridge"
+
+    invoke-virtual {v10, v12}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v10
+
+    invoke-virtual {v10}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v10
+
+    invoke-static {v11, v10}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
 
     .line 194
+    invoke-interface {v3}, Ljava/util/List;->iterator()Ljava/util/Iterator;
+
+    move-result-object v2
+
+    .local v2, i$:Ljava/util/Iterator;
     :cond_0
+    :goto_1
+    invoke-interface {v2}, Ljava/util/Iterator;->hasNext()Z
+
+    move-result v10
+
+    if-eqz v10, :cond_5
+
+    invoke-interface {v2}, Ljava/util/Iterator;->next()Ljava/lang/Object;
+
+    move-result-object v8
+
+    check-cast v8, Landroid/service/notification/StatusBarNotification;
+
+    .line 195
+    .local v8, sbn:Landroid/service/notification/StatusBarNotification;
+    invoke-virtual {v8}, Landroid/service/notification/StatusBarNotification;->getNotification()Landroid/app/Notification;
+
+    move-result-object v10
+
+    iget-object v10, v10, Landroid/app/Notification;->contentView:Landroid/widget/RemoteViews;
+
+    invoke-virtual {v10}, Landroid/widget/RemoteViews;->getPackage()Ljava/lang/String;
+
+    move-result-object v5
+
+    .line 196
+    .local v5, packageName:Ljava/lang/String;
+    invoke-virtual {v8}, Landroid/service/notification/StatusBarNotification;->getNotification()Landroid/app/Notification;
+
+    move-result-object v10
+
+    iget v4, v10, Landroid/app/Notification;->icon:I
+
+    .line 198
+    .local v4, notifIcon:I
+    invoke-static {v4}, Ljava/lang/Math;->abs(I)I
+
+    move-result v4
+
+    .line 200
+    const-string v10, "StatusBarIconView"
+
+    new-instance v11, Ljava/lang/StringBuilder;
+
+    invoke-direct {v11}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v12, "sbn = "
+
+    invoke-virtual {v11, v12}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v11
+
+    invoke-virtual {v11, v8}, Ljava/lang/StringBuilder;->append(Ljava/lang/Object;)Ljava/lang/StringBuilder;
+
+    move-result-object v11
+
+    const-string v12, " sbn.n.v.pkg = "
+
+    invoke-virtual {v11, v12}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v11
+
+    invoke-virtual {v11, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v11
+
+    const-string v12, " sbn.notif.id ="
+
+    invoke-virtual {v11, v12}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v11
+
+    invoke-virtual {v11, v4}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    move-result-object v11
+
+    const-string v12, "  iconId = "
+
+    invoke-virtual {v11, v12}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v11
+
+    iget v12, p1, Lcom/android/internal/statusbar/StatusBarIcon;->iconId:I
+
+    invoke-virtual {v11, v12}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    move-result-object v11
+
+    const-string v12, " userId: "
+
+    invoke-virtual {v11, v12}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v11
+
+    invoke-virtual {v8}, Landroid/service/notification/StatusBarNotification;->getUserId()I
+
+    move-result v12
+
+    invoke-virtual {v11, v12}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    move-result-object v11
+
+    invoke-virtual {v11}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v11
+
+    invoke-static {v10, v11}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 204
+    invoke-virtual {v8}, Landroid/service/notification/StatusBarNotification;->getNotification()Landroid/app/Notification;
+
+    move-result-object v10
+
+    iget v10, v10, Landroid/app/Notification;->knoxFlags:I
+
+    and-int/lit8 v10, v10, 0x1
+
+    const/4 v11, 0x1
+
+    if-ne v10, v11, :cond_2
+
+    .line 206
+    const-string v10, "StatusBarIconView"
+
+    new-instance v11, Ljava/lang/StringBuilder;
+
+    invoke-direct {v11}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v12, "this sbn is from notifSyncer, ignore it notifId: "
+
+    invoke-virtual {v11, v12}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v11
+
+    invoke-virtual {v8}, Landroid/service/notification/StatusBarNotification;->getNotification()Landroid/app/Notification;
+
+    move-result-object v12
+
+    invoke-virtual {v11, v12}, Ljava/lang/StringBuilder;->append(Ljava/lang/Object;)Ljava/lang/StringBuilder;
+
+    move-result-object v11
+
+    invoke-virtual {v11}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v11
+
+    invoke-static {v10, v11}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
+
+    goto/16 :goto_1
+
+    .line 192
+    .end local v2           #i$:Ljava/util/Iterator;
+    .end local v4           #notifIcon:I
+    .end local v5           #packageName:Ljava/lang/String;
+    .end local v8           #sbn:Landroid/service/notification/StatusBarNotification;
+    :cond_1
+    invoke-interface {v3}, Ljava/util/List;->size()I
+
+    move-result v10
+
+    goto/16 :goto_0
+
+    .line 212
+    .restart local v2       #i$:Ljava/util/Iterator;
+    .restart local v4       #notifIcon:I
+    .restart local v5       #packageName:Ljava/lang/String;
+    .restart local v8       #sbn:Landroid/service/notification/StatusBarNotification;
+    :cond_2
+    iget v10, p1, Lcom/android/internal/statusbar/StatusBarIcon;->iconId:I
+
+    if-ne v4, v10, :cond_0
+
+    .line 213
+    const-string v10, "StatusBarIconView"
+
+    new-instance v11, Ljava/lang/StringBuilder;
+
+    invoke-direct {v11}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v12, "sbn.notification.icon ==== iconId -- "
+
+    invoke-virtual {v11, v12}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v11
+
+    invoke-virtual {v11, v4}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    move-result-object v11
+
+    invoke-virtual {v11}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v11
+
+    invoke-static {v10, v11}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 216
+    :try_start_0
+    invoke-virtual {v8}, Landroid/service/notification/StatusBarNotification;->getUserId()I
+
+    move-result v10
+
+    if-ltz v10, :cond_3
+
+    .line 217
     invoke-virtual {p0}, Landroid/content/Context;->getPackageManager()Landroid/content/pm/PackageManager;
 
-    move-result-object v4
+    move-result-object v10
 
-    iget-object v6, p1, Lcom/android/internal/statusbar/StatusBarIcon;->iconPackage:Ljava/lang/String;
+    invoke-virtual {v8}, Landroid/service/notification/StatusBarNotification;->getUser()Landroid/os/UserHandle;
 
-    invoke-virtual {v4, v6, v3}, Landroid/content/pm/PackageManager;->getResourcesForApplicationAsUser(Ljava/lang/String;I)Landroid/content/res/Resources;
+    move-result-object v11
+
+    invoke-virtual {v11}, Landroid/os/UserHandle;->getIdentifier()I
+
+    move-result v11
+
+    invoke-virtual {v10, v5, v11}, Landroid/content/pm/PackageManager;->getResourcesForApplicationAsUser(Ljava/lang/String;I)Landroid/content/res/Resources;
     :try_end_0
     .catch Landroid/content/pm/PackageManager$NameNotFoundException; {:try_start_0 .. :try_end_0} :catch_0
 
-    move-result-object v2
+    move-result-object v6
 
-    .line 204
-    .end local v3           #userId:I
-    :goto_0
-    iget v4, p1, Lcom/android/internal/statusbar/StatusBarIcon;->iconId:I
+    .line 228
+    :goto_2
+    if-nez v6, :cond_4
 
-    if-nez v4, :cond_2
+    .line 229
+    const-string v10, "StatusBarIconView"
 
-    move-object v4, v5
+    new-instance v11, Ljava/lang/StringBuilder;
 
-    .line 216
-    :goto_1
-    return-object v4
+    invoke-direct {v11}, Ljava/lang/StringBuilder;-><init>()V
 
-    .line 196
+    const-string v12, "could not get resources for user "
+
+    invoke-virtual {v11, v12}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v11
+
+    invoke-virtual {v8}, Landroid/service/notification/StatusBarNotification;->getUser()Landroid/os/UserHandle;
+
+    move-result-object v12
+
+    invoke-virtual {v12}, Landroid/os/UserHandle;->getIdentifier()I
+
+    move-result v12
+
+    invoke-virtual {v11, v12}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    move-result-object v11
+
+    const-string v12, " with pkg "
+
+    invoke-virtual {v11, v12}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v11
+
+    invoke-virtual {v11, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v11
+
+    invoke-virtual {v11}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v11
+
+    invoke-static {v10, v11}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
+
+    goto/16 :goto_1
+
+    .line 220
+    :cond_3
+    const/4 v6, 0x0
+
+    goto :goto_2
+
+    .line 223
     :catch_0
     move-exception v1
 
-    .line 197
+    .line 224
     .local v1, ex:Landroid/content/pm/PackageManager$NameNotFoundException;
-    const-string v4, "StatusBarIconView"
+    const-string v10, "StatusBarIconView"
 
-    new-instance v6, Ljava/lang/StringBuilder;
+    new-instance v11, Ljava/lang/StringBuilder;
 
-    invoke-direct {v6}, Ljava/lang/StringBuilder;-><init>()V
+    invoke-direct {v11}, Ljava/lang/StringBuilder;-><init>()V
 
-    const-string v7, "Icon package not found: "
+    const-string v12, "Icon package not found: "
 
-    invoke-virtual {v6, v7}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v11, v12}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    move-result-object v6
+    move-result-object v11
 
-    iget-object v7, p1, Lcom/android/internal/statusbar/StatusBarIcon;->iconPackage:Ljava/lang/String;
+    invoke-virtual {v11, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    invoke-virtual {v6, v7}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    move-result-object v11
 
-    move-result-object v6
+    invoke-virtual {v11}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
 
-    invoke-virtual {v6}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+    move-result-object v11
 
-    move-result-object v6
+    invoke-static {v10, v11}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I
 
-    invoke-static {v4, v6}, Landroid/util/Slog;->e(Ljava/lang/String;Ljava/lang/String;)I
+    .line 225
+    const/4 v10, 0x0
 
-    move-object v4, v5
-
-    .line 198
-    goto :goto_1
-
-    .line 201
+    .line 282
     .end local v1           #ex:Landroid/content/pm/PackageManager$NameNotFoundException;
-    :cond_1
-    invoke-virtual {p0}, Landroid/content/Context;->getResources()Landroid/content/res/Resources;
+    .end local v2           #i$:Ljava/util/Iterator;
+    .end local v3           #list:Ljava/util/List;,"Ljava/util/List<Landroid/service/notification/StatusBarNotification;>;"
+    .end local v4           #notifIcon:I
+    .end local v5           #packageName:Ljava/lang/String;
+    .end local v7           #sbms:Landroid/app/StatusBarManager;
+    .end local v8           #sbn:Landroid/service/notification/StatusBarNotification;
+    :goto_3
+    return-object v10
 
-    move-result-object v2
+    .line 234
+    .restart local v2       #i$:Ljava/util/Iterator;
+    .restart local v3       #list:Ljava/util/List;,"Ljava/util/List<Landroid/service/notification/StatusBarNotification;>;"
+    .restart local v4       #notifIcon:I
+    .restart local v5       #packageName:Ljava/lang/String;
+    .restart local v7       #sbms:Landroid/app/StatusBarManager;
+    .restart local v8       #sbn:Landroid/service/notification/StatusBarNotification;
+    :cond_4
+    const-string v10, "StatusBarIconView"
 
-    goto :goto_0
+    new-instance v11, Ljava/lang/StringBuilder;
 
-    .line 209
-    :cond_2
+    invoke-direct {v11}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v12, "WE HAVE resources for user "
+
+    invoke-virtual {v11, v12}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v11
+
+    invoke-virtual {v8}, Landroid/service/notification/StatusBarNotification;->getUser()Landroid/os/UserHandle;
+
+    move-result-object v12
+
+    invoke-virtual {v12}, Landroid/os/UserHandle;->getIdentifier()I
+
+    move-result v12
+
+    invoke-virtual {v11, v12}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    move-result-object v11
+
+    const-string v12, " with pkg "
+
+    invoke-virtual {v11, v12}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v11
+
+    invoke-virtual {v11, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v11
+
+    invoke-virtual {v11}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v11
+
+    invoke-static {v10, v11}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 238
     :try_start_1
-    iget v4, p1, Lcom/android/internal/statusbar/StatusBarIcon;->iconId:I
+    iget v10, p1, Lcom/android/internal/statusbar/StatusBarIcon;->iconId:I
 
-    invoke-virtual {v2, v4}, Landroid/content/res/Resources;->getDrawable(I)Landroid/graphics/drawable/Drawable;
+    invoke-virtual {v6, v10}, Landroid/content/res/Resources;->getDrawable(I)Landroid/graphics/drawable/Drawable;
     :try_end_1
     .catch Ljava/lang/RuntimeException; {:try_start_1 .. :try_end_1} :catch_1
 
-    move-result-object v4
+    move-result-object v10
 
-    goto :goto_1
+    goto :goto_3
 
-    .line 210
+    .line 239
     :catch_1
     move-exception v0
 
-    .line 211
+    .line 240
     .local v0, e:Ljava/lang/RuntimeException;
-    const-string v6, "StatusBarIconView"
+    const-string v10, "StatusBarIconView"
 
-    new-instance v4, Ljava/lang/StringBuilder;
+    new-instance v11, Ljava/lang/StringBuilder;
 
-    invoke-direct {v4}, Ljava/lang/StringBuilder;-><init>()V
+    invoke-direct {v11}, Ljava/lang/StringBuilder;-><init>()V
 
-    const-string v7, "Icon not found in "
+    const-string v12, "Icon not found in "
 
-    invoke-virtual {v4, v7}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v11, v12}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    move-result-object v7
+    move-result-object v11
 
-    iget-object v4, p1, Lcom/android/internal/statusbar/StatusBarIcon;->iconPackage:Ljava/lang/String;
+    invoke-virtual {v11, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    if-eqz v4, :cond_3
+    move-result-object v11
 
-    iget v4, p1, Lcom/android/internal/statusbar/StatusBarIcon;->iconId:I
+    const-string v12, ": "
 
-    invoke-static {v4}, Ljava/lang/Integer;->valueOf(I)Ljava/lang/Integer;
+    invoke-virtual {v11, v12}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    move-result-object v4
+    move-result-object v11
 
-    :goto_2
-    invoke-virtual {v7, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/Object;)Ljava/lang/StringBuilder;
+    iget v12, p1, Lcom/android/internal/statusbar/StatusBarIcon;->iconId:I
 
-    move-result-object v4
+    invoke-static {v12}, Ljava/lang/Integer;->toHexString(I)Ljava/lang/String;
 
-    const-string v7, ": "
+    move-result-object v12
 
-    invoke-virtual {v4, v7}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v11, v12}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    move-result-object v4
+    move-result-object v11
 
-    iget v7, p1, Lcom/android/internal/statusbar/StatusBarIcon;->iconId:I
+    invoke-virtual {v11}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
 
-    invoke-static {v7}, Ljava/lang/Integer;->toHexString(I)Ljava/lang/String;
+    move-result-object v11
 
-    move-result-object v7
+    invoke-static {v10, v11}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I
 
-    invoke-virtual {v4, v7}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    goto/16 :goto_1
 
-    move-result-object v4
+    .line 246
+    .end local v0           #e:Ljava/lang/RuntimeException;
+    .end local v4           #notifIcon:I
+    .end local v5           #packageName:Ljava/lang/String;
+    .end local v8           #sbn:Landroid/service/notification/StatusBarNotification;
+    :cond_5
+    const-string v10, "StatusBarIconView"
 
-    invoke-virtual {v4}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+    const-string v11, "returning null."
 
-    move-result-object v4
+    invoke-static {v10, v11}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
 
-    invoke-static {v6, v4}, Landroid/util/Slog;->w(Ljava/lang/String;Ljava/lang/String;)I
+    .line 248
+    const/4 v10, 0x0
 
-    move-object v4, v5
+    goto :goto_3
 
-    .line 216
-    goto :goto_1
+    .line 254
+    .end local v2           #i$:Ljava/util/Iterator;
+    .end local v3           #list:Ljava/util/List;,"Ljava/util/List<Landroid/service/notification/StatusBarNotification;>;"
+    .end local v7           #sbms:Landroid/app/StatusBarManager;
+    :cond_6
+    iget-object v10, p1, Lcom/android/internal/statusbar/StatusBarIcon;->iconPackage:Ljava/lang/String;
 
-    .line 211
-    :cond_3
-    const-string v4, "<system>"
+    if-eqz v10, :cond_8
 
-    goto :goto_2
+    .line 256
+    :try_start_2
+    iget-object v10, p1, Lcom/android/internal/statusbar/StatusBarIcon;->user:Landroid/os/UserHandle;
+
+    invoke-virtual {v10}, Landroid/os/UserHandle;->getIdentifier()I
+
+    move-result v9
+
+    .line 257
+    .local v9, userId:I
+    const/4 v10, -0x1
+
+    if-ne v9, v10, :cond_7
+
+    .line 258
+    const/4 v9, 0x0
+
+    .line 260
+    :cond_7
+    invoke-virtual {p0}, Landroid/content/Context;->getPackageManager()Landroid/content/pm/PackageManager;
+
+    move-result-object v10
+
+    iget-object v11, p1, Lcom/android/internal/statusbar/StatusBarIcon;->iconPackage:Ljava/lang/String;
+
+    invoke-virtual {v10, v11, v9}, Landroid/content/pm/PackageManager;->getResourcesForApplicationAsUser(Ljava/lang/String;I)Landroid/content/res/Resources;
+    :try_end_2
+    .catch Landroid/content/pm/PackageManager$NameNotFoundException; {:try_start_2 .. :try_end_2} :catch_2
+
+    move-result-object v6
+
+    .line 270
+    .end local v9           #userId:I
+    :goto_4
+    iget v10, p1, Lcom/android/internal/statusbar/StatusBarIcon;->iconId:I
+
+    if-nez v10, :cond_9
+
+    .line 271
+    const/4 v10, 0x0
+
+    goto/16 :goto_3
+
+    .line 262
+    :catch_2
+    move-exception v1
+
+    .line 263
+    .restart local v1       #ex:Landroid/content/pm/PackageManager$NameNotFoundException;
+    const-string v10, "StatusBarIconView"
+
+    new-instance v11, Ljava/lang/StringBuilder;
+
+    invoke-direct {v11}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v12, "Icon package not found: "
+
+    invoke-virtual {v11, v12}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v11
+
+    iget-object v12, p1, Lcom/android/internal/statusbar/StatusBarIcon;->iconPackage:Ljava/lang/String;
+
+    invoke-virtual {v11, v12}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v11
+
+    invoke-virtual {v11}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v11
+
+    invoke-static {v10, v11}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 264
+    const/4 v10, 0x0
+
+    goto/16 :goto_3
+
+    .line 267
+    .end local v1           #ex:Landroid/content/pm/PackageManager$NameNotFoundException;
+    :cond_8
+    invoke-virtual {p0}, Landroid/content/Context;->getResources()Landroid/content/res/Resources;
+
+    move-result-object v6
+
+    goto :goto_4
+
+    .line 275
+    :cond_9
+    :try_start_3
+    iget v10, p1, Lcom/android/internal/statusbar/StatusBarIcon;->iconId:I
+
+    invoke-virtual {v6, v10}, Landroid/content/res/Resources;->getDrawable(I)Landroid/graphics/drawable/Drawable;
+    :try_end_3
+    .catch Ljava/lang/RuntimeException; {:try_start_3 .. :try_end_3} :catch_3
+
+    move-result-object v10
+
+    goto/16 :goto_3
+
+    .line 276
+    :catch_3
+    move-exception v0
+
+    .line 277
+    .restart local v0       #e:Ljava/lang/RuntimeException;
+    const-string v11, "StatusBarIconView"
+
+    new-instance v10, Ljava/lang/StringBuilder;
+
+    invoke-direct {v10}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v12, "Icon not found in "
+
+    invoke-virtual {v10, v12}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v12
+
+    iget-object v10, p1, Lcom/android/internal/statusbar/StatusBarIcon;->iconPackage:Ljava/lang/String;
+
+    if-eqz v10, :cond_a
+
+    iget v10, p1, Lcom/android/internal/statusbar/StatusBarIcon;->iconId:I
+
+    invoke-static {v10}, Ljava/lang/Integer;->valueOf(I)Ljava/lang/Integer;
+
+    move-result-object v10
+
+    :goto_5
+    invoke-virtual {v12, v10}, Ljava/lang/StringBuilder;->append(Ljava/lang/Object;)Ljava/lang/StringBuilder;
+
+    move-result-object v10
+
+    const-string v12, ": "
+
+    invoke-virtual {v10, v12}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v10
+
+    iget v12, p1, Lcom/android/internal/statusbar/StatusBarIcon;->iconId:I
+
+    invoke-static {v12}, Ljava/lang/Integer;->toHexString(I)Ljava/lang/String;
+
+    move-result-object v12
+
+    invoke-virtual {v10, v12}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v10
+
+    invoke-virtual {v10}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v10
+
+    invoke-static {v11, v10}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 282
+    const/4 v10, 0x0
+
+    goto/16 :goto_3
+
+    .line 277
+    :cond_a
+    const-string v10, "<system>"
+
+    goto :goto_5
 .end method
 
 .method private getIcon(Lcom/android/internal/statusbar/StatusBarIcon;)Landroid/graphics/drawable/Drawable;
@@ -411,8 +912,8 @@
     .parameter "icon"
 
     .prologue
-    .line 174
-    invoke-virtual {p0}, Lcom/android/systemui/statusbar/StatusBarIconView;->getContext()Landroid/content/Context;
+    .line 164
+    invoke-virtual {p0}, Landroid/view/View;->getContext()Landroid/content/Context;
 
     move-result-object v0
 
@@ -428,13 +929,13 @@
     .parameter "notification"
 
     .prologue
-    .line 290
+    .line 356
     if-eqz p1, :cond_0
 
-    .line 291
+    .line 357
     iget-object v0, p1, Landroid/app/Notification;->tickerText:Ljava/lang/CharSequence;
 
-    .line 292
+    .line 358
     .local v0, tickerText:Ljava/lang/CharSequence;
     invoke-static {v0}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
 
@@ -442,10 +943,10 @@
 
     if-nez v1, :cond_0
 
-    .line 293
-    invoke-virtual {p0, v0}, Lcom/android/systemui/statusbar/StatusBarIconView;->setContentDescription(Ljava/lang/CharSequence;)V
+    .line 359
+    invoke-virtual {p0, v0}, Landroid/view/View;->setContentDescription(Ljava/lang/CharSequence;)V
 
-    .line 296
+    .line 362
     .end local v0           #tickerText:Ljava/lang/CharSequence;
     :cond_0
     return-void
@@ -459,30 +960,30 @@
     .prologue
     const/4 v0, 0x0
 
-    .line 102
+    .line 92
     if-ne p0, p1, :cond_1
 
-    .line 103
+    .line 93
     const/4 v0, 0x1
 
-    .line 111
+    .line 101
     :cond_0
     :goto_0
     return v0
 
-    .line 105
+    .line 95
     :cond_1
     if-nez p0, :cond_2
 
     if-nez p1, :cond_0
 
-    .line 108
+    .line 98
     :cond_2
     if-eqz p0, :cond_3
 
     if-eqz p1, :cond_0
 
-    .line 111
+    .line 101
     :cond_3
     invoke-virtual {p0, p1}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
 
@@ -496,18 +997,18 @@
     .parameter "withClear"
 
     .prologue
-    .line 161
+    .line 151
     iget-object v1, p0, Lcom/android/systemui/statusbar/StatusBarIconView;->mIcon:Lcom/android/internal/statusbar/StatusBarIcon;
 
     invoke-direct {p0, v1}, Lcom/android/systemui/statusbar/StatusBarIconView;->getIcon(Lcom/android/internal/statusbar/StatusBarIcon;)Landroid/graphics/drawable/Drawable;
 
     move-result-object v0
 
-    .line 162
+    .line 152
     .local v0, drawable:Landroid/graphics/drawable/Drawable;
     if-nez v0, :cond_0
 
-    .line 163
+    .line 153
     const-string v1, "StatusBarIconView"
 
     new-instance v2, Ljava/lang/StringBuilder;
@@ -530,29 +1031,29 @@
 
     move-result-object v2
 
-    invoke-static {v1, v2}, Landroid/util/Slog;->w(Ljava/lang/String;Ljava/lang/String;)I
+    invoke-static {v1, v2}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 164
+    .line 154
     const/4 v1, 0x0
 
-    .line 170
+    .line 160
     :goto_0
     return v1
 
-    .line 166
+    .line 156
     :cond_0
     if-eqz p1, :cond_1
 
-    .line 167
+    .line 157
     const/4 v1, 0x0
 
-    invoke-virtual {p0, v1}, Lcom/android/systemui/statusbar/StatusBarIconView;->setImageDrawable(Landroid/graphics/drawable/Drawable;)V
+    invoke-virtual {p0, v1}, Lcom/android/systemui/statusbar/AnimatedImageView;->setImageDrawable(Landroid/graphics/drawable/Drawable;)V
 
-    .line 169
+    .line 159
     :cond_1
-    invoke-virtual {p0, v0}, Lcom/android/systemui/statusbar/StatusBarIconView;->setImageDrawable(Landroid/graphics/drawable/Drawable;)V
+    invoke-virtual {p0, v0}, Lcom/android/systemui/statusbar/AnimatedImageView;->setImageDrawable(Landroid/graphics/drawable/Drawable;)V
 
-    .line 170
+    .line 160
     const/4 v1, 0x1
 
     goto :goto_0
@@ -565,10 +1066,10 @@
     .parameter "depth"
 
     .prologue
-    .line 251
-    invoke-super {p0, p1}, Lcom/android/systemui/statusbar/AnimatedImageView;->debug(I)V
+    .line 317
+    invoke-super {p0, p1}, Landroid/view/View;->debug(I)V
 
-    .line 252
+    .line 318
     const-string v0, "View"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -601,7 +1102,7 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 253
+    .line 319
     const-string v0, "View"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -634,7 +1135,7 @@
 
     invoke-static {v0, v1}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 254
+    .line 320
     return-void
 .end method
 
@@ -642,7 +1143,7 @@
     .locals 1
 
     .prologue
-    .line 220
+    .line 286
     iget-object v0, p0, Lcom/android/systemui/statusbar/StatusBarIconView;->mIcon:Lcom/android/internal/statusbar/StatusBarIcon;
 
     return-object v0
@@ -653,20 +1154,20 @@
     .parameter "canvas"
 
     .prologue
-    .line 241
-    invoke-super {p0, p1}, Lcom/android/systemui/statusbar/AnimatedImageView;->onDraw(Landroid/graphics/Canvas;)V
+    .line 307
+    invoke-super {p0, p1}, Landroid/widget/ImageView;->onDraw(Landroid/graphics/Canvas;)V
 
-    .line 243
+    .line 309
     iget-object v0, p0, Lcom/android/systemui/statusbar/StatusBarIconView;->mNumberBackground:Landroid/graphics/drawable/Drawable;
 
     if-eqz v0, :cond_0
 
-    .line 244
+    .line 310
     iget-object v0, p0, Lcom/android/systemui/statusbar/StatusBarIconView;->mNumberBackground:Landroid/graphics/drawable/Drawable;
 
     invoke-virtual {v0, p1}, Landroid/graphics/drawable/Drawable;->draw(Landroid/graphics/Canvas;)V
 
-    .line 245
+    .line 311
     iget-object v0, p0, Lcom/android/systemui/statusbar/StatusBarIconView;->mNumberText:Ljava/lang/String;
 
     iget v1, p0, Lcom/android/systemui/statusbar/StatusBarIconView;->mNumberX:I
@@ -681,7 +1182,7 @@
 
     invoke-virtual {p1, v0, v1, v2, v3}, Landroid/graphics/Canvas;->drawText(Ljava/lang/String;FFLandroid/graphics/Paint;)V
 
-    .line 247
+    .line 313
     :cond_0
     return-void
 .end method
@@ -691,20 +1192,20 @@
     .parameter "event"
 
     .prologue
-    .line 225
-    invoke-super {p0, p1}, Lcom/android/systemui/statusbar/AnimatedImageView;->onInitializeAccessibilityEvent(Landroid/view/accessibility/AccessibilityEvent;)V
+    .line 291
+    invoke-super {p0, p1}, Landroid/widget/ImageView;->onInitializeAccessibilityEvent(Landroid/view/accessibility/AccessibilityEvent;)V
 
-    .line 226
+    .line 292
     iget-object v0, p0, Lcom/android/systemui/statusbar/StatusBarIconView;->mNotification:Landroid/app/Notification;
 
     if-eqz v0, :cond_0
 
-    .line 227
+    .line 293
     iget-object v0, p0, Lcom/android/systemui/statusbar/StatusBarIconView;->mNotification:Landroid/app/Notification;
 
-    invoke-virtual {p1, v0}, Landroid/view/accessibility/AccessibilityEvent;->setParcelableData(Landroid/os/Parcelable;)V
+    invoke-virtual {p1, v0}, Landroid/view/accessibility/AccessibilityRecord;->setParcelableData(Landroid/os/Parcelable;)V
 
-    .line 229
+    .line 295
     :cond_0
     return-void
 .end method
@@ -717,18 +1218,18 @@
     .parameter "oldh"
 
     .prologue
-    .line 233
-    invoke-super {p0, p1, p2, p3, p4}, Lcom/android/systemui/statusbar/AnimatedImageView;->onSizeChanged(IIII)V
+    .line 299
+    invoke-super {p0, p1, p2, p3, p4}, Landroid/view/View;->onSizeChanged(IIII)V
 
-    .line 234
+    .line 300
     iget-object v0, p0, Lcom/android/systemui/statusbar/StatusBarIconView;->mNumberBackground:Landroid/graphics/drawable/Drawable;
 
     if-eqz v0, :cond_0
 
-    .line 235
+    .line 301
     invoke-virtual {p0}, Lcom/android/systemui/statusbar/StatusBarIconView;->placeNumber()V
 
-    .line 237
+    .line 303
     :cond_0
     return-void
 .end method
@@ -737,8 +1238,8 @@
     .locals 13
 
     .prologue
-    .line 258
-    iget-object v10, p0, Lcom/android/systemui/statusbar/StatusBarIconView;->mContext:Landroid/content/Context;
+    .line 324
+    iget-object v10, p0, Landroid/view/View;->mContext:Landroid/content/Context;
 
     invoke-virtual {v10}, Landroid/content/Context;->getResources()Landroid/content/res/Resources;
 
@@ -750,7 +1251,7 @@
 
     move-result v7
 
-    .line 260
+    .line 326
     .local v7, tooBig:I
     iget-object v10, p0, Lcom/android/systemui/statusbar/StatusBarIconView;->mIcon:Lcom/android/internal/statusbar/StatusBarIcon;
 
@@ -758,8 +1259,8 @@
 
     if-le v10, v7, :cond_2
 
-    .line 261
-    iget-object v10, p0, Lcom/android/systemui/statusbar/StatusBarIconView;->mContext:Landroid/content/Context;
+    .line 327
+    iget-object v10, p0, Landroid/view/View;->mContext:Landroid/content/Context;
 
     invoke-virtual {v10}, Landroid/content/Context;->getResources()Landroid/content/res/Resources;
 
@@ -771,29 +1272,29 @@
 
     move-result-object v5
 
-    .line 267
+    .line 333
     .local v5, str:Ljava/lang/String;
     :goto_0
     iput-object v5, p0, Lcom/android/systemui/statusbar/StatusBarIconView;->mNumberText:Ljava/lang/String;
 
-    .line 269
-    invoke-virtual {p0}, Lcom/android/systemui/statusbar/StatusBarIconView;->getWidth()I
+    .line 335
+    invoke-virtual {p0}, Landroid/view/View;->getWidth()I
 
     move-result v9
 
-    .line 270
+    .line 336
     .local v9, w:I
-    invoke-virtual {p0}, Lcom/android/systemui/statusbar/StatusBarIconView;->getHeight()I
+    invoke-virtual {p0}, Landroid/view/View;->getHeight()I
 
     move-result v3
 
-    .line 271
+    .line 337
     .local v3, h:I
     new-instance v4, Landroid/graphics/Rect;
 
     invoke-direct {v4}, Landroid/graphics/Rect;-><init>()V
 
-    .line 272
+    .line 338
     .local v4, r:Landroid/graphics/Rect;
     iget-object v10, p0, Lcom/android/systemui/statusbar/StatusBarIconView;->mNumberPain:Landroid/graphics/Paint;
 
@@ -805,14 +1306,14 @@
 
     invoke-virtual {v10, v5, v11, v12, v4}, Landroid/graphics/Paint;->getTextBounds(Ljava/lang/String;IILandroid/graphics/Rect;)V
 
-    .line 273
+    .line 339
     iget v10, v4, Landroid/graphics/Rect;->right:I
 
     iget v11, v4, Landroid/graphics/Rect;->left:I
 
     sub-int v8, v10, v11
 
-    .line 274
+    .line 340
     .local v8, tw:I
     iget v10, v4, Landroid/graphics/Rect;->bottom:I
 
@@ -820,13 +1321,13 @@
 
     sub-int v6, v10, v11
 
-    .line 275
+    .line 341
     .local v6, th:I
     iget-object v10, p0, Lcom/android/systemui/statusbar/StatusBarIconView;->mNumberBackground:Landroid/graphics/drawable/Drawable;
 
     invoke-virtual {v10, v4}, Landroid/graphics/drawable/Drawable;->getPadding(Landroid/graphics/Rect;)Z
 
-    .line 276
+    .line 342
     iget v10, v4, Landroid/graphics/Rect;->left:I
 
     add-int/2addr v10, v8
@@ -835,7 +1336,7 @@
 
     add-int v1, v10, v11
 
-    .line 277
+    .line 343
     .local v1, dw:I
     iget-object v10, p0, Lcom/android/systemui/statusbar/StatusBarIconView;->mNumberBackground:Landroid/graphics/drawable/Drawable;
 
@@ -845,14 +1346,14 @@
 
     if-ge v1, v10, :cond_0
 
-    .line 278
+    .line 344
     iget-object v10, p0, Lcom/android/systemui/statusbar/StatusBarIconView;->mNumberBackground:Landroid/graphics/drawable/Drawable;
 
     invoke-virtual {v10}, Landroid/graphics/drawable/Drawable;->getMinimumWidth()I
 
     move-result v1
 
-    .line 280
+    .line 346
     :cond_0
     iget v10, v4, Landroid/graphics/Rect;->right:I
 
@@ -872,7 +1373,7 @@
 
     iput v10, p0, Lcom/android/systemui/statusbar/StatusBarIconView;->mNumberX:I
 
-    .line 281
+    .line 347
     iget v10, v4, Landroid/graphics/Rect;->top:I
 
     add-int/2addr v10, v6
@@ -881,7 +1382,7 @@
 
     add-int v0, v10, v11
 
-    .line 282
+    .line 348
     .local v0, dh:I
     iget-object v10, p0, Lcom/android/systemui/statusbar/StatusBarIconView;->mNumberBackground:Landroid/graphics/drawable/Drawable;
 
@@ -891,14 +1392,14 @@
 
     if-ge v0, v10, :cond_1
 
-    .line 283
+    .line 349
     iget-object v10, p0, Lcom/android/systemui/statusbar/StatusBarIconView;->mNumberBackground:Landroid/graphics/drawable/Drawable;
 
     invoke-virtual {v10}, Landroid/graphics/drawable/Drawable;->getMinimumWidth()I
 
     move-result v0
 
-    .line 285
+    .line 351
     :cond_1
     iget v10, v4, Landroid/graphics/Rect;->bottom:I
 
@@ -920,7 +1421,7 @@
 
     iput v10, p0, Lcom/android/systemui/statusbar/StatusBarIconView;->mNumberY:I
 
-    .line 286
+    .line 352
     iget-object v10, p0, Lcom/android/systemui/statusbar/StatusBarIconView;->mNumberBackground:Landroid/graphics/drawable/Drawable;
 
     sub-int v11, v9, v1
@@ -929,10 +1430,10 @@
 
     invoke-virtual {v10, v11, v12, v9, v3}, Landroid/graphics/drawable/Drawable;->setBounds(IIII)V
 
-    .line 287
+    .line 353
     return-void
 
-    .line 264
+    .line 330
     .end local v0           #dh:I
     .end local v1           #dw:I
     .end local v3           #h:I
@@ -946,7 +1447,7 @@
 
     move-result-object v2
 
-    .line 265
+    .line 331
     .local v2, f:Ljava/text/NumberFormat;
     iget-object v10, p0, Lcom/android/systemui/statusbar/StatusBarIconView;->mIcon:Lcom/android/internal/statusbar/StatusBarIcon;
 
@@ -973,7 +1474,7 @@
 
     const/4 v5, 0x0
 
-    .line 118
+    .line 108
     iget-object v6, p0, Lcom/android/systemui/statusbar/StatusBarIconView;->mIcon:Lcom/android/internal/statusbar/StatusBarIcon;
 
     if-eqz v6, :cond_0
@@ -1000,7 +1501,7 @@
 
     move v0, v4
 
-    .line 121
+    .line 111
     .local v0, iconEquals:Z
     :goto_0
     if-eqz v0, :cond_1
@@ -1015,7 +1516,7 @@
 
     move v1, v4
 
-    .line 123
+    .line 113
     .local v1, levelEquals:Z
     :goto_1
     iget-object v6, p0, Lcom/android/systemui/statusbar/StatusBarIconView;->mIcon:Lcom/android/internal/statusbar/StatusBarIcon;
@@ -1032,7 +1533,7 @@
 
     move v3, v4
 
-    .line 125
+    .line 115
     .local v3, visibilityEquals:Z
     :goto_2
     iget-object v6, p0, Lcom/android/systemui/statusbar/StatusBarIconView;->mIcon:Lcom/android/internal/statusbar/StatusBarIcon;
@@ -1049,7 +1550,7 @@
 
     move v2, v4
 
-    .line 127
+    .line 117
     .local v2, numberEquals:Z
     :goto_3
     invoke-virtual {p1}, Lcom/android/internal/statusbar/StatusBarIcon;->clone()Lcom/android/internal/statusbar/StatusBarIcon;
@@ -1058,22 +1559,22 @@
 
     iput-object v6, p0, Lcom/android/systemui/statusbar/StatusBarIconView;->mIcon:Lcom/android/internal/statusbar/StatusBarIcon;
 
-    .line 128
+    .line 118
     iget-object v6, p1, Lcom/android/internal/statusbar/StatusBarIcon;->contentDescription:Ljava/lang/CharSequence;
 
-    invoke-virtual {p0, v6}, Lcom/android/systemui/statusbar/StatusBarIconView;->setContentDescription(Ljava/lang/CharSequence;)V
+    invoke-virtual {p0, v6}, Landroid/view/View;->setContentDescription(Ljava/lang/CharSequence;)V
 
-    .line 129
+    .line 119
     if-nez v0, :cond_4
 
-    .line 130
+    .line 120
     invoke-direct {p0, v5}, Lcom/android/systemui/statusbar/StatusBarIconView;->updateDrawable(Z)Z
 
     move-result v6
 
     if-nez v6, :cond_4
 
-    .line 153
+    .line 143
     :goto_4
     return v5
 
@@ -1084,56 +1585,56 @@
     :cond_0
     move v0, v5
 
-    .line 118
+    .line 108
     goto :goto_0
 
     .restart local v0       #iconEquals:Z
     :cond_1
     move v1, v5
 
-    .line 121
+    .line 111
     goto :goto_1
 
     .restart local v1       #levelEquals:Z
     :cond_2
     move v3, v5
 
-    .line 123
+    .line 113
     goto :goto_2
 
     .restart local v3       #visibilityEquals:Z
     :cond_3
     move v2, v5
 
-    .line 125
+    .line 115
     goto :goto_3
 
-    .line 132
+    .line 122
     .restart local v2       #numberEquals:Z
     :cond_4
     if-nez v1, :cond_5
 
-    .line 133
+    .line 123
     iget v6, p1, Lcom/android/internal/statusbar/StatusBarIcon;->iconLevel:I
 
-    invoke-virtual {p0, v6}, Lcom/android/systemui/statusbar/StatusBarIconView;->setImageLevel(I)V
+    invoke-virtual {p0, v6}, Landroid/widget/ImageView;->setImageLevel(I)V
 
-    .line 136
+    .line 126
     :cond_5
     if-nez v2, :cond_7
 
-    .line 137
+    .line 127
     iget v6, p1, Lcom/android/internal/statusbar/StatusBarIcon;->number:I
 
     if-lez v6, :cond_9
 
-    iget-object v6, p0, Lcom/android/systemui/statusbar/StatusBarIconView;->mContext:Landroid/content/Context;
+    iget-object v6, p0, Landroid/view/View;->mContext:Landroid/content/Context;
 
     invoke-virtual {v6}, Landroid/content/Context;->getResources()Landroid/content/res/Resources;
 
     move-result-object v6
 
-    const v7, 0x7f0b0003
+    const v7, 0x7f090003
 
     invoke-virtual {v6, v7}, Landroid/content/res/Resources;->getBoolean(I)Z
 
@@ -1141,13 +1642,13 @@
 
     if-eqz v6, :cond_9
 
-    .line 139
+    .line 129
     iget-object v6, p0, Lcom/android/systemui/statusbar/StatusBarIconView;->mNumberBackground:Landroid/graphics/drawable/Drawable;
 
     if-nez v6, :cond_6
 
-    .line 140
-    invoke-virtual {p0}, Lcom/android/systemui/statusbar/StatusBarIconView;->getContext()Landroid/content/Context;
+    .line 130
+    invoke-virtual {p0}, Landroid/view/View;->getContext()Landroid/content/Context;
 
     move-result-object v6
 
@@ -1155,7 +1656,7 @@
 
     move-result-object v6
 
-    const v7, 0x7f02001e
+    const v7, 0x7f020019
 
     invoke-virtual {v6, v7}, Landroid/content/res/Resources;->getDrawable(I)Landroid/graphics/drawable/Drawable;
 
@@ -1163,42 +1664,42 @@
 
     iput-object v6, p0, Lcom/android/systemui/statusbar/StatusBarIconView;->mNumberBackground:Landroid/graphics/drawable/Drawable;
 
-    .line 143
+    .line 133
     :cond_6
     invoke-virtual {p0}, Lcom/android/systemui/statusbar/StatusBarIconView;->placeNumber()V
 
-    .line 148
+    .line 138
     :goto_5
-    invoke-virtual {p0}, Lcom/android/systemui/statusbar/StatusBarIconView;->invalidate()V
+    invoke-virtual {p0}, Landroid/view/View;->invalidate()V
 
-    .line 150
+    .line 140
     :cond_7
     if-nez v3, :cond_8
 
-    .line 151
+    .line 141
     iget-boolean v6, p1, Lcom/android/internal/statusbar/StatusBarIcon;->visible:Z
 
     if-eqz v6, :cond_a
 
     :goto_6
-    invoke-virtual {p0, v5}, Lcom/android/systemui/statusbar/StatusBarIconView;->setVisibility(I)V
+    invoke-virtual {p0, v5}, Landroid/widget/ImageView;->setVisibility(I)V
 
     :cond_8
     move v5, v4
 
-    .line 153
+    .line 143
     goto :goto_4
 
-    .line 145
+    .line 135
     :cond_9
     iput-object v8, p0, Lcom/android/systemui/statusbar/StatusBarIconView;->mNumberBackground:Landroid/graphics/drawable/Drawable;
 
-    .line 146
+    .line 136
     iput-object v8, p0, Lcom/android/systemui/statusbar/StatusBarIconView;->mNumberText:Ljava/lang/String;
 
     goto :goto_5
 
-    .line 151
+    .line 141
     :cond_a
     const/16 v5, 0x8
 
@@ -1209,7 +1710,7 @@
     .locals 2
 
     .prologue
-    .line 299
+    .line 365
     new-instance v0, Ljava/lang/StringBuilder;
 
     invoke-direct {v0}, Ljava/lang/StringBuilder;-><init>()V
@@ -1267,11 +1768,11 @@
     .locals 1
 
     .prologue
-    .line 157
+    .line 147
     const/4 v0, 0x1
 
     invoke-direct {p0, v0}, Lcom/android/systemui/statusbar/StatusBarIconView;->updateDrawable(Z)Z
 
-    .line 158
+    .line 148
     return-void
 .end method

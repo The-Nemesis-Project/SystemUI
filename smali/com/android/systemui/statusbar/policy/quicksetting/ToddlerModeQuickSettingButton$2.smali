@@ -27,10 +27,10 @@
     .parameter
 
     .prologue
-    .line 228
+    .line 242
     iput-object p1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/ToddlerModeQuickSettingButton$2;->this$0:Lcom/android/systemui/statusbar/policy/quicksetting/ToddlerModeQuickSettingButton;
 
-    invoke-direct/range {p0 .. p0}, Ljava/lang/Object;-><init>()V
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
     return-void
 .end method
@@ -43,23 +43,23 @@
     .parameter "which"
 
     .prologue
-    .line 231
+    .line 245
     const-string v0, "STATUSBAR-ToddlerModeController"
 
     const-string v1, "showConfirmPopup() - Negative onClick mode: ok"
 
     invoke-static {v0, v1}, Landroid/util/secutil/Log;->secW(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 232
+    .line 246
     invoke-interface {p1}, Landroid/content/DialogInterface;->cancel()V
 
-    .line 233
+    .line 247
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/ToddlerModeQuickSettingButton$2;->this$0:Lcom/android/systemui/statusbar/policy/quicksetting/ToddlerModeQuickSettingButton;
 
     const/4 v1, 0x0
 
     iput-boolean v1, v0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->mIsProcessing:Z
 
-    .line 234
+    .line 248
     return-void
 .end method

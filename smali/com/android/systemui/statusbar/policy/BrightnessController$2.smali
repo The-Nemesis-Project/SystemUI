@@ -27,10 +27,10 @@
     .parameter
 
     .prologue
-    .line 204
+    .line 218
     iput-object p1, p0, Lcom/android/systemui/statusbar/policy/BrightnessController$2;->this$0:Lcom/android/systemui/statusbar/policy/BrightnessController;
 
-    invoke-direct/range {p0 .. p0}, Ljava/lang/Object;-><init>()V
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
     return-void
 .end method
@@ -43,20 +43,20 @@
     .parameter "event"
 
     .prologue
-    .line 207
+    .line 221
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/BrightnessController$2;->this$0:Lcom/android/systemui/statusbar/policy/BrightnessController;
 
-    #getter for: Lcom/android/systemui/statusbar/policy/BrightnessController;->allowSettingsChanges:Z
+    #getter for: Lcom/android/systemui/statusbar/policy/BrightnessController;->mAllowSettingsChanges:Z
     invoke-static {v0}, Lcom/android/systemui/statusbar/policy/BrightnessController;->access$100(Lcom/android/systemui/statusbar/policy/BrightnessController;)Z
 
     move-result v0
 
     if-nez v0, :cond_0
 
-    .line 208
+    .line 222
     const/4 v0, 0x1
 
-    .line 209
+    .line 223
     :goto_0
     return v0
 

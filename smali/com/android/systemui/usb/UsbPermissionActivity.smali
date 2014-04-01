@@ -36,7 +36,7 @@
     .locals 0
 
     .prologue
-    .line 48
+    .line 46
     invoke-direct {p0}, Lcom/android/internal/app/AlertActivity;-><init>()V
 
     return-void
@@ -50,35 +50,35 @@
     .parameter "isChecked"
 
     .prologue
-    .line 169
+    .line 167
     iget-object v0, p0, Lcom/android/systemui/usb/UsbPermissionActivity;->mClearDefaultHint:Landroid/widget/TextView;
 
     if-nez v0, :cond_0
 
-    .line 176
+    .line 174
     :goto_0
     return-void
 
-    .line 171
+    .line 169
     :cond_0
     if-eqz p2, :cond_1
 
-    .line 172
+    .line 170
     iget-object v0, p0, Lcom/android/systemui/usb/UsbPermissionActivity;->mClearDefaultHint:Landroid/widget/TextView;
 
     const/4 v1, 0x0
 
-    invoke-virtual {v0, v1}, Landroid/widget/TextView;->setVisibility(I)V
+    invoke-virtual {v0, v1}, Landroid/view/View;->setVisibility(I)V
 
     goto :goto_0
 
-    .line 174
+    .line 172
     :cond_1
     iget-object v0, p0, Lcom/android/systemui/usb/UsbPermissionActivity;->mClearDefaultHint:Landroid/widget/TextView;
 
     const/16 v1, 0x8
 
-    invoke-virtual {v0, v1}, Landroid/widget/TextView;->setVisibility(I)V
+    invoke-virtual {v0, v1}, Landroid/view/View;->setVisibility(I)V
 
     goto :goto_0
 .end method
@@ -89,21 +89,21 @@
     .parameter "which"
 
     .prologue
-    .line 162
+    .line 160
     const/4 v0, -0x1
 
     if-ne p2, v0, :cond_0
 
-    .line 163
+    .line 161
     const/4 v0, 0x1
 
     iput-boolean v0, p0, Lcom/android/systemui/usb/UsbPermissionActivity;->mPermissionGranted:Z
 
-    .line 165
+    .line 163
     :cond_0
-    invoke-virtual {p0}, Lcom/android/systemui/usb/UsbPermissionActivity;->finish()V
+    invoke-virtual {p0}, Landroid/app/Activity;->finish()V
 
-    .line 166
+    .line 164
     return-void
 .end method
 
@@ -116,15 +116,15 @@
 
     const/4 v9, 0x0
 
-    .line 65
+    .line 63
     invoke-super {p0, p1}, Lcom/android/internal/app/AlertActivity;->onCreate(Landroid/os/Bundle;)V
 
-    .line 67
-    invoke-virtual {p0}, Lcom/android/systemui/usb/UsbPermissionActivity;->getIntent()Landroid/content/Intent;
+    .line 65
+    invoke-virtual {p0}, Landroid/app/Activity;->getIntent()Landroid/content/Intent;
 
     move-result-object v5
 
-    .line 68
+    .line 66
     .local v5, intent:Landroid/content/Intent;
     const-string v7, "device"
 
@@ -136,7 +136,7 @@
 
     iput-object v7, p0, Lcom/android/systemui/usb/UsbPermissionActivity;->mDevice:Landroid/hardware/usb/UsbDevice;
 
-    .line 69
+    .line 67
     const-string v7, "accessory"
 
     invoke-virtual {v5, v7}, Landroid/content/Intent;->getParcelableExtra(Ljava/lang/String;)Landroid/os/Parcelable;
@@ -147,7 +147,7 @@
 
     iput-object v7, p0, Lcom/android/systemui/usb/UsbPermissionActivity;->mAccessory:Landroid/hardware/usb/UsbAccessory;
 
-    .line 70
+    .line 68
     const-string v7, "android.intent.extra.INTENT"
 
     invoke-virtual {v5, v7}, Landroid/content/Intent;->getParcelableExtra(Ljava/lang/String;)Landroid/os/Parcelable;
@@ -158,7 +158,7 @@
 
     iput-object v7, p0, Lcom/android/systemui/usb/UsbPermissionActivity;->mPendingIntent:Landroid/app/PendingIntent;
 
-    .line 71
+    .line 69
     const-string v7, "android.intent.extra.UID"
 
     const/4 v8, -0x1
@@ -169,7 +169,7 @@
 
     iput v7, p0, Lcom/android/systemui/usb/UsbPermissionActivity;->mUid:I
 
-    .line 72
+    .line 70
     const-string v7, "package"
 
     invoke-virtual {v5, v7}, Landroid/content/Intent;->getStringExtra(Ljava/lang/String;)Ljava/lang/String;
@@ -178,12 +178,12 @@
 
     iput-object v7, p0, Lcom/android/systemui/usb/UsbPermissionActivity;->mPackageName:Ljava/lang/String;
 
-    .line 74
-    invoke-virtual {p0}, Lcom/android/systemui/usb/UsbPermissionActivity;->getPackageManager()Landroid/content/pm/PackageManager;
+    .line 72
+    invoke-virtual {p0}, Landroid/content/ContextWrapper;->getPackageManager()Landroid/content/pm/PackageManager;
 
     move-result-object v6
 
-    .line 77
+    .line 75
     .local v6, packageManager:Landroid/content/pm/PackageManager;
     :try_start_0
     iget-object v7, p0, Lcom/android/systemui/usb/UsbPermissionActivity;->mPackageName:Ljava/lang/String;
@@ -196,9 +196,9 @@
 
     move-result-object v0
 
-    .line 83
+    .line 81
     .local v0, aInfo:Landroid/content/pm/ApplicationInfo;
-    invoke-virtual {v0, v6}, Landroid/content/pm/ApplicationInfo;->loadLabel(Landroid/content/pm/PackageManager;)Ljava/lang/CharSequence;
+    invoke-virtual {v0, v6}, Landroid/content/pm/PackageItemInfo;->loadLabel(Landroid/content/pm/PackageManager;)Ljava/lang/CharSequence;
 
     move-result-object v7
 
@@ -206,40 +206,40 @@
 
     move-result-object v2
 
-    .line 85
+    .line 83
     .local v2, appName:Ljava/lang/String;
-    iget-object v1, p0, Lcom/android/systemui/usb/UsbPermissionActivity;->mAlertParams:Lcom/android/internal/app/AlertController$AlertParams;
+    iget-object v1, p0, Lcom/android/internal/app/AlertActivity;->mAlertParams:Lcom/android/internal/app/AlertController$AlertParams;
 
-    .line 86
+    .line 84
     .local v1, ap:Lcom/android/internal/app/AlertController$AlertParams;
-    invoke-virtual {v0, v6}, Landroid/content/pm/ApplicationInfo;->loadIcon(Landroid/content/pm/PackageManager;)Landroid/graphics/drawable/Drawable;
+    invoke-virtual {v0, v6}, Landroid/content/pm/PackageItemInfo;->loadIcon(Landroid/content/pm/PackageManager;)Landroid/graphics/drawable/Drawable;
 
     move-result-object v7
 
     iput-object v7, v1, Lcom/android/internal/app/AlertController$AlertParams;->mIcon:Landroid/graphics/drawable/Drawable;
 
-    .line 87
+    .line 85
     iput-object v2, v1, Lcom/android/internal/app/AlertController$AlertParams;->mTitle:Ljava/lang/CharSequence;
 
-    .line 88
+    .line 86
     iget-object v7, p0, Lcom/android/systemui/usb/UsbPermissionActivity;->mDevice:Landroid/hardware/usb/UsbDevice;
 
     if-nez v7, :cond_0
 
-    .line 89
-    const v7, 0x7f0c002c
+    .line 87
+    const v7, 0x7f0a002d
 
     new-array v8, v10, [Ljava/lang/Object;
 
     aput-object v2, v8, v9
 
-    invoke-virtual {p0, v7, v8}, Lcom/android/systemui/usb/UsbPermissionActivity;->getString(I[Ljava/lang/Object;)Ljava/lang/String;
+    invoke-virtual {p0, v7, v8}, Landroid/content/Context;->getString(I[Ljava/lang/Object;)Ljava/lang/String;
 
     move-result-object v7
 
     iput-object v7, v1, Lcom/android/internal/app/AlertController$AlertParams;->mMessage:Ljava/lang/CharSequence;
 
-    .line 90
+    .line 88
     new-instance v7, Lcom/android/systemui/usb/UsbDisconnectedReceiver;
 
     iget-object v8, p0, Lcom/android/systemui/usb/UsbPermissionActivity;->mAccessory:Landroid/hardware/usb/UsbAccessory;
@@ -248,41 +248,41 @@
 
     iput-object v7, p0, Lcom/android/systemui/usb/UsbPermissionActivity;->mDisconnectedReceiver:Lcom/android/systemui/usb/UsbDisconnectedReceiver;
 
-    .line 95
+    .line 93
     :goto_0
     const v7, 0x104000a
 
-    invoke-virtual {p0, v7}, Lcom/android/systemui/usb/UsbPermissionActivity;->getString(I)Ljava/lang/String;
+    invoke-virtual {p0, v7}, Landroid/content/Context;->getString(I)Ljava/lang/String;
 
     move-result-object v7
 
     iput-object v7, v1, Lcom/android/internal/app/AlertController$AlertParams;->mPositiveButtonText:Ljava/lang/CharSequence;
 
-    .line 96
+    .line 94
     const/high16 v7, 0x104
 
-    invoke-virtual {p0, v7}, Lcom/android/systemui/usb/UsbPermissionActivity;->getString(I)Ljava/lang/String;
+    invoke-virtual {p0, v7}, Landroid/content/Context;->getString(I)Ljava/lang/String;
 
     move-result-object v7
 
     iput-object v7, v1, Lcom/android/internal/app/AlertController$AlertParams;->mNegativeButtonText:Ljava/lang/CharSequence;
 
-    .line 97
+    .line 95
     iput-object p0, v1, Lcom/android/internal/app/AlertController$AlertParams;->mPositiveButtonListener:Landroid/content/DialogInterface$OnClickListener;
 
-    .line 98
+    .line 96
     iput-object p0, v1, Lcom/android/internal/app/AlertController$AlertParams;->mNegativeButtonListener:Landroid/content/DialogInterface$OnClickListener;
 
-    .line 101
+    .line 99
     const-string v7, "layout_inflater"
 
-    invoke-virtual {p0, v7}, Lcom/android/systemui/usb/UsbPermissionActivity;->getSystemService(Ljava/lang/String;)Ljava/lang/Object;
+    invoke-virtual {p0, v7}, Landroid/app/Activity;->getSystemService(Ljava/lang/String;)Ljava/lang/Object;
 
     move-result-object v4
 
     check-cast v4, Landroid/view/LayoutInflater;
 
-    .line 103
+    .line 101
     .local v4, inflater:Landroid/view/LayoutInflater;
     const v7, 0x1090033
 
@@ -294,10 +294,10 @@
 
     iput-object v7, v1, Lcom/android/internal/app/AlertController$AlertParams;->mView:Landroid/view/View;
 
-    .line 104
+    .line 102
     iget-object v7, v1, Lcom/android/internal/app/AlertController$AlertParams;->mView:Landroid/view/View;
 
-    const v8, 0x10202f2
+    const v8, 0x10202e0
 
     invoke-virtual {v7, v8}, Landroid/view/View;->findViewById(I)Landroid/view/View;
 
@@ -307,28 +307,28 @@
 
     iput-object v7, p0, Lcom/android/systemui/usb/UsbPermissionActivity;->mAlwaysUse:Landroid/widget/CheckBox;
 
-    .line 105
+    .line 103
     iget-object v7, p0, Lcom/android/systemui/usb/UsbPermissionActivity;->mDevice:Landroid/hardware/usb/UsbDevice;
 
     if-nez v7, :cond_1
 
-    .line 106
+    .line 104
     iget-object v7, p0, Lcom/android/systemui/usb/UsbPermissionActivity;->mAlwaysUse:Landroid/widget/CheckBox;
 
-    const v8, 0x7f0c0033
+    const v8, 0x7f0a0034
 
-    invoke-virtual {v7, v8}, Landroid/widget/CheckBox;->setText(I)V
+    invoke-virtual {v7, v8}, Landroid/widget/TextView;->setText(I)V
 
-    .line 110
+    .line 108
     :goto_1
     iget-object v7, p0, Lcom/android/systemui/usb/UsbPermissionActivity;->mAlwaysUse:Landroid/widget/CheckBox;
 
-    invoke-virtual {v7, p0}, Landroid/widget/CheckBox;->setOnCheckedChangeListener(Landroid/widget/CompoundButton$OnCheckedChangeListener;)V
+    invoke-virtual {v7, p0}, Landroid/widget/CompoundButton;->setOnCheckedChangeListener(Landroid/widget/CompoundButton$OnCheckedChangeListener;)V
 
-    .line 111
+    .line 109
     iget-object v7, v1, Lcom/android/internal/app/AlertController$AlertParams;->mView:Landroid/view/View;
 
-    const v8, 0x10202f3
+    const v8, 0x10202e1
 
     invoke-virtual {v7, v8}, Landroid/view/View;->findViewById(I)Landroid/view/View;
 
@@ -338,17 +338,17 @@
 
     iput-object v7, p0, Lcom/android/systemui/usb/UsbPermissionActivity;->mClearDefaultHint:Landroid/widget/TextView;
 
-    .line 113
+    .line 111
     iget-object v7, p0, Lcom/android/systemui/usb/UsbPermissionActivity;->mClearDefaultHint:Landroid/widget/TextView;
 
     const/16 v8, 0x8
 
-    invoke-virtual {v7, v8}, Landroid/widget/TextView;->setVisibility(I)V
+    invoke-virtual {v7, v8}, Landroid/view/View;->setVisibility(I)V
+
+    .line 113
+    invoke-virtual {p0}, Lcom/android/internal/app/AlertActivity;->setupAlert()V
 
     .line 115
-    invoke-virtual {p0}, Lcom/android/systemui/usb/UsbPermissionActivity;->setupAlert()V
-
-    .line 117
     .end local v0           #aInfo:Landroid/content/pm/ApplicationInfo;
     .end local v1           #ap:Lcom/android/internal/app/AlertController$AlertParams;
     .end local v2           #appName:Ljava/lang/String;
@@ -356,11 +356,11 @@
     :goto_2
     return-void
 
-    .line 78
+    .line 76
     :catch_0
     move-exception v3
 
-    .line 79
+    .line 77
     .local v3, e:Landroid/content/pm/PackageManager$NameNotFoundException;
     const-string v7, "UsbPermissionActivity"
 
@@ -368,30 +368,30 @@
 
     invoke-static {v7, v8, v3}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)I
 
-    .line 80
-    invoke-virtual {p0}, Lcom/android/systemui/usb/UsbPermissionActivity;->finish()V
+    .line 78
+    invoke-virtual {p0}, Landroid/app/Activity;->finish()V
 
     goto :goto_2
 
-    .line 92
+    .line 90
     .end local v3           #e:Landroid/content/pm/PackageManager$NameNotFoundException;
     .restart local v0       #aInfo:Landroid/content/pm/ApplicationInfo;
     .restart local v1       #ap:Lcom/android/internal/app/AlertController$AlertParams;
     .restart local v2       #appName:Ljava/lang/String;
     :cond_0
-    const v7, 0x7f0c002b
+    const v7, 0x7f0a002c
 
     new-array v8, v10, [Ljava/lang/Object;
 
     aput-object v2, v8, v9
 
-    invoke-virtual {p0, v7, v8}, Lcom/android/systemui/usb/UsbPermissionActivity;->getString(I[Ljava/lang/Object;)Ljava/lang/String;
+    invoke-virtual {p0, v7, v8}, Landroid/content/Context;->getString(I[Ljava/lang/Object;)Ljava/lang/String;
 
     move-result-object v7
 
     iput-object v7, v1, Lcom/android/internal/app/AlertController$AlertParams;->mMessage:Ljava/lang/CharSequence;
 
-    .line 93
+    .line 91
     new-instance v7, Lcom/android/systemui/usb/UsbDisconnectedReceiver;
 
     iget-object v8, p0, Lcom/android/systemui/usb/UsbPermissionActivity;->mDevice:Landroid/hardware/usb/UsbDevice;
@@ -402,14 +402,14 @@
 
     goto :goto_0
 
-    .line 108
+    .line 106
     .restart local v4       #inflater:Landroid/view/LayoutInflater;
     :cond_1
     iget-object v7, p0, Lcom/android/systemui/usb/UsbPermissionActivity;->mAlwaysUse:Landroid/widget/CheckBox;
 
-    const v8, 0x7f0c0032
+    const v8, 0x7f0a0033
 
-    invoke-virtual {v7, v8}, Landroid/widget/CheckBox;->setText(I)V
+    invoke-virtual {v7, v8}, Landroid/widget/TextView;->setText(I)V
 
     goto :goto_1
 .end method
@@ -418,68 +418,68 @@
     .locals 7
 
     .prologue
-    .line 121
+    .line 119
     const-string v5, "usb"
 
     invoke-static {v5}, Landroid/os/ServiceManager;->getService(Ljava/lang/String;)Landroid/os/IBinder;
 
     move-result-object v0
 
-    .line 122
+    .line 120
     .local v0, b:Landroid/os/IBinder;
     invoke-static {v0}, Landroid/hardware/usb/IUsbManager$Stub;->asInterface(Landroid/os/IBinder;)Landroid/hardware/usb/IUsbManager;
 
     move-result-object v3
 
-    .line 125
+    .line 123
     .local v3, service:Landroid/hardware/usb/IUsbManager;
     new-instance v2, Landroid/content/Intent;
 
     invoke-direct {v2}, Landroid/content/Intent;-><init>()V
 
-    .line 127
+    .line 125
     .local v2, intent:Landroid/content/Intent;
     :try_start_0
     iget-object v5, p0, Lcom/android/systemui/usb/UsbPermissionActivity;->mDevice:Landroid/hardware/usb/UsbDevice;
 
     if-eqz v5, :cond_0
 
-    .line 128
+    .line 126
     const-string v5, "device"
 
     iget-object v6, p0, Lcom/android/systemui/usb/UsbPermissionActivity;->mDevice:Landroid/hardware/usb/UsbDevice;
 
     invoke-virtual {v2, v5, v6}, Landroid/content/Intent;->putExtra(Ljava/lang/String;Landroid/os/Parcelable;)Landroid/content/Intent;
 
-    .line 129
+    .line 127
     iget-boolean v5, p0, Lcom/android/systemui/usb/UsbPermissionActivity;->mPermissionGranted:Z
 
     if-eqz v5, :cond_0
 
-    .line 130
+    .line 128
     iget-object v5, p0, Lcom/android/systemui/usb/UsbPermissionActivity;->mDevice:Landroid/hardware/usb/UsbDevice;
 
     iget v6, p0, Lcom/android/systemui/usb/UsbPermissionActivity;->mUid:I
 
     invoke-interface {v3, v5, v6}, Landroid/hardware/usb/IUsbManager;->grantDevicePermission(Landroid/hardware/usb/UsbDevice;I)V
 
-    .line 131
+    .line 129
     iget-object v5, p0, Lcom/android/systemui/usb/UsbPermissionActivity;->mAlwaysUse:Landroid/widget/CheckBox;
 
-    invoke-virtual {v5}, Landroid/widget/CheckBox;->isChecked()Z
+    invoke-virtual {v5}, Landroid/widget/CompoundButton;->isChecked()Z
 
     move-result v5
 
     if-eqz v5, :cond_0
 
-    .line 132
+    .line 130
     iget v5, p0, Lcom/android/systemui/usb/UsbPermissionActivity;->mUid:I
 
     invoke-static {v5}, Landroid/os/UserHandle;->getUserId(I)I
 
     move-result v4
 
-    .line 133
+    .line 131
     .local v4, userId:I
     iget-object v5, p0, Lcom/android/systemui/usb/UsbPermissionActivity;->mDevice:Landroid/hardware/usb/UsbDevice;
 
@@ -487,49 +487,49 @@
 
     invoke-interface {v3, v5, v6, v4}, Landroid/hardware/usb/IUsbManager;->setDevicePackage(Landroid/hardware/usb/UsbDevice;Ljava/lang/String;I)V
 
-    .line 137
+    .line 135
     .end local v4           #userId:I
     :cond_0
     iget-object v5, p0, Lcom/android/systemui/usb/UsbPermissionActivity;->mAccessory:Landroid/hardware/usb/UsbAccessory;
 
     if-eqz v5, :cond_1
 
-    .line 138
+    .line 136
     const-string v5, "accessory"
 
     iget-object v6, p0, Lcom/android/systemui/usb/UsbPermissionActivity;->mAccessory:Landroid/hardware/usb/UsbAccessory;
 
     invoke-virtual {v2, v5, v6}, Landroid/content/Intent;->putExtra(Ljava/lang/String;Landroid/os/Parcelable;)Landroid/content/Intent;
 
-    .line 139
+    .line 137
     iget-boolean v5, p0, Lcom/android/systemui/usb/UsbPermissionActivity;->mPermissionGranted:Z
 
     if-eqz v5, :cond_1
 
-    .line 140
+    .line 138
     iget-object v5, p0, Lcom/android/systemui/usb/UsbPermissionActivity;->mAccessory:Landroid/hardware/usb/UsbAccessory;
 
     iget v6, p0, Lcom/android/systemui/usb/UsbPermissionActivity;->mUid:I
 
     invoke-interface {v3, v5, v6}, Landroid/hardware/usb/IUsbManager;->grantAccessoryPermission(Landroid/hardware/usb/UsbAccessory;I)V
 
-    .line 141
+    .line 139
     iget-object v5, p0, Lcom/android/systemui/usb/UsbPermissionActivity;->mAlwaysUse:Landroid/widget/CheckBox;
 
-    invoke-virtual {v5}, Landroid/widget/CheckBox;->isChecked()Z
+    invoke-virtual {v5}, Landroid/widget/CompoundButton;->isChecked()Z
 
     move-result v5
 
     if-eqz v5, :cond_1
 
-    .line 142
+    .line 140
     iget v5, p0, Lcom/android/systemui/usb/UsbPermissionActivity;->mUid:I
 
     invoke-static {v5}, Landroid/os/UserHandle;->getUserId(I)I
 
     move-result v4
 
-    .line 143
+    .line 141
     .restart local v4       #userId:I
     iget-object v5, p0, Lcom/android/systemui/usb/UsbPermissionActivity;->mAccessory:Landroid/hardware/usb/UsbAccessory;
 
@@ -537,7 +537,7 @@
 
     invoke-interface {v3, v5, v6, v4}, Landroid/hardware/usb/IUsbManager;->setAccessoryPackage(Landroid/hardware/usb/UsbAccessory;Ljava/lang/String;I)V
 
-    .line 147
+    .line 145
     .end local v4           #userId:I
     :cond_1
     const-string v5, "permission"
@@ -546,7 +546,7 @@
 
     invoke-virtual {v2, v5, v6}, Landroid/content/Intent;->putExtra(Ljava/lang/String;Z)Landroid/content/Intent;
 
-    .line 148
+    .line 146
     iget-object v5, p0, Lcom/android/systemui/usb/UsbPermissionActivity;->mPendingIntent:Landroid/app/PendingIntent;
 
     const/4 v6, 0x0
@@ -556,29 +556,29 @@
     .catch Landroid/app/PendingIntent$CanceledException; {:try_start_0 .. :try_end_0} :catch_0
     .catch Landroid/os/RemoteException; {:try_start_0 .. :try_end_0} :catch_1
 
-    .line 155
+    .line 153
     :goto_0
     iget-object v5, p0, Lcom/android/systemui/usb/UsbPermissionActivity;->mDisconnectedReceiver:Lcom/android/systemui/usb/UsbDisconnectedReceiver;
 
     if-eqz v5, :cond_2
 
-    .line 156
+    .line 154
     iget-object v5, p0, Lcom/android/systemui/usb/UsbPermissionActivity;->mDisconnectedReceiver:Lcom/android/systemui/usb/UsbDisconnectedReceiver;
 
-    invoke-virtual {p0, v5}, Lcom/android/systemui/usb/UsbPermissionActivity;->unregisterReceiver(Landroid/content/BroadcastReceiver;)V
+    invoke-virtual {p0, v5}, Landroid/content/ContextWrapper;->unregisterReceiver(Landroid/content/BroadcastReceiver;)V
 
-    .line 158
+    .line 156
     :cond_2
-    invoke-super {p0}, Lcom/android/internal/app/AlertActivity;->onDestroy()V
+    invoke-super {p0}, Landroid/app/Activity;->onDestroy()V
 
-    .line 159
+    .line 157
     return-void
 
-    .line 149
+    .line 147
     :catch_0
     move-exception v1
 
-    .line 150
+    .line 148
     .local v1, e:Landroid/app/PendingIntent$CanceledException;
     const-string v5, "UsbPermissionActivity"
 
@@ -588,12 +588,12 @@
 
     goto :goto_0
 
-    .line 151
+    .line 149
     .end local v1           #e:Landroid/app/PendingIntent$CanceledException;
     :catch_1
     move-exception v1
 
-    .line 152
+    .line 150
     .local v1, e:Landroid/os/RemoteException;
     const-string v5, "UsbPermissionActivity"
 

@@ -33,14 +33,14 @@
     .parameter
 
     .prologue
-    .line 909
+    .line 803
     iput-object p1, p0, Lcom/android/systemui/screenshot/GlobalScreenshot$2;->this$0:Lcom/android/systemui/screenshot/GlobalScreenshot;
 
     iput-object p2, p0, Lcom/android/systemui/screenshot/GlobalScreenshot$2;->val$finisher:Ljava/lang/Runnable;
 
     iput-object p3, p0, Lcom/android/systemui/screenshot/GlobalScreenshot$2;->val$frame:Landroid/widget/FrameLayout;
 
-    invoke-direct/range {p0 .. p0}, Ljava/lang/Object;-><init>()V
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
     return-void
 .end method
@@ -51,17 +51,17 @@
     .locals 3
 
     .prologue
-    .line 913
+    .line 806
     const-string v0, "ScreenCapture"
 
     const-string v1, "Capture effect finished!"
 
     invoke-static {v0, v1}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 914
+    .line 807
     invoke-static {}, Lcom/android/systemui/screenshot/GlobalScreenshot;->access$008()I
 
-    .line 915
+    .line 808
     invoke-static {}, Lcom/android/systemui/screenshot/GlobalScreenshot;->access$000()I
 
     move-result v0
@@ -70,7 +70,7 @@
 
     if-ne v0, v1, :cond_0
 
-    .line 917
+    .line 811
     iget-object v0, p0, Lcom/android/systemui/screenshot/GlobalScreenshot$2;->this$0:Lcom/android/systemui/screenshot/GlobalScreenshot;
 
     iget-object v1, p0, Lcom/android/systemui/screenshot/GlobalScreenshot$2;->val$finisher:Ljava/lang/Runnable;
@@ -85,7 +85,7 @@
     #calls: Lcom/android/systemui/screenshot/GlobalScreenshot;->saveScreenshotInWorkerThread(Ljava/lang/Runnable;Landroid/graphics/Bitmap;)V
     invoke-static {v0, v1, v2}, Lcom/android/systemui/screenshot/GlobalScreenshot;->access$200(Lcom/android/systemui/screenshot/GlobalScreenshot;Ljava/lang/Runnable;Landroid/graphics/Bitmap;)V
 
-    .line 918
+    .line 812
     iget-object v0, p0, Lcom/android/systemui/screenshot/GlobalScreenshot$2;->this$0:Lcom/android/systemui/screenshot/GlobalScreenshot;
 
     #getter for: Lcom/android/systemui/screenshot/GlobalScreenshot;->mWindowManager:Landroid/view/WindowManager;
@@ -97,7 +97,7 @@
 
     invoke-interface {v0, v1}, Landroid/view/WindowManager;->removeView(Landroid/view/View;)V
 
-    .line 919
+    .line 813
     iget-object v0, p0, Lcom/android/systemui/screenshot/GlobalScreenshot$2;->val$frame:Landroid/widget/FrameLayout;
 
     iget-object v1, p0, Lcom/android/systemui/screenshot/GlobalScreenshot$2;->this$0:Lcom/android/systemui/screenshot/GlobalScreenshot;
@@ -107,9 +107,9 @@
 
     move-result-object v1
 
-    invoke-virtual {v0, v1}, Landroid/widget/FrameLayout;->removeView(Landroid/view/View;)V
+    invoke-virtual {v0, v1}, Landroid/view/ViewGroup;->removeView(Landroid/view/View;)V
 
-    .line 920
+    .line 814
     iget-object v0, p0, Lcom/android/systemui/screenshot/GlobalScreenshot$2;->this$0:Lcom/android/systemui/screenshot/GlobalScreenshot;
 
     const/4 v1, 0x0
@@ -117,7 +117,7 @@
     #setter for: Lcom/android/systemui/screenshot/GlobalScreenshot;->mCaptureView:Lcom/android/systemui/screenshot/CaptureEffectView;
     invoke-static {v0, v1}, Lcom/android/systemui/screenshot/GlobalScreenshot;->access$402(Lcom/android/systemui/screenshot/GlobalScreenshot;Lcom/android/systemui/screenshot/CaptureEffectView;)Lcom/android/systemui/screenshot/CaptureEffectView;
 
-    .line 922
+    .line 816
     :cond_0
     return-void
 .end method

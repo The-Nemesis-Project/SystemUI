@@ -1,14 +1,11 @@
 .class Lcom/android/systemui/recent/RecentsVerticalScrollView$9;
-.super Ljava/lang/Object;
+.super Landroid/database/DataSetObserver;
 .source "RecentsVerticalScrollView.java"
-
-# interfaces
-.implements Ljava/lang/Runnable;
 
 
 # annotations
 .annotation system Ldalvik/annotation/EnclosingMethod;
-    value = Lcom/android/systemui/recent/RecentsVerticalScrollView;->onVisibilityChanged(Landroid/view/View;I)V
+    value = Lcom/android/systemui/recent/RecentsVerticalScrollView;->setAdapter(Lcom/android/systemui/recent/RecentsPanelView$TaskDescriptionAdapter;)V
 .end annotation
 
 .annotation system Ldalvik/annotation/InnerClass;
@@ -27,26 +24,40 @@
     .parameter
 
     .prologue
-    .line 381
+    .line 373
     iput-object p1, p0, Lcom/android/systemui/recent/RecentsVerticalScrollView$9;->this$0:Lcom/android/systemui/recent/RecentsVerticalScrollView;
 
-    invoke-direct/range {p0 .. p0}, Ljava/lang/Object;-><init>()V
+    invoke-direct {p0}, Landroid/database/DataSetObserver;-><init>()V
 
     return-void
 .end method
 
 
 # virtual methods
-.method public run()V
+.method public onChanged()V
     .locals 1
 
     .prologue
-    .line 383
+    .line 375
     iget-object v0, p0, Lcom/android/systemui/recent/RecentsVerticalScrollView$9;->this$0:Lcom/android/systemui/recent/RecentsVerticalScrollView;
 
     #calls: Lcom/android/systemui/recent/RecentsVerticalScrollView;->update()V
     invoke-static {v0}, Lcom/android/systemui/recent/RecentsVerticalScrollView;->access$300(Lcom/android/systemui/recent/RecentsVerticalScrollView;)V
 
-    .line 384
+    .line 376
+    return-void
+.end method
+
+.method public onInvalidated()V
+    .locals 1
+
+    .prologue
+    .line 379
+    iget-object v0, p0, Lcom/android/systemui/recent/RecentsVerticalScrollView$9;->this$0:Lcom/android/systemui/recent/RecentsVerticalScrollView;
+
+    #calls: Lcom/android/systemui/recent/RecentsVerticalScrollView;->update()V
+    invoke-static {v0}, Lcom/android/systemui/recent/RecentsVerticalScrollView;->access$300(Lcom/android/systemui/recent/RecentsVerticalScrollView;)V
+
+    .line 380
     return-void
 .end method

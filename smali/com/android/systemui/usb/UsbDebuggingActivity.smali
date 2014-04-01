@@ -31,10 +31,10 @@
     .locals 0
 
     .prologue
-    .line 45
+    .line 41
     invoke-direct {p0}, Lcom/android/internal/app/AlertActivity;-><init>()V
 
-    .line 86
+    .line 85
     return-void
 .end method
 
@@ -50,27 +50,27 @@
 
     const/4 v5, 0x0
 
-    .line 122
+    .line 121
     const/4 v6, -0x1
 
     if-ne p2, v6, :cond_0
 
     move v0, v1
 
-    .line 123
+    .line 122
     .local v0, allow:Z
     :goto_0
     if-eqz v0, :cond_1
 
     iget-object v6, p0, Lcom/android/systemui/usb/UsbDebuggingActivity;->mAlwaysAllow:Landroid/widget/CheckBox;
 
-    invoke-virtual {v6}, Landroid/widget/CheckBox;->isChecked()Z
+    invoke-virtual {v6}, Landroid/widget/CompoundButton;->isChecked()Z
 
     move-result v6
 
     if-eqz v6, :cond_1
 
-    .line 125
+    .line 124
     .local v1, alwaysAllow:Z
     :goto_1
     :try_start_0
@@ -80,30 +80,30 @@
 
     move-result-object v2
 
-    .line 126
+    .line 125
     .local v2, b:Landroid/os/IBinder;
     invoke-static {v2}, Landroid/hardware/usb/IUsbManager$Stub;->asInterface(Landroid/os/IBinder;)Landroid/hardware/usb/IUsbManager;
 
     move-result-object v4
 
-    .line 127
+    .line 126
     .local v4, service:Landroid/hardware/usb/IUsbManager;
     if-eqz v0, :cond_2
 
-    .line 128
+    .line 127
     iget-object v5, p0, Lcom/android/systemui/usb/UsbDebuggingActivity;->mKey:Ljava/lang/String;
 
     invoke-interface {v4, v1, v5}, Landroid/hardware/usb/IUsbManager;->allowUsbDebugging(ZLjava/lang/String;)V
     :try_end_0
     .catch Ljava/lang/Exception; {:try_start_0 .. :try_end_0} :catch_0
 
-    .line 135
+    .line 134
     .end local v2           #b:Landroid/os/IBinder;
     .end local v4           #service:Landroid/hardware/usb/IUsbManager;
     :goto_2
-    invoke-virtual {p0}, Lcom/android/systemui/usb/UsbDebuggingActivity;->finish()V
+    invoke-virtual {p0}, Landroid/app/Activity;->finish()V
 
-    .line 136
+    .line 135
     return-void
 
     .end local v0           #allow:Z
@@ -111,17 +111,17 @@
     :cond_0
     move v0, v5
 
-    .line 122
+    .line 121
     goto :goto_0
 
     .restart local v0       #allow:Z
     :cond_1
     move v1, v5
 
-    .line 123
+    .line 122
     goto :goto_1
 
-    .line 130
+    .line 129
     .restart local v1       #alwaysAllow:Z
     .restart local v2       #b:Landroid/os/IBinder;
     .restart local v4       #service:Landroid/hardware/usb/IUsbManager;
@@ -133,13 +133,13 @@
 
     goto :goto_2
 
-    .line 132
+    .line 131
     .end local v2           #b:Landroid/os/IBinder;
     .end local v4           #service:Landroid/hardware/usb/IUsbManager;
     :catch_0
     move-exception v3
 
-    .line 133
+    .line 132
     .local v3, e:Ljava/lang/Exception;
     const-string v5, "UsbDebuggingActivity"
 
@@ -155,22 +155,34 @@
     .parameter "icicle"
 
     .prologue
-    .line 55
+    const/4 v7, 0x0
+
+    .line 51
     invoke-super {p0, p1}, Lcom/android/internal/app/AlertActivity;->onCreate(Landroid/os/Bundle;)V
 
-    .line 57
+    .line 53
+    const-string v5, "service.adb.tcp.port"
+
+    invoke-static {v5, v7}, Landroid/os/SystemProperties;->getInt(Ljava/lang/String;I)I
+
+    move-result v5
+
+    if-nez v5, :cond_0
+
+    .line 54
     new-instance v5, Lcom/android/systemui/usb/UsbDebuggingActivity$UsbDisconnectedReceiver;
 
     invoke-direct {v5, p0, p0}, Lcom/android/systemui/usb/UsbDebuggingActivity$UsbDisconnectedReceiver;-><init>(Lcom/android/systemui/usb/UsbDebuggingActivity;Landroid/app/Activity;)V
 
     iput-object v5, p0, Lcom/android/systemui/usb/UsbDebuggingActivity;->mDisconnectedReceiver:Lcom/android/systemui/usb/UsbDebuggingActivity$UsbDisconnectedReceiver;
 
-    .line 58
-    invoke-virtual {p0}, Lcom/android/systemui/usb/UsbDebuggingActivity;->getIntent()Landroid/content/Intent;
+    .line 57
+    :cond_0
+    invoke-virtual {p0}, Landroid/app/Activity;->getIntent()Landroid/content/Intent;
 
     move-result-object v4
 
-    .line 59
+    .line 58
     .local v4, intent:Landroid/content/Intent;
     const-string v5, "fingerprints"
 
@@ -178,7 +190,7 @@
 
     move-result-object v2
 
-    .line 60
+    .line 59
     .local v2, fingerprints:Ljava/lang/String;
     const-string v5, "key"
 
@@ -188,89 +200,87 @@
 
     iput-object v5, p0, Lcom/android/systemui/usb/UsbDebuggingActivity;->mKey:Ljava/lang/String;
 
-    .line 62
-    if-eqz v2, :cond_0
+    .line 61
+    if-eqz v2, :cond_1
 
     iget-object v5, p0, Lcom/android/systemui/usb/UsbDebuggingActivity;->mKey:Ljava/lang/String;
 
-    if-nez v5, :cond_1
+    if-nez v5, :cond_2
 
-    .line 63
-    :cond_0
-    invoke-virtual {p0}, Lcom/android/systemui/usb/UsbDebuggingActivity;->finish()V
+    .line 62
+    :cond_1
+    invoke-virtual {p0}, Landroid/app/Activity;->finish()V
 
-    .line 84
+    .line 83
     :goto_0
     return-void
 
+    .line 66
+    :cond_2
+    iget-object v0, p0, Lcom/android/internal/app/AlertActivity;->mAlertParams:Lcom/android/internal/app/AlertController$AlertParams;
+
     .line 67
-    :cond_1
-    iget-object v0, p0, Lcom/android/systemui/usb/UsbDebuggingActivity;->mAlertParams:Lcom/android/internal/app/AlertController$AlertParams;
-
-    .line 68
     .local v0, ap:Lcom/android/internal/app/AlertController$AlertParams;
-    const v5, 0x7f0c0034
+    const v5, 0x7f0a0035
 
-    invoke-virtual {p0, v5}, Lcom/android/systemui/usb/UsbDebuggingActivity;->getString(I)Ljava/lang/String;
+    invoke-virtual {p0, v5}, Landroid/content/Context;->getString(I)Ljava/lang/String;
 
     move-result-object v5
 
     iput-object v5, v0, Lcom/android/internal/app/AlertController$AlertParams;->mTitle:Ljava/lang/CharSequence;
 
-    .line 69
-    const v5, 0x10803a0
+    .line 68
+    const v5, 0x10803cc
 
     iput v5, v0, Lcom/android/internal/app/AlertController$AlertParams;->mIconId:I
 
-    .line 70
-    const v5, 0x7f0c0035
+    .line 69
+    const v5, 0x7f0a0036
 
     const/4 v6, 0x1
 
     new-array v6, v6, [Ljava/lang/Object;
 
-    const/4 v7, 0x0
-
     aput-object v2, v6, v7
 
-    invoke-virtual {p0, v5, v6}, Lcom/android/systemui/usb/UsbDebuggingActivity;->getString(I[Ljava/lang/Object;)Ljava/lang/String;
+    invoke-virtual {p0, v5, v6}, Landroid/content/Context;->getString(I[Ljava/lang/Object;)Ljava/lang/String;
 
     move-result-object v5
 
     iput-object v5, v0, Lcom/android/internal/app/AlertController$AlertParams;->mMessage:Ljava/lang/CharSequence;
 
-    .line 71
+    .line 70
     const v5, 0x104000a
 
-    invoke-virtual {p0, v5}, Lcom/android/systemui/usb/UsbDebuggingActivity;->getString(I)Ljava/lang/String;
+    invoke-virtual {p0, v5}, Landroid/content/Context;->getString(I)Ljava/lang/String;
 
     move-result-object v5
 
     iput-object v5, v0, Lcom/android/internal/app/AlertController$AlertParams;->mPositiveButtonText:Ljava/lang/CharSequence;
 
-    .line 72
+    .line 71
     const/high16 v5, 0x104
 
-    invoke-virtual {p0, v5}, Lcom/android/systemui/usb/UsbDebuggingActivity;->getString(I)Ljava/lang/String;
+    invoke-virtual {p0, v5}, Landroid/content/Context;->getString(I)Ljava/lang/String;
 
     move-result-object v5
 
     iput-object v5, v0, Lcom/android/internal/app/AlertController$AlertParams;->mNegativeButtonText:Ljava/lang/CharSequence;
 
-    .line 73
+    .line 72
     iput-object p0, v0, Lcom/android/internal/app/AlertController$AlertParams;->mPositiveButtonListener:Landroid/content/DialogInterface$OnClickListener;
 
-    .line 74
+    .line 73
     iput-object p0, v0, Lcom/android/internal/app/AlertController$AlertParams;->mNegativeButtonListener:Landroid/content/DialogInterface$OnClickListener;
 
-    .line 77
+    .line 76
     iget-object v5, v0, Lcom/android/internal/app/AlertController$AlertParams;->mContext:Landroid/content/Context;
 
     invoke-static {v5}, Landroid/view/LayoutInflater;->from(Landroid/content/Context;)Landroid/view/LayoutInflater;
 
     move-result-object v3
 
-    .line 78
+    .line 77
     .local v3, inflater:Landroid/view/LayoutInflater;
     const v5, 0x1090033
 
@@ -280,9 +290,9 @@
 
     move-result-object v1
 
-    .line 79
+    .line 78
     .local v1, checkbox:Landroid/view/View;
-    const v5, 0x10202f2
+    const v5, 0x10202e0
 
     invoke-virtual {v1, v5}, Landroid/view/View;->findViewById(I)Landroid/view/View;
 
@@ -292,22 +302,22 @@
 
     iput-object v5, p0, Lcom/android/systemui/usb/UsbDebuggingActivity;->mAlwaysAllow:Landroid/widget/CheckBox;
 
-    .line 80
+    .line 79
     iget-object v5, p0, Lcom/android/systemui/usb/UsbDebuggingActivity;->mAlwaysAllow:Landroid/widget/CheckBox;
 
-    const v6, 0x7f0c0036
+    const v6, 0x7f0a0037
 
-    invoke-virtual {p0, v6}, Lcom/android/systemui/usb/UsbDebuggingActivity;->getString(I)Ljava/lang/String;
+    invoke-virtual {p0, v6}, Landroid/content/Context;->getString(I)Ljava/lang/String;
 
     move-result-object v6
 
-    invoke-virtual {v5, v6}, Landroid/widget/CheckBox;->setText(Ljava/lang/CharSequence;)V
+    invoke-virtual {v5, v6}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 81
+    .line 80
     iput-object v1, v0, Lcom/android/internal/app/AlertController$AlertParams;->mView:Landroid/view/View;
 
-    .line 83
-    invoke-virtual {p0}, Lcom/android/systemui/usb/UsbDebuggingActivity;->setupAlert()V
+    .line 82
+    invoke-virtual {p0}, Lcom/android/internal/app/AlertActivity;->setupAlert()V
 
     goto :goto_0
 .end method
@@ -316,23 +326,23 @@
     .locals 2
 
     .prologue
-    .line 107
-    invoke-super {p0}, Lcom/android/internal/app/AlertActivity;->onStart()V
+    .line 106
+    invoke-super {p0}, Landroid/app/Activity;->onStart()V
 
-    .line 108
+    .line 107
     new-instance v0, Landroid/content/IntentFilter;
 
     const-string v1, "android.hardware.usb.action.USB_STATE"
 
     invoke-direct {v0, v1}, Landroid/content/IntentFilter;-><init>(Ljava/lang/String;)V
 
-    .line 109
+    .line 108
     .local v0, filter:Landroid/content/IntentFilter;
     iget-object v1, p0, Lcom/android/systemui/usb/UsbDebuggingActivity;->mDisconnectedReceiver:Lcom/android/systemui/usb/UsbDebuggingActivity$UsbDisconnectedReceiver;
 
-    invoke-virtual {p0, v1, v0}, Lcom/android/systemui/usb/UsbDebuggingActivity;->registerReceiver(Landroid/content/BroadcastReceiver;Landroid/content/IntentFilter;)Landroid/content/Intent;
+    invoke-virtual {p0, v1, v0}, Landroid/content/ContextWrapper;->registerReceiver(Landroid/content/BroadcastReceiver;Landroid/content/IntentFilter;)Landroid/content/Intent;
 
-    .line 110
+    .line 109
     return-void
 .end method
 
@@ -340,20 +350,20 @@
     .locals 1
 
     .prologue
-    .line 114
+    .line 113
     iget-object v0, p0, Lcom/android/systemui/usb/UsbDebuggingActivity;->mDisconnectedReceiver:Lcom/android/systemui/usb/UsbDebuggingActivity$UsbDisconnectedReceiver;
 
     if-eqz v0, :cond_0
 
-    .line 115
+    .line 114
     iget-object v0, p0, Lcom/android/systemui/usb/UsbDebuggingActivity;->mDisconnectedReceiver:Lcom/android/systemui/usb/UsbDebuggingActivity$UsbDisconnectedReceiver;
 
-    invoke-virtual {p0, v0}, Lcom/android/systemui/usb/UsbDebuggingActivity;->unregisterReceiver(Landroid/content/BroadcastReceiver;)V
+    invoke-virtual {p0, v0}, Landroid/content/ContextWrapper;->unregisterReceiver(Landroid/content/BroadcastReceiver;)V
+
+    .line 116
+    :cond_0
+    invoke-super {p0}, Landroid/app/Activity;->onStop()V
 
     .line 117
-    :cond_0
-    invoke-super {p0}, Lcom/android/internal/app/AlertActivity;->onStop()V
-
-    .line 118
     return-void
 .end method

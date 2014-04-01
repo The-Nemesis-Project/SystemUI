@@ -24,7 +24,7 @@
     .parameter
 
     .prologue
-    .line 214
+    .line 218
     iput-object p1, p0, Lcom/android/systemui/statusbar/DoNotDisturb$1;->this$0:Lcom/android/systemui/statusbar/DoNotDisturb;
 
     invoke-direct {p0}, Landroid/content/BroadcastReceiver;-><init>()V
@@ -40,12 +40,12 @@
     .parameter "intent"
 
     .prologue
-    .line 217
+    .line 221
     invoke-virtual {p2}, Landroid/content/Intent;->getAction()Ljava/lang/String;
 
     move-result-object v0
 
-    .line 218
+    .line 222
     .local v0, intentAction:Ljava/lang/String;
     const-string v1, "StatusBar-DoNotDistrub"
 
@@ -73,13 +73,13 @@
 
     move-result-object v2
 
-    invoke-static {v1, v2}, Landroid/util/secutil/Log;->secD(Ljava/lang/String;Ljava/lang/String;)I
+    invoke-static {v1, v2}, Landroid/util/Slog;->d(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 219
+    .line 223
     iget-object v1, p0, Lcom/android/systemui/statusbar/DoNotDisturb$1;->this$0:Lcom/android/systemui/statusbar/DoNotDisturb;
 
     invoke-virtual {v1}, Lcom/android/systemui/statusbar/DoNotDisturb;->updateDoNotDisturbStatus()V
 
-    .line 220
+    .line 224
     return-void
 .end method

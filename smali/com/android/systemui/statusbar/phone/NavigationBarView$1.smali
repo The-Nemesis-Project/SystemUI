@@ -3,7 +3,7 @@
 .source "NavigationBarView.java"
 
 # interfaces
-.implements Landroid/view/View$OnTouchListener;
+.implements Landroid/view/View$OnClickListener;
 
 
 # annotations
@@ -27,58 +27,70 @@
     .parameter
 
     .prologue
-    .line 244
+    .line 145
     iput-object p1, p0, Lcom/android/systemui/statusbar/phone/NavigationBarView$1;->this$0:Lcom/android/systemui/statusbar/phone/NavigationBarView;
 
-    invoke-direct/range {p0 .. p0}, Ljava/lang/Object;-><init>()V
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
     return-void
 .end method
 
 
 # virtual methods
-.method public onTouch(Landroid/view/View;Landroid/view/MotionEvent;)Z
-    .locals 4
+.method public onClick(Landroid/view/View;)V
+    .locals 2
     .parameter "v"
-    .parameter "ev"
 
     .prologue
-    const/4 v3, 0x0
-
-    .line 247
-    invoke-virtual {p2}, Landroid/view/MotionEvent;->getAction()I
+    .line 148
+    invoke-virtual {p1}, Landroid/view/View;->getId()I
 
     move-result v0
 
-    if-nez v0, :cond_0
+    const v1, 0x7f07004f
 
-    .line 251
+    if-ne v0, v1, :cond_1
+
+    .line 149
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/NavigationBarView$1;->this$0:Lcom/android/systemui/statusbar/phone/NavigationBarView;
 
-    invoke-virtual {v0, v3, v3, v3}, Lcom/android/systemui/statusbar/phone/NavigationBarView;->setLowProfile(ZZZ)V
+    invoke-virtual {v0}, Landroid/view/View;->getContext()Landroid/content/Context;
 
-    .line 254
-    :try_start_0
-    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/NavigationBarView$1;->this$0:Lcom/android/systemui/statusbar/phone/NavigationBarView;
+    move-result-object v0
 
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/NavigationBarView;->mBarService:Lcom/android/internal/statusbar/IStatusBarService;
+    invoke-static {v0}, Lcom/android/systemui/statusbar/phone/KeyguardTouchDelegate;->getInstance(Landroid/content/Context;)Lcom/android/systemui/statusbar/phone/KeyguardTouchDelegate;
 
-    const/4 v1, 0x0
+    move-result-object v0
 
-    const/4 v2, 0x1
+    invoke-virtual {v0}, Lcom/android/systemui/statusbar/phone/KeyguardTouchDelegate;->launchCamera()V
 
-    invoke-interface {v0, v1, v2}, Lcom/android/internal/statusbar/IStatusBarService;->setSystemUiVisibility(II)V
-    :try_end_0
-    .catch Landroid/os/RemoteException; {:try_start_0 .. :try_end_0} :catch_0
-
-    .line 258
+    .line 153
     :cond_0
     :goto_0
-    return v3
+    return-void
 
-    .line 255
-    :catch_0
-    move-exception v0
+    .line 150
+    :cond_1
+    invoke-virtual {p1}, Landroid/view/View;->getId()I
+
+    move-result v0
+
+    const v1, 0x7f07004e
+
+    if-ne v0, v1, :cond_0
+
+    .line 151
+    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/NavigationBarView$1;->this$0:Lcom/android/systemui/statusbar/phone/NavigationBarView;
+
+    invoke-virtual {v0}, Landroid/view/View;->getContext()Landroid/content/Context;
+
+    move-result-object v0
+
+    invoke-static {v0}, Lcom/android/systemui/statusbar/phone/KeyguardTouchDelegate;->getInstance(Landroid/content/Context;)Lcom/android/systemui/statusbar/phone/KeyguardTouchDelegate;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Lcom/android/systemui/statusbar/phone/KeyguardTouchDelegate;->showAssistant()V
 
     goto :goto_0
 .end method

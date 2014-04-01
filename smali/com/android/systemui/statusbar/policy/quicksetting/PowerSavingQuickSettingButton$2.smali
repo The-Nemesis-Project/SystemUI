@@ -27,10 +27,10 @@
     .parameter
 
     .prologue
-    .line 164
+    .line 171
     iput-object p1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/PowerSavingQuickSettingButton$2;->this$0:Lcom/android/systemui/statusbar/policy/quicksetting/PowerSavingQuickSettingButton;
 
-    invoke-direct/range {p0 .. p0}, Ljava/lang/Object;-><init>()V
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
     return-void
 .end method
@@ -43,13 +43,13 @@
     .parameter "which"
 
     .prologue
-    .line 167
+    .line 174
     const-string v0, "STATUSBAR-PowerSavingController"
 
     const-string v1, "showConfirmPopup() - Negative onClick mode: cancel"
 
     invoke-static {v0, v1}, Landroid/util/secutil/Log;->secW(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 168
+    .line 175
     return-void
 .end method

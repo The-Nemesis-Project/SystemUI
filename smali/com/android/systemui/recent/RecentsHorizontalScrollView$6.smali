@@ -27,10 +27,10 @@
     .parameter
 
     .prologue
-    .line 165
+    .line 166
     iput-object p1, p0, Lcom/android/systemui/recent/RecentsHorizontalScrollView$6;->this$0:Lcom/android/systemui/recent/RecentsHorizontalScrollView;
 
-    invoke-direct/range {p0 .. p0}, Ljava/lang/Object;-><init>()V
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
     return-void
 .end method
@@ -44,12 +44,12 @@
     .parameter "event"
 
     .prologue
-    .line 167
+    .line 168
     const/4 v0, 0x4
 
     if-ne p2, v0, :cond_0
 
-    .line 168
+    .line 169
     iget-object v0, p0, Lcom/android/systemui/recent/RecentsHorizontalScrollView$6;->this$0:Lcom/android/systemui/recent/RecentsHorizontalScrollView;
 
     #getter for: Lcom/android/systemui/recent/RecentsHorizontalScrollView;->mCallback:Lcom/android/systemui/recent/RecentsCallback;
@@ -59,10 +59,10 @@
 
     invoke-interface {v0}, Lcom/android/systemui/recent/RecentsCallback;->dismiss()V
 
-    .line 169
+    .line 170
     const/4 v0, 0x1
 
-    .line 171
+    .line 172
     :goto_0
     return v0
 

@@ -33,14 +33,14 @@
     .parameter
 
     .prologue
-    .line 318
+    .line 319
     iput-object p1, p0, Lcom/android/systemui/SwipeHelper$4;->this$0:Lcom/android/systemui/SwipeHelper;
 
     iput-object p2, p0, Lcom/android/systemui/SwipeHelper$4;->val$animView:Landroid/view/View;
 
     iput-boolean p3, p0, Lcom/android/systemui/SwipeHelper$4;->val$canAnimViewBeDismissed:Z
 
-    invoke-direct/range {p0 .. p0}, Ljava/lang/Object;-><init>()V
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
     return-void
 .end method
@@ -52,7 +52,7 @@
     .parameter "animation"
 
     .prologue
-    .line 320
+    .line 321
     iget-object v0, p0, Lcom/android/systemui/SwipeHelper$4;->this$0:Lcom/android/systemui/SwipeHelper;
 
     iget-object v1, p0, Lcom/android/systemui/SwipeHelper$4;->val$animView:Landroid/view/View;
@@ -62,6 +62,6 @@
     #calls: Lcom/android/systemui/SwipeHelper;->updateAlphaFromOffset(Landroid/view/View;Z)V
     invoke-static {v0, v1, v2}, Lcom/android/systemui/SwipeHelper;->access$400(Lcom/android/systemui/SwipeHelper;Landroid/view/View;Z)V
 
-    .line 321
+    .line 322
     return-void
 .end method

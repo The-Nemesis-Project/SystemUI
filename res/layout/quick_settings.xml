@@ -1,19 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.android.systemui.statusbar.phone.SettingsPanelView android:id="@id/settings_panel" android:background="@drawable/setting_background_color" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginRight="@dimen/notification_panel_margin_left"
+<com.android.systemui.statusbar.phone.SettingsPanelView android:id="@id/settings_panel" android:layout_width="fill_parent" android:layout_height="wrap_content"
   xmlns:android="http://schemas.android.com/apk/res/android">
-    <RelativeLayout android:gravity="center_vertical" android:id="@id/header" android:background="@drawable/notification_header_bg" android:layout_width="fill_parent" android:layout_height="@dimen/notification_panel_header_height" android:baselineAligned="false">
-        <FrameLayout android:id="@id/edit_button_holder" android:layout_width="@dimen/button_holder_width" android:layout_height="fill_parent" android:layout_alignParentRight="true">
-            <ImageView android:id="@id/settings_edit_button_tablet" android:background="@drawable/ic_notify_button_bg" android:focusable="true" android:layout_width="fill_parent" android:layout_height="fill_parent" android:src="@drawable/ic_notify_edit_normal" android:scaleType="center" android:contentDescription="@string/quickpanel_edit_current" />
-        </FrameLayout>
-        <ImageView android:id="@id/edit_button_holder_divider" android:layout_width="1.0dip" android:layout_height="25.0dip" android:layout_marginTop="7.0dip" android:layout_marginBottom="7.0dip" android:src="@drawable/tw_quick_panel_plnm_setting_dv" android:layout_toLeftOf="@id/edit_button_holder" />
-        <FrameLayout android:id="@id/basic_settings_button_holder" android:layout_width="@dimen/button_holder_width" android:layout_height="fill_parent" android:layout_toLeftOf="@id/edit_button_holder_divider">
-            <ImageView android:id="@id/basic_settings_button_tablet" android:background="@drawable/ic_notify_button_bg" android:focusable="true" android:layout_width="fill_parent" android:layout_height="fill_parent" android:src="@drawable/ic_notify_quicksettings" android:scaleType="center" android:contentDescription="@string/accessibility_settings_button" />
-        </FrameLayout>
-        <ImageView android:id="@id/basic_settings_button_divider" android:layout_width="1.0dip" android:layout_height="25.0dip" android:layout_marginTop="7.0dip" android:layout_marginBottom="7.0dip" android:src="@drawable/tw_quick_panel_plnm_setting_dv" android:layout_toLeftOf="@id/basic_settings_button_holder" />
-    </RelativeLayout>
-    <com.android.systemui.statusbar.phone.QuickSettingsScrollView android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="@dimen/notification_panel_header_height" android:layout_marginBottom="@dimen/close_handle_underlap" android:overScrollMode="ifContentScrolls">
-        <com.android.systemui.statusbar.policy.quicksetting.QuickSettingPanel android:id="@id/quick_settings_container" android:layout_width="fill_parent" android:layout_height="wrap_content" android:animateLayoutChanges="true" android:columnCount="@integer/quick_settings_num_columns" />
+    <com.android.systemui.statusbar.phone.QuickSettingsScrollView android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginBottom="@dimen/close_handle_underlap" android:overScrollMode="ifContentScrolls">
+        <com.android.systemui.statusbar.phone.QuickSettingsContainerView android:id="@id/quick_settings_container" android:layout_width="fill_parent" android:layout_height="wrap_content" android:animateLayoutChanges="true" android:columnCount="@integer/quick_settings_num_columns" />
     </com.android.systemui.statusbar.phone.QuickSettingsScrollView>
-    <View android:id="@id/handle" android:background="@drawable/status_bar_close" android:visibility="invisible" android:layout_width="fill_parent" android:layout_height="@dimen/close_handle_height" />
-    <include android:layout_gravity="bottom" android:background="@drawable/status_bar_bg_tile" android:layout_width="fill_parent" android:layout_height="@dimen/carrier_label_height" android:layout_marginBottom="@dimen/close_handle_height" layout="@layout/carrier_label_layout" />
+    <View android:id="@id/handle" android:visibility="invisible" android:layout_width="fill_parent" android:layout_height="@dimen/close_handle_height" />
+    <include android:layout_gravity="bottom" android:background="@drawable/tw_close_handle_bg" android:layout_width="fill_parent" android:layout_height="@dimen/carrier_label_height" android:layout_marginBottom="@dimen/close_handle_height" layout="@layout/carrier_label_layout" />
 </com.android.systemui.statusbar.phone.SettingsPanelView>

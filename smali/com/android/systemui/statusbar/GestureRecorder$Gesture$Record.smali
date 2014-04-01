@@ -29,7 +29,7 @@
     .line 41
     iput-object p1, p0, Lcom/android/systemui/statusbar/GestureRecorder$Gesture$Record;->this$1:Lcom/android/systemui/statusbar/GestureRecorder$Gesture;
 
-    invoke-direct/range {p0 .. p0}, Ljava/lang/Object;-><init>()V
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
     return-void
 .end method

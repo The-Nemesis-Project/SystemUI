@@ -12,30 +12,16 @@
 # instance fields
 .field private mHandler:Landroid/os/Handler;
 
-.field private mLeftToRight:I
-
-.field private mRightToLeft:I
-
 
 # direct methods
 .method public constructor <init>()V
     .locals 1
 
     .prologue
-    .line 29
+    .line 28
     invoke-direct {p0}, Landroid/app/Service;-><init>()V
 
-    .line 31
-    const/4 v0, 0x1
-
-    iput v0, p0, Lcom/android/systemui/screenshot/TakeScreenshotService;->mLeftToRight:I
-
-    .line 32
-    const/4 v0, 0x2
-
-    iput v0, p0, Lcom/android/systemui/screenshot/TakeScreenshotService;->mRightToLeft:I
-
-    .line 36
+    .line 33
     new-instance v0, Lcom/android/systemui/screenshot/TakeScreenshotService$1;
 
     invoke-direct {v0, p0}, Lcom/android/systemui/screenshot/TakeScreenshotService$1;-><init>(Lcom/android/systemui/screenshot/TakeScreenshotService;)V
@@ -49,7 +35,7 @@
     .locals 1
 
     .prologue
-    .line 29
+    .line 28
     sget-object v0, Lcom/android/systemui/screenshot/TakeScreenshotService;->mScreenshot:Lcom/android/systemui/screenshot/GlobalScreenshot;
 
     return-object v0
@@ -60,32 +46,10 @@
     .parameter "x0"
 
     .prologue
-    .line 29
+    .line 28
     sput-object p0, Lcom/android/systemui/screenshot/TakeScreenshotService;->mScreenshot:Lcom/android/systemui/screenshot/GlobalScreenshot;
 
     return-object p0
-.end method
-
-.method static synthetic access$100(Lcom/android/systemui/screenshot/TakeScreenshotService;)I
-    .locals 1
-    .parameter "x0"
-
-    .prologue
-    .line 29
-    iget v0, p0, Lcom/android/systemui/screenshot/TakeScreenshotService;->mLeftToRight:I
-
-    return v0
-.end method
-
-.method static synthetic access$200(Lcom/android/systemui/screenshot/TakeScreenshotService;)I
-    .locals 1
-    .parameter "x0"
-
-    .prologue
-    .line 29
-    iget v0, p0, Lcom/android/systemui/screenshot/TakeScreenshotService;->mRightToLeft:I
-
-    return v0
 .end method
 
 
@@ -95,7 +59,7 @@
     .parameter "intent"
 
     .prologue
-    .line 97
+    .line 60
     new-instance v0, Landroid/os/Messenger;
 
     iget-object v1, p0, Lcom/android/systemui/screenshot/TakeScreenshotService;->mHandler:Landroid/os/Handler;

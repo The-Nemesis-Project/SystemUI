@@ -228,7 +228,7 @@
     .line 52
     const-string v0, "storage"
 
-    invoke-virtual {p0, v0}, Lcom/android/systemui/usb/UsbStorageUnmountActivity;->getSystemService(Ljava/lang/String;)Ljava/lang/Object;
+    invoke-virtual {p0, v0}, Landroid/app/Activity;->getSystemService(Ljava/lang/String;)Ljava/lang/Object;
 
     move-result-object v0
 
@@ -250,7 +250,7 @@
     invoke-direct {p0}, Lcom/android/systemui/usb/UsbStorageUnmountActivity;->unmountUsbStorages()V
 
     .line 56
-    invoke-virtual {p0}, Lcom/android/systemui/usb/UsbStorageUnmountActivity;->finish()V
+    invoke-virtual {p0}, Landroid/app/Activity;->finish()V
 
     .line 57
     return-void

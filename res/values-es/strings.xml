@@ -185,8 +185,4 @@ Si vuelves a habilitar los datos, es posible que tu operador te cobre una tarifa
     <string name="status_bar_help_title">Las notificaciones aparecen aquí</string>
     <string name="status_bar_help_text">"Desliza el dedo hacia abajo para acceder al contenido.
 Vuelve a deslizar el dedo hacia abajo para acceder a los controles del sistema."</string>
-    <string name="mini_apps">Mini apps</string>
-    <string name="mini_apps_no_selected_apps">No hay mini apps. Toque para añadir mini apps</string>
-    <string name="done">Hecho</string>
-    <string name="edit">Editar</string>
 </resources>

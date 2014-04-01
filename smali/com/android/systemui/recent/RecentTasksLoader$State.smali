@@ -44,7 +44,7 @@
 
     const/4 v2, 0x0
 
-    .line 81
+    .line 82
     new-instance v0, Lcom/android/systemui/recent/RecentTasksLoader$State;
 
     const-string v1, "LOADING"
@@ -101,7 +101,7 @@
     .end annotation
 
     .prologue
-    .line 81
+    .line 82
     invoke-direct {p0, p1, p2}, Ljava/lang/Enum;-><init>(Ljava/lang/String;I)V
 
     return-void
@@ -112,7 +112,7 @@
     .parameter "name"
 
     .prologue
-    .line 81
+    .line 82
     const-class v0, Lcom/android/systemui/recent/RecentTasksLoader$State;
 
     invoke-static {v0, p0}, Ljava/lang/Enum;->valueOf(Ljava/lang/Class;Ljava/lang/String;)Ljava/lang/Enum;
@@ -128,10 +128,10 @@
     .locals 1
 
     .prologue
-    .line 81
+    .line 82
     sget-object v0, Lcom/android/systemui/recent/RecentTasksLoader$State;->$VALUES:[Lcom/android/systemui/recent/RecentTasksLoader$State;
 
-    invoke-virtual {v0}, [Lcom/android/systemui/recent/RecentTasksLoader$State;->clone()Ljava/lang/Object;
+    invoke-virtual {v0}, Ljava/lang/Object;->clone()Ljava/lang/Object;
 
     move-result-object v0
 

@@ -59,9 +59,9 @@
 
 .field private static final MSG_SET_MAX_BRIGHTNESS:I = 0x110000
 
-.field private static final MSG_SET_NAVIGATION_ICON_HINTS:I = 0x100000
-
 .field private static final MSG_SET_SYSTEMUI_VISIBILITY:I = 0x90000
+
+.field private static final MSG_SET_WINDOW_STATE:I = 0x100000
 
 .field private static final MSG_SHIFT:I = 0x10
 
@@ -74,8 +74,6 @@
 .field private static final MSG_TOGGLE_RECENT_APPS:I = 0xd0000
 
 .field private static final MSG_TOP_APP_WINDOW_CHANGED:I = 0xa0000
-
-.field private static final MSG_TRANSPARENTIZE_STATUSBAR:I = 0x160000
 
 .field private static final MSG_UPDATE_NOTIFICATION:I = 0x30000
 
@@ -102,7 +100,7 @@
     .line 133
     invoke-direct {p0}, Lcom/android/internal/statusbar/IStatusBar$Stub;-><init>()V
 
-    .line 85
+    .line 83
     new-instance v0, Lcom/android/systemui/statusbar/CommandQueue$H;
 
     const/4 v1, 0x0
@@ -331,12 +329,12 @@
     .locals 3
 
     .prologue
-    .line 307
+    .line 303
     iget-object v1, p0, Lcom/android/systemui/statusbar/CommandQueue;->mList:Lcom/android/internal/statusbar/StatusBarIconList;
 
     monitor-enter v1
 
-    .line 308
+    .line 304
     :try_start_0
     iget-object v0, p0, Lcom/android/systemui/statusbar/CommandQueue;->mHandler:Landroid/os/Handler;
 
@@ -344,7 +342,7 @@
 
     invoke-virtual {v0, v2}, Landroid/os/Handler;->removeMessages(I)V
 
-    .line 309
+    .line 305
     iget-object v0, p0, Lcom/android/systemui/statusbar/CommandQueue;->mHandler:Landroid/os/Handler;
 
     const/high16 v2, 0x15
@@ -355,13 +353,13 @@
 
     invoke-virtual {v0}, Landroid/os/Message;->sendToTarget()V
 
-    .line 310
+    .line 306
     monitor-exit v1
 
-    .line 311
+    .line 307
     return-void
 
-    .line 310
+    .line 306
     :catchall_0
     move-exception v0
 
@@ -477,12 +475,12 @@
     .locals 3
 
     .prologue
-    .line 291
+    .line 294
     iget-object v1, p0, Lcom/android/systemui/statusbar/CommandQueue;->mList:Lcom/android/internal/statusbar/StatusBarIconList;
 
     monitor-enter v1
 
-    .line 292
+    .line 295
     :try_start_0
     iget-object v0, p0, Lcom/android/systemui/statusbar/CommandQueue;->mHandler:Landroid/os/Handler;
 
@@ -490,7 +488,7 @@
 
     invoke-virtual {v0, v2}, Landroid/os/Handler;->removeMessages(I)V
 
-    .line 293
+    .line 296
     iget-object v0, p0, Lcom/android/systemui/statusbar/CommandQueue;->mHandler:Landroid/os/Handler;
 
     const/high16 v2, 0x13
@@ -501,13 +499,13 @@
 
     invoke-virtual {v0}, Landroid/os/Message;->sendToTarget()V
 
-    .line 294
+    .line 297
     monitor-exit v1
 
-    .line 295
+    .line 298
     return-void
 
-    .line 294
+    .line 297
     :catchall_0
     move-exception v0
 
@@ -846,20 +844,20 @@
     .parameter "maxLevel"
 
     .prologue
-    .line 276
+    .line 277
     iget-object v1, p0, Lcom/android/systemui/statusbar/CommandQueue;->mList:Lcom/android/internal/statusbar/StatusBarIconList;
 
     monitor-enter v1
-
-    .line 277
-    :try_start_0
-    iget-object v0, p0, Lcom/android/systemui/statusbar/CommandQueue;->mHandler:Landroid/os/Handler;
-
-    const/high16 v2, 0x11
-
-    invoke-virtual {v0, v2}, Landroid/os/Handler;->removeMessages(I)V
 
     .line 278
+    :try_start_0
+    iget-object v0, p0, Lcom/android/systemui/statusbar/CommandQueue;->mHandler:Landroid/os/Handler;
+
+    const/high16 v2, 0x11
+
+    invoke-virtual {v0, v2}, Landroid/os/Handler;->removeMessages(I)V
+
+    .line 279
     iget-object v0, p0, Lcom/android/systemui/statusbar/CommandQueue;->mHandler:Landroid/os/Handler;
 
     const/high16 v2, 0x11
@@ -874,63 +872,13 @@
 
     invoke-virtual {v0}, Landroid/os/Message;->sendToTarget()V
 
-    .line 279
+    .line 280
     monitor-exit v1
+
+    .line 281
+    return-void
 
     .line 280
-    return-void
-
-    .line 279
-    :catchall_0
-    move-exception v0
-
-    monitor-exit v1
-    :try_end_0
-    .catchall {:try_start_0 .. :try_end_0} :catchall_0
-
-    throw v0
-.end method
-
-.method public setNavigationIconHints(I)V
-    .locals 5
-    .parameter "hints"
-
-    .prologue
-    .line 259
-    iget-object v1, p0, Lcom/android/systemui/statusbar/CommandQueue;->mList:Lcom/android/internal/statusbar/StatusBarIconList;
-
-    monitor-enter v1
-
-    .line 260
-    :try_start_0
-    iget-object v0, p0, Lcom/android/systemui/statusbar/CommandQueue;->mHandler:Landroid/os/Handler;
-
-    const/high16 v2, 0x10
-
-    invoke-virtual {v0, v2}, Landroid/os/Handler;->removeMessages(I)V
-
-    .line 261
-    iget-object v0, p0, Lcom/android/systemui/statusbar/CommandQueue;->mHandler:Landroid/os/Handler;
-
-    const/high16 v2, 0x10
-
-    const/4 v3, 0x0
-
-    const/4 v4, 0x0
-
-    invoke-virtual {v0, v2, p1, v3, v4}, Landroid/os/Handler;->obtainMessage(IIILjava/lang/Object;)Landroid/os/Message;
-
-    move-result-object v0
-
-    invoke-virtual {v0}, Landroid/os/Message;->sendToTarget()V
-
-    .line 262
-    monitor-exit v1
-
-    .line 263
-    return-void
-
-    .line 262
     :catchall_0
     move-exception v0
 
@@ -990,16 +938,58 @@
     throw v0
 .end method
 
-.method public showCallOnGoingView()V
-    .locals 3
+.method public setWindowState(II)V
+    .locals 4
+    .parameter "window"
+    .parameter "state"
 
     .prologue
-    .line 285
+    .line 259
     iget-object v1, p0, Lcom/android/systemui/statusbar/CommandQueue;->mList:Lcom/android/internal/statusbar/StatusBarIconList;
 
     monitor-enter v1
 
-    .line 286
+    .line 261
+    :try_start_0
+    iget-object v0, p0, Lcom/android/systemui/statusbar/CommandQueue;->mHandler:Landroid/os/Handler;
+
+    const/high16 v2, 0x10
+
+    const/4 v3, 0x0
+
+    invoke-virtual {v0, v2, p1, p2, v3}, Landroid/os/Handler;->obtainMessage(IIILjava/lang/Object;)Landroid/os/Message;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Landroid/os/Message;->sendToTarget()V
+
+    .line 262
+    monitor-exit v1
+
+    .line 263
+    return-void
+
+    .line 262
+    :catchall_0
+    move-exception v0
+
+    monitor-exit v1
+    :try_end_0
+    .catchall {:try_start_0 .. :try_end_0} :catchall_0
+
+    throw v0
+.end method
+
+.method public showCallOnGoingView()V
+    .locals 3
+
+    .prologue
+    .line 287
+    iget-object v1, p0, Lcom/android/systemui/statusbar/CommandQueue;->mList:Lcom/android/internal/statusbar/StatusBarIconList;
+
+    monitor-enter v1
+
+    .line 288
     :try_start_0
     iget-object v0, p0, Lcom/android/systemui/statusbar/CommandQueue;->mHandler:Landroid/os/Handler;
 
@@ -1007,7 +997,7 @@
 
     invoke-virtual {v0, v2}, Landroid/os/Handler;->removeMessages(I)V
 
-    .line 287
+    .line 289
     iget-object v0, p0, Lcom/android/systemui/statusbar/CommandQueue;->mHandler:Landroid/os/Handler;
 
     const/high16 v2, 0x12
@@ -1018,13 +1008,13 @@
 
     invoke-virtual {v0}, Landroid/os/Message;->sendToTarget()V
 
-    .line 288
+    .line 290
     monitor-exit v1
 
-    .line 289
+    .line 291
     return-void
 
-    .line 288
+    .line 290
     :catchall_0
     move-exception v0
 
@@ -1184,63 +1174,6 @@
     return-void
 
     .line 218
-    :catchall_0
-    move-exception v0
-
-    monitor-exit v1
-    :try_end_0
-    .catchall {:try_start_0 .. :try_end_0} :catchall_0
-
-    throw v0
-.end method
-
-.method public transparentizeStatusBar(Z)V
-    .locals 6
-    .parameter "transparent"
-
-    .prologue
-    const/4 v0, 0x0
-
-    .line 298
-    iget-object v1, p0, Lcom/android/systemui/statusbar/CommandQueue;->mList:Lcom/android/internal/statusbar/StatusBarIconList;
-
-    monitor-enter v1
-
-    .line 299
-    :try_start_0
-    iget-object v2, p0, Lcom/android/systemui/statusbar/CommandQueue;->mHandler:Landroid/os/Handler;
-
-    const/high16 v3, 0x16
-
-    invoke-virtual {v2, v3}, Landroid/os/Handler;->removeMessages(I)V
-
-    .line 300
-    iget-object v2, p0, Lcom/android/systemui/statusbar/CommandQueue;->mHandler:Landroid/os/Handler;
-
-    const/high16 v3, 0x16
-
-    if-eqz p1, :cond_0
-
-    const/4 v0, 0x1
-
-    :cond_0
-    const/4 v4, 0x0
-
-    const/4 v5, 0x0
-
-    invoke-virtual {v2, v3, v0, v4, v5}, Landroid/os/Handler;->obtainMessage(IIILjava/lang/Object;)Landroid/os/Message;
-
-    move-result-object v0
-
-    invoke-virtual {v0}, Landroid/os/Message;->sendToTarget()V
-
-    .line 302
-    monitor-exit v1
-
-    .line 303
-    return-void
-
-    .line 302
     :catchall_0
     move-exception v0
 

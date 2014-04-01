@@ -15,6 +15,8 @@
 
 
 # static fields
+.field private static final DATA_DISABLE_ACTION:Ljava/lang/String; = "com.sec.android.phone.action.DataEnable"
+
 .field private static final DB_MOBILE_DATA:Ljava/lang/String; = "mobile_data"
 
 .field public static final DB_MOBILE_DATA_SECONDARY:Ljava/lang/String; = "mobile_data_secondary"
@@ -48,43 +50,59 @@
     .parameter "context"
 
     .prologue
-    const/4 v2, 0x0
+    const/4 v8, 0x0
 
-    const/4 v7, 0x0
+    const v1, 0x7f0a00e2
 
-    .line 180
-    const v3, 0x7f0c00d9
+    const/4 v7, 0x1
 
-    const v4, 0x7f0201b5
+    const/4 v5, 0x0
 
-    const v5, 0x7f0201b4
+    .line 193
+    sget-boolean v0, Lcom/android/systemui/statusbar/Feature;->mUseJellyBeanGUI:Z
 
-    const v6, 0x7f0201b3
+    if-nez v0, :cond_0
 
-    move-object v0, p0
+    move v0, v7
 
-    move-object v1, p1
+    :goto_0
+    invoke-direct {p0, p1, v8, v0}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;-><init>(Landroid/content/Context;Landroid/util/AttributeSet;Z)V
 
-    move v8, v7
-
-    invoke-direct/range {v0 .. v8}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;-><init>(Landroid/content/Context;Landroid/util/AttributeSet;IIIIII)V
-
-    .line 95
+    .line 98
     new-instance v0, Lcom/android/systemui/statusbar/policy/quicksetting/MobileDataQuickSettingButton$1;
 
     invoke-direct {v0, p0}, Lcom/android/systemui/statusbar/policy/quicksetting/MobileDataQuickSettingButton$1;-><init>(Lcom/android/systemui/statusbar/policy/quicksetting/MobileDataQuickSettingButton;)V
 
     iput-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/MobileDataQuickSettingButton;->mIntentReceiver:Landroid/content/BroadcastReceiver;
 
-    .line 142
+    .line 154
     new-instance v0, Lcom/android/systemui/statusbar/policy/quicksetting/MobileDataQuickSettingButton$MobileDataObserver;
 
     invoke-direct {v0, p0}, Lcom/android/systemui/statusbar/policy/quicksetting/MobileDataQuickSettingButton$MobileDataObserver;-><init>(Lcom/android/systemui/statusbar/policy/quicksetting/MobileDataQuickSettingButton;)V
 
     iput-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/MobileDataQuickSettingButton;->mMobileDataObserver:Lcom/android/systemui/statusbar/policy/quicksetting/MobileDataQuickSettingButton$MobileDataObserver;
 
-    .line 187
-    iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->mContext:Landroid/content/Context;
+    .line 195
+    sget-boolean v0, Lcom/android/systemui/statusbar/Feature;->mUseJellyBeanGUI:Z
+
+    if-eqz v0, :cond_1
+
+    .line 196
+    const v2, 0x7f0201bc
+
+    const v3, 0x7f0201bb
+
+    const v4, 0x7f0201ba
+
+    move-object v0, p0
+
+    move v6, v5
+
+    invoke-virtual/range {v0 .. v6}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->initLayout(IIIIII)V
+
+    .line 206
+    :goto_1
+    iget-object v0, p0, Landroid/view/View;->mContext:Landroid/content/Context;
 
     invoke-virtual {v0}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
 
@@ -92,54 +110,66 @@
 
     const-string v1, "airplane_mode_on"
 
-    invoke-static {v0, v1, v7}, Landroid/provider/Settings$Global;->getInt(Landroid/content/ContentResolver;Ljava/lang/String;I)I
+    invoke-static {v0, v1, v5}, Landroid/provider/Settings$Global;->getInt(Landroid/content/ContentResolver;Ljava/lang/String;I)I
 
     move-result v0
 
     iput v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/MobileDataQuickSettingButton;->isAirPlaneMode:I
 
-    .line 190
+    .line 209
     invoke-direct {p0}, Lcom/android/systemui/statusbar/policy/quicksetting/MobileDataQuickSettingButton;->getMobileData()Z
 
     move-result v0
 
     iput-boolean v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/MobileDataQuickSettingButton;->mMobileData:Z
 
-    .line 192
-    invoke-virtual {p0, p0}, Lcom/android/systemui/statusbar/policy/quicksetting/MobileDataQuickSettingButton;->setListener(Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton$Listener;)V
+    .line 211
+    invoke-virtual {p0, p0}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->setListener(Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton$Listener;)V
 
-    .line 193
+    .line 212
     iget v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/MobileDataQuickSettingButton;->isAirPlaneMode:I
 
-    const/4 v1, 0x1
+    if-ne v0, v7, :cond_2
 
-    if-ne v0, v1, :cond_0
-
-    .line 194
+    .line 213
     const/4 v0, 0x2
 
-    invoke-virtual {p0, v0}, Lcom/android/systemui/statusbar/policy/quicksetting/MobileDataQuickSettingButton;->setActivateStatus(I)V
+    invoke-virtual {p0, v0}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->setActivateStatus(I)V
 
-    .line 199
-    :goto_0
-    iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->mContext:Landroid/content/Context;
+    .line 218
+    :goto_2
+    iget-object v0, p0, Landroid/view/View;->mContext:Landroid/content/Context;
 
-    invoke-static {v0, v2, v7}, Landroid/widget/Toast;->makeText(Landroid/content/Context;Ljava/lang/CharSequence;I)Landroid/widget/Toast;
+    invoke-static {v0, v8, v5}, Landroid/widget/Toast;->makeText(Landroid/content/Context;Ljava/lang/CharSequence;I)Landroid/widget/Toast;
 
     move-result-object v0
 
     sput-object v0, Lcom/android/systemui/statusbar/policy/quicksetting/MobileDataQuickSettingButton;->toastAlert:Landroid/widget/Toast;
 
-    .line 200
+    .line 219
     return-void
 
-    .line 196
     :cond_0
+    move v0, v5
+
+    .line 193
+    goto :goto_0
+
+    .line 203
+    :cond_1
+    const v0, 0x7f0201bd
+
+    invoke-virtual {p0, v1, v0}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->initLayout(II)V
+
+    goto :goto_1
+
+    .line 215
+    :cond_2
     iget-boolean v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/MobileDataQuickSettingButton;->mMobileData:Z
 
     invoke-direct {p0, v0}, Lcom/android/systemui/statusbar/policy/quicksetting/MobileDataQuickSettingButton;->updateActivateStatus(Z)V
 
-    goto :goto_0
+    goto :goto_2
 .end method
 
 .method static synthetic access$000(Lcom/android/systemui/statusbar/policy/quicksetting/MobileDataQuickSettingButton;)I
@@ -147,7 +177,7 @@
     .parameter "x0"
 
     .prologue
-    .line 78
+    .line 79
     iget v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/MobileDataQuickSettingButton;->isAirPlaneMode:I
 
     return v0
@@ -159,33 +189,55 @@
     .parameter "x1"
 
     .prologue
-    .line 78
+    .line 79
     iput p1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/MobileDataQuickSettingButton;->isAirPlaneMode:I
 
     return p1
 .end method
 
-.method static synthetic access$100(Lcom/android/systemui/statusbar/policy/quicksetting/MobileDataQuickSettingButton;)Z
+.method static synthetic access$100(Lcom/android/systemui/statusbar/policy/quicksetting/MobileDataQuickSettingButton;)Landroid/content/Context;
     .locals 1
     .parameter "x0"
 
     .prologue
-    .line 78
-    iget-boolean v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/MobileDataQuickSettingButton;->mMobileData:Z
+    .line 79
+    iget-object v0, p0, Landroid/view/View;->mContext:Landroid/content/Context;
 
-    return v0
+    return-object v0
 .end method
 
-.method static synthetic access$102(Lcom/android/systemui/statusbar/policy/quicksetting/MobileDataQuickSettingButton;Z)Z
+.method static synthetic access$1000(Lcom/android/systemui/statusbar/policy/quicksetting/MobileDataQuickSettingButton;)Landroid/content/Context;
+    .locals 1
+    .parameter "x0"
+
+    .prologue
+    .line 79
+    iget-object v0, p0, Landroid/view/View;->mContext:Landroid/content/Context;
+
+    return-object v0
+.end method
+
+.method static synthetic access$1100(Lcom/android/systemui/statusbar/policy/quicksetting/MobileDataQuickSettingButton;)Landroid/content/Context;
+    .locals 1
+    .parameter "x0"
+
+    .prologue
+    .line 79
+    iget-object v0, p0, Landroid/view/View;->mContext:Landroid/content/Context;
+
+    return-object v0
+.end method
+
+.method static synthetic access$1200(Lcom/android/systemui/statusbar/policy/quicksetting/MobileDataQuickSettingButton;Z)V
     .locals 0
     .parameter "x0"
     .parameter "x1"
 
     .prologue
-    .line 78
-    iput-boolean p1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/MobileDataQuickSettingButton;->mMobileData:Z
+    .line 79
+    invoke-direct {p0, p1}, Lcom/android/systemui/statusbar/policy/quicksetting/MobileDataQuickSettingButton;->setMobileDataEnabled(Z)V
 
-    return p1
+    return-void
 .end method
 
 .method static synthetic access$200(Lcom/android/systemui/statusbar/policy/quicksetting/MobileDataQuickSettingButton;)Z
@@ -193,7 +245,30 @@
     .parameter "x0"
 
     .prologue
-    .line 78
+    .line 79
+    iget-boolean v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/MobileDataQuickSettingButton;->mMobileData:Z
+
+    return v0
+.end method
+
+.method static synthetic access$202(Lcom/android/systemui/statusbar/policy/quicksetting/MobileDataQuickSettingButton;Z)Z
+    .locals 0
+    .parameter "x0"
+    .parameter "x1"
+
+    .prologue
+    .line 79
+    iput-boolean p1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/MobileDataQuickSettingButton;->mMobileData:Z
+
+    return p1
+.end method
+
+.method static synthetic access$300(Lcom/android/systemui/statusbar/policy/quicksetting/MobileDataQuickSettingButton;)Z
+    .locals 1
+    .parameter "x0"
+
+    .prologue
+    .line 79
     invoke-direct {p0}, Lcom/android/systemui/statusbar/policy/quicksetting/MobileDataQuickSettingButton;->getMobileData()Z
 
     move-result v0
@@ -201,36 +276,36 @@
     return v0
 .end method
 
-.method static synthetic access$300(Lcom/android/systemui/statusbar/policy/quicksetting/MobileDataQuickSettingButton;Z)V
+.method static synthetic access$400(Lcom/android/systemui/statusbar/policy/quicksetting/MobileDataQuickSettingButton;Z)V
     .locals 0
     .parameter "x0"
     .parameter "x1"
 
     .prologue
-    .line 78
+    .line 79
     invoke-direct {p0, p1}, Lcom/android/systemui/statusbar/policy/quicksetting/MobileDataQuickSettingButton;->updateActivateStatus(Z)V
 
     return-void
 .end method
 
-.method static synthetic access$400(Lcom/android/systemui/statusbar/policy/quicksetting/MobileDataQuickSettingButton;)Landroid/app/AlertDialog;
+.method static synthetic access$500(Lcom/android/systemui/statusbar/policy/quicksetting/MobileDataQuickSettingButton;)Landroid/app/AlertDialog;
     .locals 1
     .parameter "x0"
 
     .prologue
-    .line 78
+    .line 79
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/MobileDataQuickSettingButton;->mAlertDialog:Landroid/app/AlertDialog;
 
     return-object v0
 .end method
 
-.method static synthetic access$500(Lcom/android/systemui/statusbar/policy/quicksetting/MobileDataQuickSettingButton;I)Z
+.method static synthetic access$600(Lcom/android/systemui/statusbar/policy/quicksetting/MobileDataQuickSettingButton;I)Z
     .locals 1
     .parameter "x0"
     .parameter "x1"
 
     .prologue
-    .line 78
+    .line 79
     invoke-direct {p0, p1}, Lcom/android/systemui/statusbar/policy/quicksetting/MobileDataQuickSettingButton;->getMobileDataAsSlot(I)Z
 
     move-result v0
@@ -238,23 +313,44 @@
     return v0
 .end method
 
-.method static synthetic access$600(Lcom/android/systemui/statusbar/policy/quicksetting/MobileDataQuickSettingButton;Z)V
+.method static synthetic access$700(Lcom/android/systemui/statusbar/policy/quicksetting/MobileDataQuickSettingButton;)V
     .locals 0
     .parameter "x0"
-    .parameter "x1"
 
     .prologue
-    .line 78
-    invoke-direct {p0, p1}, Lcom/android/systemui/statusbar/policy/quicksetting/MobileDataQuickSettingButton;->setMobileDataEnabled(Z)V
+    .line 79
+    invoke-direct {p0}, Lcom/android/systemui/statusbar/policy/quicksetting/MobileDataQuickSettingButton;->onORGDisplayMobileDataOnAlert()V
 
     return-void
+.end method
+
+.method static synthetic access$800(Lcom/android/systemui/statusbar/policy/quicksetting/MobileDataQuickSettingButton;)Landroid/content/Context;
+    .locals 1
+    .parameter "x0"
+
+    .prologue
+    .line 79
+    iget-object v0, p0, Landroid/view/View;->mContext:Landroid/content/Context;
+
+    return-object v0
+.end method
+
+.method static synthetic access$900(Lcom/android/systemui/statusbar/policy/quicksetting/MobileDataQuickSettingButton;)Landroid/content/Context;
+    .locals 1
+    .parameter "x0"
+
+    .prologue
+    .line 79
+    iget-object v0, p0, Landroid/view/View;->mContext:Landroid/content/Context;
+
+    return-object v0
 .end method
 
 .method private getMobileData()Z
     .locals 4
 
     .prologue
-    .line 314
+    .line 335
     invoke-static {}, Landroid/telephony/TelephonyManager;->getDefault()Landroid/telephony/TelephonyManager;
 
     move-result-object v2
@@ -263,9 +359,9 @@
 
     move-result v0
 
-    .line 316
+    .line 337
     .local v0, SimState:I
-    iget-object v2, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->mContext:Landroid/content/Context;
+    iget-object v2, p0, Landroid/view/View;->mContext:Landroid/content/Context;
 
     const-string v3, "connectivity"
 
@@ -275,11 +371,11 @@
 
     check-cast v1, Landroid/net/ConnectivityManager;
 
-    .line 318
+    .line 339
     .local v1, mConnectivityManager:Landroid/net/ConnectivityManager;
     if-eqz v1, :cond_0
 
-    .line 333
+    .line 355
     :cond_0
     if-eqz v1, :cond_2
 
@@ -290,6 +386,10 @@
     if-ne v0, v2, :cond_3
 
     :cond_1
+    sget-boolean v2, Lcom/android/systemui/statusbar/Feature;->mSimCheckCTCDual:Z
+
+    if-nez v2, :cond_2
+
     invoke-static {}, Landroid/telephony/TelephonyManager;->getDefault()Landroid/telephony/TelephonyManager;
 
     move-result-object v2
@@ -302,14 +402,14 @@
 
     if-eq v2, v3, :cond_3
 
-    .line 341
+    .line 363
     :cond_2
     const/4 v2, 0x0
 
     :goto_0
     return v2
 
-    .line 338
+    .line 360
     :cond_3
     invoke-virtual {v1}, Landroid/net/ConnectivityManager;->getMobileDataEnabled()Z
 
@@ -323,7 +423,7 @@
     .parameter "slot"
 
     .prologue
-    .line 514
+    .line 557
     invoke-static {}, Landroid/telephony/TelephonyManager;->getDefault()Landroid/telephony/TelephonyManager;
 
     move-result-object v2
@@ -332,9 +432,9 @@
 
     move-result v0
 
-    .line 516
+    .line 559
     .local v0, SimState:I
-    iget-object v2, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->mContext:Landroid/content/Context;
+    iget-object v2, p0, Landroid/view/View;->mContext:Landroid/content/Context;
 
     const-string v3, "connectivity"
 
@@ -344,11 +444,11 @@
 
     check-cast v1, Landroid/net/ConnectivityManager;
 
-    .line 518
+    .line 561
     .local v1, mConnectivityManager:Landroid/net/ConnectivityManager;
     if-eqz v1, :cond_0
 
-    .line 532
+    .line 575
     :cond_0
     const/4 v2, 0x0
 
@@ -363,7 +463,7 @@
 
     const/4 v3, 0x0
 
-    .line 375
+    .line 404
     invoke-static {}, Landroid/telephony/TelephonyManager;->getDefault()Landroid/telephony/TelephonyManager;
 
     move-result-object v5
@@ -372,13 +472,17 @@
 
     move-result v0
 
-    .line 376
+    .line 405
     .local v0, SimState:I
     if-eqz v0, :cond_0
 
-    if-ne v0, v4, :cond_2
+    if-ne v0, v4, :cond_4
 
     :cond_0
+    sget-boolean v5, Lcom/android/systemui/statusbar/Feature;->mSimCheckCTCDual:Z
+
+    if-nez v5, :cond_1
+
     invoke-static {}, Landroid/telephony/TelephonyManager;->getDefault()Landroid/telephony/TelephonyManager;
 
     move-result-object v5
@@ -389,30 +493,37 @@
 
     const/4 v6, 0x2
 
-    if-eq v5, v6, :cond_2
+    if-eq v5, v6, :cond_4
 
-    .line 381
+    .line 410
+    :cond_1
     new-instance v1, Landroid/app/AlertDialog$Builder;
 
-    iget-object v4, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->mContext:Landroid/content/Context;
+    iget-object v4, p0, Landroid/view/View;->mContext:Landroid/content/Context;
 
     invoke-direct {v1, v4}, Landroid/app/AlertDialog$Builder;-><init>(Landroid/content/Context;)V
 
-    .line 382
+    .line 412
     .local v1, builder:Landroid/app/AlertDialog$Builder;
-    const v4, 0x7f0c0112
+    sget-boolean v4, Lcom/android/systemui/statusbar/Feature;->mSimCheckCTCDual:Z
+
+    if-nez v4, :cond_2
+
+    .line 413
+    const v4, 0x7f0a011e
 
     invoke-virtual {v1, v4}, Landroid/app/AlertDialog$Builder;->setTitle(I)Landroid/app/AlertDialog$Builder;
 
-    .line 383
-    const v4, 0x7f0c0113
+    .line 414
+    const v4, 0x7f0a011f
 
     invoke-virtual {v1, v4}, Landroid/app/AlertDialog$Builder;->setMessage(I)Landroid/app/AlertDialog$Builder;
 
-    .line 384
+    .line 419
+    :goto_0
     invoke-virtual {v1, v3}, Landroid/app/AlertDialog$Builder;->setCancelable(Z)Landroid/app/AlertDialog$Builder;
 
-    .line 385
+    .line 420
     const v4, 0x104000a
 
     new-instance v5, Lcom/android/systemui/statusbar/policy/quicksetting/MobileDataQuickSettingButton$2;
@@ -421,27 +532,27 @@
 
     invoke-virtual {v1, v4, v5}, Landroid/app/AlertDialog$Builder;->setNegativeButton(ILandroid/content/DialogInterface$OnClickListener;)Landroid/app/AlertDialog$Builder;
 
-    .line 391
-    invoke-virtual {p0}, Lcom/android/systemui/statusbar/policy/quicksetting/MobileDataQuickSettingButton;->statusBarCollapse()V
+    .line 426
+    invoke-virtual {p0}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->statusBarCollapse()V
 
-    .line 393
+    .line 428
     invoke-virtual {v1}, Landroid/app/AlertDialog$Builder;->create()Landroid/app/AlertDialog;
 
     move-result-object v4
 
     iput-object v4, p0, Lcom/android/systemui/statusbar/policy/quicksetting/MobileDataQuickSettingButton;->mAlertDialog:Landroid/app/AlertDialog;
 
-    .line 396
+    .line 431
     iget-object v4, p0, Lcom/android/systemui/statusbar/policy/quicksetting/MobileDataQuickSettingButton;->mAlertDialog:Landroid/app/AlertDialog;
 
     new-instance v5, Lcom/android/systemui/statusbar/policy/quicksetting/MobileDataQuickSettingButton$3;
 
     invoke-direct {v5, p0}, Lcom/android/systemui/statusbar/policy/quicksetting/MobileDataQuickSettingButton$3;-><init>(Lcom/android/systemui/statusbar/policy/quicksetting/MobileDataQuickSettingButton;)V
 
-    invoke-virtual {v4, v5}, Landroid/app/AlertDialog;->setOnDismissListener(Landroid/content/DialogInterface$OnDismissListener;)V
+    invoke-virtual {v4, v5}, Landroid/app/Dialog;->setOnDismissListener(Landroid/content/DialogInterface$OnDismissListener;)V
 
-    .line 402
-    iget-object v4, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->mContext:Landroid/content/Context;
+    .line 437
+    iget-object v4, p0, Landroid/view/View;->mContext:Landroid/content/Context;
 
     const-string v5, "keyguard"
 
@@ -451,20 +562,20 @@
 
     check-cast v2, Landroid/app/KeyguardManager;
 
-    .line 404
+    .line 439
     .local v2, kgm:Landroid/app/KeyguardManager;
-    if-eqz v2, :cond_1
+    if-eqz v2, :cond_3
 
     invoke-virtual {v2}, Landroid/app/KeyguardManager;->isKeyguardLocked()Z
 
     move-result v4
 
-    if-eqz v4, :cond_1
+    if-eqz v4, :cond_3
 
-    .line 405
+    .line 440
     iget-object v4, p0, Lcom/android/systemui/statusbar/policy/quicksetting/MobileDataQuickSettingButton;->mAlertDialog:Landroid/app/AlertDialog;
 
-    invoke-virtual {v4}, Landroid/app/AlertDialog;->getWindow()Landroid/view/Window;
+    invoke-virtual {v4}, Landroid/app/Dialog;->getWindow()Landroid/view/Window;
 
     move-result-object v4
 
@@ -472,25 +583,38 @@
 
     invoke-virtual {v4, v5}, Landroid/view/Window;->setType(I)V
 
-    .line 409
-    :goto_0
+    .line 444
+    :goto_1
     iget-object v4, p0, Lcom/android/systemui/statusbar/policy/quicksetting/MobileDataQuickSettingButton;->mAlertDialog:Landroid/app/AlertDialog;
 
-    invoke-virtual {v4}, Landroid/app/AlertDialog;->show()V
+    invoke-virtual {v4}, Landroid/app/Dialog;->show()V
 
-    .line 412
+    .line 447
     .end local v1           #builder:Landroid/app/AlertDialog$Builder;
     .end local v2           #kgm:Landroid/app/KeyguardManager;
-    :goto_1
+    :goto_2
     return v3
 
-    .line 407
+    .line 416
     .restart local v1       #builder:Landroid/app/AlertDialog$Builder;
+    :cond_2
+    const v4, 0x10401f9
+
+    invoke-virtual {v1, v4}, Landroid/app/AlertDialog$Builder;->setTitle(I)Landroid/app/AlertDialog$Builder;
+
+    .line 417
+    const v4, 0x10401fa
+
+    invoke-virtual {v1, v4}, Landroid/app/AlertDialog$Builder;->setMessage(I)Landroid/app/AlertDialog$Builder;
+
+    goto :goto_0
+
+    .line 442
     .restart local v2       #kgm:Landroid/app/KeyguardManager;
-    :cond_1
+    :cond_3
     iget-object v4, p0, Lcom/android/systemui/statusbar/policy/quicksetting/MobileDataQuickSettingButton;->mAlertDialog:Landroid/app/AlertDialog;
 
-    invoke-virtual {v4}, Landroid/app/AlertDialog;->getWindow()Landroid/view/Window;
+    invoke-virtual {v4}, Landroid/app/Dialog;->getWindow()Landroid/view/Window;
 
     move-result-object v4
 
@@ -498,33 +622,27 @@
 
     invoke-virtual {v4, v5}, Landroid/view/Window;->setType(I)V
 
-    goto :goto_0
+    goto :goto_1
 
     .end local v1           #builder:Landroid/app/AlertDialog$Builder;
     .end local v2           #kgm:Landroid/app/KeyguardManager;
-    :cond_2
+    :cond_4
     move v3, v4
 
-    .line 412
-    goto :goto_1
+    .line 447
+    goto :goto_2
 .end method
 
 .method private onDisplayMobileDataOffAlert()V
     .locals 10
 
     .prologue
-    const v9, 0x7f090111
+    const v9, 0x7f0700b2
 
     const/high16 v8, -0x100
 
-    .line 440
-    const/4 v0, 0x0
-
-    invoke-direct {p0, v0}, Lcom/android/systemui/statusbar/policy/quicksetting/MobileDataQuickSettingButton;->setMobileDataEnabled(Z)V
-
-    goto/16 :goto_1
-
-    iget-object v6, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->mContext:Landroid/content/Context;
+    .line 483
+    iget-object v6, p0, Landroid/view/View;->mContext:Landroid/content/Context;
 
     const-string v7, "layout_inflater"
 
@@ -534,9 +652,9 @@
 
     check-cast v3, Landroid/view/LayoutInflater;
 
-    .line 442
+    .line 485
     .local v3, mMobileDataAlertLayout:Landroid/view/LayoutInflater;
-    const v6, 0x7f040047
+    const v6, 0x7f040027
 
     const/4 v7, 0x0
 
@@ -544,26 +662,26 @@
 
     move-result-object v4
 
-    .line 446
+    .line 489
     .local v4, mMobileDataAlertView:Landroid/view/View;
     sget-boolean v6, Lcom/android/systemui/statusbar/Feature;->mMobileDataStringForVZW:Z
 
     if-eqz v6, :cond_0
 
-    .line 447
+    .line 490
     invoke-virtual {v4, v9}, Landroid/view/View;->findViewById(I)Landroid/view/View;
 
     move-result-object v5
 
     check-cast v5, Landroid/widget/TextView;
 
-    .line 448
+    .line 491
     .local v5, mTextView:Landroid/widget/TextView;
-    invoke-virtual {p0}, Lcom/android/systemui/statusbar/policy/quicksetting/MobileDataQuickSettingButton;->getResources()Landroid/content/res/Resources;
+    invoke-virtual {p0}, Landroid/view/View;->getResources()Landroid/content/res/Resources;
 
     move-result-object v6
 
-    const v7, 0x7f0c0107
+    const v7, 0x7f0a0110
 
     invoke-virtual {v6, v7}, Landroid/content/res/Resources;->getString(I)Ljava/lang/String;
 
@@ -571,10 +689,10 @@
 
     invoke-virtual {v5, v6}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
-    .line 452
+    .line 495
     .end local v5           #mTextView:Landroid/widget/TextView;
     :cond_0
-    const v6, 0x7f090112
+    const v6, 0x7f0700b3
 
     invoke-virtual {v4, v6}, Landroid/view/View;->findViewById(I)Landroid/view/View;
 
@@ -582,33 +700,33 @@
 
     check-cast v2, Landroid/widget/CheckBox;
 
-    .line 454
+    .line 497
     .local v2, mDisableAlertCheckBox:Landroid/widget/CheckBox;
     new-instance v6, Lcom/android/systemui/statusbar/policy/quicksetting/MobileDataQuickSettingButton$4;
 
     invoke-direct {v6, p0, v2}, Lcom/android/systemui/statusbar/policy/quicksetting/MobileDataQuickSettingButton$4;-><init>(Lcom/android/systemui/statusbar/policy/quicksetting/MobileDataQuickSettingButton;Landroid/widget/CheckBox;)V
 
-    invoke-virtual {v2, v6}, Landroid/widget/CheckBox;->setOnCheckedChangeListener(Landroid/widget/CompoundButton$OnCheckedChangeListener;)V
+    invoke-virtual {v2, v6}, Landroid/widget/CompoundButton;->setOnCheckedChangeListener(Landroid/widget/CompoundButton$OnCheckedChangeListener;)V
 
-    .line 469
+    .line 512
     new-instance v0, Landroid/app/AlertDialog$Builder;
 
-    iget-object v6, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->mContext:Landroid/content/Context;
+    iget-object v6, p0, Landroid/view/View;->mContext:Landroid/content/Context;
 
     invoke-direct {v0, v6}, Landroid/app/AlertDialog$Builder;-><init>(Landroid/content/Context;)V
 
-    .line 470
+    .line 513
     .local v0, builder:Landroid/app/AlertDialog$Builder;
-    const v6, 0x7f0c00d9
+    const v6, 0x7f0a00e2
 
     invoke-virtual {v0, v6}, Landroid/app/AlertDialog$Builder;->setTitle(I)Landroid/app/AlertDialog$Builder;
 
-    .line 471
+    .line 514
     const/4 v6, 0x0
 
     invoke-virtual {v0, v6}, Landroid/app/AlertDialog$Builder;->setCancelable(Z)Landroid/app/AlertDialog$Builder;
 
-    .line 472
+    .line 515
     const v6, 0x104000a
 
     new-instance v7, Lcom/android/systemui/statusbar/policy/quicksetting/MobileDataQuickSettingButton$5;
@@ -617,7 +735,7 @@
 
     invoke-virtual {v0, v6, v7}, Landroid/app/AlertDialog$Builder;->setPositiveButton(ILandroid/content/DialogInterface$OnClickListener;)Landroid/app/AlertDialog$Builder;
 
-    .line 478
+    .line 521
     const/high16 v6, 0x104
 
     new-instance v7, Lcom/android/systemui/statusbar/policy/quicksetting/MobileDataQuickSettingButton$6;
@@ -626,12 +744,12 @@
 
     invoke-virtual {v0, v6, v7}, Landroid/app/AlertDialog$Builder;->setNegativeButton(ILandroid/content/DialogInterface$OnClickListener;)Landroid/app/AlertDialog$Builder;
 
-    .line 486
+    .line 529
     sget-boolean v6, Lcom/android/systemui/statusbar/BaseStatusBar;->isLightTheme:Z
 
     if-eqz v6, :cond_1
 
-    .line 487
+    .line 530
     invoke-virtual {v4, v9}, Landroid/view/View;->findViewById(I)Landroid/view/View;
 
     move-result-object v6
@@ -640,34 +758,34 @@
 
     invoke-virtual {v6, v8}, Landroid/widget/TextView;->setTextColor(I)V
 
-    .line 488
+    .line 531
     invoke-virtual {v2, v8}, Landroid/widget/TextView;->setTextColor(I)V
 
-    .line 491
+    .line 534
     :cond_1
     invoke-virtual {v0, v4}, Landroid/app/AlertDialog$Builder;->setView(Landroid/view/View;)Landroid/app/AlertDialog$Builder;
 
-    .line 493
-    invoke-virtual {p0}, Lcom/android/systemui/statusbar/policy/quicksetting/MobileDataQuickSettingButton;->statusBarCollapse()V
+    .line 536
+    invoke-virtual {p0}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->statusBarCollapse()V
 
-    .line 495
+    .line 538
     invoke-virtual {v0}, Landroid/app/AlertDialog$Builder;->create()Landroid/app/AlertDialog;
 
     move-result-object v6
 
     iput-object v6, p0, Lcom/android/systemui/statusbar/policy/quicksetting/MobileDataQuickSettingButton;->mAlertDialog:Landroid/app/AlertDialog;
 
-    .line 498
+    .line 541
     iget-object v6, p0, Lcom/android/systemui/statusbar/policy/quicksetting/MobileDataQuickSettingButton;->mAlertDialog:Landroid/app/AlertDialog;
 
     new-instance v7, Lcom/android/systemui/statusbar/policy/quicksetting/MobileDataQuickSettingButton$7;
 
     invoke-direct {v7, p0}, Lcom/android/systemui/statusbar/policy/quicksetting/MobileDataQuickSettingButton$7;-><init>(Lcom/android/systemui/statusbar/policy/quicksetting/MobileDataQuickSettingButton;)V
 
-    invoke-virtual {v6, v7}, Landroid/app/AlertDialog;->setOnDismissListener(Landroid/content/DialogInterface$OnDismissListener;)V
+    invoke-virtual {v6, v7}, Landroid/app/Dialog;->setOnDismissListener(Landroid/content/DialogInterface$OnDismissListener;)V
 
-    .line 504
-    iget-object v6, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->mContext:Landroid/content/Context;
+    .line 547
+    iget-object v6, p0, Landroid/view/View;->mContext:Landroid/content/Context;
 
     const-string v7, "keyguard"
 
@@ -677,7 +795,7 @@
 
     check-cast v1, Landroid/app/KeyguardManager;
 
-    .line 505
+    .line 548
     .local v1, kgm:Landroid/app/KeyguardManager;
     if-eqz v1, :cond_2
 
@@ -687,10 +805,10 @@
 
     if-eqz v6, :cond_2
 
-    .line 506
+    .line 549
     iget-object v6, p0, Lcom/android/systemui/statusbar/policy/quicksetting/MobileDataQuickSettingButton;->mAlertDialog:Landroid/app/AlertDialog;
 
-    invoke-virtual {v6}, Landroid/app/AlertDialog;->getWindow()Landroid/view/Window;
+    invoke-virtual {v6}, Landroid/app/Dialog;->getWindow()Landroid/view/Window;
 
     move-result-object v6
 
@@ -698,21 +816,20 @@
 
     invoke-virtual {v6, v7}, Landroid/view/Window;->setType(I)V
 
-    .line 510
+    .line 553
     :goto_0
     iget-object v6, p0, Lcom/android/systemui/statusbar/policy/quicksetting/MobileDataQuickSettingButton;->mAlertDialog:Landroid/app/AlertDialog;
 
-    invoke-virtual {v6}, Landroid/app/AlertDialog;->show()V
+    invoke-virtual {v6}, Landroid/app/Dialog;->show()V
 
-    .line 511
-    :goto_1
+    .line 554
     return-void
 
-    .line 508
+    .line 551
     :cond_2
     iget-object v6, p0, Lcom/android/systemui/statusbar/policy/quicksetting/MobileDataQuickSettingButton;->mAlertDialog:Landroid/app/AlertDialog;
 
-    invoke-virtual {v6}, Landroid/app/AlertDialog;->getWindow()Landroid/view/Window;
+    invoke-virtual {v6}, Landroid/app/Dialog;->getWindow()Landroid/view/Window;
 
     move-result-object v6
 
@@ -727,36 +844,30 @@
     .locals 4
 
     .prologue
-    .line 536
-    const/4 v0, 0x0
-
-    invoke-direct {p0, v0}, Lcom/android/systemui/statusbar/policy/quicksetting/MobileDataQuickSettingButton;->setMobileDataEnabled(Z)V
-
-    goto :goto_0
-
+    .line 579
     new-instance v1, Landroid/app/AlertDialog$Builder;
 
-    iget-object v2, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->mContext:Landroid/content/Context;
+    iget-object v2, p0, Landroid/view/View;->mContext:Landroid/content/Context;
 
     invoke-direct {v1, v2}, Landroid/app/AlertDialog$Builder;-><init>(Landroid/content/Context;)V
 
-    .line 537
+    .line 580
     .local v1, builder:Landroid/app/AlertDialog$Builder;
-    const v2, 0x7f0c00d9
+    const v2, 0x7f0a00e2
 
     invoke-virtual {v1, v2}, Landroid/app/AlertDialog$Builder;->setTitle(I)Landroid/app/AlertDialog$Builder;
 
-    .line 538
-    const v2, 0x7f0c00a6
+    .line 581
+    const v2, 0x7f0a00aa
 
     invoke-virtual {v1, v2}, Landroid/app/AlertDialog$Builder;->setMessage(I)Landroid/app/AlertDialog$Builder;
 
-    .line 539
+    .line 582
     const/4 v2, 0x0
 
     invoke-virtual {v1, v2}, Landroid/app/AlertDialog$Builder;->setCancelable(Z)Landroid/app/AlertDialog$Builder;
 
-    .line 540
+    .line 583
     const v2, 0x104000a
 
     new-instance v3, Lcom/android/systemui/statusbar/policy/quicksetting/MobileDataQuickSettingButton$8;
@@ -765,7 +876,7 @@
 
     invoke-virtual {v1, v2, v3}, Landroid/app/AlertDialog$Builder;->setPositiveButton(ILandroid/content/DialogInterface$OnClickListener;)Landroid/app/AlertDialog$Builder;
 
-    .line 546
+    .line 589
     const/high16 v2, 0x104
 
     new-instance v3, Lcom/android/systemui/statusbar/policy/quicksetting/MobileDataQuickSettingButton$9;
@@ -774,17 +885,17 @@
 
     invoke-virtual {v1, v2, v3}, Landroid/app/AlertDialog$Builder;->setNegativeButton(ILandroid/content/DialogInterface$OnClickListener;)Landroid/app/AlertDialog$Builder;
 
-    .line 553
-    invoke-virtual {p0}, Lcom/android/systemui/statusbar/policy/quicksetting/MobileDataQuickSettingButton;->statusBarCollapse()V
+    .line 596
+    invoke-virtual {p0}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->statusBarCollapse()V
 
-    .line 556
+    .line 599
     invoke-virtual {v1}, Landroid/app/AlertDialog$Builder;->create()Landroid/app/AlertDialog;
 
     move-result-object v0
 
-    .line 557
+    .line 600
     .local v0, alert:Landroid/app/AlertDialog;
-    invoke-virtual {v0}, Landroid/app/AlertDialog;->getWindow()Landroid/view/Window;
+    invoke-virtual {v0}, Landroid/app/Dialog;->getWindow()Landroid/view/Window;
 
     move-result-object v2
 
@@ -792,11 +903,10 @@
 
     invoke-virtual {v2, v3}, Landroid/view/Window;->setType(I)V
 
-    .line 558
-    invoke-virtual {v0}, Landroid/app/AlertDialog;->show()V
+    .line 601
+    invoke-virtual {v0}, Landroid/app/Dialog;->show()V
 
-    .line 559
-    :goto_0
+    .line 602
     return-void
 .end method
 
@@ -804,36 +914,30 @@
     .locals 4
 
     .prologue
-    .line 563
-    const/4 v0, 0x1
-
-    invoke-direct {p0, v0}, Lcom/android/systemui/statusbar/policy/quicksetting/MobileDataQuickSettingButton;->setMobileDataEnabled(Z)V
-
-    goto :goto_0
-
+    .line 606
     new-instance v1, Landroid/app/AlertDialog$Builder;
 
-    iget-object v2, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->mContext:Landroid/content/Context;
+    iget-object v2, p0, Landroid/view/View;->mContext:Landroid/content/Context;
 
     invoke-direct {v1, v2}, Landroid/app/AlertDialog$Builder;-><init>(Landroid/content/Context;)V
 
-    .line 564
+    .line 607
     .local v1, builder:Landroid/app/AlertDialog$Builder;
-    const v2, 0x7f0c00d9
+    const v2, 0x7f0a00e2
 
     invoke-virtual {v1, v2}, Landroid/app/AlertDialog$Builder;->setTitle(I)Landroid/app/AlertDialog$Builder;
 
-    .line 565
-    const v2, 0x7f0c00a5
+    .line 608
+    const v2, 0x7f0a00a9
 
     invoke-virtual {v1, v2}, Landroid/app/AlertDialog$Builder;->setMessage(I)Landroid/app/AlertDialog$Builder;
 
-    .line 566
+    .line 609
     const/4 v2, 0x0
 
     invoke-virtual {v1, v2}, Landroid/app/AlertDialog$Builder;->setCancelable(Z)Landroid/app/AlertDialog$Builder;
 
-    .line 567
+    .line 610
     const v2, 0x104000a
 
     new-instance v3, Lcom/android/systemui/statusbar/policy/quicksetting/MobileDataQuickSettingButton$10;
@@ -842,7 +946,7 @@
 
     invoke-virtual {v1, v2, v3}, Landroid/app/AlertDialog$Builder;->setPositiveButton(ILandroid/content/DialogInterface$OnClickListener;)Landroid/app/AlertDialog$Builder;
 
-    .line 573
+    .line 616
     const/high16 v2, 0x104
 
     new-instance v3, Lcom/android/systemui/statusbar/policy/quicksetting/MobileDataQuickSettingButton$11;
@@ -851,17 +955,17 @@
 
     invoke-virtual {v1, v2, v3}, Landroid/app/AlertDialog$Builder;->setNegativeButton(ILandroid/content/DialogInterface$OnClickListener;)Landroid/app/AlertDialog$Builder;
 
-    .line 580
-    invoke-virtual {p0}, Lcom/android/systemui/statusbar/policy/quicksetting/MobileDataQuickSettingButton;->statusBarCollapse()V
+    .line 623
+    invoke-virtual {p0}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->statusBarCollapse()V
 
-    .line 583
+    .line 626
     invoke-virtual {v1}, Landroid/app/AlertDialog$Builder;->create()Landroid/app/AlertDialog;
 
     move-result-object v0
 
-    .line 584
+    .line 627
     .local v0, alert:Landroid/app/AlertDialog;
-    invoke-virtual {v0}, Landroid/app/AlertDialog;->getWindow()Landroid/view/Window;
+    invoke-virtual {v0}, Landroid/app/Dialog;->getWindow()Landroid/view/Window;
 
     move-result-object v2
 
@@ -869,11 +973,10 @@
 
     invoke-virtual {v2, v3}, Landroid/view/Window;->setType(I)V
 
-    .line 585
-    invoke-virtual {v0}, Landroid/app/AlertDialog;->show()V
+    .line 628
+    invoke-virtual {v0}, Landroid/app/Dialog;->show()V
 
-    .line 586
-    :goto_0
+    .line 629
     return-void
 .end method
 
@@ -882,8 +985,8 @@
     .parameter "on"
 
     .prologue
-    .line 345
-    iget-object v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->mContext:Landroid/content/Context;
+    .line 367
+    iget-object v1, p0, Landroid/view/View;->mContext:Landroid/content/Context;
 
     invoke-virtual {v1}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
 
@@ -899,7 +1002,7 @@
 
     move-result v0
 
-    .line 347
+    .line 369
     .local v0, mChecked:I
     const-string v1, "STATUSBAR-MobileDataQuickSettingButton"
 
@@ -923,19 +1026,19 @@
 
     invoke-static {v1, v2}, Landroid/util/secutil/Log;->secD(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 349
+    .line 371
     if-nez p1, :cond_0
 
     if-nez v0, :cond_0
 
-    .line 350
+    .line 372
     invoke-direct {p0}, Lcom/android/systemui/statusbar/policy/quicksetting/MobileDataQuickSettingButton;->onDisplayMobileDataOffAlert()V
 
-    .line 354
+    .line 376
     :goto_0
     return-void
 
-    .line 352
+    .line 374
     :cond_0
     invoke-direct {p0, p1}, Lcom/android/systemui/statusbar/policy/quicksetting/MobileDataQuickSettingButton;->setMobileDataEnabled(Z)V
 
@@ -947,11 +1050,11 @@
     .parameter "enabled"
 
     .prologue
-    .line 416
+    .line 451
     iput-boolean p1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/MobileDataQuickSettingButton;->mMobileData:Z
 
-    .line 417
-    iget-object v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->mContext:Landroid/content/Context;
+    .line 452
+    iget-object v1, p0, Landroid/view/View;->mContext:Landroid/content/Context;
 
     const-string v2, "connectivity"
 
@@ -961,16 +1064,16 @@
 
     check-cast v0, Landroid/net/ConnectivityManager;
 
-    .line 419
+    .line 454
     .local v0, mConnectivityManager:Landroid/net/ConnectivityManager;
     if-eqz v0, :cond_0
 
-    .line 421
+    .line 456
     const/4 v1, 0x1
 
     iput-boolean v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->mIsProcessing:Z
 
-    .line 423
+    .line 458
     const-string v1, "STATUSBAR-MobileDataQuickSettingButton"
 
     new-instance v2, Ljava/lang/StringBuilder;
@@ -993,14 +1096,14 @@
 
     invoke-static {v1, v2}, Landroid/util/secutil/Log;->secD(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 432
+    .line 468
     invoke-virtual {v0, p1}, Landroid/net/ConnectivityManager;->setMobileDataEnabled(Z)V
 
-    .line 437
+    .line 480
     :goto_0
     return-void
 
-    .line 435
+    .line 478
     :cond_0
     const-string v1, "STATUSBAR-MobileDataQuickSettingButton"
 
@@ -1016,7 +1119,7 @@
     .parameter "on"
 
     .prologue
-    .line 357
+    .line 379
     const-string v0, "STATUSBAR-MobileDataQuickSettingButton"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -1039,17 +1142,17 @@
 
     invoke-static {v0, v1}, Landroid/util/secutil/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 359
+    .line 381
     if-nez p1, :cond_0
 
-    .line 360
+    .line 382
     invoke-direct {p0}, Lcom/android/systemui/statusbar/policy/quicksetting/MobileDataQuickSettingButton;->onORGDisplayMobileDataOffAlert()V
 
-    .line 364
+    .line 386
     :goto_0
     return-void
 
-    .line 362
+    .line 384
     :cond_0
     invoke-direct {p0}, Lcom/android/systemui/statusbar/policy/quicksetting/MobileDataQuickSettingButton;->onORGDisplayMobileDataOnAlert()V
 
@@ -1061,18 +1164,21 @@
     .parameter "status"
 
     .prologue
-    .line 367
+    .line 389
     if-eqz p1, :cond_0
 
     const/4 v0, 0x1
 
+    .line 397
+    .local v0, state:I
     :goto_0
-    invoke-virtual {p0, v0}, Lcom/android/systemui/statusbar/policy/quicksetting/MobileDataQuickSettingButton;->setActivateStatus(I)V
+    invoke-virtual {p0, v0}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->setActivateStatus(I)V
 
-    .line 369
+    .line 398
     return-void
 
-    .line 367
+    .line 389
+    .end local v0           #state:I
     :cond_0
     const/4 v0, 0x2
 
@@ -1085,8 +1191,8 @@
     .locals 2
 
     .prologue
-    .line 222
-    iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->mContext:Landroid/content/Context;
+    .line 243
+    iget-object v0, p0, Landroid/view/View;->mContext:Landroid/content/Context;
 
     invoke-virtual {v0}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
 
@@ -1096,14 +1202,14 @@
 
     invoke-virtual {v0, v1}, Landroid/content/ContentResolver;->unregisterContentObserver(Landroid/database/ContentObserver;)V
 
-    .line 223
-    iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->mContext:Landroid/content/Context;
+    .line 244
+    iget-object v0, p0, Landroid/view/View;->mContext:Landroid/content/Context;
 
     iget-object v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/MobileDataQuickSettingButton;->mIntentReceiver:Landroid/content/BroadcastReceiver;
 
     invoke-virtual {v0, v1}, Landroid/content/Context;->unregisterReceiver(Landroid/content/BroadcastReceiver;)V
 
-    .line 224
+    .line 245
     return-void
 .end method
 
@@ -1111,8 +1217,8 @@
     .locals 6
 
     .prologue
-    .line 203
-    iget-object v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->mContext:Landroid/content/Context;
+    .line 222
+    iget-object v1, p0, Landroid/view/View;->mContext:Landroid/content/Context;
 
     invoke-virtual {v1}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
 
@@ -1132,35 +1238,45 @@
 
     invoke-virtual {v1, v2, v3, v4, v5}, Landroid/content/ContentResolver;->registerContentObserver(Landroid/net/Uri;ZLandroid/database/ContentObserver;I)V
 
-    .line 206
+    .line 225
     new-instance v0, Landroid/content/IntentFilter;
 
     invoke-direct {v0}, Landroid/content/IntentFilter;-><init>()V
 
-    .line 207
+    .line 226
     .local v0, filter:Landroid/content/IntentFilter;
     const-string v1, "android.intent.action.AIRPLANE_MODE"
 
     invoke-virtual {v0, v1}, Landroid/content/IntentFilter;->addAction(Ljava/lang/String;)V
 
-    .line 208
+    .line 227
     const-string v1, "android.intent.action.SIM_STATE_CHANGED"
 
     invoke-virtual {v0, v1}, Landroid/content/IntentFilter;->addAction(Ljava/lang/String;)V
 
-    .line 209
+    .line 228
     const-string v1, "android.intent.action.CLOSE_SYSTEM_DIALOGS"
 
     invoke-virtual {v0, v1}, Landroid/content/IntentFilter;->addAction(Ljava/lang/String;)V
 
-    .line 216
-    iget-object v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->mContext:Landroid/content/Context;
+    .line 235
+    const-string v1, "android.net.conn.MOBILE_DATA_ENABLE_POPUP"
+
+    invoke-virtual {v0, v1}, Landroid/content/IntentFilter;->addAction(Ljava/lang/String;)V
+
+    .line 236
+    const-string v1, "com.sec.android.phone.action.DataEnable"
+
+    invoke-virtual {v0, v1}, Landroid/content/IntentFilter;->addAction(Ljava/lang/String;)V
+
+    .line 237
+    iget-object v1, p0, Landroid/view/View;->mContext:Landroid/content/Context;
 
     iget-object v2, p0, Lcom/android/systemui/statusbar/policy/quicksetting/MobileDataQuickSettingButton;->mIntentReceiver:Landroid/content/BroadcastReceiver;
 
     invoke-virtual {v1, v2, v0}, Landroid/content/Context;->registerReceiver(Landroid/content/BroadcastReceiver;Landroid/content/IntentFilter;)Landroid/content/Intent;
 
-    .line 218
+    .line 239
     const-string v1, "STATUSBAR-MobileDataQuickSettingButton"
 
     new-instance v2, Ljava/lang/StringBuilder;
@@ -1185,7 +1301,7 @@
 
     invoke-static {v1, v2}, Landroid/util/secutil/Log;->secD(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 219
+    .line 240
     return-void
 .end method
 
@@ -1198,24 +1314,24 @@
 
     const/4 v5, 0x0
 
-    .line 228
+    .line 249
     iget-boolean v2, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->mIsProcessing:Z
 
     if-eqz v2, :cond_1
 
-    .line 229
+    .line 250
     const-string v2, "STATUSBAR-MobileDataQuickSettingButton"
 
     const-string v3, "onClick(): Processing..."
 
     invoke-static {v2, v3}, Landroid/util/secutil/Log;->secW(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 281
+    .line 302
     :cond_0
     :goto_0
     return-void
 
-    .line 234
+    .line 255
     :cond_1
     const-string v2, "STATUSBAR-MobileDataQuickSettingButton"
 
@@ -1245,8 +1361,8 @@
 
     invoke-static {v2, v3}, Landroid/util/secutil/Log;->secD(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 237
-    iget-object v2, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->mContext:Landroid/content/Context;
+    .line 258
+    iget-object v2, p0, Landroid/view/View;->mContext:Landroid/content/Context;
 
     const-string v3, "enterprise_policy"
 
@@ -1258,7 +1374,7 @@
 
     iput-object v2, p0, Lcom/android/systemui/statusbar/policy/quicksetting/MobileDataQuickSettingButton;->mEDM:Landroid/app/enterprise/EnterpriseDeviceManager;
 
-    .line 238
+    .line 259
     iget-object v2, p0, Lcom/android/systemui/statusbar/policy/quicksetting/MobileDataQuickSettingButton;->mEDM:Landroid/app/enterprise/EnterpriseDeviceManager;
 
     invoke-virtual {v2}, Landroid/app/enterprise/EnterpriseDeviceManager;->getRestrictionPolicy()Landroid/app/enterprise/RestrictionPolicy;
@@ -1267,7 +1383,7 @@
 
     iput-object v2, p0, Lcom/android/systemui/statusbar/policy/quicksetting/MobileDataQuickSettingButton;->mRestrictionPolicy:Landroid/app/enterprise/RestrictionPolicy;
 
-    .line 239
+    .line 260
     iget-object v2, p0, Lcom/android/systemui/statusbar/policy/quicksetting/MobileDataQuickSettingButton;->mRestrictionPolicy:Landroid/app/enterprise/RestrictionPolicy;
 
     invoke-virtual {v2, v5}, Landroid/app/enterprise/RestrictionPolicy;->isSettingsChangesAllowed(Z)Z
@@ -1276,7 +1392,7 @@
 
     if-nez v2, :cond_2
 
-    .line 240
+    .line 261
     const-string v2, "STATUSBAR-MobileDataQuickSettingButton"
 
     const-string v3, "onClick(): MobileData state change is not allowed"
@@ -1285,7 +1401,7 @@
 
     goto :goto_0
 
-    .line 243
+    .line 264
     :cond_2
     iget-object v2, p0, Lcom/android/systemui/statusbar/policy/quicksetting/MobileDataQuickSettingButton;->mRestrictionPolicy:Landroid/app/enterprise/RestrictionPolicy;
 
@@ -1295,7 +1411,7 @@
 
     if-nez v2, :cond_3
 
-    .line 244
+    .line 265
     const-string v2, "STATUSBAR-MobileDataQuickSettingButton"
 
     const-string v3, "onClick(): MobileData is not allowed"
@@ -1304,9 +1420,9 @@
 
     goto :goto_0
 
-    .line 249
+    .line 270
     :cond_3
-    iget-object v2, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->mContext:Landroid/content/Context;
+    iget-object v2, p0, Landroid/view/View;->mContext:Landroid/content/Context;
 
     invoke-virtual {v2}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
 
@@ -1320,34 +1436,34 @@
 
     iput v2, p0, Lcom/android/systemui/statusbar/policy/quicksetting/MobileDataQuickSettingButton;->isAirPlaneMode:I
 
-    .line 251
+    .line 272
     iget v2, p0, Lcom/android/systemui/statusbar/policy/quicksetting/MobileDataQuickSettingButton;->isAirPlaneMode:I
 
     if-ne v2, v6, :cond_4
 
-    .line 253
+    .line 274
     sget-object v2, Lcom/android/systemui/statusbar/policy/quicksetting/MobileDataQuickSettingButton;->toastAlert:Landroid/widget/Toast;
 
-    const v3, 0x7f0c010a
+    const v3, 0x7f0a0113
 
     invoke-virtual {v2, v3}, Landroid/widget/Toast;->setText(I)V
 
-    .line 254
+    .line 275
     sget-object v2, Lcom/android/systemui/statusbar/policy/quicksetting/MobileDataQuickSettingButton;->toastAlert:Landroid/widget/Toast;
 
     invoke-virtual {v2}, Landroid/widget/Toast;->show()V
 
     goto :goto_0
 
-    .line 259
+    .line 280
     :cond_4
     sget-boolean v2, Lcom/android/systemui/statusbar/Feature;->mSupportToddlerMode:Z
 
     if-eqz v2, :cond_5
 
-    .line 261
+    .line 282
     :try_start_0
-    iget-object v2, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->mContext:Landroid/content/Context;
+    iget-object v2, p0, Landroid/view/View;->mContext:Landroid/content/Context;
 
     invoke-virtual {v2}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
 
@@ -1361,18 +1477,18 @@
 
     move-result v1
 
-    .line 262
+    .line 283
     .local v1, isToddlerMode:I
     if-ne v1, v6, :cond_5
 
-    .line 263
+    .line 284
     sget-object v2, Lcom/android/systemui/statusbar/policy/quicksetting/MobileDataQuickSettingButton;->toastAlert:Landroid/widget/Toast;
 
-    const v3, 0x7f0c010b
+    const v3, 0x7f0a0114
 
     invoke-virtual {v2, v3}, Landroid/widget/Toast;->setText(I)V
 
-    .line 264
+    .line 285
     sget-object v2, Lcom/android/systemui/statusbar/policy/quicksetting/MobileDataQuickSettingButton;->toastAlert:Landroid/widget/Toast;
 
     invoke-virtual {v2}, Landroid/widget/Toast;->show()V
@@ -1381,12 +1497,12 @@
 
     goto/16 :goto_0
 
-    .line 267
+    .line 288
     .end local v1           #isToddlerMode:I
     :catch_0
     move-exception v0
 
-    .line 268
+    .line 289
     .local v0, e:Landroid/provider/Settings$SettingNotFoundException;
     const-string v2, "STATUSBAR-MobileDataQuickSettingButton"
 
@@ -1394,14 +1510,14 @@
 
     invoke-static {v2, v3}, Landroid/util/secutil/Log;->secW(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 272
+    .line 293
     .end local v0           #e:Landroid/provider/Settings$SettingNotFoundException;
     :cond_5
     const/4 v2, 0x3
 
-    invoke-virtual {p0, v2}, Lcom/android/systemui/statusbar/policy/quicksetting/MobileDataQuickSettingButton;->setActivateStatus(I)V
+    invoke-virtual {p0, v2}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->setActivateStatus(I)V
 
-    .line 274
+    .line 295
     invoke-direct {p0}, Lcom/android/systemui/statusbar/policy/quicksetting/MobileDataQuickSettingButton;->isSimReady()Z
 
     move-result v2
@@ -1412,7 +1528,7 @@
 
     if-eq p1, v2, :cond_0
 
-    .line 275
+    .line 296
     invoke-static {}, Lcom/sec/android/app/CscFeature;->getInstance()Lcom/sec/android/app/CscFeature;
 
     move-result-object v2
@@ -1425,12 +1541,12 @@
 
     if-eqz v2, :cond_6
 
-    .line 276
+    .line 297
     invoke-direct {p0, p1}, Lcom/android/systemui/statusbar/policy/quicksetting/MobileDataQuickSettingButton;->setORGMobileData(Z)V
 
     goto/16 :goto_0
 
-    .line 278
+    .line 299
     :cond_6
     invoke-direct {p0, p1}, Lcom/android/systemui/statusbar/policy/quicksetting/MobileDataQuickSettingButton;->setMobileData(Z)V
 
@@ -1443,8 +1559,8 @@
     .prologue
     const/4 v3, 0x1
 
-    .line 286
-    iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->mContext:Landroid/content/Context;
+    .line 307
+    iget-object v0, p0, Landroid/view/View;->mContext:Landroid/content/Context;
 
     const-string v1, "enterprise_policy"
 
@@ -1456,7 +1572,7 @@
 
     iput-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/MobileDataQuickSettingButton;->mEDM:Landroid/app/enterprise/EnterpriseDeviceManager;
 
-    .line 287
+    .line 308
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/MobileDataQuickSettingButton;->mEDM:Landroid/app/enterprise/EnterpriseDeviceManager;
 
     invoke-virtual {v0}, Landroid/app/enterprise/EnterpriseDeviceManager;->getRestrictionPolicy()Landroid/app/enterprise/RestrictionPolicy;
@@ -1465,7 +1581,7 @@
 
     iput-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/MobileDataQuickSettingButton;->mRestrictionPolicy:Landroid/app/enterprise/RestrictionPolicy;
 
-    .line 288
+    .line 309
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/MobileDataQuickSettingButton;->mRestrictionPolicy:Landroid/app/enterprise/RestrictionPolicy;
 
     invoke-virtual {v0, v3}, Landroid/app/enterprise/RestrictionPolicy;->isSettingsChangesAllowed(Z)Z
@@ -1474,21 +1590,21 @@
 
     if-nez v0, :cond_1
 
-    .line 289
+    .line 310
     const-string v0, "STATUSBAR-MobileDataQuickSettingButton"
 
     const-string v1, "onLongClick(): MobileData state change is not allowed"
 
     invoke-static {v0, v1}, Landroid/util/secutil/Log;->secW(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 311
+    .line 332
     :cond_0
     :goto_0
     return-void
 
-    .line 293
+    .line 314
     :cond_1
-    iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->mContext:Landroid/content/Context;
+    iget-object v0, p0, Landroid/view/View;->mContext:Landroid/content/Context;
 
     invoke-virtual {v0}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
 
@@ -1504,33 +1620,33 @@
 
     iput v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/MobileDataQuickSettingButton;->isAirPlaneMode:I
 
-    .line 295
+    .line 316
     iget v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/MobileDataQuickSettingButton;->isAirPlaneMode:I
 
     if-ne v0, v3, :cond_2
 
-    .line 296
+    .line 317
     const-string v0, "STATUSBAR-MobileDataQuickSettingButton"
 
     const-string v1, "MobileData Long - disabled in Airplanemode"
 
     invoke-static {v0, v1}, Landroid/util/secutil/Log;->secD(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 298
+    .line 319
     sget-object v0, Lcom/android/systemui/statusbar/policy/quicksetting/MobileDataQuickSettingButton;->toastAlert:Landroid/widget/Toast;
 
-    const v1, 0x7f0c010a
+    const v1, 0x7f0a0113
 
     invoke-virtual {v0, v1}, Landroid/widget/Toast;->setText(I)V
 
-    .line 299
+    .line 320
     sget-object v0, Lcom/android/systemui/statusbar/policy/quicksetting/MobileDataQuickSettingButton;->toastAlert:Landroid/widget/Toast;
 
     invoke-virtual {v0}, Landroid/widget/Toast;->show()V
 
     goto :goto_0
 
-    .line 303
+    .line 324
     :cond_2
     invoke-direct {p0}, Lcom/android/systemui/statusbar/policy/quicksetting/MobileDataQuickSettingButton;->isSimReady()Z
 
@@ -1538,27 +1654,27 @@
 
     if-eqz v0, :cond_0
 
-    .line 304
+    .line 325
     sget-boolean v0, Lcom/android/systemui/statusbar/Feature;->mLinkToCdmaSetting:Z
 
     if-eqz v0, :cond_3
 
-    .line 305
+    .line 326
     const-string v0, "com.android.phone"
 
     const-string v1, "com.android.phone.CdmaSettingsEnhancedActivity"
 
-    invoke-virtual {p0, v0, v1}, Lcom/android/systemui/statusbar/policy/quicksetting/MobileDataQuickSettingButton;->callActivity(Ljava/lang/String;Ljava/lang/String;)V
+    invoke-virtual {p0, v0, v1}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->callActivity(Ljava/lang/String;Ljava/lang/String;)V
 
     goto :goto_0
 
-    .line 308
+    .line 329
     :cond_3
     const-string v0, "com.android.phone"
 
     const-string v1, "com.android.phone.MobileNetworkSettings"
 
-    invoke-virtual {p0, v0, v1}, Lcom/android/systemui/statusbar/policy/quicksetting/MobileDataQuickSettingButton;->callActivity(Ljava/lang/String;Ljava/lang/String;)V
+    invoke-virtual {p0, v0, v1}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->callActivity(Ljava/lang/String;Ljava/lang/String;)V
 
     goto :goto_0
 .end method
@@ -1567,13 +1683,13 @@
     .locals 2
 
     .prologue
-    .line 590
+    .line 633
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/MobileDataQuickSettingButton;->mMobileDataObserver:Lcom/android/systemui/statusbar/policy/quicksetting/MobileDataQuickSettingButton$MobileDataObserver;
 
     const/4 v1, 0x0
 
     invoke-virtual {v0, v1}, Lcom/android/systemui/statusbar/policy/quicksetting/MobileDataQuickSettingButton$MobileDataObserver;->onChange(Z)V
 
-    .line 591
+    .line 634
     return-void
 .end method

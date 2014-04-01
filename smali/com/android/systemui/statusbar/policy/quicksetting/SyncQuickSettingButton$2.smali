@@ -41,7 +41,7 @@
     .parameter
 
     .prologue
-    .line 115
+    .line 122
     iput-object p1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/SyncQuickSettingButton$2;->this$0:Lcom/android/systemui/statusbar/policy/quicksetting/SyncQuickSettingButton;
 
     iput-boolean p2, p0, Lcom/android/systemui/statusbar/policy/quicksetting/SyncQuickSettingButton$2;->val$buttonStatus:Z
@@ -64,7 +64,7 @@
 
     const/4 v1, 0x0
 
-    .line 125
+    .line 133
     iget-boolean v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/SyncQuickSettingButton$2;->val$buttonStatus:Z
 
     if-eqz v0, :cond_0
@@ -73,28 +73,28 @@
 
     if-nez v0, :cond_0
 
-    .line 127
+    .line 135
     invoke-static {v2}, Landroid/content/ContentResolver;->setMasterSyncAutomatically(Z)V
 
-    .line 128
+    .line 136
     invoke-static {v2}, Ljava/lang/Boolean;->valueOf(Z)Ljava/lang/Boolean;
 
     move-result-object v0
 
-    .line 134
+    .line 142
     :goto_0
     return-object v0
 
-    .line 130
+    .line 138
     :cond_0
     iget-boolean v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/SyncQuickSettingButton$2;->val$sync:Z
 
     if-eqz v0, :cond_1
 
-    .line 132
+    .line 140
     invoke-static {v1}, Landroid/content/ContentResolver;->setMasterSyncAutomatically(Z)V
 
-    .line 134
+    .line 142
     :cond_1
     invoke-static {v1}, Ljava/lang/Boolean;->valueOf(Z)Ljava/lang/Boolean;
 
@@ -108,7 +108,7 @@
     .parameter "x0"
 
     .prologue
-    .line 115
+    .line 122
     check-cast p1, [Ljava/lang/Void;
 
     .end local p1
@@ -124,7 +124,7 @@
     .parameter "result"
 
     .prologue
-    .line 139
+    .line 147
     return-void
 .end method
 
@@ -133,7 +133,7 @@
     .parameter "x0"
 
     .prologue
-    .line 115
+    .line 122
     check-cast p1, Ljava/lang/Boolean;
 
     .end local p1
@@ -146,13 +146,13 @@
     .locals 2
 
     .prologue
-    .line 119
+    .line 126
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/SyncQuickSettingButton$2;->this$0:Lcom/android/systemui/statusbar/policy/quicksetting/SyncQuickSettingButton;
 
     const/4 v1, 0x1
 
     iput-boolean v1, v0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->mIsProcessing:Z
 
-    .line 120
+    .line 127
     return-void
 .end method

@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="status_bar_date_format_day_month">E, d MMMM</string>
-    <string name="status_bar_date_format_month_day">E, MMMM d</string>
+    <string name="status_bar_date_format_day_month_k">"E
+d MMM"</string>
+    <string name="status_bar_date_format_month_day_k">"E
+MMM d"</string>
     <string name="app_label">System UI</string>
     <string name="status_bar_clear_all_button">Clear</string>
     <string name="status_bar_do_not_disturb_button">Do not disturb</string>
@@ -37,6 +39,9 @@
     <string name="always_use_device">Use by default for this USB device</string>
     <string name="always_use_accessory">Use by default for this USB accessory</string>
     <string name="usb_debugging_title">Allow USB debugging?</string>
+    <string name="usb_debugging_message">"The computer's RSA key fingerprint is:
+%1$s"</string>
+    <string name="usb_debugging_always">Always allow this computer</string>
     <string name="compat_mode_on">Zoom to fill screen</string>
     <string name="compat_mode_off">Stretch to fill screen</string>
     <string name="compat_mode_help_header">Compatibility zoom</string>
@@ -115,6 +120,7 @@
     <string name="accessibility_desc_quick_settings">Quick settings</string>
     <string name="accessibility_desc_recent_apps">Recent apps</string>
     <string name="accessibility_quick_settings_alarm">Alarm set for %s</string>
+    <string name="accessibility_sfinder_button">S Finder</string>
     <string name="data_usage_disabled_dialog_3g_title">2G-3G data turned off</string>
     <string name="data_usage_disabled_dialog_4g_title">4G data turned off</string>
     <string name="data_usage_disabled_dialog_mobile_title">Mobile data turned off</string>
@@ -230,25 +236,28 @@ Mobile data will be turned off."</string>
     <string name="mobile_data_connect">Connect</string>
     <string name="mobile_data_connection_dialog_text">Mobile data connection is currently turned off. You need to connect Mobile data to use data applications such as Browser, Email and YouTube via mobile network. Do you want to make the connection?</string>
     <string name="mobile_data_enable_toast_text">Unable to connect to mobile networks while Airplane mode is turned on. Turn off Airplane mode and try again.</string>
-    <string name="mobile_data_enable_toast_text_toddler">Unable to connect to mobile networks while Toddler mode is turned on. Turn off Toddler mode and try again.</string>
-    <string name="wifi_enable_toast_text_toddler">Unable to connect to Wi-Fi while Toddler mode is turned on. Turn off Toddler mode and try again.</string>
+    <string name="mobile_data_enable_toast_text_toddler">Unable to connect to mobile networks while network restriction mode is turned on. Turn off network restriction mode and try again.</string>
+    <string name="wifi_enable_toast_text_toddler">Unable to connect to Wi-Fi while network restriction mode is turned on. Turn off network restriction mode and try again.</string>
     <string name="warning_alert_check">Do not show again</string>
     <string name="blocking_mode_enable">When this mode is turned on, notifications for selected features will be turned off. You will only receive notifications of incoming calls from people on your allowed list.</string>
     <string name="blocking_mode_enable_wifi">When this mode is turned on, notifications for the selected features will be turned off</string>
     <string name="blocking_mode_title">Blocking mode</string>
     <string name="dormant_mode_off_message">To turn on Blocking mode, turn on at least one option below</string>
+    <string name="driving_mode_title">Hands-free mode</string>
+    <string name="driving_mode_on_dialog_msg_1">Hands-free mode must be turned off in Settings after you have closed S Voice Hands-free. If Hands-free mode remains on, notifications and incoming call info will still be automatically read aloud.</string>
+    <string name="driving_mode_on_dialog_msg_2">You can turn off Hands-free mode by saying “Turn off Hands-free mode” in S Voice Hands-free, or by going to Settings or the notification panel</string>
     <string name="insert_sim_card">Insert SIM card</string>
     <string name="insert_sim_card_message">Insert SIM card to access network services</string>
     <string name="wifi_enable_warning">Turning on Wi-Fi will turn off Portable Wi-Fi hotspot. Continue?</string>
     <string name="wifi_ap_turning_off">Turning off portable Wi-Fi hotspot…</string>
     <string name="no_sim_notification_title">No SIM</string>
-    <string name="no_sim_notification_title_tmo">No SIM Inserted</string>
+    <string name="no_sim_notification_title_tmo">No SIM inserted</string>
     <string name="no_sim_notification_text">Insert SIM card</string>
     <string name="accessibility_power_saving_mode">To turn on Power saving mode, turn on at least one function</string>
     <string name="accessibility_power_saving_mode_title">Power saving mode</string>
-    <string name="accessibility_driving_mode">To turn on Driving mode, turn on at least one function</string>
-    <string name="accessibility_toddler_mode_activate">In Toddler mode, you can use all your applications without connecting to the network. You can also receive calls and text messages. Toddler mode will be turned on.</string>
-    <string name="accessibility_toddler_mode_deactivate">Toddler mode will be turned off</string>
+    <string name="accessibility_driving_mode">To turn on Hands-free mode, turn on at least 1 relevant function</string>
+    <string name="accessibility_toddler_mode_activate">In Network restriction mode, you can use all your applications without connecting to the network. You can also receive calls and text messages. Network restriction mode will be turned on.</string>
+    <string name="accessibility_toddler_mode_deactivate">Network restriction mode will be turned off</string>
     <string name="charging_interruption_title">Info</string>
     <string name="charging_interruption_by_terminal_open_text">Battery disconnected</string>
     <string name="charging_interruption_by_too_high_temperature_text">Charging paused. Battery temperature too high.</string>
@@ -271,7 +280,7 @@ Unplug charger."</string>
     <string name="wireless_charging_text">You have placed the device within range. Now charging wirelessly…</string>
     <string name="wireless_charging_from_wireless_to_cable_text">Switching from wireless charging to cable charging</string>
     <string name="wireless_charging_from_cable_to_wireless_text">Switching from cable charging to wireless charging</string>
-    <string name="wireless_charging_spen_warning_text">The S Pen may not work within range of the wireless charger</string>
+    <string name="wireless_charging_spen_warning_text">Your device is now charging wirelessly. The S Pen will not work within range of wireless charger.</string>
     <string name="incompatible_charger_title">Not charging</string>
     <string name="incompatible_charger_dialog_text">The connected charger is incompatible with this phone. To prevent damage to your phone, charging has been stopped. To continue charging, use the original charger and cable that were provided with this phone.</string>
     <string name="incompatible_charger_notification_text">Unable to charge. Use the original charger.</string>
@@ -281,6 +290,16 @@ Unplug charger."</string>
     <string name="slow_charging_notification_text">To charge faster, use the original charger</string>
     <string name="slow_charging_toast_text">To charge faster, use the charger and cable that were provided with this phone</string>
     <string name="water_damage_warning_text">For protection against water damage, firmly seal the charging cover before use</string>
+    <string name="overheat_shutdown_warning_title">Too hot - turning off</string>
+    <string name="overheat_shutdown_warning_text">Your phone is getting too hot. It will now turn off to cool down.</string>
+    <string name="overheat_shutdown_warning_button_text">"Don't turn off"</string>
+    <string name="overheat_shutdown_notice_title">Why did my phone turn off by itself?</string>
+    <string name="overheat_shutdown_notice_text">"Your phone got too hot. It turned off to prevent damage to the phone.
+
+Overheating can be caused by:
+- Using graphic-intensive apps like video games and navigation apps for long periods of time.
+- Downloading or uploading large files.
+- Using your phone in a very hot location."</string>
     <string name="face_detection_failure_text">Smart stay cannot detect your eyes</string>
     <string name="status_bar_recent_launch_task_manager_title">Task manager</string>
     <string name="status_bar_recent_launch_google_button">Google</string>
@@ -292,7 +311,7 @@ Unplug charger."</string>
     <string name="phone_detect">Suppose you have missed calls or messages. Put down your device, then pick it up again when the screen has turned off.</string>
     <string name="pick_up_your_phone">Pick up your device</string>
     <string name="camera_alert">Unable to start camera during call</string>
-    <string name="stms_version">GT-I9500_EUR_20130813_0827</string>
+    <string name="stms_version">SM-G900F_EUR_20131226_1240</string>
     <string name="wifi_cw_ready">China Telecom WLAN connected</string>
     <string name="wifi_cw_ready_message">You have access to China Telecom WLAN network, consult 10000 to understand billing information, please turn off when not in use</string>
     <string name="location_title">Standalone GPS consent</string>
@@ -303,12 +322,13 @@ Unplug charger."</string>
     <string name="tethering_attention_title">Attention</string>
     <string name="tethering_wifi_off_warning">Turning on portable Wi-Fi hotspot will turn off Wi-Fi</string>
     <string name="quickpanel_air_view_warning">To turn on air view, turn on at least one function</string>
+    <string name="quickpanel_air_view_warning_pen_support">To turn on air view, turn on at least one function from the selected Air view mode</string>
     <string name="quickpanel_air_gesture_warning">To turn on air gesture, turn on at least one relevant function</string>
     <string name="quickpanel_air_gesture_warning_continue">Press and hold a quick setting button to go to the relevant settings</string>
-    <string name="romaing_title">Roaming</string>
-    <string name="voice_and_data_roamaing">Voice and Data Roaming</string>
-    <string name="data_only_romaing">Data Only Roaming</string>
-    <string name="voice_only_romaing">Voice Only Roaming</string>
+    <string name="roaming_title">Roaming</string>
+    <string name="voice_and_data_roaming">Voice and data roaming</string>
+    <string name="data_only_roaming">Data only roaming</string>
+    <string name="voice_only_roaming">Voice only roaming</string>
     <string name="gps_donotshow">Do not show again</string>
     <string name="quickpanel_brightess_level">Level</string>
     <string name="quickpanel_brightess_minus">Minus</string>
@@ -329,9 +349,5 @@ Unplug charger."</string>
     <string name="magnification_text_for_air_view_button">Magnification gestures</string>
     <string name="dialog_battery_data_warning">Portable Wi-Fi hotspot consumes more battery power and increases your data usage. Continue?</string>
     <string name="tether_settings_title_wifi">Portable hotspot</string>
-    <string name="image_saved_in_gallery">Image saved in Gallery</string>
-    <string name="mini_apps">Mini apps</string>
-    <string name="mini_apps_no_selected_apps">No mini apps. Tap to add mini apps</string>
-    <string name="done">Done</string>
-    <string name="edit">Edit</string>
+    <string name="vol_panel_audio_settings">change your audio settings</string>
 </resources>

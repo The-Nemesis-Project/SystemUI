@@ -4,10 +4,6 @@
 
 
 # static fields
-.field private static final CAMERA_PACKAGE_NAME:Ljava/lang/String; = "com.sec.android.app.camera"
-
-.field private static DEBUG:Z = false
-
 .field private static final NUM_MEDIA_SOUND_STREAMS:I = 0x1
 
 .field public static final SHUTTER_CLICK:I = 0x0
@@ -15,8 +11,6 @@
 .field private static final SOUND_FILES:[Ljava/lang/String; = null
 
 .field private static final SOUND_NOT_LOADED:I = -0x1
-
-.field private static final TAG:Ljava/lang/String; = "ScreenshotCaptureSound"
 
 
 # instance fields
@@ -32,19 +26,16 @@
     .locals 3
 
     .prologue
-    const/4 v2, 0x0
-
-    .line 29
-    sput-boolean v2, Lcom/android/systemui/screenshot/ScreenshotCaptureSound;->DEBUG:Z
-
-    .line 35
+    .line 26
     const/4 v0, 0x1
 
     new-array v0, v0, [Ljava/lang/String;
 
-    const-string v1, "/system/media/audio/ui/camera_click.ogg"
+    const/4 v1, 0x0
 
-    aput-object v1, v0, v2
+    const-string v2, "/system/media/audio/ui/camera_click.ogg"
+
+    aput-object v2, v0, v1
 
     sput-object v0, Lcom/android/systemui/screenshot/ScreenshotCaptureSound;->SOUND_FILES:[Ljava/lang/String;
 
@@ -59,10 +50,10 @@
 
     const/4 v3, -0x1
 
-    .line 45
-    invoke-direct/range {p0 .. p0}, Ljava/lang/Object;-><init>()V
+    .line 38
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 46
+    .line 39
     new-instance v1, Landroid/media/SoundPool;
 
     const/4 v2, 0x0
@@ -71,14 +62,14 @@
 
     iput-object v1, p0, Lcom/android/systemui/screenshot/ScreenshotCaptureSound;->mSoundPool:Landroid/media/SoundPool;
 
-    .line 48
+    .line 41
     iget-object v1, p0, Lcom/android/systemui/screenshot/ScreenshotCaptureSound;->mSoundPool:Landroid/media/SoundPool;
 
     const/4 v2, 0x0
 
     invoke-virtual {v1, v2}, Landroid/media/SoundPool;->setOnLoadCompleteListener(Landroid/media/SoundPool$OnLoadCompleteListener;)V
 
-    .line 49
+    .line 42
     sget-object v1, Lcom/android/systemui/screenshot/ScreenshotCaptureSound;->SOUND_FILES:[Ljava/lang/String;
 
     array-length v1, v1
@@ -87,7 +78,7 @@
 
     iput-object v1, p0, Lcom/android/systemui/screenshot/ScreenshotCaptureSound;->mSoundIds:[I
 
-    .line 50
+    .line 43
     const/4 v0, 0x0
 
     .local v0, i:I
@@ -98,21 +89,21 @@
 
     if-ge v0, v1, :cond_0
 
-    .line 51
+    .line 44
     iget-object v1, p0, Lcom/android/systemui/screenshot/ScreenshotCaptureSound;->mSoundIds:[I
 
     aput v3, v1, v0
 
-    .line 50
+    .line 43
     add-int/lit8 v0, v0, 0x1
 
     goto :goto_0
 
-    .line 53
+    .line 46
     :cond_0
     iput v3, p0, Lcom/android/systemui/screenshot/ScreenshotCaptureSound;->mSoundIdToPlay:I
 
-    .line 54
+    .line 47
     return-void
 .end method
 
@@ -123,7 +114,7 @@
     .parameter "soundName"
 
     .prologue
-    .line 57
+    .line 50
     monitor-enter p0
 
     if-ltz p1, :cond_0
@@ -135,7 +126,7 @@
 
     if-lt p1, v0, :cond_1
 
-    .line 58
+    .line 51
     :cond_0
     new-instance v0, Ljava/lang/RuntimeException;
 
@@ -163,7 +154,7 @@
     :try_end_0
     .catchall {:try_start_0 .. :try_end_0} :catchall_0
 
-    .line 57
+    .line 50
     :catchall_0
     move-exception v0
 
@@ -171,7 +162,7 @@
 
     throw v0
 
-    .line 60
+    .line 53
     :cond_1
     :try_start_1
     iget-object v0, p0, Lcom/android/systemui/screenshot/ScreenshotCaptureSound;->mSoundIds:[I
@@ -182,7 +173,7 @@
 
     if-ne v0, v1, :cond_2
 
-    .line 61
+    .line 54
     iget-object v0, p0, Lcom/android/systemui/screenshot/ScreenshotCaptureSound;->mSoundIds:[I
 
     iget-object v1, p0, Lcom/android/systemui/screenshot/ScreenshotCaptureSound;->mSoundPool:Landroid/media/SoundPool;
@@ -201,7 +192,7 @@
     :try_end_1
     .catchall {:try_start_1 .. :try_end_1} :catchall_0
 
-    .line 64
+    .line 56
     :cond_2
     monitor-exit p0
 
@@ -209,11 +200,11 @@
 .end method
 
 .method public declared-synchronized play(I)V
-    .locals 8
+    .locals 9
     .parameter "soundName"
 
     .prologue
-    .line 68
+    .line 60
     monitor-enter p0
 
     :try_start_0
@@ -223,7 +214,7 @@
 
     move-result-object v7
 
-    .line 69
+    .line 61
     .local v7, country:Ljava/lang/String;
     const-string v0, "JP"
 
@@ -231,9 +222,8 @@
 
     move-result v0
 
-    if-eqz v0, :cond_2
+    if-eqz v0, :cond_1
 
-    .line 70
     const-string v0, "service.camera.running"
 
     const-string v1, "0"
@@ -250,14 +240,14 @@
 
     if-eqz v0, :cond_1
 
-    .line 71
+    .line 62
     iget-object v0, p0, Lcom/android/systemui/screenshot/ScreenshotCaptureSound;->mSoundPool:Landroid/media/SoundPool;
 
     const/4 v1, 0x7
 
     invoke-virtual {v0, v1}, Landroid/media/SoundPool;->setStreamType(I)V
 
-    .line 80
+    .line 67
     :goto_0
     if-ltz p1, :cond_0
 
@@ -265,9 +255,9 @@
 
     array-length v0, v0
 
-    if-lt p1, v0, :cond_3
+    if-lt p1, v0, :cond_2
 
-    .line 81
+    .line 68
     :cond_0
     new-instance v0, Ljava/lang/RuntimeException;
 
@@ -295,7 +285,7 @@
     :try_end_0
     .catchall {:try_start_0 .. :try_end_0} :catchall_0
 
-    .line 68
+    .line 60
     .end local v7           #country:Ljava/lang/String;
     :catchall_0
     move-exception v0
@@ -304,7 +294,7 @@
 
     throw v0
 
-    .line 73
+    .line 64
     .restart local v7       #country:Ljava/lang/String;
     :cond_1
     :try_start_1
@@ -316,27 +306,17 @@
 
     goto :goto_0
 
-    .line 77
+    .line 70
     :cond_2
-    iget-object v0, p0, Lcom/android/systemui/screenshot/ScreenshotCaptureSound;->mSoundPool:Landroid/media/SoundPool;
-
-    const/4 v1, 0x1
-
-    invoke-virtual {v0, v1}, Landroid/media/SoundPool;->setStreamType(I)V
-
-    goto :goto_0
-
-    .line 83
-    :cond_3
     iget-object v0, p0, Lcom/android/systemui/screenshot/ScreenshotCaptureSound;->mSoundIds:[I
 
     aget v0, v0, p1
 
     const/4 v1, -0x1
 
-    if-ne v0, v1, :cond_4
+    if-ne v0, v1, :cond_3
 
-    .line 84
+    .line 71
     iget-object v0, p0, Lcom/android/systemui/screenshot/ScreenshotCaptureSound;->mSoundPool:Landroid/media/SoundPool;
 
     sget-object v1, Lcom/android/systemui/screenshot/ScreenshotCaptureSound;->SOUND_FILES:[Ljava/lang/String;
@@ -351,7 +331,7 @@
 
     iput v0, p0, Lcom/android/systemui/screenshot/ScreenshotCaptureSound;->mSoundIdToPlay:I
 
-    .line 86
+    .line 72
     iget-object v0, p0, Lcom/android/systemui/screenshot/ScreenshotCaptureSound;->mSoundIds:[I
 
     iget v1, p0, Lcom/android/systemui/screenshot/ScreenshotCaptureSound;->mSoundIdToPlay:I
@@ -360,21 +340,21 @@
     :try_end_1
     .catchall {:try_start_1 .. :try_end_1} :catchall_0
 
-    .line 98
+    .line 91
     :goto_1
     monitor-exit p0
 
     return-void
 
-    .line 88
-    :cond_4
+    .line 74
+    :cond_3
     const/high16 v2, 0x3f80
 
-    .line 89
+    .line 75
     .local v2, vol:F
     packed-switch p1, :pswitch_data_0
 
-    .line 96
+    .line 89
     :goto_2
     :try_start_2
     iget-object v0, p0, Lcom/android/systemui/screenshot/ScreenshotCaptureSound;->mSoundPool:Landroid/media/SoundPool;
@@ -392,11 +372,14 @@
     move v3, v2
 
     invoke-virtual/range {v0 .. v6}, Landroid/media/SoundPool;->play(IFFIIF)I
+    :try_end_2
+    .catchall {:try_start_2 .. :try_end_2} :catchall_0
 
     goto :goto_1
 
-    .line 91
+    .line 78
     :pswitch_0
+    :try_start_3
     const-string v0, "situation=3;device=0"
 
     invoke-static {v0}, Landroid/media/AudioSystem;->getParameters(Ljava/lang/String;)Ljava/lang/String;
@@ -404,15 +387,31 @@
     move-result-object v0
 
     invoke-static {v0}, Ljava/lang/Float;->parseFloat(Ljava/lang/String;)F
-    :try_end_2
-    .catchall {:try_start_2 .. :try_end_2} :catchall_0
+    :try_end_3
+    .catchall {:try_start_3 .. :try_end_3} :catchall_0
+    .catch Ljava/lang/NumberFormatException; {:try_start_3 .. :try_end_3} :catch_0
 
     move-result v2
 
-    .line 92
     goto :goto_2
 
-    .line 89
+    .line 81
+    :catch_0
+    move-exception v8
+
+    .line 82
+    .local v8, e:Ljava/lang/NumberFormatException;
+    const/high16 v2, 0x3f80
+
+    .line 83
+    :try_start_4
+    invoke-virtual {v8}, Ljava/lang/Throwable;->printStackTrace()V
+    :try_end_4
+    .catchall {:try_start_4 .. :try_end_4} :catchall_0
+
+    goto :goto_2
+
+    .line 75
     nop
 
     :pswitch_data_0
@@ -425,22 +424,22 @@
     .locals 1
 
     .prologue
-    .line 101
+    .line 94
     iget-object v0, p0, Lcom/android/systemui/screenshot/ScreenshotCaptureSound;->mSoundPool:Landroid/media/SoundPool;
 
     if-eqz v0, :cond_0
 
-    .line 102
+    .line 95
     iget-object v0, p0, Lcom/android/systemui/screenshot/ScreenshotCaptureSound;->mSoundPool:Landroid/media/SoundPool;
 
     invoke-virtual {v0}, Landroid/media/SoundPool;->release()V
 
-    .line 103
+    .line 96
     const/4 v0, 0x0
 
     iput-object v0, p0, Lcom/android/systemui/screenshot/ScreenshotCaptureSound;->mSoundPool:Landroid/media/SoundPool;
 
-    .line 105
+    .line 98
     :cond_0
     return-void
 .end method

@@ -77,7 +77,7 @@
     .end annotation
 
     .prologue
-    .line 271
+    .line 278
     .local p1, currentResolveList:Ljava/util/List;,"Ljava/util/List<Landroid/content/pm/ResolveInfo;>;"
     const-string v12, "com.sec.spen.flashannotate"
 
@@ -87,7 +87,7 @@
 
     if-eqz v12, :cond_3
 
-    .line 272
+    .line 279
     new-instance v12, Ljava/lang/StringBuilder;
 
     invoke-direct {v12}, Ljava/lang/StringBuilder;-><init>()V
@@ -120,15 +120,15 @@
 
     move-result-object v9
 
-    .line 275
+    .line 282
     .local v9, outFileName:Ljava/lang/String;
     const/4 v5, 0x0
 
-    .line 276
+    .line 283
     .local v5, fis:Ljava/io/FileInputStream;
     const/4 v7, 0x0
 
-    .line 278
+    .line 285
     .local v7, fos:Ljava/io/FileOutputStream;
     :try_start_0
     new-instance v6, Ljava/io/FileInputStream;
@@ -139,7 +139,7 @@
     :try_end_0
     .catch Ljava/io/IOException; {:try_start_0 .. :try_end_0} :catch_3
 
-    .line 279
+    .line 286
     .end local v5           #fis:Ljava/io/FileInputStream;
     .local v6, fis:Ljava/io/FileInputStream;
     :try_start_1
@@ -149,19 +149,19 @@
     :try_end_1
     .catch Ljava/io/IOException; {:try_start_1 .. :try_end_1} :catch_4
 
-    .line 281
+    .line 288
     .end local v7           #fos:Ljava/io/FileOutputStream;
     .local v8, fos:Ljava/io/FileOutputStream;
     const/4 v2, 0x0
 
-    .line 282
+    .line 289
     .local v2, data:I
     const/16 v12, 0x400
 
     :try_start_2
     new-array v1, v12, [B
 
-    .line 283
+    .line 290
     .local v1, buffer:[B
     :goto_0
     const/4 v12, 0x0
@@ -176,7 +176,7 @@
 
     if-eq v2, v12, :cond_2
 
-    .line 284
+    .line 291
     const/4 v12, 0x0
 
     invoke-virtual {v8, v1, v12, v2}, Ljava/io/FileOutputStream;->write([BII)V
@@ -185,7 +185,7 @@
 
     goto :goto_0
 
-    .line 288
+    .line 295
     .end local v1           #buffer:[B
     :catch_0
     move-exception v3
@@ -196,7 +196,7 @@
     .restart local v7       #fos:Ljava/io/FileOutputStream;
     move-object v5, v6
 
-    .line 289
+    .line 296
     .end local v2           #data:I
     .end local v6           #fis:Ljava/io/FileInputStream;
     .local v3, e:Ljava/io/IOException;
@@ -236,38 +236,38 @@
 
     invoke-static {v12, v13, v3}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)I
 
-    .line 290
-    invoke-virtual {v3}, Ljava/io/IOException;->printStackTrace()V
+    .line 298
+    invoke-virtual {v3}, Ljava/lang/Throwable;->printStackTrace()V
 
-    .line 292
+    .line 300
     if-eqz v5, :cond_0
 
-    .line 293
+    .line 301
     :try_start_3
     invoke-virtual {v5}, Ljava/io/FileInputStream;->close()V
     :try_end_3
     .catch Ljava/io/IOException; {:try_start_3 .. :try_end_3} :catch_1
 
-    .line 296
+    .line 304
     :cond_0
     :goto_2
     if-eqz v7, :cond_1
 
-    .line 297
+    .line 305
     :try_start_4
     invoke-virtual {v7}, Ljava/io/FileOutputStream;->close()V
     :try_end_4
     .catch Ljava/io/IOException; {:try_start_4 .. :try_end_4} :catch_2
 
-    .line 299
+    .line 307
     :cond_1
     :goto_3
-    invoke-virtual {p0}, Lcom/android/systemui/screenshot/ScreenshotEditResolveActivity;->finish()V
+    invoke-virtual {p0}, Landroid/app/Activity;->finish()V
 
-    .line 300
+    .line 308
     const/4 v12, 0x0
 
-    .line 316
+    .line 324
     .end local v3           #e:Ljava/io/IOException;
     .end local v5           #fis:Ljava/io/FileInputStream;
     .end local v7           #fos:Ljava/io/FileOutputStream;
@@ -275,7 +275,7 @@
     :goto_4
     return v12
 
-    .line 286
+    .line 293
     .restart local v1       #buffer:[B
     .restart local v2       #data:I
     .restart local v6       #fis:Ljava/io/FileInputStream;
@@ -285,30 +285,30 @@
     :try_start_5
     invoke-virtual {v6}, Ljava/io/FileInputStream;->close()V
 
-    .line 287
+    .line 294
     invoke-virtual {v8}, Ljava/io/FileOutputStream;->close()V
     :try_end_5
     .catch Ljava/io/IOException; {:try_start_5 .. :try_end_5} :catch_0
 
-    .line 303
+    .line 311
     new-instance v4, Landroid/content/Intent;
 
     invoke-direct {v4}, Landroid/content/Intent;-><init>()V
 
-    .line 304
+    .line 312
     .local v4, editIntent:Landroid/content/Intent;
     const/high16 v12, 0x3401
 
     invoke-virtual {v4, v12}, Landroid/content/Intent;->setFlags(I)Landroid/content/Intent;
 
-    .line 305
+    .line 314
     const-string v12, "com.sec.spen.flashannotate"
 
     const-string v13, "com.sec.spen.flashannotate.FlashAnnotateActivity"
 
     invoke-virtual {v4, v12, v13}, Landroid/content/Intent;->setClassName(Ljava/lang/String;Ljava/lang/String;)Landroid/content/Intent;
 
-    .line 306
+    .line 315
     const-string v12, "orientation"
 
     invoke-direct {p0}, Lcom/android/systemui/screenshot/ScreenshotEditResolveActivity;->getCurrentOrientation()I
@@ -319,19 +319,19 @@
 
     invoke-virtual {v0, v12, v13}, Landroid/content/Intent;->putExtra(Ljava/lang/String;I)Landroid/content/Intent;
 
-    .line 307
+    .line 316
     const-string v12, "savepath"
 
     move-object/from16 v0, p2
 
     invoke-virtual {v0, v12, v9}, Landroid/content/Intent;->putExtra(Ljava/lang/String;Ljava/lang/String;)Landroid/content/Intent;
 
-    .line 309
-    invoke-virtual {p0}, Lcom/android/systemui/screenshot/ScreenshotEditResolveActivity;->getPackageManager()Landroid/content/pm/PackageManager;
+    .line 318
+    invoke-virtual {p0}, Landroid/content/ContextWrapper;->getPackageManager()Landroid/content/pm/PackageManager;
 
     move-result-object v10
 
-    .line 310
+    .line 319
     .local v10, packageManager:Landroid/content/pm/PackageManager;
     const/4 v12, 0x0
 
@@ -339,7 +339,7 @@
 
     move-result-object v11
 
-    .line 311
+    .line 320
     .local v11, ri:Landroid/content/pm/ResolveInfo;
     const-string v12, "ScreenshotEditResolveActivity"
 
@@ -349,17 +349,17 @@
 
     invoke-static {v12, v13}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 312
+    .line 321
     move-object/from16 v0, p1
 
     invoke-interface {v0, v11}, Ljava/util/List;->add(Ljava/lang/Object;)Z
 
-    .line 313
+    .line 322
     const/4 v12, 0x1
 
     goto :goto_4
 
-    .line 316
+    .line 324
     .end local v1           #buffer:[B
     .end local v2           #data:I
     .end local v4           #editIntent:Landroid/content/Intent;
@@ -373,7 +373,7 @@
 
     goto :goto_4
 
-    .line 294
+    .line 302
     .restart local v3       #e:Ljava/io/IOException;
     .restart local v5       #fis:Ljava/io/FileInputStream;
     .restart local v7       #fos:Ljava/io/FileOutputStream;
@@ -383,13 +383,13 @@
 
     goto :goto_2
 
-    .line 298
+    .line 306
     :catch_2
     move-exception v12
 
     goto :goto_3
 
-    .line 288
+    .line 295
     .end local v3           #e:Ljava/io/IOException;
     :catch_3
     move-exception v3
@@ -425,7 +425,7 @@
     .end annotation
 
     .prologue
-    .line 126
+    .line 132
     .local p1, currentResolveList:Ljava/util/ArrayList;,"Ljava/util/ArrayList<Landroid/content/pm/ResolveInfo;>;"
     const-string v14, "com.dama.paperartist"
 
@@ -437,7 +437,7 @@
 
     if-eqz v14, :cond_3
 
-    .line 127
+    .line 133
     new-instance v14, Ljava/lang/StringBuilder;
 
     invoke-direct {v14}, Ljava/lang/StringBuilder;-><init>()V
@@ -466,15 +466,15 @@
 
     move-result-object v11
 
-    .line 130
+    .line 136
     .local v11, outFileName:Ljava/lang/String;
     const/4 v7, 0x0
 
-    .line 131
+    .line 137
     .local v7, fis:Ljava/io/FileInputStream;
     const/4 v9, 0x0
 
-    .line 133
+    .line 139
     .local v9, fos:Ljava/io/FileOutputStream;
     :try_start_0
     new-instance v8, Ljava/io/FileInputStream;
@@ -487,7 +487,7 @@
     :try_end_0
     .catch Ljava/io/IOException; {:try_start_0 .. :try_end_0} :catch_3
 
-    .line 134
+    .line 140
     .end local v7           #fis:Ljava/io/FileInputStream;
     .local v8, fis:Ljava/io/FileInputStream;
     :try_start_1
@@ -497,19 +497,19 @@
     :try_end_1
     .catch Ljava/io/IOException; {:try_start_1 .. :try_end_1} :catch_4
 
-    .line 136
+    .line 142
     .end local v9           #fos:Ljava/io/FileOutputStream;
     .local v10, fos:Ljava/io/FileOutputStream;
     const/4 v2, 0x0
 
-    .line 137
+    .line 143
     .local v2, data:I
     const/16 v14, 0x400
 
     :try_start_2
     new-array v1, v14, [B
 
-    .line 138
+    .line 144
     .local v1, buffer:[B
     :goto_0
     const/4 v14, 0x0
@@ -524,7 +524,7 @@
 
     if-eq v2, v14, :cond_2
 
-    .line 139
+    .line 145
     const/4 v14, 0x0
 
     invoke-virtual {v10, v1, v14, v2}, Ljava/io/FileOutputStream;->write([BII)V
@@ -533,7 +533,7 @@
 
     goto :goto_0
 
-    .line 143
+    .line 149
     .end local v1           #buffer:[B
     :catch_0
     move-exception v3
@@ -544,7 +544,7 @@
     .restart local v9       #fos:Ljava/io/FileOutputStream;
     move-object v7, v8
 
-    .line 144
+    .line 150
     .end local v2           #data:I
     .end local v8           #fis:Ljava/io/FileInputStream;
     .local v3, e:Ljava/io/IOException;
@@ -588,38 +588,38 @@
 
     invoke-static {v14, v15, v3}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)I
 
-    .line 145
-    invoke-virtual {v3}, Ljava/io/IOException;->printStackTrace()V
+    .line 152
+    invoke-virtual {v3}, Ljava/lang/Throwable;->printStackTrace()V
 
-    .line 147
+    .line 154
     if-eqz v7, :cond_0
 
-    .line 148
+    .line 155
     :try_start_3
     invoke-virtual {v7}, Ljava/io/FileInputStream;->close()V
     :try_end_3
     .catch Ljava/io/IOException; {:try_start_3 .. :try_end_3} :catch_1
 
-    .line 151
+    .line 158
     :cond_0
     :goto_2
     if-eqz v9, :cond_1
 
-    .line 152
+    .line 159
     :try_start_4
     invoke-virtual {v9}, Ljava/io/FileOutputStream;->close()V
     :try_end_4
     .catch Ljava/io/IOException; {:try_start_4 .. :try_end_4} :catch_2
 
-    .line 154
+    .line 161
     :cond_1
     :goto_3
-    invoke-virtual/range {p0 .. p0}, Lcom/android/systemui/screenshot/ScreenshotEditResolveActivity;->finish()V
+    invoke-virtual/range {p0 .. p0}, Landroid/app/Activity;->finish()V
 
-    .line 155
+    .line 162
     const/4 v14, 0x0
 
-    .line 181
+    .line 188
     .end local v3           #e:Ljava/io/IOException;
     .end local v7           #fis:Ljava/io/FileInputStream;
     .end local v9           #fos:Ljava/io/FileOutputStream;
@@ -627,7 +627,7 @@
     :goto_4
     return v14
 
-    .line 141
+    .line 147
     .restart local v1       #buffer:[B
     .restart local v2       #data:I
     .restart local v8       #fis:Ljava/io/FileInputStream;
@@ -637,34 +637,34 @@
     :try_start_5
     invoke-virtual {v8}, Ljava/io/FileInputStream;->close()V
 
-    .line 142
+    .line 148
     invoke-virtual {v10}, Ljava/io/FileOutputStream;->close()V
     :try_end_5
     .catch Ljava/io/IOException; {:try_start_5 .. :try_end_5} :catch_0
 
-    .line 158
+    .line 165
     const-string v14, "ScreenshotEditResolveActivity"
 
     invoke-static {v14, v11}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 161
+    .line 168
     new-instance v5, Landroid/content/Intent;
 
     invoke-direct {v5}, Landroid/content/Intent;-><init>()V
 
-    .line 162
+    .line 169
     .local v5, editIntent:Landroid/content/Intent;
     new-instance v4, Ljava/io/File;
 
     invoke-direct {v4, v11}, Ljava/io/File;-><init>(Ljava/lang/String;)V
 
-    .line 163
+    .line 170
     .local v4, editFile:Ljava/io/File;
     invoke-static {v4}, Landroid/net/Uri;->fromFile(Ljava/io/File;)Landroid/net/Uri;
 
     move-result-object v6
 
-    .line 165
+    .line 172
     .local v6, fileUri:Landroid/net/Uri;
     new-instance v14, Landroid/content/ComponentName;
 
@@ -676,54 +676,54 @@
 
     invoke-virtual {v5, v14}, Landroid/content/Intent;->setComponent(Landroid/content/ComponentName;)Landroid/content/Intent;
 
-    .line 167
+    .line 174
     const-string v14, "android.intent.extra.STREAM"
 
     move-object/from16 v0, p2
 
     invoke-virtual {v0, v14, v6}, Landroid/content/Intent;->putExtra(Ljava/lang/String;Landroid/os/Parcelable;)Landroid/content/Intent;
 
-    .line 168
+    .line 175
     const-string v14, "android.intent.action.SEND"
 
     move-object/from16 v0, p2
 
     invoke-virtual {v0, v14}, Landroid/content/Intent;->setAction(Ljava/lang/String;)Landroid/content/Intent;
 
-    .line 169
+    .line 176
     const-string v14, "image/png"
 
     move-object/from16 v0, p2
 
     invoke-virtual {v0, v14}, Landroid/content/Intent;->setType(Ljava/lang/String;)Landroid/content/Intent;
 
-    .line 170
+    .line 177
     const/4 v14, 0x1
 
     move-object/from16 v0, p2
 
     invoke-virtual {v0, v14}, Landroid/content/Intent;->addFlags(I)Landroid/content/Intent;
 
-    .line 171
+    .line 178
     const/high16 v14, 0x1
 
     move-object/from16 v0, p2
 
     invoke-virtual {v0, v14}, Landroid/content/Intent;->addFlags(I)Landroid/content/Intent;
 
-    .line 172
+    .line 179
     const-string v14, "android.intent.extra.STREAM"
 
     move-object/from16 v0, p2
 
     invoke-virtual {v0, v14, v6}, Landroid/content/Intent;->putExtra(Ljava/lang/String;Landroid/os/Parcelable;)Landroid/content/Intent;
 
-    .line 174
-    invoke-virtual/range {p0 .. p0}, Lcom/android/systemui/screenshot/ScreenshotEditResolveActivity;->getPackageManager()Landroid/content/pm/PackageManager;
+    .line 181
+    invoke-virtual/range {p0 .. p0}, Landroid/content/ContextWrapper;->getPackageManager()Landroid/content/pm/PackageManager;
 
     move-result-object v12
 
-    .line 175
+    .line 182
     .local v12, packageManager:Landroid/content/pm/PackageManager;
     const/4 v14, 0x0
 
@@ -731,7 +731,7 @@
 
     move-result-object v13
 
-    .line 176
+    .line 183
     .local v13, ri:Landroid/content/pm/ResolveInfo;
     const-string v14, "ScreenshotEditResolveActivity"
 
@@ -741,17 +741,17 @@
 
     invoke-static {v14, v15}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 177
+    .line 184
     move-object/from16 v0, p1
 
     invoke-virtual {v0, v13}, Ljava/util/ArrayList;->add(Ljava/lang/Object;)Z
 
-    .line 179
+    .line 186
     const/4 v14, 0x1
 
     goto :goto_4
 
-    .line 181
+    .line 188
     .end local v1           #buffer:[B
     .end local v2           #data:I
     .end local v4           #editFile:Ljava/io/File;
@@ -767,7 +767,7 @@
 
     goto :goto_4
 
-    .line 149
+    .line 156
     .restart local v3       #e:Ljava/io/IOException;
     .restart local v7       #fis:Ljava/io/FileInputStream;
     .restart local v9       #fos:Ljava/io/FileOutputStream;
@@ -777,13 +777,13 @@
 
     goto :goto_2
 
-    .line 153
+    .line 160
     :catch_2
     move-exception v14
 
     goto :goto_3
 
-    .line 143
+    .line 149
     .end local v3           #e:Ljava/io/IOException;
     :catch_3
     move-exception v3
@@ -819,7 +819,7 @@
     .end annotation
 
     .prologue
-    .line 186
+    .line 193
     .local p1, currentResolveList:Ljava/util/ArrayList;,"Ljava/util/ArrayList<Landroid/content/pm/ResolveInfo;>;"
     const-string v14, "com.sec.android.mimage.photoretouching"
 
@@ -831,7 +831,7 @@
 
     if-eqz v14, :cond_3
 
-    .line 187
+    .line 194
     new-instance v14, Ljava/lang/StringBuilder;
 
     invoke-direct {v14}, Ljava/lang/StringBuilder;-><init>()V
@@ -860,15 +860,15 @@
 
     move-result-object v11
 
-    .line 190
+    .line 197
     .local v11, outFileName:Ljava/lang/String;
     const/4 v7, 0x0
 
-    .line 191
+    .line 198
     .local v7, fis:Ljava/io/FileInputStream;
     const/4 v9, 0x0
 
-    .line 193
+    .line 200
     .local v9, fos:Ljava/io/FileOutputStream;
     :try_start_0
     new-instance v8, Ljava/io/FileInputStream;
@@ -881,7 +881,7 @@
     :try_end_0
     .catch Ljava/io/IOException; {:try_start_0 .. :try_end_0} :catch_3
 
-    .line 194
+    .line 201
     .end local v7           #fis:Ljava/io/FileInputStream;
     .local v8, fis:Ljava/io/FileInputStream;
     :try_start_1
@@ -891,19 +891,19 @@
     :try_end_1
     .catch Ljava/io/IOException; {:try_start_1 .. :try_end_1} :catch_4
 
-    .line 196
+    .line 203
     .end local v9           #fos:Ljava/io/FileOutputStream;
     .local v10, fos:Ljava/io/FileOutputStream;
     const/4 v2, 0x0
 
-    .line 197
+    .line 204
     .local v2, data:I
     const/16 v14, 0x400
 
     :try_start_2
     new-array v1, v14, [B
 
-    .line 198
+    .line 205
     .local v1, buffer:[B
     :goto_0
     const/4 v14, 0x0
@@ -918,7 +918,7 @@
 
     if-eq v2, v14, :cond_2
 
-    .line 199
+    .line 206
     const/4 v14, 0x0
 
     invoke-virtual {v10, v1, v14, v2}, Ljava/io/FileOutputStream;->write([BII)V
@@ -927,7 +927,7 @@
 
     goto :goto_0
 
-    .line 203
+    .line 210
     .end local v1           #buffer:[B
     :catch_0
     move-exception v3
@@ -938,7 +938,7 @@
     .restart local v9       #fos:Ljava/io/FileOutputStream;
     move-object v7, v8
 
-    .line 204
+    .line 211
     .end local v2           #data:I
     .end local v8           #fis:Ljava/io/FileInputStream;
     .local v3, e:Ljava/io/IOException;
@@ -982,38 +982,38 @@
 
     invoke-static {v14, v15, v3}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)I
 
-    .line 205
-    invoke-virtual {v3}, Ljava/io/IOException;->printStackTrace()V
+    .line 213
+    invoke-virtual {v3}, Ljava/lang/Throwable;->printStackTrace()V
 
-    .line 207
+    .line 215
     if-eqz v7, :cond_0
 
-    .line 208
+    .line 216
     :try_start_3
     invoke-virtual {v7}, Ljava/io/FileInputStream;->close()V
     :try_end_3
     .catch Ljava/io/IOException; {:try_start_3 .. :try_end_3} :catch_1
 
-    .line 211
+    .line 219
     :cond_0
     :goto_2
     if-eqz v9, :cond_1
 
-    .line 212
+    .line 220
     :try_start_4
     invoke-virtual {v9}, Ljava/io/FileOutputStream;->close()V
     :try_end_4
     .catch Ljava/io/IOException; {:try_start_4 .. :try_end_4} :catch_2
 
-    .line 214
+    .line 222
     :cond_1
     :goto_3
-    invoke-virtual/range {p0 .. p0}, Lcom/android/systemui/screenshot/ScreenshotEditResolveActivity;->finish()V
+    invoke-virtual/range {p0 .. p0}, Landroid/app/Activity;->finish()V
 
-    .line 215
+    .line 223
     const/4 v14, 0x0
 
-    .line 241
+    .line 248
     .end local v3           #e:Ljava/io/IOException;
     .end local v7           #fis:Ljava/io/FileInputStream;
     .end local v9           #fos:Ljava/io/FileOutputStream;
@@ -1021,7 +1021,7 @@
     :goto_4
     return v14
 
-    .line 201
+    .line 208
     .restart local v1       #buffer:[B
     .restart local v2       #data:I
     .restart local v8       #fis:Ljava/io/FileInputStream;
@@ -1031,34 +1031,34 @@
     :try_start_5
     invoke-virtual {v8}, Ljava/io/FileInputStream;->close()V
 
-    .line 202
+    .line 209
     invoke-virtual {v10}, Ljava/io/FileOutputStream;->close()V
     :try_end_5
     .catch Ljava/io/IOException; {:try_start_5 .. :try_end_5} :catch_0
 
-    .line 218
+    .line 226
     const-string v14, "ScreenshotEditResolveActivity"
 
     invoke-static {v14, v11}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 221
+    .line 229
     new-instance v5, Landroid/content/Intent;
 
     invoke-direct {v5}, Landroid/content/Intent;-><init>()V
 
-    .line 222
+    .line 230
     .local v5, editIntent:Landroid/content/Intent;
     new-instance v4, Ljava/io/File;
 
     invoke-direct {v4, v11}, Ljava/io/File;-><init>(Ljava/lang/String;)V
 
-    .line 223
+    .line 231
     .local v4, editFile:Ljava/io/File;
     invoke-static {v4}, Landroid/net/Uri;->fromFile(Ljava/io/File;)Landroid/net/Uri;
 
     move-result-object v6
 
-    .line 225
+    .line 233
     .local v6, fileUri:Landroid/net/Uri;
     new-instance v14, Landroid/content/ComponentName;
 
@@ -1070,54 +1070,54 @@
 
     invoke-virtual {v5, v14}, Landroid/content/Intent;->setComponent(Landroid/content/ComponentName;)Landroid/content/Intent;
 
-    .line 227
+    .line 235
     const-string v14, "android.intent.extra.STREAM"
 
     move-object/from16 v0, p2
 
     invoke-virtual {v0, v14, v6}, Landroid/content/Intent;->putExtra(Ljava/lang/String;Landroid/os/Parcelable;)Landroid/content/Intent;
 
-    .line 228
+    .line 236
     const-string v14, "android.intent.action.SEND"
 
     move-object/from16 v0, p2
 
     invoke-virtual {v0, v14}, Landroid/content/Intent;->setAction(Ljava/lang/String;)Landroid/content/Intent;
 
-    .line 229
+    .line 237
     const-string v14, "image/png"
 
     move-object/from16 v0, p2
 
     invoke-virtual {v0, v14}, Landroid/content/Intent;->setType(Ljava/lang/String;)Landroid/content/Intent;
 
-    .line 230
+    .line 238
     const/4 v14, 0x1
 
     move-object/from16 v0, p2
 
     invoke-virtual {v0, v14}, Landroid/content/Intent;->addFlags(I)Landroid/content/Intent;
 
-    .line 231
+    .line 239
     const/high16 v14, 0x1
 
     move-object/from16 v0, p2
 
     invoke-virtual {v0, v14}, Landroid/content/Intent;->addFlags(I)Landroid/content/Intent;
 
-    .line 232
+    .line 240
     const-string v14, "android.intent.extra.STREAM"
 
     move-object/from16 v0, p2
 
     invoke-virtual {v0, v14, v6}, Landroid/content/Intent;->putExtra(Ljava/lang/String;Landroid/os/Parcelable;)Landroid/content/Intent;
 
-    .line 234
-    invoke-virtual/range {p0 .. p0}, Lcom/android/systemui/screenshot/ScreenshotEditResolveActivity;->getPackageManager()Landroid/content/pm/PackageManager;
+    .line 242
+    invoke-virtual/range {p0 .. p0}, Landroid/content/ContextWrapper;->getPackageManager()Landroid/content/pm/PackageManager;
 
     move-result-object v12
 
-    .line 235
+    .line 243
     .local v12, packageManager:Landroid/content/pm/PackageManager;
     const/4 v14, 0x0
 
@@ -1125,7 +1125,7 @@
 
     move-result-object v13
 
-    .line 236
+    .line 244
     .local v13, ri:Landroid/content/pm/ResolveInfo;
     const-string v14, "ScreenshotEditResolveActivity"
 
@@ -1135,17 +1135,17 @@
 
     invoke-static {v14, v15}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 237
+    .line 245
     move-object/from16 v0, p1
 
     invoke-virtual {v0, v13}, Ljava/util/ArrayList;->add(Ljava/lang/Object;)Z
 
-    .line 239
+    .line 246
     const/4 v14, 0x1
 
     goto :goto_4
 
-    .line 241
+    .line 248
     .end local v1           #buffer:[B
     .end local v2           #data:I
     .end local v4           #editFile:Ljava/io/File;
@@ -1161,7 +1161,7 @@
 
     goto :goto_4
 
-    .line 209
+    .line 217
     .restart local v3       #e:Ljava/io/IOException;
     .restart local v7       #fis:Ljava/io/FileInputStream;
     .restart local v9       #fos:Ljava/io/FileOutputStream;
@@ -1171,13 +1171,13 @@
 
     goto :goto_2
 
-    .line 213
+    .line 221
     :catch_2
     move-exception v14
 
     goto :goto_3
 
-    .line 203
+    .line 210
     .end local v3           #e:Ljava/io/IOException;
     :catch_3
     move-exception v3
@@ -1218,7 +1218,7 @@
 
     const/4 v6, 0x0
 
-    .line 246
+    .line 253
     const-string v7, "air.com.adobe.pstouch.oem1"
 
     invoke-direct {p0, v7}, Lcom/android/systemui/screenshot/ScreenshotEditResolveActivity;->isPackageVaild(Ljava/lang/String;)Z
@@ -1227,12 +1227,12 @@
 
     if-eqz v7, :cond_0
 
-    .line 247
+    .line 254
     new-instance v1, Landroid/content/Intent;
 
     invoke-direct {v1}, Landroid/content/Intent;-><init>()V
 
-    .line 248
+    .line 255
     .local v1, editIntent:Landroid/content/Intent;
     new-instance v0, Ljava/io/File;
 
@@ -1240,13 +1240,13 @@
 
     invoke-direct {v0, v7}, Ljava/io/File;-><init>(Ljava/lang/String;)V
 
-    .line 249
+    .line 256
     .local v0, editFile:Ljava/io/File;
     invoke-static {v0}, Landroid/net/Uri;->fromFile(Ljava/io/File;)Landroid/net/Uri;
 
     move-result-object v2
 
-    .line 251
+    .line 258
     .local v2, fileUri:Landroid/net/Uri;
     new-instance v7, Landroid/content/ComponentName;
 
@@ -1258,46 +1258,46 @@
 
     invoke-virtual {v1, v7}, Landroid/content/Intent;->setComponent(Landroid/content/ComponentName;)Landroid/content/Intent;
 
-    .line 253
+    .line 260
     const-string v7, "android.intent.extra.STREAM"
 
     invoke-virtual {p2, v7, v2}, Landroid/content/Intent;->putExtra(Ljava/lang/String;Landroid/os/Parcelable;)Landroid/content/Intent;
 
-    .line 254
+    .line 261
     const-string v7, "android.intent.action.SEND"
 
     invoke-virtual {p2, v7}, Landroid/content/Intent;->setAction(Ljava/lang/String;)Landroid/content/Intent;
 
-    .line 255
+    .line 262
     const-string v7, "image/png"
 
     invoke-virtual {p2, v7}, Landroid/content/Intent;->setType(Ljava/lang/String;)Landroid/content/Intent;
 
-    .line 256
+    .line 263
     invoke-virtual {p2, v5}, Landroid/content/Intent;->addFlags(I)Landroid/content/Intent;
 
-    .line 257
+    .line 264
     const/high16 v7, 0x1
 
     invoke-virtual {p2, v7}, Landroid/content/Intent;->addFlags(I)Landroid/content/Intent;
 
-    .line 258
+    .line 265
     const-string v7, "android.intent.extra.STREAM"
 
     invoke-virtual {p2, v7, v2}, Landroid/content/Intent;->putExtra(Ljava/lang/String;Landroid/os/Parcelable;)Landroid/content/Intent;
 
-    .line 260
-    invoke-virtual {p0}, Lcom/android/systemui/screenshot/ScreenshotEditResolveActivity;->getPackageManager()Landroid/content/pm/PackageManager;
+    .line 267
+    invoke-virtual {p0}, Landroid/content/ContextWrapper;->getPackageManager()Landroid/content/pm/PackageManager;
 
     move-result-object v3
 
-    .line 261
+    .line 268
     .local v3, packageManager:Landroid/content/pm/PackageManager;
     invoke-virtual {v3, v1, v6}, Landroid/content/pm/PackageManager;->resolveActivity(Landroid/content/Intent;I)Landroid/content/pm/ResolveInfo;
 
     move-result-object v4
 
-    .line 262
+    .line 269
     .local v4, ri:Landroid/content/pm/ResolveInfo;
     const-string v6, "ScreenshotEditResolveActivity"
 
@@ -1307,10 +1307,10 @@
 
     invoke-static {v6, v7}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 263
+    .line 270
     invoke-virtual {p1, v4}, Ljava/util/ArrayList;->add(Ljava/lang/Object;)Z
 
-    .line 267
+    .line 274
     .end local v0           #editFile:Ljava/io/File;
     .end local v1           #editIntent:Landroid/content/Intent;
     .end local v2           #fileUri:Landroid/net/Uri;
@@ -1329,26 +1329,26 @@
     .locals 5
 
     .prologue
-    .line 339
+    .line 345
     const-string v4, "window"
 
-    invoke-virtual {p0, v4}, Lcom/android/systemui/screenshot/ScreenshotEditResolveActivity;->getSystemService(Ljava/lang/String;)Ljava/lang/Object;
+    invoke-virtual {p0, v4}, Landroid/app/Activity;->getSystemService(Ljava/lang/String;)Ljava/lang/Object;
 
     move-result-object v3
 
     check-cast v3, Landroid/view/WindowManager;
 
-    .line 340
+    .line 346
     .local v3, windowManager:Landroid/view/WindowManager;
     invoke-interface {v3}, Landroid/view/WindowManager;->getDefaultDisplay()Landroid/view/Display;
 
     move-result-object v1
 
-    .line 342
+    .line 348
     .local v1, display:Landroid/view/Display;
     const/4 v2, 0x1
 
-    .line 343
+    .line 349
     .local v2, orientation:I
     invoke-virtual {v1}, Landroid/view/Display;->getRotation()I
 
@@ -1356,7 +1356,7 @@
 
     int-to-float v0, v4
 
-    .line 345
+    .line 351
     .local v0, degree:F
     const/high16 v4, 0x3f80
 
@@ -1364,14 +1364,14 @@
 
     if-nez v4, :cond_0
 
-    .line 346
+    .line 352
     const/4 v2, 0x0
 
-    .line 353
+    .line 358
     :goto_0
     return v2
 
-    .line 347
+    .line 353
     :cond_0
     const/high16 v4, 0x4040
 
@@ -1379,12 +1379,12 @@
 
     if-nez v4, :cond_1
 
-    .line 348
+    .line 354
     const/16 v2, 0x8
 
     goto :goto_0
 
-    .line 350
+    .line 356
     :cond_1
     const/4 v2, 0x1
 
@@ -1398,14 +1398,14 @@
     .prologue
     const/4 v2, 0x0
 
-    .line 321
+    .line 328
     const-string v3, "ScreenshotEditResolveActivity"
 
     invoke-static {v3, p1}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 323
+    .line 330
     :try_start_0
-    invoke-virtual {p0}, Lcom/android/systemui/screenshot/ScreenshotEditResolveActivity;->getPackageManager()Landroid/content/pm/PackageManager;
+    invoke-virtual {p0}, Landroid/content/ContextWrapper;->getPackageManager()Landroid/content/pm/PackageManager;
 
     move-result-object v3
 
@@ -1415,11 +1415,11 @@
 
     move-result-object v1
 
-    .line 324
+    .line 331
     .local v1, info:Landroid/content/pm/PackageInfo;
     if-eqz v1, :cond_0
 
-    .line 325
+    .line 332
     const-string v3, "ScreenshotEditResolveActivity"
 
     new-instance v4, Ljava/lang/StringBuilder;
@@ -1442,15 +1442,15 @@
 
     invoke-static {v3, v4}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 326
+    .line 333
     const/4 v2, 0x1
 
-    .line 334
+    .line 340
     .end local v1           #info:Landroid/content/pm/PackageInfo;
     :goto_0
     return v2
 
-    .line 329
+    .line 335
     .restart local v1       #info:Landroid/content/pm/PackageInfo;
     :cond_0
     const-string v3, "ScreenshotEditResolveActivity"
@@ -1479,12 +1479,12 @@
 
     goto :goto_0
 
-    .line 332
+    .line 338
     .end local v1           #info:Landroid/content/pm/PackageInfo;
     :catch_0
     move-exception v0
 
-    .line 333
+    .line 339
     .local v0, e:Landroid/content/pm/PackageManager$NameNotFoundException;
     const-string v3, "ScreenshotEditResolveActivity"
 
@@ -1514,58 +1514,62 @@
 
 # virtual methods
 .method protected onCreate(Landroid/os/Bundle;)V
-    .locals 9
+    .locals 10
     .parameter "savedInstanceState"
 
     .prologue
     const/4 v6, 0x0
 
     .line 91
-    invoke-virtual {p0}, Lcom/android/systemui/screenshot/ScreenshotEditResolveActivity;->getIntent()Landroid/content/Intent;
+    invoke-virtual {p0}, Landroid/app/Activity;->getIntent()Landroid/content/Intent;
 
     move-result-object v2
 
-    .line 94
+    .line 92
     .local v2, intent:Landroid/content/Intent;
-    const-string v0, "notification"
-
-    invoke-virtual {p0, v0}, Lcom/android/systemui/screenshot/ScreenshotEditResolveActivity;->getSystemService(Ljava/lang/String;)Ljava/lang/Object;
-
-    move-result-object v7
-
-    check-cast v7, Landroid/app/NotificationManager;
-
-    .line 95
-    .local v7, notificationManager:Landroid/app/NotificationManager;
-    const/16 v0, 0x315
-
-    invoke-virtual {v7, v0}, Landroid/app/NotificationManager;->cancel(I)V
+    const/4 v7, 0x0
 
     .line 97
-    invoke-virtual {p0}, Lcom/android/systemui/screenshot/ScreenshotEditResolveActivity;->getResources()Landroid/content/res/Resources;
+    .local v7, isLongLifeMode:Z
+    const-string v0, "notification"
+
+    invoke-virtual {p0, v0}, Landroid/app/Activity;->getSystemService(Ljava/lang/String;)Ljava/lang/Object;
+
+    move-result-object v8
+
+    check-cast v8, Landroid/app/NotificationManager;
+
+    .line 98
+    .local v8, notificationManager:Landroid/app/NotificationManager;
+    const/16 v0, 0x315
+
+    invoke-virtual {v8, v0}, Landroid/app/NotificationManager;->cancel(I)V
+
+    .line 100
+    invoke-virtual {p0}, Landroid/view/ContextThemeWrapper;->getResources()Landroid/content/res/Resources;
 
     move-result-object v0
 
-    const v1, 0x10409eb
+    const v1, 0x1040aee
 
     invoke-virtual {v0, v1}, Landroid/content/res/Resources;->getText(I)Ljava/lang/CharSequence;
 
     move-result-object v3
 
-    .line 99
+    .line 103
     .local v3, title:Ljava/lang/CharSequence;
     new-instance v5, Ljava/util/ArrayList;
 
     invoke-direct {v5}, Ljava/util/ArrayList;-><init>()V
 
-    .line 100
+    .line 104
     .local v5, currentResolveList:Ljava/util/ArrayList;,"Ljava/util/ArrayList<Landroid/content/pm/ResolveInfo;>;"
-    invoke-virtual {p0}, Lcom/android/systemui/screenshot/ScreenshotEditResolveActivity;->getPackageManager()Landroid/content/pm/PackageManager;
+    invoke-virtual {p0}, Landroid/content/ContextWrapper;->getPackageManager()Landroid/content/pm/PackageManager;
 
-    move-result-object v8
+    move-result-object v9
 
-    .line 102
-    .local v8, packageManager:Landroid/content/pm/PackageManager;
+    .line 106
+    .local v9, packageManager:Landroid/content/pm/PackageManager;
     const-string v0, "FilePath"
 
     invoke-virtual {v2, v0}, Landroid/content/Intent;->getStringExtra(Ljava/lang/String;)Ljava/lang/String;
@@ -1574,7 +1578,7 @@
 
     iput-object v0, p0, Lcom/android/systemui/screenshot/ScreenshotEditResolveActivity;->mImageFilePath:Ljava/lang/String;
 
-    .line 103
+    .line 107
     new-instance v0, Ljava/io/File;
 
     iget-object v1, p0, Lcom/android/systemui/screenshot/ScreenshotEditResolveActivity;->mImageFilePath:Ljava/lang/String;
@@ -1583,21 +1587,21 @@
 
     iput-object v0, p0, Lcom/android/systemui/screenshot/ScreenshotEditResolveActivity;->mEditFile:Ljava/io/File;
 
-    .line 105
+    .line 109
     iget-object v0, p0, Lcom/android/systemui/screenshot/ScreenshotEditResolveActivity;->mEditFile:Ljava/io/File;
 
     invoke-virtual {v0}, Ljava/io/File;->exists()Z
 
     move-result v0
 
-    if-nez v0, :cond_0
+    if-nez v0, :cond_1
 
-    .line 106
-    invoke-virtual {p0}, Lcom/android/systemui/screenshot/ScreenshotEditResolveActivity;->getBaseContext()Landroid/content/Context;
+    .line 110
+    invoke-virtual {p0}, Landroid/content/ContextWrapper;->getBaseContext()Landroid/content/Context;
 
     move-result-object v0
 
-    const v1, 0x7f0c0143
+    const v1, 0x7f0a0154
 
     invoke-static {v0, v1, v6}, Landroid/widget/Toast;->makeText(Landroid/content/Context;II)Landroid/widget/Toast;
 
@@ -1605,10 +1609,11 @@
 
     invoke-virtual {v0}, Landroid/widget/Toast;->show()V
 
-    .line 107
-    invoke-virtual {p0}, Lcom/android/systemui/screenshot/ScreenshotEditResolveActivity;->finish()V
+    .line 111
+    invoke-virtual {p0}, Landroid/app/Activity;->finish()V
 
-    .line 121
+    .line 127
+    :cond_0
     :goto_0
     const/4 v4, 0x0
 
@@ -1618,11 +1623,11 @@
 
     invoke-super/range {v0 .. v6}, Lcom/android/internal/app/ResolverActivity;->onCreate(Landroid/os/Bundle;Landroid/content/Intent;Ljava/lang/CharSequence;[Landroid/content/Intent;Ljava/util/List;Z)V
 
-    .line 122
+    .line 128
     return-void
 
-    .line 109
-    :cond_0
+    .line 113
+    :cond_1
     const-string v0, "DirPath"
 
     invoke-virtual {v2, v0}, Landroid/content/Intent;->getStringExtra(Ljava/lang/String;)Ljava/lang/String;
@@ -1631,30 +1636,33 @@
 
     iput-object v0, p0, Lcom/android/systemui/screenshot/ScreenshotEditResolveActivity;->mImageDirPath:Ljava/lang/String;
 
-    .line 111
+    .line 115
+    if-nez v7, :cond_0
+
+    .line 116
     invoke-direct {p0, v5, v2}, Lcom/android/systemui/screenshot/ScreenshotEditResolveActivity;->addPaperArtistIntent(Ljava/util/ArrayList;Landroid/content/Intent;)Z
 
-    .line 112
-    if-eqz v8, :cond_1
+    .line 117
+    if-eqz v9, :cond_2
 
     const-string v0, "com.sec.feature.spen_usp"
 
-    invoke-virtual {v8, v0}, Landroid/content/pm/PackageManager;->getSystemFeatureLevel(Ljava/lang/String;)I
+    invoke-virtual {v9, v0}, Landroid/content/pm/PackageManager;->getSystemFeatureLevel(Ljava/lang/String;)I
 
     move-result v0
 
     const/4 v1, 0x2
 
-    if-ne v0, v1, :cond_1
+    if-ne v0, v1, :cond_2
 
-    .line 114
+    .line 119
     invoke-direct {p0, v5, v2}, Lcom/android/systemui/screenshot/ScreenshotEditResolveActivity;->addFlashAnnotateIntent(Ljava/util/List;Landroid/content/Intent;)Z
 
-    .line 117
-    :cond_1
+    .line 122
+    :cond_2
     invoke-direct {p0, v5, v2}, Lcom/android/systemui/screenshot/ScreenshotEditResolveActivity;->addPhotoEditorIntent(Ljava/util/ArrayList;Landroid/content/Intent;)Z
 
-    .line 118
+    .line 123
     invoke-direct {p0, v5, v2}, Lcom/android/systemui/screenshot/ScreenshotEditResolveActivity;->addPsTouchIntent(Ljava/util/ArrayList;Landroid/content/Intent;)Z
 
     goto :goto_0

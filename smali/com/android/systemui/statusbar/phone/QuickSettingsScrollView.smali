@@ -54,14 +54,14 @@
 
     .line 42
     .local v1, scrollRange:I
-    invoke-virtual {p0}, Lcom/android/systemui/statusbar/phone/QuickSettingsScrollView;->getChildCount()I
+    invoke-virtual {p0}, Landroid/view/ViewGroup;->getChildCount()I
 
     move-result v2
 
     if-lez v2, :cond_0
 
     .line 43
-    invoke-virtual {p0, v5}, Lcom/android/systemui/statusbar/phone/QuickSettingsScrollView;->getChildAt(I)Landroid/view/View;
+    invoke-virtual {p0, v5}, Landroid/view/ViewGroup;->getChildAt(I)Landroid/view/View;
 
     move-result-object v0
 
@@ -71,15 +71,15 @@
 
     move-result v2
 
-    invoke-virtual {p0}, Lcom/android/systemui/statusbar/phone/QuickSettingsScrollView;->getHeight()I
+    invoke-virtual {p0}, Landroid/view/View;->getHeight()I
 
     move-result v3
 
-    iget v4, p0, Lcom/android/systemui/statusbar/phone/QuickSettingsScrollView;->mPaddingBottom:I
+    iget v4, p0, Landroid/view/View;->mPaddingBottom:I
 
     sub-int/2addr v3, v4
 
-    iget v4, p0, Lcom/android/systemui/statusbar/phone/QuickSettingsScrollView;->mPaddingTop:I
+    iget v4, p0, Landroid/view/View;->mPaddingTop:I
 
     sub-int/2addr v3, v4
 

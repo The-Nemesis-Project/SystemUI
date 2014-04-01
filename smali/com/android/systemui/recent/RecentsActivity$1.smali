@@ -130,11 +130,11 @@
     .line 68
     iget-object v1, p0, Lcom/android/systemui/recent/RecentsActivity$1;->this$0:Lcom/android/systemui/recent/RecentsActivity;
 
-    const v2, 0x7f050011
+    const v2, 0x7f05000f
 
-    const v3, 0x7f050012
+    const v3, 0x7f050010
 
-    invoke-virtual {v1, v2, v3}, Lcom/android/systemui/recent/RecentsActivity;->overridePendingTransition(II)V
+    invoke-virtual {v1, v2, v3}, Landroid/app/Activity;->overridePendingTransition(II)V
 
     .line 71
     iget-object v1, p0, Lcom/android/systemui/recent/RecentsActivity$1;->this$0:Lcom/android/systemui/recent/RecentsActivity;
@@ -156,9 +156,9 @@
     .line 75
     iget-object v1, p0, Lcom/android/systemui/recent/RecentsActivity$1;->this$0:Lcom/android/systemui/recent/RecentsActivity;
 
-    invoke-virtual {v1}, Lcom/android/systemui/recent/RecentsActivity;->finish()V
+    invoke-virtual {v1}, Landroid/app/Activity;->finish()V
 
-    .line 94
+    .line 95
     :cond_1
     :goto_0
     return-void
@@ -222,6 +222,29 @@
 
     .line 88
     .local v0, reason:Ljava/lang/String;
+    const-string v1, "RecentsPanel"
+
+    new-instance v2, Ljava/lang/StringBuilder;
+
+    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v3, "reason : "
+
+    invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    invoke-virtual {v2, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v2
+
+    invoke-virtual {v2}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v2
+
+    invoke-static {v1, v2}, Landroid/util/Slog;->d(Ljava/lang/String;Ljava/lang/String;)I
+
+    .line 89
     if-eqz v0, :cond_1
 
     const-string v1, "lock"
@@ -241,7 +264,20 @@
 
     if-eqz v1, :cond_1
 
-    .line 89
+    iget-object v1, p0, Lcom/android/systemui/recent/RecentsActivity$1;->this$0:Lcom/android/systemui/recent/RecentsActivity;
+
+    #getter for: Lcom/android/systemui/recent/RecentsActivity;->mRecentsPanel:Lcom/android/systemui/recent/RecentsPanelView;
+    invoke-static {v1}, Lcom/android/systemui/recent/RecentsActivity;->access$000(Lcom/android/systemui/recent/RecentsActivity;)Lcom/android/systemui/recent/RecentsPanelView;
+
+    move-result-object v1
+
+    invoke-virtual {v1}, Lcom/android/systemui/recent/RecentsPanelView;->isShowing()Z
+
+    move-result v1
+
+    if-eqz v1, :cond_1
+
+    .line 90
     iget-object v1, p0, Lcom/android/systemui/recent/RecentsActivity$1;->this$0:Lcom/android/systemui/recent/RecentsActivity;
 
     #getter for: Lcom/android/systemui/recent/RecentsActivity;->mRecentsPanel:Lcom/android/systemui/recent/RecentsPanelView;
@@ -251,7 +287,7 @@
 
     invoke-virtual {v1}, Lcom/android/systemui/recent/RecentsPanelView;->clearRecentTasksList()V
 
-    .line 90
+    .line 91
     iget-object v1, p0, Lcom/android/systemui/recent/RecentsActivity$1;->this$0:Lcom/android/systemui/recent/RecentsActivity;
 
     #getter for: Lcom/android/systemui/recent/RecentsActivity;->mRecentsPanel:Lcom/android/systemui/recent/RecentsPanelView;

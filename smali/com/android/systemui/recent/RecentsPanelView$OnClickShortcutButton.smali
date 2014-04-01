@@ -27,10 +27,10 @@
     .parameter
 
     .prologue
-    .line 1319
+    .line 1299
     iput-object p1, p0, Lcom/android/systemui/recent/RecentsPanelView$OnClickShortcutButton;->this$0:Lcom/android/systemui/recent/RecentsPanelView;
 
-    invoke-direct/range {p0 .. p0}, Ljava/lang/Object;-><init>()V
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
     return-void
 .end method
@@ -41,7 +41,7 @@
     .parameter "x1"
 
     .prologue
-    .line 1319
+    .line 1299
     invoke-direct {p0, p1}, Lcom/android/systemui/recent/RecentsPanelView$OnClickShortcutButton;-><init>(Lcom/android/systemui/recent/RecentsPanelView;)V
 
     return-void
@@ -54,10 +54,10 @@
     .parameter "v"
 
     .prologue
-    .line 1323
+    .line 1302
     const/4 v2, 0x0
 
-    .line 1325
+    .line 1304
     .local v2, pos:I
     invoke-virtual {p1}, Landroid/view/View;->getId()I
 
@@ -65,14 +65,14 @@
 
     packed-switch v3, :pswitch_data_0
 
-    .line 1345
+    .line 1324
     :goto_0
     :pswitch_0
     :try_start_0
     iget-object v3, p0, Lcom/android/systemui/recent/RecentsPanelView$OnClickShortcutButton;->this$0:Lcom/android/systemui/recent/RecentsPanelView;
 
     #getter for: Lcom/android/systemui/recent/RecentsPanelView;->mShortcutComponentNames:[Ljava/lang/String;
-    invoke-static {v3}, Lcom/android/systemui/recent/RecentsPanelView;->access$1900(Lcom/android/systemui/recent/RecentsPanelView;)[Ljava/lang/String;
+    invoke-static {v3}, Lcom/android/systemui/recent/RecentsPanelView;->access$2100(Lcom/android/systemui/recent/RecentsPanelView;)[Ljava/lang/String;
 
     move-result-object v3
 
@@ -80,24 +80,24 @@
 
     if-ge v2, v3, :cond_0
 
-    .line 1346
+    .line 1325
     iget-object v3, p0, Lcom/android/systemui/recent/RecentsPanelView$OnClickShortcutButton;->this$0:Lcom/android/systemui/recent/RecentsPanelView;
 
     const/4 v4, 0x0
 
     invoke-virtual {v3, v4}, Lcom/android/systemui/recent/RecentsPanelView;->show(Z)V
 
-    .line 1348
+    .line 1327
     new-instance v1, Landroid/content/Intent;
 
     invoke-direct {v1}, Landroid/content/Intent;-><init>()V
 
-    .line 1349
+    .line 1328
     .local v1, intent:Landroid/content/Intent;
     iget-object v3, p0, Lcom/android/systemui/recent/RecentsPanelView$OnClickShortcutButton;->this$0:Lcom/android/systemui/recent/RecentsPanelView;
 
     #getter for: Lcom/android/systemui/recent/RecentsPanelView;->mShortcutComponentNames:[Ljava/lang/String;
-    invoke-static {v3}, Lcom/android/systemui/recent/RecentsPanelView;->access$1900(Lcom/android/systemui/recent/RecentsPanelView;)[Ljava/lang/String;
+    invoke-static {v3}, Lcom/android/systemui/recent/RecentsPanelView;->access$2100(Lcom/android/systemui/recent/RecentsPanelView;)[Ljava/lang/String;
 
     move-result-object v3
 
@@ -109,26 +109,26 @@
 
     invoke-virtual {v1, v3}, Landroid/content/Intent;->setComponent(Landroid/content/ComponentName;)Landroid/content/Intent;
 
-    .line 1350
+    .line 1329
     const-string v3, "android.intent.action.MAIN"
 
     invoke-virtual {v1, v3}, Landroid/content/Intent;->setAction(Ljava/lang/String;)Landroid/content/Intent;
 
-    .line 1351
+    .line 1330
     const v3, 0x10204000
 
     invoke-virtual {v1, v3}, Landroid/content/Intent;->setFlags(I)Landroid/content/Intent;
 
-    .line 1354
+    .line 1333
     const-string v3, "android.intent.category.LAUNCHER"
 
     invoke-virtual {v1, v3}, Landroid/content/Intent;->addCategory(Ljava/lang/String;)Landroid/content/Intent;
 
-    .line 1356
+    .line 1335
     iget-object v3, p0, Lcom/android/systemui/recent/RecentsPanelView$OnClickShortcutButton;->this$0:Lcom/android/systemui/recent/RecentsPanelView;
 
-    #getter for: Lcom/android/systemui/recent/RecentsPanelView;->mContext:Landroid/content/Context;
-    invoke-static {v3}, Lcom/android/systemui/recent/RecentsPanelView;->access$2000(Lcom/android/systemui/recent/RecentsPanelView;)Landroid/content/Context;
+    #getter for: Landroid/view/View;->mContext:Landroid/content/Context;
+    invoke-static {v3}, Lcom/android/systemui/recent/RecentsPanelView;->access$2200(Lcom/android/systemui/recent/RecentsPanelView;)Landroid/content/Context;
 
     move-result-object v3
 
@@ -141,49 +141,79 @@
     invoke-direct {v5, v6}, Landroid/os/UserHandle;-><init>(I)V
 
     invoke-virtual {v3, v1, v4, v5}, Landroid/content/Context;->startActivityAsUser(Landroid/content/Intent;Landroid/os/Bundle;Landroid/os/UserHandle;)V
-    :try_end_0
-    .catch Landroid/content/ActivityNotFoundException; {:try_start_0 .. :try_end_0} :catch_0
 
-    .line 1362
+    .line 1338
+    sget-boolean v3, Lcom/android/systemui/statusbar/Feature;->mUseRecentsTrayConcept:Z
+
+    if-eqz v3, :cond_1
+
+    .line 1339
+    iget-object v3, p0, Lcom/android/systemui/recent/RecentsPanelView$OnClickShortcutButton;->this$0:Lcom/android/systemui/recent/RecentsPanelView;
+
+    #getter for: Lcom/android/systemui/recent/RecentsPanelView;->mRecentsCallbacks:Lcom/android/systemui/recent/IRecentsUI;
+    invoke-static {v3}, Lcom/android/systemui/recent/RecentsPanelView;->access$1300(Lcom/android/systemui/recent/RecentsPanelView;)Lcom/android/systemui/recent/IRecentsUI;
+
+    move-result-object v3
+
+    invoke-interface {v3}, Lcom/android/systemui/recent/IRecentsUI;->dismissAndGoBack()V
+
+    .line 1347
     .end local v1           #intent:Landroid/content/Intent;
     :cond_0
     :goto_1
     return-void
 
-    .line 1328
+    .line 1307
     :pswitch_1
     const/4 v2, 0x0
 
-    .line 1329
+    .line 1308
     goto :goto_0
 
-    .line 1332
+    .line 1311
     :pswitch_2
     const/4 v2, 0x1
 
-    .line 1333
+    .line 1312
     goto :goto_0
 
-    .line 1336
+    .line 1315
     :pswitch_3
     const/4 v2, 0x2
 
-    .line 1337
+    .line 1316
     goto :goto_0
 
-    .line 1340
+    .line 1319
     :pswitch_4
     const/4 v2, 0x3
 
     goto :goto_0
 
-    .line 1359
+    .line 1341
+    .restart local v1       #intent:Landroid/content/Intent;
+    :cond_1
+    iget-object v3, p0, Lcom/android/systemui/recent/RecentsPanelView$OnClickShortcutButton;->this$0:Lcom/android/systemui/recent/RecentsPanelView;
+
+    #getter for: Lcom/android/systemui/recent/RecentsPanelView;->mRecentsCallbacks:Lcom/android/systemui/recent/IRecentsUI;
+    invoke-static {v3}, Lcom/android/systemui/recent/RecentsPanelView;->access$1300(Lcom/android/systemui/recent/RecentsPanelView;)Lcom/android/systemui/recent/IRecentsUI;
+
+    move-result-object v3
+
+    invoke-interface {v3}, Lcom/android/systemui/recent/IRecentsUI;->dismissAndGoHome()V
+    :try_end_0
+    .catch Landroid/content/ActivityNotFoundException; {:try_start_0 .. :try_end_0} :catch_0
+
+    goto :goto_1
+
+    .line 1344
+    .end local v1           #intent:Landroid/content/Intent;
     :catch_0
     move-exception v0
 
-    .line 1360
+    .line 1345
     .local v0, e:Landroid/content/ActivityNotFoundException;
-    const-string v3, "RecentsPanelView"
+    const-string v3, "STATUSBAR-RecentsPanelView"
 
     const-string v4, "Activity(ShortCut) Not Found"
 
@@ -191,11 +221,9 @@
 
     goto :goto_1
 
-    .line 1325
-    nop
-
+    .line 1304
     :pswitch_data_0
-    .packed-switch 0x7f09011c
+    .packed-switch 0x7f070034
         :pswitch_1
         :pswitch_1
         :pswitch_0

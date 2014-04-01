@@ -20,10 +20,6 @@
 
 .field private static final TAG:Ljava/lang/String; = "PhoneStatusBarPolicy"
 
-.field private static final sWifiSignalImages:[[I = null
-
-.field private static final sWifiTemporarilyNotConnectedImage:I = 0x7f02014f
-
 
 # instance fields
 .field private mBluetoothEnabled:Z
@@ -44,62 +40,10 @@
 
 .field mSimState:Lcom/android/internal/telephony/IccCardConstants$State;
 
-.field private mStorageManager:Landroid/os/storage/StorageManager;
-
 .field private mVolumeVisible:Z
 
 
 # direct methods
-.method static constructor <clinit>()V
-    .locals 4
-
-    .prologue
-    const/4 v3, 0x4
-
-    .line 89
-    const/4 v0, 0x2
-
-    new-array v0, v0, [[I
-
-    const/4 v1, 0x0
-
-    new-array v2, v3, [I
-
-    fill-array-data v2, :array_0
-
-    aput-object v2, v0, v1
-
-    const/4 v1, 0x1
-
-    new-array v2, v3, [I
-
-    fill-array-data v2, :array_1
-
-    aput-object v2, v0, v1
-
-    sput-object v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBarPolicy;->sWifiSignalImages:[[I
-
-    return-void
-
-    nop
-
-    :array_0
-    .array-data 0x4
-        0x51t 0x1t 0x2t 0x7ft
-        0x54t 0x1t 0x2t 0x7ft
-        0x57t 0x1t 0x2t 0x7ft
-        0x5at 0x1t 0x2t 0x7ft
-    .end array-data
-
-    :array_1
-    .array-data 0x4
-        0x52t 0x1t 0x2t 0x7ft
-        0x55t 0x1t 0x2t 0x7ft
-        0x58t 0x1t 0x2t 0x7ft
-        0x5bt 0x1t 0x2t 0x7ft
-    .end array-data
-.end method
-
 .method public constructor <init>(Landroid/content/Context;)V
     .locals 8
     .parameter "context"
@@ -109,46 +53,46 @@
 
     const/4 v4, 0x0
 
-    .line 138
-    invoke-direct/range {p0 .. p0}, Ljava/lang/Object;-><init>()V
+    .line 105
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 72
+    .line 57
     new-instance v3, Landroid/os/Handler;
 
     invoke-direct {v3}, Landroid/os/Handler;-><init>()V
 
     iput-object v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBarPolicy;->mHandler:Landroid/os/Handler;
 
-    .line 80
+    .line 61
     sget-object v3, Lcom/android/internal/telephony/IccCardConstants$State;->READY:Lcom/android/internal/telephony/IccCardConstants$State;
 
     iput-object v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBarPolicy;->mSimState:Lcom/android/internal/telephony/IccCardConstants$State;
 
-    .line 86
+    .line 67
     iput-boolean v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBarPolicy;->mBluetoothEnabled:Z
 
-    .line 102
+    .line 69
     const/4 v3, -0x1
 
     iput v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBarPolicy;->mLastWifiSignalLevel:I
 
-    .line 103
+    .line 70
     iput-boolean v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBarPolicy;->mIsWifiConnected:Z
 
-    .line 106
+    .line 73
     iput v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBarPolicy;->mInetCondition:I
 
-    .line 112
+    .line 79
     new-instance v3, Lcom/android/systemui/statusbar/phone/PhoneStatusBarPolicy$1;
 
     invoke-direct {v3, p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBarPolicy$1;-><init>(Lcom/android/systemui/statusbar/phone/PhoneStatusBarPolicy;)V
 
     iput-object v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBarPolicy;->mIntentReceiver:Landroid/content/BroadcastReceiver;
 
-    .line 139
+    .line 106
     iput-object p1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBarPolicy;->mContext:Landroid/content/Context;
 
-    .line 140
+    .line 107
     const-string v3, "statusbar"
 
     invoke-virtual {p1, v3}, Landroid/content/Context;->getSystemService(Ljava/lang/String;)Ljava/lang/Object;
@@ -159,48 +103,48 @@
 
     iput-object v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBarPolicy;->mService:Landroid/app/StatusBarManager;
 
-    .line 143
+    .line 110
     new-instance v2, Landroid/content/IntentFilter;
 
     invoke-direct {v2}, Landroid/content/IntentFilter;-><init>()V
 
-    .line 144
+    .line 111
     .local v2, filter:Landroid/content/IntentFilter;
     const-string v3, "android.intent.action.ALARM_CHANGED"
 
     invoke-virtual {v2, v3}, Landroid/content/IntentFilter;->addAction(Ljava/lang/String;)V
 
-    .line 145
+    .line 112
     const-string v3, "android.intent.action.SYNC_STATE_CHANGED"
 
     invoke-virtual {v2, v3}, Landroid/content/IntentFilter;->addAction(Ljava/lang/String;)V
 
-    .line 146
+    .line 113
     const-string v3, "android.media.RINGER_MODE_CHANGED"
 
     invoke-virtual {v2, v3}, Landroid/content/IntentFilter;->addAction(Ljava/lang/String;)V
 
-    .line 147
+    .line 114
     const-string v3, "android.bluetooth.adapter.action.STATE_CHANGED"
 
     invoke-virtual {v2, v3}, Landroid/content/IntentFilter;->addAction(Ljava/lang/String;)V
 
-    .line 148
+    .line 115
     const-string v3, "android.bluetooth.adapter.action.CONNECTION_STATE_CHANGED"
 
     invoke-virtual {v2, v3}, Landroid/content/IntentFilter;->addAction(Ljava/lang/String;)V
 
-    .line 149
+    .line 116
     const-string v3, "android.intent.action.SIM_STATE_CHANGED"
 
     invoke-virtual {v2, v3}, Landroid/content/IntentFilter;->addAction(Ljava/lang/String;)V
 
-    .line 150
+    .line 117
     const-string v3, "com.android.internal.telephony.cdma.intent.action.TTY_ENABLED_CHANGE"
 
     invoke-virtual {v2, v3}, Landroid/content/IntentFilter;->addAction(Ljava/lang/String;)V
 
-    .line 151
+    .line 118
     iget-object v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBarPolicy;->mContext:Landroid/content/Context;
 
     iget-object v5, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBarPolicy;->mIntentReceiver:Landroid/content/BroadcastReceiver;
@@ -209,86 +153,66 @@
 
     invoke-virtual {v3, v5, v2, v7, v6}, Landroid/content/Context;->registerReceiver(Landroid/content/BroadcastReceiver;Landroid/content/IntentFilter;Ljava/lang/String;Landroid/os/Handler;)Landroid/content/Intent;
 
-    .line 154
-    const-string v3, "storage"
-
-    invoke-virtual {p1, v3}, Landroid/content/Context;->getSystemService(Ljava/lang/String;)Ljava/lang/Object;
-
-    move-result-object v3
-
-    check-cast v3, Landroid/os/storage/StorageManager;
-
-    iput-object v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBarPolicy;->mStorageManager:Landroid/os/storage/StorageManager;
-
-    .line 155
-    iget-object v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBarPolicy;->mStorageManager:Landroid/os/storage/StorageManager;
-
-    new-instance v5, Lcom/android/systemui/usb/StorageNotification;
-
-    invoke-direct {v5, p1}, Lcom/android/systemui/usb/StorageNotification;-><init>(Landroid/content/Context;)V
-
-    invoke-virtual {v3, v5}, Landroid/os/storage/StorageManager;->registerListener(Landroid/os/storage/StorageEventListener;)V
-
-    .line 159
+    .line 121
     iget-object v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBarPolicy;->mService:Landroid/app/StatusBarManager;
 
     const-string v5, "tty"
 
-    const v6, 0x7f020145
+    const v6, 0x7f02015f
 
     invoke-virtual {v3, v5, v6, v4, v7}, Landroid/app/StatusBarManager;->setIcon(Ljava/lang/String;IILjava/lang/String;)V
 
-    .line 160
+    .line 122
     iget-object v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBarPolicy;->mService:Landroid/app/StatusBarManager;
 
     const-string v5, "tty"
 
     invoke-virtual {v3, v5, v4}, Landroid/app/StatusBarManager;->setIconVisibility(Ljava/lang/String;Z)V
 
-    .line 163
+    .line 125
     iget-object v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBarPolicy;->mService:Landroid/app/StatusBarManager;
 
     const-string v5, "cdma_eri"
 
-    const v6, 0x7f020124
+    const v6, 0x7f020144
 
     invoke-virtual {v3, v5, v6, v4, v7}, Landroid/app/StatusBarManager;->setIcon(Ljava/lang/String;IILjava/lang/String;)V
 
-    .line 164
+    .line 126
     iget-object v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBarPolicy;->mService:Landroid/app/StatusBarManager;
 
     const-string v5, "cdma_eri"
 
     invoke-virtual {v3, v5, v4}, Landroid/app/StatusBarManager;->setIconVisibility(Ljava/lang/String;Z)V
 
-    .line 167
+    .line 129
     invoke-static {}, Landroid/bluetooth/BluetoothAdapter;->getDefaultAdapter()Landroid/bluetooth/BluetoothAdapter;
 
     move-result-object v0
 
-    .line 168
+    .line 130
     .local v0, adapter:Landroid/bluetooth/BluetoothAdapter;
-    const v1, 0x7f0200d7
+    const v1, 0x7f0200ec
 
-    .line 169
+    .line 131
     .local v1, bluetoothIcon:I
     if-eqz v0, :cond_0
 
-    .line 170
+    .line 132
     invoke-virtual {v0}, Landroid/bluetooth/BluetoothAdapter;->getState()I
 
     move-result v3
 
     const/16 v5, 0xc
 
-    if-ne v3, v5, :cond_2
+    if-ne v3, v5, :cond_1
 
     const/4 v3, 0x1
 
     :goto_0
     iput-boolean v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBarPolicy;->mBluetoothEnabled:Z
 
-    .line 171
+    .line 133
     invoke-virtual {v0}, Landroid/bluetooth/BluetoothAdapter;->getConnectionState()I
 
     move-result v3
@@ -297,10 +221,10 @@
 
     if-ne v3, v5, :cond_0
 
-    .line 172
-    const v1, 0x7f0200d8
+    .line 134
+    const v1, 0x7f0200ed
 
-    .line 175
+    .line 137
     :cond_0
     iget-object v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBarPolicy;->mService:Landroid/app/StatusBarManager;
 
@@ -308,98 +232,73 @@
 
     invoke-virtual {v3, v5, v1, v4, v7}, Landroid/app/StatusBarManager;->setIcon(Ljava/lang/String;IILjava/lang/String;)V
 
-    .line 176
+    .line 138
     iget-object v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBarPolicy;->mService:Landroid/app/StatusBarManager;
+
+    const-string v5, "bluetooth"
 
     iget-boolean v6, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBarPolicy;->mBluetoothEnabled:Z
 
-    invoke-direct {p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBarPolicy;->hideBlueTooth()Z
-
-    move-result v5
-
-    if-eqz v5, :cond_1
-
-    const/4 v6, 0x0
-
-    :cond_1
-    const-string v5, "bluetooth"
-
     invoke-virtual {v3, v5, v6}, Landroid/app/StatusBarManager;->setIconVisibility(Ljava/lang/String;Z)V
 
-    .line 179
+    .line 141
     iget-object v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBarPolicy;->mService:Landroid/app/StatusBarManager;
 
     const-string v5, "alarm_clock"
 
-    const v6, 0x7f0200b9
+    const v6, 0x7f0200c4
 
     invoke-virtual {v3, v5, v6, v4, v7}, Landroid/app/StatusBarManager;->setIcon(Ljava/lang/String;IILjava/lang/String;)V
 
-    .line 180
+    .line 142
     iget-object v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBarPolicy;->mService:Landroid/app/StatusBarManager;
 
     const-string v5, "alarm_clock"
 
     invoke-virtual {v3, v5, v4}, Landroid/app/StatusBarManager;->setIconVisibility(Ljava/lang/String;Z)V
 
-    .line 183
+    .line 145
     iget-object v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBarPolicy;->mService:Landroid/app/StatusBarManager;
 
     const-string v5, "sync_active"
 
-    const v6, 0x7f020142
+    const v6, 0x7f02015c
 
     invoke-virtual {v3, v5, v6, v4, v7}, Landroid/app/StatusBarManager;->setIcon(Ljava/lang/String;IILjava/lang/String;)V
 
-    .line 184
-    iget-object v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBarPolicy;->mService:Landroid/app/StatusBarManager;
-
-    const-string v5, "sync_failing"
-
-    const v6, 0x7f020143
-
-    invoke-virtual {v3, v5, v6, v4, v7}, Landroid/app/StatusBarManager;->setIcon(Ljava/lang/String;IILjava/lang/String;)V
-
-    .line 185
+    .line 146
     iget-object v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBarPolicy;->mService:Landroid/app/StatusBarManager;
 
     const-string v5, "sync_active"
 
     invoke-virtual {v3, v5, v4}, Landroid/app/StatusBarManager;->setIconVisibility(Ljava/lang/String;Z)V
 
-    .line 186
-    iget-object v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBarPolicy;->mService:Landroid/app/StatusBarManager;
-
-    const-string v5, "sync_failing"
-
-    invoke-virtual {v3, v5, v4}, Landroid/app/StatusBarManager;->setIconVisibility(Ljava/lang/String;Z)V
-
-    .line 189
+    .line 150
     iget-object v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBarPolicy;->mService:Landroid/app/StatusBarManager;
 
     const-string v5, "volume"
 
-    const v6, 0x7f020122
+    const v6, 0x7f020141
 
     invoke-virtual {v3, v5, v6, v4, v7}, Landroid/app/StatusBarManager;->setIcon(Ljava/lang/String;IILjava/lang/String;)V
 
-    .line 190
+    .line 151
     iget-object v3, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBarPolicy;->mService:Landroid/app/StatusBarManager;
 
     const-string v5, "volume"
 
     invoke-virtual {v3, v5, v4}, Landroid/app/StatusBarManager;->setIconVisibility(Ljava/lang/String;Z)V
 
-    .line 191
+    .line 152
     invoke-direct {p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBarPolicy;->updateVolume()V
 
-    .line 192
+    .line 153
     return-void
 
-    :cond_2
+    :cond_1
     move v3, v4
 
-    .line 170
+    .line 132
     goto :goto_0
 .end method
 
@@ -409,7 +308,7 @@
     .parameter "x1"
 
     .prologue
-    .line 54
+    .line 39
     invoke-direct {p0, p1}, Lcom/android/systemui/statusbar/phone/PhoneStatusBarPolicy;->updateAlarm(Landroid/content/Intent;)V
 
     return-void
@@ -421,7 +320,7 @@
     .parameter "x1"
 
     .prologue
-    .line 54
+    .line 39
     invoke-direct {p0, p1}, Lcom/android/systemui/statusbar/phone/PhoneStatusBarPolicy;->updateSyncState(Landroid/content/Intent;)V
 
     return-void
@@ -433,7 +332,7 @@
     .parameter "x1"
 
     .prologue
-    .line 54
+    .line 39
     invoke-direct {p0, p1}, Lcom/android/systemui/statusbar/phone/PhoneStatusBarPolicy;->updateBluetooth(Landroid/content/Intent;)V
 
     return-void
@@ -444,7 +343,7 @@
     .parameter "x0"
 
     .prologue
-    .line 54
+    .line 39
     invoke-direct {p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBarPolicy;->updateVolume()V
 
     return-void
@@ -456,7 +355,7 @@
     .parameter "x1"
 
     .prologue
-    .line 54
+    .line 39
     invoke-direct {p0, p1}, Lcom/android/systemui/statusbar/phone/PhoneStatusBarPolicy;->updateSimState(Landroid/content/Intent;)V
 
     return-void
@@ -468,103 +367,10 @@
     .parameter "x1"
 
     .prologue
-    .line 54
+    .line 39
     invoke-direct {p0, p1}, Lcom/android/systemui/statusbar/phone/PhoneStatusBarPolicy;->updateTTY(Landroid/content/Intent;)V
 
     return-void
-.end method
-
-.method private final hideAlarm()Z
-    .locals 3
-
-    .prologue
-    const/4 v2, 0x0
-
-    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBarPolicy;->mContext:Landroid/content/Context;
-
-    invoke-virtual {v0}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
-
-    move-result-object v0
-
-    const-string v1, "statusbar_hide_alarm"
-
-    invoke-static {v0, v1, v2}, Landroid/provider/Settings$Global;->getInt(Landroid/content/ContentResolver;Ljava/lang/String;I)I
-
-    move-result v0
-
-    if-eq v0, v2, :cond_0
-
-    const/4 v1, 0x1
-
-    :goto_0
-    return v1
-
-    :cond_0
-    const/4 v1, 0x0
-
-    goto :goto_0
-.end method
-
-.method private final hideBlueTooth()Z
-    .locals 3
-
-    .prologue
-    const/4 v2, 0x0
-
-    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBarPolicy;->mContext:Landroid/content/Context;
-
-    invoke-virtual {v0}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
-
-    move-result-object v0
-
-    const-string v1, "statusbar_hide_btooth"
-
-    invoke-static {v0, v1, v2}, Landroid/provider/Settings$Global;->getInt(Landroid/content/ContentResolver;Ljava/lang/String;I)I
-
-    move-result v0
-
-    if-eq v0, v2, :cond_0
-
-    const/4 v1, 0x1
-
-    :goto_0
-    return v1
-
-    :cond_0
-    const/4 v1, 0x0
-
-    goto :goto_0
-.end method
-
-.method private final hideVolume()Z
-    .locals 3
-
-    .prologue
-    const/4 v2, 0x0
-
-    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBarPolicy;->mContext:Landroid/content/Context;
-
-    invoke-virtual {v0}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
-
-    move-result-object v0
-
-    const-string v1, "statusbar_hide_vib"
-
-    invoke-static {v0, v1, v2}, Landroid/provider/Settings$Global;->getInt(Landroid/content/ContentResolver;Ljava/lang/String;I)I
-
-    move-result v0
-
-    if-eq v0, v2, :cond_0
-
-    const/4 v1, 0x1
-
-    :goto_0
-    return v1
-
-    :cond_0
-    const/4 v1, 0x0
-
-    goto :goto_0
 .end method
 
 .method private final updateAlarm(Landroid/content/Intent;)V
@@ -572,7 +378,7 @@
     .parameter "intent"
 
     .prologue
-    .line 195
+    .line 156
     const-string v1, "alarmSet"
 
     const/4 v2, 0x0
@@ -581,24 +387,15 @@
 
     move-result v0
 
-    invoke-direct {p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBarPolicy;->hideAlarm()Z
-
-    move-result v1
-
-    if-eqz v1, :cond_0
-
-    const/4 v0, 0x0
-
-    .line 196
+    .line 157
     .local v0, alarmSet:Z
-    :cond_0
     iget-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBarPolicy;->mService:Landroid/app/StatusBarManager;
 
     const-string v2, "alarm_clock"
 
     invoke-virtual {v1, v2, v0}, Landroid/app/StatusBarManager;->setIconVisibility(Ljava/lang/String;Z)V
 
-    .line 197
+    .line 158
     return-void
 .end method
 
@@ -609,20 +406,20 @@
     .prologue
     const/4 v5, 0x0
 
-    .line 259
-    const v2, 0x7f0200d7
+    .line 217
+    const v2, 0x7f0200ec
 
-    .line 260
+    .line 218
     .local v2, iconId:I
     const/4 v1, 0x0
 
-    .line 261
+    .line 219
     .local v1, contentDescription:Ljava/lang/String;
     invoke-virtual {p1}, Landroid/content/Intent;->getAction()Ljava/lang/String;
 
     move-result-object v0
 
-    .line 262
+    .line 220
     .local v0, action:Ljava/lang/String;
     const-string v4, "android.bluetooth.adapter.action.STATE_CHANGED"
 
@@ -630,9 +427,9 @@
 
     move-result v4
 
-    if-eqz v4, :cond_3
+    if-eqz v4, :cond_2
 
-    .line 263
+    .line 221
     const-string v4, "android.bluetooth.adapter.extra.STATE"
 
     const/high16 v6, -0x8000
@@ -641,18 +438,18 @@
 
     move-result v3
 
-    .line 264
+    .line 222
     .local v3, state:I
     const/16 v4, 0xc
 
-    if-ne v3, v4, :cond_2
+    if-ne v3, v4, :cond_1
 
     const/4 v4, 0x1
 
     :goto_0
     iput-boolean v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBarPolicy;->mBluetoothEnabled:Z
 
-    .line 279
+    .line 237
     :goto_1
     iget-object v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBarPolicy;->mService:Landroid/app/StatusBarManager;
 
@@ -660,67 +457,58 @@
 
     invoke-virtual {v4, v6, v2, v5, v1}, Landroid/app/StatusBarManager;->setIcon(Ljava/lang/String;IILjava/lang/String;)V
 
-    .line 280
+    .line 238
     iget-object v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBarPolicy;->mService:Landroid/app/StatusBarManager;
+
+    const-string v5, "bluetooth"
 
     iget-boolean v6, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBarPolicy;->mBluetoothEnabled:Z
 
-    invoke-direct {p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBarPolicy;->hideBlueTooth()Z
-
-    move-result v5
-
-    if-eqz v5, :cond_0
-
-    const/4 v6, 0x0
-
-    :cond_0
-    const-string v5, "bluetooth"
-
     invoke-virtual {v4, v5, v6}, Landroid/app/StatusBarManager;->setIconVisibility(Ljava/lang/String;Z)V
 
-    .line 281
+    .line 239
     .end local v3           #state:I
-    :cond_1
+    :cond_0
     return-void
 
     .restart local v3       #state:I
-    :cond_2
+    :cond_1
     move v4, v5
 
-    .line 264
+    .line 222
     goto :goto_0
 
-    .line 265
+    .line 223
     .end local v3           #state:I
-    :cond_3
+    :cond_2
     const-string v4, "android.bluetooth.adapter.action.CONNECTION_STATE_CHANGED"
 
     invoke-virtual {v0, v4}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
 
     move-result v4
 
-    if-eqz v4, :cond_1
+    if-eqz v4, :cond_0
 
-    .line 266
+    .line 224
     const-string v4, "android.bluetooth.adapter.extra.CONNECTION_STATE"
 
     invoke-virtual {p1, v4, v5}, Landroid/content/Intent;->getIntExtra(Ljava/lang/String;I)I
 
     move-result v3
 
-    .line 268
+    .line 226
     .restart local v3       #state:I
     const/4 v4, 0x2
 
-    if-ne v3, v4, :cond_4
+    if-ne v3, v4, :cond_3
 
-    .line 269
-    const v2, 0x7f0200d8
+    .line 227
+    const v2, 0x7f0200ed
 
-    .line 270
+    .line 228
     iget-object v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBarPolicy;->mContext:Landroid/content/Context;
 
-    const v6, 0x7f0c0052
+    const v6, 0x7f0a0055
 
     invoke-virtual {v4, v6}, Landroid/content/Context;->getString(I)Ljava/lang/String;
 
@@ -728,11 +516,11 @@
 
     goto :goto_1
 
-    .line 272
-    :cond_4
+    .line 230
+    :cond_3
     iget-object v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBarPolicy;->mContext:Landroid/content/Context;
 
-    const v6, 0x7f0c0053
+    const v6, 0x7f0a0056
 
     invoke-virtual {v4, v6}, Landroid/content/Context;->getString(I)Ljava/lang/String;
 
@@ -746,14 +534,14 @@
     .parameter "intent"
 
     .prologue
-    .line 209
+    .line 167
     const-string v2, "ss"
 
     invoke-virtual {p1, v2}, Landroid/content/Intent;->getStringExtra(Ljava/lang/String;)Ljava/lang/String;
 
     move-result-object v1
 
-    .line 210
+    .line 168
     .local v1, stateExtra:Ljava/lang/String;
     const-string v2, "ABSENT"
 
@@ -763,16 +551,16 @@
 
     if-eqz v2, :cond_0
 
-    .line 211
+    .line 169
     sget-object v2, Lcom/android/internal/telephony/IccCardConstants$State;->ABSENT:Lcom/android/internal/telephony/IccCardConstants$State;
 
     iput-object v2, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBarPolicy;->mSimState:Lcom/android/internal/telephony/IccCardConstants$State;
 
-    .line 231
+    .line 189
     :goto_0
     return-void
 
-    .line 213
+    .line 171
     :cond_0
     const-string v2, "READY"
 
@@ -782,14 +570,14 @@
 
     if-eqz v2, :cond_1
 
-    .line 214
+    .line 172
     sget-object v2, Lcom/android/internal/telephony/IccCardConstants$State;->READY:Lcom/android/internal/telephony/IccCardConstants$State;
 
     iput-object v2, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBarPolicy;->mSimState:Lcom/android/internal/telephony/IccCardConstants$State;
 
     goto :goto_0
 
-    .line 216
+    .line 174
     :cond_1
     const-string v2, "LOCKED"
 
@@ -799,14 +587,14 @@
 
     if-eqz v2, :cond_4
 
-    .line 217
+    .line 175
     const-string v2, "reason"
 
     invoke-virtual {p1, v2}, Landroid/content/Intent;->getStringExtra(Ljava/lang/String;)Ljava/lang/String;
 
     move-result-object v0
 
-    .line 219
+    .line 177
     .local v0, lockedReason:Ljava/lang/String;
     const-string v2, "PIN"
 
@@ -816,14 +604,14 @@
 
     if-eqz v2, :cond_2
 
-    .line 220
+    .line 178
     sget-object v2, Lcom/android/internal/telephony/IccCardConstants$State;->PIN_REQUIRED:Lcom/android/internal/telephony/IccCardConstants$State;
 
     iput-object v2, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBarPolicy;->mSimState:Lcom/android/internal/telephony/IccCardConstants$State;
 
     goto :goto_0
 
-    .line 222
+    .line 180
     :cond_2
     const-string v2, "PUK"
 
@@ -833,14 +621,14 @@
 
     if-eqz v2, :cond_3
 
-    .line 223
+    .line 181
     sget-object v2, Lcom/android/internal/telephony/IccCardConstants$State;->PUK_REQUIRED:Lcom/android/internal/telephony/IccCardConstants$State;
 
     iput-object v2, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBarPolicy;->mSimState:Lcom/android/internal/telephony/IccCardConstants$State;
 
     goto :goto_0
 
-    .line 226
+    .line 184
     :cond_3
     sget-object v2, Lcom/android/internal/telephony/IccCardConstants$State;->NETWORK_LOCKED:Lcom/android/internal/telephony/IccCardConstants$State;
 
@@ -848,7 +636,7 @@
 
     goto :goto_0
 
-    .line 229
+    .line 187
     .end local v0           #lockedReason:Ljava/lang/String;
     :cond_4
     sget-object v2, Lcom/android/internal/telephony/IccCardConstants$State;->UNKNOWN:Lcom/android/internal/telephony/IccCardConstants$State;
@@ -863,7 +651,7 @@
     .parameter "intent"
 
     .prologue
-    .line 200
+    .line 161
     return-void
 .end method
 
@@ -874,12 +662,12 @@
     .prologue
     const/4 v7, 0x0
 
-    .line 284
+    .line 242
     invoke-virtual {p1}, Landroid/content/Intent;->getAction()Ljava/lang/String;
 
     move-result-object v0
 
-    .line 285
+    .line 243
     .local v0, action:Ljava/lang/String;
     const-string v2, "ttyEnabled"
 
@@ -887,20 +675,20 @@
 
     move-result v1
 
-    .line 289
+    .line 247
     .local v1, enabled:Z
     if-eqz v1, :cond_0
 
-    .line 292
+    .line 250
     iget-object v2, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBarPolicy;->mService:Landroid/app/StatusBarManager;
 
     const-string v3, "tty"
 
-    const v4, 0x7f020145
+    const v4, 0x7f02015f
 
     iget-object v5, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBarPolicy;->mContext:Landroid/content/Context;
 
-    const v6, 0x7f0c0090
+    const v6, 0x7f0a0093
 
     invoke-virtual {v5, v6}, Landroid/content/Context;->getString(I)Ljava/lang/String;
 
@@ -908,7 +696,7 @@
 
     invoke-virtual {v2, v3, v4, v7, v5}, Landroid/app/StatusBarManager;->setIcon(Ljava/lang/String;IILjava/lang/String;)V
 
-    .line 294
+    .line 252
     iget-object v2, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBarPolicy;->mService:Landroid/app/StatusBarManager;
 
     const-string v3, "tty"
@@ -917,11 +705,11 @@
 
     invoke-virtual {v2, v3, v4}, Landroid/app/StatusBarManager;->setIconVisibility(Ljava/lang/String;Z)V
 
-    .line 300
+    .line 258
     :goto_0
     return-void
 
-    .line 298
+    .line 256
     :cond_0
     iget-object v2, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBarPolicy;->mService:Landroid/app/StatusBarManager;
 
@@ -940,7 +728,7 @@
 
     const/4 v6, 0x1
 
-    .line 234
+    .line 192
     iget-object v7, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBarPolicy;->mContext:Landroid/content/Context;
 
     const-string v8, "audio"
@@ -951,121 +739,94 @@
 
     check-cast v0, Landroid/media/AudioManager;
 
-    .line 235
+    .line 193
     .local v0, audioManager:Landroid/media/AudioManager;
     invoke-virtual {v0}, Landroid/media/AudioManager;->getRingerMode()I
 
     move-result v3
 
-    .line 236
+    .line 194
     .local v3, ringerMode:I
     if-eqz v3, :cond_0
 
-    if-ne v3, v6, :cond_5
+    if-ne v3, v6, :cond_3
 
     :cond_0
     move v4, v6
 
-    .line 240
+    .line 198
     .local v4, visible:Z
     :goto_0
     const/4 v1, 0x0
 
-    .line 241
+    .line 199
     .local v1, contentDescription:Ljava/lang/String;
-    if-ne v3, v6, :cond_6
+    if-ne v3, v6, :cond_4
 
-    .line 242
-    const v2, 0x7f020123
+    .line 200
+    const v2, 0x7f020143
 
-    .line 243
+    .line 201
     .local v2, iconId:I
     iget-object v6, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBarPolicy;->mContext:Landroid/content/Context;
 
-    const v7, 0x7f0c0091
+    const v7, 0x7f0a0094
 
     invoke-virtual {v6, v7}, Landroid/content/Context;->getString(I)Ljava/lang/String;
 
     move-result-object v1
 
-    .line 249
+    .line 207
     :goto_1
     if-eqz v4, :cond_1
 
-    .line 250
+    .line 208
     iget-object v6, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBarPolicy;->mService:Landroid/app/StatusBarManager;
 
     const-string v7, "volume"
 
     invoke-virtual {v6, v7, v2, v5, v1}, Landroid/app/StatusBarManager;->setIcon(Ljava/lang/String;IILjava/lang/String;)V
 
-    .line 252
+    .line 210
     :cond_1
     iget-boolean v5, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBarPolicy;->mVolumeVisible:Z
 
-    if-eq v4, v5, :cond_3
+    if-eq v4, v5, :cond_2
 
+    .line 211
+    iget-object v5, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBarPolicy;->mService:Landroid/app/StatusBarManager;
+
+    const-string v6, "volume"
+
+    invoke-virtual {v5, v6, v4}, Landroid/app/StatusBarManager;->setIconVisibility(Ljava/lang/String;Z)V
+
+    .line 212
     iput-boolean v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBarPolicy;->mVolumeVisible:Z
 
-    invoke-direct {p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBarPolicy;->hideVolume()Z
-
-    move-result v6
-
-    if-eqz v6, :cond_2
-
-    const/4 v4, 0x0
-
-    .line 253
+    .line 214
     :cond_2
-    iget-object v5, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBarPolicy;->mService:Landroid/app/StatusBarManager;
-
-    const-string v6, "volume"
-
-    invoke-virtual {v5, v6, v4}, Landroid/app/StatusBarManager;->setIconVisibility(Ljava/lang/String;Z)V
-
-    goto :goto_2
-
-    .line 254
-    :cond_3
-    iget-object v5, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBarPolicy;->mService:Landroid/app/StatusBarManager;
-
-    invoke-direct {p0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBarPolicy;->hideVolume()Z
-
-    move-result v6
-
-    if-eqz v6, :cond_4
-
-    const/4 v4, 0x0
-
-    const-string v6, "volume"
-
-    invoke-virtual {v5, v6, v4}, Landroid/app/StatusBarManager;->setIconVisibility(Ljava/lang/String;Z)V
-
-    .line 256
-    :cond_4
-    :goto_2
     return-void
 
     .end local v1           #contentDescription:Ljava/lang/String;
     .end local v2           #iconId:I
     .end local v4           #visible:Z
-    :cond_5
+    :cond_3
     move v4, v5
 
-    .line 236
+    .line 194
     goto :goto_0
 
-    .line 245
+    .line 203
     .restart local v1       #contentDescription:Ljava/lang/String;
     .restart local v4       #visible:Z
-    :cond_6
-    const v2, 0x7f020122
+    :cond_4
+    const v2, 0x7f020141
 
-    .line 246
+    .line 204
     .restart local v2       #iconId:I
     iget-object v6, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBarPolicy;->mContext:Landroid/content/Context;
 
-    const v7, 0x7f0c0092
+    const v7, 0x7f0a0095
 
     invoke-virtual {v6, v7}, Landroid/content/Context;->getString(I)Ljava/lang/String;
 

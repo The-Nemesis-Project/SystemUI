@@ -24,7 +24,7 @@
     .parameter
 
     .prologue
-    .line 951
+    .line 719
     iput-object p1, p0, Lcom/android/systemui/statusbar/BaseStatusBar$H;->this$0:Lcom/android/systemui/statusbar/BaseStatusBar;
 
     invoke-direct {p0}, Landroid/os/Handler;-><init>()V
@@ -35,133 +35,121 @@
 
 # virtual methods
 .method public handleMessage(Landroid/os/Message;)V
-    .locals 4
+    .locals 3
     .parameter "m"
 
     .prologue
-    const/4 v3, 0x1
+    const/4 v2, 0x1
 
-    .line 954
-    iget v1, p1, Landroid/os/Message;->what:I
+    .line 722
+    iget v0, p1, Landroid/os/Message;->what:I
 
-    packed-switch v1, :pswitch_data_0
+    packed-switch v0, :pswitch_data_0
 
-    .line 984
+    .line 750
     :cond_0
     :goto_0
     return-void
 
-    .line 957
+    .line 724
     :pswitch_0
-    iget-object v1, p0, Lcom/android/systemui/statusbar/BaseStatusBar$H;->this$0:Lcom/android/systemui/statusbar/BaseStatusBar;
+    iget-object v0, p0, Lcom/android/systemui/statusbar/BaseStatusBar$H;->this$0:Lcom/android/systemui/statusbar/BaseStatusBar;
 
-    invoke-virtual {v1}, Lcom/android/systemui/statusbar/BaseStatusBar;->toggleRecentsActivity()V
+    invoke-virtual {v0}, Lcom/android/systemui/statusbar/BaseStatusBar;->toggleRecentsActivity()V
 
     goto :goto_0
 
-    .line 961
+    .line 727
     :pswitch_1
-    new-instance v0, Landroid/content/Intent;
+    iget-object v0, p0, Lcom/android/systemui/statusbar/BaseStatusBar$H;->this$0:Lcom/android/systemui/statusbar/BaseStatusBar;
 
-    const-string v1, "com.android.systemui.recent.action.CLOSE"
-
-    invoke-direct {v0, v1}, Landroid/content/Intent;-><init>(Ljava/lang/String;)V
-
-    .line 962
-    .local v0, intent:Landroid/content/Intent;
-    const-string v1, "com.android.systemui"
-
-    invoke-virtual {v0, v1}, Landroid/content/Intent;->setPackage(Ljava/lang/String;)Landroid/content/Intent;
-
-    .line 963
-    iget-object v1, p0, Lcom/android/systemui/statusbar/BaseStatusBar$H;->this$0:Lcom/android/systemui/statusbar/BaseStatusBar;
-
-    iget-object v1, v1, Lcom/android/systemui/SystemUI;->mContext:Landroid/content/Context;
-
-    new-instance v2, Landroid/os/UserHandle;
-
-    const/4 v3, -0x2
-
-    invoke-direct {v2, v3}, Landroid/os/UserHandle;-><init>(I)V
-
-    invoke-virtual {v1, v0, v2}, Landroid/content/Context;->sendBroadcastAsUser(Landroid/content/Intent;Landroid/os/UserHandle;)V
+    invoke-virtual {v0}, Lcom/android/systemui/statusbar/BaseStatusBar;->closeRecents()V
 
     goto :goto_0
 
-    .line 966
-    .end local v0           #intent:Landroid/content/Intent;
+    .line 730
     :pswitch_2
-    iget-object v1, p0, Lcom/android/systemui/statusbar/BaseStatusBar$H;->this$0:Lcom/android/systemui/statusbar/BaseStatusBar;
+    iget-object v0, p0, Lcom/android/systemui/statusbar/BaseStatusBar$H;->this$0:Lcom/android/systemui/statusbar/BaseStatusBar;
 
-    invoke-virtual {v1}, Lcom/android/systemui/statusbar/BaseStatusBar;->preloadRecentTasksList()V
+    invoke-virtual {v0}, Lcom/android/systemui/statusbar/BaseStatusBar;->preloadRecentTasksList()V
 
     goto :goto_0
 
-    .line 969
+    .line 733
     :pswitch_3
-    iget-object v1, p0, Lcom/android/systemui/statusbar/BaseStatusBar$H;->this$0:Lcom/android/systemui/statusbar/BaseStatusBar;
+    iget-object v0, p0, Lcom/android/systemui/statusbar/BaseStatusBar$H;->this$0:Lcom/android/systemui/statusbar/BaseStatusBar;
 
-    invoke-virtual {v1}, Lcom/android/systemui/statusbar/BaseStatusBar;->cancelPreloadingRecentTasksList()V
+    invoke-virtual {v0}, Lcom/android/systemui/statusbar/BaseStatusBar;->cancelPreloadingRecentTasksList()V
 
     goto :goto_0
 
-    .line 973
+    .line 737
     :pswitch_4
-    iget-object v1, p0, Lcom/android/systemui/statusbar/BaseStatusBar$H;->this$0:Lcom/android/systemui/statusbar/BaseStatusBar;
+    iget-object v0, p0, Lcom/android/systemui/statusbar/BaseStatusBar$H;->this$0:Lcom/android/systemui/statusbar/BaseStatusBar;
 
-    iget-object v1, v1, Lcom/android/systemui/statusbar/BaseStatusBar;->mSearchPanelView:Lcom/android/systemui/SearchPanelView;
+    iget-object v0, v0, Lcom/android/systemui/statusbar/BaseStatusBar;->mSearchPanelView:Lcom/android/systemui/SearchPanelView;
 
-    if-eqz v1, :cond_0
+    if-eqz v0, :cond_0
 
-    iget-object v1, p0, Lcom/android/systemui/statusbar/BaseStatusBar$H;->this$0:Lcom/android/systemui/statusbar/BaseStatusBar;
+    iget-object v0, p0, Lcom/android/systemui/statusbar/BaseStatusBar$H;->this$0:Lcom/android/systemui/statusbar/BaseStatusBar;
 
-    iget-object v1, v1, Lcom/android/systemui/statusbar/BaseStatusBar;->mSearchPanelView:Lcom/android/systemui/SearchPanelView;
+    iget-object v0, v0, Lcom/android/systemui/statusbar/BaseStatusBar;->mSearchPanelView:Lcom/android/systemui/SearchPanelView;
 
-    invoke-virtual {v1}, Lcom/android/systemui/SearchPanelView;->isAssistantAvailable()Z
+    invoke-virtual {v0}, Lcom/android/systemui/SearchPanelView;->isAssistantAvailable()Z
 
-    move-result v1
+    move-result v0
 
-    if-eqz v1, :cond_0
+    if-eqz v0, :cond_0
 
-    .line 974
-    iget-object v1, p0, Lcom/android/systemui/statusbar/BaseStatusBar$H;->this$0:Lcom/android/systemui/statusbar/BaseStatusBar;
+    .line 738
+    iget-object v0, p0, Lcom/android/systemui/statusbar/BaseStatusBar$H;->this$0:Lcom/android/systemui/statusbar/BaseStatusBar;
 
-    iget-object v1, v1, Lcom/android/systemui/statusbar/BaseStatusBar;->mSearchPanelView:Lcom/android/systemui/SearchPanelView;
+    iget-object v0, v0, Lcom/android/systemui/statusbar/BaseStatusBar;->mSearchPanelView:Lcom/android/systemui/SearchPanelView;
 
-    invoke-virtual {v1, v3, v3}, Lcom/android/systemui/SearchPanelView;->show(ZZ)V
+    invoke-virtual {v0, v2, v2}, Lcom/android/systemui/SearchPanelView;->show(ZZ)V
+
+    .line 739
+    iget-object v0, p0, Lcom/android/systemui/statusbar/BaseStatusBar$H;->this$0:Lcom/android/systemui/statusbar/BaseStatusBar;
+
+    invoke-virtual {v0}, Lcom/android/systemui/statusbar/BaseStatusBar;->onShowSearchPanel()V
 
     goto :goto_0
 
-    .line 979
+    .line 744
     :pswitch_5
-    iget-object v1, p0, Lcom/android/systemui/statusbar/BaseStatusBar$H;->this$0:Lcom/android/systemui/statusbar/BaseStatusBar;
+    iget-object v0, p0, Lcom/android/systemui/statusbar/BaseStatusBar$H;->this$0:Lcom/android/systemui/statusbar/BaseStatusBar;
 
-    iget-object v1, v1, Lcom/android/systemui/statusbar/BaseStatusBar;->mSearchPanelView:Lcom/android/systemui/SearchPanelView;
+    iget-object v0, v0, Lcom/android/systemui/statusbar/BaseStatusBar;->mSearchPanelView:Lcom/android/systemui/SearchPanelView;
 
-    if-eqz v1, :cond_0
+    if-eqz v0, :cond_0
 
-    iget-object v1, p0, Lcom/android/systemui/statusbar/BaseStatusBar$H;->this$0:Lcom/android/systemui/statusbar/BaseStatusBar;
+    iget-object v0, p0, Lcom/android/systemui/statusbar/BaseStatusBar$H;->this$0:Lcom/android/systemui/statusbar/BaseStatusBar;
 
-    iget-object v1, v1, Lcom/android/systemui/statusbar/BaseStatusBar;->mSearchPanelView:Lcom/android/systemui/SearchPanelView;
+    iget-object v0, v0, Lcom/android/systemui/statusbar/BaseStatusBar;->mSearchPanelView:Lcom/android/systemui/SearchPanelView;
 
-    invoke-virtual {v1}, Lcom/android/systemui/SearchPanelView;->isShowing()Z
+    invoke-virtual {v0}, Lcom/android/systemui/SearchPanelView;->isShowing()Z
 
-    move-result v1
+    move-result v0
 
-    if-eqz v1, :cond_0
+    if-eqz v0, :cond_0
 
-    .line 980
-    iget-object v1, p0, Lcom/android/systemui/statusbar/BaseStatusBar$H;->this$0:Lcom/android/systemui/statusbar/BaseStatusBar;
+    .line 745
+    iget-object v0, p0, Lcom/android/systemui/statusbar/BaseStatusBar$H;->this$0:Lcom/android/systemui/statusbar/BaseStatusBar;
 
-    iget-object v1, v1, Lcom/android/systemui/statusbar/BaseStatusBar;->mSearchPanelView:Lcom/android/systemui/SearchPanelView;
+    iget-object v0, v0, Lcom/android/systemui/statusbar/BaseStatusBar;->mSearchPanelView:Lcom/android/systemui/SearchPanelView;
 
-    const/4 v2, 0x0
+    const/4 v1, 0x0
 
-    invoke-virtual {v1, v2, v3}, Lcom/android/systemui/SearchPanelView;->show(ZZ)V
+    invoke-virtual {v0, v1, v2}, Lcom/android/systemui/SearchPanelView;->show(ZZ)V
+
+    .line 746
+    iget-object v0, p0, Lcom/android/systemui/statusbar/BaseStatusBar$H;->this$0:Lcom/android/systemui/statusbar/BaseStatusBar;
+
+    invoke-virtual {v0}, Lcom/android/systemui/statusbar/BaseStatusBar;->onHideSearchPanel()V
 
     goto :goto_0
 
-    .line 954
+    .line 722
     :pswitch_data_0
     .packed-switch 0x3fc
         :pswitch_0

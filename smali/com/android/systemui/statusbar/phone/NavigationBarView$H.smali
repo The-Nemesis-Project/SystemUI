@@ -24,7 +24,7 @@
     .parameter
 
     .prologue
-    .line 91
+    .line 175
     iput-object p1, p0, Lcom/android/systemui/statusbar/phone/NavigationBarView$H;->this$0:Lcom/android/systemui/statusbar/phone/NavigationBarView;
 
     invoke-direct {p0}, Landroid/os/Handler;-><init>()V
@@ -38,7 +38,7 @@
     .parameter "x1"
 
     .prologue
-    .line 91
+    .line 175
     invoke-direct {p0, p1}, Lcom/android/systemui/statusbar/phone/NavigationBarView$H;-><init>(Lcom/android/systemui/statusbar/phone/NavigationBarView;)V
 
     return-void
@@ -51,17 +51,17 @@
     .parameter "m"
 
     .prologue
-    .line 93
+    .line 177
     iget v5, p1, Landroid/os/Message;->what:I
 
     packed-switch v5, :pswitch_data_0
 
-    .line 111
+    .line 195
     :cond_0
     :goto_0
     return-void
 
-    .line 95
+    .line 179
     :pswitch_0
     new-instance v5, Ljava/lang/StringBuilder;
 
@@ -83,23 +83,23 @@
 
     move-result-object v1
 
-    .line 96
+    .line 180
     .local v1, how:Ljava/lang/String;
     iget-object v5, p0, Lcom/android/systemui/statusbar/phone/NavigationBarView$H;->this$0:Lcom/android/systemui/statusbar/phone/NavigationBarView;
 
-    invoke-virtual {v5}, Lcom/android/systemui/statusbar/phone/NavigationBarView;->getWidth()I
+    invoke-virtual {v5}, Landroid/view/View;->getWidth()I
 
     move-result v4
 
-    .line 97
+    .line 181
     .local v4, w:I
     iget-object v5, p0, Lcom/android/systemui/statusbar/phone/NavigationBarView$H;->this$0:Lcom/android/systemui/statusbar/phone/NavigationBarView;
 
-    invoke-virtual {v5}, Lcom/android/systemui/statusbar/phone/NavigationBarView;->getHeight()I
+    invoke-virtual {v5}, Landroid/view/View;->getHeight()I
 
     move-result v0
 
-    .line 98
+    .line 182
     .local v0, h:I
     iget-object v5, p0, Lcom/android/systemui/statusbar/phone/NavigationBarView$H;->this$0:Lcom/android/systemui/statusbar/phone/NavigationBarView;
 
@@ -109,7 +109,7 @@
 
     move-result v3
 
-    .line 99
+    .line 183
     .local v3, vw:I
     iget-object v5, p0, Lcom/android/systemui/statusbar/phone/NavigationBarView$H;->this$0:Lcom/android/systemui/statusbar/phone/NavigationBarView;
 
@@ -119,13 +119,13 @@
 
     move-result v2
 
-    .line 101
+    .line 185
     .local v2, vh:I
     if-ne v0, v2, :cond_1
 
     if-eq v4, v3, :cond_0
 
-    .line 102
+    .line 186
     :cond_1
     const-string v5, "PhoneStatusBar/NavigationBarView"
 
@@ -175,16 +175,16 @@
 
     move-result-object v6
 
-    invoke-static {v5, v6}, Landroid/util/Slog;->w(Ljava/lang/String;Ljava/lang/String;)I
+    invoke-static {v5, v6}, Landroid/util/Log;->w(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 106
+    .line 190
     iget-object v5, p0, Lcom/android/systemui/statusbar/phone/NavigationBarView$H;->this$0:Lcom/android/systemui/statusbar/phone/NavigationBarView;
 
-    invoke-virtual {v5}, Lcom/android/systemui/statusbar/phone/NavigationBarView;->requestLayout()V
+    invoke-virtual {v5}, Landroid/view/View;->requestLayout()V
 
     goto :goto_0
 
-    .line 93
+    .line 177
     :pswitch_data_0
     .packed-switch 0x21ee
         :pswitch_0

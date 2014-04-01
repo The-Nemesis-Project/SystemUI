@@ -24,17 +24,17 @@
     .parameter
 
     .prologue
-    .line 4068
+    .line 4142
     iput-object p1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$BrightnessEnableObserver;->this$0:Lcom/android/systemui/statusbar/phone/PhoneStatusBar;
 
-    .line 4069
+    .line 4143
     new-instance v0, Landroid/os/Handler;
 
     invoke-direct {v0}, Landroid/os/Handler;-><init>()V
 
     invoke-direct {p0, v0}, Landroid/database/ContentObserver;-><init>(Landroid/os/Handler;)V
 
-    .line 4070
+    .line 4144
     return-void
 .end method
 
@@ -47,10 +47,10 @@
     .prologue
     const/4 v0, 0x1
 
-    .line 4074
+    .line 4148
     invoke-super {p0, p1}, Landroid/database/ContentObserver;->onChange(Z)V
 
-    .line 4076
+    .line 4150
     iget-object v1, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$BrightnessEnableObserver;->this$0:Lcom/android/systemui/statusbar/phone/PhoneStatusBar;
 
     iget-object v2, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$BrightnessEnableObserver;->this$0:Lcom/android/systemui/statusbar/phone/PhoneStatusBar;
@@ -66,7 +66,7 @@
     iget-object v4, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$BrightnessEnableObserver;->this$0:Lcom/android/systemui/statusbar/phone/PhoneStatusBar;
 
     #getter for: Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mCurrentUserId:I
-    invoke-static {v4}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->access$7100(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)I
+    invoke-static {v4}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->access$6400(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)I
 
     move-result v4
 
@@ -78,9 +78,9 @@
 
     :goto_0
     #setter for: Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mBrightnessEnablebySettings:Z
-    invoke-static {v1, v0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->access$7002(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;Z)Z
+    invoke-static {v1, v0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->access$6302(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;Z)Z
 
-    .line 4078
+    .line 4153
     const-string v0, "PhoneStatusBar"
 
     new-instance v1, Ljava/lang/StringBuilder;
@@ -96,7 +96,7 @@
     iget-object v2, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$BrightnessEnableObserver;->this$0:Lcom/android/systemui/statusbar/phone/PhoneStatusBar;
 
     #getter for: Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->mBrightnessEnablebySettings:Z
-    invoke-static {v2}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->access$7000(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)Z
+    invoke-static {v2}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->access$6300(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)Z
 
     move-result v2
 
@@ -110,16 +110,16 @@
 
     invoke-static {v0, v1}, Landroid/util/Slog;->d(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 4080
+    .line 4155
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/PhoneStatusBar$BrightnessEnableObserver;->this$0:Lcom/android/systemui/statusbar/phone/PhoneStatusBar;
 
     #calls: Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->setBrightnessControllerVisivility()V
-    invoke-static {v0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->access$400(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)V
+    invoke-static {v0}, Lcom/android/systemui/statusbar/phone/PhoneStatusBar;->access$1500(Lcom/android/systemui/statusbar/phone/PhoneStatusBar;)V
 
-    .line 4081
+    .line 4156
     return-void
 
-    .line 4076
+    .line 4150
     :cond_0
     const/4 v0, 0x0
 

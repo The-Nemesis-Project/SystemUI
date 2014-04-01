@@ -24,17 +24,17 @@
     .parameter
 
     .prologue
-    .line 269
+    .line 152
     iput-object p1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingPanel$QuickSettingButtonEditObserver;->this$0:Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingPanel;
 
-    .line 270
+    .line 153
     new-instance v0, Landroid/os/Handler;
 
     invoke-direct {v0}, Landroid/os/Handler;-><init>()V
 
     invoke-direct {p0, v0}, Landroid/database/ContentObserver;-><init>(Landroid/os/Handler;)V
 
-    .line 271
+    .line 154
     return-void
 .end method
 
@@ -45,15 +45,15 @@
     .parameter "selfChange"
 
     .prologue
-    .line 275
+    .line 157
     invoke-super {p0, p1}, Landroid/database/ContentObserver;->onChange(Z)V
 
-    .line 276
+    .line 158
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingPanel$QuickSettingButtonEditObserver;->this$0:Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingPanel;
 
     #calls: Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingPanel;->refreshView()V
     invoke-static {v0}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingPanel;->access$000(Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingPanel;)V
 
-    .line 277
+    .line 159
     return-void
 .end method

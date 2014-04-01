@@ -24,30 +24,31 @@
 
 # direct methods
 .method public constructor <init>(Landroid/content/Context;)V
-    .locals 9
+    .locals 7
     .parameter "context"
 
     .prologue
-    const v3, 0x7f0c00d4
+    const v2, 0x7f0201fa
 
-    const v4, 0x7f0201dc
+    const v5, 0x7f0201f8
 
-    const v7, 0x7f0201db
+    const v1, 0x7f0a00dd
 
-    const/4 v6, 0x0
+    const v3, 0x7f0201fd
 
-    const v5, 0x7f0201dd
+    const/4 v4, 0x0
 
     .line 67
-    const/4 v2, 0x0
+    const/4 v6, 0x0
 
-    move-object v0, p0
+    sget-boolean v0, Lcom/android/systemui/statusbar/Feature;->mUseJellyBeanGUI:Z
 
-    move-object v1, p1
+    if-nez v0, :cond_1
 
-    move v8, v5
+    const/4 v0, 0x1
 
-    invoke-direct/range {v0 .. v8}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;-><init>(Landroid/content/Context;Landroid/util/AttributeSet;IIIIII)V
+    :goto_0
+    invoke-direct {p0, p1, v6, v0}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;-><init>(Landroid/content/Context;Landroid/util/AttributeSet;Z)V
 
     .line 42
     const/4 v0, 0x0
@@ -61,24 +62,63 @@
 
     iput-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/SilentModeQuickSettingButton;->mIntentReceiver:Landroid/content/BroadcastReceiver;
 
-    .line 75
+    .line 69
+    sget-boolean v0, Lcom/android/systemui/statusbar/Feature;->mUseJellyBeanGUI:Z
+
+    if-eqz v0, :cond_2
+
+    move-object v0, p0
+
+    move v6, v3
+
+    .line 70
+    invoke-virtual/range {v0 .. v6}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->initLayout(IIIIII)V
+
+    .line 84
+    :goto_1
     sget-boolean v0, Lcom/android/systemui/statusbar/Feature;->mSoundProfile:Z
 
     if-eqz v0, :cond_0
 
-    .line 76
-    const v8, 0x7f0201c2
-
-    move-object v2, p0
-
-    invoke-virtual/range {v2 .. v8}, Lcom/android/systemui/statusbar/policy/quicksetting/SilentModeQuickSettingButton;->setIcon(IIIIII)V
-
     .line 85
-    :cond_0
-    invoke-virtual {p0, p0}, Lcom/android/systemui/statusbar/policy/quicksetting/SilentModeQuickSettingButton;->setListener(Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton$Listener;)V
+    sget-boolean v0, Lcom/android/systemui/statusbar/Feature;->mUseJellyBeanGUI:Z
+
+    if-eqz v0, :cond_0
 
     .line 86
+    const v6, 0x7f0201d0
+
+    move-object v0, p0
+
+    invoke-virtual/range {v0 .. v6}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->setIcon(IIIIII)V
+
+    .line 100
+    :cond_0
+    invoke-virtual {p0, p0}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->setListener(Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton$Listener;)V
+
+    .line 101
     return-void
+
+    :cond_1
+    move v0, v4
+
+    .line 67
+    goto :goto_0
+
+    .line 77
+    :cond_2
+    const v0, 0x7f0201fc
+
+    invoke-virtual {p0, v1, v0}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->initLayout(II)V
+
+    .line 80
+    const v0, 0x7f0201f9
+
+    const v6, 0x7f0201fe
+
+    invoke-virtual {p0, v0, v6}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->setAltIcon(II)V
+
+    goto :goto_1
 .end method
 
 .method static synthetic access$000()I
@@ -108,14 +148,14 @@
     .locals 2
 
     .prologue
-    .line 105
-    iget-object v0, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->mContext:Landroid/content/Context;
+    .line 120
+    iget-object v0, p0, Landroid/view/View;->mContext:Landroid/content/Context;
 
     iget-object v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/SilentModeQuickSettingButton;->mIntentReceiver:Landroid/content/BroadcastReceiver;
 
     invoke-virtual {v0, v1}, Landroid/content/Context;->unregisterReceiver(Landroid/content/BroadcastReceiver;)V
 
-    .line 106
+    .line 121
     return-void
 .end method
 
@@ -125,26 +165,26 @@
     .prologue
     const/4 v3, 0x0
 
-    .line 89
+    .line 104
     new-instance v0, Landroid/content/IntentFilter;
 
     invoke-direct {v0}, Landroid/content/IntentFilter;-><init>()V
 
-    .line 90
+    .line 105
     .local v0, filter:Landroid/content/IntentFilter;
     const-string v1, "android.media.RINGER_MODE_CHANGED"
 
     invoke-virtual {v0, v1}, Landroid/content/IntentFilter;->addAction(Ljava/lang/String;)V
 
-    .line 91
-    iget-object v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->mContext:Landroid/content/Context;
+    .line 106
+    iget-object v1, p0, Landroid/view/View;->mContext:Landroid/content/Context;
 
     iget-object v2, p0, Lcom/android/systemui/statusbar/policy/quicksetting/SilentModeQuickSettingButton;->mIntentReceiver:Landroid/content/BroadcastReceiver;
 
     invoke-virtual {v1, v2, v0, v3, v3}, Landroid/content/Context;->registerReceiver(Landroid/content/BroadcastReceiver;Landroid/content/IntentFilter;Ljava/lang/String;Landroid/os/Handler;)Landroid/content/Intent;
 
-    .line 93
-    iget-object v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->mContext:Landroid/content/Context;
+    .line 108
+    iget-object v1, p0, Landroid/view/View;->mContext:Landroid/content/Context;
 
     const-string v2, "audio"
 
@@ -156,12 +196,12 @@
 
     iput-object v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/SilentModeQuickSettingButton;->mAudioManager:Landroid/media/AudioManager;
 
-    .line 94
+    .line 109
     iget-object v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/SilentModeQuickSettingButton;->mAudioManager:Landroid/media/AudioManager;
 
     if-eqz v1, :cond_0
 
-    .line 95
+    .line 110
     iget-object v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/SilentModeQuickSettingButton;->mAudioManager:Landroid/media/AudioManager;
 
     invoke-virtual {v1}, Landroid/media/AudioManager;->getRingerMode()I
@@ -170,19 +210,19 @@
 
     sput v1, Lcom/android/systemui/statusbar/policy/quicksetting/SilentModeQuickSettingButton;->mDeviceSoundProfile:I
 
-    .line 96
+    .line 111
     invoke-virtual {p0}, Lcom/android/systemui/statusbar/policy/quicksetting/SilentModeQuickSettingButton;->updateStatus()V
 
-    .line 101
+    .line 116
     :goto_0
     const/4 v1, 0x0
 
-    invoke-virtual {p0, v1}, Lcom/android/systemui/statusbar/policy/quicksetting/SilentModeQuickSettingButton;->setSoundEffectsEnabled(Z)V
+    invoke-virtual {p0, v1}, Landroid/view/View;->setSoundEffectsEnabled(Z)V
 
-    .line 102
+    .line 117
     return-void
 
-    .line 98
+    .line 113
     :cond_0
     const-string v1, "STATUSBAR-SilentModeQuickSettingButton"
 
@@ -200,26 +240,26 @@
     .prologue
     const/4 v3, 0x1
 
-    .line 110
+    .line 125
     iget-boolean v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->mIsProcessing:Z
 
     if-eqz v1, :cond_1
 
-    .line 111
+    .line 126
     const-string v1, "STATUSBAR-SilentModeQuickSettingButton"
 
     const-string v2, "onClick(): Processing..."
 
     invoke-static {v1, v2}, Landroid/util/secutil/Log;->secW(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 146
+    .line 161
     :cond_0
     :goto_0
     return-void
 
-    .line 117
+    .line 132
     :cond_1
-    iget-object v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->mContext:Landroid/content/Context;
+    iget-object v1, p0, Landroid/view/View;->mContext:Landroid/content/Context;
 
     const-string v2, "enterprise_policy"
 
@@ -231,7 +271,7 @@
 
     iput-object v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/SilentModeQuickSettingButton;->mEDM:Landroid/app/enterprise/EnterpriseDeviceManager;
 
-    .line 118
+    .line 133
     iget-object v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/SilentModeQuickSettingButton;->mEDM:Landroid/app/enterprise/EnterpriseDeviceManager;
 
     invoke-virtual {v1}, Landroid/app/enterprise/EnterpriseDeviceManager;->getRestrictionPolicy()Landroid/app/enterprise/RestrictionPolicy;
@@ -240,7 +280,7 @@
 
     iput-object v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/SilentModeQuickSettingButton;->mRestrictionPolicy:Landroid/app/enterprise/RestrictionPolicy;
 
-    .line 119
+    .line 134
     iget-object v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/SilentModeQuickSettingButton;->mRestrictionPolicy:Landroid/app/enterprise/RestrictionPolicy;
 
     const/4 v2, 0x0
@@ -251,23 +291,23 @@
 
     if-eqz v1, :cond_0
 
-    .line 124
+    .line 139
     const/4 v0, 0x0
 
-    .line 126
+    .line 141
     .local v0, soundProfile:I
     sget v1, Lcom/android/systemui/statusbar/policy/quicksetting/SilentModeQuickSettingButton;->mDeviceSoundProfile:I
 
     if-ne v1, v3, :cond_2
 
-    .line 127
+    .line 142
     const/4 v0, 0x0
 
-    .line 142
+    .line 157
     :goto_1
     iput-boolean v3, p0, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->mIsProcessing:Z
 
-    .line 144
+    .line 159
     const-string v1, "STATUSBAR-SilentModeQuickSettingButton"
 
     new-instance v2, Ljava/lang/StringBuilder;
@@ -306,25 +346,25 @@
 
     invoke-static {v1, v2}, Landroid/util/secutil/Log;->secD(Ljava/lang/String;Ljava/lang/String;)I
 
-    .line 145
+    .line 160
     iget-object v1, p0, Lcom/android/systemui/statusbar/policy/quicksetting/SilentModeQuickSettingButton;->mAudioManager:Landroid/media/AudioManager;
 
     invoke-virtual {v1, v0}, Landroid/media/AudioManager;->setRingerMode(I)V
 
     goto :goto_0
 
-    .line 128
+    .line 143
     :cond_2
     sget v1, Lcom/android/systemui/statusbar/policy/quicksetting/SilentModeQuickSettingButton;->mDeviceSoundProfile:I
 
     if-nez v1, :cond_3
 
-    .line 129
+    .line 144
     const/4 v0, 0x2
 
     goto :goto_1
 
-    .line 130
+    .line 145
     :cond_3
     sget v1, Lcom/android/systemui/statusbar/policy/quicksetting/SilentModeQuickSettingButton;->mDeviceSoundProfile:I
 
@@ -332,27 +372,27 @@
 
     if-ne v1, v2, :cond_5
 
-    .line 131
+    .line 146
     sget-boolean v1, Lcom/android/systemui/statusbar/BaseStatusBar;->hasVibrator:Z
 
     if-eqz v1, :cond_4
 
-    .line 132
+    .line 147
     const/4 v0, 0x1
 
     goto :goto_1
 
-    .line 134
+    .line 149
     :cond_4
     const/4 v0, 0x0
 
     goto :goto_1
 
-    .line 137
+    .line 152
     :cond_5
-    invoke-virtual {p0, v3}, Lcom/android/systemui/statusbar/policy/quicksetting/SilentModeQuickSettingButton;->setSoundEffectsEnabled(Z)V
+    invoke-virtual {p0, v3}, Landroid/view/View;->setSoundEffectsEnabled(Z)V
 
-    .line 138
+    .line 153
     const/4 v0, 0x2
 
     goto :goto_1
@@ -362,14 +402,14 @@
     .locals 2
 
     .prologue
-    .line 150
+    .line 165
     const-string v0, "com.android.settings"
 
     const-string v1, "com.android.settings.Settings$SoundSettingsActivity"
 
-    invoke-virtual {p0, v0, v1}, Lcom/android/systemui/statusbar/policy/quicksetting/SilentModeQuickSettingButton;->callActivity(Ljava/lang/String;Ljava/lang/String;)V
+    invoke-virtual {p0, v0, v1}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->callActivity(Ljava/lang/String;Ljava/lang/String;)V
 
-    .line 151
+    .line 166
     return-void
 .end method
 
@@ -377,14 +417,14 @@
     .locals 4
 
     .prologue
-    .line 161
+    .line 176
     const/4 v0, -0x1
 
-    .line 162
+    .line 177
     .local v0, status:I
-    const v1, 0x7f0c00d4
+    const v1, 0x7f0a00dd
 
-    .line 164
+    .line 179
     .local v1, textID:I
     sget v2, Lcom/android/systemui/statusbar/policy/quicksetting/SilentModeQuickSettingButton;->mDeviceSoundProfile:I
 
@@ -392,37 +432,37 @@
 
     if-ne v2, v3, :cond_0
 
-    .line 165
+    .line 180
     const/4 v0, 0x4
 
-    .line 166
-    const v1, 0x7f0c00d6
-
-    .line 179
-    :goto_0
-    invoke-virtual {p0, v1}, Lcom/android/systemui/statusbar/policy/quicksetting/SilentModeQuickSettingButton;->setTextId(I)V
-
-    .line 180
-    invoke-virtual {p0, v0}, Lcom/android/systemui/statusbar/policy/quicksetting/SilentModeQuickSettingButton;->setActivateStatus(I)V
-
     .line 181
+    const v1, 0x7f0a00df
+
+    .line 194
+    :goto_0
+    invoke-virtual {p0, v1}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->setTextId(I)V
+
+    .line 195
+    invoke-virtual {p0, v0}, Lcom/android/systemui/statusbar/policy/quicksetting/QuickSettingButton;->setActivateStatus(I)V
+
+    .line 196
     return-void
 
-    .line 167
+    .line 182
     :cond_0
     sget v2, Lcom/android/systemui/statusbar/policy/quicksetting/SilentModeQuickSettingButton;->mDeviceSoundProfile:I
 
     if-nez v2, :cond_1
 
-    .line 168
+    .line 183
     const/4 v0, 0x5
 
-    .line 169
-    const v1, 0x7f0c00d7
+    .line 184
+    const v1, 0x7f0a00e0
 
     goto :goto_0
 
-    .line 170
+    .line 185
     :cond_1
     sget v2, Lcom/android/systemui/statusbar/policy/quicksetting/SilentModeQuickSettingButton;->mDeviceSoundProfile:I
 
@@ -430,20 +470,20 @@
 
     if-ne v2, v3, :cond_2
 
-    .line 171
+    .line 186
     const/4 v0, 0x1
 
-    .line 172
-    const v1, 0x7f0c00d5
+    .line 187
+    const v1, 0x7f0a00de
 
     goto :goto_0
 
-    .line 174
+    .line 189
     :cond_2
     const/4 v0, 0x1
 
-    .line 175
-    const v1, 0x7f0c00d5
+    .line 190
+    const v1, 0x7f0a00de
 
     goto :goto_0
 .end method
