@@ -15,7 +15,7 @@
             <LinearLayout android:gravity="center" android:orientation="horizontal" android:id="@id/signal_battery_cluster" android:layout_width="wrap_content" android:layout_height="fill_parent" android:paddingStart="2.0dip">
                 <include android:id="@id/signal_cluster" android:layout_width="wrap_content" android:layout_height="wrap_content" layout="@layout/signal_cluster_view" />
                 <TextView android:textSize="@dimen/status_bar_battery_text_size" android:textColor="#ffffffff" android:layout_gravity="center" android:id="@id/battery_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/status_bar_network_name_separator" android:layout_marginStart="@dimen/status_bar_battery_text_marginStart" />
-                <com.android.systemui.BatteryMeterView android:id="@id/battery" android:layout_width="12.0dip" android:layout_height="18.0dip" android:layout_marginBottom="0.33000004dip" android:layout_marginStart="5.0dip" />
+                <ImageView android:gravity="center" android:id="@id/battery" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginBottom="1.0dip" android:layout_marginStart="2.0dip" />
             </LinearLayout>
             <com.android.systemui.statusbar.policy.Clock android:textAppearance="@style/TextAppearance.StatusBar.Clock" android:ellipsize="none" android:gravity="start|center" android:id="@id/clock" android:layout_width="wrap_content" android:layout_height="fill_parent" android:singleLine="true" android:includeFontPadding="false" android:paddingStart="6.0dip" systemui:ampmSmall="false" />
         </LinearLayout>
